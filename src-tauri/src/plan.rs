@@ -958,12 +958,61 @@ mod tests {
         }
     }
 
+    /// Cambridge numbers every Economics sub-point section.subsection.n. These
+    /// counts are the highest n under each subsection of the 2027-2029
+    /// syllabus PDF (113 in all), so the table is checked against the document.
+    const EXPECTED_ECON: &[(&str, usize)] = &[
+        ("1.1", 3), ("1.2", 2), ("1.3", 2), ("1.4", 4),
+        ("2.1", 1), ("2.2", 3), ("2.3", 3), ("2.4", 3), ("2.5", 2), ("2.6", 5), ("2.7", 3), ("2.8", 2), ("2.9", 4), ("2.10", 3),
+        ("3.1", 2), ("3.2", 1), ("3.3", 5), ("3.4", 3), ("3.5", 3), ("3.6", 5), ("3.7", 2),
+        ("4.1", 1), ("4.2", 6), ("4.3", 3), ("4.4", 3), ("4.5", 5), ("4.6", 5), ("4.7", 5),
+        ("5.1", 2), ("5.2", 3), ("5.3", 2), ("5.4", 1),
+        ("6.1", 2), ("6.2", 6), ("6.3", 4), ("6.4", 4),
+    ];
+
+    #[test]
+    fn every_economics_sub_point_is_accounted_for() {
+        let plan = build(&PlanConfig::default());
+        let econ = plan.subjects.iter().find(|s| s.id == "econ").expect("econ");
+        let mut total = 0;
+        for (sub, n) in EXPECTED_ECON {
+            let t = econ.topics.iter().find(|t| t.code == *sub).unwrap_or_else(|| panic!("no topic {sub}"));
+            assert_eq!(t.statements.len(), *n, "econ {sub} should carry {n} sub-points");
+            // Dense: sub.1 .. sub.n each exactly once.
+            for k in 1..=*n {
+                let code = format!("{sub}.{k}");
+                assert_eq!(t.statements.iter().filter(|s| s.code == code).count(), 1, "econ sub-point {code} missing or doubled");
+            }
+            total += n;
+        }
+        assert_eq!(total, 113);
+        assert_eq!(econ.topics.iter().map(|t| t.statements.len()).sum::<usize>(), 113);
+    }
+
+    /// AQA does not number Business outcomes, so this cannot be checked against
+    /// the document the way the others are. What it can check: every topic has
+    /// outcomes, the letters run a, b, c... with no holes, and there are no
+    /// duplicates.
+    #[test]
+    fn business_outcomes_are_lettered_without_holes() {
+        let plan = build(&PlanConfig::default());
+        let bus = plan.subjects.iter().find(|s| s.id == "bus").expect("bus");
+        for t in &bus.topics {
+            assert!(!t.statements.is_empty(), "bus {} has no outcomes", t.code);
+            for (i, s) in t.statements.iter().enumerate() {
+                let want = format!("{}{}", t.code, (b'a' + i as u8) as char);
+                assert_eq!(s.code, want, "bus {} outcome {} is out of sequence", t.code, s.code);
+            }
+        }
+        assert_eq!(bus.topics.iter().map(|t| t.statements.len()).sum::<usize>(), 125);
+    }
+
     /// A statement filed against a topic that does not exist would silently
     /// vanish from the checklist.
     #[test]
     fn every_statement_lands_on_a_real_topic() {
         let plan = build(&PlanConfig::default());
-        for id in ["maths", "bio", "chem", "phys"] {
+        for id in ["maths", "bio", "chem", "phys", "econ", "bus"] {
             let s = plan.subjects.iter().find(|s| s.id == id).expect(id);
             for (topic, code, _) in crate::statements::table_for(id) {
                 assert!(
