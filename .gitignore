@@ -1,0 +1,9 @@
+node_modules
+src-tauri/target
+src-tauri/gen
+*.png
+!src-tauri/icons/*.png
+
+.backup/
+app-icon.png
+src-tauri/target*
