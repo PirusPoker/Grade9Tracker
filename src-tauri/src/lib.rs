@@ -9,6 +9,7 @@ mod course;
 mod draft;
 mod outlook;
 mod plan;
+mod profiles;
 mod statements;
 mod today;
 
@@ -24,6 +25,16 @@ fn data_dir(app: &AppHandle) -> Result<PathBuf, String> {
     Ok(dir)
 }
 
+
+/// The profile store, rooted at the app data folder.
+fn store(app: &AppHandle) -> Result<profiles::Store, String> {
+    Ok(profiles::Store::new(data_dir(app)?))
+}
+
+/// Where the signed-in person's progress, plan and backups live.
+fn profile_dir(app: &AppHandle) -> Result<PathBuf, String> {
+    store(app)?.current_dir()
+}
 fn read_json(path: &PathBuf) -> Option<Value> {
     fs::read_to_string(path).ok().and_then(|s| serde_json::from_str(&s).ok())
 }
@@ -69,7 +80,7 @@ fn save_config(app: AppHandle, config: PlanConfig) -> Result<plan::Plan, String>
     let mut cfg = config;
     cfg.sanitise();
     let value = serde_json::to_value(&cfg).map_err(|e| e.to_string())?;
-    write_json(&data_dir(&app)?.join("config.json"), &value)?;
+    write_json(&profile_dir(&app)?.join("config.json"), &value)?;
     Ok(plan::build(&cfg))
 }
 
@@ -78,7 +89,7 @@ fn save_config(app: AppHandle, config: PlanConfig) -> Result<plan::Plan, String>
 fn reset_config(app: AppHandle) -> Result<plan::Plan, String> {
     let cfg = PlanConfig::default();
     let value = serde_json::to_value(&cfg).map_err(|e| e.to_string())?;
-    write_json(&data_dir(&app)?.join("config.json"), &value)?;
+    write_json(&profile_dir(&app)?.join("config.json"), &value)?;
     Ok(plan::build(&cfg))
 }
 
@@ -142,17 +153,17 @@ async fn day_context(app: AppHandle, refresh: bool) -> Result<today::Context, St
 
 #[tauri::command]
 fn load_state(app: AppHandle) -> Result<Option<Value>, String> {
-    Ok(read_json(&data_dir(&app)?.join("state.json")))
+    Ok(read_json(&profile_dir(&app)?.join("state.json")))
 }
 
 #[tauri::command]
 fn save_state(app: AppHandle, state: Value) -> Result<(), String> {
-    write_json(&data_dir(&app)?.join("state.json"), &state)
+    write_json(&profile_dir(&app)?.join("state.json"), &state)
 }
 
 #[tauri::command]
 fn state_path(app: AppHandle) -> Result<String, String> {
-    Ok(data_dir(&app)?.join("state.json").to_string_lossy().into_owned())
+    Ok(profile_dir(&app)?.join("state.json").to_string_lossy().into_owned())
 }
 
 /// A timestamped copy of progress and configuration, so a bad edit or a
