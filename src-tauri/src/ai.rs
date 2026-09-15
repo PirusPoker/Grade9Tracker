@@ -55,6 +55,7 @@ pub struct AiPlan {
 
 const SYSTEM: &str = r#"You write a school student's to-do list.
 For each item you are given (id, from, text), write `line`: a short instruction of about 6 words, action first, in your own words. Do NOT copy the email text, and do NOT put a date in it.
+If an item is too short or unclear to summarise, just restate it in a few words. Never reply "no action required", "N/A" or "none", and never leave a line blank.
 Example item: {"id":"x","text":"History essay on the Cold War, submit on Teams by Thursday"}
 Example reply: {"id":"x","line":"Finish History Cold War essay"}
 Reply with ONLY this JSON: {"items":[{"id":"<id>","line":"<summary>"}]}. Include every id exactly once."#;
@@ -85,13 +86,27 @@ fn join(title: &str, extra: &str) -> String {
 }
 
 fn tidy(s: &str) -> String {
-    s.trim().trim_end_matches('.').trim().to_string()
+    s.trim().trim_end_matches(['.', '!']).trim().to_string()
+}
+
+/// A "summary" that says nothing — what the model tends to return for a terse
+/// or meaningless item (a one-word Outlook task, a junk subject). "No action
+/// required" reads like an instruction to ignore a real task, so it is worse
+/// than showing the item's own text: treat these as no summary at all.
+fn is_vacuous(line: &str) -> bool {
+    let l = line.to_ascii_lowercase();
+    matches!(l.as_str(), "n/a" | "na" | "none" | "nothing" | "unknown" | "not applicable" | "no summary" | "no task" | "todo" | "to do")
+        || l.starts_with("no action")
+        || l.starts_with("no further action")
+        || l.starts_with("nothing to ")
+        || l.starts_with("no specific")
 }
 
 /// The model's summary for an id if it gave a usable one, else the plain title.
+/// A vacuous non-answer ("No action required", "N/A") counts as no summary.
 fn line_for(id: &str, title: &str, lines: &BTreeMap<String, String>) -> String {
     match lines.get(id).map(|s| tidy(s)) {
-        Some(t) if !t.is_empty() => t,
+        Some(t) if !t.is_empty() && !is_vacuous(&t) => t,
         _ => title.to_string(),
     }
 }
@@ -278,6 +293,26 @@ mod tests {
         let mut blank = BTreeMap::new();
         blank.insert("d:1".to_string(), "   ".to_string());
         assert_eq!(build_plan(&c, today, &blank).now[0].line, "History essay on the Cold War, hand in");
+    }
+
+    #[test]
+    fn vacuous_summaries_fall_back_to_the_title() {
+        let today = NaiveDate::from_ymd_opt(2026, 9, 15).unwrap();
+        // a terse item the model can't summarise (e.g. an Outlook task "kets")
+        let c = ctx(vec![], vec![act("t:1", "2026-09-15T08:00:00", "kets", false)]);
+        for junk in ["No action required", "no action required.", "N/A", "None", "Nothing to do", "Unknown", "No task"] {
+            let mut lines = BTreeMap::new();
+            lines.insert("t:1".to_string(), junk.to_string());
+            let plan = build_plan(&c, today, &lines);
+            let item = plan.now.iter().chain(plan.later.iter()).find(|i| i.id == "t:1").unwrap();
+            assert_eq!(item.line, "kets", "vacuous summary {junk:?} should fall back to the title");
+        }
+        // a genuine summary is still used
+        let mut good = BTreeMap::new();
+        good.insert("t:1".to_string(), "Buy the tickets".to_string());
+        let plan = build_plan(&c, today, &good);
+        let item = plan.now.iter().chain(plan.later.iter()).find(|i| i.id == "t:1").unwrap();
+        assert_eq!(item.line, "Buy the tickets");
     }
 
     #[test]
