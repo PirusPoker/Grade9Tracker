@@ -1028,7 +1028,8 @@ function dayPanel(d,isToday){
     const orgRow=x=>{const w=x.when?whenLabel(x.when):null;
       return `<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div>${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(x.line)}</span></div></li>`;};
     const nowI=pick(DAY.organised.now),latI=pick(DAY.organised.later);
-    html+=`<div class="sec"><span class="eyebrow">For today</span>${ORG_BUSY?`<span class="muted" style="font-size:11.5px;margin-left:8px">✨ tidying wording…</span>`:""}`;
+    const orgAll=(DAY.organised.now||[]).concat(DAY.organised.later||[]),orgDone=orgAll.filter(x=>done(x.id)).length;
+    html+=`<div class="sec"><div style="display:flex;align-items:center;gap:8px"><span class="eyebrow">For today</span>${ORG_BUSY?`<span class="muted" style="font-size:11.5px">✨ tidying wording…</span>`:""}${orgDone?`<button class="btn small" id="showdone" style="margin-left:auto">${showDoneInbox?"Hide done":`Show ${orgDone} done`}</button>`:""}</div>`;
     if(!nowI.length)html+=`<p class="muted" style="font-size:14px;margin:6px 0 0">Nothing needs you today ✓</p>`;
     else html+=`<ul class="dl org">`+nowI.map(orgRow).join("")+`</ul>`;
     html+=`</div>`;
