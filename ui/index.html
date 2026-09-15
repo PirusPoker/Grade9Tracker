@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Grade 9 Tracker</title>
+<link rel="stylesheet" href="katex/katex.min.css">
 <style>
 /* Light only, on purpose: white surfaces, hairline rules, tight corners. */
 :root{
@@ -548,6 +549,56 @@ table{max-width:100%}
   .pqm{font-size:9.5pt;color:#333;padding-left:14px}
 }
 
+/* lessons */
+.lesson{max-width:100%}
+.lhead{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+.lhead .wcode{margin-top:0}
+.lbody{font-size:15.5px;line-height:1.6}
+.lbody p{margin:0 0 12px}
+.lbody h3{font-size:19px;margin:26px 0 10px;padding-top:18px;border-top:1px solid var(--line)}
+.lbody h3:first-child{border-top:0;padding-top:0;margin-top:0}
+.lbody h4{font-size:16px;margin:16px 0 6px}
+.lbody ul,.lbody ol{margin:0 0 12px;padding-left:24px}
+.lbody li{margin:4px 0}
+.lbody li ul{margin:4px 0 0}
+.lbody code{font-family:var(--mono);font-size:13.5px;background:var(--surface2);padding:1px 5px;border-radius:3px}
+.ldisp{overflow-x:auto;padding:6px 0;margin:0 0 12px}
+.ltable{overflow-x:auto;margin:0 0 14px}
+.ltable table{border-collapse:collapse;font-size:14.5px;min-width:60%}
+.ltable th,.ltable td{border:1px solid var(--line);padding:7px 12px;text-align:left;vertical-align:top}
+.ltable th{background:var(--sunken);font-weight:600}
+.lbox{border:1px solid var(--line);border-left:3px solid var(--c,var(--accent));border-radius:var(--r-sm);background:var(--surface);padding:14px 16px 4px;margin:0 0 14px}
+.lbox .eyebrow{margin-bottom:8px}
+.lbox.method{background:var(--sunken)}
+.lbox.example{border-left-color:var(--good)}
+.lbox.example .eyebrow{color:var(--good)}
+.lbox.watch{border-left-color:var(--warn);background:var(--warn-soft)}
+.lbox.watch .eyebrow{color:var(--warn)}
+.lbox.watch li{margin:6px 0}
+.ltry{margin-top:28px}
+.lq{border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);padding:12px 14px;margin:0 0 10px}
+.lq.yes{border-color:#BFE3D1;background:var(--good-soft)}
+.lq.no{border-color:#F7D4D4;background:var(--bad-soft)}
+.lqhead{display:flex;gap:10px;align-items:flex-start}
+.lqn{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--line-2);border-radius:999px;width:24px;height:24px;display:grid;place-items:center;flex:none;background:var(--surface);margin-top:2px}
+.lqbody{flex:1;min-width:0}
+.lqbody p:last-child{margin-bottom:0}
+.lqhead .chip{flex:none;margin-top:4px}
+.lans{border-top:1px dashed var(--line-2);margin-top:10px;padding-top:10px}
+.lans p:last-child{margin-bottom:0}
+.lqbtns{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.lend{border-top:1px solid var(--line);margin-top:26px;padding-top:18px}
+.lend .mist{margin-top:14px}
+.lessonbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:1px solid var(--line);border-left:3px solid var(--c,var(--accent));border-radius:var(--r-sm);background:var(--sunken);padding:10px 13px;margin:0 0 14px;font-size:13.5px}
+.lessonbar>div{min-width:0}
+.topic .lchip{font-size:11.5px;padding:3px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2);flex:none;white-space:nowrap}
+.topic .lchip:hover{background:var(--solid);color:var(--solid-ink);border-color:var(--solid)}
+.katex{font-size:1.06em}
+/* Inline maths may break between its pieces on a narrow window rather than push the page wider. */
+.lbody p .katex,.lbody li .katex,.lbody td .katex,.lessonbar .katex{white-space:normal}
+.katex-display{margin:0}
+@media (max-width:560px){.lbody{font-size:15px}.lbox{padding:12px 12px 2px}}
+
 /* print: the whole week on one sheet */
 .printweek{display:none}
 @media print{
@@ -585,6 +636,7 @@ table{max-width:100%}
 </div></nav>
 <div class="overlay" id="picker" hidden></div>
 
+<script src="katex/katex.min.js"></script>
 <script>
 /* ---------- PLAN (built by the Rust backend, see src-tauri/src/plan.rs) ---------- */
 const invoke=(cmd,args)=>window.__TAURI__.core.invoke(cmd,args);
@@ -592,7 +644,7 @@ let SUBJECTS={},SUBJ_IDS=[],WEEKS=[],TOTAL=0,TESTS=[],TEST_BY_WEEK={},TOPIC_DUE=
 let REVIEW_GAPS=[7,21,56],EXAM_START="2028-05-08",UNSCHEDULED=[];
 function applyPlan(plan){
   SUBJECTS={};const byId={};
-  plan.subjects.forEach(s=>{const topics=s.topics.map(t=>{const a=[t.code,t.title,t.hours];a.id=t.id;a.subj=t.subj;a.idx=t.idx;a.url=t.url||"";a.objectives=t.objectives||[];a.watch=t.watch||"";a.statements=t.statements||[];byId[t.id]=a;return a;});
+  plan.subjects.forEach(s=>{const topics=s.topics.map(t=>{const a=[t.code,t.title,t.hours];a.id=t.id;a.subj=t.subj;a.idx=t.idx;a.url=t.url||"";a.objectives=t.objectives||[];a.watch=t.watch||"";a.statements=t.statements||[];a.lesson=!!t.lesson;byId[t.id]=a;return a;});
     SUBJECTS[s.id]={name:s.name,full:s.full,color:s.color,papers:s.papers,spec:s.spec,sections:s.sections,topics,contentEndsWeek:s.contentEndsWeek,resources:s.resources||[],specRefs:s.specRefs||[],pace:s.pace||"ahead"};});
   SUBJ_IDS=plan.subjects.map(s=>s.id);
   WEEKS=plan.weeks.map(w=>{const plan2={};for(const s of SUBJ_IDS){plan2[s]=(w.plan[s]||[]).map(e=>e.kind==="topic"?{kind:"topic",topic:byId[e.topicId],hours:e.hours,partNo:e.partNo,parts:e.parts,final:e.final}:(e.kind==="fixed"?{kind:"fixed",label:e.label,hours:e.hours,note:e.note}:{kind:"rev",section:e.section,hours:e.hours}));}
@@ -650,7 +702,7 @@ function dayMinutes(d){return d.items.filter(it=>!it.skipped).reduce((n,it)=>n+(
 function dayCounts(d){const live=d.items.filter(it=>!it.skipped&&it.key);return {n:live.length,done:live.filter(itemDone).length};}
 
 /* ---------- STATE ---------- */
-const BLANK={topics:{},tests:{},sessions:{},reviews:{},days:{},stmts:{},inbox:{},moves:{},skips:{},cards:{},mistakes:{},examDates:{},quotes:[]};
+const BLANK={topics:{},tests:{},sessions:{},reviews:{},days:{},stmts:{},inbox:{},moves:{},skips:{},cards:{},mistakes:{},examDates:{},quotes:[],lessonQ:{}};
 let state={...BLANK};
 let LS="grade9-tracker-v2";
 let saveTimer=null;
@@ -798,7 +850,7 @@ function subjectMistakes(subj){const out=[];
   openMistakes("subj:"+subj).forEach(m=>out.push({key:"subj:"+subj,i:mistakesOf("subj:"+subj).indexOf(m),m,label:"Tests and papers",code:""}));
   return out.sort((a,b)=>b.m.t.localeCompare(a.m.t));}
 const openMistakeCount=()=>Object.values(state.mistakes).reduce((n,l)=>n+l.filter(m=>!m.fixed).length,0);
-const srcLabel={recall:"recall check",test:"test",session:"session",manual:"note"};
+const srcLabel={recall:"recall check",test:"test",session:"session",manual:"note",lesson:"lesson"};
 function mistakeRow(key,i,m,label){
   return `<div class="mrow ${m.fixed?"fixed":""}"><input type="checkbox" data-mfix="${esc(key)}|${i}" ${m.fixed?"checked":""} aria-label="Fixed"><div><div class="mt">${esc(m.text)}</div><div class="mm">${label?`${esc(label)} · `:""}${fmt(new Date(m.t+"T00:00:00"))} · ${srcLabel[m.src]||m.src}</div></div><button class="icon" data-mdel="${esc(key)}|${i}" aria-label="Delete">×</button></div>`;}
 const openMist=new Set();
@@ -1061,7 +1113,7 @@ function renderItem(it,w,d){
 function itemBody(it,w){
   if(it.kind==="topic"){const t=it.entry.topic,stt=T(t.id),done=itemDone(it);
     return `<div class="sub">Spec ${esc(t[0])}${it.entry.parts>1&&!it.entry.final?" · carry on where you left off":""}${stt.known?" · ticked as already known":""}</div>
-    ${objBlock(t)}${stmtBlock(t)}${cardBlock(t)}${mistakeBlock(t.id)}${linkBar(it.subj,t)}${pinRow(t)}
+    ${lessonBar(t)}${objBlock(t)}${stmtBlock(t)}${cardBlock(t)}${mistakeBlock(t.id)}${linkBar(it.subj,t)}${pinRow(t)}
     ${done?"":`<div class="steps">
       <div class="step"><span class="n">1</span><div><b>Read the notes · 20 min</b><span>Open the revision notes above for this topic. Then close them and write down what you remember. Fill the gaps.</span></div></div>
       <div class="step"><span class="n">2</span><div><b>Topic questions · 30 min</b><span>${it.subj==="bus"||it.subj==="econ"?"Work through the topic questions, then write one extended answer using a chain of reasoning: point → because → which means → therefore.":it.subj==="cs"?"Work through the topic questions, then 15 minutes of Python on this idea.":"Work through the topic questions, hardest first. The easy ones don't move you towards a 9."}</span></div></div>
@@ -1074,7 +1126,7 @@ function itemBody(it,w){
       <div class="steps"><div class="step"><span class="n">1</span><div><b>Pick a topic school has covered</b><span>${known.length?`You have ticked ${known.length} as known. Take one from this section, or the one you are least sure of.`:`Nothing ticked yet, so the app does not know where you are in ${esc(S.name)}. <button class="btn small" data-walkstart="${esc(it.subj)}" style="margin-top:6px">Where am I up to? ›</button>`}</span></div></div>
       <div class="step"><span class="n">2</span><div><b>Blank page, everything you know · 15 min</b><span>Write it out from memory: definitions, formulae, the diagram, the mark scheme phrases. No notes.</span></div></div>
       <div class="step"><span class="n">3</span><div><b>Check and patch · 15 min</b><span>Open the notes. Anything you missed goes on a card below its topic, and the topic gets marked shaky if it was bad.</span></div></div></div>
-      ${linkBar(it.subj,null)}`;}
+      ${sectionLessons(it.subj,it.entry.section)}${linkBar(it.subj,null)}`;}
     return `<div class="sub">Timed. Mark with the mark scheme. Anything you drop, write on a "mistakes" page and re-do next week.</div>${linkBar(it.subj,null)}`;}
   if(it.kind==="fixed")return `<div class="sub">${esc(it.entry.note||"")}</div>${linkBar(it.subj,null)}`;
   if(it.kind==="test"){const t=it.test,ts=TS(t.id);
@@ -1095,6 +1147,7 @@ function renderSpecial(it,w){
   return `<div class="card lift session" style="--c:var(--bad)"><h2>Exam season</h2><div class="sub">Write each paper's date into its subject page once the 2028 timetables are published. Between papers: revise only the next paper, briefly, and sleep.</div></div>`;}
 
 function bind(root){
+  root.querySelectorAll("[data-lesson]").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();openLesson(b.dataset.lesson);}));
   root.querySelectorAll("[data-qbopen]").forEach(b=>b.addEventListener("click",()=>{openQuoteBank(null);if(quotes().length)startQuoteQuiz("gap");}));
   root.querySelectorAll("[data-walkstart]").forEach(b=>b.addEventListener("click",()=>startWalk(b.dataset.walkstart)));
   root.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.open;if(openSess.has(k))openSess.delete(k);else openSess.add(k);menuKey=null;render();}));
@@ -1210,7 +1263,7 @@ function renderWalk(el){
         <div class="wbtns"><button class="btn primary" id="wstop">Stop here</button><button class="btn" id="wcont">School has skipped around — keep checking the rest</button></div></div>`;
     }else{
       html+=`<div class="wcode">${esc(t[0])}</div><h2 style="font-size:22px;margin:2px 0 12px">${esc(t[1])}</h2>
-        ${objBlock(t)}${stmtBlock(t)}
+        ${lessonBar(t)}${objBlock(t)}${stmtBlock(t)}
         <div class="wbtns"><button class="btn primary" data-walk="done">✓ Done this — next</button><button class="btn" data-walk="not">Not yet — I'm up to here</button></div>
         <div class="wsub"><button data-walk="skip">Not sure, skip it</button>${walk.set.length||walk.idx>0?`<span>·</span><button data-walk="back">‹ Undo last</button>`:""}${t.known?"":""}</div></div>`;
     }
@@ -1229,6 +1282,109 @@ function renderWalk(el){
     render();}));
   bind(el);
 }
+
+/* ---------- LESSONS ----------
+   The teaching itself, for subjects where it has been written (Further Maths
+   first). One Markdown file per topic lives in the backend (lessons.rs) and
+   is rendered here: What it is, the method, worked examples, practice
+   questions with hidden answers, and where the marks go. Maths is typeset
+   with KaTeX, bundled locally so it works offline. */
+let lesson=null; // {topicId, text, open:Set of revealed question indexes}
+const LESSON_CACHE={};
+const lessonMarks=id=>(state.lessonQ=state.lessonQ||{},state.lessonQ[id]=state.lessonQ[id]||{});
+function tex(src,display){try{return window.katex?katex.renderToString(src,{displayMode:!!display,throwOnError:false,strict:"ignore"}):`<code>${esc(src)}</code>`;}catch(e){return `<code>${esc(src)}</code>`;}}
+/* Inline Markdown: maths first (so its contents are never touched), then
+   bold, italics and code. Everything else is escaped. */
+function mdInline(s){const parts=[];let out="";let i=0;
+  // Pull $...$ out into placeholders before escaping anything.
+  const re=/\$([^$]+?)\$/g;let m,last=0;
+  while((m=re.exec(s))){out+=esc(s.slice(last,m.index));parts.push(tex(m[1],false));out+=`\u0001${parts.length-1}\u0001`;last=m.index+m[0].length;}
+  out+=esc(s.slice(last));
+  out=out.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(^|[^*\w])\*([^*\n]+?)\*(?!\w)/g,"$1<i>$2</i>").replace(/`([^`]+)`/g,"<code>$1</code>");
+  return out.replace(/\u0001(\d+)\u0001/g,(_,k)=>parts[+k]);}
+function mdBlock(lines){ // paragraphs, lists, display maths, tables
+  let html="",i=0;
+  const flushP=buf=>{if(buf.length)html+=`<p>${mdInline(buf.join(" "))}</p>`;};
+  let buf=[];
+  while(i<lines.length){const l=lines[i];
+    if(!l.trim()){flushP(buf);buf=[];i++;continue;}
+    if(l.startsWith("$$")){flushP(buf);buf=[];let src=l.slice(2);if(src.trim().endsWith("$$"))src=src.trim().slice(0,-2);else{i++;while(i<lines.length&&!lines[i].trim().endsWith("$$")){src+="\n"+lines[i];i++;}if(i<lines.length)src+="\n"+lines[i].trim().slice(0,-2);}html+=`<div class="ldisp">${tex(src.trim(),true)}</div>`;i++;continue;}
+    if(/^#{2,3}\s/.test(l)){flushP(buf);buf=[];html+=l.startsWith("### ")?`<h4>${mdInline(l.slice(4))}</h4>`:`<h3>${mdInline(l.slice(3))}</h3>`;i++;continue;}
+    if(l.startsWith("|")){flushP(buf);buf=[];const rows=[];while(i<lines.length&&lines[i].startsWith("|")){rows.push(lines[i]);i++;}
+      const cells=r=>r.replace(/^\||\|$/g,"").split("|").map(c=>c.trim());
+      const head=cells(rows[0]),body=rows.slice(1).filter(r=>!/^\|?\s*:?-{2,}/.test(r)).map(cells);
+      html+=`<div class="ltable"><table><thead><tr>${head.map(c=>`<th>${mdInline(c)}</th>`).join("")}</tr></thead><tbody>${body.map(r=>`<tr>${r.map(c=>`<td>${mdInline(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;continue;}
+    const li=l.match(/^(\s*)([-*]|\d+\.)\s+(.*)$/);
+    if(li){flushP(buf);buf=[];const ordered=/\d/.test(li[2]);const items=[];
+      while(i<lines.length){const m2=lines[i].match(/^(\s*)([-*]|\d+\.)\s+(.*)$/);
+        if(m2&&m2[1].length===li[1].length){items.push({text:m2[3],sub:[]});i++;}
+        else if(lines[i].trim()&&items.length&&(/^\s+/.test(lines[i]))){ // continuation or nested bullet
+          const sub=lines[i].match(/^\s+([-*]|\d+\.)\s+(.*)$/);if(sub)items[items.length-1].sub.push(sub[2]);else items[items.length-1].text+=" "+lines[i].trim();i++;}
+        else break;}
+      html+=`<${ordered?"ol":"ul"}>`+items.map(it=>`<li>${mdInline(it.text)}${it.sub.length?`<ul>${it.sub.map(s=>`<li>${mdInline(s)}</li>`).join("")}</ul>`:""}</li>`).join("")+`</${ordered?"ol":"ul"}>`;continue;}
+    buf.push(l);i++;}
+  flushP(buf);return html;}
+/* Split the file into ordinary Markdown and the four fenced block kinds. */
+function parseLesson(text){const out=[];let cur=null,plain=[];
+  const flush=()=>{if(plain.length){out.push({kind:"md",lines:plain});plain=[];}};
+  for(const raw of text.split("\n")){const l=raw.replace(/\r$/,"");
+    if(!cur&&l.startsWith("::: ")){flush();const [k,...rest]=l.slice(4).trim().split(/\s+/);cur={kind:k,title:rest.join(" "),lines:[]};continue;}
+    if(cur&&l.trim()===":::"){out.push(cur);cur=null;continue;}
+    if(cur)cur.lines.push(l);else plain.push(l);}
+  flush();return out;}
+const plainText=lines=>lines.join(" ").replace(/\$[^$]*\$/g,m=>m.slice(1,-1)).replace(/[*`\\]/g,"").replace(/\s+/g," ").trim();
+function lessonHtml(topicId,text){const blocks=parseLesson(text);const marks=lessonMarks(topicId);let q=0,html="";
+  const qs=blocks.filter(b=>b.kind==="q");const right=qs.filter((_,i)=>marks[i]===true).length,tried=qs.filter((_,i)=>marks[i]!==undefined).length;
+  blocks.forEach(b=>{
+    if(b.kind==="md")html+=mdBlock(b.lines);
+    else if(b.kind==="method")html+=`<div class="lbox method"><div class="eyebrow">How to do it</div>${mdBlock(b.lines)}</div>`;
+    else if(b.kind==="example")html+=`<div class="lbox example"><div class="eyebrow">Worked example${b.title?" · "+mdInline(b.title):""}</div>${mdBlock(b.lines)}</div>`;
+    else if(b.kind==="watch")html+=`<div class="lbox watch"><div class="eyebrow">Where the marks go</div>${mdBlock(b.lines)}</div>`;
+    else if(b.kind==="q"){const i=q++;if(i===0)html+=`<h3 class="ltry">Try these <span class="muted" style="font-weight:500;font-size:14px">· ${qs.length} questions${tried?` · ${right} right so far`:""}</span></h3><p class="muted" style="font-size:13.5px;margin:-6px 0 12px">Do each one on paper before you look. Then say honestly whether you got it — Not yet puts it in the mistakes log for this topic.</p>`;
+      const cut=b.lines.findIndex(l=>l.trim()==="---");const qLines=cut<0?b.lines:b.lines.slice(0,cut),aLines=cut<0?[]:b.lines.slice(cut+1);
+      const open=lesson.open.has(i),mk=marks[i];
+      html+=`<div class="lq ${mk===true?"yes":(mk===false?"no":"")}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(qLines)}</div>${mk===true?`<span class="chip ok">got it</span>`:(mk===false?`<span class="chip bad">not yet</span>`:"")}</div>
+        ${open?`<div class="lans">${mdBlock(aLines)}</div><div class="lqbtns"><button class="btn small ${mk===true?"done":""}" data-lmark="${i}|1">✓ Got it</button><button class="btn small" data-lmark="${i}|0">✗ Not yet</button><button class="btn small" data-lhide="${i}">Hide</button></div>`:`<div class="lqbtns"><button class="btn small" data-lshow="${i}">Show answer</button></div>`}</div>`;}
+  });
+  return html;}
+async function openLesson(topicId){const t=findTopic(topicId);if(!t||!t.lesson)return;
+  let text=LESSON_CACHE[topicId];
+  if(!text){try{text=await invoke("get_lesson",{topicId});LESSON_CACHE[topicId]=text;}catch(e){alert(errText(e));return;}}
+  lesson={topicId,text,open:new Set()};curSubj=t.subj;walk=null;qb=null;knowMode=false;openTopic=null;showView("subjects");}
+function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;render();return;}const S=SUBJECTS[t.subj];const stt=T(t.id);
+  const marks=lessonMarks(t.id);const qs=parseLesson(lesson.text).filter(b=>b.kind==="q");const right=qs.filter((_,i)=>marks[i]===true).length;
+  el.innerHTML=`<div class="lesson" style="--c:${S.color}"><button class="back" id="lback">‹ ${esc(S.name)}</button>
+    <div class="lhead"><span class="pill"><span class="dot" style="background:${S.color}"></span>Lesson</span><span class="wcode">${esc(t[0])}</span></div>
+    <h1 style="font-size:26px;margin:4px 0 6px">${esc(t[1])}</h1>
+    <p class="muted" style="font-size:13.5px;margin:0 0 18px">${mins(t[2])} min in the plan · ${qs.length} practice questions${right?` · ${right} right`:""}${stt.done?" · topic ticked as done":""}</p>
+    <div class="lbody">${lessonHtml(t.id,lesson.text)}</div>
+    <div class="lend"><div class="eyebrow" style="margin-bottom:6px">Finished?</div><p class="muted" style="font-size:14px;margin:0 0 10px">${stt.done?"This topic is ticked as done. It comes back for recall checks; anything marked Not yet is in the mistakes log.":"If you can do the practice questions without looking, tick the topic. It then comes back for recall checks at "+REVIEW_GAPS.join(", ")+" days."}</p>
+      <div class="wbtns">${stt.done?`<button class="btn" id="ldone">Untick topic</button>`:`<button class="btn primary" id="ldone">✓ Tick topic as done</button>`}<button class="btn" id="lback2">Back to ${esc(S.name)}</button></div>
+      ${mistakeBlock(t.id,"What went wrong in this lesson? Be specific")}</div></div>`;
+  const close=()=>{lesson=null;render();};
+  el.querySelector("#lback").addEventListener("click",close);el.querySelector("#lback2").addEventListener("click",close);
+  el.querySelector("#ldone").addEventListener("click",()=>{if(stt.done){stt.done=false;stt.mark=null;stt.fixed=false;stt.known=false;}else{stt.done=true;markDay();}persist();render();});
+  el.querySelectorAll("[data-lshow]").forEach(b=>b.addEventListener("click",()=>{lesson.open.add(+b.dataset.lshow);renderLessonKeep(el);}));
+  el.querySelectorAll("[data-lhide]").forEach(b=>b.addEventListener("click",()=>{lesson.open.delete(+b.dataset.lhide);renderLessonKeep(el);}));
+  el.querySelectorAll("[data-lmark]").forEach(b=>b.addEventListener("click",()=>{const[i,v]=b.dataset.lmark.split("|");const m=lessonMarks(t.id);m[+i]=v==="1";
+    if(v==="0"){const qq=qs[+i];const txt="Lesson Q"+(+i+1)+": "+plainText(qq.lines.slice(0,Math.max(0,qq.lines.findIndex(l=>l.trim()==="---")))).slice(0,150);addMistake(t.id,txt,"lesson");}
+    markDay();persist();renderLessonKeep(el);}));
+  bindMistakes(el);
+}
+/* Re-render without losing the scroll position - the lesson is long. */
+function renderLessonKeep(el){const y=window.scrollY;renderLesson(el);window.scrollTo({top:y});}
+/* The button that opens a lesson from a session card or a topic row. */
+function lessonBar(t){if(!t.lesson)return "";const m=lessonMarks(t.id);const n=Object.keys(m).length,r=Object.values(m).filter(Boolean).length;
+  return `<div class="lessonbar"><div><b>This topic has a lesson</b><span class="muted"> · explanation, worked examples, ${n?`${r} of ${n} practice questions right`:"practice questions with answers"}</span></div><button class="btn small primary" data-lesson="${esc(t.id)}">Open the lesson</button></div>`;}
+/* For a school-paced subject, a recall session names a section; list that
+   section's lessons so the "check and patch" step has somewhere to go. */
+function sectionLessons(subj,sectionLabel){const S=SUBJECTS[subj];const key=String(sectionLabel).split(" ")[0];
+  const ts=S.topics.filter(t=>t.lesson&&sectionOf(S,t[0])===key);if(!ts.length)return "";
+  return `<div class="lessonbar" style="--c:${S.color};display:block"><b>Lessons in this section</b><div class="muted" style="font-size:13px">Read the one you are shakiest on, then do its practice questions.</div><div class="links" style="margin-top:8px">${ts.map(t=>`<button class="btn small" data-lesson="${esc(t.id)}">${esc(t[0])} ${esc(t[1])}</button>`).join("")}</div></div>`;}
+/* On the subject page: what it means that every topic here is taught. */
+function taughtNote(subj){const S=SUBJECTS[subj];const n=S.topics.filter(t=>t.lesson).length;if(!n)return "";
+  const done=S.topics.filter(t=>t.lesson&&T(t.id).done).length;
+  return `<div class="card" style="margin-bottom:14px;border-left:3px solid ${S.color}"><div class="eyebrow" style="margin-bottom:4px">Taught in the app</div><div style="font-size:14px">${n===S.topics.length?"Every topic":`${n} of ${S.topics.length} topics`} in ${esc(S.name)} has a lesson: explanation, worked examples and practice questions, offline. ${done?`${done} of ${n} done. `:""}Tap <b>Lesson</b> on any topic${isSchool(subj)?", or use <b>Where am I up to?</b> to work through them in order. To have the app schedule the lessons as sessions, set this subject to app-paced in <b>Plan</b>.":"; each scheduled session opens straight into its lesson."}</div></div>`;}
 
 /* ---------- QUOTE BANK (English Literature) ----------
    Closed-book exams: the quotes you can produce from memory are the marks.
@@ -1403,6 +1559,7 @@ function setKnown(id,on){const t=T(id);const tp=findTopic(id);
   if(tp&&!isSchool(tp.subj))state.knownDirty=(state.knownDirty||0)+1;}
 function renderSubjects(){
   const el=document.getElementById("view-subjects");const now=todayWeek();
+  if(lesson){renderLesson(el);return;}
   if(qb){if(curSubj!=="englit")qb=null;else{renderQuoteBank(el);return;}}
   if(walk&&SUBJECTS[walk.subj]){renderWalk(el);return;}
   if(!curSubj){
@@ -1441,6 +1598,7 @@ function renderSubjects(){
   <div class="examrow"><span class="ed-lbl">First exam</span><input type="date" id="examdate" value="${esc(ed)}"><span class="muted" style="font-size:12.5px">${ed?`${Math.max(0,Math.round((new Date(ed+"T00:00:00")-new Date())/86400000))} days`:"not published yet — leave blank"}</span></div>
   ${linkBar(curSubj,null,true)}
   ${(()=>{const ms=subjectMistakes(curSubj);if(!ms.length)return "";return `<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:6px">Open mistakes · ${ms.length}</div>`+ms.slice(0,12).map(x=>mistakeRow(x.key,x.i,x.m,x.code?`${x.code} ${x.label}`:x.label)).join("")+(ms.length>12?`<p class="muted" style="font-size:13px;margin:8px 0 0">+${ms.length-12} more under their topics.</p>`:"")+`<p class="muted" style="font-size:12.5px;margin:8px 0 0">Read these before a test. Tick each one once you can do it without the slip.</p></div>`;})()}
+  ${taughtNote(curSubj)}
   ${coverageCard(curSubj)}
   ${state.knownDirty&&!knowMode?repourBar():""}
   <div class="card"><div class="prog" style="margin-bottom:6px"><i style="width:${Math.round(100*d/S.topics.length)}%;background:${S.color}"></i></div>
@@ -1450,8 +1608,8 @@ function renderSubjects(){
     html+=`<div class="sect"><span>${esc(g.label)}</span>${knowMode?`<button class="btn small" data-knowall="${esc(g.key)}|${allK?0:1}">${allK?"Untick section":"Know the whole section"}</button>`:""}</div>`;
     g.topics.forEach(t=>{const stt=T(t.id),due=TOPIC_DUE[t.id];const rv=state.reviews["t:"+t.id];
       const meta=stt.known?`Known${rv?` · recall check ${rv.due<=todayISO()?"<b>due now</b>":"on "+fmt(new Date(rv.due+"T00:00:00"))}`:""}`:(stt.done?(stt.mark?`<span class="mark ${stt.mark}">${stt.mark==="got"?"Solid":"Redo"}</span>`:"Done — not yet checked"):(school?"Not yet ticked":(due?`Week ${due} · ${fmt(WEEKS[due-1].start)} ${WEEKS[due-1].start.getFullYear()}`:`<span class="mark shaky">Does not fit before the exams</span>`)));
-      html+=`<div class="topic ${stt.done?"done":""}">${knowMode?`<button class="know ${stt.known?"on":""}" data-know="${t.id}" aria-label="Already know">${stt.known?"✓":""}</button>`:`<input type="checkbox" data-done="${t.id}" ${stt.done?"checked":""} aria-label="Done">`}<div><div class="t"><span class="code">${esc(t[0])}</span>${esc(t[1])}${t.url?` <a href="${esc(t.url)}" style="font-size:13px">↗</a>`:""}</div><div class="m">${meta}${cardsOf(t.id).length?` · ${cardsOf(t.id).length} card${cardsOf(t.id).length===1?"":"s"}`:""}${curSubj==="englit"&&quotesForTopic(t.id).length?` · ${quotesForTopic(t.id).length} quote${quotesForTopic(t.id).length===1?"":"s"}`:""}</div></div><button class="more" data-topicopen="${esc(t.id)}" aria-label="Open">›</button></div>`;
-      if(openTopic===t.id)html+=`<div class="tbody">${objBlock(t)}${stmtBlock(t)}${cardBlock(t)}${mistakeBlock(t.id)}${linkBar(curSubj,t)}${pinRow(t)}</div>`;});});
+      html+=`<div class="topic ${stt.done?"done":""}">${knowMode?`<button class="know ${stt.known?"on":""}" data-know="${t.id}" aria-label="Already know">${stt.known?"✓":""}</button>`:`<input type="checkbox" data-done="${t.id}" ${stt.done?"checked":""} aria-label="Done">`}<div><div class="t"><span class="code">${esc(t[0])}</span>${esc(t[1])}${t.url?` <a href="${esc(t.url)}" style="font-size:13px">↗</a>`:""}${t.lesson?` <button class="lchip" data-lesson="${esc(t.id)}">Lesson</button>`:""}</div><div class="m">${meta}${cardsOf(t.id).length?` · ${cardsOf(t.id).length} card${cardsOf(t.id).length===1?"":"s"}`:""}${curSubj==="englit"&&quotesForTopic(t.id).length?` · ${quotesForTopic(t.id).length} quote${quotesForTopic(t.id).length===1?"":"s"}`:""}</div></div><button class="more" data-topicopen="${esc(t.id)}" aria-label="Open">›</button></div>`;
+      if(openTopic===t.id)html+=`<div class="tbody">${lessonBar(t)}${objBlock(t)}${stmtBlock(t)}${cardBlock(t)}${mistakeBlock(t.id)}${linkBar(curSubj,t)}${pinRow(t)}</div>`;});});
   html+=`</div>`;el.innerHTML=html;
   el.querySelector("#back").addEventListener("click",()=>{curSubj=null;knowMode=false;openTopic=null;render();});
   el.querySelector("#knowmode").addEventListener("click",()=>{knowMode=!knowMode;render();});
@@ -1638,6 +1796,7 @@ function renderGuide(){
   <h3>Recall checks</h3><p>A due check shows the topic's objectives as prompts: can you do each one without looking? Mark each ✓ or ✗, then say whether it held. <b>Some gaps</b> puts it on the fix list with the gaps marked, and brings it back in a week.</p>
   <h3>Mistakes log</h3><p>What actually went wrong, kept per topic. A recall check marked <b>Some gaps</b> logs every objective you could not do; a session or test marked shaky asks what dropped the marks; and you can write one under any topic. Open mistakes appear at the top of that topic's next recall check as <b>Last time you got wrong</b>, and each subject page lists all of its open ones so you can read them before a test. Tick a mistake when you can do it without the slip.</p>
   <h3>Your cards</h3><p>Under any topic you can write cards — a short quote on the front, the technique and its effect on the back; a formula; a definition. They come up in that topic's recall checks, front first. Nothing is pre-filled on purpose: writing the card is most of the learning.</p>
+  <h3>Lessons</h3><p>For Further Maths, every topic carries its own lesson inside the app — no hunting for videos or notes. Open one from the session in <b>Today</b>, from the topic in <b>Subjects</b>, or from the walkthrough. Each lesson has the same shape: <b>What it is</b>, <b>How to do it</b> as numbered steps, worked examples with every line shown, <b>Try these</b> — practice questions with the answer hidden until you tap, then <b>Got it</b> or <b>Not yet</b> (Not yet goes straight into the mistakes log for that topic) — and <b>Where the marks go</b>, the errors examiners see most. Every number in the answers was checked by computer. When you can do the questions without looking, tick the topic at the bottom and it joins the recall rotation. Lessons work offline; the maths is typeset locally.</p>
   <h3>Quote bank</h3><p>English Literature is closed book, so the quotes you can write from memory are the marks. <b>Subjects → Eng Literature → Quote bank</b> keeps every quote in one place: pick the text, type the quote, tag its themes and write the one sentence you would say about it. Every set text and all fifteen Power and Conflict poems are listed with a count, so a poem you have nothing for shows as a zero. <b>Test me</b> blanks out a third of the words and asks you to fill them in — or, switched round, gives you the theme and asks for the quote. Three right in a row makes a quote solid; one miss puts it back to the front. Quotes also come up in that text's recall checks, and <b>Print</b> gives you the lot on one sheet for the night before. Nothing is pre-filled: choosing the quote is the learning.</p>
   <h3>Already ahead?</h3><p>In <b>Subjects</b>, open a subject and hit <b>Where am I up to?</b> The course is laid out one topic at a time in specification order, with its objectives and checklist: <b>Done this</b> ticks it as known and shows the next; <b>Not yet</b> is where you are. Or use <b>Tick what you already know</b> to tick from the list, a section at a time. Anything ticked counts as done, leaves the schedule, and goes straight into recall. For subjects the app runs ahead in, a bar then offers to <b>re-pour</b> the plan so those hours go to what is left.</p>
   <h3>Tests</h3>
