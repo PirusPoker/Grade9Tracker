@@ -184,6 +184,58 @@ fn backup(app: AppHandle) -> Result<String, String> {
     Ok(target.to_string_lossy().into_owned())
 }
 
+// ---------- Profiles ----------
+
+#[tauri::command]
+fn list_profiles(app: AppHandle) -> Result<profiles::RegistryView, String> {
+    store(&app)?.view()
+}
+
+#[tauri::command]
+fn create_profile(app: AppHandle, name: String, pin: Option<String>) -> Result<String, String> {
+    store(&app)?.create(&name, pin.as_deref())
+}
+
+#[tauri::command]
+fn switch_profile(app: AppHandle, id: String, pin: Option<String>) -> Result<(), String> {
+    store(&app)?.switch(&id, pin.as_deref())
+}
+
+#[tauri::command]
+fn rename_profile(app: AppHandle, id: String, name: String) -> Result<(), String> {
+    store(&app)?.rename(&id, &name)
+}
+
+#[tauri::command]
+fn set_pin(app: AppHandle, id: String, old: Option<String>, new: Option<String>) -> Result<(), String> {
+    store(&app)?.set_pin(&id, old.as_deref(), new.as_deref())
+}
+
+#[tauri::command]
+fn delete_profile(app: AppHandle, id: String, pin: Option<String>) -> Result<(), String> {
+    store(&app)?.delete(&id, pin.as_deref())
+}
+
+/// Writes the profile to a file the person can copy anywhere, and returns
+/// where it went.
+#[tauri::command]
+fn export_profile(app: AppHandle, id: String) -> Result<String, String> {
+    let s = store(&app)?;
+    let bundle = s.export(&id)?;
+    let name = bundle.get("name").and_then(Value::as_str).unwrap_or("profile").to_string();
+    let safe: String = name.chars().map(|c| if c.is_ascii_alphanumeric() { c } else { '-' }).collect();
+    let dir = data_dir(&app)?.join("exports");
+    fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+    let path = dir.join(format!("{}-{}.g9profile.json", safe, chrono::Local::now().format("%Y-%m-%d")));
+    write_json(&path, &bundle)?;
+    Ok(path.to_string_lossy().into_owned())
+}
+
+#[tauri::command]
+fn import_profile(app: AppHandle, bundle: Value) -> Result<String, String> {
+    store(&app)?.import(&bundle)
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -191,8 +243,32 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             get_plan, get_config, save_config, reset_config,
             load_state, save_state, state_path, backup,
-            get_settings, set_settings, draft_subject, day_context
+            get_settings, set_settings, draft_subject, day_context,
+            list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile
         ])
         .run(tauri::generate_context!())
         .expect("error while running Grade 9 Tracker");
+}
+
+#[cfg(test)]
+mod command_registration {
+    /// Every `#[tauri::command]` in this file must also be listed in
+    /// `generate_handler!`, or the UI gets "Command X not found" at runtime -
+    /// which is exactly how the profile picker once shipped dead.
+    #[test]
+    fn every_command_is_registered() {
+        let src = include_str!("lib.rs");
+        let handler = src.split("generate_handler![").nth(1).and_then(|s| s.split("])").next()).expect("handler list");
+        let mut missing = Vec::new();
+        for (i, line) in src.lines().enumerate() {
+            if line.trim_start().starts_with("#[tauri::command]") {
+                let sig = src.lines().nth(i + 1).unwrap_or("");
+                let name = sig.split("fn ").nth(1).and_then(|s| s.split(['(', '<']).next()).unwrap_or("").trim();
+                if !name.is_empty() && !handler.split(|c: char| !c.is_alphanumeric() && c != '_').any(|t| t == name) {
+                    missing.push(name.to_string());
+                }
+            }
+        }
+        assert!(missing.is_empty(), "commands not registered in generate_handler!: {missing:?}");
+    }
 }

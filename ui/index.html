@@ -57,6 +57,8 @@ a{color:var(--accent);text-underline-offset:2px}
 .nav button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .nav button[aria-selected=true]{color:var(--ink)}
 .nav button[aria-selected=true]::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:24px;height:2px;background:var(--ink)}
+/* The hidden attribute must always win, whatever display a class sets. */
+[hidden]{display:none!important}
 .view[hidden]{display:none}
 
 /* today */
@@ -442,7 +444,8 @@ table{max-width:100%}
 .top .brand{font-family:var(--display);font-weight:650;font-size:13.5px;letter-spacing:-.01em;color:var(--ink-2)}
 .who{display:inline-flex;align-items:center;gap:8px;padding:4px 10px 4px 4px;border:1px solid var(--line-2);border-radius:999px;background:var(--surface);font-size:13px;font-weight:600}
 .who:hover{background:var(--sunken)}
-.av{width:24px;height:24px;border-radius:50%;display:inline-grid;place-items:center;font-size:10.5px;font-weight:700;color:#fff;background:hsl(var(--h) 55% 45%);flex:none;letter-spacing:.02em}
+.av{width:24px;height:24px;border-radius:50%;display:inline-grid;place-items:center;font-size:10.5px;font-weight:700;color:#fff;background:#6b7280;flex:none;letter-spacing:.02em}
+.av.h0{background:#2563EB}.av.h1{background:#7C3AED}.av.h2{background:#E4600C}.av.h3{background:#0B9A63}.av.h4{background:#DB2777}.av.h5{background:#A21CAF}.av.h6{background:#B45309}.av.h7{background:#15803D}.av.h8{background:#0E7490}.av.h9{background:#4338CA}.av.h10{background:#BE123C}.av.h11{background:#4D7C0F}
 .overlay{position:fixed;inset:0;z-index:20;background:rgba(14,16,19,.45);display:grid;place-items:center;padding:20px}
 .pk{background:var(--surface);border-radius:var(--r);width:min(100%,460px);max-height:calc(100vh - 40px);overflow:auto;padding:20px;box-shadow:0 20px 60px rgba(14,16,19,.25)}
 .pkhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
@@ -1385,16 +1388,18 @@ document.addEventListener("click",e=>{if(menuKey&&!e.target.closest(".menu")&&!e
 let PROFILES=null,PROFILE=null,pick={open:false,forced:false,sel:null,pin:"",msg:"",manage:false,adding:false,newName:"",newPin:""};
 async function loadProfiles(){
   try{PROFILES=await invoke("list_profiles");PROFILE=PROFILES.profiles.find(p=>p.id===PROFILES.current)||PROFILES.profiles[0]||null;}
-  catch(e){PROFILES=null;PROFILE=null;}}
+  catch(e){PROFILES=null;PROFILE=null;PROFILES_ERR=errText(e);}}
+let PROFILES_ERR="";
 const errText=e=>String(e).replace(/^Error:[ ]*/,"");
 
 const initials=n=>String(n||"?").trim().split(/\s+/).map(w=>w[0]).join("").slice(0,2).toUpperCase();
 const hue=id=>{let h=0;for(const c of String(id))h=(h*31+c.charCodeAt(0))%360;return h;};
+const hueClass=id=>"h"+(hue(id)%12);
 function renderTop(){
   const el=document.getElementById("top");if(!el)return;
-  if(!PROFILE){el.hidden=true;return;}
+  if(!PROFILE){el.hidden=!PROFILES_ERR;el.innerHTML=PROFILES_ERR?`<div class="top-in"><span class="brand">Grade 9 Tracker</span><span class="muted" style="font-size:12.5px">Profiles unavailable: ${esc(PROFILES_ERR)}</span></div>`:"";return;}
   el.hidden=false;
-  el.innerHTML=`<div class="top-in"><span class="brand">Grade 9 Tracker</span><button class="who" id="who" title="Switch profile"><span class="av" style="--h:${hue(PROFILE.id)}">${esc(initials(PROFILE.name))}</span>${esc(PROFILE.name)}<span class="muted">▾</span></button></div>`;
+  el.innerHTML=`<div class="top-in"><span class="brand">Grade 9 Tracker</span><button class="who" id="who" title="Switch profile"><span class="av ${hueClass(PROFILE.id)}">${esc(initials(PROFILE.name))}</span>${esc(PROFILE.name)}<span class="muted">▾</span></button></div>`;
   el.querySelector("#who").addEventListener("click",()=>showPicker(false));}
 function showPicker(forced){pick={open:true,forced,sel:null,pin:"",msg:"",manage:false,adding:!PROFILES||!PROFILES.profiles.length,newName:"",newPin:""};renderPicker();}
 function closePicker(){if(pick.forced)return;pick.open=false;renderPicker();}
@@ -1414,7 +1419,7 @@ function renderPicker(){
   const me=PROFILE&&PROFILE.id;
   let html=`<div class="pk"><div class="pkhead"><h2>${pick.forced?"Who is studying?":"Profiles"}</h2>${pick.forced?"":`<button class="btn small" id="pkclose">Close</button>`}</div>`;
   if(!pick.manage&&!pick.adding){
-    html+=`<div class="pklist">`+ps.map(p=>`<button class="pkrow ${p.id===me?"cur":""}" data-choose="${esc(p.id)}"><span class="av" style="--h:${hue(p.id)}">${esc(initials(p.name))}</span><span class="nm">${esc(p.name)}${p.id===me?`<span class="muted"> · signed in</span>`:""}</span>${p.hasPin?`<span class="lock" title="Has a PIN">🔒</span>`:""}</button>
+    html+=`<div class="pklist">`+ps.map(p=>`<button class="pkrow ${p.id===me?"cur":""}" data-choose="${esc(p.id)}"><span class="av ${hueClass(p.id)}">${esc(initials(p.name))}</span><span class="nm">${esc(p.name)}${p.id===me?`<span class="muted"> · signed in</span>`:""}</span>${p.hasPin?`<span class="lock" title="Has a PIN">🔒</span>`:""}</button>
       ${pick.sel===p.id?`<div class="pkpin"><input type="password" inputmode="numeric" id="pinbox" placeholder="PIN" maxlength="8" value="${esc(pick.pin)}" autocomplete="off"><button class="btn primary small" data-go="${esc(p.id)}">Open</button></div>`:""}`).join("")+`</div>`;
     if(pick.msg)html+=`<p class="pkmsg">${esc(pick.msg)}</p>`;
     html+=`<div class="pkfoot"><button class="btn small" id="pkadd">+ New profile</button><button class="btn small" id="pkimport">Import a profile file</button><input type="file" id="pkfile" accept=".json" hidden>${ps.length?`<button class="btn small" id="pkmanage" style="margin-left:auto">Manage</button>`:""}</div>
@@ -1426,7 +1431,7 @@ function renderPicker(){
       <div class="pkfoot"><button class="btn primary" id="pkcreate">Create and open</button>${ps.length?`<button class="btn" id="pkback">Back</button>`:""}</div>
       <p class="muted" style="font-size:12.5px;margin:10px 0 0">A PIN only stops someone else on this PC opening your profile by mistake. Forget it and the files are still yours — they are in the app data folder.</p></div>`;
   }else{
-    html+=`<div class="pklist manage">`+ps.map(p=>`<div class="pkman"><span class="av" style="--h:${hue(p.id)}">${esc(initials(p.name))}</span><span class="nm">${esc(p.name)}${p.hasPin?" 🔒":""}</span>
+    html+=`<div class="pklist manage">`+ps.map(p=>`<div class="pkman"><span class="av ${hueClass(p.id)}">${esc(initials(p.name))}</span><span class="nm">${esc(p.name)}${p.hasPin?" 🔒":""}</span>
       <span class="acts"><button class="btn small" data-rename="${esc(p.id)}">Rename</button><button class="btn small" data-pin="${esc(p.id)}">${p.hasPin?"Change PIN":"Set PIN"}</button><button class="btn small" data-export="${esc(p.id)}">Export</button>${ps.length>1?`<button class="btn small danger" data-delete="${esc(p.id)}">Delete</button>`:""}</span></div>`).join("")+`</div>`;
     if(pick.msg)html+=`<p class="pkmsg ${/^(Exported|Saved|Deleted)/.test(pick.msg)?"ok":""}">${esc(pick.msg)}</p>`;
     html+=`<div class="pkfoot"><button class="btn small" id="pkback">Back</button></div>`;
