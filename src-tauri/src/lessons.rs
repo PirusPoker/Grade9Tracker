@@ -38,9 +38,63 @@ const FPM: &[(&str, &str)] = &[
     ("fpm:10c", include_str!("../lessons/fpm/10c.md")),
 ];
 
+/// Mathematics A (4MA1) Higher, Pearson Edexcel International GCSE.
+const MATHS: &[(&str, &str)] = &[
+    ("maths:1.1", include_str!("../lessons/maths/1.1.md")),
+    ("maths:1.2", include_str!("../lessons/maths/1.2.md")),
+    ("maths:1.3", include_str!("../lessons/maths/1.3.md")),
+    ("maths:1.4a", include_str!("../lessons/maths/1.4a.md")),
+    ("maths:1.4b", include_str!("../lessons/maths/1.4b.md")),
+    ("maths:1.5", include_str!("../lessons/maths/1.5.md")),
+    ("maths:1.6", include_str!("../lessons/maths/1.6.md")),
+    ("maths:1.7", include_str!("../lessons/maths/1.7.md")),
+    ("maths:1.8", include_str!("../lessons/maths/1.8.md")),
+    ("maths:1.9", include_str!("../lessons/maths/1.9.md")),
+    ("maths:1.10", include_str!("../lessons/maths/1.10.md")),
+    ("maths:1.11", include_str!("../lessons/maths/1.11.md")),
+    ("maths:2.1", include_str!("../lessons/maths/2.1.md")),
+    ("maths:2.2a", include_str!("../lessons/maths/2.2a.md")),
+    ("maths:2.2b", include_str!("../lessons/maths/2.2b.md")),
+    ("maths:2.3", include_str!("../lessons/maths/2.3.md")),
+    ("maths:2.4", include_str!("../lessons/maths/2.4.md")),
+    ("maths:2.5", include_str!("../lessons/maths/2.5.md")),
+    ("maths:2.6", include_str!("../lessons/maths/2.6.md")),
+    ("maths:2.7a", include_str!("../lessons/maths/2.7a.md")),
+    ("maths:2.7b", include_str!("../lessons/maths/2.7b.md")),
+    ("maths:2.8", include_str!("../lessons/maths/2.8.md")),
+    ("maths:3.1a", include_str!("../lessons/maths/3.1a.md")),
+    ("maths:3.1b", include_str!("../lessons/maths/3.1b.md")),
+    ("maths:3.2", include_str!("../lessons/maths/3.2.md")),
+    ("maths:3.3a", include_str!("../lessons/maths/3.3a.md")),
+    ("maths:3.3b", include_str!("../lessons/maths/3.3b.md")),
+    ("maths:3.3c", include_str!("../lessons/maths/3.3c.md")),
+    ("maths:3.4", include_str!("../lessons/maths/3.4.md")),
+    ("maths:4.1", include_str!("../lessons/maths/4.1.md")),
+    ("maths:4.2", include_str!("../lessons/maths/4.2.md")),
+    ("maths:4.3", include_str!("../lessons/maths/4.3.md")),
+    ("maths:4.4", include_str!("../lessons/maths/4.4.md")),
+    ("maths:4.5", include_str!("../lessons/maths/4.5.md")),
+    ("maths:4.6", include_str!("../lessons/maths/4.6.md")),
+    ("maths:4.7", include_str!("../lessons/maths/4.7.md")),
+    ("maths:4.8a", include_str!("../lessons/maths/4.8a.md")),
+    ("maths:4.8b", include_str!("../lessons/maths/4.8b.md")),
+    ("maths:4.8c", include_str!("../lessons/maths/4.8c.md")),
+    ("maths:4.9", include_str!("../lessons/maths/4.9.md")),
+    ("maths:4.10", include_str!("../lessons/maths/4.10.md")),
+    ("maths:4.11", include_str!("../lessons/maths/4.11.md")),
+    ("maths:5.1", include_str!("../lessons/maths/5.1.md")),
+    ("maths:5.2", include_str!("../lessons/maths/5.2.md")),
+    ("maths:6.1a", include_str!("../lessons/maths/6.1a.md")),
+    ("maths:6.1b", include_str!("../lessons/maths/6.1b.md")),
+    ("maths:6.1c", include_str!("../lessons/maths/6.1c.md")),
+    ("maths:6.2", include_str!("../lessons/maths/6.2.md")),
+    ("maths:6.3a", include_str!("../lessons/maths/6.3a.md")),
+    ("maths:6.3b", include_str!("../lessons/maths/6.3b.md")),
+];
+
 /// Every lesson, across subjects.
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
-    FPM.iter()
+    FPM.iter().chain(MATHS.iter())
 }
 
 /// The lesson for a topic id such as `fpm:9a`, if one has been written.
@@ -83,15 +137,19 @@ mod tests {
         out
     }
 
+    /// Subjects the app claims to teach: every topic must carry a lesson,
+    /// and no lesson may name a topic that does not exist.
     #[test]
-    fn every_further_pure_topic_has_a_lesson() {
+    fn every_topic_of_a_taught_subject_has_a_lesson() {
         let cfg = crate::config::PlanConfig::default();
-        let fpm = cfg.subjects.iter().find(|s| s.id == "fpm").expect("fpm subject");
-        let missing: Vec<_> = fpm.topics.iter().map(|t| format!("fpm:{}", t.code)).filter(|id| !has_lesson(id)).collect();
-        assert!(missing.is_empty(), "topics with no lesson: {missing:?}");
-        let extra: Vec<_> = FPM.iter().map(|(id, _)| *id)
-            .filter(|id| !fpm.topics.iter().any(|t| format!("fpm:{}", t.code) == *id)).collect();
-        assert!(extra.is_empty(), "lessons for topics that do not exist: {extra:?}");
+        for (subject, table) in [("fpm", FPM), ("maths", MATHS)] {
+            let def = cfg.subjects.iter().find(|s| s.id == subject).expect("subject");
+            let missing: Vec<_> = def.topics.iter().map(|t| format!("{subject}:{}", t.code)).filter(|id| !has_lesson(id)).collect();
+            assert!(missing.is_empty(), "{subject}: topics with no lesson: {missing:?}");
+            let extra: Vec<_> = table.iter().map(|(id, _)| *id)
+                .filter(|id| !def.topics.iter().any(|t| format!("{subject}:{}", t.code) == *id)).collect();
+            assert!(extra.is_empty(), "{subject}: lessons for topics that do not exist: {extra:?}");
+        }
     }
 
     #[test]
