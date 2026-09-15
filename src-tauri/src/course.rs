@@ -55,7 +55,7 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ]),
     // Computer Science (4CP0), Issue 1.
     ("cs", &[
-        "1.1",
+        "1.1", "1.2",
         "2.1", "2.2", "2.3", "2.4", "2.5", "2.6",
         "3.1", "3.2", "3.3", "3.4",
         "4.1", "4.2", "4.3", "4.4", "4.5",
@@ -1048,7 +1048,7 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Find and fix a logic error in someone else's algorithm",
     ], "Fill in a trace table row by row, one line of code at a time. Jumping to what you think the answer is loses every mark when it is wrong."),
 
-    ("cs:1.1b", &[
+    ("cs:1.2", &[
         "Break a problem down into smaller sub-problems",
         "Explain abstraction as removing detail that does not matter",
         "Identify what to keep and what to leave out when modelling a problem",

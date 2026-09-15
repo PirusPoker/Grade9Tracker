@@ -194,7 +194,7 @@ pub const SUBJECTS: &[SubjectDef] = &[
         sections: &["1 Problem solving", "2 Programming", "3 Data", "4 Computers", "5 Communication & the internet", "6 The bigger picture"],
         topics: &[
             ("1.1a", "Algorithms: flowcharts, pseudocode and trace tables", 2.0),
-            ("1.1b", "Decomposition and abstraction", 1.0),
+            ("1.2", "Decomposition and abstraction", 1.0),
             ("1.1c", "Standard algorithms: linear and binary search, bubble and merge sort", 2.0),
             ("2.1", "Developing code: error types, testing and debugging", 2.0),
             ("2.2", "Programming constructs: sequence, selection and iteration", 2.0),
@@ -989,6 +989,55 @@ mod tests {
         assert_eq!(econ.topics.iter().map(|t| t.statements.len()).sum::<usize>(), 113);
     }
 
+    /// Computer Science: Pearson numbers statements topic.section.n. Counts are
+    /// the highest n under each subsection of the 4CP0 PDF, matched anywhere on
+    /// the line because six sit beside their subsection heading.
+    const EXPECTED_CS: &[(&str, usize)] = &[
+        ("1.1", 9), ("1.2", 4),
+        ("2.1", 7), ("2.2", 2), ("2.3", 5), ("2.4", 3), ("2.5", 3), ("2.6", 3),
+        ("3.1", 5), ("3.2", 4), ("3.3", 4), ("3.4", 2),
+        ("4.1", 2), ("4.2", 7), ("4.3", 2), ("4.4", 4), ("4.5", 2),
+        ("5.1", 8), ("5.2", 5), ("5.3", 4),
+        ("6.1", 4),
+    ];
+
+    #[test]
+    fn every_computer_science_statement_is_accounted_for() {
+        let plan = build(&PlanConfig::default());
+        let cs = plan.subjects.iter().find(|s| s.id == "cs").expect("cs");
+        let all: Vec<&Statement> = cs.topics.iter().flat_map(|t| t.statements.iter()).collect();
+        for (sub, n) in EXPECTED_CS {
+            for k in 1..=*n {
+                let code = format!("{sub}.{k}");
+                assert_eq!(all.iter().filter(|s| s.code == code).count(), 1, "cs statement {code} missing or doubled");
+            }
+            let extra = all.iter().filter(|s| s.code.starts_with(&format!("{sub}.")) && s.code.matches('.').count() == 2).count();
+            assert_eq!(extra, *n, "cs {sub} should have exactly {n} statements");
+        }
+        assert_eq!(all.len(), 89);
+    }
+
+    /// Further Pure: ten sections lettered A, B, C... in the PDF, sequence
+    /// checked - so the letter count is the count.
+    const EXPECTED_FPM: &[(&str, usize)] = &[
+        ("1", 4), ("2", 3), ("3", 5), ("4", 2), ("5", 2), ("6", 1), ("7", 6), ("8", 5), ("9", 7), ("10", 8),
+    ];
+
+    #[test]
+    fn every_further_pure_statement_is_accounted_for() {
+        let plan = build(&PlanConfig::default());
+        let fpm = plan.subjects.iter().find(|s| s.id == "fpm").expect("fpm");
+        let all: Vec<&Statement> = fpm.topics.iter().flat_map(|t| t.statements.iter()).collect();
+        for (sec, n) in EXPECTED_FPM {
+            for k in 0..*n {
+                let code = format!("{sec}.{}", (b'A' + k as u8) as char);
+                assert_eq!(all.iter().filter(|s| s.code == code).count(), 1, "fpm statement {code} missing or doubled");
+            }
+            assert_eq!(all.iter().filter(|s| s.code.starts_with(&format!("{sec}."))).count(), *n, "fpm section {sec} should have {n}");
+        }
+        assert_eq!(all.len(), 43);
+    }
+
     /// AQA does not number Business outcomes, so this cannot be checked against
     /// the document the way the others are. What it can check: every topic has
     /// outcomes, the letters run a, b, c... with no holes, and there are no
@@ -1012,7 +1061,7 @@ mod tests {
     #[test]
     fn every_statement_lands_on_a_real_topic() {
         let plan = build(&PlanConfig::default());
-        for id in ["maths", "bio", "chem", "phys", "econ", "bus"] {
+        for id in ["maths", "bio", "chem", "phys", "econ", "bus", "cs", "fpm"] {
             let s = plan.subjects.iter().find(|s| s.id == id).expect(id);
             for (topic, code, _) in crate::statements::table_for(id) {
                 assert!(

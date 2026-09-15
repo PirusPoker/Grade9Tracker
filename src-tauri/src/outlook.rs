@@ -93,7 +93,13 @@ pub struct Dump {
 const SCRIPT: &str = r#"
 $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = [Text.Encoding]::UTF8
-try { $ol = New-Object -ComObject Outlook.Application } catch { Write-Error 'NO_OUTLOOK'; exit 2 }
+# Attach to an Outlook the user already has open rather than starting one.
+# Cold-starting Outlook from code is what makes it throw up a sign-in or
+# access prompt (especially for someone who lives in Outlook on the web, so
+# the desktop app's token has lapsed). Reading an already-running, already-
+# authenticated Outlook is silent.
+try { $ol = [Runtime.InteropServices.Marshal]::GetActiveObject('Outlook.Application') }
+catch { [Console]::Error.WriteLine('NOT_RUNNING'); exit 3 }
 $ns = $ol.GetNamespace('MAPI')
 function Clip([string]$s, [int]$n) { if ($null -eq $s) { return '' }; if ($s.Length -gt $n) { return $s.Substring(0, $n) }; return $s }
 function Day([object]$d) { if ($null -eq $d -or $d.Year -ge 4000) { return $null }; return $d.ToString('yyyy-MM-dd') }
@@ -220,14 +226,16 @@ pub fn fetch() -> Result<Dump, String> {
             if started.elapsed() > TIMEOUT {
                 let _ = child.kill();
                 let _ = child.wait();
-                return Err("Outlook did not answer within a minute. It is probably showing a box saying \"A program is trying to access email address information\" — that is this app reading your inbox. Choose Allow, or stop it asking: File → Options → Trust Center → Trust Center Settings → Programmatic Access → Never warn me.".into());
+                return Err("Outlook didn't respond in time — it's usually showing a dialog box (a prompt, or a message it's waiting on). Bring Outlook to the front, clear whatever box is open, then press Refresh.".into());
             }
             std::thread::sleep(Duration::from_millis(100));
         };
         let stdout = String::from_utf8_lossy(&out_t.join().unwrap_or_default()).into_owned();
         let stderr = String::from_utf8_lossy(&err_t.join().unwrap_or_default()).into_owned();
-        if stderr.contains("NO_OUTLOOK") || stderr.contains("80040154") {
-            return Err("Classic Outlook is not installed, so there is nothing to read. (The new Outlook does not let other programs see your mail.)".into());
+        // Not open (or not installed): GetActiveObject throws MK_E_UNAVAILABLE
+        // (0x800401E3) when Outlook isn't in the Running Object Table.
+        if stderr.contains("NOT_RUNNING") || stderr.contains("NO_OUTLOOK") || stderr.contains("800401E3") || stderr.contains("80040154") {
+            return Err("Classic Outlook isn't open. Open Outlook — the classic desktop app, not the new one or the web version — and let it finish signing in, then press Refresh. The planner reads your day straight from the running app, so nothing leaves your computer and it never has to start Outlook itself.".into());
         }
         if !status.success() && stdout.trim().is_empty() {
             let first = stderr.lines().find(|l| !l.trim().is_empty()).unwrap_or("unknown error");
