@@ -209,11 +209,12 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/igcse/economics/cie/past-papers/"),
         ("Cambridge syllabus & papers", "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-economics-9-1-0987/"),
     ]),
+    // OCR GCSE Computer Science J277 - opened and checked against content.
     ("cs", &[
-        ("Revision notes", "https://www.savemyexams.com/igcse/computer-science/edexcel/revision-notes/"),
-        ("PMT past papers", "https://www.physicsandmathstutor.com/past-papers/gcse-computer-science/edexcel-igcse-paper-1/"),
-        ("Past papers", "https://www.savemyexams.com/igcse/computer-science/edexcel/past-papers/"),
-        ("Pearson papers & reports", "https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-computer-science-2017.html"),
+        ("Revision notes", "https://www.savemyexams.com/gcse/computer-science/ocr/22/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/computer-science/ocr/22/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/computer-science/ocr/past-papers/"),
+        ("OCR papers & mark schemes", "https://www.ocr.org.uk/qualifications/gcse/computer-science-j277-from-2020/assessment/"),
     ]),
     // Both Englishes are AQA GCSE, not Edexcel IGCSE - the Power and Conflict
     // cluster and the Spoken Language endorsement are what identify the board.

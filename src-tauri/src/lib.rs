@@ -4,9 +4,11 @@
 //! questions themselves live on Save My Exams, which each person opens with
 //! their own account.
 
+mod ai;
 mod config;
 mod course;
 mod draft;
+mod lessons;
 mod outlook;
 mod plan;
 mod profiles;
@@ -119,7 +121,8 @@ async fn draft_subject(app: AppHandle, name: String, url: String, text: String) 
 #[tauri::command]
 async fn day_context(app: AppHandle, refresh: bool) -> Result<today::Context, String> {
     const FRESH_MINUTES: i64 = 20;
-    if !get_settings(app.clone())?.outlook {
+    let settings = get_settings(app.clone())?;
+    if !settings.outlook {
         return Err("Outlook is switched off in the Guide tab.".into());
     }
     let path = data_dir(&app)?.join("outlook.json");
@@ -137,7 +140,14 @@ async fn day_context(app: AppHandle, refresh: bool) -> Result<today::Context, St
     match tauri::async_runtime::spawn_blocking(outlook::fetch).await.map_err(|e| e.to_string())? {
         Ok(dump) => {
             let now = chrono::Local::now().naive_local();
-            let ctx = today::build(&dump, now.date(), now.format("%Y-%m-%dT%H:%M:%S").to_string());
+            let mut ctx = today::build(&dump, now.date(), now.format("%Y-%m-%dT%H:%M:%S").to_string());
+            // Triage the day into now/later straight away (pure date logic, no
+            // model, instant). The UI then calls `organise_day` in the
+            // background to reword each line with the local model — the split
+            // is already right, so nothing waits on that.
+            if settings.ai_organise {
+                ctx.organised = Some(ai::split(&ctx, now.date()));
+            }
             write_json(&path, &serde_json::to_value(&ctx).map_err(|e| e.to_string())?)?;
             Ok(ctx)
         }
@@ -149,6 +159,32 @@ async fn day_context(app: AppHandle, refresh: bool) -> Result<today::Context, St
             None => Err(e),
         },
     }
+}
+
+/// Reword the cached day with the local model, in the background. `day_context`
+/// has already returned the correct now/later split with plain titles; this
+/// upgrades each line to a short summary and hands back the tidied plan for the
+/// UI to swap in. Slow and best-effort by nature (a small local model), so it
+/// is deliberately off the critical path — if it errors, the titles stand.
+#[tauri::command]
+async fn organise_day(app: AppHandle) -> Result<Option<ai::AiPlan>, String> {
+    let settings = get_settings(app.clone())?;
+    if !settings.ai_organise {
+        return Ok(None);
+    }
+    let path = data_dir(&app)?.join("outlook.json");
+    let ctx: today::Context = match read_json(&path).and_then(|v| serde_json::from_value(v).ok()) {
+        Some(c) => c,
+        None => return Ok(None),
+    };
+    let today = chrono::Local::now().date_naive();
+    ai::organise(&ctx, today, &settings.ai_url, &settings.ai_model).await.map(Some)
+}
+
+/// The built-in lesson for a topic, as Markdown with maths. The UI renders it.
+#[tauri::command]
+fn get_lesson(topic_id: String) -> Result<String, String> {
+    lessons::lesson(&topic_id).map(str::to_string).ok_or_else(|| format!("No lesson written for {topic_id} yet"))
 }
 
 #[tauri::command]
@@ -241,9 +277,9 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
-            get_plan, get_config, save_config, reset_config,
+            get_plan, get_config, save_config, reset_config, get_lesson,
             load_state, save_state, state_path, backup,
-            get_settings, set_settings, draft_subject, day_context,
+            get_settings, set_settings, draft_subject, day_context, organise_day,
             list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile
         ])
         .run(tauri::generate_context!())

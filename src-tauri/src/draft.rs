@@ -24,6 +24,22 @@ pub struct Settings {
     /// `outlook.rs`). On by default; off means Outlook is never started.
     #[serde(default = "yes")]
     pub outlook: bool,
+    /// Let a local model (Ollama) summarise and organise the day (see `ai.rs`).
+    /// Off by default; the rules view is always the fallback.
+    #[serde(default)]
+    pub ai_organise: bool,
+    #[serde(default = "default_model")]
+    pub ai_model: String,
+    #[serde(default = "default_ollama")]
+    pub ai_url: String,
+}
+
+fn default_model() -> String {
+    "llama3.2:3b".into()
+}
+
+fn default_ollama() -> String {
+    "http://localhost:11434".into()
 }
 
 fn yes() -> bool {
@@ -32,7 +48,7 @@ fn yes() -> bool {
 
 impl Default for Settings {
     fn default() -> Self {
-        Settings { api_key: String::new(), outlook: true }
+        Settings { api_key: String::new(), outlook: true, ai_organise: false, ai_model: default_model(), ai_url: default_ollama() }
     }
 }
 

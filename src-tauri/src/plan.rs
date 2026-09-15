@@ -188,33 +188,37 @@ pub const SUBJECTS: &[SubjectDef] = &[
         ],
     },
     SubjectDef {
-        id: "cs", name: "Computer Science", full: "Computer Science (4CP0)", color: "var(--cs)",
-        papers: "Paper 1 theory (2 h) + Paper 2 practical in Python (3 h), 80 marks each",
-        spec: "https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-computer-science-2017.html",
-        sections: &["1 Problem solving", "2 Programming", "3 Data", "4 Computers", "5 Communication & the internet", "6 The bigger picture"],
+        id: "cs", name: "Computer Science", full: "Computer Science (OCR J277)", color: "var(--cs)",
+        papers: "J277/01 Computer systems and J277/02 Computational thinking, algorithms and programming: each 1h30, 80 marks, 50%. No calculator. Paper 2 Section B (30 marks) is answered in OCR Exam Reference Language or a high-level language",
+        spec: "https://www.ocr.org.uk/qualifications/gcse/computer-science-j277-from-2020/",
+        sections: &["1.1 Systems architecture", "1.2 Memory and storage", "1.3 Computer networks, connections and protocols", "1.4 Network security", "1.5 Systems software", "1.6 Ethical, legal, cultural and environmental impacts", "2.1 Algorithms", "2.2 Programming fundamentals", "2.3 Producing robust programs", "2.4 Boolean logic", "2.5 Programming languages and IDEs"],
         topics: &[
-            ("1.1a", "Algorithms: flowcharts, pseudocode and trace tables", 2.0),
-            ("1.2", "Decomposition and abstraction", 1.0),
-            ("1.1c", "Standard algorithms: linear and binary search, bubble and merge sort", 2.0),
-            ("2.1", "Developing code: error types, testing and debugging", 2.0),
-            ("2.2", "Programming constructs: sequence, selection and iteration", 2.0),
-            ("2.3", "Data types and structures: lists, 2D lists, strings and records", 2.0),
-            ("2.4", "Input, output, validation and file handling", 2.0),
-            ("2.5", "Operators: arithmetic, relational and logical", 1.0),
-            ("2.6", "Subprograms: functions, procedures, parameters and scope", 2.0),
-            ("3.1", "Binary and hexadecimal: conversion, addition, two's complement and shifts", 2.0),
-            ("3.2", "Data representation: text, images and sound", 1.0),
-            ("3.3", "Data storage, file size and compression", 1.0),
-            ("3.4", "Encryption", 1.0),
-            ("4.1", "Machines and computational models", 1.0),
-            ("4.2", "Hardware: CPU, fetch–decode–execute, memory and storage", 2.0),
-            ("4.3", "Logic gates and truth tables", 1.0),
-            ("4.4", "Software: operating systems and utility software", 1.0),
-            ("4.5", "Programming languages and translators", 1.0),
-            ("5.1", "Networks: topologies, protocols, layers and transmission", 2.0),
-            ("5.2", "Network security: threats and protection", 1.0),
-            ("5.3", "The internet and the world wide web", 1.0),
-            ("6.1", "Emerging trends, issues and impact", 1.0),
+            ("1.1.1", "Architecture of the CPU: fetch-execute, components, von Neumann registers", 1.5),
+            ("1.1.2", "CPU performance: clock speed, cache size, cores", 0.5),
+            ("1.1.3", "Embedded systems", 0.5),
+            ("1.2.1", "Primary storage: RAM, ROM, virtual memory, cache", 1.0),
+            ("1.2.2", "Secondary storage: optical, magnetic, solid state, and choosing between them", 1.0),
+            ("1.2.3", "Units of data and calculating capacity", 0.5),
+            ("1.2.4", "Data storage: binary, hexadecimal, shifts, characters, images and sound", 3.0),
+            ("1.2.5", "Compression: lossy and lossless", 0.5),
+            ("1.3.1", "Networks and topologies: LAN, WAN, client-server, hardware, DNS, cloud, star and mesh", 2.0),
+            ("1.3.2", "Wired and wireless, encryption, IP and MAC addresses, protocols and layers", 2.0),
+            ("1.4.1", "Threats: malware, social engineering, brute force, DoS, interception, SQL injection", 1.0),
+            ("1.4.2", "Preventing vulnerabilities: pen testing, anti-malware, firewalls, access levels, passwords, encryption, physical security", 1.0),
+            ("1.5.1", "Operating systems: interface, memory, peripherals, users, files", 1.0),
+            ("1.5.2", "Utility software: encryption, defragmentation, compression", 0.5),
+            ("1.6.1", "Ethical, legal, cultural and environmental impacts, and the legislation", 1.5),
+            ("2.1.1", "Computational thinking: abstraction, decomposition, algorithmic thinking", 0.5),
+            ("2.1.2", "Designing, creating and refining algorithms: pseudocode, flowcharts, trace tables, errors", 2.5),
+            ("2.1.3", "Searching and sorting: binary, linear, bubble, merge, insertion", 2.0),
+            ("2.2.1", "Programming fundamentals: variables, constants, sequence, selection, iteration, operators", 2.0),
+            ("2.2.2", "Data types and casting", 0.5),
+            ("2.2.3", "Additional techniques: strings, files, records, SQL, arrays, sub programs, random numbers", 3.5),
+            ("2.3.1", "Defensive design: input validation, authentication, maintainability", 1.0),
+            ("2.3.2", "Testing: iterative and final, syntax and logic errors, test data, refining", 1.5),
+            ("2.4.1", "Boolean logic: logic diagrams, truth tables, combining AND, OR and NOT", 1.5),
+            ("2.5.1", "Languages: high- and low-level, translators, compilers and interpreters", 1.0),
+            ("2.5.2", "The IDE and its tools", 0.5),
         ],
     },
     SubjectDef {
@@ -456,6 +460,8 @@ pub struct Topic {
     pub url: String, pub objectives: Vec<String>, pub watch: String,
     /// The individual specification statements this topic teaches.
     pub statements: Vec<Statement>,
+    /// Whether a built-in lesson exists for it (see lessons.rs).
+    pub lesson: bool,
 }
 
 #[derive(Serialize)]
@@ -556,6 +562,7 @@ pub fn build_with(cfg: &PlanConfig, catch_up: Option<&CatchUp>) -> Plan {
             objectives: t.objectives.clone(), watch: t.watch.clone(),
             statements: crate::statements::for_topic(&def.id, &t.code).into_iter()
                 .map(|(code, label)| Statement { code, label }).collect(),
+            lesson: crate::lessons::has_lesson(&format!("{}:{}", def.id, t.code)),
         }).collect();
         let mut ti = 0usize;
         let mut rem = topics.first().map(|t| t.hours).unwrap_or(0.0);
@@ -989,32 +996,37 @@ mod tests {
         assert_eq!(econ.topics.iter().map(|t| t.statements.len()).sum::<usize>(), 113);
     }
 
-    /// Computer Science: Pearson numbers statements topic.section.n. Counts are
-    /// the highest n under each subsection of the 4CP0 PDF, matched anywhere on
-    /// the line because six sit beside their subsection heading.
+    /// Computer Science - OCR J277. OCR numbers sub-topics but not the bullets
+    /// under them, so the letters are ours; the bullet count per sub-topic was
+    /// extracted from the specification PDF (version 3.1) by machine.
     const EXPECTED_CS: &[(&str, usize)] = &[
-        ("1.1", 9), ("1.2", 4),
-        ("2.1", 7), ("2.2", 2), ("2.3", 5), ("2.4", 3), ("2.5", 3), ("2.6", 3),
-        ("3.1", 5), ("3.2", 4), ("3.3", 4), ("3.4", 2),
-        ("4.1", 2), ("4.2", 7), ("4.3", 2), ("4.4", 4), ("4.5", 2),
-        ("5.1", 8), ("5.2", 5), ("5.3", 4),
-        ("6.1", 4),
+        ("1.1.1", 3), ("1.1.2", 1), ("1.1.3", 2),
+        ("1.2.1", 6), ("1.2.2", 4), ("1.2.3", 3), ("1.2.4", 13), ("1.2.5", 2),
+        ("1.3.1", 6), ("1.3.2", 6),
+        ("1.4.1", 1), ("1.4.2", 1),
+        ("1.5.1", 1), ("1.5.2", 2),
+        ("1.6.1", 2),
+        ("2.1.1", 1), ("2.1.2", 5), ("2.1.3", 2),
+        ("2.2.1", 4), ("2.2.2", 1), ("2.2.3", 7),
+        ("2.3.1", 3), ("2.3.2", 5),
+        ("2.4.1", 4),
+        ("2.5.1", 3), ("2.5.2", 1),
     ];
 
     #[test]
     fn every_computer_science_statement_is_accounted_for() {
         let plan = build(&PlanConfig::default());
         let cs = plan.subjects.iter().find(|s| s.id == "cs").expect("cs");
-        let all: Vec<&Statement> = cs.topics.iter().flat_map(|t| t.statements.iter()).collect();
+        assert_eq!(cs.topics.len(), EXPECTED_CS.len(), "one topic per OCR sub-topic");
         for (sub, n) in EXPECTED_CS {
-            for k in 1..=*n {
-                let code = format!("{sub}.{k}");
-                assert_eq!(all.iter().filter(|s| s.code == code).count(), 1, "cs statement {code} missing or doubled");
+            let t = cs.topics.iter().find(|t| t.code == *sub).unwrap_or_else(|| panic!("no topic {sub}"));
+            assert_eq!(t.statements.len(), *n, "cs {sub} should carry {n} bullet points");
+            for (i, s) in t.statements.iter().enumerate() {
+                let want = format!("{}{}", sub, (b'a' + i as u8) as char);
+                assert_eq!(s.code, want, "cs {sub} bullet {} out of sequence", s.code);
             }
-            let extra = all.iter().filter(|s| s.code.starts_with(&format!("{sub}.")) && s.code.matches('.').count() == 2).count();
-            assert_eq!(extra, *n, "cs {sub} should have exactly {n} statements");
         }
-        assert_eq!(all.len(), 89);
+        assert_eq!(cs.topics.iter().map(|t| t.statements.len()).sum::<usize>(), 89);
     }
 
     /// Further Pure: ten sections lettered A, B, C... in the PDF, sequence

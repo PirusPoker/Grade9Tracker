@@ -219,6 +219,8 @@ a{color:var(--accent);text-underline-offset:2px}
 .dl .snip{color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.4}
 .dl li.done{opacity:.45}
 .dl li.done .title{text-decoration:line-through}
+.dl.org .title{font-weight:550}
+.dl.org.later{opacity:.66}
 /* Teams assignments */
 .asg{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:13px}
 .asg li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:14px}
@@ -502,6 +504,50 @@ table{max-width:100%}
 .lasttime li{margin:2px 0;color:#7A1F1F}
 @media (max-width:560px){.madd,.mquick{flex-wrap:wrap}.madd .btn,.mquick .btn{width:100%}}
 
+/* quote bank */
+.qbhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.qbform{margin-bottom:14px}
+.qbgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:6px;margin-bottom:6px}
+.qbform textarea{min-height:58px;font-size:15px}
+.tchips{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.tchip{font-size:12.5px;padding:4px 9px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);line-height:1.3}
+.tchip:hover{border-color:var(--ink)}
+.tchip.on{background:var(--solid);color:var(--solid-ink);border-color:var(--solid)}
+.tchip.zero{color:var(--muted);border-style:dashed}
+.tchip.on.zero{color:var(--solid-ink);border-style:solid}
+.qm .tchip{padding:1px 7px;font-size:11.5px;margin:0 2px 2px 0}
+.tmore{margin-top:6px}
+.tmore>summary{cursor:pointer;font-size:12.5px;color:var(--muted);list-style:none;margin-bottom:5px}
+.tmore>summary::-webkit-details-marker{display:none}
+.tmore>summary::before{content:"+ "}
+.tmore[open]>summary::before{content:"– "}
+.qrow{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+.qrow:first-of-type,.sect+.qrow{border-top:0}
+.qrow>div:first-child{flex:1;min-width:0}
+.qrow .qq,.reveal .qq{font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.35}
+.qrow .qm,.reveal .qm{font-size:12.5px;color:var(--muted);margin-top:3px}
+.qrow .qn,.reveal .qn{font-size:13.5px;color:var(--ink-2);margin-top:4px}
+.qbtns{display:flex;gap:5px;align-items:center;flex:none}
+.qbtns .icon{width:28px;height:28px;font-size:13px}
+.qbtns .icon[data-qbedit]:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.gap{font-family:var(--mono);letter-spacing:.08em;color:var(--accent);border-bottom:2px solid var(--accent);line-height:1}
+.cloze{font-weight:600}
+.reveal{border-left:3px solid var(--good);background:var(--good-soft);border-radius:var(--r-sm);padding:9px 12px;margin:0 0 12px}
+.qcard .f .gap{font-size:13px}
+@media (max-width:560px){.qbgrid{grid-template-columns:1fr}}
+.printquotes{display:none}
+@media print{
+  .qbscreen{display:none!important}
+  .printquotes{display:block}
+  .printquotes h1{font-size:16pt;margin:0 0 8px}
+  .printquotes h3{font-size:12pt;margin:12px 0 4px;border-bottom:1px solid #000;padding-bottom:2px}
+  .printquotes h3 span{font-weight:400;color:#555;font-size:10pt}
+  .pq{padding:3px 0;break-inside:avoid}
+  .pqq{font-weight:700;font-size:11pt}
+  .pqq span{font-weight:400;color:#555;font-size:10pt}
+  .pqm{font-size:9.5pt;color:#333;padding-left:14px}
+}
+
 /* print: the whole week on one sheet */
 .printweek{display:none}
 @media print{
@@ -604,7 +650,7 @@ function dayMinutes(d){return d.items.filter(it=>!it.skipped).reduce((n,it)=>n+(
 function dayCounts(d){const live=d.items.filter(it=>!it.skipped&&it.key);return {n:live.length,done:live.filter(itemDone).length};}
 
 /* ---------- STATE ---------- */
-const BLANK={topics:{},tests:{},sessions:{},reviews:{},days:{},stmts:{},inbox:{},moves:{},skips:{},cards:{},mistakes:{},examDates:{}};
+const BLANK={topics:{},tests:{},sessions:{},reviews:{},days:{},stmts:{},inbox:{},moves:{},skips:{},cards:{},mistakes:{},examDates:{},quotes:[]};
 let state={...BLANK};
 let LS="grade9-tracker-v2";
 let saveTimer=null;
@@ -706,7 +752,7 @@ function stmtBlock(topic){
   const c=stmtCounts(topic);
   return `<details class="stmts" data-stmtbox="${esc(topic.id)}" ${openStmt.has(topic.id)?"open":""}><summary><span class="eyebrow">Specification checklist</span><span class="chip ${c.done===c.total?"ok":""}">${c.done} of ${c.total}</span></summary>
     <ul>`+s.map(x=>`<li><label><input type="checkbox" data-stmt="${esc(stmtKey(topic.id,x.code))}" ${stmtDone(topic.id,x.code)?"checked":""}><span class="sc">${esc(x.code)}</span><span>${esc(x.label)}</span></label></li>`).join("")+`</ul>
-    <p class="muted" style="font-size:12.5px;margin:8px 0 0">${topic.subj==="maths"?"Every lettered statement the specification makes for this topic. <b>F</b> is Foundation content and <b>H</b> is Higher — you are examined on both.":topic.subj==="econ"?"Every numbered sub-point the Cambridge syllabus lists for this topic, in its own numbering.":topic.subj==="bus"?"Every outcome AQA lists for this subsection. AQA does not number them, so the letters are this app's, in the order the specification gives them.":topic.subj==="cs"?"Every numbered statement the specification makes for this topic, in Pearson's own numbering.":topic.subj==="fpm"?"Every lettered statement the specification makes for this section, in Pearson's own lettering.":`Every numbered statement the specification makes for this topic. A <b>${{bio:"B",chem:"C",phys:"P"}[topic.subj]||"B, C or P"}</b> suffix marks separate-science-only content — Double Award students skip it; <b>you do it</b>.`} The exact wording is in the <a href="${esc((SUBJECTS[topic.subj]||{}).spec||"")}">official specification ↗</a>.</p></details>`;}
+    <p class="muted" style="font-size:12.5px;margin:8px 0 0">${topic.subj==="maths"?"Every lettered statement the specification makes for this topic. <b>F</b> is Foundation content and <b>H</b> is Higher — you are examined on both.":topic.subj==="econ"?"Every numbered sub-point the Cambridge syllabus lists for this topic, in its own numbering.":topic.subj==="bus"?"Every outcome AQA lists for this subsection. AQA does not number them, so the letters are this app's, in the order the specification gives them.":topic.subj==="cs"?"Every bullet point OCR lists under this sub-topic. OCR does not number them, so the letters are this app's, in the specification's order - but the count was read from the document.":topic.subj==="fpm"?"Every lettered statement the specification makes for this section, in Pearson's own lettering.":`Every numbered statement the specification makes for this topic. A <b>${{bio:"B",chem:"C",phys:"P"}[topic.subj]||"B, C or P"}</b> suffix marks separate-science-only content — Double Award students skip it; <b>you do it</b>.`} The exact wording is in the <a href="${esc((SUBJECTS[topic.subj]||{}).spec||"")}">official specification ↗</a>.</p></details>`;}
 
 function objBlock(topic){
   if(!topic)return "";
@@ -790,7 +836,7 @@ function reviewCard(r){
   const stage=`check ${Math.min(r.stage+1,REVIEW_GAPS.length)} of ${REVIEW_GAPS.length}`;
   let body="";
   if(tp&&tp.objectives.length){
-    body=(topicId?lastTimeBlock(topicId):"")+`<div class="recall">`+tp.objectives.map((o,i)=>`<div class="rq ${m[i]===true?"yes":(m[i]===false?"no":"")}"><span>${esc(o)}</span><span class="yn"><button data-rq="${esc(r.key)}|${i}|1" aria-label="Can do">✓</button><button data-rq="${esc(r.key)}|${i}|0" aria-label="Cannot">✗</button></span></div>`).join("")+`</div>`+quizCards(topicId);
+    body=(topicId?lastTimeBlock(topicId):"")+`<div class="recall">`+tp.objectives.map((o,i)=>`<div class="rq ${m[i]===true?"yes":(m[i]===false?"no":"")}"><span>${esc(o)}</span><span class="yn"><button data-rq="${esc(r.key)}|${i}|1" aria-label="Can do">✓</button><button data-rq="${esc(r.key)}|${i}|0" aria-label="Cannot">✗</button></span></div>`).join("")+`</div>`+quizCards(topicId)+quoteCards(topicId);
   }else body=`<p class="muted" style="font-size:13.5px;margin:0 0 10px">Do a few questions on it from memory, then say honestly whether it held.</p>`;
   const anyNo=Object.values(m).some(v=>v===false);
   return `<div class="card session review" style="--c:${S?S.color:"var(--accent)"}"><div class="head"><span class="pill"><span class="dot" style="background:${S?S.color:"var(--accent)"}"></span>Recall check</span><span class="chip">${stage}</span></div>
@@ -802,7 +848,7 @@ function reviewCard(r){
    sifted by rules, not a model (src-tauri/src/today.rs): the timetable, the
    gaps between lessons, deadlines found in teachers' emails, and requests
    with no date. Nothing leaves the machine. */
-let DAY=null,DAY_ERR=null,DAY_BUSY=false,showDoneInbox=false,showAllAsks=false;
+let DAY=null,DAY_ERR=null,DAY_BUSY=false,ORG_BUSY=false,ORG_SEQ=0,showDoneInbox=false,showAllAsks=false;
 const DAY_START=7*60,DAY_END=21*60+30,MIN_SLOT=30,AFTER_SCHOOL=15*60+30,SHOW_AHEAD_DAYS=14,ASKS_SHOWN=4;
 async function loadDay(refresh){
   if(DAY_BUSY||settings.outlook===false)return;
@@ -810,6 +856,20 @@ async function loadDay(refresh){
   try{DAY=await invoke("day_context",{refresh});DAY_ERR=DAY.error||null;}
   catch(e){DAY_ERR=String(e);}
   DAY_BUSY=false;if(view==="today")render();
+  organiseDay();
+}
+/* The now/later split is already shown (built from the dates). This asks the
+   local model, in the background, to reword each line — slow and optional, so
+   it never blocks the day. A sequence guard drops a stale reply if the day was
+   reloaded meanwhile. */
+async function organiseDay(){
+  if(!settings.aiOrganise||!DAY||DAY.error||!DAY.organised)return;
+  const seq=++ORG_SEQ;ORG_BUSY=true;if(view==="today")render();
+  let org=null;try{org=await invoke("organise_day");}catch(e){}
+  if(seq!==ORG_SEQ)return;                 // a newer load superseded this one
+  ORG_BUSY=false;
+  if(org&&DAY)DAY.organised=org;
+  if(view==="today")render();
 }
 const hhmm=m=>`${String(Math.floor(m/60)).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
 const minsOf=d=>d.getHours()*60+d.getMinutes();
@@ -866,6 +926,22 @@ function dayPanel(d,isToday){
     else html+=`<ul class="asg">`+asg.map(a=>{const w=a.due?whenLabel(a.due):null;
       return `<li class="${done(a.id)?"done":""}"><input type="checkbox" data-inbox="${esc(a.id)}" ${done(a.id)?"checked":""} aria-label="Done"><div><div class="ah">${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(a.title)}</span>${a.course?`<span class="who">· ${esc(a.course)}</span>`:""}${a.unread?`<span class="who">· unread</span>`:""}</div>${a.description?`<div class="snip">${esc(a.description)}</div>`:""}${a.links&&a.links.length?`<div class="alinks">`+a.links.map(l=>`<a class="btn small" href="${esc(l.url)}">${esc(l.label)} ↗</a>`).join("")+`</div>`:""}</div></li>`;}).join("")+`</ul>`;
     html+=`</div>`;}
+  // Organised by the local AI (src/ai.rs): the day triaged into "For today"
+  // (due now or soon, or a fresh request) and "Later" (still days off, or a
+  // request you've already seen). The split is decided in code from the dates —
+  // the model only wrote the one-line summaries. Supersedes the flat lists.
+  const plan=settings.aiOrganise&&DAY.organised&&(Array.isArray(DAY.organised.now)||Array.isArray(DAY.organised.later))?DAY.organised:null;
+  if(plan){
+    const pick=a=>(a||[]).filter(x=>showDoneInbox||!done(x.id));
+    const orgRow=x=>{const w=x.when?whenLabel(x.when):null;
+      return `<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div>${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(x.line)}</span></div></li>`;};
+    const nowI=pick(DAY.organised.now),latI=pick(DAY.organised.later);
+    html+=`<div class="sec"><span class="eyebrow">For today</span>${ORG_BUSY?`<span class="muted" style="font-size:11.5px;margin-left:8px">✨ tidying wording…</span>`:""}`;
+    if(!nowI.length)html+=`<p class="muted" style="font-size:14px;margin:6px 0 0">Nothing needs you today ✓</p>`;
+    else html+=`<ul class="dl org">`+nowI.map(orgRow).join("")+`</ul>`;
+    html+=`</div>`;
+    if(latI.length)html+=`<div class="sec"><span class="eyebrow">Later</span><ul class="dl org later">`+latI.map(orgRow).join("")+`</ul><p class="muted" style="font-size:12.5px;margin:8px 0 0">Not urgent — these move up as the day gets closer.</p></div>`;
+  } else {
   // deadlines
   const limit=iso(addDays(new Date(),SHOW_AHEAD_DAYS));
   const dl=DAY.deadlines.filter(x=>x.date<=limit),later=DAY.deadlines.length-dl.length;
@@ -879,6 +955,7 @@ function dayPanel(d,isToday){
   // requests with no date
   const acts=DAY.actions.filter(x=>showDoneInbox||!done(x.id)),shown=showAllAsks?acts:acts.slice(0,ASKS_SHOWN);
   if(acts.length)html+=`<div class="sec"><span class="eyebrow">Asked of you</span><ul class="dl">`+shown.map(x=>`<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div><span class="title">${esc(x.title)}</span> <span class="who">— ${esc(x.from)}${x.unread?" · unread":""}</span>${x.snippet?`<div class="snip">${esc(x.snippet)}</div>`:""}</div></li>`).join("")+`</ul>${acts.length>ASKS_SHOWN?`<button class="btn small" id="allasks" style="margin-top:10px">${showAllAsks?"Show fewer":`+${acts.length-shown.length} more`}</button>`:""}</div>`;
+  }
   return html+`</div>`;}
 function bindDay(root){
   root.querySelector("#dayrefresh")?.addEventListener("click",()=>loadDay(true));
@@ -1008,7 +1085,8 @@ function itemBody(it,w){
     <p class="muted" style="font-size:13px;margin:4px 0 0">Mark it with the mark scheme, then say for each subject whether it held up. Anything shaky goes on the fix list.</p>
     ${t.subjects.filter(s=>SUBJECTS[s]&&ts.marks[s]==="shaky").map(s=>`<div class="mquickrow"><span class="pill"><span class="dot" style="background:${SUBJECTS[s].color}"></span>${esc(SUBJECTS[s].name)}</span>${quickMistake("subj:"+s,"test","What dropped marks in ${SUBJECTS[s].name}?")}</div>`).join("")}`;}
   if(it.kind==="flash"){const n=Object.values(state.cards).reduce((a,c)=>a+c.length,0);
-    return `<div class="sub">Quick retrieval on your own cards — poems, formulae, definitions. ${n?`You have ${n} card${n===1?"":"s"}.`:"You have no cards yet: add some under any topic."}${openMistakeCount()?` Then read your ${openMistakeCount()} open mistake${openMistakeCount()===1?"":"s"} — Subjects › each subject lists them.`:""} Then rest — Sunday is yours.</div>`;}
+    const nq=quotes().length,sq=quotes().filter(qbSolid).length;
+    return `<div class="sub">Quick retrieval on your own cards — poems, formulae, definitions. ${n?`You have ${n} card${n===1?"":"s"}.`:"You have no cards yet: add some under any topic."} ${nq?`Then test your ${nq} English quote${nq===1?"":"s"} — ${sq} solid so far.`:"Then start your English quote bank: three quotes per poem."}</div><div class="links" style="margin-top:8px"><button class="btn small" data-qbopen="1">${nq?"Test the quote bank":"Open the quote bank"}</button></div><div class="sub">${openMistakeCount()?` Then read your ${openMistakeCount()} open mistake${openMistakeCount()===1?"":"s"} — Subjects › each subject lists them.`:""} Then rest — Sunday is yours.</div>`;}
   return "";}
 function renderSpecial(it,w){
   if(it.kind==="catchup"){const overdue=[];WEEKS.slice(0,w.n-1).forEach(x=>SUBJ_IDS.forEach(s=>x.plan[s].forEach(e=>{if(e.kind==="topic"&&e.final&&!T(e.topic.id).done)overdue.push(e.topic);})));
@@ -1017,6 +1095,7 @@ function renderSpecial(it,w){
   return `<div class="card lift session" style="--c:var(--bad)"><h2>Exam season</h2><div class="sub">Write each paper's date into its subject page once the 2028 timetables are published. Between papers: revise only the next paper, briefly, and sleep.</div></div>`;}
 
 function bind(root){
+  root.querySelectorAll("[data-qbopen]").forEach(b=>b.addEventListener("click",()=>{openQuoteBank(null);if(quotes().length)startQuoteQuiz("gap");}));
   root.querySelectorAll("[data-walkstart]").forEach(b=>b.addEventListener("click",()=>startWalk(b.dataset.walkstart)));
   root.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.open;if(openSess.has(k))openSess.delete(k);else openSess.add(k);menuKey=null;render();}));
   root.querySelectorAll("[data-menu]").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();menuKey=menuKey===b.dataset.menu?null:b.dataset.menu;render();}));
@@ -1151,6 +1230,165 @@ function renderWalk(el){
   bind(el);
 }
 
+/* ---------- QUOTE BANK (English Literature) ----------
+   Closed-book exams: the quotes you can produce from memory are the marks.
+   One place for all of them, by text and by theme, with a gap-fill test that
+   keeps asking the ones you cannot yet produce. Nothing is pre-filled -
+   choosing and writing the quote is where the learning happens; the texts
+   and the themes examiners expect are laid out so the gaps are obvious. */
+const QB_TEXTS=[
+  {id:"mac",name:"Macbeth",by:"Shakespeare",kind:"play",topics:["englit:3.1.1a","englit:3.1.1b","englit:3.1.1c","englit:3.1.1d","englit:3.1.1e","englit:3.1.1f"],where:"Act and scene, and who says it — e.g. 1.7 Macbeth",
+    themes:["Ambition","Power and kingship","Guilt","The supernatural","Gender","Appearance and reality","Violence","Fate and free will","Loyalty and betrayal"]},
+  {id:"acc",name:"A Christmas Carol",by:"Dickens",kind:"novel",topics:["englit:3.1.2a","englit:3.1.2b","englit:3.1.2c","englit:3.1.2d","englit:3.1.2e"],where:"Stave, and who — e.g. Stave 1 narrator",
+    themes:["Poverty","Social responsibility","Redemption","Family","Isolation","Time and memory","Greed","Christmas spirit"]},
+  {id:"aic",name:"An Inspector Calls",by:"Priestley",kind:"play",topics:["englit:3.2.1a","englit:3.2.1b","englit:3.2.1c","englit:3.2.1d","englit:3.2.1e"],where:"Act, and who — e.g. Act 3 Inspector",
+    themes:["Responsibility","Class","Gender","Age and generation","Capitalism and socialism","Guilt","Power","Appearance and reality"]},
+  {id:"oz",name:"Ozymandias",by:"Shelley",kind:"poem",topics:["englit:3.2.2a"],themes:["Power of humans","Pride","Power of nature","Time"]},
+  {id:"lon",name:"London",by:"Blake",kind:"poem",topics:["englit:3.2.2b"],themes:["Power of humans","Individual experience","Place","Anger"]},
+  {id:"pre",name:"Extract from The Prelude",by:"Wordsworth",kind:"poem",topics:["englit:3.2.2c"],themes:["Power of nature","Memory","Individual experience","Fear"]},
+  {id:"mld",name:"My Last Duchess",by:"Browning",kind:"poem",topics:["englit:3.2.2d"],themes:["Power of humans","Pride","Gender","Control"]},
+  {id:"clb",name:"The Charge of the Light Brigade",by:"Tennyson",kind:"poem",topics:["englit:3.2.2e"],themes:["Reality of war","Power of humans","Pride","Loss and absence"]},
+  {id:"exp",name:"Exposure",by:"Owen",kind:"poem",topics:["englit:3.2.2f"],themes:["Reality of war","Power of nature","Effects of conflict","Individual experience"]},
+  {id:"sti",name:"Storm on the Island",by:"Heaney",kind:"poem",topics:["englit:3.2.2g"],themes:["Power of nature","Fear","Place"]},
+  {id:"bay",name:"Bayonet Charge",by:"Hughes",kind:"poem",topics:["englit:3.2.2h"],themes:["Reality of war","Individual experience","Fear","Power of nature"]},
+  {id:"rem",name:"Remains",by:"Armitage",kind:"poem",topics:["englit:3.2.2i"],themes:["Effects of conflict","Guilt","Memory","Reality of war"]},
+  {id:"pop",name:"Poppies",by:"Weir",kind:"poem",topics:["englit:3.2.2j"],themes:["Loss and absence","Effects of conflict","Memory","Individual experience"]},
+  {id:"wph",name:"War Photographer",by:"Duffy",kind:"poem",topics:["englit:3.2.2k"],themes:["Effects of conflict","Memory","Guilt","Individual experience"]},
+  {id:"tis",name:"Tissue",by:"Dharker",kind:"poem",topics:["englit:3.2.2l"],themes:["Power of humans","Power of nature","Identity","Control"]},
+  {id:"emi",name:"The Émigrée",by:"Rumens",kind:"poem",topics:["englit:3.2.2m"],themes:["Memory","Identity","Place","Loss and absence"]},
+  {id:"com",name:"Checking Out Me History",by:"Agard",kind:"poem",topics:["englit:3.2.2n"],themes:["Identity","Power of humans","Anger","Memory"]},
+  {id:"kam",name:"Kamikaze",by:"Garland",kind:"poem",topics:["englit:3.2.2o"],themes:["Individual experience","Power of nature","Loss and absence","Identity","Memory"]},
+];
+const QB_BY_ID={};QB_TEXTS.forEach(t=>QB_BY_ID[t.id]=t);
+const qbText=id=>QB_BY_ID[id]||{id,name:"Unknown text",by:"",kind:"poem",topics:[],themes:[]};
+const quotes=()=>state.quotes||(state.quotes=[]);
+const quotesOfText=tid=>quotes().filter(q=>q.text===tid);
+const quotesForTopic=topicId=>quotes().filter(q=>qbText(q.text).topics.includes(topicId));
+const qbSolid=q=>(q.ok||0)>=3;
+/* All themes in use: the built-in ones per text plus anything typed in. */
+function qbThemes(){const seen=new Map();QB_TEXTS.forEach(t=>t.themes.forEach(th=>seen.set(th,(seen.get(th)||0))));
+  quotes().forEach(q=>(q.themes||[]).forEach(th=>seen.set(th,(seen.get(th)||0)+1)));
+  if(qb&&qb.form&&qb.form.extra)qb.form.extra.forEach(th=>{if(!seen.has(th))seen.set(th,0);});return seen;}
+/* Gap-fill: blank about a third of the meaningful words, the same ones every
+   time for a given quote, so the test is stable and the reveal is a check. */
+function qbCloze(q){const words=String(q).split(/(\s+)/);let h=0;for(const c of String(q))h=(h*31+c.charCodeAt(0))>>>0;
+  const cand=[];words.forEach((w,i)=>{if(/[A-Za-zÀ-ÿ]{4,}/.test(w))cand.push(i);});
+  if(!cand.length)words.forEach((w,i)=>{if(/[A-Za-zÀ-ÿ]/.test(w))cand.push(i);});
+  const n=Math.max(1,Math.round(cand.length/3)),step=Math.max(1,Math.floor(cand.length/n));const pick=new Set();
+  for(let k=0;k<n;k++)pick.add(cand[(h+k*step)%cand.length]);
+  return words.map((w,i)=>pick.has(i)?`<span class="gap">${"_".repeat(Math.max(3,w.replace(/[^A-Za-zÀ-ÿ']/g,"").length))}</span>${esc(w.replace(/^.*?([^A-Za-zÀ-ÿ']*)$/,"$1"))}`:esc(w)).join("");}
+/* Recall checks on an English Literature topic show that text's quotes as
+   gap-fills, weakest first, up to six. */
+function quoteCards(topicId){const qs=quotesForTopic(topicId).slice().sort((a,b)=>(a.ok||0)-(b.ok||0)).slice(0,6);if(!qs.length)return "";
+  return `<div class="quiz">`+qs.map(q=>{const k="q|"+q.id,on=revealed.has(k);return `<button class="qcard ${on?"open":""}" data-flip="${esc(k)}"><span class="hint">${esc(qbText(q.text).name)}${q.who?" · "+esc(q.who):""}</span><span class="f">${on?"“"+esc(q.q)+"”":"“"+qbCloze(q.q)+"”"}</span>${on?`<span class="b">${(q.themes||[]).map(esc).join(" · ")}${q.note?(q.themes&&q.themes.length?" — ":"")+esc(q.note):""}</span>`:`<span class="hint">tap to reveal</span>`}</button>`;}).join("")+`</div>`;}
+
+let qb=null; // {text, theme, add, edit, quiz, form:{text,q,who,themes,note}}
+function openQuoteBank(text){qb={text:text||null,theme:null,add:!quotes().length,edit:null,quiz:null,form:{text:text||(QB_TEXTS[0].id),q:"",who:"",themes:[],note:""}};
+  if(text)qb.form.themes=[];curSubj="englit";knowMode=false;openTopic=null;walk=null;showView("subjects");}
+function qbFiltered(){return quotes().filter(q=>(!qb.text||q.text===qb.text)&&(!qb.theme||(q.themes||[]).includes(qb.theme)));}
+function qbStatus(q){return qbSolid(q)?`<span class="chip ok">solid</span>`:((q.ok||0)>0?`<span class="chip">${q.ok} in a row</span>`:(q.last?`<span class="chip bad">not yet</span>`:`<span class="chip">new</span>`));}
+function qbRow(q){const T=qbText(q.text);
+  return `<div class="qrow"><div><div class="qq">“${esc(q.q)}”</div><div class="qm">${esc(q.who||"")}${(q.themes||[]).length?`${q.who?" · ":""}${q.themes.map(t=>`<button class="tchip" data-qbtheme="${esc(t)}">${esc(t)}</button>`).join("")}`:""}</div>${q.note?`<div class="qn">${esc(q.note)}</div>`:""}</div><div class="qbtns">${qbStatus(q)}<button class="icon" data-qbedit="${esc(q.id)}" aria-label="Edit">✎</button><button class="icon" data-qbdel="${esc(q.id)}" aria-label="Delete">×</button></div></div>`;}
+function qbForm(){const f=qb.form,T=qbText(f.text),editing=!!qb.edit;const all=[...qbThemes().keys()];const own=T.themes,rest=all.filter(t=>!own.includes(t));
+  const chip=t=>`<button class="tchip ${f.themes.includes(t)?"on":""}" data-qbtog="${esc(t)}">${esc(t)}</button>`;
+  return `<div class="card qbform"><div class="eyebrow" style="margin-bottom:8px">${editing?"Edit quote":"Add a quote"}</div>
+    <div class="qbgrid"><select id="qbtext">${["play","novel","poem"].map(k=>`<optgroup label="${k==="poem"?"Power and Conflict":(k==="play"?"Plays":"Novel")}">${QB_TEXTS.filter(t=>t.kind===k).map(t=>`<option value="${t.id}" ${t.id===f.text?"selected":""}>${esc(t.name)}${t.kind==="poem"?" — "+esc(t.by):""}</option>`).join("")}</optgroup>`).join("")}</select>
+    <input type="text" id="qbwho" value="${esc(f.who)}" placeholder="${esc(T.where||"Where in the poem — e.g. line 1, or the ending")}" maxlength="80"></div>
+    <textarea id="qbq" placeholder="The quote, word for word. Short — 3 to 8 words is what you can actually reproduce in an exam" maxlength="300">${esc(f.q)}</textarea>
+    <div class="eyebrow" style="margin:10px 0 5px">Themes · ${T.name}</div><div class="tchips">${own.map(chip).join("")}</div>
+    ${rest.length?`<details class="tmore"><summary>Other themes</summary><div class="tchips">${rest.map(chip).join("")}</div></details>`:""}
+    <div class="tchips" style="margin-top:6px"><input type="text" id="qbnewtheme" placeholder="Your own theme" maxlength="40" style="max-width:220px"><button class="btn small" id="qbaddtheme">Add theme</button></div>
+    <input type="text" id="qbnote" value="${esc(f.note)}" placeholder="Technique and what it does — the sentence you would write about it" maxlength="240" style="margin-top:10px">
+    <div class="wbtns" style="margin-top:12px"><button class="btn primary" id="qbsave">${editing?"Save":"Add quote"}</button><button class="btn" id="qbcancel">${editing?"Cancel":"Close"}</button></div></div>`;}
+function qbReadForm(el){const f=qb.form;f.text=el.querySelector("#qbtext").value;f.q=el.querySelector("#qbq").value;f.who=el.querySelector("#qbwho").value;f.note=el.querySelector("#qbnote").value;}
+function renderQuoteBank(el){
+  const S=SUBJECTS.englit,all=quotes(),solid=all.filter(qbSolid).length;
+  if(qb.quiz){renderQuoteQuiz(el);return;}
+  const list=qbFiltered();const themes=qbThemes();
+  let html=`<div class="qbscreen"><button class="back" id="qbback">‹ ${esc(S?S.name:"English Literature")}</button>
+    <div class="qbhead"><div><h1 style="font-size:24px">Quote bank</h1><p class="muted" style="font-size:13.5px;margin:4px 0 0">${all.length?`${all.length} quote${all.length===1?"":"s"} · ${solid} solid · ${all.length-solid} still to learn`:"Closed book: what you can write from memory is what you can use."}</p></div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn small ${qb.add||qb.edit?"":"primary"}" id="qbadd">+ Add</button><button class="btn small" id="qbtest" ${list.length?"":"disabled"}>Test me${list.length&&(qb.text||qb.theme)?` · ${list.length}`:""}</button><button class="btn small" id="qbprint" ${all.length?"":"disabled"}>Print</button></div></div>`;
+  if(qb.add||qb.edit)html+=qbForm();
+  // Texts as filters, with counts: a zero is a poem you have nothing for.
+  const cnt=t=>quotesOfText(t.id).length;
+  if(all.length){const th=[...themes.entries()].filter(([t,n])=>n||(qb.text&&qbText(qb.text).themes.includes(t)));
+    html+=`<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:6px">By text</div><div class="tchips"><button class="tchip ${!qb.text?"on":""}" data-qbtext="">All · ${all.length}</button>${QB_TEXTS.map(t=>`<button class="tchip ${qb.text===t.id?"on":""} ${cnt(t)?"":"zero"}" data-qbtext="${t.id}">${esc(t.name)} · ${cnt(t)}</button>`).join("")}</div>
+    ${th.length?`<div class="eyebrow" style="margin:12px 0 6px">By theme</div><div class="tchips"><button class="tchip ${!qb.theme?"on":""}" data-qbtheme="">All</button>${th.map(([t,n])=>`<button class="tchip ${qb.theme===t?"on":""} ${n?"":"zero"}" data-qbtheme="${esc(t)}">${esc(t)}${n?` · ${n}`:""}</button>`).join("")}</div>`:""}</div>`;}
+  if(!all.length){html+=`<div class="card"><div class="empty">No quotes yet. Add one from whichever text you are studying this week — three per poem is a good target, and one per theme for each of the three set texts.</div></div>`;}
+  else if(!list.length){html+=`<div class="card"><div class="empty">Nothing here yet for that filter.</div></div>`;}
+  else if(qb.text){const T=qbText(qb.text);html+=`<div class="card"><div class="sect" style="padding-top:0"><span>${esc(T.name)} · ${esc(T.by)}</span><span class="muted" style="text-transform:none;letter-spacing:0;font-weight:500">${list.length} quote${list.length===1?"":"s"}</span></div>${list.map(qbRow).join("")}</div>`;}
+  else{html+=`<div class="card">`;QB_TEXTS.forEach(T=>{const qs=list.filter(q=>q.text===T.id);if(!qs.length)return;html+=`<div class="sect"><span>${esc(T.name)}</span><span class="muted" style="text-transform:none;letter-spacing:0;font-weight:500">${qs.length}</span></div>`+qs.map(qbRow).join("");});html+=`</div>`;}
+  html+=`<p class="muted" style="font-size:12.5px;margin:12px 0 0">Solid means three right in a row in a test. A poem with no quotes shows as a zero above — that is the one to read next. Quotes also come up in that text's recall checks.</p></div>`+printQuotes();
+  el.innerHTML=html;
+  el.querySelector("#qbback").addEventListener("click",()=>{qb=null;render();});
+  el.querySelector("#qbadd").addEventListener("click",()=>{qb.edit=null;qb.add=!qb.add;if(qb.add)qb.form={text:qb.text||qb.form.text||QB_TEXTS[0].id,q:"",who:"",themes:[],note:""};render();setTimeout(()=>document.getElementById("qbq")?.focus(),0);});
+  el.querySelector("#qbtest").addEventListener("click",()=>startQuoteQuiz("gap"));
+  el.querySelector("#qbprint").addEventListener("click",()=>window.print());
+  el.querySelectorAll("[data-qbtext]").forEach(b=>b.addEventListener("click",()=>{qb.text=b.dataset.qbtext||null;if(qb.add&&!qb.edit){qbReadForm(el);if(qb.text&&qb.form.text!==qb.text){qb.form.text=qb.text;qb.form.themes=[];}}render();}));
+  el.querySelectorAll("[data-qbtheme]").forEach(b=>b.addEventListener("click",()=>{if(qb.add||qb.edit)qbReadForm(el);qb.theme=b.dataset.qbtheme||null;render();}));
+  el.querySelectorAll("[data-qbedit]").forEach(b=>b.addEventListener("click",()=>{const q=quotes().find(x=>x.id===b.dataset.qbedit);if(!q)return;qb.edit=q.id;qb.add=false;qb.form={text:q.text,q:q.q,who:q.who||"",themes:(q.themes||[]).slice(),note:q.note||""};render();window.scrollTo({top:0});}));
+  el.querySelectorAll("[data-qbdel]").forEach(b=>b.addEventListener("click",()=>{const i=quotes().findIndex(x=>x.id===b.dataset.qbdel);if(i>=0)quotes().splice(i,1);if(qb.edit===b.dataset.qbdel){qb.edit=null;}persist();render();}));
+  if(qb.add||qb.edit){
+    el.querySelector("#qbtext").addEventListener("change",e=>{qbReadForm(el);if(qb.form.text!==e.target.value)qb.form.themes=[];qb.form.text=e.target.value;render();setTimeout(()=>document.getElementById("qbq")?.focus(),0);});
+    el.querySelectorAll("[data-qbtog]").forEach(b=>b.addEventListener("click",()=>{qbReadForm(el);const t=b.dataset.qbtog;const i=qb.form.themes.indexOf(t);if(i>=0)qb.form.themes.splice(i,1);else qb.form.themes.push(t);render();}));
+    el.querySelector("#qbaddtheme").addEventListener("click",()=>{qbReadForm(el);const inp=el.querySelector("#qbnewtheme");const t=inp.value.trim().replace(/\s+/g," ");if(!t){inp.focus();return;}
+      const have=[...qbThemes().keys()].find(x=>x.toLowerCase()===t.toLowerCase())||t;if(!qb.form.themes.includes(have))qb.form.themes.push(have);
+      // Keep a typed theme even before any quote carries it, by pinning it on the form.
+      qb.form.extra=[...new Set([...(qb.form.extra||[]),have])];render();});
+    el.querySelector("#qbnewtheme").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();el.querySelector("#qbaddtheme").click();}});
+    el.querySelector("#qbcancel").addEventListener("click",()=>{qb.add=false;qb.edit=null;render();});
+    el.querySelector("#qbsave").addEventListener("click",()=>{qbReadForm(el);const f=qb.form;const q=f.q.trim().replace(/^["“”']+|["“”']+$/g,"").trim();
+      if(!q){el.querySelector("#qbq").focus();return;}
+      const dup=quotes().find(x=>x.text===f.text&&x.q.toLowerCase()===q.toLowerCase()&&x.id!==qb.edit);if(dup){el.querySelector("#qbq").focus();el.querySelector("#qbq").select();return;}
+      if(qb.edit){const x=quotes().find(x=>x.id===qb.edit);if(x){x.text=f.text;x.q=q;x.who=f.who.trim();x.themes=f.themes.slice();x.note=f.note.trim();}qb.edit=null;}
+      else{quotes().push({id:"q"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),text:f.text,q,who:f.who.trim(),themes:f.themes.slice(),note:f.note.trim(),added:todayISO(),ok:0,last:""});
+        qb.form={text:f.text,q:"",who:"",themes:[],note:"",extra:f.extra};}
+      markDay();persist();render();setTimeout(()=>document.getElementById("qbq")?.focus(),0);});
+    el.querySelector("#qbq").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();el.querySelector("#qbsave").click();}});
+    el.querySelector("#qbnote").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();el.querySelector("#qbsave").click();}});
+  }
+}
+/* The printed sheet: every quote in the current filter, grouped by text,
+   with the themes and the note - one page to read the night before. */
+function printQuotes(){const list=qbFiltered();
+  return `<div class="printquotes"><h1>Quote bank${qb.text?" · "+esc(qbText(qb.text).name):""}${qb.theme?" · "+esc(qb.theme):""}</h1>`+QB_TEXTS.map(T=>{const qs=list.filter(q=>q.text===T.id);if(!qs.length)return "";
+    return `<h3>${esc(T.name)} <span>${esc(T.by)}</span></h3>`+qs.map(q=>`<div class="pq"><div class="pqq">“${esc(q.q)}”${q.who?` <span>— ${esc(q.who)}</span>`:""}</div><div class="pqm">${(q.themes||[]).map(esc).join(" · ")}${q.note?(q.themes&&q.themes.length?" — ":"")+esc(q.note):""}</div></div>`).join("");}).join("")+`</div>`;}
+
+/* Test: weakest first, then the ones not seen for longest. Got it three times
+   running and it is solid; miss it once and it starts again. */
+function startQuoteQuiz(mode,ids){const pool=(ids?quotes().filter(q=>ids.includes(q.id)):qbFiltered()).slice();
+  pool.sort((a,b)=>((a.ok||0)-(b.ok||0))||String(a.last||"").localeCompare(String(b.last||""))||(Math.random()-.5));
+  qb.quiz={mode,ids:pool.map(q=>q.id),i:0,shown:false,right:[],wrong:[]};render();}
+function renderQuoteQuiz(el){const z=qb.quiz,S=SUBJECTS.englit;
+  let html=`<button class="back" id="qzback">‹ Quote bank</button>`;
+  if(z.i>=z.ids.length){
+    const n=z.right.length+z.wrong.length;
+    html+=`<div class="card walk"><div class="eyebrow">Quote test</div><h2 style="font-size:22px;margin:6px 0 8px">${z.wrong.length?`${z.right.length} of ${n}`:(n?"All of them":"Nothing to test")}</h2>
+      <p class="muted" style="font-size:14px;margin:0 0 14px">${z.wrong.length?`${z.wrong.length} to go back over. They come first next time, and in that text's recall checks.`:(n?"Every one right. They stay in the rotation — three in a row makes one solid.":"")}</p>
+      <div class="wbtns">${z.wrong.length?`<button class="btn primary" id="qzagain">Again — just the ${z.wrong.length} I missed</button>`:""}<button class="btn ${z.wrong.length?"":"primary"}" id="qzdone">Done</button></div></div>`;
+  }else{
+    const q=quotes().find(x=>x.id===z.ids[z.i]);if(!q){z.i++;render();return;}const T=qbText(q.text);
+    html+=`<div class="card walk"><div class="walkhead"><span class="eyebrow">Quote test · ${z.mode==="theme"?"from the theme":"fill the gaps"}</span><span class="chip">${z.i+1} of ${z.ids.length}</span></div>
+      <div class="prog" style="margin:8px 0 16px"><i style="width:${Math.round(100*z.i/z.ids.length)}%;background:${S?S.color:"var(--accent)"}"></i></div>
+      <div class="wcode">${esc(T.name)}${T.kind==="poem"?" · "+esc(T.by):""}${q.who?" · "+esc(q.who):""}</div>`;
+    if(z.mode==="theme")html+=`<h2 style="font-size:20px;margin:2px 0 12px">${(q.themes||[]).length?esc(q.themes.join(" · ")):"A quote from this text"}</h2><p class="muted" style="font-size:14px;margin:0 0 12px">Say the quote out loud, or write it down, then check.</p>`;
+    else html+=`<h2 class="cloze" style="font-size:20px;margin:2px 0 12px">“${z.shown?esc(q.q):qbCloze(q.q)}”</h2>`;
+    if(z.shown)html+=`<div class="reveal">${z.mode==="theme"?`<div class="qq">“${esc(q.q)}”</div>`:""}${(q.themes||[]).length?`<div class="qm">${q.themes.map(esc).join(" · ")}</div>`:""}${q.note?`<div class="qn">${esc(q.note)}</div>`:""}</div>
+      <div class="wbtns"><button class="btn primary" data-qz="1">✓ Got it</button><button class="btn" data-qz="0">✗ Not yet</button></div>`;
+    else html+=`<div class="wbtns"><button class="btn primary" id="qzshow">Show it</button></div>`;
+    html+=`<div class="wsub"><button id="qzmode">${z.mode==="theme"?"Switch to fill the gaps":"Switch to from the theme"}</button></div></div>`;
+  }
+  el.innerHTML=html;
+  el.querySelector("#qzback").addEventListener("click",()=>{qb.quiz=null;render();});
+  el.querySelector("#qzdone")?.addEventListener("click",()=>{qb.quiz=null;render();});
+  el.querySelector("#qzagain")?.addEventListener("click",()=>startQuoteQuiz(z.mode,z.wrong));
+  el.querySelector("#qzshow")?.addEventListener("click",()=>{z.shown=true;render();});
+  el.querySelector("#qzmode")?.addEventListener("click",()=>{z.mode=z.mode==="theme"?"gap":"theme";z.shown=false;render();});
+  el.querySelectorAll("[data-qz]").forEach(b=>b.addEventListener("click",()=>{const q=quotes().find(x=>x.id===z.ids[z.i]);
+    if(q){if(b.dataset.qz==="1"){q.ok=(q.ok||0)+1;z.right.push(q.id);}else{q.ok=0;z.wrong.push(q.id);}q.last=todayISO();}
+    z.i++;z.shown=false;markDay();persist();render();}));
+}
+
 /* ---------- SUBJECTS ---------- */
 let curSubj=null,query="",knowMode=false;
 /* Topics grouped under the specification's own sections, by code prefix. */
@@ -1165,6 +1403,7 @@ function setKnown(id,on){const t=T(id);const tp=findTopic(id);
   if(tp&&!isSchool(tp.subj))state.knownDirty=(state.knownDirty||0)+1;}
 function renderSubjects(){
   const el=document.getElementById("view-subjects");const now=todayWeek();
+  if(qb){if(curSubj!=="englit")qb=null;else{renderQuoteBank(el);return;}}
   if(walk&&SUBJECTS[walk.subj]){renderWalk(el);return;}
   if(!curSubj){
     let html=`<h1 style="font-size:24px;margin-bottom:12px">Subjects</h1>
@@ -1205,18 +1444,19 @@ function renderSubjects(){
   ${coverageCard(curSubj)}
   ${state.knownDirty&&!knowMode?repourBar():""}
   <div class="card"><div class="prog" style="margin-bottom:6px"><i style="width:${Math.round(100*d/S.topics.length)}%;background:${S.color}"></i></div>
-  <div class="knowbar"><span class="muted" style="font-size:13px">${d} of ${S.topics.length} topics${kn?` · ${kn} known`:""}</span><span style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn small ${!kn&&!knowMode?"primary":""}" id="walkstart">Where am I up to?</button><button class="btn small ${knowMode?"primary":""}" id="knowmode">${knowMode?"Done ticking":"Tick what you already know"}</button></span></div>
+  <div class="knowbar"><span class="muted" style="font-size:13px">${d} of ${S.topics.length} topics${kn?` · ${kn} known`:""}</span><span style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn small ${!kn&&!knowMode?"primary":""}" id="walkstart">Where am I up to?</button><button class="btn small ${knowMode?"primary":""}" id="knowmode">${knowMode?"Done ticking":"Tick what you already know"}</button>${curSubj==="englit"?`<button class="btn small ${quotes().length?"":"primary"}" id="qbopen">Quote bank${quotes().length?` · ${quotes().length}`:""}</button>`:""}</span></div>
   ${knowMode?`<p class="muted" style="font-size:13px;margin:0 0 10px">Tick anything school has already covered, or that you have done yourself. It counts as done, skips the content schedule, and comes back for a recall check in ${REVIEW_GAPS[0]} days. Tick again to undo.</p>`:""}`;
   grouped(S).forEach(g=>{const allK=g.topics.every(t=>T(t.id).known);
     html+=`<div class="sect"><span>${esc(g.label)}</span>${knowMode?`<button class="btn small" data-knowall="${esc(g.key)}|${allK?0:1}">${allK?"Untick section":"Know the whole section"}</button>`:""}</div>`;
     g.topics.forEach(t=>{const stt=T(t.id),due=TOPIC_DUE[t.id];const rv=state.reviews["t:"+t.id];
       const meta=stt.known?`Known${rv?` · recall check ${rv.due<=todayISO()?"<b>due now</b>":"on "+fmt(new Date(rv.due+"T00:00:00"))}`:""}`:(stt.done?(stt.mark?`<span class="mark ${stt.mark}">${stt.mark==="got"?"Solid":"Redo"}</span>`:"Done — not yet checked"):(school?"Not yet ticked":(due?`Week ${due} · ${fmt(WEEKS[due-1].start)} ${WEEKS[due-1].start.getFullYear()}`:`<span class="mark shaky">Does not fit before the exams</span>`)));
-      html+=`<div class="topic ${stt.done?"done":""}">${knowMode?`<button class="know ${stt.known?"on":""}" data-know="${t.id}" aria-label="Already know">${stt.known?"✓":""}</button>`:`<input type="checkbox" data-done="${t.id}" ${stt.done?"checked":""} aria-label="Done">`}<div><div class="t"><span class="code">${esc(t[0])}</span>${esc(t[1])}${t.url?` <a href="${esc(t.url)}" style="font-size:13px">↗</a>`:""}</div><div class="m">${meta}${cardsOf(t.id).length?` · ${cardsOf(t.id).length} card${cardsOf(t.id).length===1?"":"s"}`:""}</div></div><button class="more" data-topicopen="${esc(t.id)}" aria-label="Open">›</button></div>`;
+      html+=`<div class="topic ${stt.done?"done":""}">${knowMode?`<button class="know ${stt.known?"on":""}" data-know="${t.id}" aria-label="Already know">${stt.known?"✓":""}</button>`:`<input type="checkbox" data-done="${t.id}" ${stt.done?"checked":""} aria-label="Done">`}<div><div class="t"><span class="code">${esc(t[0])}</span>${esc(t[1])}${t.url?` <a href="${esc(t.url)}" style="font-size:13px">↗</a>`:""}</div><div class="m">${meta}${cardsOf(t.id).length?` · ${cardsOf(t.id).length} card${cardsOf(t.id).length===1?"":"s"}`:""}${curSubj==="englit"&&quotesForTopic(t.id).length?` · ${quotesForTopic(t.id).length} quote${quotesForTopic(t.id).length===1?"":"s"}`:""}</div></div><button class="more" data-topicopen="${esc(t.id)}" aria-label="Open">›</button></div>`;
       if(openTopic===t.id)html+=`<div class="tbody">${objBlock(t)}${stmtBlock(t)}${cardBlock(t)}${mistakeBlock(t.id)}${linkBar(curSubj,t)}${pinRow(t)}</div>`;});});
   html+=`</div>`;el.innerHTML=html;
   el.querySelector("#back").addEventListener("click",()=>{curSubj=null;knowMode=false;openTopic=null;render();});
   el.querySelector("#knowmode").addEventListener("click",()=>{knowMode=!knowMode;render();});
   el.querySelector("#walkstart").addEventListener("click",()=>startWalk(curSubj));
+  el.querySelector("#qbopen")?.addEventListener("click",()=>openQuoteBank(null));
   el.querySelector("#examdate").addEventListener("change",e=>{state.examDates[curSubj]=e.target.value;persist();render();});
   el.querySelectorAll("[data-know]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.know;setKnown(id,!T(id).known);markDay();persist();render();}));
   el.querySelectorAll("[data-knowall]").forEach(b=>b.addEventListener("click",()=>{const[k,on]=b.dataset.knowall.split("|");grouped(S).find(g=>g.key===k).topics.forEach(t=>{if(!!T(t.id).known!==(on==="1"))setKnown(t.id,on==="1");});markDay();persist();render();}));
@@ -1398,16 +1638,17 @@ function renderGuide(){
   <h3>Recall checks</h3><p>A due check shows the topic's objectives as prompts: can you do each one without looking? Mark each ✓ or ✗, then say whether it held. <b>Some gaps</b> puts it on the fix list with the gaps marked, and brings it back in a week.</p>
   <h3>Mistakes log</h3><p>What actually went wrong, kept per topic. A recall check marked <b>Some gaps</b> logs every objective you could not do; a session or test marked shaky asks what dropped the marks; and you can write one under any topic. Open mistakes appear at the top of that topic's next recall check as <b>Last time you got wrong</b>, and each subject page lists all of its open ones so you can read them before a test. Tick a mistake when you can do it without the slip.</p>
   <h3>Your cards</h3><p>Under any topic you can write cards — a short quote on the front, the technique and its effect on the back; a formula; a definition. They come up in that topic's recall checks, front first. Nothing is pre-filled on purpose: writing the card is most of the learning.</p>
+  <h3>Quote bank</h3><p>English Literature is closed book, so the quotes you can write from memory are the marks. <b>Subjects → Eng Literature → Quote bank</b> keeps every quote in one place: pick the text, type the quote, tag its themes and write the one sentence you would say about it. Every set text and all fifteen Power and Conflict poems are listed with a count, so a poem you have nothing for shows as a zero. <b>Test me</b> blanks out a third of the words and asks you to fill them in — or, switched round, gives you the theme and asks for the quote. Three right in a row makes a quote solid; one miss puts it back to the front. Quotes also come up in that text's recall checks, and <b>Print</b> gives you the lot on one sheet for the night before. Nothing is pre-filled: choosing the quote is the learning.</p>
   <h3>Already ahead?</h3><p>In <b>Subjects</b>, open a subject and hit <b>Where am I up to?</b> The course is laid out one topic at a time in specification order, with its objectives and checklist: <b>Done this</b> ticks it as known and shows the next; <b>Not yet</b> is where you are. Or use <b>Tick what you already know</b> to tick from the list, a section at a time. Anything ticked counts as done, leaves the schedule, and goes straight into recall. For subjects the app runs ahead in, a bar then offers to <b>re-pour</b> the plan so those hours go to what is left.</p>
   <h3>Tests</h3>
   <ul><li><b>Retrieval test</b> — every other Saturday. Do you still remember it?</li><li><b>Timed paper section</b> — end of each half-term. Can you do it at exam speed?</li><li><b>Mock</b> — end of each term, full papers at Easter 2028.</li></ul>
   <h3>No scores</h3><p>Nothing here gives you a mark or predicts a grade. After a topic or a test you answer one question: <b>could you do it without notes?</b> If not, it goes on the fix list, and it comes back to be checked. The <b>streak</b> is the only number kept: days you did something.</p>
-  <h3>Profiles</h3><p>The name at the top right is who is signed in. Click it to switch, add a profile, set a PIN, or export one. Each profile keeps its own progress, plan, known topics and cards, all on this PC. To move a profile to another computer, <b>Export</b> it here and <b>Import</b> the file there. A PIN only stops someone else on this PC opening the wrong profile; the files themselves are in the app data folder either way.</p>
+  <h3>Profiles</h3><p>The name at the top right is who is signed in. Click it to switch, add a profile, set a PIN, or export one. Each profile keeps its own progress, plan, known topics, cards and quotes, all on this PC. To move a profile to another computer, <b>Export</b> it here and <b>Import</b> the file there. A PIN only stops someone else on this PC opening the wrong profile; the files themselves are in the app data folder either way.</p>
   <h3>Window size</h3><p>Make the window wide and Today shows the whole week beside the day, with every session one click away. Make it narrow and everything compresses to fit — nothing is ever pushed off the edge.</p>
   <h3>Keyboard</h3><p><b>1–5</b> switch tabs · <b>← →</b> change week · <b>T</b> today · <b>P</b> print the week · <b>Ctrl+K</b> search · <b>Esc</b> closes a menu.</p>
   <h3>Changing the plan</h3><p>The <b>Plan</b> tab is the whole thing laid bare — subjects, who sets their pace, every topic and its hours, fixed weekly sessions, where the links point, and your term dates. Change anything and save; the two years reschedule around it and your ticks stay put. Reset puts the built-in plan back.</p>
   <h3>If you fall behind</h3><p>Use the next holiday to catch up — the plan finishes content early on purpose. If you lose more than that, <b>Progress → Catch up</b> re-pours everything unfinished from this week onwards. If the remaining work no longer fits before the exams, the app names exactly which topics don't fit rather than quietly dropping them.</p>
-  <h3>Specification checklists</h3><p>Every subject except English carries every individual statement the exam board makes for each topic, with a tick each — 242 for Maths, 43 Further Maths, 176 Biology, 182 Chemistry, 195 Physics, 113 Economics, 125 Business, 89 Computer Science. Where the board numbers its statements (all but Business) the numbering was read out of the document by machine and a test fails the build if one goes missing. AQA does not number Business outcomes, so those letters are the app's own, in the order the specification lists them. In the sciences, a <b>B</b>, <b>C</b> or <b>P</b> suffix marks content only separate-science students sit — 142 statements Double Award students never see, and you do. English is texts and skills rather than statements, so it is checked at section level.</p>
+  <h3>Specification checklists</h3><p>Every subject except English carries every individual statement the exam board makes for each topic, with a tick each — 242 for Maths, 43 Further Maths, 176 Biology, 182 Chemistry, 195 Physics, 113 Economics, 125 Business, 89 Computer Science (OCR J277). Where the board numbers its statements (all but Business) the numbering was read out of the document by machine and a test fails the build if one goes missing. AQA does not number Business outcomes and OCR does not number the Computer Science bullets, so those letters are the app's own, in the order each specification lists them - though the Computer Science counts were read from the document. In the sciences, a <b>B</b>, <b>C</b> or <b>P</b> suffix marks content only separate-science students sit — 142 statements Double Award students never see, and you do. English is texts and skills rather than statements, so it is checked at section level.</p>
   <h3>Exam dates</h3><p>Each subject page has a <b>First exam</b> box. The 2028 timetables are not published yet; when they are, write the dates in and the countdown uses the earliest.</p>
   <h3>Your day</h3><p>The card at the top of <b>Today</b> is read straight out of classic Outlook <b>while you have it open</b> on this computer — your timetable, the gaps between lessons where the session fits, and anything a teacher's email says is due ("hand in by Friday", "know by 6pm tomorrow"). It is done with rules, not AI, so it is free, works offline and nothing leaves the machine; the sentence each deadline came from is shown so a wrong guess is obvious. Tick things off as you do them. Newsletters are ignored. Flag an email in Outlook with a date and it shows up too.</p>
   <p class="muted" style="font-size:13px">Term dates are typical English ones — change them in Plan to match your school.</p></div>
@@ -1421,6 +1662,10 @@ function renderGuide(){
   <p class="muted" style="font-size:13px;margin:8px 0 0">Needs classic Outlook <b>open and signed in</b> on this computer — the planner reads your day from it while it's running and never starts it for you, so if the card says "Classic Outlook isn't open", just open Outlook and press Refresh. The new Outlook and the web version don't let other programs read them. Nothing is sent anywhere.</p>
   <p class="muted" style="font-size:13px;margin:8px 0 0">If Outlook pops up <i>"A program is trying to access email address information"</i>, that is this app reading your own inbox. Tick <b>Allow access for</b> (1 minute is plenty — a read takes under a second) and click Allow. To stop it asking for good you have to launch Outlook once as administrator (right‑click Outlook → <b>Run as administrator</b>), then File → Options → Trust Center → Trust Center Settings → Programmatic Access → <b>Never warn me about suspicious activity</b> → OK, and reopen Outlook normally. Outlook asks because it can't confirm the antivirus status to its own satisfaction; Windows Defender is on and up to date.</p></div>
 
+  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Organise my day with AI</h3>
+  <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;cursor:pointer"><input type="checkbox" id="aion" ${settings.aiOrganise?"checked":""} style="width:18px;height:18px;accent-color:var(--ink)">Let a local AI summarise my emails and put each thing on the day it matters</label>
+  <p class="muted" style="font-size:13px;margin:8px 0 0">Runs a small model (<span class="num">${esc(settings.aiModel||"llama3.2:3b")}</span>) through <a href="https://ollama.com">Ollama</a> on this computer — free, and nothing leaves the machine. It only loads for the second or two a refresh takes and then frees the memory, so it won't get in the way of a game. Set it up once: install Ollama, then run <span class="num">ollama pull ${esc(settings.aiModel||"llama3.2:3b")}</span>. If it's off or not installed, the app just falls back to the plain list. The AI only ever reshuffles and shortens what the rules already found — it can't invent tasks.</p></div>
+
   <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Your data</h3>
   <p class="muted" style="font-size:13px;margin:0 0 12px" id="statepath"></p>
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn small" id="backup">Back up now</button><span class="muted" style="font-size:13px" id="backupmsg">Saves a dated copy of your progress and plan.</span></div></div>`;
@@ -1432,6 +1677,10 @@ function renderGuide(){
     settings.outlook=e.target.checked;
     try{await invoke("set_settings",{settings});}catch(err){}
     if(settings.outlook){DAY_ERR=null;loadDay(false);}});
+  document.getElementById("aion")?.addEventListener("change",async e=>{
+    settings.aiOrganise=e.target.checked;
+    try{await invoke("set_settings",{settings});}catch(err){}
+    DAY_ERR=null;loadDay(true);});
   document.getElementById("backup").addEventListener("click",async()=>{const m=document.getElementById("backupmsg");m.textContent="Backing up…";
     try{m.textContent="Saved to "+await window.tracker.backup();}catch(e){m.textContent="Couldn't back up: "+String(e);}});
   window.tracker.statePath().then(p=>{const el=document.getElementById("statepath");if(el)el.textContent="Everything is saved in: "+p;}).catch(()=>{});

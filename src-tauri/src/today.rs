@@ -111,6 +111,10 @@ pub struct Context {
     pub actions: Vec<Action>,
     #[serde(default)]
     pub assignments: Vec<Assignment>,
+    /// The optional AI pass's triaged view (see `ai.rs`): `None` unless the
+    /// user has turned it on. Splits the day into "for today" and "later".
+    #[serde(default)]
+    pub organised: Option<crate::ai::AiPlan>,
     pub mails_scanned: usize,
     /// Set when this is a stale cached copy because a fresh read failed.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -581,7 +585,7 @@ pub fn build(dump: &Dump, today: NaiveDate, fetched_at: String) -> Context {
     let mut events: Vec<Event> = dump.events.iter().map(|e| Event { body: String::new(), ..e.clone() }).collect();
     events.sort_by(|a, b| a.start.cmp(&b.start));
 
-    Context { fetched_at, events, deadlines, actions, assignments, mails_scanned: dump.mails.len(), error: None }
+    Context { fetched_at, events, deadlines, actions, assignments, organised: None, mails_scanned: dump.mails.len(), error: None }
 }
 
 #[cfg(test)]

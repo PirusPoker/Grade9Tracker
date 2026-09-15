@@ -53,14 +53,21 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
         "5.1", "5.2", "5.3", "5.4",
         "6.1", "6.2", "6.3", "6.4",
     ]),
-    // Computer Science (4CP0), Issue 1.
+    // Computer Science - OCR GCSE J277, NOT Edexcel IGCSE 4CP0. The user
+    // corrected the board on 15 September 2026. Read from the specification,
+    // version 3.1 (May 2026): 26 numbered sub-topics across 11 sections.
     ("cs", &[
-        "1.1", "1.2",
-        "2.1", "2.2", "2.3", "2.4", "2.5", "2.6",
-        "3.1", "3.2", "3.3", "3.4",
-        "4.1", "4.2", "4.3", "4.4", "4.5",
-        "5.1", "5.2", "5.3",
-        "6.1",
+        "1.1.1", "1.1.2", "1.1.3",
+        "1.2.1", "1.2.2", "1.2.3", "1.2.4", "1.2.5",
+        "1.3.1", "1.3.2",
+        "1.4.1", "1.4.2",
+        "1.5.1", "1.5.2",
+        "1.6.1",
+        "2.1.1", "2.1.2", "2.1.3",
+        "2.2.1", "2.2.2", "2.2.3",
+        "2.3.1", "2.3.2",
+        "2.4.1",
+        "2.5.1", "2.5.2",
     ]),
     // English Literature - AQA GCSE 8702, not Edexcel. The Power and Conflict
     // cluster is an AQA anthology, which is what identifies the board.
@@ -1040,160 +1047,189 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Evaluate the policies available to achieve balance of payments stability",
     ], "Four components, and the calculation is examinable. Primary income is interest, profit and dividends; secondary income is transfers such as aid and remittances."),
 
-    // ---------- Computer Science (4CP0) ----------
-    ("cs:1.1a", &[
-        "Say what an algorithm is and what it is for",
-        "Read and write algorithms as flowcharts and as pseudocode",
-        "Complete a trace table to work out what an algorithm does with given inputs",
-        "Find and fix a logic error in someone else's algorithm",
-    ], "Fill in a trace table row by row, one line of code at a time. Jumping to what you think the answer is loses every mark when it is wrong."),
+    // ---------- Computer Science (OCR GCSE J277) ----------
+    ("cs:1.1.1", &[
+        "Describe what the CPU does and walk through the fetch-execute cycle",
+        "State the job of the ALU, the control unit, cache and registers",
+        "Explain the von Neumann architecture and what the MAR, MDR, program counter and accumulator each hold",
+        "Distinguish a register that holds an address from one that holds data",
+    ], "The MAR holds an address; the MDR holds data. Swapping them is the single most common CPU-question error."),
 
-    ("cs:1.2", &[
-        "Break a problem down into smaller sub-problems",
-        "Explain abstraction as removing detail that does not matter",
-        "Identify what to keep and what to leave out when modelling a problem",
-        "Explain why decomposition and abstraction make a program easier to write and to maintain",
-    ], "Abstraction is leaving detail out on purpose. Answers that describe it as \"making things simpler\" without saying what is removed score little."),
+    ("cs:1.1.2", &[
+        "Explain how clock speed affects performance",
+        "Explain how cache size affects performance",
+        "Explain how the number of cores affects performance, and why doubling cores does not double speed",
+    ], "More cores only help if the software can split the work. Say that, or the answer reads as if you think cores are just faster."),
 
-    ("cs:1.1c", &[
-        "Carry out and explain a linear search and a binary search",
-        "Carry out and explain a bubble sort and a merge sort",
-        "Say why binary search needs sorted data, and compare it with linear search",
-        "Compare algorithms by how much work they do as the data grows",
-    ], "Binary search only works on sorted data. Applying it to an unsorted list is the standard trap in these questions."),
+    ("cs:1.1.3", &[
+        "Describe what an embedded system is and its characteristics",
+        "Give examples of embedded systems and say what makes each one embedded",
+        "Explain why an embedded system is built the way it is: dedicated, small, cheap, low-power",
+    ], "An embedded system is a computer inside a device that is not a general-purpose computer. A laptop is not one; a washing machine's controller is."),
 
-    ("cs:2.1", &[
-        "Tell syntax, runtime and logic errors apart from what the program does",
-        "Write and use test data: normal, boundary and erroneous",
-        "Build a test plan with expected and actual results",
-        "Debug a program methodically instead of by guessing",
-    ], "Boundary test data means the values right at the edge of what is allowed — and just past it. Picking ordinary values instead misses the point of the test."),
+    ("cs:1.2.1", &[
+        "Explain why a computer needs primary storage",
+        "Compare RAM and ROM, and state the purpose of each",
+        "Explain virtual memory: what it is, when it is used, and why it slows things down",
+        "Explain the role of cache",
+    ], "ROM holds the start-up instructions and does not change; RAM holds what is running now and empties when the power goes. Volatility is the distinction examiners want."),
 
-    ("cs:2.2", &[
-        "Write programs using sequence",
-        "Use selection: if, elif and else, including nested conditions",
-        "Use iteration: for and while loops, and choose the right one",
-        "Combine the three constructs to solve a problem",
-    ], "Use a for loop when you know how many repeats, a while loop when you do not. Choosing wrong usually means an infinite loop or one that never runs."),
+    ("cs:1.2.2", &[
+        "Explain why secondary storage is needed",
+        "Describe optical, magnetic and solid-state storage and how each works",
+        "Choose a suitable device for a given use and justify it",
+        "Compare devices on capacity, speed, portability, durability, reliability and cost",
+    ], "Justify the choice against the scenario, not in general. A phone needs solid state for durability and size; an archive needs capacity per pound."),
 
-    ("cs:2.3", &[
-        "Use the data types integer, real, Boolean, character and string, and say why each is needed",
-        "Use lists and two-dimensional lists, and index them correctly",
-        "Use string handling: length, slicing, concatenation, case conversion",
-        "Use records to hold related fields together",
-    ], "Indexes start at 0, so the last item of a list of n is at n − 1. Off-by-one on the last element is the most common bug in these questions."),
+    ("cs:1.2.3", &[
+        "Know the units from bit to petabyte, and that OCR uses 1,000 not 1,024",
+        "Explain why data must be in binary for a computer to process it",
+        "Calculate file sizes and the capacity a set of files needs",
+    ], "OCR defines a kilobyte as 1,000 bytes. Use 1,024 and every capacity calculation is marked wrong."),
 
-    ("cs:2.4", &[
-        "Take input from the user and produce clear output",
-        "Convert between data types when reading input",
-        "Validate input with range, type, length and presence checks",
-        "Read from and write to a text file",
-    ], "input() always returns a string. Doing arithmetic on it without int() or float() is the error that breaks most exam programs."),
+    ("cs:1.2.4", &[
+        "Convert denary to binary and back, up to 8 bits, and add two 8-bit binary numbers including overflow",
+        "Convert denary and binary to and from two-digit hexadecimal",
+        "Perform binary shifts and explain their effect",
+        "Explain character sets, ASCII and Unicode, and how bits per character limits the set",
+        "Explain how an image is stored as pixels with colour depth and resolution, and the effect on quality and file size",
+        "Explain metadata",
+        "Explain how sound is sampled, and the effect of sample rate, duration and bit depth on quality and file size",
+    ], "A left shift multiplies by two per place, a right shift divides. Say what happens to bits that fall off the end - that is where the mark is."),
 
-    ("cs:2.5", &[
-        "Use the arithmetic operators, including integer division and modulus",
-        "Use the relational operators to build conditions",
-        "Use the logical operators AND, OR and NOT",
-        "Work out the order in which operators are applied in an expression",
-    ], "Use == to compare and = to assign. Writing = inside an if is the classic slip."),
+    ("cs:1.2.5", &[
+        "Explain why files are compressed",
+        "Compare lossy and lossless compression",
+        "Choose a compression type for a given file and justify it",
+    ], "Lossy loses data permanently and is fine for photos and music; lossless keeps everything and is required for text and programs."),
 
-    ("cs:2.6", &[
-        "Write and call a subprogram, and say why programs are broken into them",
-        "Tell functions and procedures apart by whether they return a value",
-        "Pass parameters and use returned values",
-        "Explain local and global scope, and why local variables are usually better",
-    ], "A variable made inside a subprogram disappears when it ends. Trying to use it outside is a scope error, not a typo."),
+    ("cs:1.3.1", &[
+        "Compare LANs and WANs",
+        "Explain what affects network performance",
+        "Explain the roles of computers in client-server and peer-to-peer networks",
+        "Name the hardware needed to build a LAN: access points, routers, switches, NICs, transmission media",
+        "Explain the Internet as a network of networks, and the roles of DNS, hosting, the cloud, and web servers and clients",
+        "Compare star and mesh topologies",
+    ], "A switch sends data to the one device it is for; a hub sends it to everything. If you cannot say what a switch does differently, you cannot get the mark."),
 
-    ("cs:3.1", &[
-        "Convert between denary, binary and hexadecimal",
-        "Add binary numbers and identify overflow",
-        "Represent negative numbers using two's complement",
-        "Perform left and right binary shifts and say what each does to the value",
-    ], "A left shift of one multiplies by two, a right shift divides by two. Getting the direction backwards is the usual error."),
+    ("cs:1.3.2", &[
+        "Compare wired and wireless connections",
+        "Explain why data is encrypted on a network",
+        "Explain IP addressing and MAC addressing and how they differ",
+        "Explain why standards matter",
+        "Describe what TCP/IP, HTTP, HTTPS, FTP, POP, IMAP and SMTP each do",
+        "Explain the concept of layers and why protocols are layered",
+    ], "A MAC address is fixed to the hardware; an IP address can change with the network. Learn what each of the seven protocols is for, one line each."),
 
-    ("cs:3.2", &[
-        "Explain how text is represented using character sets such as ASCII and Unicode",
-        "Explain how images are represented, and the effect of resolution and colour depth",
-        "Explain how sound is represented, and the effect of sample rate and bit depth",
-        "Calculate the file size of an image or a sound file",
-    ], "Image file size is width × height × colour depth, and the answer is in bits. Convert to bytes before you compare it with anything."),
+    ("cs:1.4.1", &[
+        "Describe malware and its forms",
+        "Describe social engineering, including phishing, and why people are the weak point",
+        "Describe brute-force attacks, denial of service, data interception and theft",
+        "Explain the concept of SQL injection",
+    ], "Name the attack, then say what it does and what it is after. Naming it alone is one mark; the explanation is the rest."),
 
-    ("cs:3.3", &[
-        "Convert between bits, bytes, kilobytes, megabytes, gigabytes and terabytes",
-        "Calculate the storage needed for a set of files",
-        "Explain lossy and lossless compression and when each is appropriate",
-        "Explain why compression is used and what it costs",
-    ], "Lossy compression throws data away permanently. Recommending it for a program file or a document is wrong — that data cannot come back."),
+    ("cs:1.4.2", &[
+        "Explain penetration testing",
+        "Explain how anti-malware software, firewalls, user access levels, passwords, encryption and physical security each prevent attacks",
+        "Match a prevention method to the threat it addresses",
+    ], "Match the defence to the attack. A firewall does nothing against phishing; user training does. Mismatched pairs score nothing."),
 
-    ("cs:3.4", &[
-        "Explain why data is encrypted",
-        "Apply a Caesar cipher to encrypt and decrypt a message",
-        "Explain the idea of a key, and why key length matters",
-        "Explain the weakness of simple substitution ciphers",
-    ], "Encryption scrambles data so only a key can read it. It does not stop the data being stolen, only being understood."),
+    ("cs:1.5.1", &[
+        "Explain the purpose of an operating system",
+        "Describe the user interface, and memory management and multitasking",
+        "Describe peripheral management and drivers",
+        "Describe user management and file management",
+    ], "Five functions, each a separate mark. Learn them as a list you can reel off and then say what each one does."),
 
-    ("cs:4.1", &[
-        "Explain the input–process–output model",
-        "Compare sequential, parallel and other computational models",
-        "Explain what computational modelling is used for and why",
-        "Explain the limits of a model",
-    ], "A model simplifies reality. Any evaluation should say what the model leaves out and why that matters."),
-
-    ("cs:4.2", &[
-        "Describe the parts of the CPU and what each does",
-        "Explain the fetch–decode–execute cycle",
-        "Explain what affects CPU performance: clock speed, cores and cache",
-        "Compare RAM, ROM, virtual memory and secondary storage",
-    ], "RAM is volatile and ROM is not. Describing RAM as where files are stored permanently is the standard error."),
-
-    ("cs:4.3", &[
-        "Recognise the AND, OR and NOT gates and their symbols",
-        "Complete a truth table for a single gate",
-        "Complete a truth table for a combination of gates",
-        "Build a logic circuit from a written description",
-    ], "Work a combined circuit out one gate at a time, writing each intermediate column in the table. Trying to do it in your head is where it goes wrong."),
-
-    ("cs:4.4", &[
-        "Explain what an operating system does: managing files, processes, hardware and users",
+    ("cs:1.5.2", &[
         "Explain the purpose of utility software",
-        "Explain the difference between system software and application software",
-        "Explain how the operating system sits between the user and the hardware",
-    ], "Name the specific management job — files, memory, processes, peripherals — rather than saying the OS \"runs the computer\"."),
+        "Describe encryption software, defragmentation and data compression as utilities",
+        "Explain why defragmentation speeds up a magnetic disk and does nothing for a solid-state one",
+    ], "Defragmenting an SSD is pointless and wears it out. The question that asks which drive benefits is testing exactly that."),
 
-    ("cs:4.5", &[
-        "Compare high-level and low-level languages",
-        "Explain why programs must be translated into machine code",
-        "Compare compilers and interpreters and their advantages",
-        "Explain the role of an assembler",
-    ], "A compiler translates the whole program before it runs; an interpreter translates line by line as it runs. That difference is what every question here turns on."),
+    ("cs:1.6.1", &[
+        "Discuss the ethical, legal, cultural, environmental and privacy impacts of digital technology",
+        "Describe the Data Protection Act 2018, the Computer Misuse Act 1990 and the Copyright, Designs and Patents Act 1988",
+        "Compare open-source and proprietary software licences",
+        "Build a balanced argument on a technology issue and reach a conclusion",
+    ], "Match the law to the situation: hacking is Computer Misuse, holding customer data is Data Protection, copying software is Copyright. Naming the wrong Act scores nothing."),
 
-    ("cs:5.1", &[
-        "Explain why computers are connected in networks, and compare LAN and WAN",
-        "Compare network topologies: star, mesh and bus",
-        "Explain protocols and the idea of layers",
-        "Compare wired and wireless transmission, and explain bandwidth and latency",
-    ], "Protocols are a set of agreed rules, not hardware. Describing a protocol as a device is a common mix-up."),
+    ("cs:2.1.1", &[
+        "Explain abstraction and give an example",
+        "Explain decomposition and give an example",
+        "Explain algorithmic thinking",
+    ], "Abstraction removes detail that does not matter; decomposition splits the problem into parts. Do not describe one when asked for the other."),
 
-    ("cs:5.2", &[
-        "Explain why network security matters",
-        "Describe threats: malware, phishing, brute force, denial of service, social engineering",
-        "Explain protections: firewalls, encryption, authentication, access levels, backups",
-        "Recommend the right protection for a stated threat",
-    ], "Match the protection to the threat. A firewall does not stop a user handing over their password to a phishing email — training does."),
+    ("cs:2.1.2", &[
+        "Identify the inputs, processes and outputs of a problem",
+        "Draw and read structure diagrams",
+        "Create, interpret, correct, complete and refine algorithms in pseudocode, flowcharts and the Reference Language",
+        "Identify common errors in algorithms",
+        "Complete a trace table for a given algorithm",
+    ], "A trace table records the value of every variable at every step. Missing a column or skipping a step loses the whole table's marks."),
 
-    ("cs:5.3", &[
-        "Explain what the internet is and how it differs from the world wide web",
-        "Explain IP addresses, DNS and how a page request is routed",
-        "Explain the role of servers, clients and hosting",
-        "Explain how web pages are built and delivered",
-    ], "The internet is the network; the web is one service running on it. Treating the two as the same thing loses the mark."),
+    ("cs:2.1.3", &[
+        "Carry out a binary search and a linear search by hand, and say when each applies",
+        "Carry out bubble sort, merge sort and insertion sort by hand",
+        "Show each pass of a sort on given data",
+        "Identify a sort or search from a description or a trace",
+    ], "Binary search needs sorted data. Say so. And show every pass of a sort, not just the end result - the marks are in the passes."),
 
-    ("cs:6.1", &[
-        "Explain the environmental impact of computing, including energy use and e-waste",
-        "Explain ethical issues: privacy, surveillance and the digital divide",
-        "Explain the relevant legal issues, including data protection and computer misuse",
-        "Discuss emerging trends and weigh their benefits against their risks",
-    ], "These questions want a judgement, not a list. Give both sides, then say which weighs more and why."),
+    ("cs:2.2.1", &[
+        "Use variables, constants, operators, inputs, outputs and assignments",
+        "Use sequence, selection and iteration, including count- and condition-controlled loops",
+        "Use the arithmetic operators, including MOD and DIV",
+        "Use AND, OR and NOT",
+    ], "MOD gives the remainder, DIV the whole-number quotient. 17 MOD 5 is 2; 17 DIV 5 is 3. These are examined directly."),
+
+    ("cs:2.2.2", &[
+        "Use integer, real, Boolean, character and string data types",
+        "Choose the right data type for a value",
+        "Cast between types and say when it is needed",
+    ], "Input arrives as a string. If you are going to do arithmetic on it, cast it first - forgetting is the classic Paper 2 error."),
+
+    ("cs:2.2.3", &[
+        "Manipulate strings: length, substrings, case, concatenation",
+        "Open, read, write and close a text file",
+        "Use records to store data",
+        "Write SQL to search for data with SELECT, FROM and WHERE",
+        "Use one- and two-dimensional arrays to solve problems",
+        "Write and call functions and procedures with parameters and return values",
+        "Generate random numbers",
+    ], "A function returns a value; a procedure does not. Use the right word and the right structure - it is examined in the Reference Language."),
+
+    ("cs:2.3.1", &[
+        "Explain defensive design: anticipating misuse and authentication",
+        "Write input validation and explain what it checks",
+        "Make a program maintainable with sub programs, naming conventions, indentation and comments",
+    ], "Validation checks the input is sensible; authentication checks who the user is. They are different questions and often confused."),
+
+    ("cs:2.3.2", &[
+        "Explain why programs are tested",
+        "Compare iterative testing during development with final testing",
+        "Identify syntax errors and logic errors in given code",
+        "Choose normal, boundary, invalid and erroneous test data and say what each is for",
+        "Refine an algorithm in response to test results",
+    ], "A syntax error stops the program running; a logic error runs and gives the wrong answer. Boundary data sits exactly on the edge of what is allowed."),
+
+    ("cs:2.4.1", &[
+        "Draw and read simple logic diagrams using AND, OR and NOT",
+        "Complete truth tables",
+        "Combine operators into more complex diagrams and expressions",
+        "Apply logical operators in truth tables to solve problems",
+    ], "Work a truth table column by column, one gate at a time. Trying to do the whole expression in your head is how the last column goes wrong."),
+
+    ("cs:2.5.1", &[
+        "Compare high-level and low-level languages and say what each is for",
+        "Explain what a translator does and why one is needed",
+        "Compare a compiler with an interpreter",
+    ], "A compiler translates the whole program once and reports all errors; an interpreter translates line by line and stops at the first. Give both halves."),
+
+    ("cs:2.5.2", &[
+        "Name the common tools in an IDE: editor, error diagnostics, run-time environment, translator",
+        "Explain what each tool is for",
+        "Explain how an IDE helps a programmer write and debug code",
+    ], "Say what the tool does for the programmer, not just its name. An editor with syntax highlighting catches typos as you type - that is the mark."),
 
     // ---------- English Literature (AQA GCSE 8702) ----------
     ("englit:3.1.1a", &[
