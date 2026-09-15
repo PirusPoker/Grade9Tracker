@@ -474,6 +474,34 @@ table{max-width:100%}
 @media (max-width:560px){.top-in{padding:0 12px}.pkpin{padding-left:0}}
 @media print{.top,.overlay{display:none!important}}
 
+/* mistakes log */
+.mist{border:1px solid var(--line);border-radius:var(--r-sm);margin-bottom:15px;background:var(--sunken)}
+.mist>summary{cursor:pointer;padding:10px 13px;display:flex;align-items:center;gap:9px;list-style:none}
+.mist>summary::-webkit-details-marker{display:none}
+.mist>summary::after{content:"";margin-left:auto;width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg)}
+.mist[open]>summary::after{transform:rotate(-135deg)}
+.mist>p{padding:0 13px 10px}
+.mrow{display:flex;gap:10px;align-items:flex-start;padding:8px 13px;border-top:1px solid var(--line);font-size:13.5px}
+.mrow input[type=checkbox]{width:17px;height:17px;accent-color:var(--good);margin-top:2px;flex:none}
+.mrow>div{flex:1;min-width:0}
+.mrow .mt{font-weight:500;line-height:1.4}
+.mrow .mm{font-size:12px;color:var(--muted);margin-top:2px}
+.mrow.fixed .mt{color:var(--muted);text-decoration:line-through}
+.mrow .icon{width:26px;height:26px;font-size:13px}
+.card>.mrow{padding-left:0;padding-right:0}
+.card>.mrow:first-of-type{border-top:0}
+.madd{display:flex;gap:6px;padding:10px 13px 4px;border-top:1px solid var(--line)}
+.madd input{font-size:13px;padding:7px 9px}
+.mquick{display:flex;gap:6px;margin:0 0 12px}
+.mquick input{font-size:13px;padding:7px 9px}
+.mquickrow{display:grid;gap:6px;margin-top:10px}
+.mquickrow .pill{justify-self:start}
+.lasttime{border-left:3px solid var(--bad);background:var(--bad-soft);border-radius:var(--r-sm);padding:9px 12px;margin:0 0 12px;font-size:13.5px}
+.lasttime b{display:block;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--bad);margin-bottom:4px}
+.lasttime ul{margin:0;padding-left:18px}
+.lasttime li{margin:2px 0;color:#7A1F1F}
+@media (max-width:560px){.madd,.mquick{flex-wrap:wrap}.madd .btn,.mquick .btn{width:100%}}
+
 /* print: the whole week on one sheet */
 .printweek{display:none}
 @media print{
@@ -576,7 +604,7 @@ function dayMinutes(d){return d.items.filter(it=>!it.skipped).reduce((n,it)=>n+(
 function dayCounts(d){const live=d.items.filter(it=>!it.skipped&&it.key);return {n:live.length,done:live.filter(itemDone).length};}
 
 /* ---------- STATE ---------- */
-const BLANK={topics:{},tests:{},sessions:{},reviews:{},days:{},stmts:{},inbox:{},moves:{},skips:{},cards:{},examDates:{}};
+const BLANK={topics:{},tests:{},sessions:{},reviews:{},days:{},stmts:{},inbox:{},moves:{},skips:{},cards:{},mistakes:{},examDates:{}};
 let state={...BLANK};
 let LS="grade9-tracker-v2";
 let saveTimer=null;
@@ -642,7 +670,9 @@ function failReview(key){const r=state.reviews[key];if(!r)return;
   r.stage=0;r.due=stagger(addDays(new Date(),REVIEW_GAPS[0]),key);
   // A failed recall on a topic is a real gap: it goes on the fix list too.
   if(key.startsWith("t:")){const t=T(key.slice(2));t.done=true;t.mark="shaky";t.fixed=false;
-    const m=recallMarks[key]||{};t.gaps=Object.entries(m).filter(([,v])=>v===false).map(([i])=>+i);}
+    const m=recallMarks[key]||{};t.gaps=Object.entries(m).filter(([,v])=>v===false).map(([i])=>+i);
+    const tp=findTopic(key.slice(2));if(tp)t.gaps.forEach(i=>addMistake(tp.id,tp.objectives[i],"recall"));
+    const inp=document.querySelector(`[data-mquick="${CSS.escape(key.slice(2))}"]`);if(inp)addMistake(key.slice(2),inp.value,"recall");}
   delete recallMarks[key];markDay();persist();render();}
 
 function itemDone(it){if(it.kind==="topic")return !!state.sessions[it.key]||T(it.entry.topic.id).done;
@@ -704,6 +734,52 @@ function cardBlock(topic){
 function quizCards(id){const cs=cardsOf(id);if(!cs.length)return "";
   return `<div class="quiz">`+cs.map((c,i)=>{const k=id+"|"+i,on=revealed.has(k);return `<button class="qcard ${on?"open":""}" data-flip="${esc(k)}"><span class="f">${esc(c.f)}</span>${on?`<span class="b">${esc(c.b)}</span>`:`<span class="hint">tap to reveal</span>`}</button>`;}).join("")+`</div>`;}
 
+/* ---------- MISTAKES LOG ----------
+   What actually went wrong, per topic, so it is in front of you the next time
+   the topic comes round. Fed three ways: a recall check marked "some gaps"
+   logs each objective you could not do; a session or test marked shaky asks
+   what dropped the marks; and you can write one under any topic at any time.
+   A mistake stays open until you tick it fixed. */
+const mistakesOf=key=>state.mistakes[key]||[];
+const openMistakes=key=>mistakesOf(key).filter(m=>!m.fixed);
+function addMistake(key,text,src){const t=String(text||"").trim();if(!t)return false;
+  const list=(state.mistakes[key]=state.mistakes[key]||[]);
+  if(list.some(m=>!m.fixed&&m.text===t))return false;
+  list.push({t:todayISO(),text:t,src:src||"manual",fixed:false});return true;}
+/* Every open mistake in a subject, topic-level and subject-level, newest first. */
+function subjectMistakes(subj){const out=[];
+  SUBJECTS[subj].topics.forEach(t=>openMistakes(t.id).forEach((m,i)=>out.push({key:t.id,i:mistakesOf(t.id).indexOf(m),m,label:t[1],code:t[0]})));
+  openMistakes("subj:"+subj).forEach(m=>out.push({key:"subj:"+subj,i:mistakesOf("subj:"+subj).indexOf(m),m,label:"Tests and papers",code:""}));
+  return out.sort((a,b)=>b.m.t.localeCompare(a.m.t));}
+const openMistakeCount=()=>Object.values(state.mistakes).reduce((n,l)=>n+l.filter(m=>!m.fixed).length,0);
+const srcLabel={recall:"recall check",test:"test",session:"session",manual:"note"};
+function mistakeRow(key,i,m,label){
+  return `<div class="mrow ${m.fixed?"fixed":""}"><input type="checkbox" data-mfix="${esc(key)}|${i}" ${m.fixed?"checked":""} aria-label="Fixed"><div><div class="mt">${esc(m.text)}</div><div class="mm">${label?`${esc(label)} · `:""}${fmt(new Date(m.t+"T00:00:00"))} · ${srcLabel[m.src]||m.src}</div></div><button class="icon" data-mdel="${esc(key)}|${i}" aria-label="Delete">×</button></div>`;}
+const openMist=new Set();
+function mistakeBlock(key,placeholder){
+  const all=mistakesOf(key),open=all.filter(m=>!m.fixed);
+  return `<details class="mist" data-mistbox="${esc(key)}" ${openMist.has(key)||open.length?"open":""}><summary><span class="eyebrow">Mistakes</span><span class="chip ${open.length?"bad":""}">${open.length?`${open.length} open`:(all.length?"all fixed":"none")}</span></summary>
+    ${all.map((m,i)=>mistakeRow(key,i,m,"")).join("")}
+    <div class="madd"><input type="text" data-mtext="${esc(key)}" placeholder="${esc(placeholder||"What went wrong? Be specific: the exact step, the exact mistake")}" maxlength="240"><button class="btn small" data-madd="${esc(key)}">Log it</button></div>
+    <p class="muted" style="font-size:12.5px;margin:6px 0 0">Tick a mistake when you have fixed it. Open ones show up the next time this topic comes round.</p></details>`;}
+/* Shown at the top of a recall check: what went wrong last time. */
+function lastTimeBlock(key){const open=openMistakes(key);if(!open.length)return "";
+  return `<div class="lasttime"><b>Last time you got wrong</b><ul>${open.map(m=>`<li>${esc(m.text)}</li>`).join("")}</ul></div>`;}
+function bindMistakes(root){
+  root.querySelectorAll("[data-mistbox]").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)openMist.add(d.dataset.mistbox);else openMist.delete(d.dataset.mistbox);}));
+  root.querySelectorAll("[data-madd]").forEach(b=>b.addEventListener("click",()=>{const key=b.dataset.madd;const inp=root.querySelector(`[data-mtext="${CSS.escape(key)}"]`);
+    if(addMistake(key,inp&&inp.value,"manual")){openMist.add(key);markDay();persist();render();const n=document.querySelector(`[data-mtext="${CSS.escape(key)}"]`);if(n)n.focus();}else if(inp)inp.focus();}));
+  root.querySelectorAll("[data-mtext]").forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();root.querySelector(`[data-madd="${CSS.escape(i.dataset.mtext)}"]`)?.click();}}));
+  root.querySelectorAll("[data-mfix]").forEach(cb=>cb.addEventListener("change",()=>{const[key,i]=cb.dataset.mfix.split("|");const m=mistakesOf(key)[+i];if(m){m.fixed=cb.checked;if(cb.checked){m.fixedAt=todayISO();markDay();}persist();render();}}));
+  root.querySelectorAll("[data-mdel]").forEach(b=>b.addEventListener("click",()=>{const[key,i]=b.dataset.mdel.split("|");const l=mistakesOf(key);l.splice(+i,1);if(!l.length)delete state.mistakes[key];persist();render();}));
+  root.querySelectorAll("[data-mlog]").forEach(b=>b.addEventListener("click",()=>{const[key,src]=b.dataset.mlog.split("|");const inp=root.querySelector(`[data-mquick="${CSS.escape(key)}"]`);
+    if(addMistake(key,inp&&inp.value,src)){markDay();persist();render();}else if(inp)inp.focus();}));
+  root.querySelectorAll("[data-mquick]").forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();root.querySelector(`[data-mlog^="${CSS.escape(i.dataset.mquick)}|"]`)?.click();}}));
+}
+/* A one-line "what went wrong" box for the moment something is marked shaky. */
+function quickMistake(key,src,placeholder){
+  return `<div class="mquick"><input type="text" data-mquick="${esc(key)}" placeholder="${esc(placeholder)}" maxlength="240"><button class="btn small" data-mlog="${esc(key)}|${src}">Log it</button></div>`;}
+
 /* ---------- RECALL CHECKS ----------
    A due review shows the topic's objectives as prompts: can you do each one
    without looking? Mark each, then say whether the whole thing held. */
@@ -714,12 +790,12 @@ function reviewCard(r){
   const stage=`check ${Math.min(r.stage+1,REVIEW_GAPS.length)} of ${REVIEW_GAPS.length}`;
   let body="";
   if(tp&&tp.objectives.length){
-    body=`<div class="recall">`+tp.objectives.map((o,i)=>`<div class="rq ${m[i]===true?"yes":(m[i]===false?"no":"")}"><span>${esc(o)}</span><span class="yn"><button data-rq="${esc(r.key)}|${i}|1" aria-label="Can do">✓</button><button data-rq="${esc(r.key)}|${i}|0" aria-label="Cannot">✗</button></span></div>`).join("")+`</div>`+quizCards(topicId);
+    body=(topicId?lastTimeBlock(topicId):"")+`<div class="recall">`+tp.objectives.map((o,i)=>`<div class="rq ${m[i]===true?"yes":(m[i]===false?"no":"")}"><span>${esc(o)}</span><span class="yn"><button data-rq="${esc(r.key)}|${i}|1" aria-label="Can do">✓</button><button data-rq="${esc(r.key)}|${i}|0" aria-label="Cannot">✗</button></span></div>`).join("")+`</div>`+quizCards(topicId);
   }else body=`<p class="muted" style="font-size:13.5px;margin:0 0 10px">Do a few questions on it from memory, then say honestly whether it held.</p>`;
   const anyNo=Object.values(m).some(v=>v===false);
   return `<div class="card session review" style="--c:${S?S.color:"var(--accent)"}"><div class="head"><span class="pill"><span class="dot" style="background:${S?S.color:"var(--accent)"}"></span>Recall check</span><span class="chip">${stage}</span></div>
     <h2 style="font-size:17px">${esc(r.label)}</h2><div class="sub">Closed book. No notes until you have marked every line.</div>${body}
-    <div class="selfcheck"><span class="q">Did it hold?</span><button class="btn small ${anyNo?"":"primary"}" data-pass="${esc(r.key)}">All good</button><button class="btn small ${anyNo?"primary":""}" data-fail="${esc(r.key)}">Some gaps</button></div></div>`;}
+    <div class="selfcheck"><span class="q">Did it hold?</span><button class="btn small ${anyNo?"":"primary"}" data-pass="${esc(r.key)}">All good</button><button class="btn small ${anyNo?"primary":""}" data-fail="${esc(r.key)}">Some gaps</button></div>${topicId?`<div class="mquick" style="margin-top:-4px"><input type="text" data-mquick="${esc(topicId)}" placeholder="What went wrong? Logged against the topic if you pick Some gaps" maxlength="240"></div>`:""}</div>`;}
 
 /* ---------- YOUR DAY ----------
    Read out of classic Outlook by the Rust side (src-tauri/src/outlook.rs) and
@@ -908,13 +984,13 @@ function renderItem(it,w,d){
 function itemBody(it,w){
   if(it.kind==="topic"){const t=it.entry.topic,stt=T(t.id),done=itemDone(it);
     return `<div class="sub">Spec ${esc(t[0])}${it.entry.parts>1&&!it.entry.final?" · carry on where you left off":""}${stt.known?" · ticked as already known":""}</div>
-    ${objBlock(t)}${stmtBlock(t)}${cardBlock(t)}${linkBar(it.subj,t)}${pinRow(t)}
+    ${objBlock(t)}${stmtBlock(t)}${cardBlock(t)}${mistakeBlock(t.id)}${linkBar(it.subj,t)}${pinRow(t)}
     ${done?"":`<div class="steps">
       <div class="step"><span class="n">1</span><div><b>Read the notes · 20 min</b><span>Open the revision notes above for this topic. Then close them and write down what you remember. Fill the gaps.</span></div></div>
       <div class="step"><span class="n">2</span><div><b>Topic questions · 30 min</b><span>${it.subj==="bus"||it.subj==="econ"?"Work through the topic questions, then write one extended answer using a chain of reasoning: point → because → which means → therefore.":it.subj==="cs"?"Work through the topic questions, then 15 minutes of Python on this idea.":"Work through the topic questions, hardest first. The easy ones don't move you towards a 9."}</span></div></div>
       ${it.entry.final?`<div class="step"><span class="n">3</span><div><b>Check yourself · 10 min</b><span>Close everything and do a few more questions from memory. Then answer the question below honestly.</span></div></div>`:""}
     </div>`}
-    ${it.entry.final&&done?`<div class="selfcheck"><span class="q">Could you do it without notes?</span><button class="btn small ${stt.mark==="got"?"done":""}" data-mark="${t.id}|got">Yes</button><button class="btn small ${stt.mark==="shaky"?"done":""}" data-mark="${t.id}|shaky">Not really</button>${stt.mark?`<span class="mark ${stt.mark}">${stt.mark==="got"?"Solid":"On the fix list"}</span>`:""}</div>`:""}`;}
+    ${it.entry.final&&done?`<div class="selfcheck"><span class="q">Could you do it without notes?</span><button class="btn small ${stt.mark==="got"?"done":""}" data-mark="${t.id}|got">Yes</button><button class="btn small ${stt.mark==="shaky"?"done":""}" data-mark="${t.id}|shaky">Not really</button>${stt.mark?`<span class="mark ${stt.mark}">${stt.mark==="got"?"Solid":"On the fix list"}</span>`:""}</div>${stt.mark==="shaky"?quickMistake(t.id,"session","What went wrong? The exact step or the exact slip"):""}`:""}`;}
   if(it.kind==="rev"){const S=SUBJECTS[it.subj];
     if(isSchool(it.subj)){const known=S.topics.filter(t=>T(t.id).known||T(t.id).done);
       return `<div class="sub">School sets the pace in ${esc(S.name)}, so this is recall, not new content. Closed book.</div>
@@ -929,9 +1005,10 @@ function itemBody(it,w){
     <div class="links">${t.subjects.filter(s=>SUBJECTS[s]).flatMap(s=>SUBJECTS[s].resources.filter(r=>/paper|question/i.test(r.label)).map(r=>`<a class="btn small" href="${esc(r.url)}">${esc(SUBJECTS[s].name)}: ${esc(r.label)} ↗</a>`)).join("")}</div>
     <div class="scores">`+t.subjects.filter(s=>SUBJECTS[s]).map(s=>{const m=ts.marks[s];
       return `<label><span class="s"><span class="dot" style="background:${SUBJECTS[s].color}"></span>${SUBJECTS[s].name}</span><button class="btn small ${m==="got"?"done":""}" data-tmark="${t.id}|${s}|got">Solid</button><button class="btn small ${m==="shaky"?"done":""}" data-tmark="${t.id}|${s}|shaky">Shaky</button></label>`;}).join("")+`</div>
-    <p class="muted" style="font-size:13px;margin:4px 0 0">Mark it with the mark scheme, then say for each subject whether it held up. Anything shaky goes on the fix list.</p>`;}
+    <p class="muted" style="font-size:13px;margin:4px 0 0">Mark it with the mark scheme, then say for each subject whether it held up. Anything shaky goes on the fix list.</p>
+    ${t.subjects.filter(s=>SUBJECTS[s]&&ts.marks[s]==="shaky").map(s=>`<div class="mquickrow"><span class="pill"><span class="dot" style="background:${SUBJECTS[s].color}"></span>${esc(SUBJECTS[s].name)}</span>${quickMistake("subj:"+s,"test","What dropped marks in ${SUBJECTS[s].name}?")}</div>`).join("")}`;}
   if(it.kind==="flash"){const n=Object.values(state.cards).reduce((a,c)=>a+c.length,0);
-    return `<div class="sub">Quick retrieval on your own cards — poems, formulae, definitions. ${n?`You have ${n} card${n===1?"":"s"}.`:"You have no cards yet: add some under any topic."} Then rest — Sunday is yours.</div>`;}
+    return `<div class="sub">Quick retrieval on your own cards — poems, formulae, definitions. ${n?`You have ${n} card${n===1?"":"s"}.`:"You have no cards yet: add some under any topic."}${openMistakeCount()?` Then read your ${openMistakeCount()} open mistake${openMistakeCount()===1?"":"s"} — Subjects › each subject lists them.`:""} Then rest — Sunday is yours.</div>`;}
   return "";}
 function renderSpecial(it,w){
   if(it.kind==="catchup"){const overdue=[];WEEKS.slice(0,w.n-1).forEach(x=>SUBJ_IDS.forEach(s=>x.plan[s].forEach(e=>{if(e.kind==="topic"&&e.final&&!T(e.topic.id).done)overdue.push(e.topic);})));
@@ -967,6 +1044,7 @@ function bind(root){
   root.querySelectorAll("[data-delcard]").forEach(b=>b.addEventListener("click",()=>{const[id,i]=b.dataset.delcard.split("|");(state.cards[id]||[]).splice(+i,1);persist();render();}));
   root.querySelectorAll("[data-flip]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.flip;if(revealed.has(k))revealed.delete(k);else revealed.add(k);render();}));
   root.querySelectorAll("[data-rq]").forEach(b=>b.addEventListener("click",()=>{const[key,i,v]=b.dataset.rq.split("|");(recallMarks[key]=recallMarks[key]||{})[i]=v==="1";render();}));
+  bindMistakes(root);
   root.querySelectorAll("[data-fix]").forEach(cb=>cb.addEventListener("change",()=>toggleFix(cb.dataset.fix)));
   root.querySelectorAll("[data-pass]").forEach(b=>b.addEventListener("click",()=>passReview(b.dataset.pass)));
   root.querySelectorAll("[data-fail]").forEach(b=>b.addEventListener("click",()=>failReview(b.dataset.fail)));
@@ -1123,6 +1201,7 @@ function renderSubjects(){
   <p class="muted" style="font-size:14px;margin:6px 0 12px">${esc(S.full)} · ${esc(S.papers)} · <a href="${esc(S.spec)}" target="_blank" rel="noopener">spec ↗</a><br>${school?`<b>School sets the pace.</b> Tick topics as known when school finishes them; your weekly sessions are recall on those, and each one comes back to be checked at ${REVIEW_GAPS.join(", ")} days.`:`All content done by week ${S.contentEndsWeek} (${fmt(WEEKS[S.contentEndsWeek-1].start)} ${WEEKS[S.contentEndsWeek-1].start.getFullYear()}); after that it's past papers.`}</p>
   <div class="examrow"><span class="ed-lbl">First exam</span><input type="date" id="examdate" value="${esc(ed)}"><span class="muted" style="font-size:12.5px">${ed?`${Math.max(0,Math.round((new Date(ed+"T00:00:00")-new Date())/86400000))} days`:"not published yet — leave blank"}</span></div>
   ${linkBar(curSubj,null,true)}
+  ${(()=>{const ms=subjectMistakes(curSubj);if(!ms.length)return "";return `<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:6px">Open mistakes · ${ms.length}</div>`+ms.slice(0,12).map(x=>mistakeRow(x.key,x.i,x.m,x.code?`${x.code} ${x.label}`:x.label)).join("")+(ms.length>12?`<p class="muted" style="font-size:13px;margin:8px 0 0">+${ms.length-12} more under their topics.</p>`:"")+`<p class="muted" style="font-size:12.5px;margin:8px 0 0">Read these before a test. Tick each one once you can do it without the slip.</p></div>`;})()}
   ${coverageCard(curSubj)}
   ${state.knownDirty&&!knowMode?repourBar():""}
   <div class="card"><div class="prog" style="margin-bottom:6px"><i style="width:${Math.round(100*d/S.topics.length)}%;background:${S.color}"></i></div>
@@ -1133,7 +1212,7 @@ function renderSubjects(){
     g.topics.forEach(t=>{const stt=T(t.id),due=TOPIC_DUE[t.id];const rv=state.reviews["t:"+t.id];
       const meta=stt.known?`Known${rv?` · recall check ${rv.due<=todayISO()?"<b>due now</b>":"on "+fmt(new Date(rv.due+"T00:00:00"))}`:""}`:(stt.done?(stt.mark?`<span class="mark ${stt.mark}">${stt.mark==="got"?"Solid":"Redo"}</span>`:"Done — not yet checked"):(school?"Not yet ticked":(due?`Week ${due} · ${fmt(WEEKS[due-1].start)} ${WEEKS[due-1].start.getFullYear()}`:`<span class="mark shaky">Does not fit before the exams</span>`)));
       html+=`<div class="topic ${stt.done?"done":""}">${knowMode?`<button class="know ${stt.known?"on":""}" data-know="${t.id}" aria-label="Already know">${stt.known?"✓":""}</button>`:`<input type="checkbox" data-done="${t.id}" ${stt.done?"checked":""} aria-label="Done">`}<div><div class="t"><span class="code">${esc(t[0])}</span>${esc(t[1])}${t.url?` <a href="${esc(t.url)}" style="font-size:13px">↗</a>`:""}</div><div class="m">${meta}${cardsOf(t.id).length?` · ${cardsOf(t.id).length} card${cardsOf(t.id).length===1?"":"s"}`:""}</div></div><button class="more" data-topicopen="${esc(t.id)}" aria-label="Open">›</button></div>`;
-      if(openTopic===t.id)html+=`<div class="tbody">${objBlock(t)}${stmtBlock(t)}${cardBlock(t)}${linkBar(curSubj,t)}${pinRow(t)}</div>`;});});
+      if(openTopic===t.id)html+=`<div class="tbody">${objBlock(t)}${stmtBlock(t)}${cardBlock(t)}${mistakeBlock(t.id)}${linkBar(curSubj,t)}${pinRow(t)}</div>`;});});
   html+=`</div>`;el.innerHTML=html;
   el.querySelector("#back").addEventListener("click",()=>{curSubj=null;knowMode=false;openTopic=null;render();});
   el.querySelector("#knowmode").addEventListener("click",()=>{knowMode=!knowMode;render();});
@@ -1160,7 +1239,7 @@ function renderProgress(){
     <div class="kpi"><div class="eyebrow">Topics done</div><div class="v num">${doneN}<span style="font-size:15px;color:var(--muted)"> / ${all.length}</span></div><div class="d">${knownN} known · ${dueN} due by now</div></div>
     <div class="kpi"><div class="eyebrow">Days to exams</div><div class="v num">${daysToExams()}</div><div class="d">first paper ≈ ${fmt(examDate)} ${examDate.getFullYear()}</div></div>
     <div class="kpi"><div class="eyebrow">Streak</div><div class="v num">${streak()}</div><div class="d">days in a row</div></div>
-    <div class="kpi"><div class="eyebrow">Sessions done</div><div class="v num">${sessionsDone}</div><div class="d">${fixList().length} to redo · ${Object.keys(state.reviews).length} in review</div></div></div>`;
+    <div class="kpi"><div class="eyebrow">Sessions done</div><div class="v num">${sessionsDone}</div><div class="d">${fixList().length} to redo · ${Object.keys(state.reviews).length} in review · ${openMistakeCount()} mistake${openMistakeCount()===1?"":"s"} open</div></div></div>`;
   // Most behind first; school-paced subjects after, since they cannot be behind.
   const order=SUBJ_IDS.slice().sort((a,b)=>{const ba=isSchool(a)?-1e9:SUBJECTS[a].topics.filter(t=>TOPIC_DUE[t.id]<now&&!T(t.id).done).length;const bb=isSchool(b)?-1e9:SUBJECTS[b].topics.filter(t=>TOPIC_DUE[t.id]<now&&!T(t.id).done).length;return bb-ba;});
   html+=`<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:8px">Coverage · most behind first</div>`;
@@ -1317,6 +1396,7 @@ function renderGuide(){
   <h3>Each day</h3><p>Open <b>Today</b>. The day's sessions are one line each — tap one to open it, tick it when done. The <b>⋯</b> on any session moves it to tomorrow, later in the week or next week, or skips it. Recall checks that are due appear at the top of today's page.</p>
   <ul><li><b>Mon–Sat:</b> sessions, spread so no day is swamped. The timed writing piece is on Monday.</li><li><b>Saturday:</b> the test, if there is one.</li><li><b>Sunday:</b> half an hour on your own cards, then rest.</li><li><b>Holidays:</b> no new topics. Catch up, clear the fix list, rest.</li></ul>
   <h3>Recall checks</h3><p>A due check shows the topic's objectives as prompts: can you do each one without looking? Mark each ✓ or ✗, then say whether it held. <b>Some gaps</b> puts it on the fix list with the gaps marked, and brings it back in a week.</p>
+  <h3>Mistakes log</h3><p>What actually went wrong, kept per topic. A recall check marked <b>Some gaps</b> logs every objective you could not do; a session or test marked shaky asks what dropped the marks; and you can write one under any topic. Open mistakes appear at the top of that topic's next recall check as <b>Last time you got wrong</b>, and each subject page lists all of its open ones so you can read them before a test. Tick a mistake when you can do it without the slip.</p>
   <h3>Your cards</h3><p>Under any topic you can write cards — a short quote on the front, the technique and its effect on the back; a formula; a definition. They come up in that topic's recall checks, front first. Nothing is pre-filled on purpose: writing the card is most of the learning.</p>
   <h3>Already ahead?</h3><p>In <b>Subjects</b>, open a subject and hit <b>Where am I up to?</b> The course is laid out one topic at a time in specification order, with its objectives and checklist: <b>Done this</b> ticks it as known and shows the next; <b>Not yet</b> is where you are. Or use <b>Tick what you already know</b> to tick from the list, a section at a time. Anything ticked counts as done, leaves the schedule, and goes straight into recall. For subjects the app runs ahead in, a bar then offers to <b>re-pour</b> the plan so those hours go to what is left.</p>
   <h3>Tests</h3>
