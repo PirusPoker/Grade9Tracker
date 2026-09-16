@@ -31,7 +31,27 @@ cargo tauri dev
 cargo tauri build
 ```
 
-The installer appears in `src-tauri\target\release\bundle\nsis\Grade 9 Tracker_1.0.0_x64-setup.exe`. Run it once; the app then lives in your Start menu like any other program.
+The installer appears in `src-tauri\target\release\bundle\nsis\Grade 9 Tracker_<version>_x64-setup.exe`. Run it once; the app then lives in your Start menu like any other program.
+
+## Ship an update
+
+Installed copies check GitHub on launch and offer any newer release with one
+button, so nobody re-downloads by hand. To publish one:
+
+1. Bump `version` in `src-tauri/tauri.conf.json`, `src-tauri/Cargo.toml` and `package.json` (keep them the same).
+2. Commit, then tag and push:
+
+```
+git tag v1.2.0
+git push origin master --tags
+```
+
+GitHub Actions (`.github/workflows/release.yml`) builds, signs and publishes
+the release, including the `latest.json` the app reads. Signing uses the
+keypair in `~/.tauri/grade9tracker.key` (private, uploaded once as the
+`TAURI_SIGNING_PRIVATE_KEY` repository secret) and the public key in
+`tauri.conf.json`. **Back up the private key** - without it, installed
+copies will refuse any future update.
 
 ## Where your progress lives
 
