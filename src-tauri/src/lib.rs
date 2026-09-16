@@ -14,6 +14,7 @@ mod plan;
 mod profiles;
 mod statements;
 mod today;
+mod videos;
 
 use config::PlanConfig;
 use serde_json::Value;

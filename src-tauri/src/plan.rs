@@ -462,6 +462,8 @@ pub struct Topic {
     pub statements: Vec<Statement>,
     /// Whether a built-in lesson exists for it (see lessons.rs).
     pub lesson: bool,
+    /// Introduction videos, first to watch first (see videos.rs).
+    pub videos: Vec<crate::videos::Video>,
 }
 
 #[derive(Serialize)]
@@ -563,6 +565,8 @@ pub fn build_with(cfg: &PlanConfig, catch_up: Option<&CatchUp>) -> Plan {
             statements: crate::statements::for_topic(&def.id, &t.code).into_iter()
                 .map(|(code, label)| Statement { code, label }).collect(),
             lesson: crate::lessons::has_lesson(&format!("{}:{}", def.id, t.code)),
+            videos: if t.videos.is_empty() { crate::videos::for_topic(&format!("{}:{}", def.id, t.code)) }
+                else { t.videos.iter().map(|v| crate::videos::Video { id: v.url.clone(), title: v.title.clone(), by: String::new() }).collect() },
         }).collect();
         let mut ti = 0usize;
         let mut rem = topics.first().map(|t| t.hours).unwrap_or(0.0);

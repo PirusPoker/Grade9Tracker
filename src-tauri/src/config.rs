@@ -34,6 +34,20 @@ pub struct TopicCfg {
     /// The mark people drop on this topic.
     #[serde(default)]
     pub watch: String,
+    /// Videos pinned to this topic, first to watch first. Empty means the
+    /// built-in list applies (see videos.rs); anything here replaces it.
+    #[serde(default)]
+    pub videos: Vec<VideoCfg>,
+}
+
+/// A YouTube video someone has pinned to a topic themselves.
+#[derive(Serialize, Deserialize, Clone, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct VideoCfg {
+    /// Any YouTube link or a bare video id. Sanitised down to the id.
+    pub url: String,
+    #[serde(default)]
+    pub title: String,
 }
 
 /// Weekly hours for one subject, taking effect from `from_week` until the next
@@ -278,6 +292,7 @@ impl Default for PlanConfig {
                             code: code.to_string(), title: title.to_string(), hours: *hours, url: String::new(),
                             objectives: crate::course::objectives_for(&id).iter().map(|s| s.to_string()).collect(),
                             watch: crate::course::watch_for(&id).to_string(),
+                            videos: Vec::new(),
                         }
                     }).collect(),
                     rates: default_rates_for(d.id),
@@ -325,6 +340,11 @@ impl PlanConfig {
                 t.hours = t.hours.clamp(0.5, 40.0);
                 t.url = sane_url(&t.url);
                 t.objectives.retain(|o| !o.trim().is_empty());
+                // Keep only real YouTube videos, stored as the bare id.
+                t.videos.retain_mut(|v| match crate::videos::video_id(&v.url) {
+                    Some(id) => { v.url = id; v.title = v.title.trim().to_string(); true }
+                    None => false,
+                });
             }
             if s.sections.is_empty() {
                 s.sections.push("Past papers".into());

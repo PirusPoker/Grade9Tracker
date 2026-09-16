@@ -589,6 +589,19 @@ table{max-width:100%}
 .lbox.watch{border-left-color:var(--warn);background:var(--warn-soft)}
 .lbox.watch .eyebrow{color:var(--warn)}
 .lbox.watch li{margin:7px 0}
+/* The introduction video: a thumbnail until it is played, then YouTube's own
+   player in an iframe. Nothing loads from YouTube until the play button. */
+.lvid{position:relative;aspect-ratio:16/9;background:#0E1013;border-radius:var(--r-sm);overflow:hidden;margin:0 0 10px}
+.lvid iframe,.lvid img{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.lvid img{object-fit:cover}
+.lvid .play{position:absolute;inset:0;width:100%;height:100%;background:none;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff}
+.lvid .playbtn{width:66px;height:46px;border-radius:12px;background:rgba(14,16,19,.78);display:flex;align-items:center;justify-content:center;font-size:20px;padding-left:4px}
+.lvid .play:hover .playbtn{background:var(--accent)}
+.lvid .off{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;color:#fff;font-size:14px;padding:20px}
+.lvid.noimg img,.lvid.noimg .play{display:none}.lvid.noimg .off{display:flex}
+.lvidlist{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.lvidlist button{font-size:12.5px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer}
+.lvidlist button:hover{border-color:var(--line-2);color:var(--ink)}.lvidlist button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .lstep{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;margin:0 0 6px;border-radius:var(--r-sm);background:var(--sunken)}
 .lstep>div{flex:1;min-width:0}
 .lstep>div p:last-child{margin-bottom:0}
@@ -636,7 +649,7 @@ table{max-width:100%}
 .katex-display{margin:0}
 @media (max-width:560px){.lbody{font-size:15px}.lbox{padding:12px 12px 4px}.lnav>button[data-jump]{padding:5px 8px;font-size:12.5px}}
 @media print{
-  .lesson .lnav,.lesson .back,.lesson .lend .wbtns,.lesson .lqbtns,.lesson .lsel,.lesson .lnotesp,.lesson .mist,.lesson #lcover{display:none!important}
+  .lesson .lnav,.lesson .back,.lesson #l-video,.lesson .lend .wbtns,.lesson .lqbtns,.lesson .lsel,.lesson .lnotesp,.lesson .mist,.lesson #lcover{display:none!important}
   .lesson .lbox,.lesson .lq,.lesson .ldisp{break-inside:avoid;border-color:#bbb;background:#fff}
   .lesson .lq.yes,.lesson .lq.no{background:#fff}
 }
@@ -686,7 +699,7 @@ let SUBJECTS={},SUBJ_IDS=[],WEEKS=[],TOTAL=0,TESTS=[],TEST_BY_WEEK={},TOPIC_DUE=
 let REVIEW_GAPS=[7,21,56],EXAM_START="2028-05-08",UNSCHEDULED=[];
 function applyPlan(plan){
   SUBJECTS={};const byId={};
-  plan.subjects.forEach(s=>{const topics=s.topics.map(t=>{const a=[t.code,t.title,t.hours];a.id=t.id;a.subj=t.subj;a.idx=t.idx;a.url=t.url||"";a.objectives=t.objectives||[];a.watch=t.watch||"";a.statements=t.statements||[];a.lesson=!!t.lesson;byId[t.id]=a;return a;});
+  plan.subjects.forEach(s=>{const topics=s.topics.map(t=>{const a=[t.code,t.title,t.hours];a.id=t.id;a.subj=t.subj;a.idx=t.idx;a.url=t.url||"";a.objectives=t.objectives||[];a.watch=t.watch||"";a.videos=t.videos||[];a.statements=t.statements||[];a.lesson=!!t.lesson;byId[t.id]=a;return a;});
     SUBJECTS[s.id]={name:s.name,full:s.full,color:s.color,papers:s.papers,spec:s.spec,sections:s.sections,topics,contentEndsWeek:s.contentEndsWeek,resources:s.resources||[],specRefs:s.specRefs||[],pace:s.pace||"ahead"};});
   SUBJ_IDS=plan.subjects.map(s=>s.id);
   WEEKS=plan.weeks.map(w=>{const plan2={};for(const s of SUBJ_IDS){plan2[s]=(w.plan[s]||[]).map(e=>e.kind==="topic"?{kind:"topic",topic:byId[e.topicId],hours:e.hours,partNo:e.partNo,parts:e.parts,final:e.final}:(e.kind==="fixed"?{kind:"fixed",label:e.label,hours:e.hours,note:e.note}:{kind:"rev",section:e.section,hours:e.hours}));}
@@ -1404,10 +1417,52 @@ function lessonHtml(topicId,text){const blocks=parseLesson(text);const marks=les
       if(i===qs.length-1&&right===qs.length)html+=`<div class="ldone"><b>All ${qs.length} right.</b> That is the topic learned — tick it below and it joins the recall rotation, so it stays learned.</div>`;}
   });
   return html;}
-async function openLesson(topicId){const t=findTopic(topicId);if(!t||!t.lesson)return;
+async function openLesson(topicId){stopNarration();const t=findTopic(topicId);if(!t||!t.lesson)return;
   let text=LESSON_CACHE[topicId];
   if(!text){try{text=await invoke("get_lesson",{topicId});LESSON_CACHE[topicId]=text;}catch(e){alert(errText(e));return;}}
-  lesson={topicId,text,open:new Set(),cover:false,steps:{},notes:false};curSubj=t.subj;walk=null;qb=null;knowMode=false;openTopic=null;showView("subjects");}
+  lesson={topicId,text,open:new Set(),cover:false,steps:{},notes:false,vid:0,playing:false,playedAt:0};curSubj=t.subj;walk=null;qb=null;knowMode=false;openTopic=null;showView("subjects");}
+/* ---------- read-aloud narrator ----------
+   The browser's built-in speech (window.speechSynthesis): the machine's own
+   voices, free and offline, no VRAM. Reads the teaching prose — What it is, the
+   method, the marks tips — and skips tables, code and diagrams, which do not
+   narrate well. Off unless you press Listen. */
+let narrating=false;
+function ttsVoice(){const vs=(window.speechSynthesis&&speechSynthesis.getVoices())||[];if(!vs.length)return null;
+  const f=t=>vs.find(t);
+  return f(v=>/en-GB/i.test(v.lang)&&/natural/i.test(v.name))||f(v=>/en-GB/i.test(v.lang))
+    ||f(v=>/natural/i.test(v.name)&&/^en/i.test(v.lang))||f(v=>/^en/i.test(v.lang))||vs[0];}
+function ttsMath(m){return m
+  .replace(/\\times/g," times ").replace(/\\div/g," divided by ").replace(/\\pm/g," plus or minus ")
+  .replace(/\\(l?dots|cdots)/g," and so on ").replace(/\\approx/g," approximately ")
+  .replace(/\\neq/g," not equal to ").replace(/\\leq/g," at most ").replace(/\\geq/g," at least ")
+  .replace(/\\text\{([^}]*)\}/g,"$1").replace(/\\frac\{([^}]*)\}\{([^}]*)\}/g,"$1 over $2")
+  .replace(/\^\{?(-?\w+)\}?/g," to the power $1 ").replace(/_\{?\w+\}?/g," ")
+  .replace(/[{}\\]/g," ").replace(/\s+/g," ").trim();}
+function ttsLines(lines){const kept=[];let skip=false;
+  for(const l of lines){const t=l.trim();
+    if(t.startsWith("```")){skip=!skip;continue;}          // drop svg + code fences whole
+    if(skip||!t||t.startsWith("|")||t==="---")continue;    // drop tables + dividers
+    kept.push(l);}
+  return kept.join(" ")
+    .replace(/\$\$?([^$]*?)\$\$?/g,(_,m)=>" "+ttsMath(m)+" ")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g,"$1")
+    .replace(/[*_`#>]/g,"").replace(/\s+/g," ").trim();}
+function lessonToSpeech(text){const out=[];
+  parseLesson(text||"").forEach(b=>{if(b.kind==="md"||b.kind==="method"||b.kind==="watch"){const s=ttsLines(b.lines);if(s)out.push(s);}});
+  return out.map(s=>s.replace(/[\s.]+$/,"")).join(". ");}
+function stopNarration(){try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}narrating=false;
+  document.querySelectorAll("#llisten").forEach(b=>{b.textContent="Listen";b.classList.remove("primary");});}
+function toggleNarration(text){
+  if(!window.speechSynthesis){alert("This device has no built-in text-to-speech.");return;}
+  if(narrating){stopNarration();return;}
+  const say=lessonToSpeech(text);if(!say)return;
+  try{speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(say),v=ttsVoice();
+    if(v){u.voice=v;u.lang=v.lang;}else u.lang="en-GB";
+    u.rate=1;u.pitch=1;u.onend=stopNarration;u.onerror=stopNarration;
+    narrating=true;speechSynthesis.speak(u);
+    document.querySelectorAll("#llisten").forEach(b=>{b.textContent="Stop";b.classList.add("primary");});
+  }catch(e){narrating=false;}}
 function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;render();return;}const S=SUBJECTS[t.subj];const stt=T(t.id);
   const marks=lessonMarks(t.id);const blocks=parseLesson(lesson.text);const qs=blocks.filter(b=>b.kind==="q"),exs=blocks.filter(b=>b.kind==="example");const right=qs.filter((_,i)=>marks[i]===true).length;
   const idx=S.topics.indexOf(t);const prev=S.topics.slice(0,idx).reverse().find(x=>x.lesson),next=S.topics.slice(idx+1).find(x=>x.lesson);
@@ -1416,7 +1471,8 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
     <div class="lhead"><span class="pill"><span class="dot" style="background:${S.color}"></span>Lesson</span><span class="wcode">${esc(t[0])}</span><span class="muted" style="font-size:12.5px">· ${idx+1} of ${S.topics.length}</span></div>
     <h1 style="font-size:26px;margin:4px 0 6px">${esc(t[1])}</h1>
     <p class="muted" style="font-size:13.5px;margin:0 0 14px">${mins(t[2])} min in the plan · ${exs.length} worked examples · ${qs.length} practice questions${stt.done?" · <b>topic done</b>":""}</p>
-    <div class="lnav"><button data-jump="l-what">What it is</button><button data-jump="l-method">How to do it</button><button data-jump="l-examples">Examples</button><button data-jump="l-try">Try these <span class="chip ${right===qs.length?"ok":""}">${right}/${qs.length}</span></button><button data-jump="l-watch">Marks</button><span class="lnavsp"></span><button class="btn small ${lesson.notes?"primary":""}" id="lnotes">Notes${note.trim()?" ·":""}</button><button class="btn small ghost" id="lprint">Print</button></div>
+    <div class="lnav">${(t.videos||[]).length?`<button data-jump="l-video">Video</button>`:""}<button data-jump="l-what">What it is</button><button data-jump="l-method">How to do it</button><button data-jump="l-examples">Examples</button><button data-jump="l-try">Try these <span class="chip ${right===qs.length?"ok":""}">${right}/${qs.length}</span></button><button data-jump="l-watch">Marks</button><span class="lnavsp"></span><button class="btn small ghost" id="llisten" title="Read the explanation aloud">${narrating?"Stop":"Listen"}</button><button class="btn small ${lesson.notes?"primary":""}" id="lnotes">Notes${note.trim()?" ·":""}</button><button class="btn small ghost" id="lprint">Print</button></div>
+    ${videoBox(t)}
     <div class="lbody" id="l-what">${lessonHtml(t.id,lesson.text)}</div>
     <div class="lend"><div class="eyebrow" style="margin-bottom:6px">Finished?</div><p class="muted" style="font-size:14px;margin:0 0 10px">${stt.done?"This topic is ticked as done. It comes back for recall checks; anything marked Not yet is in the mistakes log.":"If you can do the practice questions without looking, tick the topic. It then comes back for recall checks at "+REVIEW_GAPS.join(", ")+" days."}</p>
       <div class="wbtns">${stt.done?`<button class="btn" id="ldone">Untick topic</button>`:`<button class="btn primary" id="ldone">✓ Tick topic as done</button>`}${next?`<button class="btn" data-lesson="${esc(next.id)}">Next lesson: ${esc(next[0])} ›</button>`:""}${prev?`<button class="btn ghost" data-lesson="${esc(prev.id)}">‹ ${esc(prev[0])}</button>`:""}</div>
@@ -1427,11 +1483,15 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
       <p class="muted" style="font-size:12px;margin:8px 0 0">These notes show up on this topic's recall checks, so write what future-you needs.</p></aside>
     <button class="lsel" id="lsel" hidden>+ Add to notes</button></div>`;
   document.documentElement.style.setProperty("--toph",(document.getElementById("top")?.offsetHeight||46)+"px");
-  const close=()=>{lesson=null;render();};
+  const close=()=>{stopNarration();lesson=null;render();};
   el.querySelector("#lback").addEventListener("click",close);
+  el.querySelector("#llisten")?.addEventListener("click",()=>toggleNarration(lesson.text));
   el.querySelector("#ldone").addEventListener("click",()=>{if(stt.done){stt.done=false;stt.mark=null;stt.fixed=false;stt.known=false;}else{stt.done=true;markDay();}persist();renderLessonKeep(el);});
   el.querySelectorAll("[data-jump]").forEach(a=>a.addEventListener("click",()=>{document.getElementById(a.dataset.jump)?.scrollIntoView({behavior:"smooth",block:"start"});}));
   el.querySelector("#lcover")?.addEventListener("click",()=>{lesson.cover=!lesson.cover;lesson.steps={};renderLessonKeep(el);});
+  el.querySelector("#lvplay")?.addEventListener("click",()=>{stopNarration();lesson.playing=true;lesson.playedAt=Date.now();renderLessonKeep(el);});
+  el.querySelector("#lvthumb")?.addEventListener("error",()=>{el.querySelector(".lvid")?.classList.add("noimg");});
+  el.querySelectorAll("[data-lvid]").forEach(b=>b.addEventListener("click",()=>{stopNarration();lesson.vid=+b.dataset.lvid;lesson.playing=true;lesson.playedAt=Date.now();renderLessonKeep(el);}));
   el.querySelectorAll("[data-lstep]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.lstep;lesson.steps[i]=(lesson.steps[i]||0)+1;renderLessonKeep(el);}));
   el.querySelectorAll("[data-lsteps]").forEach(b=>b.addEventListener("click",()=>{lesson.steps[+b.dataset.lsteps]=99;renderLessonKeep(el);}));
   el.querySelectorAll("[data-lshow]").forEach(b=>b.addEventListener("click",()=>{lesson.open.add(+b.dataset.lshow);renderLessonKeep(el);}));
@@ -1462,10 +1522,24 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
   bindMistakes(el);bind(el);
 }
 /* Re-render without losing the scroll position - the lesson is long. */
+/* The topic's introduction video(s), played in YouTube's embedded player so
+   the creator keeps the view. Only the thumbnail is fetched until play is
+   pressed; with no internet the box degrades to a plain link. A re-render
+   while playing rebuilds the iframe, so it resumes from roughly where it was. */
+function videoBox(t){const vs=t.videos||[];if(!vs.length)return "";
+  const i=Math.min(lesson.vid||0,vs.length-1),v=vs[i],n=vs.length,id=encodeURIComponent(v.id);
+  const start=lesson.playing?Math.max(0,Math.floor((Date.now()-lesson.playedAt)/1000)):0;
+  const player=lesson.playing
+    ?`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0${start>2?"&start="+start:""}" title="${esc(v.title)}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+    :`<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" id="lvthumb"><button class="play" id="lvplay" aria-label="Play: ${esc(v.title)}"><span class="playbtn">▶</span></button><div class="off">No connection — <a href="https://www.youtube.com/watch?v=${id}" style="color:#fff;margin-left:4px">open on YouTube</a> when you are back online.</div>`;
+  return `<div class="lbox video" id="l-video"><div class="lboxhead"><span class="eyebrow">Start here · ${n>1?`video ${i+1} of ${n}`:"watch first"}</span><span class="muted" style="font-size:12.5px">${v.by?esc(v.by)+" · ":""}plays in YouTube's player</span></div>
+    <div class="lvid">${player}</div>
+    <p style="margin:0 0 10px;font-size:14px"><b>${esc(v.title)}</b> <a class="muted" href="https://www.youtube.com/watch?v=${id}" style="font-size:12.5px;margin-left:6px">open on YouTube ↗</a></p>
+    ${n>1?`<div class="lvidlist">${vs.map((x,k)=>`<button data-lvid="${k}" class="${k===i?"on":""}">${k+1}. ${esc(x.title)}</button>`).join("")}</div>`:""}</div>`;}
 function renderLessonKeep(el){const y=window.scrollY;renderLesson(el);window.scrollTo({top:y});}
 /* The button that opens a lesson from a session card or a topic row. */
 function lessonBar(t){if(!t.lesson)return "";const m=lessonMarks(t.id);const n=Object.keys(m).length,r=Object.values(m).filter(Boolean).length;
-  return `<div class="lessonbar"><div><b>This topic has a lesson</b><span class="muted"> · explanation, worked examples, ${n?`${r} of ${n} practice questions right`:"practice questions with answers"}${lessonNote(t.id).trim()?", and your notes":""}</span></div><button class="btn small primary" data-lesson="${esc(t.id)}">Open the lesson</button></div>`;}
+  return `<div class="lessonbar"><div><b>This topic has a lesson</b><span class="muted"> · ${(t.videos||[]).length?"intro video, ":""}explanation, worked examples, ${n?`${r} of ${n} practice questions right`:"practice questions with answers"}${lessonNote(t.id).trim()?", and your notes":""}</span></div><button class="btn small primary" data-lesson="${esc(t.id)}">Open the lesson</button></div>`;}
 /* The chip on a topic row: shows how the practice went. */
 function lessonChip(t){if(!t.lesson)return "";const m=lessonMarks(t.id);const r=Object.values(m).filter(Boolean).length,n=Object.keys(m).length;
   return ` <button class="lchip ${n&&r===n?"ok":""}" data-lesson="${esc(t.id)}">Lesson${n?` · ${r}/${n}`:""}</button>`;}
@@ -1793,7 +1867,7 @@ function renderPlan(){
         ${s.rates.map((b,j)=>`<div class="ed-row band"><input type="number" min="1" step="1" data-p="subjects.${i}.rates.${j}.fromWeek" data-num="1" value="${b.fromWeek}"><input type="number" min="0" step="0.5" data-p="subjects.${i}.rates.${j}.term" data-num="1" value="${b.term}"><input type="number" min="0" step="0.5" data-p="subjects.${i}.rates.${j}.summer" data-num="1" value="${b.summer}"><button class="icon" data-del="subjects.${i}.rates.${j}" aria-label="Remove">×</button></div>`).join("")}
         <button class="btn small" data-add="rate:${i}">+ Change the hours from a week on</button></div>
       <div class="ed"><span class="ed-lbl">Topics — in the order you will learn them</span>
-        ${s.topics.map((t,j)=>`<div style="padding:3px 0"><div class="ed-row topic"><input type="text" data-p="subjects.${i}.topics.${j}.code" value="${esc(t.code)}" aria-label="Spec code"><input type="text" data-p="subjects.${i}.topics.${j}.title" value="${esc(t.title)}" aria-label="Topic"><input type="number" min="0.5" step="0.5" data-p="subjects.${i}.topics.${j}.hours" data-num="1" value="${t.hours}" aria-label="Hours"><button class="icon" data-del="subjects.${i}.topics.${j}" aria-label="Remove">×</button></div><details class="sub-ed"><summary>Link &amp; course notes${(t.objectives||[]).length?` · ${t.objectives.length} objectives`:""}${t.url?" · linked":""}</summary><div class="inner"><input type="url" data-p="subjects.${i}.topics.${j}.url" value="${esc(t.url||"")}" placeholder="Exact link for this topic" style="font-size:13px"><textarea data-p="subjects.${i}.topics.${j}.objectives" data-lines="1" placeholder="What you must be able to do — one per line" style="font-size:13px">${esc((t.objectives||[]).join("\n"))}</textarea><input type="text" data-p="subjects.${i}.topics.${j}.watch" value="${esc(t.watch||"")}" placeholder="The mark people drop on this topic" style="font-size:13px"></div></details></div>`).join("")}
+        ${s.topics.map((t,j)=>`<div style="padding:3px 0"><div class="ed-row topic"><input type="text" data-p="subjects.${i}.topics.${j}.code" value="${esc(t.code)}" aria-label="Spec code"><input type="text" data-p="subjects.${i}.topics.${j}.title" value="${esc(t.title)}" aria-label="Topic"><input type="number" min="0.5" step="0.5" data-p="subjects.${i}.topics.${j}.hours" data-num="1" value="${t.hours}" aria-label="Hours"><button class="icon" data-del="subjects.${i}.topics.${j}" aria-label="Remove">×</button></div><details class="sub-ed"><summary>Link &amp; course notes${(t.objectives||[]).length?` · ${t.objectives.length} objectives`:""}${t.url?" · linked":""}</summary><div class="inner"><input type="url" data-p="subjects.${i}.topics.${j}.url" value="${esc(t.url||"")}" placeholder="Exact link for this topic" style="font-size:13px"><textarea data-p="subjects.${i}.topics.${j}.objectives" data-lines="1" placeholder="What you must be able to do — one per line" style="font-size:13px">${esc((t.objectives||[]).join("\n"))}</textarea><input type="text" data-p="subjects.${i}.topics.${j}.watch" value="${esc(t.watch||"")}" placeholder="The mark people drop on this topic" style="font-size:13px"><textarea data-p="subjects.${i}.topics.${j}.videos" data-lines="1" data-videos="1" placeholder="YouTube links to watch first — one per line, optionally followed by | a title. Leave empty to keep the built-in videos" style="font-size:13px">${esc((t.videos||[]).map(v=>"https://www.youtube.com/watch?v="+v.url+(v.title?" | "+v.title:"")).join("\n"))}</textarea></div></details></div>`).join("")}
         <button class="btn small" data-add="topic:${i}">+ Add a topic</button></div>
       <button class="btn small" data-delsubj="${i}">Delete this subject</button>
     </div></details>`;});
@@ -1823,7 +1897,7 @@ function renderPlan(){
   <div class="savebar"><span class="msg" id="planmsg">${planMsg||(dirty?"Unsaved changes":"Saved")}</span><button class="btn small" id="resetplan">Reset</button><button class="btn primary small" id="saveplan">Save plan</button></div>`;
 
   el.innerHTML=html;
-  el.querySelectorAll("[data-p]").forEach(inp=>{const h=()=>setPath(inp.dataset.p, inp.dataset.num ? (inp.value===""?0:+inp.value) : (inp.dataset.lines ? inp.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean) : inp.value));
+  el.querySelectorAll("[data-p]").forEach(inp=>{const h=()=>setPath(inp.dataset.p, inp.dataset.num ? (inp.value===""?0:+inp.value) : (inp.dataset.lines ? inp.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean).map(l=>inp.dataset.videos?{url:l.split("|")[0].trim(),title:l.split("|").slice(1).join("|").trim()}:l) : inp.value));
     inp.addEventListener("input",h);inp.addEventListener("change",h);});
   el.querySelectorAll("[data-acc]").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)openSubj=+d.dataset.acc;else if(openSubj===+d.dataset.acc)openSubj=null;}));
   el.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",()=>{delPath(b.dataset.del);render();}));
@@ -1832,8 +1906,8 @@ function renderPlan(){
     CFG.subjects.splice(i,1);openSubj=null;dirty=true;render();}));
   el.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",()=>{
     const [what,idx]=b.dataset.add.split(":");
-    if(what==="subject"){CFG.subjects.push({id:"s"+Date.now().toString(36),name:"New subject",full:"",color:"var(--rest)",papers:"",spec:"",sections:["Past papers"],topics:[{code:"1",title:"First topic",hours:2,url:"",objectives:[],watch:""}],rates:[{fromWeek:1,term:1,summer:0.5}],resources:[],pace:"ahead",weekly:[]});openSubj=CFG.subjects.length-1;}
-    else if(what==="topic"){CFG.subjects[+idx].topics.push({code:"",title:"New topic",hours:1,url:"",objectives:[],watch:""});openSubj=+idx;}
+    if(what==="subject"){CFG.subjects.push({id:"s"+Date.now().toString(36),name:"New subject",full:"",color:"var(--rest)",papers:"",spec:"",sections:["Past papers"],topics:[{code:"1",title:"First topic",hours:2,url:"",objectives:[],watch:"",videos:[]}],rates:[{fromWeek:1,term:1,summer:0.5}],resources:[],pace:"ahead",weekly:[]});openSubj=CFG.subjects.length-1;}
+    else if(what==="topic"){CFG.subjects[+idx].topics.push({code:"",title:"New topic",hours:1,url:"",objectives:[],watch:"",videos:[]});openSubj=+idx;}
     else if(what==="rate"){const r=CFG.subjects[+idx].rates;r.push({fromWeek:(r.length?r[r.length-1].fromWeek:0)+1,term:1,summer:0.5});openSubj=+idx;}
     else if(what==="weekly"){(CFG.subjects[+idx].weekly=CFG.subjects[+idx].weekly||[]).push({label:"Timed piece",hours:1,note:""});openSubj=+idx;}
     else if(what==="res"){CFG.subjects[+idx].resources.push({label:"Notes",url:"https://www.savemyexams.com/"});openSubj=+idx;}
@@ -1856,7 +1930,7 @@ function renderPlan(){
         sections:(Array.isArray(d.sections)&&d.sections.length?d.sections.map(String):["Past papers"]),
         topics:(d.topics||[]).map(t=>({code:String(t.code??""),title:String(t.title??""),
           hours:Math.min(5,Math.max(0.5,Number(t.hours)||1)), url:"",
-          objectives:Array.isArray(t.objectives)?t.objectives.map(String):[], watch:String(t.watch??"")})),
+          objectives:Array.isArray(t.objectives)?t.objectives.map(String):[], watch:String(t.watch??""),videos:[]})),
         rates:[{fromWeek:1,term:1,summer:0.5}], resources:[], pace:"ahead", weekly:[]});
       openSubj=CFG.subjects.length-1;dirty=true;
       draftName="";draftUrl="";draftText="";drafting=false;
