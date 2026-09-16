@@ -132,9 +132,39 @@ const ECON: &[(&str, &str)] = &[
     ("econ:6.4", include_str!("../lessons/econ/6.4.md")),
 ];
 
+/// Computer Science, OCR GCSE (9-1) J277.
+const CS: &[(&str, &str)] = &[
+    ("cs:1.1.1", include_str!("../lessons/cs/1.1.1.md")),
+    ("cs:1.1.2", include_str!("../lessons/cs/1.1.2.md")),
+    ("cs:1.1.3", include_str!("../lessons/cs/1.1.3.md")),
+    ("cs:1.2.1", include_str!("../lessons/cs/1.2.1.md")),
+    ("cs:1.2.2", include_str!("../lessons/cs/1.2.2.md")),
+    ("cs:1.2.3", include_str!("../lessons/cs/1.2.3.md")),
+    ("cs:1.2.4", include_str!("../lessons/cs/1.2.4.md")),
+    ("cs:1.2.5", include_str!("../lessons/cs/1.2.5.md")),
+    ("cs:1.3.1", include_str!("../lessons/cs/1.3.1.md")),
+    ("cs:1.3.2", include_str!("../lessons/cs/1.3.2.md")),
+    ("cs:1.4.1", include_str!("../lessons/cs/1.4.1.md")),
+    ("cs:1.4.2", include_str!("../lessons/cs/1.4.2.md")),
+    ("cs:1.5.1", include_str!("../lessons/cs/1.5.1.md")),
+    ("cs:1.5.2", include_str!("../lessons/cs/1.5.2.md")),
+    ("cs:1.6.1", include_str!("../lessons/cs/1.6.1.md")),
+    ("cs:2.1.1", include_str!("../lessons/cs/2.1.1.md")),
+    ("cs:2.1.2", include_str!("../lessons/cs/2.1.2.md")),
+    ("cs:2.1.3", include_str!("../lessons/cs/2.1.3.md")),
+    ("cs:2.2.1", include_str!("../lessons/cs/2.2.1.md")),
+    ("cs:2.2.2", include_str!("../lessons/cs/2.2.2.md")),
+    ("cs:2.2.3", include_str!("../lessons/cs/2.2.3.md")),
+    ("cs:2.3.1", include_str!("../lessons/cs/2.3.1.md")),
+    ("cs:2.3.2", include_str!("../lessons/cs/2.3.2.md")),
+    ("cs:2.4.1", include_str!("../lessons/cs/2.4.1.md")),
+    ("cs:2.5.1", include_str!("../lessons/cs/2.5.1.md")),
+    ("cs:2.5.2", include_str!("../lessons/cs/2.5.2.md")),
+];
+
 /// Every lesson, across subjects.
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
-    FPM.iter().chain(MATHS.iter()).chain(ECON.iter())
+    FPM.iter().chain(MATHS.iter()).chain(ECON.iter()).chain(CS.iter())
 }
 
 /// The lesson for a topic id such as `fpm:9a`, if one has been written.
@@ -182,7 +212,7 @@ mod tests {
     #[test]
     fn every_topic_of_a_taught_subject_has_a_lesson() {
         let cfg = crate::config::PlanConfig::default();
-        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON)] {
+        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON), ("cs", CS)] {
             let def = cfg.subjects.iter().find(|s| s.id == subject).expect("subject");
             let missing: Vec<_> = def.topics.iter().map(|t| format!("{subject}:{}", t.code)).filter(|id| !has_lesson(id)).collect();
             assert!(missing.is_empty(), "{subject}: topics with no lesson: {missing:?}");
