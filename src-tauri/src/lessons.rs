@@ -92,9 +92,49 @@ const MATHS: &[(&str, &str)] = &[
     ("maths:6.3b", include_str!("../lessons/maths/6.3b.md")),
 ];
 
+/// Economics, Cambridge IGCSE (9-1) 0987.
+const ECON: &[(&str, &str)] = &[
+    ("econ:1.1", include_str!("../lessons/econ/1.1.md")),
+    ("econ:1.2", include_str!("../lessons/econ/1.2.md")),
+    ("econ:1.3", include_str!("../lessons/econ/1.3.md")),
+    ("econ:1.4", include_str!("../lessons/econ/1.4.md")),
+    ("econ:2.1", include_str!("../lessons/econ/2.1.md")),
+    ("econ:2.2", include_str!("../lessons/econ/2.2.md")),
+    ("econ:2.3", include_str!("../lessons/econ/2.3.md")),
+    ("econ:2.4", include_str!("../lessons/econ/2.4.md")),
+    ("econ:2.5", include_str!("../lessons/econ/2.5.md")),
+    ("econ:2.6", include_str!("../lessons/econ/2.6.md")),
+    ("econ:2.7", include_str!("../lessons/econ/2.7.md")),
+    ("econ:2.8", include_str!("../lessons/econ/2.8.md")),
+    ("econ:2.9", include_str!("../lessons/econ/2.9.md")),
+    ("econ:2.10", include_str!("../lessons/econ/2.10.md")),
+    ("econ:3.1", include_str!("../lessons/econ/3.1.md")),
+    ("econ:3.2", include_str!("../lessons/econ/3.2.md")),
+    ("econ:3.3", include_str!("../lessons/econ/3.3.md")),
+    ("econ:3.4", include_str!("../lessons/econ/3.4.md")),
+    ("econ:3.5", include_str!("../lessons/econ/3.5.md")),
+    ("econ:3.6", include_str!("../lessons/econ/3.6.md")),
+    ("econ:3.7", include_str!("../lessons/econ/3.7.md")),
+    ("econ:4.1", include_str!("../lessons/econ/4.1.md")),
+    ("econ:4.2", include_str!("../lessons/econ/4.2.md")),
+    ("econ:4.3", include_str!("../lessons/econ/4.3.md")),
+    ("econ:4.4", include_str!("../lessons/econ/4.4.md")),
+    ("econ:4.5", include_str!("../lessons/econ/4.5.md")),
+    ("econ:4.6", include_str!("../lessons/econ/4.6.md")),
+    ("econ:4.7", include_str!("../lessons/econ/4.7.md")),
+    ("econ:5.1", include_str!("../lessons/econ/5.1.md")),
+    ("econ:5.2", include_str!("../lessons/econ/5.2.md")),
+    ("econ:5.3", include_str!("../lessons/econ/5.3.md")),
+    ("econ:5.4", include_str!("../lessons/econ/5.4.md")),
+    ("econ:6.1", include_str!("../lessons/econ/6.1.md")),
+    ("econ:6.2", include_str!("../lessons/econ/6.2.md")),
+    ("econ:6.3", include_str!("../lessons/econ/6.3.md")),
+    ("econ:6.4", include_str!("../lessons/econ/6.4.md")),
+];
+
 /// Every lesson, across subjects.
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
-    FPM.iter().chain(MATHS.iter())
+    FPM.iter().chain(MATHS.iter()).chain(ECON.iter())
 }
 
 /// The lesson for a topic id such as `fpm:9a`, if one has been written.
@@ -142,7 +182,7 @@ mod tests {
     #[test]
     fn every_topic_of_a_taught_subject_has_a_lesson() {
         let cfg = crate::config::PlanConfig::default();
-        for (subject, table) in [("fpm", FPM), ("maths", MATHS)] {
+        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON)] {
             let def = cfg.subjects.iter().find(|s| s.id == subject).expect("subject");
             let missing: Vec<_> = def.topics.iter().map(|t| format!("{subject}:{}", t.code)).filter(|id| !has_lesson(id)).collect();
             assert!(missing.is_empty(), "{subject}: topics with no lesson: {missing:?}");
