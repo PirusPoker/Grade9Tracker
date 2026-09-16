@@ -14,6 +14,7 @@ mod plan;
 mod profiles;
 mod statements;
 mod today;
+mod update;
 mod videos;
 
 use config::PlanConfig;
@@ -277,11 +278,13 @@ fn import_profile(app: AppHandle, bundle: Value) -> Result<String, String> {
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .invoke_handler(tauri::generate_handler![
             get_plan, get_config, save_config, reset_config, get_lesson,
             load_state, save_state, state_path, backup,
             get_settings, set_settings, draft_subject, day_context, organise_day,
-            list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile
+            list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile,
+            update::check_update, update::install_update
         ])
         .run(tauri::generate_context!())
         .expect("error while running Grade 9 Tracker");

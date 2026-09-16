@@ -1,0 +1,49 @@
+# Build, sign and publish a release whenever a version tag is pushed.
+#
+#   1. bump "version" in src-tauri/tauri.conf.json and src-tauri/Cargo.toml
+#   2. git tag v1.2.0 && git push --tags
+#
+# The action uploads the installer, its signature and latest.json to a GitHub
+# release; installed copies of the app see latest.json on their next launch
+# and offer the update. Two repository secrets are needed:
+#   TAURI_SIGNING_PRIVATE_KEY           contents of ~/.tauri/grade9tracker.key
+#   TAURI_SIGNING_PRIVATE_KEY_PASSWORD  the key's password (empty if none)
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "Grade 9 Tracker ${{ github.ref_name }}"
+          releaseBody: "See the commit log for what changed."
+          releaseDraft: false
+          prerelease: false
+          includeUpdaterJson: true
