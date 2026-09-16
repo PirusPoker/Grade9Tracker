@@ -564,6 +564,13 @@ table{max-width:100%}
 .ttscfg select{max-width:230px;font-size:12.5px;padding:4px 6px;border:1px solid var(--line);border-radius:var(--r-xs);background:var(--ground);color:var(--ink)}
 .ttscfg input[type=range]{width:120px;accent-color:var(--c,var(--ink))}
 .ttscfg .ttsratev{font-family:var(--mono);font-size:12px;color:var(--muted);min-width:34px}
+.lplayer{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:40;display:flex;align-items:center;gap:8px;padding:6px 8px 6px 6px;background:var(--ground);border:1px solid var(--line);border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.20)}
+.lplayer .lpplay{width:36px;height:36px;flex:0 0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;background:var(--c,var(--ink));color:#fff;border:none;cursor:pointer}
+.lplayer .lplab{font-size:12.5px;font-weight:600;color:var(--ink-2);min-width:50px;text-align:center}
+.lplayer .lpstop{width:26px;height:26px;flex:0 0 auto;border-radius:50%;font-size:16px;line-height:1;color:var(--muted);background:transparent;border:none;cursor:pointer;display:none;align-items:center;justify-content:center}
+.lplayer.on .lpstop{display:inline-flex}
+.lplayer.on .lplab{color:var(--c,var(--ink))}
+.lesson.notes-open .lplayer{display:none}
 .lbody{font-size:15.5px;line-height:1.65}
 .lbody p{margin:0 0 12px}
 .lbody h3{font-size:20px;margin:0 0 10px}
@@ -594,6 +601,11 @@ table{max-width:100%}
 .lbox.watch{border-left-color:var(--warn);background:var(--warn-soft)}
 .lbox.watch .eyebrow{color:var(--warn)}
 .lbox.watch li{margin:7px 0}
+/* A newer release is ready: one line at the top, one button. */
+.upd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;background:var(--ink);color:#fff;font-size:13.5px}
+.upd b{font-weight:650}.upd .muted{color:rgba(255,255,255,.7)}
+.upd .btn{border-color:rgba(255,255,255,.35);color:#fff;background:transparent}.upd .btn.primary{background:#fff;color:var(--ink);border-color:#fff}
+.upd .spacer{flex:1}
 /* The introduction video: a thumbnail until it is played, then YouTube's own
    player in an iframe. Nothing loads from YouTube until the play button. */
 .lvid{position:relative;aspect-ratio:16/9;background:#0E1013;border-radius:var(--r-sm);overflow:hidden;margin:0 0 10px}
@@ -654,7 +666,7 @@ table{max-width:100%}
 .katex-display{margin:0}
 @media (max-width:560px){.lbody{font-size:15px}.lbox{padding:12px 12px 4px}.lnav>button[data-jump]{padding:5px 8px;font-size:12.5px}}
 @media print{
-  .lesson .lnav,.lesson .ttscfg,.lesson .back,.lesson #l-video,.lesson .lend .wbtns,.lesson .lqbtns,.lesson .lsel,.lesson .lnotesp,.lesson .mist,.lesson #lcover{display:none!important}
+  .lesson .lnav,.lesson .ttscfg,.lesson .lplayer,.lesson .back,.lesson #l-video,.lesson .lend .wbtns,.lesson .lqbtns,.lesson .lsel,.lesson .lnotesp,.lesson .mist,.lesson #lcover{display:none!important}
   .lesson .lbox,.lesson .lq,.lesson .ldisp{break-inside:avoid;border-color:#bbb;background:#fff}
   .lesson .lq.yes,.lesson .lq.no{background:#fff}
 }
@@ -678,6 +690,7 @@ table{max-width:100%}
 </head>
 <body>
 
+<div class="upd" id="upd" hidden></div>
 <header class="top" id="top" hidden></header>
 <main class="wrap">
   <section class="view" id="view-today"></section>
@@ -1431,7 +1444,7 @@ async function openLesson(topicId){stopNarration();const t=findTopic(topicId);if
    voices, free and offline, no VRAM. Reads the teaching prose — What it is, the
    method, the marks tips — and skips tables, code and diagrams, which do not
    narrate well. Off unless you press Listen. */
-let narrating=false,narratingText=null;
+let narrating=false,narratingText=null,narrPaused=false;
 function ttsGet(k,d){try{const v=localStorage.getItem(k);return v==null?d:v;}catch(e){return d;}}
 let ttsVoiceName=ttsGet("g9.tts.voice",""),ttsRate=Math.min(1.4,Math.max(0.7,+ttsGet("g9.tts.rate","1")||1));
 function saveTts(){try{localStorage.setItem("g9.tts.voice",ttsVoiceName);localStorage.setItem("g9.tts.rate",String(ttsRate));}catch(e){}}
@@ -1463,22 +1476,32 @@ function ttsLines(lines){const kept=[];let skip=false;
 function lessonToSpeech(text){const out=[];
   parseLesson(text||"").forEach(b=>{if(b.kind==="md"||b.kind==="method"||b.kind==="watch"){const s=ttsLines(b.lines);if(s)out.push(s);}});
   return out.map(s=>s.replace(/[\s.]+$/,"")).join(". ");}
-function stopNarration(){try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}narrating=false;narratingText=null;
-  document.querySelectorAll("#llisten").forEach(b=>{b.textContent="Listen";b.classList.remove("primary");});}
+function narrState(){return !narrating?"idle":(narrPaused?"paused":"playing");}
+function updateNarrUI(){const st=narrState();
+  document.querySelectorAll("#llisten").forEach(b=>{b.textContent=st==="idle"?"Listen":"Stop";b.classList.toggle("primary",st!=="idle");});
+  document.querySelectorAll("#lplayer").forEach(p=>{p.classList.toggle("on",st!=="idle");
+    const btn=p.querySelector(".lpplay");if(btn){btn.textContent=st==="playing"?"⏸":"▶";btn.title=st==="playing"?"Pause":(st==="paused"?"Resume":"Read the explanation aloud");btn.setAttribute("aria-label",btn.title);}
+    const lab=p.querySelector(".lplab");if(lab)lab.textContent=st==="playing"?"Reading…":(st==="paused"?"Paused":"Listen");});}
+function stopNarration(){try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}narrating=false;narrPaused=false;narratingText=null;updateNarrUI();}
 function speakNow(text){const say=lessonToSpeech(text);if(!say)return false;
   try{speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance(say),v=ttsVoice();
     if(v){u.voice=v;u.lang=v.lang;}else u.lang="en-GB";
     u.rate=ttsRate;u.pitch=1;u.onend=stopNarration;u.onerror=stopNarration;
-    narrating=true;narratingText=text;speechSynthesis.speak(u);
-    document.querySelectorAll("#llisten").forEach(b=>{b.textContent="Stop";b.classList.add("primary");});
+    narrating=true;narrPaused=false;narratingText=text;speechSynthesis.speak(u);updateNarrUI();
     return true;
-  }catch(e){narrating=false;narratingText=null;return false;}}
+  }catch(e){narrating=false;narrPaused=false;narratingText=null;updateNarrUI();return false;}}
 function restartNarration(){if(narrating&&narratingText!=null)speakNow(narratingText);}
+function pauseNarration(){if(narrating&&!narrPaused){try{speechSynthesis.pause();}catch(e){}narrPaused=true;updateNarrUI();}}
+function resumeNarration(){if(narrating&&narrPaused){try{speechSynthesis.resume();}catch(e){}narrPaused=false;updateNarrUI();}}
 function toggleNarration(text){
   if(!window.speechSynthesis){alert("This device has no built-in text-to-speech.");return;}
   if(narrating){stopNarration();return;}
   speakNow(text);}
+function narrToggle(text){                                  // floating pill: play / pause / resume
+  if(!window.speechSynthesis){alert("This device has no built-in text-to-speech.");return;}
+  const st=narrState();
+  if(st==="idle")speakNow(text);else if(st==="playing")pauseNarration();else resumeNarration();}
 function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;render();return;}const S=SUBJECTS[t.subj];const stt=T(t.id);
   const marks=lessonMarks(t.id);const blocks=parseLesson(lesson.text);const qs=blocks.filter(b=>b.kind==="q"),exs=blocks.filter(b=>b.kind==="example");const right=qs.filter((_,i)=>marks[i]===true).length;
   const idx=S.topics.indexOf(t);const prev=S.topics.slice(0,idx).reverse().find(x=>x.lesson),next=S.topics.slice(idx+1).find(x=>x.lesson);
@@ -1498,7 +1521,8 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
       <textarea id="lnotestext" placeholder="Your own words. The method in three lines, the formula you keep forgetting, the trick that made it click. Highlight anything in the lesson and tap Add to notes.">${esc(note)}</textarea>
       <div class="lnotesfoot"><span class="muted" id="lnotesstat" style="font-size:12px">${note.trim()?"Saved":"Autosaves as you type"}</span><button class="btn small" id="lnotescard" title="Make a card from the first line">Make a card</button></div>
       <p class="muted" style="font-size:12px;margin:8px 0 0">These notes show up on this topic's recall checks, so write what future-you needs.</p></aside>
-    <button class="lsel" id="lsel" hidden>+ Add to notes</button></div>`;
+    <button class="lsel" id="lsel" hidden>+ Add to notes</button>
+    <div class="lplayer" id="lplayer" title="Listen to this lesson"><button class="lpplay" aria-label="Read the explanation aloud">▶</button><span class="lplab">Listen</span><button class="lpstop" aria-label="Stop" title="Stop">×</button></div></div>`;
   document.documentElement.style.setProperty("--toph",(document.getElementById("top")?.offsetHeight||46)+"px");
   const close=()=>{stopNarration();lesson=null;render();};
   el.querySelector("#lback").addEventListener("click",close);
@@ -1512,6 +1536,9 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
   const rsel=el.querySelector("#ttsrate"),rv=el.querySelector("#ttsratev");
   if(rsel){rsel.addEventListener("input",()=>{if(rv)rv.textContent=(+rsel.value).toFixed(1)+"×";});
     rsel.addEventListener("change",()=>{ttsRate=+rsel.value;saveTts();restartNarration();});}
+  el.querySelector("#lplayer .lpplay")?.addEventListener("click",()=>narrToggle(lesson.text));
+  el.querySelector("#lplayer .lpstop")?.addEventListener("click",stopNarration);
+  updateNarrUI();
   el.querySelector("#ldone").addEventListener("click",()=>{if(stt.done){stt.done=false;stt.mark=null;stt.fixed=false;stt.known=false;}else{stt.done=true;markDay();}persist();renderLessonKeep(el);});
   el.querySelectorAll("[data-jump]").forEach(a=>a.addEventListener("click",()=>{document.getElementById(a.dataset.jump)?.scrollIntoView({behavior:"smooth",block:"start"});}));
   el.querySelector("#lcover")?.addEventListener("click",()=>{lesson.cover=!lesson.cover;lesson.steps={};renderLessonKeep(el);});
@@ -2177,6 +2204,25 @@ async function boot(){
   renderTop();
   render();
   loadDay(false);
+  checkForUpdate();
+}
+
+/* ---------- UPDATES ----------
+   Once per launch, ask the backend whether a newer release is on GitHub. If
+   so, one bar at the top offers it; pressing it downloads the signed
+   installer, installs and restarts. Offline, the check fails quietly. */
+async function checkForUpdate(){
+  let u=null;try{u=await invoke("check_update");}catch(e){return;}
+  if(!u)return;
+  const el=document.getElementById("upd");
+  el.innerHTML=`<b>Version ${esc(u.version)} is ready</b><span class="muted">you have ${esc(u.current)}${u.notes.trim()?" · "+esc(u.notes.trim().split(/\r?\n/)[0]).slice(0,140):""}</span><span class="spacer"></span><button class="btn small primary" id="updgo">Update &amp; restart</button><button class="btn small" id="updlater">Later</button>`;
+  el.hidden=false;
+  el.querySelector("#updlater").addEventListener("click",()=>{el.hidden=true;});
+  el.querySelector("#updgo").addEventListener("click",async()=>{
+    el.innerHTML=`<b>Downloading version ${esc(u.version)}…</b><span class="muted">the app restarts by itself when it is done</span>`;
+    try{await invoke("install_update");}
+    catch(e){el.innerHTML=`<b>Update failed</b><span class="muted">${esc(errText(e))}</span><span class="spacer"></span><button class="btn small" id="updlater">Dismiss</button>`;el.querySelector("#updlater").addEventListener("click",()=>{el.hidden=true;});}
+  });
 }
 (async()=>{
   await loadProfiles();
