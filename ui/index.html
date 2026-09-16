@@ -559,6 +559,11 @@ table{max-width:100%}
 .lnav>button[data-jump]{font-size:13px;font-weight:600;color:var(--ink-2);padding:6px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
 .lnav>button[data-jump]:hover{background:var(--surface);color:var(--ink)}
 .lnav .lnavsp{flex:1}
+.ttscfg{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:-6px 0 14px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xs)}
+.ttscfg label{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.ttscfg select{max-width:230px;font-size:12.5px;padding:4px 6px;border:1px solid var(--line);border-radius:var(--r-xs);background:var(--ground);color:var(--ink)}
+.ttscfg input[type=range]{width:120px;accent-color:var(--c,var(--ink))}
+.ttscfg .ttsratev{font-family:var(--mono);font-size:12px;color:var(--muted);min-width:34px}
 .lbody{font-size:15.5px;line-height:1.65}
 .lbody p{margin:0 0 12px}
 .lbody h3{font-size:20px;margin:0 0 10px}
@@ -649,7 +654,7 @@ table{max-width:100%}
 .katex-display{margin:0}
 @media (max-width:560px){.lbody{font-size:15px}.lbox{padding:12px 12px 4px}.lnav>button[data-jump]{padding:5px 8px;font-size:12.5px}}
 @media print{
-  .lesson .lnav,.lesson .back,.lesson #l-video,.lesson .lend .wbtns,.lesson .lqbtns,.lesson .lsel,.lesson .lnotesp,.lesson .mist,.lesson #lcover{display:none!important}
+  .lesson .lnav,.lesson .ttscfg,.lesson .back,.lesson #l-video,.lesson .lend .wbtns,.lesson .lqbtns,.lesson .lsel,.lesson .lnotesp,.lesson .mist,.lesson #lcover{display:none!important}
   .lesson .lbox,.lesson .lq,.lesson .ldisp{break-inside:avoid;border-color:#bbb;background:#fff}
   .lesson .lq.yes,.lesson .lq.no{background:#fff}
 }
@@ -1426,11 +1431,19 @@ async function openLesson(topicId){stopNarration();const t=findTopic(topicId);if
    voices, free and offline, no VRAM. Reads the teaching prose — What it is, the
    method, the marks tips — and skips tables, code and diagrams, which do not
    narrate well. Off unless you press Listen. */
-let narrating=false;
+let narrating=false,narratingText=null;
+function ttsGet(k,d){try{const v=localStorage.getItem(k);return v==null?d:v;}catch(e){return d;}}
+let ttsVoiceName=ttsGet("g9.tts.voice",""),ttsRate=Math.min(1.4,Math.max(0.7,+ttsGet("g9.tts.rate","1")||1));
+function saveTts(){try{localStorage.setItem("g9.tts.voice",ttsVoiceName);localStorage.setItem("g9.tts.rate",String(ttsRate));}catch(e){}}
+function ttsVoiceList(){const vs=(window.speechSynthesis&&speechSynthesis.getVoices())||[];return vs.filter(v=>/^en/i.test(v.lang));}
 function ttsVoice(){const vs=(window.speechSynthesis&&speechSynthesis.getVoices())||[];if(!vs.length)return null;
+  if(ttsVoiceName){const m=vs.find(v=>v.name===ttsVoiceName);if(m)return m;}
   const f=t=>vs.find(t);
   return f(v=>/en-GB/i.test(v.lang)&&/natural/i.test(v.name))||f(v=>/en-GB/i.test(v.lang))
     ||f(v=>/natural/i.test(v.name)&&/^en/i.test(v.lang))||f(v=>/^en/i.test(v.lang))||vs[0];}
+function fillVoiceSelect(sel){if(!sel)return;const vs=ttsVoiceList();if(!vs.length)return;
+  sel.innerHTML=`<option value="">Auto — best British voice</option>`+vs.map(v=>`<option value="${esc(v.name)}">${esc(v.name)} · ${esc(v.lang)}</option>`).join("");
+  sel.value=(ttsVoiceName&&vs.some(v=>v.name===ttsVoiceName))?ttsVoiceName:"";}
 function ttsMath(m){return m
   .replace(/\\times/g," times ").replace(/\\div/g," divided by ").replace(/\\pm/g," plus or minus ")
   .replace(/\\(l?dots|cdots)/g," and so on ").replace(/\\approx/g," approximately ")
@@ -1450,19 +1463,22 @@ function ttsLines(lines){const kept=[];let skip=false;
 function lessonToSpeech(text){const out=[];
   parseLesson(text||"").forEach(b=>{if(b.kind==="md"||b.kind==="method"||b.kind==="watch"){const s=ttsLines(b.lines);if(s)out.push(s);}});
   return out.map(s=>s.replace(/[\s.]+$/,"")).join(". ");}
-function stopNarration(){try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}narrating=false;
+function stopNarration(){try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}narrating=false;narratingText=null;
   document.querySelectorAll("#llisten").forEach(b=>{b.textContent="Listen";b.classList.remove("primary");});}
-function toggleNarration(text){
-  if(!window.speechSynthesis){alert("This device has no built-in text-to-speech.");return;}
-  if(narrating){stopNarration();return;}
-  const say=lessonToSpeech(text);if(!say)return;
+function speakNow(text){const say=lessonToSpeech(text);if(!say)return false;
   try{speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance(say),v=ttsVoice();
     if(v){u.voice=v;u.lang=v.lang;}else u.lang="en-GB";
-    u.rate=1;u.pitch=1;u.onend=stopNarration;u.onerror=stopNarration;
-    narrating=true;speechSynthesis.speak(u);
+    u.rate=ttsRate;u.pitch=1;u.onend=stopNarration;u.onerror=stopNarration;
+    narrating=true;narratingText=text;speechSynthesis.speak(u);
     document.querySelectorAll("#llisten").forEach(b=>{b.textContent="Stop";b.classList.add("primary");});
-  }catch(e){narrating=false;}}
+    return true;
+  }catch(e){narrating=false;narratingText=null;return false;}}
+function restartNarration(){if(narrating&&narratingText!=null)speakNow(narratingText);}
+function toggleNarration(text){
+  if(!window.speechSynthesis){alert("This device has no built-in text-to-speech.");return;}
+  if(narrating){stopNarration();return;}
+  speakNow(text);}
 function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;render();return;}const S=SUBJECTS[t.subj];const stt=T(t.id);
   const marks=lessonMarks(t.id);const blocks=parseLesson(lesson.text);const qs=blocks.filter(b=>b.kind==="q"),exs=blocks.filter(b=>b.kind==="example");const right=qs.filter((_,i)=>marks[i]===true).length;
   const idx=S.topics.indexOf(t);const prev=S.topics.slice(0,idx).reverse().find(x=>x.lesson),next=S.topics.slice(idx+1).find(x=>x.lesson);
@@ -1471,7 +1487,8 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
     <div class="lhead"><span class="pill"><span class="dot" style="background:${S.color}"></span>Lesson</span><span class="wcode">${esc(t[0])}</span><span class="muted" style="font-size:12.5px">· ${idx+1} of ${S.topics.length}</span></div>
     <h1 style="font-size:26px;margin:4px 0 6px">${esc(t[1])}</h1>
     <p class="muted" style="font-size:13.5px;margin:0 0 14px">${mins(t[2])} min in the plan · ${exs.length} worked examples · ${qs.length} practice questions${stt.done?" · <b>topic done</b>":""}</p>
-    <div class="lnav">${(t.videos||[]).length?`<button data-jump="l-video">Video</button>`:""}<button data-jump="l-what">What it is</button><button data-jump="l-method">How to do it</button><button data-jump="l-examples">Examples</button><button data-jump="l-try">Try these <span class="chip ${right===qs.length?"ok":""}">${right}/${qs.length}</span></button><button data-jump="l-watch">Marks</button><span class="lnavsp"></span><button class="btn small ghost" id="llisten" title="Read the explanation aloud">${narrating?"Stop":"Listen"}</button><button class="btn small ${lesson.notes?"primary":""}" id="lnotes">Notes${note.trim()?" ·":""}</button><button class="btn small ghost" id="lprint">Print</button></div>
+    <div class="lnav">${(t.videos||[]).length?`<button data-jump="l-video">Video</button>`:""}<button data-jump="l-what">What it is</button><button data-jump="l-method">How to do it</button><button data-jump="l-examples">Examples</button><button data-jump="l-try">Try these <span class="chip ${right===qs.length?"ok":""}">${right}/${qs.length}</span></button><button data-jump="l-watch">Marks</button><span class="lnavsp"></span><button class="btn small ghost" id="llisten" title="Read the explanation aloud">${narrating?"Stop":"Listen"}</button><button class="btn small ghost" id="ltts" title="Voice and speed" aria-label="Voice and speed">⚙</button><button class="btn small ${lesson.notes?"primary":""}" id="lnotes">Notes${note.trim()?" ·":""}</button><button class="btn small ghost" id="lprint">Print</button></div>
+    <div class="ttscfg" id="ttscfg" hidden><label>Voice <select id="ttsvoice"></select></label><label>Speed <input type="range" id="ttsrate" min="0.7" max="1.4" step="0.1" value="${ttsRate}"><span class="ttsratev" id="ttsratev">${ttsRate.toFixed(1)}×</span></label></div>
     ${videoBox(t)}
     <div class="lbody" id="l-what">${lessonHtml(t.id,lesson.text)}</div>
     <div class="lend"><div class="eyebrow" style="margin-bottom:6px">Finished?</div><p class="muted" style="font-size:14px;margin:0 0 10px">${stt.done?"This topic is ticked as done. It comes back for recall checks; anything marked Not yet is in the mistakes log.":"If you can do the practice questions without looking, tick the topic. It then comes back for recall checks at "+REVIEW_GAPS.join(", ")+" days."}</p>
@@ -1486,6 +1503,15 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
   const close=()=>{stopNarration();lesson=null;render();};
   el.querySelector("#lback").addEventListener("click",close);
   el.querySelector("#llisten")?.addEventListener("click",()=>toggleNarration(lesson.text));
+  const ttsCfg=el.querySelector("#ttscfg");
+  el.querySelector("#ltts")?.addEventListener("click",()=>{if(ttsCfg)ttsCfg.hidden=!ttsCfg.hidden;});
+  const vsel=el.querySelector("#ttsvoice");
+  if(vsel){fillVoiceSelect(vsel);
+    if(window.speechSynthesis&&!speechSynthesis.onvoiceschanged)speechSynthesis.onvoiceschanged=()=>fillVoiceSelect(el.querySelector("#ttsvoice"));
+    vsel.addEventListener("change",()=>{ttsVoiceName=vsel.value;saveTts();restartNarration();});}
+  const rsel=el.querySelector("#ttsrate"),rv=el.querySelector("#ttsratev");
+  if(rsel){rsel.addEventListener("input",()=>{if(rv)rv.textContent=(+rsel.value).toFixed(1)+"×";});
+    rsel.addEventListener("change",()=>{ttsRate=+rsel.value;saveTts();restartNarration();});}
   el.querySelector("#ldone").addEventListener("click",()=>{if(stt.done){stt.done=false;stt.mark=null;stt.fixed=false;stt.known=false;}else{stt.done=true;markDay();}persist();renderLessonKeep(el);});
   el.querySelectorAll("[data-jump]").forEach(a=>a.addEventListener("click",()=>{document.getElementById(a.dataset.jump)?.scrollIntoView({behavior:"smooth",block:"start"});}));
   el.querySelector("#lcover")?.addEventListener("click",()=>{lesson.cover=!lesson.cover;lesson.steps={};renderLessonKeep(el);});
