@@ -195,9 +195,44 @@ const BUS: &[(&str, &str)] = &[
     ("bus:3.6.4", include_str!("../lessons/bus/3.6.4.md")),
 ];
 
+/// Biology, Pearson Edexcel International GCSE 4BI1.
+const BIO: &[(&str, &str)] = &[
+    ("bio:1a", include_str!("../lessons/bio/1a.md")),
+    ("bio:2a", include_str!("../lessons/bio/2a.md")),
+    ("bio:2b", include_str!("../lessons/bio/2b.md")),
+    ("bio:2c", include_str!("../lessons/bio/2c.md")),
+    ("bio:2d", include_str!("../lessons/bio/2d.md")),
+    ("bio:2e", include_str!("../lessons/bio/2e.md")),
+    ("bio:2f", include_str!("../lessons/bio/2f.md")),
+    ("bio:2g", include_str!("../lessons/bio/2g.md")),
+    ("bio:2h", include_str!("../lessons/bio/2h.md")),
+    ("bio:2i", include_str!("../lessons/bio/2i.md")),
+    ("bio:2j", include_str!("../lessons/bio/2j.md")),
+    ("bio:2k", include_str!("../lessons/bio/2k.md")),
+    ("bio:2l", include_str!("../lessons/bio/2l.md")),
+    ("bio:2m", include_str!("../lessons/bio/2m.md")),
+    ("bio:2n", include_str!("../lessons/bio/2n.md")),
+    ("bio:2o", include_str!("../lessons/bio/2o.md")),
+    ("bio:3a", include_str!("../lessons/bio/3a.md")),
+    ("bio:3b", include_str!("../lessons/bio/3b.md")),
+    ("bio:3c", include_str!("../lessons/bio/3c.md")),
+    ("bio:3d", include_str!("../lessons/bio/3d.md")),
+    ("bio:3e", include_str!("../lessons/bio/3e.md")),
+    ("bio:3f", include_str!("../lessons/bio/3f.md")),
+    ("bio:4a", include_str!("../lessons/bio/4a.md")),
+    ("bio:4b", include_str!("../lessons/bio/4b.md")),
+    ("bio:4c", include_str!("../lessons/bio/4c.md")),
+    ("bio:4d", include_str!("../lessons/bio/4d.md")),
+    ("bio:5a", include_str!("../lessons/bio/5a.md")),
+    ("bio:5b", include_str!("../lessons/bio/5b.md")),
+    ("bio:5c", include_str!("../lessons/bio/5c.md")),
+    ("bio:5d", include_str!("../lessons/bio/5d.md")),
+    ("bio:5e", include_str!("../lessons/bio/5e.md")),
+];
+
 /// Every lesson, across subjects.
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
-    FPM.iter().chain(MATHS.iter()).chain(ECON.iter()).chain(CS.iter()).chain(BUS.iter())
+    FPM.iter().chain(MATHS.iter()).chain(ECON.iter()).chain(CS.iter()).chain(BUS.iter()).chain(BIO.iter())
 }
 
 /// The lesson for a topic id such as `fpm:9a`, if one has been written.
@@ -245,7 +280,7 @@ mod tests {
     #[test]
     fn every_topic_of_a_taught_subject_has_a_lesson() {
         let cfg = crate::config::PlanConfig::default();
-        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON), ("cs", CS), ("bus", BUS)] {
+        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON), ("cs", CS), ("bus", BUS), ("bio", BIO)] {
             let def = cfg.subjects.iter().find(|s| s.id == subject).expect("subject");
             let missing: Vec<_> = def.topics.iter().map(|t| format!("{subject}:{}", t.code)).filter(|id| !has_lesson(id)).collect();
             assert!(missing.is_empty(), "{subject}: topics with no lesson: {missing:?}");
