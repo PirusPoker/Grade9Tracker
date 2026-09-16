@@ -9,6 +9,9 @@
 //!   playlist, one video per spec bullet.
 //! - Maths: Corbettmaths' numbered topic videos (GCSE index plus the Level 2
 //!   Further Maths page for functions and calculus), chosen per 4MA1 topic.
+//! - Sciences: mostly FreeScienceLessons (from the topic pages on their site),
+//!   with Cognito, Mr Exham (Edexcel IGCSE Biology) and a few others for the
+//!   IGCSE-only topics the AQA-shaped channels skip.
 
 use serde::Serialize;
 
@@ -25,6 +28,9 @@ pub struct Video {
 const CND: &str = "Craig'n'Dave";
 const CM: &str = "Corbettmaths";
 const ASTBURY: &str = "Mr Astbury";
+const FSL: &str = "FreeScienceLessons";
+const COG: &str = "Cognito";
+const EXHAM: &str = "Mr Exham Biology";
 
 /// (topic id, [(video id, title, creator)]) in the order they should be watched.
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
@@ -484,6 +490,586 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("xhFDlmQUAZo", "Probability: conditional", CM),
         ("E3rVM0OgyJE", "Frequency Trees", CM),
     ]),
+    // ---------- Sciences (Edexcel IGCSE 4BI1 / 4CH1 / 4PH1) — FreeScienceLessons, Cognito, Mr Exham and others ----------
+    ("bio:1a", &[
+        ("aGDFNZApXXI", "Characteristics of Living Things (Organisms)", COG),
+        ("Xzy4Ze93G3g", "Kingdoms of life: animals, plants, fungi, protoctists, bacteria and viruses", COG),
+        ("S2O6sVcUtLU", "Classification", FSL),
+        ("Yk3ooRgDVI4", "Eukaryotes and Prokaryotes", FSL),
+    ]),
+    ("bio:2a", &[
+        ("MB6mE6weCS4", "Levels of Organisation  - Cells, Tissues, Organs and Organ Systems", COG),
+        ("GuY0n7-zfds", "Animal Cells", FSL),
+        ("EAoeI2gXBRg", "Plant Cells", FSL),
+        ("UZwT-Jx8LzY", "Animal Cell Specialisation", FSL),
+        ("yVd9Z3av1Ew", "Plant Cell Specialisation", FSL),
+        ("Kh27eyjxvYM", "Stem Cells", FSL),
+    ]),
+    ("bio:2b", &[
+        ("VLK2wANjQm0", "Digestive Enzymes", FSL),
+        ("Rfvh4LIsEEM", "Effect of Temperature and pH on Enzymes", FSL),
+        ("SqWTJWOBww4", "Required Practical 4: Food Tests", FSL),
+        ("JyXXoevEWc8", "Required Practical 5: Effect of pH on Amylase", FSL),
+    ]),
+    ("bio:2c", &[
+        ("C5pMigXBAgk", "Diffusion", FSL),
+        ("qqe2NhQt8bY", "Osmosis", FSL),
+        ("BXTi5tbnOr0", "Active Transport", FSL),
+        ("DHGWH3NdAjc", "Surface Area to Volume Ratio", FSL),
+        ("ef2Ts2AKhq8", "Required Practical 3: Effects of Osmosis on Plant Tissue", FSL),
+    ]),
+    ("bio:2d", &[
+        ("rAJGnS_ktk4", "Photosynthesis", FSL),
+        ("kx7AeCx_6xQ", "Limiting Factors", FSL),
+        ("Q5rsuwMDCXY", "Uses of Glucose from Photosynthesis", FSL),
+        ("c9aUWHleZ_k", "Structure of a Leaf | Plant Cell Organisation", COG),
+        ("cBCKedXdFeE", "Required Practical 6: Photosynthesis", FSL),
+    ]),
+    ("bio:2e", &[
+        ("4ui4oSHHnzA", "The Digestive System", FSL),
+        ("VLK2wANjQm0", "Digestive Enzymes", FSL),
+        ("5VW5-VXlWic", "Absorption in the Small Intestine", FSL),
+        ("H6DrSG_KQjo", "Lifestyle and Disease", FSL),
+    ]),
+    ("bio:2f", &[
+        ("ZKAaDbTP6Dc", "Respiration", FSL),
+        ("xO2XlIMnLuM", "Exercise", FSL),
+        ("7ZQQUi2DPMw", "Metabolism", FSL),
+    ]),
+    ("bio:2g", &[
+        ("v0HDxCmJ6DY", "Gas Exchange in Flowering Plants", EXHAM),
+        ("6zl6xaXTxxk", "Stomata & Guard Cells", "Launchpad Learning"),
+        ("c9aUWHleZ_k", "Structure of a Leaf | Plant Cell Organisation", COG),
+    ]),
+    ("bio:2h", &[
+        ("aPUPfzsqDgs", "Gas Exchange in the Lungs", FSL),
+        ("Nn4ke02sW8Q", "The Lungs & Gas Exchange", COG),
+        ("H6DrSG_KQjo", "Lifestyle and Disease", FSL),
+    ]),
+    ("bio:2i", &[
+        ("2BR1zdMBhY4", "Plant Tissues", FSL),
+        ("9yTDokLRZs0", "Transpiration", FSL),
+        ("s06FvGH3QJo", "Transpiration & Translocation", COG),
+    ]),
+    ("bio:2j", &[
+        ("nc_kbfjhiUo", "The Blood", FSL),
+        ("wUm71FPuVCQ", "Pathogens", FSL),
+        ("5X9MklLVhlw", "Non-Specific Defence Systems", FSL),
+        ("HSrrPdJDqxM", "The Immune System", FSL),
+        ("uPeZBhJYlnU", "Vaccination", FSL),
+    ]),
+    ("bio:2k", &[
+        ("bpYaKM2hVFY", "The Heart and Circulation", FSL),
+        ("Wx-MrhlOFMk", "Arteries, Veins and Capillaries", FSL),
+        ("5wSfCZESRHU", "Cardiovascular Diseases", FSL),
+    ]),
+    ("bio:2l", &[
+        ("DbLVB_EDnRs", "The Kidneys", FSL),
+        ("kmRh_yRbAR4", "Maintaining the Body's Water Balance", FSL),
+    ]),
+    ("bio:2m", &[
+        ("S45_3wWL-Xk", "Homeostasis", FSL),
+        ("WoMPARSQPZw", "Thermoregulation", FSL),
+        ("_Mts354VC7A", "Negative Feedback", FSL),
+        ("_Bf5WKEMB5o", "Plant Hormones", FSL),
+        ("fEo21LbnJJM", "Required Practical 8: Plant Responses", FSL),
+        ("6boD9x0MMcs", "Uses of Plant Hormones", FSL),
+    ]),
+    ("bio:2n", &[
+        ("oDS1hAqWp2M", "The Nervous System", FSL),
+        ("Fm02i4vEi5Q", "Required Practical 7: Reaction Time", FSL),
+        ("G_clJP1VGtk", "The Eye", FSL),
+        ("QYHlHr_S5fg", "How the Eye Focuses", FSL),
+    ]),
+    ("bio:2o", &[
+        ("c6olhi88KZs", "The Endocrine System", FSL),
+        ("77oyUdNZ054", "Control of Blood Glucose Concentration", FSL),
+        ("4CxNeiAICmc", "Hormones to Treat Infertility", FSL),
+    ]),
+    ("bio:3a", &[
+        ("g2Y_IlEWXyE", "Plant Reproduction | Anatomy & Pollination", COG),
+        ("h077JEQ8w6g", "Plant reproduction - Flower anatomy and pollination", EXHAM),
+        ("GkzFimUJdD8", "Flower structure and insect pollination", "Science Sauce"),
+        ("Fh9b6a-3DLQ", "Sexual and Asexual Reproduction", FSL),
+    ]),
+    ("bio:3b", &[
+        ("Fh9b6a-3DLQ", "Sexual and Asexual Reproduction", FSL),
+        ("w5SRMZlYR4w", "Meiosis and Fertilisation", FSL),
+        ("iXswGsfeHJg", "The Menstrual Cycle", FSL),
+    ]),
+    ("bio:3c", &[
+        ("TQ_iCf8mzMA", "DNA and the Genome", FSL),
+        ("o4LHU79fB3s", "DNA Structure", FSL),
+        ("1GgNNYZ47rk", "Protein Synthesis", FSL),
+    ]),
+    ("bio:3d", &[
+        ("reVLRjZIh3c", "Alleles", FSL),
+        ("Q4hSQJ0bl9g", "Cystic Fibrosis", FSL),
+        ("oYEr8wIe5G0", "Polydactyly", FSL),
+        ("wky7R3zYtTQ", "Family Trees", FSL),
+        ("Lomr_t5Pdjs", "Inheritance of Sex", FSL),
+        ("n3cXcDEveRc", "Mendel and Genetics", FSL),
+    ]),
+    ("bio:3e", &[
+        ("I0VdEiPWkHs", "Cell division by Mitosis", FSL),
+        ("w5SRMZlYR4w", "Meiosis and Fertilisation", FSL),
+    ]),
+    ("bio:3f", &[
+        ("_LoPYfhTgeI", "Variation", FSL),
+        ("RXmpVboM040", "Mutations", FSL),
+        ("7RraYCKvTXc", "Evolution by Natural Selection", FSL),
+        ("2waYa0ZwoXg", "Darwin and Natural Selection", FSL),
+        ("L8XYxNqEJqI", "Evidence for Evolution: Resistant Bacteria", FSL),
+    ]),
+    ("bio:4a", &[
+        ("ePsjdKoSA9g", "Competition and Interdependence", FSL),
+        ("kIfMwZU8nk4", "Biotic and Abiotic Factors", FSL),
+        ("KvK7EJimAH8", "Adaptations", FSL),
+        ("2MW6nwf80XM", "Sampling Organisms", FSL),
+        ("yLHz2Ea10Mg", "Required Practical 9: Sampling Organisms", FSL),
+    ]),
+    ("bio:4b", &[
+        ("dRFQ8rZCK6Q", "Food Chains and Predator-Prey Cycles", FSL),
+        ("AFC5LQ3KnvU", "Trophic Levels", FSL),
+        ("sgh1OWm0oTQ", "Pyramids of Biomass", FSL),
+    ]),
+    ("bio:4c", &[
+        ("cWj3u8voDSg", "The Carbon Cycle", FSL),
+        ("vWZWPlFmua4", "The Nitrogen Cycle", FSL),
+        ("UrP1E-yM7Cs", "Cycles Within Ecosystems - Nitrogen Cycle", EXHAM),
+        ("6utMftGxuaI", "Decomposition", FSL),
+    ]),
+    ("bio:4d", &[
+        ("7hu6vDP2a4Q", "Global Warming", FSL),
+        ("K5vXnDGcOE4", "The Greenhouse Effect", FSL),
+        ("pXCXXTgLoLE", "Pollution - Eutrophication", EXHAM),
+        ("40o6Py7W1rs", "Deforestation & Land Use", COG),
+        ("1Z405uGDZGo", "Waste Management", FSL),
+    ]),
+    ("bio:5a", &[
+        ("MaWBxZQ8nHQ", "Food Production - Crop Plants and Greenhouses", EXHAM),
+        ("7rmAZ-NYoBQ", "Food Production - Fertilisers", EXHAM),
+        ("uCxj4Bs0E3A", "Food Production - Pest Control (Pesticides and Biological Control)", EXHAM),
+        ("nrbJl3R4YJU", "Modern Farming Methods", FSL),
+    ]),
+    ("bio:5b", &[
+        ("Ii-RkMwFSlQ", "Food Production - Biotechnology - Fermenters", EXHAM),
+        ("ejyhTqAPVtI", "Food Production - Biotechnology - Yoghurt Production", EXHAM),
+        ("hYlNIuiTm4k", "Food Production - Biotechnology - Bread", EXHAM),
+        ("hcnDYP6tZs0", "Fermenters and yoghurt making", "Tom Dare"),
+        ("jwnMfxDLYpY", "Food Production - Fish Farming", EXHAM),
+        ("u59Eg1uNr5g", "Sustainable Fisheries", FSL),
+    ]),
+    ("bio:5c", &[("99nEQd2k6k4", "Selective Breeding", FSL)]),
+    ("bio:5d", &[
+        ("gu9T91GJXDo", "Genetic Engineering", FSL),
+        ("4Wu86ACPTKY", "Genetic Engineering | GMO", COG),
+        ("6C6lPfQbtek", "Role of Biotechnology", FSL),
+    ]),
+    ("bio:5e", &[
+        ("uSY6m1gqtYc", "Cloning Plants - Micropropagation (tissue culture)", EXHAM),
+        ("QekStThHD2M", "Cloning Plants", FSL),
+        ("hNq-y2Kg5CE", "Cloning Animals", FSL),
+    ]),
+    ("chem:1a", &[
+        ("CTwJEtjYffY", "The Three States of Matter", FSL),
+        ("lxHMJaXOzP4", "What is diffusion?", COG),
+    ]),
+    ("chem:1b", &[
+        ("7AZ2Z6_CQmA", "Solubility Curves", "FuseSchool - Global Education"),
+        ("yYPVrK5ic5E", "Solubility Curves Explained", "Chemistry Simplified"),
+    ]),
+    ("chem:1c", &[
+        ("nUzOXy9V-K0", "Elements, Compounds and Mixtures", FSL),
+        ("r49wo5ficzg", "Filtration and Crystallisation", FSL),
+        ("wXxFg7tdPjw", "Simple Distillation", FSL),
+        ("XKOgDiFNkiA", "Fractional Distillation", FSL),
+        ("dsKz9eF1Sc0", "Paper Chromatography", FSL),
+        ("3oJxWwcnfJY", "Purity and Formulations", FSL),
+    ]),
+    ("chem:1d", &[
+        ("cI2Shr8nns8", "The Nuclear Model of Atomic Structure", FSL),
+        ("nyvVjJf7RAU", "Atomic Number and Mass Number", FSL),
+        ("yOsMN89wIQc", "Relative Atomic Mass", FSL),
+        ("NuUDkub7N9A", "Electron Energy Levels", FSL),
+        ("IoldeyRWgz8", "Development of the Periodic Table", FSL),
+        ("EReyx5QoUSs", "Group 0", FSL),
+        ("7wguWXOZ8dc", "Metals", FSL),
+    ]),
+    ("chem:1e", &[
+        ("Lsa1h7EeZ_M", "Interpreting a Chemical Formula", FSL),
+        ("vxCyzR6uETs", "Balancing Chemical Equations", FSL),
+        ("q49NwIrjaFw", "Relative Formula Mass", FSL),
+        ("tV8Cv2x0SD0", "Formula of Ionic Compounds", FSL),
+        ("K4pw_-U6Xpc", "Conservation of Mass", FSL),
+    ]),
+    ("chem:1f", &[
+        ("-_-fNVmDwJk", "Calculating Moles of an Element", FSL),
+        ("Md4BQL91U6w", "Calculating Moles of a Compound", FSL),
+        ("kMak1TQ3YgU", "Calculating Mass of a Number of Moles", FSL),
+        ("TV6n5MFH6IU", "Reacting Masses 1", FSL),
+        ("5zOpoeN0dV0", "Reacting Masses 2", FSL),
+        ("MuzOmFhiE8o", "Limiting reactant", FSL),
+        ("9EV0Oq8g708", "Calculating Percentage Yield 1", FSL),
+        ("A3ndfwX5lyI", "Calculating Percentage Yield 2", FSL),
+    ]),
+    ("chem:1g", &[
+        ("u2V8b7M_caA", "Empirical Formula", FSL),
+        ("JXHjWpo3Yxg", "Determining Empirical Formula from Reacting Masses", FSL),
+        ("VaXQVoI3gtc", "Calculating Percentage by Mass", FSL),
+    ]),
+    ("chem:1h", &[
+        ("XbDtmORzKO8", "Ionic Bonding 1: Ionic Bonding between Group 1 and Group 7", FSL),
+        ("9HvMkqn6_Pc", "Ionic Bonding 2: Ionic Bonding between Group 2 and Group 6", FSL),
+        ("V28_L3gteDo", "Charges on Ions", FSL),
+        ("3hUwVYOue5s", "Properties of Ionic Compounds", FSL),
+    ]),
+    ("chem:1i", &[
+        ("m5u4STdFlOE", "Covalent Bonding 1: Bonding in Hydrogen, Chlorine and Hydrogen chloride", FSL),
+        ("4SNY8yK4gzw", "Covalent Bonding 2: Bonding in Water, Ammonia and Methane", FSL),
+        ("xvYA7KBLipY", "Covalent Bonding 3: Bonding in Oxygen, Nitrogen and Carbon Dioxide", FSL),
+        ("u_KR0UaZFkY", "Properties of Small Covalent Molecules", FSL),
+    ]),
+    ("chem:1j", &[
+        ("gUNkLFf2WXU", "Diamond and Silicon Dioxide", FSL),
+        ("iPoPeYHctPs", "Graphite", FSL),
+        ("cjgODRJU79Y", "Graphene and Fullerenes", FSL),
+    ]),
+    ("chem:1k", &[("o56nWrsp-hI", "Metals and Alloys", FSL)]),
+    ("chem:1l", &[
+        ("AhTRiL6xjBA", "Introducing Electrolysis", FSL),
+        ("YcyMElBEzAY", "Electrolysis of Aluminium Oxide", FSL),
+        ("6WjC_Vi4roA", "Electrolysis of Aqueous Solutions 1", FSL),
+        ("mL7mkqyLpSo", "Electrolysis of Aqueous Solutions 2", FSL),
+        ("ukbtTTG1Kew", "Required Practical 3: Electrolysis", FSL),
+        ("gnbuTl2ariI", "Oxidation and Reduction in Terms of Electrons", FSL),
+    ]),
+    ("chem:2a", &[
+        ("Z9U0728-fPY", "Group 1 Part 1", FSL),
+        ("PxdVHydF_U4", "Group 1 Part 2", FSL),
+    ]),
+    ("chem:2b", &[
+        ("5l-5sKDudq8", "Group 7 Part 1 The Halogens", FSL),
+        ("eBlWCl0wx4c", "Group 7 Part 2 Compounds of the Halogens", FSL),
+        ("yxL0xvfBy3k", "Group 7 Part 3 Reactivity of the Halogens", FSL),
+    ]),
+    ("chem:2c", &[
+        ("t1Z3GlNldLA", "The Atmosphere", FSL),
+        ("Lk1V0buHEFs", "Reaction of Metals with Oxygen", FSL),
+        ("8PM_tWNFbGY", "Combustion of Hydrocarbons", FSL),
+        ("K5vXnDGcOE4", "The Greenhouse Effect", FSL),
+    ]),
+    ("chem:2d", &[
+        ("MDQr5QFVGkk", "The Reactivity Series", FSL),
+        ("ofw6oHSYGFI", "Acids Reacting with Metals", FSL),
+        ("iA4mk3CTkmI", "Acids Reacting with Metals 2", FSL),
+        ("q0CAfXV-YdY", "What is Corrosion and How to Stop it", COG),
+        ("Gl1ctcnUnJ0", "Corrosion", FSL),
+    ]),
+    ("chem:2e", &[
+        ("MXTSels6e2Y", "Extraction of Metals", FSL),
+        ("YcyMElBEzAY", "Electrolysis of Aluminium Oxide", FSL),
+        ("o56nWrsp-hI", "Metals and Alloys", FSL),
+    ]),
+    ("chem:2f", &[
+        ("ZWZTDiwOWiI", "Acids and Alkalis", FSL),
+        ("4pIHhXfGZlE", "Strong and Weak Acids", FSL),
+    ]),
+    ("chem:2g", &[
+        ("QlSsle_jSQ8", "Three Reactions of Acids", FSL),
+        ("ofw6oHSYGFI", "Acids Reacting with Metals", FSL),
+        ("9GH95172Js8", "Required Practical 1: Making Soluble Salts", FSL),
+        ("saRBT5oZfh8", "Required Practical 2: Carrying out a Titration", FSL),
+        ("x8DLLCNMKAs", "Titration calculations 1", FSL),
+    ]),
+    ("chem:2h", &[
+        ("Qf7mHlTi5rs", "Tests for Cations, Anions & Water", "IGCSE Science Revision"),
+        ("jVkGKurtaiE", "Testing for Gases", FSL),
+        ("Bd0A44Iv2OI", "Flame Tests", FSL),
+        ("dBvpd9RhX8E", "Metal Hydroxide Precipitates", FSL),
+        ("n1SiWOIJayI", "Identifying non-metal ions", FSL),
+        ("YGdArTxQVq0", "Testing For Water", "FuseSchool - Global Education"),
+    ]),
+    ("chem:3a", &[
+        ("4HS6D0hTzdg", "Exothermic and Endothermic Reactions", FSL),
+        ("rdI7xEq4Ew8", "Required Practical 4: Temperature Changes", FSL),
+        ("eExCBkp4jB4", "Bond Energy Calculations 1", FSL),
+        ("PdValXAVUOc", "Bond Energy Calculations 2", FSL),
+    ]),
+    ("chem:3b", &[
+        ("CLq7WzCmYrk", "Mean Rate of Reaction", FSL),
+        ("u4Co4N-Jmbs", "Effect of Concentration on Rate", FSL),
+        ("WojotwxPD6I", "Effect of Surface Area on Rate", FSL),
+        ("G2TEfhwgq84", "Effect of Temperature on Rate", FSL),
+        ("hel8fQjxcO8", "Catalysts", FSL),
+        ("N5p06i9ilmo", "Required Practical 5: Rates of Reaction", FSL),
+        ("6LV63WtuvJg", "Using Tangents to Determine Rate", FSL),
+    ]),
+    ("chem:3c", &[
+        ("66qcNNJFy6E", "Reversible Reactions", FSL),
+        ("utmV4Q0t6MI", "Concentration and Reversible Reactions", FSL),
+        ("SlI5m0RQqik", "Temperature and reversible reactions", FSL),
+        ("hngzmRrAXTE", "Pressure and Reversible Reactions", FSL),
+    ]),
+    ("chem:4a", &[
+        ("2ATXC_weN7s", "Hydrocarbons - Alkanes & Homologous Series", COG),
+        ("ZSAtCBvBDBE", "What are isomers?", "IGCSE World"),
+        ("4EAh9E2KhOE", "Properties of Hydrocarbons", FSL),
+    ]),
+    ("chem:4b", &[
+        ("CX2IYWggEBc", "Crude oil and Hydrocarbons", FSL),
+        ("3I7yCkSXPos", "Fractional Distillation of Crude Oil", FSL),
+    ]),
+    ("chem:4c", &[
+        ("8PM_tWNFbGY", "Combustion of Hydrocarbons", FSL),
+        ("yLp6LOgPHmI", "Pollutants from Fuels", FSL),
+        ("14XIKuOZ2Yw", "Fossil Fuels", FSL),
+    ]),
+    ("chem:4d", &[("7AWwjKbRa_o", "Cracking", FSL)]),
+    ("chem:4e", &[
+        ("2ATXC_weN7s", "Hydrocarbons - Alkanes & Homologous Series", COG),
+        ("4EAh9E2KhOE", "Properties of Hydrocarbons", FSL),
+    ]),
+    ("chem:4f", &[
+        ("CmANMHeeZgw", "Alkenes", FSL),
+        ("3ZLpmNJu-e0", "Reactions of Alkenes 1", FSL),
+        ("ZHjFAxS0ivI", "Chemistry \"Reactions of Alkenes 2", FSL),
+    ]),
+    ("chem:4g", &[
+        ("uFZasZ-hs_A", "Alcohols", FSL),
+        ("w3IBYDJ5XmM", "Reactions of Alcohols", FSL),
+    ]),
+    ("chem:4h", &[
+        ("ketAGS1gkQM", "Carboxylic Acids", FSL),
+        ("cYgRd4rXY6I", "Esters", COG),
+        ("oIcICtyw-fA", "Alcohols, carboxylic acids and esters", "Science with Hazel"),
+    ]),
+    ("chem:4i", &[
+        ("GhvevdJU_DM", "Addition Polymers", FSL),
+        ("QBuSFPOtcJ4", "Condensation Polymers", FSL),
+        ("Y0eDQ0dOpTM", "Bonding in Polymers", FSL),
+    ]),
+    ("phys:1a", &[
+        ("DkCw2C-DkT0", "Distance-Time Graphs", FSL),
+        ("VJefeYJL3uE", "Velocity-Time Graphs - How to Find Acceleration & Distance Travelled", COG),
+        ("M_0FRIX8wIM", "Speed", FSL),
+        ("09aDQcci_tQ", "Velocity", FSL),
+    ]),
+    ("phys:1b", &[
+        ("r5iXzDCRMsE", "Acceleration", FSL),
+        ("qpqWzTwnwUk", "Acceleration 2", FSL),
+        ("M_0FRIX8wIM", "Speed", FSL),
+    ]),
+    ("phys:1c", &[
+        ("P1lSWWUkMdQ", "Scalar and Vector Quantities", FSL),
+        ("xxK8N23nx9M", "Contact and Non-contact Forces", FSL),
+        ("PL8ATKipoB4", "Resultant Forces", FSL),
+        ("PG8wV022Eu0", "Vector Diagrams", FSL),
+    ]),
+    ("phys:1d", &[
+        ("_W3VbonFNcw", "Newton's First Law of Motion", FSL),
+        ("SqdCCxv9YzI", "Newton's Second Law of Motion", FSL),
+        ("wANmggaC9pY", "Newton's Third Law of Motion", FSL),
+        ("W2aBVbcHr_k", "Gravity and Weight", FSL),
+        ("VOMNGlasL-0", "Required Practical 7: Acceleration", FSL),
+    ]),
+    ("phys:1e", &[
+        ("drMKdcMq3o0", "Vehicle Stopping Distance", FSL),
+        ("AiXhR2eZxgo", "Force and Braking", FSL),
+        ("aVy_gNVaCGg", "Forces Acting on a Skydiver", FSL),
+        ("k3AYX5INJ_4", "Terminal Velocity - What Affects Air Resistance | Resultant Force & Acceleration", COG),
+    ]),
+    ("phys:1f", &[
+        ("ACDbJ8rsQDo", "Forces and Elasticity", FSL),
+        ("jQAt3e6Bz7U", "Required Practical 6: Stretching a Spring", FSL),
+        ("Qw_9kX9PARc", "Elastic Potential Energy", FSL),
+    ]),
+    ("phys:1g", &[
+        ("ZtQhlwPxE28", "Momentum", FSL),
+        ("YEHcQD6Hij8", "Conservation of momentum", FSL),
+        ("6yx0fQrK3fA", "Change in Momentum", FSL),
+    ]),
+    ("phys:1h", &[
+        ("0RXm47J196Q", "Moments", FSL),
+        ("RW2N-oPcM9g", "Balanced Moments", FSL),
+        ("p7QS4cz-Avs", "How Moments Work - Spanners and Seesaws", COG),
+        ("YTGql3Ilu9E", "Centre of gravity", "Pla Academy: IGCSE and A level buddy"),
+    ]),
+    ("phys:2a", &[
+        ("cx9xLwa7Gco", "Resistance", FSL),
+        ("2CA1mcYw3IQ", "Resistors", FSL),
+        ("CEBfn4ndQWI", "Current in Series Circuits", FSL),
+        ("YsZeZotYVag", "Required Practical 3: Resistance", FSL),
+    ]),
+    ("phys:2b", &[
+        ("CEBfn4ndQWI", "Current in Series Circuits", FSL),
+        ("JhBrAmQYr2g", "Current in Parallel Circuits", FSL),
+        ("YAzyHRusOS0", "Potential Difference in Series Circuits", FSL),
+        ("UM1jyQVdGD8", "Potential Difference in Parallel Circuits", FSL),
+        ("vJRXozSVTI8", "Resistors in Series and Parallel", FSL),
+    ]),
+    ("phys:2c", &[
+        ("WzSh6ykqn9I", "Resistance of a Filament Lamp", FSL),
+        ("Tk_OltwtxZE", "Diodes and LEDs", FSL),
+        ("bb7sRiLKCvg", "Light-Dependent Resistors", FSL),
+        ("bjt4CrRL8yM", "Thermistors", FSL),
+        ("A1SyKvdHoqY", "Required Practical 4: Current / PD Characteristics", FSL),
+    ]),
+    ("phys:2d", &[
+        ("gj1tu8bTKjI", "Energy Transfer by Appliances", FSL),
+        ("WLaUmNr4lho", "Calculating Energy Transferred by Appliances", FSL),
+        ("LOyJdI41aCU", "Power of Components", FSL),
+        ("MEvO2rQFIWk", "DC and AC Supply", FSL),
+        ("fbu3o9wavHk", "Mains Electricity", FSL),
+    ]),
+    ("phys:2e", &[
+        ("ts7WumFAaSg", "Charge in Circuits", FSL),
+        ("WAMyh1zVtyU", "Calculating Energy Transfer by Components", FSL),
+    ]),
+    ("phys:2f", &[
+        ("5obbfXg_MH4", "Static Electricity", FSL),
+        ("rPbx_XrrKLQ", "Electric Fields", FSL),
+    ]),
+    ("phys:3a", &[
+        ("0f5iYCNCnow", "Transverse and Longitudinal Waves", FSL),
+        ("ITe6snlZBp8", "Properties of Waves", FSL),
+        ("Aucu7YshyQ0", "The Wave Equation", FSL),
+        ("3qCmEHRFRH8", "Properties of Waves 2", FSL),
+        ("UNmv6H-f180", "Required Practical 8: Ripple Tank", FSL),
+    ]),
+    ("phys:3b", &[
+        ("u5vkYjV1V1A", "Electromagnetic Waves", FSL),
+        ("L0iivb-acqU", "Uses of EM waves", FSL),
+    ]),
+    ("phys:3c", &[
+        ("8K6gOST8pZk", "Reflection of Waves", FSL),
+        ("wO49W5lsP0s", "Refraction of Waves", FSL),
+        ("2fN_jvf4fw8", "Required practical 9: Reflection and Refraction", FSL),
+    ]),
+    ("phys:3d", &[
+        ("UUc44Vg5pCI", "Refraction of waves", COG),
+        ("sxAlityiJWY", "Total internal reflection", "Save My Exams"),
+        ("bIUbj3Bh2LI", "Total internal reflection", "Physics With Mr Drew"),
+        ("55p9yBCoIyw", "Critical angle", "Physics With Mr Drew"),
+    ]),
+    ("phys:3e", &[
+        ("N_07EkzEhVQ", "Sound Waves", FSL),
+        ("s9wZkP64rAc", "Sound Waves and Hearing", COG),
+        ("MzZmgk1Hjs8", "How to read an oscilloscope", "Physics Online"),
+        ("YI3_wsPRi6Q", "Measuring the speed of sound with an oscilloscope", "Launchpad Learning"),
+    ]),
+    ("phys:4a", &[
+        ("JGwcDCeYRYo", "Energy Stores, Transferring Energy & Work Done", COG),
+        ("lbp01HgTBNc", "Energy Transfers: Pendulum", FSL),
+        ("7ZlTNAUNFts", "Energy Transfers: Bungee Jumper", FSL),
+    ]),
+    ("phys:4b", &[
+        ("NI5jaeBrIgQ", "Efficiency", FSL),
+        ("L8vz1MQsuys", "The Sankey diagram", "Physics Online"),
+        ("NC8ItrcR2Ak", "Sankey diagrams", "Ace Physics and Maths"),
+    ]),
+    ("phys:4c", &[
+        ("rUnABMRPzvg", "Conduction, Convection & Radiation | How Heat Energy is Transferred", COG),
+        ("je-qc7sxYzU", "How Radiation Affects Temperature", COG),
+        ("GTdgI-0KckA", "Cooling of Buildings", FSL),
+        ("lLH45loyPUA", "Required Practical 2: Thermal Insulators", FSL),
+    ]),
+    ("phys:4d", &[
+        ("JHEmPZ-YnrU", "Work Done by a Force", FSL),
+        ("EDT0DPhaaMY", "Calculating Power", FSL),
+        ("-zy9eWzmGe4", "Kinetic Energy", FSL),
+        ("63OTIdNb-TE", "Gravitational Potential Energy", FSL),
+        ("PY80j_iNT9Y", "Work done and Energy Transfer", FSL),
+    ]),
+    ("phys:4e", &[
+        ("1dJKvxhGEgA", "Energy from Fossil Fuels", FSL),
+        ("ar3-Ps04AJI", "Nuclear Power", FSL),
+        ("pqzvUur7QRw", "Renewable Sources of Energy", FSL),
+        ("lA8USjDkcXk", "The UK Energy Mix", FSL),
+    ]),
+    ("phys:5a", &[
+        ("-EZmXVOSa20", "Density", FSL),
+        ("ScXOp8Zph28", "Required Practical 5: Density", FSL),
+        ("P08-lYPy1hI", "Pressure in Fluids", FSL),
+        ("SVB6CjbTIAI", "Floating or Sinking", FSL),
+    ]),
+    ("phys:5b", &[
+        ("Hs5x0-IU2F4", "Specific Heat Capacity", FSL),
+        ("HAPmwu7byGM", "Required Practical 1: Specific Heat Capacity", FSL),
+        ("vJgBIvuLvgY", "Heating and Cooling Graphs", FSL),
+        ("x7GZ2DXef84", "Specific Latent Heat", FSL),
+        ("5WVT5NR0iLA", "Internal Energy", FSL),
+    ]),
+    ("phys:5c", &[
+        ("zjkBMk5d3tM", "Particle Theory & States of Matter | Solids, Liquids & Gases", COG),
+        ("hKO3DpgiISk", "Particle Motion in Gases", FSL),
+        ("JVlWh4vofsk", "Absolute zero", "GCSE Physics Explained"),
+    ]),
+    ("phys:5d", &[
+        ("RuoZqmNiMEo", "Pressure in Gases", FSL),
+        ("NxD7L4B7fRE", "Pressure & Volume | pV = Constant Equation", COG),
+        ("HbmZmxxempQ", "Gas laws: Boyle's, Charles' and the pressure law", "Save My Exams"),
+        ("m19-8Vtewkw", "Work Done on a Gas", FSL),
+    ]),
+    ("phys:6a", &[
+        ("sRyy7-jEu3Q", "Permanent and Induced Magnets", FSL),
+        ("FodEDHaEY68", "Magnetic Fields", FSL),
+        ("dMbWkodL12I", "Electromagnets", FSL),
+        ("V1cTPQxN4K0", "Electromagnetic Devices", FSL),
+    ]),
+    ("phys:6b", &[
+        ("GNLhSKZh-jM", "The Motor Effect", FSL),
+        ("fiQ38p6vb8o", "The Electric Motor", FSL),
+        ("1DqWMHyRhYg", "Loudspeakers and Headphones", FSL),
+    ]),
+    ("phys:6c", &[
+        ("NjgqJahwsG0", "The Generator Effect", FSL),
+        ("k1IivkRjd1U", "The Alternator and Dynamo", FSL),
+        ("UsZsns63Km4", "The Microphone", FSL),
+    ]),
+    ("phys:6d", &[
+        ("M9ytpIMB5d8", "Transformers", FSL),
+        ("_16o6j6YlXY", "Transformer Calculations", FSL),
+        ("iNvGiTn64fQ", "The National Grid", FSL),
+    ]),
+    ("phys:7a", &[
+        ("dftq9xGXcf8", "Atomic Structure", FSL),
+        ("k8cLFDa8zmY", "Atomic and Mass Numbers", FSL),
+        ("0ASldDQmIOQ", "Alpha-Scattering and the Nuclear Model", FSL),
+        ("F_Y1-JieCrg", "Radioactivity", FSL),
+        ("nW0S1C6wVrg", "Properties of Alpha, Beta and Gamma Radiation", FSL),
+    ]),
+    ("phys:7b", &[
+        ("xpSBhUpBXic", "Nuclear Equations", FSL),
+        ("F_Y1-JieCrg", "Radioactivity", FSL),
+    ]),
+    ("phys:7c", &[
+        ("wj9BzGFao8k", "Half Life", FSL),
+        ("Z7394DMkfQs", "Background Radiation", FSL),
+    ]),
+    ("phys:7d", &[
+        ("teGu0VAPlOo", "Irradiation and Contamination", FSL),
+        ("YejvYYRjSUk", "Nuclear Radiation in Medicine", FSL),
+    ]),
+    ("phys:7e", &[
+        ("onkW8BF5I3Q", "Nuclear Fission and Nuclear Fusion", FSL),
+        ("ar3-Ps04AJI", "Nuclear Power", FSL),
+    ]),
+    ("phys:7f", &[("onkW8BF5I3Q", "Nuclear Fission and Nuclear Fusion", FSL)]),
+    ("phys:8a", &[
+        ("mndRVjMovQk", "The Solar System", FSL),
+        ("okMA18ppu98", "Orbital Motion", FSL),
+        ("W2aBVbcHr_k", "Gravity and Weight", FSL),
+    ]),
+    ("phys:8b", &[
+        ("V0Y1JlVuin4", "Lifecycle of Stars", FSL),
+        ("V69KZun35K8", "Life Cycle of Stars | How Stars are Formed & Destroyed", COG),
+    ]),
+    ("phys:8c", &[
+        ("DaehJctk0Iw", "Hertzsprung-Russell diagrams", "Science with Hazel"),
+        ("C90DOE87TYc", "Red-Shift", FSL),
+        ("bWEtm-7cYzM", "What is Red Shift?", COG),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
@@ -527,11 +1113,14 @@ mod tests {
         }
     }
 
+    /// Subjects whose every topic has a video to start from.
     #[test]
-    fn every_maths_topic_has_an_intro_video() {
-        let def = crate::plan::SUBJECTS.iter().find(|d| d.id == "maths").unwrap();
-        for (code, _, _) in def.topics {
-            assert!(!for_topic(&format!("maths:{code}")).is_empty(), "maths:{code} has no video");
+    fn covered_subjects_have_a_video_on_every_topic() {
+        for subj in ["maths", "bio", "chem", "phys"] {
+            let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
+            for (code, _, _) in def.topics {
+                assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");
+            }
         }
     }
 
