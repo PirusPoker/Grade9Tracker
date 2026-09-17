@@ -230,9 +230,45 @@ const BIO: &[(&str, &str)] = &[
     ("bio:5e", include_str!("../lessons/bio/5e.md")),
 ];
 
+/// Chemistry, Pearson Edexcel International GCSE 4CH1.
+const CHEM: &[(&str, &str)] = &[
+    ("chem:1a", include_str!("../lessons/chem/1a.md")),
+    ("chem:1b", include_str!("../lessons/chem/1b.md")),
+    ("chem:1c", include_str!("../lessons/chem/1c.md")),
+    ("chem:1d", include_str!("../lessons/chem/1d.md")),
+    ("chem:1e", include_str!("../lessons/chem/1e.md")),
+    ("chem:1f", include_str!("../lessons/chem/1f.md")),
+    ("chem:1g", include_str!("../lessons/chem/1g.md")),
+    ("chem:1h", include_str!("../lessons/chem/1h.md")),
+    ("chem:1i", include_str!("../lessons/chem/1i.md")),
+    ("chem:1j", include_str!("../lessons/chem/1j.md")),
+    ("chem:1k", include_str!("../lessons/chem/1k.md")),
+    ("chem:1l", include_str!("../lessons/chem/1l.md")),
+    ("chem:2a", include_str!("../lessons/chem/2a.md")),
+    ("chem:2b", include_str!("../lessons/chem/2b.md")),
+    ("chem:2c", include_str!("../lessons/chem/2c.md")),
+    ("chem:2d", include_str!("../lessons/chem/2d.md")),
+    ("chem:2e", include_str!("../lessons/chem/2e.md")),
+    ("chem:2f", include_str!("../lessons/chem/2f.md")),
+    ("chem:2g", include_str!("../lessons/chem/2g.md")),
+    ("chem:2h", include_str!("../lessons/chem/2h.md")),
+    ("chem:3a", include_str!("../lessons/chem/3a.md")),
+    ("chem:3b", include_str!("../lessons/chem/3b.md")),
+    ("chem:3c", include_str!("../lessons/chem/3c.md")),
+    ("chem:4a", include_str!("../lessons/chem/4a.md")),
+    ("chem:4b", include_str!("../lessons/chem/4b.md")),
+    ("chem:4c", include_str!("../lessons/chem/4c.md")),
+    ("chem:4d", include_str!("../lessons/chem/4d.md")),
+    ("chem:4e", include_str!("../lessons/chem/4e.md")),
+    ("chem:4f", include_str!("../lessons/chem/4f.md")),
+    ("chem:4g", include_str!("../lessons/chem/4g.md")),
+    ("chem:4h", include_str!("../lessons/chem/4h.md")),
+    ("chem:4i", include_str!("../lessons/chem/4i.md")),
+];
+
 /// Every lesson, across subjects.
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
-    FPM.iter().chain(MATHS.iter()).chain(ECON.iter()).chain(CS.iter()).chain(BUS.iter()).chain(BIO.iter())
+    FPM.iter().chain(MATHS.iter()).chain(ECON.iter()).chain(CS.iter()).chain(BUS.iter()).chain(BIO.iter()).chain(CHEM.iter())
 }
 
 /// The lesson for a topic id such as `fpm:9a`, if one has been written.
@@ -280,7 +316,7 @@ mod tests {
     #[test]
     fn every_topic_of_a_taught_subject_has_a_lesson() {
         let cfg = crate::config::PlanConfig::default();
-        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON), ("cs", CS), ("bus", BUS), ("bio", BIO)] {
+        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON), ("cs", CS), ("bus", BUS), ("bio", BIO), ("chem", CHEM)] {
             let def = cfg.subjects.iter().find(|s| s.id == subject).expect("subject");
             let missing: Vec<_> = def.topics.iter().map(|t| format!("{subject}:{}", t.code)).filter(|id| !has_lesson(id)).collect();
             assert!(missing.is_empty(), "{subject}: topics with no lesson: {missing:?}");
