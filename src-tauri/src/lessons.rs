@@ -10,6 +10,8 @@
 //! ::: example Title     a worked example, every line shown
 //! ::: q                 a practice question; the answer follows a `---` line
 //! ::: watch             where the marks go in the exam
+//! ::: test              an end-of-topic test question, same shape as `q`;
+//!                       optional: without any, the test uses the `q`s
 //! :::
 //! ```
 //!
@@ -440,7 +442,9 @@ mod tests {
             assert!(blocks(text, "example").len() >= 3, "{id}: fewer than three worked examples");
             let qs = blocks(text, "q");
             assert!(qs.len() >= 6, "{id}: fewer than six practice questions ({})", qs.len());
-            for (i, q) in qs.iter().enumerate() {
+            let tests = blocks(text, "test");
+            assert!(tests.is_empty() || tests.len() >= 6, "{id}: a test needs at least six questions ({})", tests.len());
+            for (i, q) in qs.iter().chain(tests.iter()).enumerate() {
                 let parts: Vec<&str> = q.split("\n---\n").collect();
                 assert_eq!(parts.len(), 2, "{id}: question {} has no single --- answer divider", i + 1);
                 assert!(parts[0].trim().len() > 10, "{id}: question {} is empty", i + 1);

@@ -654,6 +654,37 @@ table{max-width:100%}
 .lqbtns{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
 .ldone{border:1px solid var(--good-line);background:var(--good-soft);color:var(--good);border-radius:var(--r);padding:12px 14px;margin:6px 0 14px;font-size:14.5px}
 .lend{border-top:1px solid var(--line);margin-top:26px;padding-top:18px}
+/* end-of-topic test */
+.ttest{max-width:760px}
+.tthead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;position:sticky;top:var(--toph,46px);z-index:5;background:var(--ground);padding:8px 0;margin:0 0 14px;border-bottom:1px solid var(--line)}
+.ttimer{font-family:var(--mono);font-size:15px;font-weight:700;padding:4px 12px;border-radius:999px;background:var(--surface2);color:var(--ink-2)}
+.ttimer.low{background:var(--bad-soft);color:var(--bad)}
+.ttimer.up{background:var(--bad);color:var(--ground)}
+.ttrules{border:1px solid var(--line);border-left:3px solid var(--c,var(--accent));border-radius:var(--r);background:var(--surface);padding:12px 16px;margin:0 0 16px;font-size:14px}
+.ttrules ul{margin:6px 0 0;padding-left:20px}
+.ttq{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:12px 14px;margin:0 0 10px}
+.ttq.full{border-color:var(--good-line);background:var(--good-soft)}
+.ttq.part{border-color:var(--warn);}
+.ttq.zero{border-color:var(--bad-line);background:var(--bad-soft)}
+.ttq .lqn{width:auto;min-width:26px;padding:0 8px}
+.ttmarks{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.ttmarks .lab{font-size:12.5px;color:var(--muted);margin-right:4px}
+.ttmarks button{font-family:var(--mono);min-width:38px}
+.ttres{border:1px solid var(--line);border-left:3px solid var(--c,var(--accent));border-radius:var(--r);background:var(--surface);padding:16px 18px;margin:0 0 16px}
+.ttscore{font-size:40px;font-weight:800;letter-spacing:-.02em;line-height:1;margin:2px 0 6px}
+.ttscore small{font-size:16px;color:var(--muted);font-weight:600;margin-left:6px}
+.ttband{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.ttband.secure{background:var(--good-soft);color:var(--good)}
+.ttband.nearly{background:var(--surface2);color:var(--ink-2)}
+.ttband.notyet{background:var(--bad-soft);color:var(--bad)}
+.tthist{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tthist span{font-family:var(--mono);font-size:11.5px;padding:2px 8px;border-radius:999px;background:var(--surface2);color:var(--muted)}
+.tthist span.secure{background:var(--good-soft);color:var(--good)}
+.tthist span.notyet{background:var(--bad-soft);color:var(--bad)}
+.topic .lchip.test{border-color:var(--line-2)}
+.topic .lchip.test.secure{border-color:var(--good-line);background:var(--good-soft);color:var(--good)}
+.topic .lchip.test.notyet{border-color:var(--bad-line);background:var(--bad-soft);color:var(--bad)}
+
 .lend .mist{margin-top:14px}
 .lessonbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:1px solid var(--line);border-left:3px solid var(--c,var(--accent));border-radius:var(--r-sm);background:var(--sunken);padding:10px 13px;margin:0 0 14px;font-size:13.5px}
 .lessonbar>div{min-width:0}
@@ -792,7 +823,7 @@ function dayMinutes(d){return d.items.filter(it=>!it.skipped).reduce((n,it)=>n+(
 function dayCounts(d){const live=d.items.filter(it=>!it.skipped&&it.key);return {n:live.length,done:live.filter(itemDone).length};}
 
 /* ---------- STATE ---------- */
-const BLANK={topics:{},tests:{},sessions:{},reviews:{},days:{},stmts:{},inbox:{},moves:{},skips:{},cards:{},mistakes:{},examDates:{},quotes:[],lessonQ:{},lessonNotes:{}};
+const BLANK={topics:{},tests:{},sessions:{},reviews:{},days:{},stmts:{},inbox:{},moves:{},skips:{},cards:{},mistakes:{},examDates:{},quotes:[],lessonQ:{},lessonNotes:{},topicTests:{}};
 let state={...BLANK};
 let LS="grade9-tracker-v2";
 let saveTimer=null;
@@ -1240,6 +1271,7 @@ function renderSpecial(it,w){
 
 function bind(root){
   root.querySelectorAll("[data-lesson]").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();openLesson(b.dataset.lesson);}));
+  root.querySelectorAll("[data-ttest]").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();openLesson(b.dataset.ttest).then(()=>{if(lesson&&lesson.topicId===b.dataset.ttest)startTopicTest();});}));
   root.querySelectorAll("[data-qbopen]").forEach(b=>b.addEventListener("click",()=>{openQuoteBank(null);if(quotes().length)startQuoteQuiz("gap");}));
   root.querySelectorAll("[data-walkstart]").forEach(b=>b.addEventListener("click",()=>startWalk(b.dataset.walkstart)));
   root.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.open;if(openSess.has(k))openSess.delete(k);else openSess.add(k);menuKey=null;render();}));
@@ -1541,7 +1573,76 @@ function narrSetRate(r){ttsRate=Math.min(1.4,Math.max(0.7,r));if(narrAudio){try{
 function toggleNarration(text){if(narrating||narrPreparing){stopNarration();return;}speakNow(text);}
 function narrToggle(text){const st=narrState();              // floating pill: play / pause / resume
   if(st==="idle")speakNow(text);else if(st==="playing")pauseNarration();else if(st==="paused")resumeNarration();else stopNarration();}
-function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;render();return;}const S=SUBJECTS[t.subj];const stt=T(t.id);
+/* ---------- end-of-topic test ----------
+   Closed book, timed, self-marked against the answers. Draws on the lesson's
+   `::: test` questions when it has them, otherwise on the practice questions,
+   shuffled so the order gives nothing away. Every attempt is kept; anything
+   short of full marks goes to the mistakes log for that topic. */
+const topicTests=id=>(state.topicTests=state.topicTests||{},state.topicTests[id]=state.topicTests[id]||[]);
+const lastTest=id=>{const l=(state.topicTests||{})[id]||[];return l.length?l[l.length-1]:null;};
+const testBand=pct=>pct>=80?"secure":(pct>=60?"nearly":"notyet");
+const testBandLabel={secure:"Secure",nearly:"Nearly there",notyet:"Not yet"};
+/* "(3)" at the end of a question is its marks; otherwise it is worth one. */
+function qMarks(lines){const m=plainText(lines).match(/\((\d{1,2})\)\s*$/);return m?Math.max(1,+m[1]):1;}
+function splitQ(b){const cut=b.lines.findIndex(l=>l.trim()==="---");return {q:cut<0?b.lines:b.lines.slice(0,cut),a:cut<0?[]:b.lines.slice(cut+1)};}
+function testPool(text){const blocks=parseLesson(text);const own=blocks.filter(b=>b.kind==="test");return {qs:own.length?own:blocks.filter(b=>b.kind==="q"),own:own.length>0};}
+let testTimer=null;
+function stopTestTimer(){if(testTimer){clearInterval(testTimer);testTimer=null;}}
+function startTopicTest(){if(!lesson)return;stopNarration();const pool=testPool(lesson.text);
+  const order=pool.qs.map((b,i)=>({b,i,r:Math.random()})).sort((a,b)=>a.r-b.r);
+  const qs=order.map(o=>{const sp=splitQ(o.b);return {q:sp.q,a:sp.a,max:qMarks(sp.q),src:o.i};});
+  const total=qs.reduce((n,q)=>n+q.max,0);
+  lesson.test={qs,own:pool.own,phase:"answer",marks:{},started:Date.now(),limit:Math.max(300,qs.reduce((n,q)=>n+Math.max(60,90*q.max),0)),total,finished:0};
+  render();window.scrollTo({top:0});}
+function finishTopicTest(t){const T_=lesson.test;const s=T_.qs.reduce((n,q,i)=>n+(T_.marks[i]||0),0);const pct=Math.round(100*s/T_.total);
+  const secs=Math.round((T_.finished-T_.started)/1000);
+  topicTests(t.id).push({d:todayISO(),s,t:T_.total,pct,secs});if(topicTests(t.id).length>12)topicTests(t.id).shift();
+  T_.qs.forEach((q,i)=>{const got=T_.marks[i]||0;if(got<q.max)addMistake(t.id,"Topic test: "+plainText(q.q).slice(0,150)+(q.max>1?` (${got}/${q.max})`:""),"test");});
+  T_.phase="done";T_.score=s;T_.pct=pct;T_.secs=secs;markDay();persist();}
+function fmtSecs(n){n=Math.max(0,Math.round(n));return `${Math.floor(n/60)}:${String(n%60).padStart(2,"0")}`;}
+function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[t.subj];const X=lesson.test;const stt=T(t.id);
+  stopTestTimer();
+  const left=()=>X.limit-Math.round((Date.now()-X.started)/1000);
+  const hist=topicTests(t.id);
+  let body="";
+  if(X.phase==="answer"){
+    body=`<div class="ttrules"><b>Closed book.</b> ${X.qs.length} questions, ${X.total} marks, ${fmtSecs(X.limit)} on the clock.<ul><li>Write every answer on paper first — no lesson, no notes, no answers until you have attempted them all.</li><li>Then press <b>Mark it</b>: the answers appear and you give yourself the marks, honestly.</li><li>${X.own?"These are the topic's test questions, different from the practice set.":"These are the practice questions in a fresh order — the test is whether they hold without the answers in front of you."}</li></ul></div>`;
+    X.qs.forEach((q,i)=>{body+=`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div></div>`;});
+    body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="ttmark">I've answered everything — mark it</button><button class="btn ghost" id="ttquit">Abandon test</button></div>`;
+  }else if(X.phase==="mark"){
+    const done=X.qs.filter((_,i)=>X.marks[i]!==undefined).length;const s=X.qs.reduce((n,q,i)=>n+(X.marks[i]||0),0);
+    body=`<div class="ttrules"><b>Mark it.</b> Compare what you wrote with each answer and give yourself the marks. ${X.timeUp?"<b>Time ran out</b> — mark what you have; anything unanswered scores 0. ":""}Running total: <b>${s} / ${X.total}</b> · ${done} of ${X.qs.length} marked.</div>`;
+    X.qs.forEach((q,i)=>{const got=X.marks[i];const cls=got===undefined?"":(got>=q.max?"full":(got>0?"part":"zero"));
+      body+=`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(q.a)}</div><div class="ttmarks"><span class="lab">${q.max===1?"Did you get it?":`Marks out of ${q.max}`}</span>${q.max===1?`<button class="btn small ${got===1?"done":""}" data-tm="${i}|1">✓ Yes</button><button class="btn small ${got===0?"primary":""}" data-tm="${i}|0">✗ No</button>`:Array.from({length:q.max+1},(_,k)=>`<button class="btn small ${got===k?(k===q.max?"done":"primary"):""}" data-tm="${i}|${k}">${k}</button>`).join("")}</div></div>`;});
+    body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="ttfinish" ${done<X.qs.length?"disabled":""}>${done<X.qs.length?`Mark all ${X.qs.length} to finish`:"Finish test"}</button><button class="btn ghost" id="ttquit">Abandon test</button></div>`;
+  }else{
+    const band=testBand(X.pct);const dropped=X.qs.map((q,i)=>({q,i,got:X.marks[i]||0})).filter(x=>x.got<x.q.max);
+    body=`<div class="ttres"><span class="ttband ${band}">${testBandLabel[band]}</span><div class="ttscore">${X.score} / ${X.total}<small>${X.pct}% · ${fmtSecs(X.secs)}</small></div>
+      <p class="muted" style="font-size:14px;margin:0 0 8px">${band==="secure"?(stt.done?"That holds. The topic is ticked and in the recall rotation; the dropped marks below are in the mistakes log.":"That is the topic learned closed-book. Tick it and it joins the recall rotation."):(band==="nearly"?"Close. Read the dropped questions below — they are in the mistakes log — go back over that part of the lesson, and retake tomorrow.":"Not there yet. The dropped questions are in the mistakes log; work through the lesson again with Cover the working on, then retake.")}</p>
+      ${hist.length>1?`<div class="eyebrow" style="margin-top:8px">Attempts</div><div class="tthist">${hist.map(h=>`<span class="${testBand(h.pct)}" title="${esc(h.d)}">${h.s}/${h.t}</span>`).join("")}</div>`:""}
+      <div class="wbtns" style="margin-top:14px">${band==="secure"&&!stt.done?`<button class="btn primary" id="ttdone">✓ Tick topic as done</button>`:""}<button class="btn ${band==="secure"?"":"primary"}" id="ttretake">Retake</button><button class="btn ghost" id="ttback">Back to the lesson</button></div></div>`;
+    if(dropped.length){body+=`<div class="lsub" style="margin-top:18px"><h3>Where the marks went</h3></div>`;
+      dropped.forEach(x=>{body+=`<div class="ttq ${x.got?"part":"zero"}"><div class="lqhead"><span class="lqn">${x.got}/${x.q.max}</span><div class="lqbody">${mdBlock(x.q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(x.q.a)}</div></div>`;});}
+    else body+=`<div class="ldone"><b>Full marks.</b> Nothing dropped.</div>`;
+  }
+  el.innerHTML=`<div class="lesson ttest" style="--c:${S.color}"><button class="back" id="ttlback">‹ ${esc(t[0])} ${esc(t[1])}</button>
+    <div class="tthead"><div><span class="pill"><span class="dot" style="background:${S.color}"></span>End-of-topic test</span> <span class="wcode">${esc(t[0])}</span></div>${X.phase==="answer"?`<span class="ttimer" id="ttimer">${fmtSecs(left())}</span>`:(X.phase==="mark"?`<span class="ttimer">marking</span>`:`<span class="ttimer">${fmtSecs(X.secs)}</span>`)}</div>
+    <h1 style="font-size:24px;margin:4px 0 12px">${esc(t[1])}</h1>${body}</div>`;
+  const leave=()=>{stopTestTimer();lesson.test=null;render();};
+  el.querySelector("#ttlback").addEventListener("click",leave);
+  el.querySelector("#ttquit")?.addEventListener("click",()=>{if(confirm("Abandon this test? Nothing is recorded."))leave();});
+  el.querySelector("#ttback")?.addEventListener("click",leave);
+  el.querySelector("#ttretake")?.addEventListener("click",startTopicTest);
+  el.querySelector("#ttdone")?.addEventListener("click",()=>{stt.done=true;stt.mark="got";markDay();persist();renderTopicTest(el);});
+  el.querySelector("#ttmark")?.addEventListener("click",()=>{X.phase="mark";X.finished=Date.now();stopTestTimer();renderTopicTest(el);window.scrollTo({top:0});});
+  el.querySelector("#ttfinish")?.addEventListener("click",()=>{finishTopicTest(t);renderTopicTest(el);window.scrollTo({top:0});});
+  el.querySelectorAll("[data-tm]").forEach(b=>b.addEventListener("click",()=>{const[i,v]=b.dataset.tm.split("|");X.marks[+i]=+v;const y=window.scrollY;renderTopicTest(el);window.scrollTo({top:y});}));
+  if(X.phase==="answer"){const tick=()=>{const n=left();const e=el.querySelector("#ttimer");if(!e){stopTestTimer();return;}
+      e.textContent=fmtSecs(n);e.classList.toggle("low",n<=60&&n>0);
+      if(n<=0){stopTestTimer();X.timeUp=true;X.phase="mark";X.finished=Date.now();renderTopicTest(el);window.scrollTo({top:0});}};
+    testTimer=setInterval(tick,1000);}}
+function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;render();return;}
+  if(lesson.test)return renderTopicTest(el);const S=SUBJECTS[t.subj];const stt=T(t.id);
   const marks=lessonMarks(t.id);const blocks=parseLesson(lesson.text);const qs=blocks.filter(b=>b.kind==="q"),exs=blocks.filter(b=>b.kind==="example");const right=qs.filter((_,i)=>marks[i]===true).length;
   const idx=S.topics.indexOf(t);const prev=S.topics.slice(0,idx).reverse().find(x=>x.lesson),next=S.topics.slice(idx+1).find(x=>x.lesson);
   const note=lessonNote(t.id);
@@ -1549,11 +1650,12 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
     <div class="lhead"><span class="pill"><span class="dot" style="background:${S.color}"></span>Lesson</span><span class="wcode">${esc(t[0])}</span><span class="muted" style="font-size:12.5px">· ${idx+1} of ${S.topics.length}</span></div>
     <h1 style="font-size:26px;margin:4px 0 6px">${esc(t[1])}</h1>
     <p class="muted" style="font-size:13.5px;margin:0 0 14px">${mins(t[2])} min in the plan · ${exs.length} worked examples · ${qs.length} practice questions${stt.done?" · <b>topic done</b>":""}</p>
-    <div class="lnav">${(t.videos||[]).length?`<button data-jump="l-video">Video</button>`:""}<button data-jump="l-what">What it is</button><button data-jump="l-method">How to do it</button><button data-jump="l-examples">Examples</button><button data-jump="l-try">Try these <span class="chip ${right===qs.length?"ok":""}">${right}/${qs.length}</span></button><button data-jump="l-watch">Marks</button><span class="lnavsp"></span><button class="btn small ghost" id="llisten" title="Read the explanation aloud">${narrating?"Stop":"Listen"}</button><button class="btn small ghost" id="ltts" title="Narration speed" aria-label="Narration speed">⚙</button><button class="btn small ${lesson.notes?"primary":""}" id="lnotes">Notes${note.trim()?" ·":""}</button><button class="btn small ghost" id="lprint">Print</button></div>
+    <div class="lnav">${(t.videos||[]).length?`<button data-jump="l-video">Video</button>`:""}<button data-jump="l-what">What it is</button><button data-jump="l-method">How to do it</button><button data-jump="l-examples">Examples</button><button data-jump="l-try">Try these <span class="chip ${right===qs.length?"ok":""}">${right}/${qs.length}</span></button><button data-jump="l-watch">Marks</button><button id="lntest" title="Closed-book, timed, self-marked">Test${(()=>{const h=lastTest(t.id);return h?` <span class="chip ${testBand(h.pct)==="secure"?"ok":""}">${h.s}/${h.t}</span>`:"";})()}</button><span class="lnavsp"></span><button class="btn small ghost" id="llisten" title="Read the explanation aloud">${narrating?"Stop":"Listen"}</button><button class="btn small ghost" id="ltts" title="Narration speed" aria-label="Narration speed">⚙</button><button class="btn small ${lesson.notes?"primary":""}" id="lnotes">Notes${note.trim()?" ·":""}</button><button class="btn small ghost" id="lprint">Print</button></div>
     <div class="ttscfg" id="ttscfg" hidden><label>Voice <select id="ttsvoice"><option value="">Jenny</option></select></label><label>Speed <input type="range" id="ttsrate" min="0.7" max="1.4" step="0.1" value="${ttsRate}"><span class="ttsratev" id="ttsratev">${ttsRate.toFixed(1)}×</span></label></div>
     ${videoBox(t)}
     <div class="lbody" id="l-what">${lessonHtml(t.id,lesson.text)}</div>
     <div class="lend"><div class="eyebrow" style="margin-bottom:6px">Finished?</div><p class="muted" style="font-size:14px;margin:0 0 10px">${stt.done?"This topic is ticked as done. It comes back for recall checks; anything marked Not yet is in the mistakes log.":"If you can do the practice questions without looking, tick the topic. It then comes back for recall checks at "+REVIEW_GAPS.join(", ")+" days."}</p>
+      ${(()=>{const h=lastTest(t.id);const hist=topicTests(t.id);return `<div class="lessonbar" style="margin:0 0 12px"><div><b>End-of-topic test</b><span class="muted"> · closed book, ${fmtSecs(Math.max(300,testPool(lesson.text).qs.reduce((n,b)=>n+Math.max(60,90*qMarks(splitQ(b).q)),0)))} on the clock, mark yourself against the answers${h?`. Last: <b>${h.s}/${h.t}</b> (${h.pct}%) on ${fmt(new Date(h.d+"T00:00:00"))}${hist.length>1?`, ${hist.length} attempts`:""}`:""}</span></div><button class="btn small ${h&&testBand(h.pct)==="secure"?"":"primary"}" id="ltest">${h?"Retake the test":"Take the test"}</button></div>`;})()}
       <div class="wbtns">${stt.done?`<button class="btn" id="ldone">Untick topic</button>`:`<button class="btn primary" id="ldone">✓ Tick topic as done</button>`}${next?`<button class="btn" data-lesson="${esc(next.id)}">Next lesson: ${esc(next[0])} ›</button>`:""}${prev?`<button class="btn ghost" data-lesson="${esc(prev.id)}">‹ ${esc(prev[0])}</button>`:""}</div>
       ${mistakeBlock(t.id,"What went wrong in this lesson? Be specific")}</div>
     <aside class="lnotesp" ${lesson.notes?"":"hidden"}><div class="lnoteshead"><span class="eyebrow">My notes · ${esc(t[0])}</span><button class="icon" id="lnotesclose" aria-label="Close">×</button></div>
@@ -1563,7 +1665,7 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
     <button class="lsel" id="lsel" hidden>+ Add to notes</button>
     <div class="lplayer" id="lplayer" title="Listen to this lesson"><button class="lpplay" aria-label="Read the explanation aloud">▶</button><span class="lplab">Listen</span><button class="lpstop" aria-label="Stop" title="Stop">×</button></div></div>`;
   document.documentElement.style.setProperty("--toph",(document.getElementById("top")?.offsetHeight||46)+"px");
-  const close=()=>{stopNarration();lesson=null;render();};
+  const close=()=>{stopNarration();stopTestTimer();lesson=null;render();};
   el.querySelector("#lback").addEventListener("click",close);
   el.querySelector("#llisten")?.addEventListener("click",()=>toggleNarration(lesson.text));
   const ttsCfg=el.querySelector("#ttscfg");
@@ -1577,6 +1679,8 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
   el.querySelector("#lplayer .lpplay")?.addEventListener("click",()=>narrToggle(lesson.text));
   el.querySelector("#lplayer .lpstop")?.addEventListener("click",stopNarration);
   updateNarrUI();
+  el.querySelector("#ltest")?.addEventListener("click",startTopicTest);
+  el.querySelector("#lntest")?.addEventListener("click",startTopicTest);
   el.querySelector("#ldone").addEventListener("click",()=>{if(stt.done){stt.done=false;stt.mark=null;stt.fixed=false;stt.known=false;}else{stt.done=true;markDay();}persist();renderLessonKeep(el);});
   el.querySelectorAll("[data-jump]").forEach(a=>a.addEventListener("click",()=>{document.getElementById(a.dataset.jump)?.scrollIntoView({behavior:"smooth",block:"start"});}));
   el.querySelector("#lcover")?.addEventListener("click",()=>{lesson.cover=!lesson.cover;lesson.steps={};renderLessonKeep(el);});
@@ -1630,10 +1734,11 @@ function videoBox(t){const vs=t.videos||[];if(!vs.length)return "";
 function renderLessonKeep(el){const y=window.scrollY;renderLesson(el);window.scrollTo({top:y});}
 /* The button that opens a lesson from a session card or a topic row. */
 function lessonBar(t){if(!t.lesson)return "";const m=lessonMarks(t.id);const n=Object.keys(m).length,r=Object.values(m).filter(Boolean).length;
-  return `<div class="lessonbar"><div><b>This topic has a lesson</b><span class="muted"> · ${(t.videos||[]).length?"intro video, ":""}explanation, worked examples, ${n?`${r} of ${n} practice questions right`:"practice questions with answers"}${lessonNote(t.id).trim()?", and your notes":""}</span></div><button class="btn small primary" data-lesson="${esc(t.id)}">Open the lesson</button></div>`;}
+  return `<div class="lessonbar"><div><b>This topic has a lesson</b><span class="muted"> · ${(t.videos||[]).length?"intro video, ":""}explanation, worked examples, ${n?`${r} of ${n} practice questions right`:"practice questions with answers"}${lessonNote(t.id).trim()?", and your notes":""}${(()=>{const h=lastTest(t.id);return h?`. End-of-topic test: <b>${h.s}/${h.t}</b>`:"";})()}</span></div><span style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn small primary" data-lesson="${esc(t.id)}">Open the lesson</button><button class="btn small" data-ttest="${esc(t.id)}">${lastTest(t.id)?"Retake test":"Take the test"}</button></span></div>`;}
 /* The chip on a topic row: shows how the practice went. */
 function lessonChip(t){if(!t.lesson)return "";const m=lessonMarks(t.id);const r=Object.values(m).filter(Boolean).length,n=Object.keys(m).length;
-  return ` <button class="lchip ${n&&r===n?"ok":""}" data-lesson="${esc(t.id)}">Lesson${n?` · ${r}/${n}`:""}</button>`;}
+  const h=lastTest(t.id);
+  return ` <button class="lchip ${n&&r===n?"ok":""}" data-lesson="${esc(t.id)}">Lesson${n?` · ${r}/${n}`:""}</button>${h?` <button class="lchip test ${testBand(h.pct)}" data-ttest="${esc(t.id)}" title="Last end-of-topic test · ${esc(h.d)} · retake">Test · ${h.s}/${h.t}</button>`:""}`;}
 /* On a recall check: what the reader wrote for themselves. */
 function lessonNoteBlock(topicId){const n=lessonNote(topicId);if(!n.trim())return "";
   return `<details class="lnoterecall" open><summary><span class="eyebrow">Your lesson notes</span></summary><pre>${esc(n)}</pre></details>`;}
@@ -2059,6 +2164,7 @@ function renderGuide(){
   <h3>Mistakes log</h3><p>What actually went wrong, kept per topic. A recall check marked <b>Some gaps</b> logs every objective you could not do; a session or test marked shaky asks what dropped the marks; and you can write one under any topic. Open mistakes appear at the top of that topic's next recall check as <b>Last time you got wrong</b>, and each subject page lists all of its open ones so you can read them before a test. Tick a mistake when you can do it without the slip.</p>
   <h3>Your cards</h3><p>Under any topic you can write cards — a short quote on the front, the technique and its effect on the back; a formula; a definition. They come up in that topic's recall checks, front first. Nothing is pre-filled on purpose: writing the card is most of the learning.</p>
   <h3>Lessons</h3><p>For Maths, Further Maths, Economics, Business, Computer Science, Biology, Chemistry, Physics, English Literature and English Language, every topic carries its own lesson inside the app — no hunting for videos or notes. Open one from the session in <b>Today</b>, from the topic in <b>Subjects</b>, or from the walkthrough. Each lesson has the same shape: <b>What it is</b>, <b>How to do it</b> as numbered steps, worked examples with every line shown, <b>Try these</b> — practice questions with the answer hidden until you tap, then <b>Got it</b> or <b>Not yet</b> (Not yet goes straight into the mistakes log for that topic) — and <b>Where the marks go</b>, the errors examiners see most. Every number in the answers was checked by computer. <b>Cover the working</b> turns each worked example into a step-by-step reveal, so you attempt each line before you see it. <b>Notes</b> opens your own notebook beside the lesson — it autosaves, anything you highlight in the lesson can be added with one tap, the first line can become a card, and the notes come back on that topic's recall checks. <b>Print</b> gives you the lesson with every answer shown as a revision sheet. When you can do the questions without looking, tick the topic at the bottom and it joins the recall rotation. Lessons work offline; the maths is typeset locally.</p>
+  <h3>End-of-topic tests</h3><p>Every lesson ends with <b>Take the test</b> (also under <b>Test</b> in the lesson's top bar, and on the topic row once you have taken one). It is closed book and timed: the questions appear with no answers and a clock, you write every answer on paper, then <b>Mark it</b> shows the answers and you give yourself the marks. 80% or more is <b>Secure</b> — tick the topic and it joins recall; below that, everything you dropped is already in the mistakes log, so read those, go back over that part of the lesson, and retake. Attempts are kept, so the subject page shows your last score on each topic and the lesson shows the run of attempts.</p>
   <h3>Quote bank</h3><p>English Literature is closed book, so the quotes you can write from memory are the marks. <b>Subjects → Eng Literature → Quote bank</b> keeps every quote in one place: pick the text, type the quote, tag its themes and write the one sentence you would say about it. Every set text and all fifteen Power and Conflict poems are listed with a count, so a poem you have nothing for shows as a zero. <b>Test me</b> blanks out a third of the words and asks you to fill them in — or, switched round, gives you the theme and asks for the quote. Three right in a row makes a quote solid; one miss puts it back to the front. Quotes also come up in that text's recall checks, and <b>Print</b> gives you the lot on one sheet for the night before. Nothing is pre-filled: choosing the quote is the learning.</p>
   <h3>Already ahead?</h3><p>In <b>Subjects</b>, open a subject and hit <b>Where am I up to?</b> The course is laid out one topic at a time in specification order, with its objectives and checklist: <b>Done this</b> ticks it as known and shows the next; <b>Not yet</b> is where you are. Or use <b>Tick what you already know</b> to tick from the list, a section at a time. Anything ticked counts as done, leaves the schedule, and goes straight into recall. For subjects the app runs ahead in, a bar then offers to <b>re-pour</b> the plan so those hours go to what is left.</p>
   <h3>Tests</h3>
