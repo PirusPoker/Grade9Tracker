@@ -1,6 +1,6 @@
 [package]
 name = "grade9-tracker"
-version = "1.11.0"
+version = "1.12.0"
 description = "Two-year Edexcel IGCSE study plan with daily sessions, scheduled tests and an automatic fix list."
 authors = ["Alastair"]
 edition = "2021"
