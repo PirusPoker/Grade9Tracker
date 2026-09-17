@@ -15,6 +15,8 @@
 //! - Business: Two Teachers, Halima Teaches (AQA 8132) and Bizconsesh.
 //! - Economics: Mr Lee's Cambridge IGCSE chapter series, with ThinkIGCSE
 //!   and EconplusDal alongside.
+//! - English: Mr Bruff (a quick-revision video per poem and a 2026 guide per
+//!   Language question), Mr Salles, Easy as GCSE and First Rate Tutors.
 
 use serde::Serialize;
 
@@ -40,6 +42,10 @@ const HALIMA: &str = "Halima Teaches";
 const MRLEE: &str = "Mr Lee - Business Econ";
 const EPD: &str = "EconplusDal";
 const THINK: &str = "ThinkIGCSE";
+const BRUFF: &str = "Mr Bruff";
+const SALLES: &str = "Mr Salles Teaches English";
+const EASY: &str = "Easy as GCSE";
+const FRT: &str = "First Rate Tutors";
 
 /// (topic id, [(video id, title, creator)]) in the order they should be watched.
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
@@ -1419,6 +1425,303 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("mvq6Fjzdjd8", "Current Account of the Balance of Payments", EPD),
         ("xZIPvpiPvqY", "The importance of the balance of payments on current account", "Mr Goff"),
     ]),
+    // ---------- English Literature (AQA GCSE 8702) — Mr Bruff, Mr Salles, Easy as GCSE and others ----------
+    ("englit:3.1.1a", &[
+        ("4GSCWDa1qcE", "Shakespeare in seven minutes: Macbeth summary", EASY),
+        ("pCsypkF5U_Y", "Macbeth Plot Summary in Under 4 Minutes", "Schooling Online"),
+        ("goET70zn57s", "Macbeth: top set analysis (part 1)", BRUFF),
+    ]),
+    ("englit:3.1.1b", &[
+        ("NmMAO82R8Cg", "Character Analysis: Macbeth", BRUFF),
+        ("sSDcTyMAt0U", "Student grade 9 essay on Macbeth's character", SALLES),
+        ("a5zPagitg5E", "How to get a grade 9 in Macbeth: the only 10 concepts you need", SALLES),
+    ]),
+    ("englit:3.1.1c", &[
+        ("90iY1ku7flA", "Character Analysis: Lady Macbeth", BRUFF),
+        ("KV2hlM2pkS8", "Lady Macbeth Character Analysis: English Literature Revision", EASY),
+        ("JevkOJ2ajIQ", "Macbeth: the character of Lady Macbeth", "BBC Bitesize for Teachers"),
+    ]),
+    ("englit:3.1.1d", &[
+        ("smK89SS_z8A", "Ambition in Macbeth | Theme Analysis", "Comics and Lit"),
+        ("Ljrf1-UzAgM", "Kingship in Macbeth | Theme Analysis", "Comics and Lit"),
+        ("O3v6SHRjZhM", "'Ambition' in Macbeth: Key Quotes & Analysis", "Dr Aidan"),
+    ]),
+    ("englit:3.1.1e", &[
+        ("DDH4ooBU7TA", "Macbeth Themes Revision: The Supernatural, Fate vs Free Will, Appearance vs Reality", EASY),
+        ("Fe4JOaR8UdQ", "Guilt in Macbeth | Theme Analysis", "Comics and Lit"),
+        ("9RkMKSUYXHE", "'Fate and Free Will' in Macbeth: Key Quotes & Analysis", "Dr Aidan"),
+        ("p0srFlBU7iU", "Macbeth Themes Revision: Ambition and Guilt", EASY),
+    ]),
+    ("englit:3.1.1f", &[
+        ("SOCR0Ab1ABk", "Macbeth context to impress your examiner", "The Lightup Hub"),
+        ("-S6sQtmbYhY", "Macbeth: contextual analysis", "Schooling Online"),
+        ("r9EiT09JFWs", "James I And His Influence On Macbeth", "Pate Resources"),
+        ("KvaZd3OmPNA", "Macbeth context: witchcraft in Shakespeare's time", "myShakespeare"),
+    ]),
+    ("englit:3.1.2a", &[
+        ("de5NRZRZohE", "'A Christmas Carol' Plot Summary", BRUFF),
+        ("sZB-G4882aM", "'A Christmas Carol': Structure", BRUFF),
+        ("8fzPJUtstn4", "A Christmas Carol: 7 minute summary", EASY),
+        ("e98F6whQUFM", "Dickens' A Christmas Carol: top set analysis", BRUFF),
+    ]),
+    ("englit:3.1.2b", &[
+        ("F2kuQSbazUo", "Ebeneezer Scrooge: Character Analysis - 'A Christmas Carol'", BRUFF),
+        ("-HXBa-8N8KI", "How does Scrooge transform in A Christmas Carol?", "Jen Chan"),
+        ("kyJBrUxlNpg", "Ebenezer Scrooge character analysis", EASY),
+        ("c2x9wiRRFQY", "A Christmas Carol: Analysis of Scrooge + Key Quotes", "Dr Aidan"),
+    ]),
+    ("englit:3.1.2c", &[
+        ("YW6Qo3TB39o", "The 3 Ghosts: Character Analysis - 'A Christmas Carol'", BRUFF),
+        ("A9TNVOWQxdY", "Jacob Marley: Character Analysis - 'A Christmas Carol'", BRUFF),
+        ("XJJ7zSSOhYw", "The ghosts part 1: Marley and the Ghost of Christmas Past", EASY),
+        ("p-TZzy30Mkc", "The ghosts part 2: Christmas Present and Christmas Yet To Come", EASY),
+        ("15HiKFCMEyk", "'The Ghosts' in A Christmas Carol (Key Quotes & Analysis)", "Dr Aidan"),
+    ]),
+    ("englit:3.1.2d", &[
+        ("WA-BTiru9RA", "A Christmas Carol Themes: Poverty and Social Injustice", "Beyond Revision"),
+        ("hKjF0NFpMC8", "A Christmas Carol Themes: Transformation and Redemption", "Beyond Revision"),
+        ("2gMw20RDgIM", "Poverty in A Christmas Carol: quotes, arguments and essay plan", "Revise with Mr Wood"),
+        ("nWu8oR2H1Cg", "A Christmas Carol key themes: poverty", "The Ten Minute English Teacher"),
+    ]),
+    ("englit:3.1.2e", &[
+        ("w7V4tXuhbk8", "'A Christmas Carol': Context", BRUFF),
+        ("3xRonangfz0", "Dickens' A Christmas Carol in context", "ClickView"),
+        ("NpQTrX6Zh98", "A Christmas Carol: context", "Tutoring with Gavin"),
+        ("vL74fkFkHpM", "Grade 9 A Christmas Carol revision: context", "The Lightup Hub"),
+    ]),
+    ("englit:3.2.1a", &[
+        ("Dc7-wKFR5y8", "An Inspector Calls: 7 minute summary", EASY),
+        ("QJ_0VgEduXY", "'An Inspector Calls': Act 1 Summary", BRUFF),
+        ("bcXMy84cr5g", "'An Inspector Calls': Act 2 Summary", BRUFF),
+        ("v_m3SMNk-SA", "'An Inspector Calls': Act 3 Summary", BRUFF),
+    ]),
+    ("englit:3.2.1b", &[
+        ("KvhiaECGjTY", "'An Inspector Calls': Mr Birling Character Analysis", BRUFF),
+        ("NRhvVIINlyM", "'An Inspector Calls': Mrs Birling Character Analysis", BRUFF),
+        ("0lfHDKhZ_aw", "'An Inspector Calls': Sheila Character Analysis", BRUFF),
+        ("ryE3EnENnBI", "'An Inspector Calls': Eric Character Analysis", BRUFF),
+        ("8TdZtpuDB_Q", "'An Inspector Calls': Gerald Animated Character Analysis", BRUFF),
+    ]),
+    ("englit:3.2.1c", &[
+        ("FOeASYrxL1c", "'An Inspector Calls': Inspector Goole Character Analysis", BRUFF),
+        ("_sMRnzualzQ", "Who is Inspector Goole? Animated character analysis", EASY),
+    ]),
+    ("englit:3.2.1d", &[
+        ("Txqz_UiLXHc", "Everything you need to know on social responsibility", EASY),
+        ("gUqKoJXIdPY", "Gender and power: theme analysis", EASY),
+        ("Prp1-e3kAHE", "An Inspector Calls themes: responsibility overview", "Beyond Revision"),
+        ("5jlZ0IXmSxA", "The theme of social responsibility in An Inspector Calls", "ClickView"),
+    ]),
+    ("englit:3.2.1e", &[
+        ("CKAPm-BlfmE", "An Inspector Calls context: why is it set in 1912 and not 1945?", "GCSE English Explained"),
+        ("Zi3iiR1tz6I", "An Inspector Calls: context, 1912 and 1945", "CENTURY Tech"),
+        ("F1wlZpu1txo", "An Inspector Calls context: J. B. Priestley", "Comics and Lit"),
+        ("3fXw8lWWtlA", "An Inspector Calls: context and background", "ClickView"),
+    ]),
+    ("englit:3.2.2a", &[
+        ("PV_EeGJmWqA", "'Ozymandias' in 6.5 Minutes: Quick Revision", BRUFF),
+        ("mqWZLy7hUOc", "Revise all of Ozymandias in one video", EASY),
+        ("d_Egz2bDQ0o", "Percy Shelley's 'Ozymandias'", BRUFF),
+    ]),
+    ("englit:3.2.2b", &[
+        ("McAbDpgtje0", "'London' in 6 Minutes: Quick Revision", BRUFF),
+        ("cJ6NCtJdoqM", "Revise everything about London in one video", EASY),
+        ("zHp8eVi27Nw", "William Blake: 'London'", BRUFF),
+        ("6BERjLZzuOg", "William Blake's London: poetry between the lines", "BBC Bitesize for Teachers"),
+    ]),
+    ("englit:3.2.2c", &[
+        ("5yVflZI3Mr0", "'Extract from The Prelude' in Under 6 Minutes: Quick Revision", BRUFF),
+        ("Rq10axbFfg4", "The Prelude: summary and analysis", "Mr Everything English"),
+        ("_iFFRzRajQw", "Grade 9 analysis of The Prelude", SALLES),
+        ("EGn1Ilx_3o4", "Wordsworth's Prelude, boat-stealing: poetry between the lines", "BBC Bitesize for Teachers"),
+    ]),
+    ("englit:3.2.2d", &[
+        ("itfGGpFIloc", "'My Last Duchess' in 6 Minutes: Quick Revision", BRUFF),
+        ("P6WO9AKt4zI", "My Last Duchess: Power and Conflict poetry revision", "The Ten Minute English Teacher"),
+        ("T9h_csKEwxg", "'My Last Duchess' by Robert Browning", BRUFF),
+    ]),
+    ("englit:3.2.2e", &[
+        ("Zwgv-MdWDYU", "'The Charge of the Light Brigade' in 5 Minutes: Quick Revision", BRUFF),
+        ("eminBimYdbg", "Everything you need to know about The Charge of the Light Brigade", EASY),
+        ("OXVs8KydoNY", "Alfred Lord Tennyson's 'The Charge of the Light Brigade'", BRUFF),
+    ]),
+    ("englit:3.2.2f", &[
+        ("FH_robM_-wg", "'Exposure' by Wilfred Owen in 5 Minutes: Quick Revision", BRUFF),
+        ("6jivG8sWG0I", "Revise Exposure in one video", EASY),
+        ("64FESmLvQEs", "Wilfred Owen: 'Exposure'", BRUFF),
+    ]),
+    ("englit:3.2.2g", &[
+        ("gVgl_pLemfw", "'Storm on the Island' by Seamus Heaney in 5.5 Minutes: Quick Revision", BRUFF),
+        ("iU558Fnafik", "Storm on the Island: complete revision guide", EASY),
+        ("Sgsu_WgO9GY", "Seamus Heaney: 'Storm on the Island'", BRUFF),
+    ]),
+    ("englit:3.2.2h", &[
+        ("4--ViHqsaNc", "'Bayonet Charge' by Ted Hughes in 5.5 Minutes: Quick Revision", BRUFF),
+        ("i2NgWjDSk4g", "Revise Bayonet Charge in one video", EASY),
+        ("6AMuwf9zzKM", "Ted Hughes: 'Bayonet Charge'", BRUFF),
+    ]),
+    ("englit:3.2.2i", &[
+        ("R4fLrVnp2jk", "'Remains' by Simon Armitage in 5 Minutes: Quick Revision", BRUFF),
+        ("RM3qpLPLF0o", "Revise Remains in one video", EASY),
+        ("vmUCX-dSb9E", "Simon Armitage: 'Remains'", BRUFF),
+    ]),
+    ("englit:3.2.2j", &[
+        ("xdD3je6OKAU", "'Poppies' in 4.5 Minutes: Quick Revision", BRUFF),
+        ("Z0j3GHL1RE0", "Revise Poppies in one video", EASY),
+        ("FEqSAT77SDQ", "'Poppies' by Jane Weir", BRUFF),
+        ("cbH-6YYbxgE", "Grade 9 analysis: Poppies", SALLES),
+    ]),
+    ("englit:3.2.2k", &[
+        ("MbJGwPjZ3ZM", "'War Photographer' in 5 Minutes: Quick Revision", BRUFF),
+        ("4_5ALePPJUE", "Revise War Photographer in one video", EASY),
+        ("HeZCQlUMQxI", "Carol Ann Duffy: 'War Photographer'", BRUFF),
+    ]),
+    ("englit:3.2.2l", &[
+        ("BSC2cKcgkMk", "'Tissue' in 6 Minutes: Quick Revision", BRUFF),
+        ("ZR9_yFJhZWU", "Tissue: analysis", SALLES),
+        ("wVjZpi9lkcI", "Imtiaz Dharker: 'Tissue'", BRUFF),
+    ]),
+    ("englit:3.2.2m", &[
+        ("wzx1J8ojGPE", "'The Emigree' in 5 Minutes: Quick Revision", BRUFF),
+        ("9QpRshR-_10", "Revise The Émigrée in one video", EASY),
+        ("RfIJ8iXLfLc", "'The Emigree', by Carol Rumens", BRUFF),
+    ]),
+    ("englit:3.2.2n", &[
+        ("cnyv4bucAwA", "'Checking Out Me History' by John Agard in 6 Minutes: Quick Revision", BRUFF),
+        ("Mj1bMk_E7GQ", "John Agard: 'Checking Out Me History'", BRUFF),
+        ("-0nJ_IlMFac", "Comparing Checking Out Me History and The Émigrée", "MyEdSpace English"),
+    ]),
+    ("englit:3.2.2o", &[
+        ("115XZNvCwlI", "'Kamikaze' in 4 Minutes: Quick Revision", BRUFF),
+        ("CNSpDKNGkVg", "Revise Kamikaze in one video", EASY),
+        ("9zwoe5twfd4", "'Kamikaze' by Beatrice Garland", BRUFF),
+        ("hvof1FUlf4s", "Beatrice Garland reads 'Kamikaze'", BRUFF),
+    ]),
+    ("englit:3.2.2p", &[
+        ("5mQGQhcaptM", "Which Power and Conflict poems compare best?", BRUFF),
+        ("zreLmzXklaE", "Power and Conflict poetry: animated summary of all 15 poems", BRUFF),
+        ("F28c6KOhgNw", "All 15 poems explained in one mindmap", FRT),
+        ("urXta6o-7Xg", "3 key points on all 15 Power and Conflict poems", BRUFF),
+    ]),
+    ("englit:3.2.2q", &[
+        ("M9ra8A0fTBU", "How to structure your Power and Conflict poetry analysis", BRUFF),
+        ("HI9q90kLhDY", "Comparing poems: a step-by-step guide", FRT),
+        ("u_1mjUY54oE", "Poetry comparison: 4 ways to get grade 9", SALLES),
+        ("kUnAtrRFbes", "Grade 9 student essay: Bayonet Charge and Exposure", SALLES),
+        ("vMBydl-0Kng", "How to organise your AQA anthology poetry comparison", BRUFF),
+    ]),
+    ("englit:3.2.3a", &[
+        ("7Bari-Ggx5w", "Unseen poetry: how to get full marks in Paper 2 Section C", FRT),
+        ("3yr7VSIgy9s", "How to analyse any unseen poem", "Jen Chan"),
+        ("aQ7CTHb_An0", "Unseen poem: the perfect method", SALLES),
+        ("iIWmthgysSM", "Ultimate guide to Literature Paper 2 Section C: unseen poetry", BRUFF),
+    ]),
+    ("englit:3.2.3b", &[
+        ("Al5rdKkfBlY", "Unseen poem comparison sorted", SALLES),
+        ("bBsUyLuBjyA", "Comparing the unseen poems: the way to secure 8/8", "Mr Everything English"),
+        ("1YrfpNluI_U", "Unseen poetry comparison question", "Bossing English with Mr F"),
+    ]),
+    ("englit:3.3a", &[
+        ("U4t509-raoE", "How are form and structure different?", "Jen Chan"),
+        ("Md0l6uRl2c8", "How to analyse any quote in your English essay", FRT),
+        ("6zXBiAuPQ_Y", "10 language and structure techniques you'll find in any exam", FRT),
+    ]),
+    ("englit:3.3b", &[
+        ("tIhHjL9c9G4", "How to include context in literary analysis", "Jen Chan"),
+        ("QGCjcAdm53A", "The best way to add context (AO3) to a Literature essay", "Mr Everything English"),
+    ]),
+    // ---------- English Language (AQA GCSE 8700) — Mr Bruff's 2026 guides, First Rate Tutors, Mr Salles ----------
+    ("englang:1.1a", &[
+        ("OlIwGb7bSOI", "Paper 1 Question 1: your guide", BRUFF),
+        ("7J660l_NmwU", "Paper 1 rap", BRUFF),
+    ]),
+    ("englang:1.1b", &[
+        ("L_dE68iUg-k", "Paper 1 Question 2", BRUFF),
+        ("HblzTRxJ_-4", "Paper 1 Question 2 in detail: walking talking mock", BRUFF),
+        ("ML9V4Sy3z_s", "How to get full marks on Paper 1 Question 2", "The Lightup Hub"),
+        ("MtOCSrnioVo", "Paper 1 Question 2 (new for 2026)", "Comics and Lit"),
+    ]),
+    ("englang:1.1c", &[
+        ("VNVB5InFrHQ", "Paper 1 Question 3", BRUFF),
+        ("hM9Gv58zDac", "The easiest way to analyse structure in Paper 1 Question 3", BRUFF),
+        ("cQ1XJKCnC0g", "How to find a structure technique in 30 seconds", FRT),
+        ("zQgroyKOArg", "Paper 1 Question 3: how to get 8/8", "The Lightup Hub"),
+    ]),
+    ("englang:1.1d", &[
+        ("y22Ciur-Ryo", "Paper 1 Question 4: your guide", BRUFF),
+        ("4HMwe4kqkGQ", "How to answer Paper 1 Question 4 in 3 steps", FRT),
+        ("Gs4Fc7wzVD8", "Paper 1 Question 4: how to get 20/20", "The Lightup Hub"),
+    ]),
+    ("englang:1.2a", &[
+        ("M4IE_jSK6lg", "Descriptive writing: secrets of the new mark scheme", BRUFF),
+        ("zP5bUlDKJK0", "The perfect descriptive writing piece in five steps", FRT),
+        ("qLKbxVyUGJM", "Paper 1 Question 5: how to get 40/40", "The Lightup Hub"),
+    ]),
+    ("englang:1.2b", &[
+        ("OalIJCsUMvY", "Paper 1 Question 5: writing a story opening", BRUFF),
+        ("AkfkWVEy_QQ", "The perfect story opening in 5 steps", FRT),
+        ("Qrc4X1nxipo", "11 fatal mistakes of story writing (and how to avoid them)", SALLES),
+        ("pLc3ICEC2GY", "The perfect creative writing story in 5 steps", FRT),
+    ]),
+    ("englang:1.2c", &[
+        ("tAalMSzrK0U", "Learning from the best: writing an effective story opening", BRUFF),
+        ("H4-u20fCldE", "How to write an engaging story opening", "Miss Adams Teaches..."),
+        ("ACSGA0hHWzU", "How to get 40/40 in Question 5 using this sentence", FRT),
+        ("pdoaQ4wLzXI", "3 creative writing mistakes examiners hate", FRT),
+    ]),
+    ("englang:2.1a", &[
+        ("yKZ_Tr2Y-CE", "Paper 2 Question 1", BRUFF),
+        ("-ZN_X5sIcZI", "How easy is Paper 2 Question 1?", SALLES),
+        ("5P2r2BgXSd4", "Paper 2 Question 1: get those easy marks", "Mr Everything English"),
+    ]),
+    ("englang:2.1b", &[
+        ("Y51zxEf4QYQ", "Paper 2 Question 2: your guide", BRUFF),
+        ("TvRzN8k45II", "Paper 2 Question 2: how to actually infer and compare", FRT),
+        ("wh9KPBApsU0", "Paper 2 Question 2: how to get 8/8", "The Lightup Hub"),
+        ("fb12tKlX0q0", "Paper 2 Question 2: how to get full marks", SALLES),
+    ]),
+    ("englang:2.1c", &[
+        ("RUWxpg_EmeM", "Paper 2 Question 3", BRUFF),
+        ("68lBeFZgJsI", "Paper 2 Question 3 (worked example)", BRUFF),
+        ("prIBv9luZIw", "Paper 2 Question 3: what really gets the grades?", SALLES),
+        ("btxhOONIr3Y", "Paper 2 Question 3: full mark answer and method", SALLES),
+    ]),
+    ("englang:2.1d", &[
+        ("tNb3RdGEmYA", "Paper 2 Question 4: your guide", BRUFF),
+        ("eWkSbes21Z8", "Paper 2 Question 4: compare writers' perspectives", "BBC Bitesize - GCSE Revision Support"),
+        ("colgbQp1zaM", "Paper 2 Question 4: a full-mark comparison paragraph", FRT),
+        ("4WW0vYfsnnM", "Paper 2 Question 4: the perfect method is easy", SALLES),
+    ]),
+    ("englang:2.2a", &[
+        ("v0aAitntCvo", "Paper 2 Question 5", BRUFF),
+        ("A3YlQFjm6K0", "How to answer any persuasive writing question", FRT),
+        ("xFdQvdArGm4", "Persuasive writing techniques you must know", SALLES),
+        ("Cmv9M8l_ftc", "Paper 2 Question 5: how to get 40/40", "The Lightup Hub"),
+    ]),
+    ("englang:2.2b", &[
+        ("GauwoIz_nHI", "What should you include in a letter, article, leaflet, essay or speech?", BRUFF),
+        ("60NkImwWrvc", "Writing an article", BRUFF),
+        ("T7TM6qmRqus", "Writing a letter", BRUFF),
+        ("EMmAriRCl20", "Writing a speech", BRUFF),
+        ("bkc9rINcYAo", "The perfect article, letter or speech for Paper 2", FRT),
+    ]),
+    ("englang:2.2c", &[
+        ("jJk2GOgRSrw", "How to answer any Paper 2 Question 5", FRT),
+        ("wbvIrznF5mY", "Paper 2 Question 5: top-grade structure breakdown", "Literature Lens"),
+        ("QkAU7mA-PE4", "How to plan top grade persuasive writing", SALLES),
+        ("B1aONhs0SC4", "Paper 2 Question 5: argue and persuade", SALLES),
+    ]),
+    ("englang:3a", &[
+        ("TuzEG6rUuqA", "How to get a Distinction in your Spoken Language endorsement", "Mr Davey"),
+        ("2d7uajjU_JI", "Achieving a Distinction for Spoken Language", "SchofieldShakespeare"),
+        ("fv-TrMqO53A", "Planning your spoken language presentation", "Mrs Stockill's English"),
+        ("PjuxHC4zjWQ", "How to secure a Distinction in your GCSE English speech", "Dylan Boateng"),
+    ]),
+    ("englang:3b", &[
+        ("TuzEG6rUuqA", "How to get a Distinction in your Spoken Language endorsement", "Mr Davey"),
+        ("2d7uajjU_JI", "Achieving a Distinction for Spoken Language", "SchofieldShakespeare"),
+        ("jNmwNB3xFr8", "Five tips to help you during your speaking exam", "British Council | LearnEnglish Teens"),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
@@ -1465,7 +1768,7 @@ mod tests {
     /// Subjects whose every topic has a video to start from.
     #[test]
     fn covered_subjects_have_a_video_on_every_topic() {
-        for subj in ["maths", "bio", "chem", "phys", "bus", "econ"] {
+        for subj in ["maths", "bio", "chem", "phys", "bus", "econ", "englit", "englang"] {
             let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
             for (code, _, _) in def.topics {
                 assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");
