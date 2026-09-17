@@ -352,9 +352,29 @@ const ENGLIT: &[(&str, &str)] = &[
     ("englit:3.3b", include_str!("../lessons/englit/3.3b.md")),
 ];
 
+/// English Language, AQA GCSE 8700.
+const ENGLANG: &[(&str, &str)] = &[
+    ("englang:1.1a", include_str!("../lessons/englang/1.1a.md")),
+    ("englang:1.1b", include_str!("../lessons/englang/1.1b.md")),
+    ("englang:1.1c", include_str!("../lessons/englang/1.1c.md")),
+    ("englang:1.1d", include_str!("../lessons/englang/1.1d.md")),
+    ("englang:1.2a", include_str!("../lessons/englang/1.2a.md")),
+    ("englang:1.2b", include_str!("../lessons/englang/1.2b.md")),
+    ("englang:1.2c", include_str!("../lessons/englang/1.2c.md")),
+    ("englang:2.1a", include_str!("../lessons/englang/2.1a.md")),
+    ("englang:2.1b", include_str!("../lessons/englang/2.1b.md")),
+    ("englang:2.1c", include_str!("../lessons/englang/2.1c.md")),
+    ("englang:2.1d", include_str!("../lessons/englang/2.1d.md")),
+    ("englang:2.2a", include_str!("../lessons/englang/2.2a.md")),
+    ("englang:2.2b", include_str!("../lessons/englang/2.2b.md")),
+    ("englang:2.2c", include_str!("../lessons/englang/2.2c.md")),
+    ("englang:3a", include_str!("../lessons/englang/3a.md")),
+    ("englang:3b", include_str!("../lessons/englang/3b.md")),
+];
+
 /// Every lesson, across subjects.
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
-    FPM.iter().chain(MATHS.iter()).chain(ECON.iter()).chain(CS.iter()).chain(BUS.iter()).chain(BIO.iter()).chain(CHEM.iter()).chain(PHYS.iter()).chain(ENGLIT.iter())
+    FPM.iter().chain(MATHS.iter()).chain(ECON.iter()).chain(CS.iter()).chain(BUS.iter()).chain(BIO.iter()).chain(CHEM.iter()).chain(PHYS.iter()).chain(ENGLIT.iter()).chain(ENGLANG.iter())
 }
 
 /// The lesson for a topic id such as `fpm:9a`, if one has been written.
@@ -402,7 +422,7 @@ mod tests {
     #[test]
     fn every_topic_of_a_taught_subject_has_a_lesson() {
         let cfg = crate::config::PlanConfig::default();
-        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON), ("cs", CS), ("bus", BUS), ("bio", BIO), ("chem", CHEM), ("phys", PHYS), ("englit", ENGLIT)] {
+        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON), ("cs", CS), ("bus", BUS), ("bio", BIO), ("chem", CHEM), ("phys", PHYS), ("englit", ENGLIT), ("englang", ENGLANG)] {
             let def = cfg.subjects.iter().find(|s| s.id == subject).expect("subject");
             let missing: Vec<_> = def.topics.iter().map(|t| format!("{subject}:{}", t.code)).filter(|id| !has_lesson(id)).collect();
             assert!(missing.is_empty(), "{subject}: topics with no lesson: {missing:?}");
