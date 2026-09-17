@@ -12,6 +12,9 @@
 //! - Sciences: mostly FreeScienceLessons (from the topic pages on their site),
 //!   with Cognito, Mr Exham (Edexcel IGCSE Biology) and a few others for the
 //!   IGCSE-only topics the AQA-shaped channels skip.
+//! - Business: Two Teachers, Halima Teaches (AQA 8132) and Bizconsesh.
+//! - Economics: Mr Lee's Cambridge IGCSE chapter series, with ThinkIGCSE
+//!   and EconplusDal alongside.
 
 use serde::Serialize;
 
@@ -31,6 +34,12 @@ const ASTBURY: &str = "Mr Astbury";
 const FSL: &str = "FreeScienceLessons";
 const COG: &str = "Cognito";
 const EXHAM: &str = "Mr Exham Biology";
+const TWOT: &str = "Two Teachers";
+const BIZC: &str = "Bizconsesh";
+const HALIMA: &str = "Halima Teaches";
+const MRLEE: &str = "Mr Lee - Business Econ";
+const EPD: &str = "EconplusDal";
+const THINK: &str = "ThinkIGCSE";
 
 /// (topic id, [(video id, title, creator)]) in the order they should be watched.
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
@@ -1070,6 +1079,346 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("C90DOE87TYc", "Red-Shift", FSL),
         ("bWEtm-7cYzM", "What is Red Shift?", COG),
     ]),
+    // ---------- Business (AQA GCSE 8132) — Two Teachers, Halima Teaches, Bizconsesh and others ----------
+    ("bus:3.1.1", &[
+        ("yPuPVWfWdK4", "The role of enterprise", "TakingTheBiz"),
+        ("xzVJVdY-Dhk", "What is an entrepreneur?", BIZC),
+        ("GiiOu8mTHus", "The Purpose Of Business & Enterprise", "BizzWizard"),
+    ]),
+    ("bus:3.1.2", &[
+        ("BN2cQNNvg_4", "Types of Business Ownership : Sole Traders, Partnerships, LTD, PLC and Franchise", TWOT),
+        ("-yvTvtN_9e4", "Business Ownership Structures", BIZC),
+    ]),
+    ("bus:3.1.3", &[
+        ("OzWTEe4bna4", "Business Aims and Objectives Explained", TWOT),
+        ("cPeUX5qmU3Y", "Why Business Aims & Objectives Change | Sainsbury's Examples", TWOT),
+        ("nvsNq3ri7ks", "Setting aims and objectives", HALIMA),
+    ]),
+    ("bus:3.1.4", &[
+        ("tZGol4xtY3g", "Stakeholders | What is a Stakeholder?", TWOT),
+        ("FlKDvWasUCg", "Business stakeholders", HALIMA),
+        ("36a0PtQ5sGs", "What are Stakeholders?", BIZC),
+    ]),
+    ("bus:3.1.5", &[
+        ("eU2VMJ2d1ks", "Factors Influencing Business Location Explained", TWOT),
+        ("xClseet9SMo", "Business Location Factors", BIZC),
+    ]),
+    ("bus:3.1.6", &[
+        ("q0IiqfVyrjY", "Business planning", HALIMA),
+        ("O0lXFwG5o3w", "Business Plans", BIZC),
+        ("rUAsm4Szqw8", "Revenue, cost and profit", "Business Teacher T"),
+    ]),
+    ("bus:3.1.7", &[
+        ("e0DWrnTZW3I", "Expanding a business", HALIMA),
+        ("I3orIItbKW0", "Economies and diseconomies of scale", "The Secondary Scholar"),
+        ("OBTeXJPeqTc", "Diseconomies of Scale", BIZC),
+    ]),
+    ("bus:3.2.1", &[
+        ("SxaBwx682U8", "Technology in Business", HALIMA),
+        ("8SLixwLnpTc", "Impact of using E-Commerce", BIZC),
+        ("CXJHSmCaxVY", "Digital Communication and Stakeholders", BIZC),
+    ]),
+    ("bus:3.2.2", &[
+        ("Ko-S6U7a6zk", "Ethical and environmental considerations", HALIMA),
+        ("A9i8dwKC7TE", "Business Ethics | The Impact of Ethics on Business", TWOT),
+        ("XrqPA_Pr0GY", "Environmental Considerations", BIZC),
+    ]),
+    ("bus:3.2.3", &[
+        ("Og2HQ1Bv65s", "Economy and Business | How the Economic Climate Impacts Businesses Explained!", TWOT),
+        ("KK4oNhhp2Ts", "Consumer Income", BIZC),
+        ("5Upb3buctBM", "Impact of Unemployment", BIZC),
+    ]),
+    ("bus:3.2.4", &[
+        ("-loRR8XBeDw", "Globalisation", BIZC),
+        ("-Vk2kuji44M", "Exchange Rates", BIZC),
+        ("D2G51WsQNn4", "Exchange Rate Impacts", BIZC),
+    ]),
+    ("bus:3.2.5", &[
+        ("jZWzzqv6CHo", "The Impact of Legislation on Businesses | Legislation & Business", TWOT),
+        ("gNpaWXTP7Jc", "Employment Law | The 4 Key Principles Explained", TWOT),
+        ("crMRgS2LyV0", "Consumer Law", BIZC),
+    ]),
+    ("bus:3.2.6", &[
+        ("SX1lu2ZJNYI", "Competitive Environment", HALIMA),
+        ("ephvKaL2ZoU", "Risk and Uncertainty Explained", "tutor2u"),
+        ("pzwwpurAHR0", "Competitive Environment", BIZC),
+        ("uv7cUS67Fo4", "Impact of Competition", BIZC),
+    ]),
+    ("bus:3.3.1", &[
+        ("m8Ou6fGTBcQ", "Production Process", HALIMA),
+        ("Zlf-YsnDDYg", "Production processes", "Mastery Mind"),
+        ("FMidebp7kaA", "Just in Time - JIT - Pros and Cons", BIZC),
+    ]),
+    ("bus:3.3.2", &[
+        ("W6CdBnlHt8U", "What is Procurement? What is Logistics?", BIZC),
+        ("1RTBzazmX70", "What is Supply Chain Management?", BIZC),
+        ("XTE0rDy48zw", "Understanding Procurement & Logistics", "BizzWizard"),
+    ]),
+    ("bus:3.3.3", &[
+        ("lf74Oc-D1zE", "Managing Quality : Quality Control & Quality Assurance", TWOT),
+        ("tZ6g9UztPb8", "Quality Control (QC)", BIZC),
+        ("P6FcEmQ2BF0", "Quality Assurance (QA)", BIZC),
+        ("1WwcJUylPNg", "Benefits of Quality", BIZC),
+    ]),
+    ("bus:3.3.4", &[
+        ("vcGCVH2g0dA", "Good customer service", HALIMA),
+        ("DHukPz033Hc", "What is Customer Service?", BIZC),
+        ("CYWOiH6MVH0", "Sales Process", BIZC),
+        ("gCH3fUa2Heo", "The Sales Process Explained", "Business Teacher T"),
+    ]),
+    ("bus:3.4.1", &[
+        ("_Y9jgBtmapw", "Models of Organisational Structure - Functional, Regional, Product & Matrix", BIZC),
+        ("ZsJ6Rbg6SWU", "Centralised Structures vs. Decentralised Structures", BIZC),
+        ("zvhjDlu8VIc", "Understanding Organisational Structures", "BizzWizard"),
+    ]),
+    ("bus:3.4.2", &[
+        ("hHXlsJ2VQ70", "Recruitment and Selection | The Recruitment and Selection Process Explained", TWOT),
+        ("xdhopNi5yIc", "Recruitment and selection", HALIMA),
+        ("XEqGPjxgLqE", "Recruitment and Selection Process", BIZC),
+    ]),
+    ("bus:3.4.3", &[
+        ("XtnH0nPRcxw", "Financial & Non-Financial Methods of Motivation", BIZC),
+        ("nDT-kduw9VQ", "Methods of Financial & Non-Financial Motivation", "BizzWizard"),
+    ]),
+    ("bus:3.4.4", &[
+        ("BuaJwz6Dtn0", "Training", HALIMA),
+        ("ojmYJVLAzp4", "On The Job vs. Off The Job Training", BIZC),
+        ("r4Db2Lqsl1o", "Induction Training", BIZC),
+    ]),
+    ("bus:3.5.1", &[
+        ("_hw4K9lu_vQ", "Identifying and understanding customer needs", HALIMA),
+        ("PLKBVCZjXUw", "Customer Needs", BIZC),
+        ("ZzIfjvILvk4", "Customer Needs Explained", "Business Teacher T"),
+    ]),
+    ("bus:3.5.2", &[
+        ("mt3rkutNtNI", "What is Segmentation?", BIZC),
+        ("8i0yxc-P0j4", "Market Segmentation In Under 4 Minutes - With Examples!", "Business Teacher T"),
+        ("LkVyZSfg6xE", "Market Segmentation Explained", "BizzWizard"),
+    ]),
+    ("bus:3.5.3", &[
+        ("S_-bLwHwcoU", "Primary & Secondary Market Research", BIZC),
+        ("sfNhIyFiLao", "What is Market Research?", "BizzWizard"),
+        ("E4rCRsgvhKE", "Market Research: Primary vs Secondary Research", THINK),
+    ]),
+    ("bus:3.5.4", &[
+        ("JC8lGW1T1bY", "Marketing Mix", BIZC),
+        ("nd5KWzHMA5k", "Product Life Cycle", BIZC),
+        ("qHsTLbEfKgg", "The Boston Matrix : Tesla Examples", TWOT),
+        ("IpkibcN7sRw", "Boston Matrix", BIZC),
+    ]),
+    ("bus:3.6.1", &[
+        ("DAZi6XcTZzE", "Sources of Business Finance : Bank Loans, Trade Credit, Share Capital, Overdrafts & More", TWOT),
+        ("i760YLhlV0Q", "Internal Finance and External Finance", BIZC),
+        ("epxzAvSJUkA", "Sources of finance: internal vs external", "Dean Hoss"),
+    ]),
+    ("bus:3.6.2", &[
+        ("4SNWA_HbF6U", "Cash Flow Forecasting : How to Complete a Cash Flow Forecast Example", TWOT),
+        ("UmJ9dOF4vHQ", "What is a Cash Flow Forecast?", BIZC),
+        ("hif6NwAcxPI", "Why Cash Flow forecasting is useful?", BIZC),
+    ]),
+    ("bus:3.6.3", &[
+        ("UB8aIchQ8j4", "Break-even analysis", "Business 101"),
+        ("mMu2I2zBY2Q", "Average Rate of Return (ARR)", BIZC),
+        ("qYsZcElRiX4", "Average Rate of Return (ARR)", BIZC),
+        ("HOnN_Qj3z04", "Break-Even Formula - To Learn!", BIZC),
+    ]),
+    ("bus:3.6.4", &[
+        ("DM7TqljUues", "Net profit and gross profit: formulas and margin calculations", TWOT),
+        ("Zp7ku0kEbto", "Ratio analysis: gross profit margin and net profit margin", BIZC),
+        ("4IGsYndj9ms", "How to calculate Gross Profit & Net Profit", BIZC),
+    ]),
+    // ---------- Economics (Cambridge IGCSE 0987) — Mr Lee's chapter series, ThinkIGCSE, EconplusDal and others ----------
+    ("econ:1.1", &[
+        ("Nvy1sEKrtYU", "The basic economic problem", MRLEE),
+        ("f0MoZpGI5VQ", "The nature of the basic economic problem: scarcity, wants and resources", "Bahruz - IGCSE Business"),
+        ("W9IjktFC9Tg", "The Economic Problem (Scarcity & Choice)", EPD),
+    ]),
+    ("econ:1.2", &[
+        ("AQ0SBU-wbX0", "Factors of production: land, labour, capital and enterprise", "Bahruz - IGCSE Business"),
+        ("jOWFasMbwSc", "Factors of Production", "Study with Milya"),
+        ("Wljl3KKemDQ", "What are the factors of production?", BIZC),
+    ]),
+    ("econ:1.3", &[
+        ("5JgpjOxUcxM", "Opportunity cost", "Mr Goff"),
+        ("jkmhldTxHRg", "Opportunity Cost", "Study with Milya"),
+        ("eUvgrKRhSBs", "Opportunity cost", "Sir Usman | Economics & Business"),
+    ]),
+    ("econ:1.4", &[
+        ("QqrLaONBVDk", "Production Possibility Curves", "Study with Milya"),
+        ("IzccVWouIxM", "Production Possibility Curves - PPCs / PPFs", EPD),
+        ("Uc9VhlYC5eg", "Production Possibility Curve (PPC) - Chapter 4 - Economics IGCSE", "TaleWhale TV"),
+    ]),
+    ("econ:2.1", &[
+        ("pvcHbtRErgk", "The role of markets in allocating resources", MRLEE),
+        ("KF4dcCX3kK8", "The role of markets in allocating resources", "Bahruz - IGCSE Business"),
+        ("6wjvoYdotnw", "Role of Markets in Allocating Resources", "Study with Milya"),
+    ]),
+    ("econ:2.2", &[
+        ("kzPo5OU5QPI", "Demand & Shifts in the Demand Curve", MRLEE),
+        ("aH_XC6EAzXE", "Demand and the Demand Curve", EPD),
+        ("9jLlOPqHxLs", "Change in Demand vs. Change in Quantity Demanded", "Marginal Revolution University"),
+    ]),
+    ("econ:2.3", &[
+        ("C1em1Rfl0hI", "Supply and shifts in the supply curve", MRLEE),
+        ("3lUFSA-nY2s", "Supply: supply curves, market supply and shifts in supply", "Bahruz - IGCSE Business"),
+        ("TvBHJERKto0", "What Shifts the Supply Curve?", "Marginal Revolution University"),
+    ]),
+    ("econ:2.4", &[
+        ("u8EawjnkfpA", "Price determination", MRLEE),
+        ("R1frAHwOEbU", "Price determination: market equilibrium and disequilibrium", "Bahruz - IGCSE Business"),
+        ("BZqxagFuuHg", "Market Equilibrium & Disequilibrium", EPD),
+    ]),
+    ("econ:2.5", &[
+        ("nZiNTQ_qQmA", "Price changes", MRLEE),
+        ("pBsdr7riV88", "Price Changes", "Study with Milya"),
+    ]),
+    ("econ:2.6", &[
+        ("BkQDHjpFW98", "Price elasticity of demand", MRLEE),
+        ("d5OdfkmHwVk", "Price Elasticity of Demand", THINK),
+        ("nOlOf_KEnrw", "Price Elasticity of Demand - PED", EPD),
+    ]),
+    ("econ:2.7", &[
+        ("qZuQzd1GB9U", "Price elasticity of supply", MRLEE),
+        ("3By-uf1cSTE", "Price Elasticity of Supply", "Study with Milya"),
+        ("ICjglEvPL44", "Price Elasticity of Supply (PES)", EPD),
+    ]),
+    ("econ:2.8", &[
+        ("OobdxjpOOJM", "The market economic system and market failure", MRLEE),
+        ("ujJEe8spxec", "The market economic system: advantages and disadvantages", "Bahruz - IGCSE Business"),
+        ("jqMo7tTx9T8", "Market Economic System: Advantages and Disadvantages", THINK),
+    ]),
+    ("econ:2.9", &[
+        ("OobdxjpOOJM", "The market economic system and market failure", MRLEE),
+        ("2HU2ZLRGyOM", "Types of Market Failure", EPD),
+        ("wiHjVeX3DKc", "Merit and De-Merit Goods - Imperfect Information", EPD),
+        ("fQy9mVR3I1o", "Public Goods", EPD),
+        ("CytzEvsPKhY", "Merit goods, demerit goods and externalities", "EnhanceTuition"),
+    ]),
+    ("econ:2.10", &[
+        ("GurGAR9Hliw", "The mixed economic system", MRLEE),
+        ("78BP6XRywAM", "Government Intervention", MRLEE),
+        ("9EseSEgLsvU", "What is a Mixed Economy?", "Mr. Sinn"),
+    ]),
+    ("econ:3.1", &[
+        ("nCAcVqSqOxg", "Money and banking", MRLEE),
+        ("h6hHbJMFyIA", "Money and banking: functions of money, commercial and central banks", "Bahruz - IGCSE Business"),
+        ("cqGkm6qtRWg", "Central Banks and Commercial Banks Compared in One Minute", "One Minute Economics"),
+    ]),
+    ("econ:3.2", &[
+        ("XMzawZNS2cQ", "Households", MRLEE),
+        ("eef_YaBZGQQ", "Influences on Spending, Saving, and Borrowing", THINK),
+        ("dCffj4OkRaQ", "Households: spending, saving and borrowing", "Bahruz - IGCSE Business"),
+    ]),
+    ("econ:3.3", &[
+        ("47cwiNk6NiA", "The Labour Market", MRLEE),
+        ("qsKQASmFCyk", "Workers: wages and the labour market", MRLEE),
+        ("seg2W1j8iDg", "Wage Determination and Occupational Choices", THINK),
+        ("-WyGlDmwLLE", "Labour Market Wage Determination", EPD),
+    ]),
+    ("econ:3.4", &[
+        ("EjExuH1w6Rs", "Firms: size, growth and mergers", MRLEE),
+        ("I3orIItbKW0", "Economies and diseconomies of scale", "The Secondary Scholar"),
+        ("i56CWKKzcfc", "Types of integration, mergers and economies of scale", "Econ Insights 101"),
+    ]),
+    ("econ:3.5", &[
+        ("lfZkoEPVOVY", "Labour-intensive vs capital-intensive production", THINK),
+        ("IB6biD20iSQ", "Productivity & Division of Labour", MRLEE),
+        ("qTL1h3GNrmg", "Capital vs Labour intensive production", "Econ Insights 101"),
+    ]),
+    ("econ:3.6", &[
+        ("SgvqTDPIQ18", "Firms' costs, revenue and objectives", MRLEE),
+        ("TcIj94BzSF8", "Fixed and Variable Costs (AFC, TFC, AVC)", EPD),
+        ("AZr_038EMsU", "Objectives of Firms - Profit Max, Rev Max, Sales Max, Satisficing", EPD),
+    ]),
+    ("econ:3.7", &[
+        ("3fvkiDeYgCw", "Types of markets", MRLEE),
+        ("-eDVyBRxp0c", "Market Structures :Competitive vs Monopoly", THINK),
+        ("CJJQL5i_Z3E", "Monopolies, Oligopolies and competitive markets", "Mr Goff"),
+        ("UXC51iTDEJI", "Monopoly", EPD),
+    ]),
+    ("econ:4.1", &[
+        ("Pe9iewI17Hc", "Government Macroeconomic intervention", MRLEE),
+        ("JjkND_40MmA", "Government Macroeconomic Aims", THINK),
+        ("OPV1BOs1ISI", "Macro Objectives of Government (Growth Unemployment, Inflation, Trade - TIGERS)", EPD),
+    ]),
+    ("econ:4.2", &[
+        ("1BeUz0qT-Hg", "Fiscal policy", MRLEE),
+        ("8pwldnyKiZg", "Fiscal policy and the budget", "Mr Goff"),
+        ("NEcfy0HpewQ", "Fiscal Policy - Government Spending and Taxation", EPD),
+    ]),
+    ("econ:4.3", &[
+        ("ixLDwUM2s6o", "Monetary policy", MRLEE),
+        ("FdKEf1zfNwc", "Monetary policy", "Mr Goff"),
+        ("uBaTPugw3M4", "Monetary Policy - Interest Rates, Money Supply & Exchange Rate", EPD),
+        ("R8VBRCs2jTU", "How does raising interest rates control inflation?", "The Economist"),
+    ]),
+    ("econ:4.4", &[
+        ("OZopG-lWm_w", "Supply Side Policy", MRLEE),
+        ("lYKAMu3F9YE", "Supply-Side Policies and Their Impact", THINK),
+        ("PvfdPfEd-gk", "Supply Side Policies (Interventionist and Market Based) - With Evaluation", EPD),
+    ]),
+    ("econ:4.5", &[
+        ("lU3a3pk_9MY", "Economic Growth", MRLEE),
+        ("SwaCg7Gwtzw", "What causes an economic recession?", "TED-Ed"),
+        ("5vDHdxjtSTU", "Causes of Economic Growth (Short Run and Long Run)", EPD),
+    ]),
+    ("econ:4.6", &[
+        ("TEzeuZUHb9g", "Employment and unemployment", MRLEE),
+        ("AoKT6fNNdvc", "Unemployment: Causes, Consequences, and Reduction Policies", THINK),
+        ("DWLv6JHa7YE", "Types and Causes of Unemployment (Cyclical, Structural, Frictional and more)", EPD),
+        ("0UC6SydfKDA", "Consequences of unemployment", "Mr Goff"),
+    ]),
+    ("econ:4.7", &[
+        ("47RAgSzcpMg", "Inflation", MRLEE),
+        ("lxgAfp6mA_8", "Inflation: Causes, Consequences, and Control", THINK),
+        ("nfZTP7MB5D4", "Deflation: Causes, Consequences, and Management", THINK),
+        ("USj52Vlvd5M", "Cost-push Inflation and Demand-pull Inflation", "Jacob Clifford"),
+        ("PX9XdZGsFXs", "Deflation - Causes and Consequences (Deflation can be Deadly!)", EPD),
+    ]),
+    ("econ:5.1", &[
+        ("Qp5LEGLavKQ", "Economic development", MRLEE),
+        ("l9pqS_0TTF4", "Living standards and income distribution", THINK),
+        ("vUhDKkOejBo", "HDI and GDP per head: past paper questions", "Fundoo Tutor IGCSE Grade 9 and 10"),
+        ("z-vdJKnC7FM", "Measures of Economic Growth & Living Standards - GDP, GDP/Capita, GNI, Green GDP", EPD),
+    ]),
+    ("econ:5.2", &[
+        ("12M4Pn7bChw", "Poverty", MRLEE),
+        ("rwF037tTm94", "Poverty: Definitions, Causes, and Policy Solutions", THINK),
+        ("-xFqPVj06Us", "Absolute and relative poverty", "tutor2u"),
+    ]),
+    ("econ:5.3", &[
+        ("F33bp3LCb0E", "Population", MRLEE),
+        ("I5NPzQ4Hon4", "Population Growth: Factors, Variations, and Effects", THINK),
+        ("IOa0V4iAprs", "Population pyramids explained", "LEARN OR DIE"),
+    ]),
+    ("econ:5.4", &[
+        ("ZyKAkzm1wGo", "Differences in economic development", MRLEE),
+        ("PbkGaQEd1vY", "Differences in economic development between countries", THINK),
+        ("9tnw6jYqAk0", "Differences in economic development between countries", "Sir Usman | Economics & Business"),
+    ]),
+    ("econ:6.1", &[
+        ("PYcc52nSOIQ", "Specialisation and free trade", MRLEE),
+        ("glEoWRMI18s", "Free Trade - Benefits and Costs", EPD),
+        ("NI9TLDIPVcs", "Specialization and Trade", "CrashCourse"),
+    ]),
+    ("econ:6.2", &[
+        ("2Niumv8HDfQ", "Globalisation and trade restrictions", MRLEE),
+        ("GczFPH_TbNs", "Globalisation, multinationals, free trade and protectionism", THINK),
+        ("QO1fRsyhu44", "Types of Protectionism", EPD),
+        ("TLmXIFIYZ64", "Globalisation", EPD),
+    ]),
+    ("econ:6.3", &[
+        ("iI2X3s1RVlc", "Foreign exchange rates", MRLEE),
+        ("j4IRdVqpdMc", "Foreign Exchange Rates: Definition, Fluctuations and Consequences", THINK),
+        ("c7YC2PKab7M", "Exchange Rate Changes - Appreciations and Depreciations of a Floating Exchange Rate", EPD),
+        ("MzTcvpXdfcs", "Impact of Exchange Rate Appreciations and Depreciations with Evaluation", EPD),
+    ]),
+    ("econ:6.4", &[
+        ("dr0T4ey0xhM", "Current account", MRLEE),
+        ("2pUMl0QzWXs", "The current account of the balance of payments", THINK),
+        ("mvq6Fjzdjd8", "Current Account of the Balance of Payments", EPD),
+        ("xZIPvpiPvqY", "The importance of the balance of payments on current account", "Mr Goff"),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
@@ -1116,7 +1465,7 @@ mod tests {
     /// Subjects whose every topic has a video to start from.
     #[test]
     fn covered_subjects_have_a_video_on_every_topic() {
-        for subj in ["maths", "bio", "chem", "phys"] {
+        for subj in ["maths", "bio", "chem", "phys", "bus", "econ"] {
             let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
             for (code, _, _) in def.topics {
                 assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");
