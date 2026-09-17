@@ -1044,7 +1044,7 @@ const srcName={flag:"flagged",email:"email",calendar:"calendar",task:"task"};
 function dayPanel(d,isToday){
   if(settings.outlook===false)return "";
   const upd=DAY?new Date(DAY.fetchedAt):null;
-  let html=`<div class="card dayplan"><div class="top"><span class="eyebrow">Your day</span>${upd?`<span class="upd">Outlook · ${upd.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</span>`:""}<button class="btn small" id="dayrefresh" ${DAY_BUSY?"disabled":""}>${DAY_BUSY?"Reading…":"Refresh"}</button></div>`;
+  let html=`<div class="card dayplan"><div class="top"><span class="eyebrow">Your day</span>${upd?`<span class="upd">Outlook · ${upd.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</span>`:""}<button class="btn small" id="openteams" title="Sign in to Microsoft Teams inside the app">Teams ↗</button><button class="btn small" id="dayrefresh" ${DAY_BUSY?"disabled":""}>${DAY_BUSY?"Reading…":"Refresh"}</button></div>`;
   if(DAY_ERR){const cut=DAY_ERR.indexOf(". ");const head=cut>0?DAY_ERR.slice(0,cut+1):DAY_ERR,rest=cut>0?DAY_ERR.slice(cut+2):"";
     html+=`<div class="note">${esc(head)}${DAY?" Showing the last copy.":""}${rest?`<details><summary></summary><p>${esc(rest)}</p></details>`:""}</div>`;}
   if(!DAY){html+=`<div class="muted" style="font-size:14px">${DAY_BUSY?"Reading your calendar and inbox from Outlook…":DAY_ERR?"":"Nothing read yet."}</div></div>`;return html;}
@@ -1102,6 +1102,7 @@ function dayPanel(d,isToday){
   return html+`</div>`;}
 function bindDay(root){
   root.querySelector("#dayrefresh")?.addEventListener("click",()=>loadDay(true));
+  root.querySelector("#openteams")?.addEventListener("click",()=>{invoke("open_teams").catch(e=>alert(errText(e)));});
   root.querySelector("#showdone")?.addEventListener("click",()=>{showDoneInbox=!showDoneInbox;render();});
   root.querySelector("#allasks")?.addEventListener("click",()=>{showAllAsks=!showAllAsks;render();});
   root.querySelectorAll("[data-inbox]").forEach(cb=>cb.addEventListener("change",()=>{if(cb.checked)state.inbox[cb.dataset.inbox]=true;else delete state.inbox[cb.dataset.inbox];persist();render();}));
@@ -2082,6 +2083,10 @@ function renderGuide(){
   <p class="muted" style="font-size:13px;margin:8px 0 0">Needs classic Outlook <b>open and signed in</b> on this computer — the planner reads your day from it while it's running and never starts it for you, so if the card says "Classic Outlook isn't open", just open Outlook and press Refresh. The new Outlook and the web version don't let other programs read them. Nothing is sent anywhere.</p>
   <p class="muted" style="font-size:13px;margin:8px 0 0">If Outlook pops up <i>"A program is trying to access email address information"</i>, that is this app reading your own inbox. Tick <b>Allow access for</b> (1 minute is plenty — a read takes under a second) and click Allow. To stop it asking for good you have to launch Outlook once as administrator (right‑click Outlook → <b>Run as administrator</b>), then File → Options → Trust Center → Trust Center Settings → Programmatic Access → <b>Never warn me about suspicious activity</b> → OK, and reopen Outlook normally. Outlook asks because it can't confirm the antivirus status to its own satisfaction; Windows Defender is on and up to date.</p></div>
 
+  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Microsoft Teams</h3>
+  <p class="muted" style="font-size:13.5px;margin:0 0 10px">Open Teams in its own window inside this app and sign in once — the login sticks between launches, so there's no separate browser to keep logging into. This is where your assignments live; a later update will read them straight into <b>Your day</b>.</p>
+  <button class="btn" id="openteams2">Open Teams ↗</button></div>
+
   <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Organise my day with AI</h3>
   <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;cursor:pointer"><input type="checkbox" id="aion" ${settings.aiOrganise?"checked":""} style="width:18px;height:18px;accent-color:var(--ink)">Let a local AI summarise my emails and put each thing on the day it matters</label>
   <p class="muted" style="font-size:13px;margin:8px 0 0">Runs a small model (<span class="num">${esc(settings.aiModel||"llama3.2:3b")}</span>) through <a href="https://ollama.com">Ollama</a> on this computer — free, and nothing leaves the machine. It only loads for the second or two a refresh takes and then frees the memory, so it won't get in the way of a game. Set it up once: install Ollama, then run <span class="num">ollama pull ${esc(settings.aiModel||"llama3.2:3b")}</span>. If it's off or not installed, the app just falls back to the plain list. The AI only ever reshuffles and shortens what the rules already found — it can't invent tasks.</p></div>
@@ -2105,6 +2110,7 @@ function renderGuide(){
     settings.aiOrganise=e.target.checked;
     try{await invoke("set_settings",{settings});}catch(err){}
     DAY_ERR=null;loadDay(true);});
+  document.getElementById("openteams2")?.addEventListener("click",()=>{invoke("open_teams").catch(e=>alert(errText(e)));});
   document.getElementById("autoupdon")?.addEventListener("change",e=>{
     AUTO_UPD=e.target.checked;try{localStorage.setItem("g9.autoUpdate",AUTO_UPD?"1":"0");}catch(err){}
     if(AUTO_UPD)checkForUpdate();});
