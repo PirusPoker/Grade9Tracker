@@ -1450,6 +1450,13 @@ let narrating=false,narratingText=null,narrPaused=false,narrAudio=null,narrToken
 function ttsGet(k,d){try{const v=localStorage.getItem(k);return v==null?d:v;}catch(e){return d;}}
 let ttsVoiceName=ttsGet("g9.tts.voice",""),ttsRate=Math.min(1.4,Math.max(0.7,+ttsGet("g9.tts.rate","1")||1));
 function saveTts(){try{localStorage.setItem("g9.tts.voice",ttsVoiceName);localStorage.setItem("g9.tts.rate",String(ttsRate));}catch(e){}}
+let PIPER_VOICES=null;                                       // bundled neural voices, from the backend
+async function loadPiperVoices(){if(PIPER_VOICES)return PIPER_VOICES;try{PIPER_VOICES=(await invoke("voices"))||[];}catch(e){PIPER_VOICES=[];}return PIPER_VOICES;}
+function fillPiperVoices(sel,list){if(!sel)return;
+  if(!list||!list.length){sel.disabled=true;return;}          // no neural voices bundled → leave the default label
+  sel.disabled=false;sel.innerHTML=list.map(v=>`<option value="${esc(v.id)}">${esc(v.label)}</option>`).join("");
+  if(!list.some(v=>v.id===ttsVoiceName)){ttsVoiceName=list[0].id;}   // saved voice gone/old OS name → default
+  sel.value=ttsVoiceName;}
 function ttsVoiceList(){const vs=(window.speechSynthesis&&speechSynthesis.getVoices())||[];return vs.filter(v=>/^en/i.test(v.lang));}
 function ttsVoice(){const vs=(window.speechSynthesis&&speechSynthesis.getVoices())||[];if(!vs.length)return null;
   if(ttsVoiceName){const m=vs.find(v=>v.name===ttsVoiceName);if(m)return m;}
@@ -1499,7 +1506,7 @@ async function speakNow(text){const say=lessonToSpeech(text);if(!say)return fals
   const tok=++narrToken;clearNarrAudio();try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}
   narrating=true;narrPaused=false;narratingText=text;narrPreparing=true;updateNarrUI();
   try{
-    const b64=await invoke("narrate",{text:say});             // Jenny, offline neural voice
+    const b64=await invoke("narrate",{text:say,voice:ttsVoiceName||null}); // chosen offline neural voice
     if(tok!==narrToken)return false;                          // stopped/superseded while synthesising
     const a=new Audio("data:audio/wav;base64,"+b64);applyPitchPreserve(a);a.playbackRate=ttsRate;
     a.onended=()=>{if(tok===narrToken)stopNarration();};
@@ -1527,7 +1534,7 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
     <h1 style="font-size:26px;margin:4px 0 6px">${esc(t[1])}</h1>
     <p class="muted" style="font-size:13.5px;margin:0 0 14px">${mins(t[2])} min in the plan · ${exs.length} worked examples · ${qs.length} practice questions${stt.done?" · <b>topic done</b>":""}</p>
     <div class="lnav">${(t.videos||[]).length?`<button data-jump="l-video">Video</button>`:""}<button data-jump="l-what">What it is</button><button data-jump="l-method">How to do it</button><button data-jump="l-examples">Examples</button><button data-jump="l-try">Try these <span class="chip ${right===qs.length?"ok":""}">${right}/${qs.length}</span></button><button data-jump="l-watch">Marks</button><span class="lnavsp"></span><button class="btn small ghost" id="llisten" title="Read the explanation aloud">${narrating?"Stop":"Listen"}</button><button class="btn small ghost" id="ltts" title="Narration speed" aria-label="Narration speed">⚙</button><button class="btn small ${lesson.notes?"primary":""}" id="lnotes">Notes${note.trim()?" ·":""}</button><button class="btn small ghost" id="lprint">Print</button></div>
-    <div class="ttscfg" id="ttscfg" hidden><span class="ttsvoicename">Voice · Jenny <span class="muted">· offline</span></span><label>Speed <input type="range" id="ttsrate" min="0.7" max="1.4" step="0.1" value="${ttsRate}"><span class="ttsratev" id="ttsratev">${ttsRate.toFixed(1)}×</span></label></div>
+    <div class="ttscfg" id="ttscfg" hidden><label>Voice <select id="ttsvoice"><option value="">Jenny</option></select></label><label>Speed <input type="range" id="ttsrate" min="0.7" max="1.4" step="0.1" value="${ttsRate}"><span class="ttsratev" id="ttsratev">${ttsRate.toFixed(1)}×</span></label></div>
     ${videoBox(t)}
     <div class="lbody" id="l-what">${lessonHtml(t.id,lesson.text)}</div>
     <div class="lend"><div class="eyebrow" style="margin-bottom:6px">Finished?</div><p class="muted" style="font-size:14px;margin:0 0 10px">${stt.done?"This topic is ticked as done. It comes back for recall checks; anything marked Not yet is in the mistakes log.":"If you can do the practice questions without looking, tick the topic. It then comes back for recall checks at "+REVIEW_GAPS.join(", ")+" days."}</p>
@@ -1545,6 +1552,9 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
   el.querySelector("#llisten")?.addEventListener("click",()=>toggleNarration(lesson.text));
   const ttsCfg=el.querySelector("#ttscfg");
   el.querySelector("#ltts")?.addEventListener("click",()=>{if(ttsCfg)ttsCfg.hidden=!ttsCfg.hidden;});
+  const vsel=el.querySelector("#ttsvoice");
+  if(vsel){loadPiperVoices().then(list=>fillPiperVoices(el.querySelector("#ttsvoice")||vsel,list));
+    vsel.addEventListener("change",()=>{ttsVoiceName=vsel.value;saveTts();if(narrating||narrPreparing)restartNarration();});}
   const rsel=el.querySelector("#ttsrate"),rv=el.querySelector("#ttsratev");
   if(rsel){rsel.addEventListener("input",()=>{if(rv)rv.textContent=(+rsel.value).toFixed(1)+"×";narrSetRate(+rsel.value);});
     rsel.addEventListener("change",()=>{narrSetRate(+rsel.value);saveTts();if(narrating&&!narrAudio)restartNarration();});}

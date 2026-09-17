@@ -7,8 +7,14 @@
 set -euo pipefail
 
 PIPER_TAG="2023.11.14-2"
-VOICE="en_GB-jenny_dioco-medium"
-VOICE_URL="https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_GB/jenny_dioco/medium"
+VOICES_ROOT="https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_GB"
+# id -> path under en_GB (must match VOICES in src-tauri/src/tts.rs)
+VOICES="
+en_GB-jenny_dioco-medium jenny_dioco/medium
+en_GB-alba-medium alba/medium
+en_GB-alan-medium alan/medium
+en_GB-northern_english_male-medium northern_english_male/medium
+"
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BASE="$ROOT/src-tauri/resources/tts"
@@ -39,10 +45,13 @@ if [ ! -f "$BASE/piper/piper.exe" ]; then
   rm -f "$BASE/piper.zip"
 fi
 
-if [ ! -f "$BASE/voices/$VOICE.onnx" ]; then
-  echo "Downloading voice $VOICE ..."
-  curl -L --fail -o "$BASE/voices/$VOICE.onnx"      "$VOICE_URL/$VOICE.onnx"
-  curl -L --fail -o "$BASE/voices/$VOICE.onnx.json" "$VOICE_URL/$VOICE.onnx.json"
-fi
+echo "$VOICES" | while read -r id path; do
+  [ -z "$id" ] && continue
+  if [ ! -f "$BASE/voices/$id.onnx" ]; then
+    echo "Downloading voice $id ..."
+    curl -L --fail -o "$BASE/voices/$id.onnx"      "$VOICES_ROOT/$path/$id.onnx"
+    curl -L --fail -o "$BASE/voices/$id.onnx.json" "$VOICES_ROOT/$path/$id.onnx.json"
+  fi
+done
 
 echo "TTS assets ready in $BASE"

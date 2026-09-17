@@ -17,6 +17,52 @@ use tauri::{AppHandle, Manager};
 
 static SEQ: AtomicU64 = AtomicU64::new(0);
 
+/// Bundled voices: (id used for the `.onnx` filename, label for the picker).
+/// The first entry is the default. `scripts/fetch-tts.sh` must download every
+/// id here, or a listed voice simply won't appear in the picker.
+pub const VOICES: &[(&str, &str)] = &[
+    ("en_GB-jenny_dioco-medium", "Jenny — British, warm"),
+    ("en_GB-alba-medium", "Alba — British, bright"),
+    ("en_GB-alan-medium", "Alan — British, male"),
+    ("en_GB-northern_english_male-medium", "Northern English — male"),
+];
+const DEFAULT_VOICE: &str = "en_GB-jenny_dioco-medium";
+
+/// Only ever synthesise with a voice we ship, defaulting to Jenny.
+fn resolve_voice(requested: Option<&str>) -> &'static str {
+    match requested {
+        Some(r) => VOICES
+            .iter()
+            .map(|(id, _)| *id)
+            .find(|id| *id == r)
+            .unwrap_or(DEFAULT_VOICE),
+        None => DEFAULT_VOICE,
+    }
+}
+
+#[derive(serde::Serialize)]
+pub struct VoiceOption {
+    id: String,
+    label: String,
+}
+
+/// The voices actually present on disk, in catalogue order, for the picker.
+#[tauri::command]
+pub fn voices(app: AppHandle) -> Vec<VoiceOption> {
+    let base = match tts_dir(&app) {
+        Ok(b) => b,
+        Err(_) => return Vec::new(),
+    };
+    VOICES
+        .iter()
+        .filter(|(id, _)| base.join(format!("voices/{id}.onnx")).exists())
+        .map(|(id, label)| VoiceOption {
+            id: id.to_string(),
+            label: label.to_string(),
+        })
+        .collect()
+}
+
 /// The folder holding `piper/` and `voices/`, whether bundled (release) or
 /// sitting in the source tree (dev).
 fn tts_dir(app: &AppHandle) -> Result<PathBuf, String> {
@@ -36,9 +82,10 @@ fn tts_dir(app: &AppHandle) -> Result<PathBuf, String> {
 }
 
 /// Synthesise `text` (plain prose, already stripped of markup and maths by the
-/// UI) with the bundled Jenny voice and return the WAV as base64.
+/// UI) with the chosen bundled voice (default Jenny) and return the WAV as
+/// base64.
 #[tauri::command]
-pub fn narrate(app: AppHandle, text: String) -> Result<String, String> {
+pub fn narrate(app: AppHandle, text: String, voice: Option<String>) -> Result<String, String> {
     let text = text.trim();
     if text.is_empty() {
         return Err("nothing to read".into());
@@ -46,7 +93,12 @@ pub fn narrate(app: AppHandle, text: String) -> Result<String, String> {
     let base = tts_dir(&app)?;
     let exe = base.join("piper/piper.exe");
     let espeak = base.join("piper/espeak-ng-data");
-    let model = base.join("voices/en_GB-jenny_dioco-medium.onnx");
+    let vid = resolve_voice(voice.as_deref());
+    let mut model = base.join(format!("voices/{vid}.onnx"));
+    if !model.exists() {
+        // Fall back to the default voice if the requested one isn't on disk.
+        model = base.join(format!("voices/{DEFAULT_VOICE}.onnx"));
+    }
     if !model.exists() {
         return Err("Narrator voice file is missing".into());
     }
