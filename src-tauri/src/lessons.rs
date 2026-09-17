@@ -311,9 +311,50 @@ const PHYS: &[(&str, &str)] = &[
     ("phys:8c", include_str!("../lessons/phys/8c.md")),
 ];
 
+/// English Literature, AQA GCSE 8702.
+const ENGLIT: &[(&str, &str)] = &[
+    ("englit:3.1.1a", include_str!("../lessons/englit/3.1.1a.md")),
+    ("englit:3.1.1b", include_str!("../lessons/englit/3.1.1b.md")),
+    ("englit:3.1.1c", include_str!("../lessons/englit/3.1.1c.md")),
+    ("englit:3.1.1d", include_str!("../lessons/englit/3.1.1d.md")),
+    ("englit:3.1.1e", include_str!("../lessons/englit/3.1.1e.md")),
+    ("englit:3.1.1f", include_str!("../lessons/englit/3.1.1f.md")),
+    ("englit:3.1.2a", include_str!("../lessons/englit/3.1.2a.md")),
+    ("englit:3.1.2b", include_str!("../lessons/englit/3.1.2b.md")),
+    ("englit:3.1.2c", include_str!("../lessons/englit/3.1.2c.md")),
+    ("englit:3.1.2d", include_str!("../lessons/englit/3.1.2d.md")),
+    ("englit:3.1.2e", include_str!("../lessons/englit/3.1.2e.md")),
+    ("englit:3.2.1a", include_str!("../lessons/englit/3.2.1a.md")),
+    ("englit:3.2.1b", include_str!("../lessons/englit/3.2.1b.md")),
+    ("englit:3.2.1c", include_str!("../lessons/englit/3.2.1c.md")),
+    ("englit:3.2.1d", include_str!("../lessons/englit/3.2.1d.md")),
+    ("englit:3.2.1e", include_str!("../lessons/englit/3.2.1e.md")),
+    ("englit:3.2.2a", include_str!("../lessons/englit/3.2.2a.md")),
+    ("englit:3.2.2b", include_str!("../lessons/englit/3.2.2b.md")),
+    ("englit:3.2.2c", include_str!("../lessons/englit/3.2.2c.md")),
+    ("englit:3.2.2d", include_str!("../lessons/englit/3.2.2d.md")),
+    ("englit:3.2.2e", include_str!("../lessons/englit/3.2.2e.md")),
+    ("englit:3.2.2f", include_str!("../lessons/englit/3.2.2f.md")),
+    ("englit:3.2.2g", include_str!("../lessons/englit/3.2.2g.md")),
+    ("englit:3.2.2h", include_str!("../lessons/englit/3.2.2h.md")),
+    ("englit:3.2.2i", include_str!("../lessons/englit/3.2.2i.md")),
+    ("englit:3.2.2j", include_str!("../lessons/englit/3.2.2j.md")),
+    ("englit:3.2.2k", include_str!("../lessons/englit/3.2.2k.md")),
+    ("englit:3.2.2l", include_str!("../lessons/englit/3.2.2l.md")),
+    ("englit:3.2.2m", include_str!("../lessons/englit/3.2.2m.md")),
+    ("englit:3.2.2n", include_str!("../lessons/englit/3.2.2n.md")),
+    ("englit:3.2.2o", include_str!("../lessons/englit/3.2.2o.md")),
+    ("englit:3.2.2p", include_str!("../lessons/englit/3.2.2p.md")),
+    ("englit:3.2.2q", include_str!("../lessons/englit/3.2.2q.md")),
+    ("englit:3.2.3a", include_str!("../lessons/englit/3.2.3a.md")),
+    ("englit:3.2.3b", include_str!("../lessons/englit/3.2.3b.md")),
+    ("englit:3.3a", include_str!("../lessons/englit/3.3a.md")),
+    ("englit:3.3b", include_str!("../lessons/englit/3.3b.md")),
+];
+
 /// Every lesson, across subjects.
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
-    FPM.iter().chain(MATHS.iter()).chain(ECON.iter()).chain(CS.iter()).chain(BUS.iter()).chain(BIO.iter()).chain(CHEM.iter()).chain(PHYS.iter())
+    FPM.iter().chain(MATHS.iter()).chain(ECON.iter()).chain(CS.iter()).chain(BUS.iter()).chain(BIO.iter()).chain(CHEM.iter()).chain(PHYS.iter()).chain(ENGLIT.iter())
 }
 
 /// The lesson for a topic id such as `fpm:9a`, if one has been written.
@@ -361,7 +402,7 @@ mod tests {
     #[test]
     fn every_topic_of_a_taught_subject_has_a_lesson() {
         let cfg = crate::config::PlanConfig::default();
-        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON), ("cs", CS), ("bus", BUS), ("bio", BIO), ("chem", CHEM), ("phys", PHYS)] {
+        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON), ("cs", CS), ("bus", BUS), ("bio", BIO), ("chem", CHEM), ("phys", PHYS), ("englit", ENGLIT)] {
             let def = cfg.subjects.iter().find(|s| s.id == subject).expect("subject");
             let missing: Vec<_> = def.topics.iter().map(|t| format!("{subject}:{}", t.code)).filter(|id| !has_lesson(id)).collect();
             assert!(missing.is_empty(), "{subject}: topics with no lesson: {missing:?}");
