@@ -2260,7 +2260,7 @@ async function boot(){
    to reopen the app. "Install updates automatically" (Settings) installs it in
    the background as soon as it's found, waiting until you're not mid-lesson so a
    restart never interrupts you. Offline, every check fails quietly. */
-let AUTO_UPD=false; try{AUTO_UPD=localStorage.getItem("g9.autoUpdate")==="1";}catch(e){}
+let AUTO_UPD=true; try{AUTO_UPD=localStorage.getItem("g9.autoUpdate")!=="0";}catch(e){}   // on by default; off only if explicitly turned off
 let UPD_BUSY=false,UPD_WATCHING=false;
 function updateSafeNow(){return !lesson && !narrating && !narrPreparing;}   // don't restart mid-lesson/narration
 async function startUpdate(u,auto){
