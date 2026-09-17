@@ -2086,6 +2086,10 @@ function renderGuide(){
   <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;cursor:pointer"><input type="checkbox" id="aion" ${settings.aiOrganise?"checked":""} style="width:18px;height:18px;accent-color:var(--ink)">Let a local AI summarise my emails and put each thing on the day it matters</label>
   <p class="muted" style="font-size:13px;margin:8px 0 0">Runs a small model (<span class="num">${esc(settings.aiModel||"llama3.2:3b")}</span>) through <a href="https://ollama.com">Ollama</a> on this computer — free, and nothing leaves the machine. It only loads for the second or two a refresh takes and then frees the memory, so it won't get in the way of a game. Set it up once: install Ollama, then run <span class="num">ollama pull ${esc(settings.aiModel||"llama3.2:3b")}</span>. If it's off or not installed, the app just falls back to the plain list. The AI only ever reshuffles and shortens what the rules already found — it can't invent tasks.</p></div>
 
+  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Updates</h3>
+  <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;cursor:pointer"><input type="checkbox" id="autoupdon" ${AUTO_UPD?"checked":""} style="width:18px;height:18px;accent-color:var(--ink)">Install updates automatically</label>
+  <p class="muted" style="font-size:13px;margin:8px 0 0">The app checks for a new version while it's open and whenever you come back to it, so a fresh release shows up without reopening. With this on it downloads and installs in the background, waiting until you're not mid‑lesson so the restart never interrupts you. It always jumps straight to the newest version. With this off, a bar offers the update and you choose when.</p></div>
+
   <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Your data</h3>
   <p class="muted" style="font-size:13px;margin:0 0 12px" id="statepath"></p>
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn small" id="backup">Back up now</button><span class="muted" style="font-size:13px" id="backupmsg">Saves a dated copy of your progress and plan.</span></div></div>`;
@@ -2101,6 +2105,9 @@ function renderGuide(){
     settings.aiOrganise=e.target.checked;
     try{await invoke("set_settings",{settings});}catch(err){}
     DAY_ERR=null;loadDay(true);});
+  document.getElementById("autoupdon")?.addEventListener("change",e=>{
+    AUTO_UPD=e.target.checked;try{localStorage.setItem("g9.autoUpdate",AUTO_UPD?"1":"0");}catch(err){}
+    if(AUTO_UPD)checkForUpdate();});
   document.getElementById("backup").addEventListener("click",async()=>{const m=document.getElementById("backupmsg");m.textContent="Backing up…";
     try{m.textContent="Saved to "+await window.tracker.backup();}catch(e){m.textContent="Couldn't back up: "+String(e);}});
   window.tracker.statePath().then(p=>{const el=document.getElementById("statepath");if(el)el.textContent="Everything is saved in: "+p;}).catch(()=>{});
@@ -2242,24 +2249,45 @@ async function boot(){
   render();
   loadDay(false);
   checkForUpdate();
+  startUpdateWatch();
 }
 
 /* ---------- UPDATES ----------
-   Once per launch, ask the backend whether a newer release is on GitHub. If
-   so, one bar at the top offers it; pressing it downloads the signed
-   installer, installs and restarts. Offline, the check fails quietly. */
+   The backend check reads latest.json from the newest GitHub release, so it
+   always offers the latest version in one jump - never one release at a time.
+   We check on launch AND every few minutes while the app is open, and whenever
+   the window regains focus, so a freshly pushed release shows up without having
+   to reopen the app. "Install updates automatically" (Settings) installs it in
+   the background as soon as it's found, waiting until you're not mid-lesson so a
+   restart never interrupts you. Offline, every check fails quietly. */
+let AUTO_UPD=false; try{AUTO_UPD=localStorage.getItem("g9.autoUpdate")==="1";}catch(e){}
+let UPD_BUSY=false,UPD_WATCHING=false;
+function updateSafeNow(){return !lesson && !narrating && !narrPreparing;}   // don't restart mid-lesson/narration
+async function startUpdate(u,auto){
+  if(UPD_BUSY)return;UPD_BUSY=true;
+  const el=document.getElementById("upd");if(!el)return;
+  el.hidden=false;
+  el.innerHTML=`<b>${auto?"Updating to":"Downloading"} version ${esc(u.version)}…</b><span class="muted">the app restarts by itself when it is done</span>`;
+  try{await invoke("install_update");}                                     // installs + restarts; only returns on failure
+  catch(e){UPD_BUSY=false;el.innerHTML=`<b>Update failed</b><span class="muted">${esc(errText(e))}</span><span class="spacer"></span><button class="btn small" id="updlater">Dismiss</button>`;el.querySelector("#updlater").addEventListener("click",()=>{el.hidden=true;});}
+}
 async function checkForUpdate(){
+  if(UPD_BUSY)return;
   let u=null;try{u=await invoke("check_update");}catch(e){return;}
   if(!u)return;
-  const el=document.getElementById("upd");
-  el.innerHTML=`<b>Version ${esc(u.version)} is ready</b><span class="muted">you have ${esc(u.current)}${u.notes.trim()?" · "+esc(u.notes.trim().split(/\r?\n/)[0]).slice(0,140):""}</span><span class="spacer"></span><button class="btn small primary" id="updgo">Update &amp; restart</button><button class="btn small" id="updlater">Later</button>`;
+  const el=document.getElementById("upd");if(!el)return;
+  if(AUTO_UPD&&updateSafeNow()){return startUpdate(u,true);}               // auto: install now if it won't interrupt
+  const waiting=AUTO_UPD?" · will install once you're not mid-lesson":"";
+  el.innerHTML=`<b>Version ${esc(u.version)} is ready</b><span class="muted">you have ${esc(u.current)}${u.notes.trim()?" · "+esc(u.notes.trim().split(/\r?\n/)[0]).slice(0,140):""}${waiting}</span><span class="spacer"></span><button class="btn small primary" id="updgo">Update &amp; restart</button><button class="btn small" id="updlater">Later</button>`;
   el.hidden=false;
   el.querySelector("#updlater").addEventListener("click",()=>{el.hidden=true;});
-  el.querySelector("#updgo").addEventListener("click",async()=>{
-    el.innerHTML=`<b>Downloading version ${esc(u.version)}…</b><span class="muted">the app restarts by itself when it is done</span>`;
-    try{await invoke("install_update");}
-    catch(e){el.innerHTML=`<b>Update failed</b><span class="muted">${esc(errText(e))}</span><span class="spacer"></span><button class="btn small" id="updlater">Dismiss</button>`;el.querySelector("#updlater").addEventListener("click",()=>{el.hidden=true;});}
-  });
+  el.querySelector("#updgo").addEventListener("click",()=>startUpdate(u,false));
+}
+function startUpdateWatch(){
+  if(UPD_WATCHING)return;UPD_WATCHING=true;
+  setInterval(checkForUpdate,10*60*1000);                                  // re-check every 10 minutes
+  window.addEventListener("focus",checkForUpdate);                         // and whenever you come back to the app
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden)checkForUpdate();});
 }
 (async()=>{
   await loadProfiles();
