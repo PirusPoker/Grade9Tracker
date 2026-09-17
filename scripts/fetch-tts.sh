@@ -14,11 +14,28 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BASE="$ROOT/src-tauri/resources/tts"
 mkdir -p "$BASE/piper" "$BASE/voices"
 
+# Extract a .zip into a directory. The Actions bash shell is Git Bash, whose
+# GNU tar cannot read zips, so prefer unzip (present on windows-latest) and fall
+# back to PowerShell's Expand-Archive with Windows-style paths.
+extract_zip() {
+  local zip="$1" dest="$2"
+  if command -v unzip >/dev/null 2>&1; then
+    unzip -q -o "$zip" -d "$dest"
+  elif command -v powershell >/dev/null 2>&1; then
+    local wzip wdest
+    wzip="$(cygpath -w "$zip" 2>/dev/null || echo "$zip")"
+    wdest="$(cygpath -w "$dest" 2>/dev/null || echo "$dest")"
+    powershell -NoProfile -Command "Expand-Archive -Path '$wzip' -DestinationPath '$wdest' -Force"
+  else
+    tar -xf "$zip" -C "$dest"   # last resort: bsdtar (Windows tar.exe) reads zips
+  fi
+}
+
 if [ ! -f "$BASE/piper/piper.exe" ]; then
   echo "Downloading Piper $PIPER_TAG ..."
   curl -L --fail -o "$BASE/piper.zip" \
     "https://github.com/rhasspy/piper/releases/download/$PIPER_TAG/piper_windows_amd64.zip"
-  tar -xf "$BASE/piper.zip" -C "$BASE"   # the archive contains a top-level piper/ folder
+  extract_zip "$BASE/piper.zip" "$BASE"   # the archive contains a top-level piper/ folder
   rm -f "$BASE/piper.zip"
 fi
 
