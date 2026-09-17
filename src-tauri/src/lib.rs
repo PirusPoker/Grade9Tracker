@@ -14,6 +14,7 @@ mod plan;
 mod profiles;
 mod statements;
 mod today;
+mod tts;
 mod update;
 mod videos;
 
@@ -284,7 +285,8 @@ pub fn run() {
             load_state, save_state, state_path, backup,
             get_settings, set_settings, draft_subject, day_context, organise_day,
             list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile,
-            update::check_update, update::install_update
+            update::check_update, update::install_update,
+            tts::narrate
         ])
         .run(tauri::generate_context!())
         .expect("error while running Grade 9 Tracker");

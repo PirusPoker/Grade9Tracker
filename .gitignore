@@ -7,3 +7,6 @@ src-tauri/gen
 .backup/
 app-icon.png
 src-tauri/target*
+
+# Piper TTS engine + voice: large, fetched by scripts/fetch-tts.sh (and CI)
+src-tauri/resources/tts/

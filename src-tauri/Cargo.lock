@@ -1447,6 +1447,7 @@ dependencies = [
 name = "grade9-tracker"
 version = "1.3.0"
 dependencies = [
+ "base64 0.22.1",
  "chrono",
  "regex",
  "reqwest 0.12.28",

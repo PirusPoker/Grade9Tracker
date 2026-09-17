@@ -564,6 +564,8 @@ table{max-width:100%}
 .ttscfg select{max-width:230px;font-size:12.5px;padding:4px 6px;border:1px solid var(--line);border-radius:var(--r-xs);background:var(--ground);color:var(--ink)}
 .ttscfg input[type=range]{width:120px;accent-color:var(--c,var(--ink))}
 .ttscfg .ttsratev{font-family:var(--mono);font-size:12px;color:var(--muted);min-width:34px}
+.ttscfg .ttsvoicename{font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.lplayer.busy .lpplay{opacity:.7;font-size:18px}
 .lplayer{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:40;display:flex;align-items:center;gap:8px;padding:6px 8px 6px 6px;background:var(--ground);border:1px solid var(--line);border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.20)}
 .lplayer .lpplay{width:36px;height:36px;flex:0 0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;background:var(--c,var(--ink));color:#fff;border:none;cursor:pointer}
 .lplayer .lplab{font-size:12.5px;font-weight:600;color:var(--ink-2);min-width:50px;text-align:center}
@@ -1444,7 +1446,7 @@ async function openLesson(topicId){stopNarration();const t=findTopic(topicId);if
    voices, free and offline, no VRAM. Reads the teaching prose — What it is, the
    method, the marks tips — and skips tables, code and diagrams, which do not
    narrate well. Off unless you press Listen. */
-let narrating=false,narratingText=null,narrPaused=false;
+let narrating=false,narratingText=null,narrPaused=false,narrAudio=null,narrToken=0,narrPreparing=false;
 function ttsGet(k,d){try{const v=localStorage.getItem(k);return v==null?d:v;}catch(e){return d;}}
 let ttsVoiceName=ttsGet("g9.tts.voice",""),ttsRate=Math.min(1.4,Math.max(0.7,+ttsGet("g9.tts.rate","1")||1));
 function saveTts(){try{localStorage.setItem("g9.tts.voice",ttsVoiceName);localStorage.setItem("g9.tts.rate",String(ttsRate));}catch(e){}}
@@ -1476,32 +1478,46 @@ function ttsLines(lines){const kept=[];let skip=false;
 function lessonToSpeech(text){const out=[];
   parseLesson(text||"").forEach(b=>{if(b.kind==="md"||b.kind==="method"||b.kind==="watch"){const s=ttsLines(b.lines);if(s)out.push(s);}});
   return out.map(s=>s.replace(/[\s.]+$/,"")).join(". ");}
-function narrState(){return !narrating?"idle":(narrPaused?"paused":"playing");}
+function narrState(){return narrPreparing?"preparing":(!narrating?"idle":(narrPaused?"paused":"playing"));}
 function updateNarrUI(){const st=narrState();
   document.querySelectorAll("#llisten").forEach(b=>{b.textContent=st==="idle"?"Listen":"Stop";b.classList.toggle("primary",st!=="idle");});
-  document.querySelectorAll("#lplayer").forEach(p=>{p.classList.toggle("on",st!=="idle");
-    const btn=p.querySelector(".lpplay");if(btn){btn.textContent=st==="playing"?"⏸":"▶";btn.title=st==="playing"?"Pause":(st==="paused"?"Resume":"Read the explanation aloud");btn.setAttribute("aria-label",btn.title);}
-    const lab=p.querySelector(".lplab");if(lab)lab.textContent=st==="playing"?"Reading…":(st==="paused"?"Paused":"Listen");});}
-function stopNarration(){try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}narrating=false;narrPaused=false;narratingText=null;updateNarrUI();}
-function speakNow(text){const say=lessonToSpeech(text);if(!say)return false;
+  document.querySelectorAll("#lplayer").forEach(p=>{p.classList.toggle("on",st!=="idle");p.classList.toggle("busy",st==="preparing");
+    const btn=p.querySelector(".lpplay");if(btn){btn.textContent=st==="preparing"?"…":(st==="playing"?"⏸":"▶");btn.title=st==="playing"?"Pause":(st==="paused"?"Resume":(st==="preparing"?"Preparing…":"Read the explanation aloud"));btn.setAttribute("aria-label",btn.title);}
+    const lab=p.querySelector(".lplab");if(lab)lab.textContent=st==="preparing"?"Preparing…":(st==="playing"?"Reading…":(st==="paused"?"Paused":"Listen"));});}
+function clearNarrAudio(){if(narrAudio){try{narrAudio.pause();narrAudio.onended=narrAudio.onerror=null;narrAudio.src="";}catch(e){}narrAudio=null;}}
+function stopNarration(){narrToken++;narrPreparing=false;clearNarrAudio();try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}narrating=false;narrPaused=false;narratingText=null;updateNarrUI();}
+function applyPitchPreserve(a){try{a.preservesPitch=true;a.mozPreservesPitch=true;a.webkitPreservesPitch=true;}catch(e){}}
+function webSpeechSpeak(say){                                // fallback if the neural voice can't run
+  if(!window.speechSynthesis)return false;
   try{speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance(say),v=ttsVoice();
     if(v){u.voice=v;u.lang=v.lang;}else u.lang="en-GB";
     u.rate=ttsRate;u.pitch=1;u.onend=stopNarration;u.onerror=stopNarration;
-    narrating=true;narrPaused=false;narratingText=text;speechSynthesis.speak(u);updateNarrUI();
-    return true;
-  }catch(e){narrating=false;narrPaused=false;narratingText=null;updateNarrUI();return false;}}
+    narrating=true;narrPaused=false;speechSynthesis.speak(u);updateNarrUI();return true;
+  }catch(e){return false;}}
+async function speakNow(text){const say=lessonToSpeech(text);if(!say)return false;
+  const tok=++narrToken;clearNarrAudio();try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}
+  narrating=true;narrPaused=false;narratingText=text;narrPreparing=true;updateNarrUI();
+  try{
+    const b64=await invoke("narrate",{text:say});             // Jenny, offline neural voice
+    if(tok!==narrToken)return false;                          // stopped/superseded while synthesising
+    const a=new Audio("data:audio/wav;base64,"+b64);applyPitchPreserve(a);a.playbackRate=ttsRate;
+    a.onended=()=>{if(tok===narrToken)stopNarration();};
+    a.onerror=()=>{if(tok===narrToken)stopNarration();};
+    narrAudio=a;narrPreparing=false;updateNarrUI();
+    await a.play();updateNarrUI();return true;
+  }catch(e){
+    if(tok!==narrToken)return false;                          // a newer action already took over
+    narrPreparing=false;                                      // neural voice unavailable → OS voice
+    if(webSpeechSpeak(say))return true;
+    stopNarration();return false;}}
 function restartNarration(){if(narrating&&narratingText!=null)speakNow(narratingText);}
-function pauseNarration(){if(narrating&&!narrPaused){try{speechSynthesis.pause();}catch(e){}narrPaused=true;updateNarrUI();}}
-function resumeNarration(){if(narrating&&narrPaused){try{speechSynthesis.resume();}catch(e){}narrPaused=false;updateNarrUI();}}
-function toggleNarration(text){
-  if(!window.speechSynthesis){alert("This device has no built-in text-to-speech.");return;}
-  if(narrating){stopNarration();return;}
-  speakNow(text);}
-function narrToggle(text){                                  // floating pill: play / pause / resume
-  if(!window.speechSynthesis){alert("This device has no built-in text-to-speech.");return;}
-  const st=narrState();
-  if(st==="idle")speakNow(text);else if(st==="playing")pauseNarration();else resumeNarration();}
+function pauseNarration(){if(narrating&&!narrPaused){if(narrAudio){try{narrAudio.pause();}catch(e){}}else{try{speechSynthesis.pause();}catch(e){}}narrPaused=true;updateNarrUI();}}
+function resumeNarration(){if(narrating&&narrPaused){if(narrAudio){narrAudio.play().catch(()=>{});}else{try{speechSynthesis.resume();}catch(e){}}narrPaused=false;updateNarrUI();}}
+function narrSetRate(r){ttsRate=Math.min(1.4,Math.max(0.7,r));if(narrAudio){try{narrAudio.playbackRate=ttsRate;}catch(e){}}}
+function toggleNarration(text){if(narrating||narrPreparing){stopNarration();return;}speakNow(text);}
+function narrToggle(text){const st=narrState();              // floating pill: play / pause / resume
+  if(st==="idle")speakNow(text);else if(st==="playing")pauseNarration();else if(st==="paused")resumeNarration();else stopNarration();}
 function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;render();return;}const S=SUBJECTS[t.subj];const stt=T(t.id);
   const marks=lessonMarks(t.id);const blocks=parseLesson(lesson.text);const qs=blocks.filter(b=>b.kind==="q"),exs=blocks.filter(b=>b.kind==="example");const right=qs.filter((_,i)=>marks[i]===true).length;
   const idx=S.topics.indexOf(t);const prev=S.topics.slice(0,idx).reverse().find(x=>x.lesson),next=S.topics.slice(idx+1).find(x=>x.lesson);
@@ -1510,8 +1526,8 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
     <div class="lhead"><span class="pill"><span class="dot" style="background:${S.color}"></span>Lesson</span><span class="wcode">${esc(t[0])}</span><span class="muted" style="font-size:12.5px">· ${idx+1} of ${S.topics.length}</span></div>
     <h1 style="font-size:26px;margin:4px 0 6px">${esc(t[1])}</h1>
     <p class="muted" style="font-size:13.5px;margin:0 0 14px">${mins(t[2])} min in the plan · ${exs.length} worked examples · ${qs.length} practice questions${stt.done?" · <b>topic done</b>":""}</p>
-    <div class="lnav">${(t.videos||[]).length?`<button data-jump="l-video">Video</button>`:""}<button data-jump="l-what">What it is</button><button data-jump="l-method">How to do it</button><button data-jump="l-examples">Examples</button><button data-jump="l-try">Try these <span class="chip ${right===qs.length?"ok":""}">${right}/${qs.length}</span></button><button data-jump="l-watch">Marks</button><span class="lnavsp"></span><button class="btn small ghost" id="llisten" title="Read the explanation aloud">${narrating?"Stop":"Listen"}</button><button class="btn small ghost" id="ltts" title="Voice and speed" aria-label="Voice and speed">⚙</button><button class="btn small ${lesson.notes?"primary":""}" id="lnotes">Notes${note.trim()?" ·":""}</button><button class="btn small ghost" id="lprint">Print</button></div>
-    <div class="ttscfg" id="ttscfg" hidden><label>Voice <select id="ttsvoice"></select></label><label>Speed <input type="range" id="ttsrate" min="0.7" max="1.4" step="0.1" value="${ttsRate}"><span class="ttsratev" id="ttsratev">${ttsRate.toFixed(1)}×</span></label></div>
+    <div class="lnav">${(t.videos||[]).length?`<button data-jump="l-video">Video</button>`:""}<button data-jump="l-what">What it is</button><button data-jump="l-method">How to do it</button><button data-jump="l-examples">Examples</button><button data-jump="l-try">Try these <span class="chip ${right===qs.length?"ok":""}">${right}/${qs.length}</span></button><button data-jump="l-watch">Marks</button><span class="lnavsp"></span><button class="btn small ghost" id="llisten" title="Read the explanation aloud">${narrating?"Stop":"Listen"}</button><button class="btn small ghost" id="ltts" title="Narration speed" aria-label="Narration speed">⚙</button><button class="btn small ${lesson.notes?"primary":""}" id="lnotes">Notes${note.trim()?" ·":""}</button><button class="btn small ghost" id="lprint">Print</button></div>
+    <div class="ttscfg" id="ttscfg" hidden><span class="ttsvoicename">Voice · Jenny <span class="muted">· offline</span></span><label>Speed <input type="range" id="ttsrate" min="0.7" max="1.4" step="0.1" value="${ttsRate}"><span class="ttsratev" id="ttsratev">${ttsRate.toFixed(1)}×</span></label></div>
     ${videoBox(t)}
     <div class="lbody" id="l-what">${lessonHtml(t.id,lesson.text)}</div>
     <div class="lend"><div class="eyebrow" style="margin-bottom:6px">Finished?</div><p class="muted" style="font-size:14px;margin:0 0 10px">${stt.done?"This topic is ticked as done. It comes back for recall checks; anything marked Not yet is in the mistakes log.":"If you can do the practice questions without looking, tick the topic. It then comes back for recall checks at "+REVIEW_GAPS.join(", ")+" days."}</p>
@@ -1529,13 +1545,9 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
   el.querySelector("#llisten")?.addEventListener("click",()=>toggleNarration(lesson.text));
   const ttsCfg=el.querySelector("#ttscfg");
   el.querySelector("#ltts")?.addEventListener("click",()=>{if(ttsCfg)ttsCfg.hidden=!ttsCfg.hidden;});
-  const vsel=el.querySelector("#ttsvoice");
-  if(vsel){fillVoiceSelect(vsel);
-    if(window.speechSynthesis&&!speechSynthesis.onvoiceschanged)speechSynthesis.onvoiceschanged=()=>fillVoiceSelect(el.querySelector("#ttsvoice"));
-    vsel.addEventListener("change",()=>{ttsVoiceName=vsel.value;saveTts();restartNarration();});}
   const rsel=el.querySelector("#ttsrate"),rv=el.querySelector("#ttsratev");
-  if(rsel){rsel.addEventListener("input",()=>{if(rv)rv.textContent=(+rsel.value).toFixed(1)+"×";});
-    rsel.addEventListener("change",()=>{ttsRate=+rsel.value;saveTts();restartNarration();});}
+  if(rsel){rsel.addEventListener("input",()=>{if(rv)rv.textContent=(+rsel.value).toFixed(1)+"×";narrSetRate(+rsel.value);});
+    rsel.addEventListener("change",()=>{narrSetRate(+rsel.value);saveTts();if(narrating&&!narrAudio)restartNarration();});}
   el.querySelector("#lplayer .lpplay")?.addEventListener("click",()=>narrToggle(lesson.text));
   el.querySelector("#lplayer .lpstop")?.addEventListener("click",stopNarration);
   updateNarrUI();
