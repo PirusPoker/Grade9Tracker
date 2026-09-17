@@ -3,9 +3,10 @@
 #   1. bump "version" in src-tauri/tauri.conf.json and src-tauri/Cargo.toml
 #   2. git tag v1.2.0 && git push --tags
 #
-# The action uploads the installer, its signature and latest.json to a GitHub
-# release; installed copies of the app see latest.json on their next launch
-# and offer the update. Two repository secrets are needed:
+# The action uploads the installer, its signature and latest.json to a draft
+# GitHub release, which is published only when all of them are present;
+# installed copies of the app see latest.json on their next launch and offer
+# the update. Two repository secrets are needed:
 #   TAURI_SIGNING_PRIVATE_KEY           contents of ~/.tauri/grade9tracker.key
 #   TAURI_SIGNING_PRIVATE_KEY_PASSWORD  the key's password (empty if none)
 name: Release
@@ -48,6 +49,22 @@ jobs:
           tagName: ${{ github.ref_name }}
           releaseName: "Grade 9 Tracker ${{ github.ref_name }}"
           releaseBody: "See the commit log for what changed."
-          releaseDraft: false
+          releaseDraft: true
           prerelease: false
           includeUpdaterJson: true
+
+      # The release stays a draft - invisible to the updater - until every
+      # asset is really there. A failed upload then leaves nothing marked
+      # Latest, and a rerun simply fills in the missing files.
+      - name: Publish once every asset is up
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release view "$TAG" --json assets -q '.assets[].name' > assets.txt
+          cat assets.txt
+          for want in 'setup.exe$' 'setup.exe.sig$' '\.msi$' '\.msi.sig$' '^latest.json$'; do
+            grep -q "$want" assets.txt || { echo "missing asset matching $want"; exit 1; }
+          done
+          gh release edit "$TAG" --draft=false --latest
