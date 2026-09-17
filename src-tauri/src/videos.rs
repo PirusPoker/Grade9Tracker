@@ -17,6 +17,8 @@
 //!   and EconplusDal alongside.
 //! - English: Mr Bruff (a quick-revision video per poem and a 2026 guide per
 //!   Language question), Mr Salles, Easy as GCSE and First Rate Tutors.
+//! - Further Maths: TLMaths' A-level series and Corbettmaths' Further Maths
+//!   page, with 1st Class Maths and Bicen Maths for the longer walkthroughs.
 
 use serde::Serialize;
 
@@ -46,6 +48,9 @@ const BRUFF: &str = "Mr Bruff";
 const SALLES: &str = "Mr Salles Teaches English";
 const EASY: &str = "Easy as GCSE";
 const FRT: &str = "First Rate Tutors";
+const TLM: &str = "TLMaths";
+const FIRSTCLASS: &str = "1st Class Maths";
+const BICEN: &str = "Bicen Maths";
 
 /// (topic id, [(video id, title, creator)]) in the order they should be watched.
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
@@ -1722,6 +1727,119 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("2d7uajjU_JI", "Achieving a Distinction for Spoken Language", "SchofieldShakespeare"),
         ("jNmwNB3xFr8", "Five tips to help you during your speaking exam", "British Council | LearnEnglish Teens"),
     ]),
+    // ---------- Further Pure Maths (Edexcel IGCSE 4PM1) — TLMaths, Corbettmaths, 1st Class Maths, Bicen Maths ----------
+    ("fpm:1a", &[
+        ("F492MeO74fE", "Logarithms: Introducing Logarithms", TLM),
+        ("M3TVZT05XOA", "Laws of Logarithms: Introducing the Laws of Logarithms", TLM),
+        ("Cr5jHLDIbGY", "Laws of Logarithms: Using the Laws", TLM),
+        ("Jt2j6ZJ5FCg", "Laws of Logarithms: Writing as a Single Logarithm", TLM),
+    ]),
+    ("fpm:1b", &[
+        ("ndU_cCbPAm4", "Surds", CM),
+        ("96SwZpRvhwY", "Rationalising denominators", CM),
+        ("x25DsjbilsM", "Surds: Introducing Rationalising the Denominator Part 1", TLM),
+        ("kjzIeojMfWk", "Surds: Introducing Rationalising the Denominator Part 2", TLM),
+    ]),
+    ("fpm:2", &[
+        ("DUm6fQkZG3g", "The Discriminant", CM),
+        ("kBSj35rik8w", "The sum and product of the roots of a quadratic", "The Organic Chemistry Tutor"),
+        ("Ha_S-GLRVow", "Discriminants", "Save My Exams"),
+    ]),
+    ("fpm:3a", &[
+        ("b88DwALjFdw", "The Factor Theorem and The Remainder Theorem", "Maths Genie"),
+        ("A_S1YcVsO80", "Algebraic Long Division", CM),
+        ("lyMwX8_QZIc", "Polynomials: Introducing the Factor Theorem", TLM),
+        ("hPgL_bqa_fM", "The Factor Theorem", FIRSTCLASS),
+    ]),
+    ("fpm:3b", &[
+        ("8J_m-hMp8lY", "Quadratic Inequalities", CM),
+        ("Hpv9Y5S5rOw", "Inequalities: Examples of Solving Quadratic Inequalities", TLM),
+        ("-YcE_D78fGE", "Solving inequalities", CM),
+    ]),
+    ("fpm:3c", &[
+        ("aexvnpH-jhI", "Inequalities and Regions on Graphs", CM),
+        ("ChrX2MNLQX8", "Inequality Regions", FIRSTCLASS),
+        ("RBnnSmKxE4c", "Linear programming", "BareauMaths"),
+    ]),
+    ("fpm:4", &[
+        ("pRu31H6qG4k", "Graphs: Sketching Quadratics, Cubics, Quartics and Quintics", TLM),
+        ("fy45qX8cUwQ", "Graphing rational functions and their asymptotes", "Professor Dave Explains"),
+        ("TNZe8MCzPZ0", "Reciprocal graphs", "Zeeshan Zamurred"),
+        ("kTTTkMwXqrg", "Reciprocal graphs", CM),
+    ]),
+    ("fpm:5", &[
+        ("g3E_A598BVs", "Sigma notation, arithmetic and geometric series", "Zeeshan Zamurred"),
+        ("Zolv3DQL5WI", "Proof of the sum of an arithmetic series", CM),
+        ("5VTmlDk4ed0", "Proof of the sum of a geometric series", CM),
+        ("fGXBcn_9L4g", "Sum to infinity of a geometric series", "Zeeshan Zamurred"),
+        ("5G7VKXarees", "Sequences and series in 23 minutes", BICEN),
+    ]),
+    ("fpm:6", &[
+        ("T_IJcW07YDQ", "Binomial Expansion", FIRSTCLASS),
+        ("rRs8s2UH8Mo", "Binomial expansion where n is a fraction or negative", "Mastering Maths"),
+        ("JnjAr7PhwqI", "Binomial expansion with a negative power", "Maths at Home"),
+    ]),
+    ("fpm:7", &[
+        ("EJ3dwJfmzpI", "Vectors in 21 minutes", BICEN),
+        ("5S6j_K8x8hQ", "Position vectors", "Zeeshan Zamurred"),
+        ("0QqAF1aRnes", "Vectors: solving geometric problems", "mathonify"),
+        ("xOdkldbusy0", "Vectors", CM),
+    ]),
+    ("fpm:8", &[
+        ("zSkRQ7mr6EA", "Straight lines: gradient, midpoint and distance between two points", "A Level Maths Tutor | John Armstrong"),
+        ("tRTk9vG0nwM", "Gradient Formula", CM),
+        ("fldJZL5JQAw", "Distance between two points formula", CM),
+        ("LqEYBytlhek", "Midpoint of a Line", CM),
+        ("RS_HSbad_eA", "Ratio in Coordinate Geometry", CM),
+        ("ZJOezY0xfr0", "Equation of a Line Through a Point", CM),
+    ]),
+    ("fpm:9a", &[
+        ("LLfOrUH86_E", "Chain, product and quotient rule explained in 14 minutes", "NeilDoesMaths"),
+        ("BIu0m2DObAA", "Differentiation: Introducing the Chain Rule", TLM),
+        ("eeXTgSniNiI", "Differentiation: Introducing the Product Rule", TLM),
+        ("GoxqlIrWNAY", "Differentiation: Introducing the Quotient Rule", TLM),
+        ("yhNKawQHBIk", "Differentiation", CM),
+    ]),
+    ("fpm:9b", &[
+        ("8aPSaDNhJpk", "Stationary Points", CM),
+        ("7D8f4ACZLmY", "Differentiation (Gradients, Tangents and Normals)", FIRSTCLASS),
+        ("y9M6kmgSnw8", "Differentiation (Maxima and Minima)", FIRSTCLASS),
+        ("N_FM6aON2z8", "Equation of a Tangent to a Curve", CM),
+        ("S6yXq9vbVdU", "Equation of a Normal", CM),
+    ]),
+    ("fpm:9c", &[
+        ("cmMQ8bHb65U", "How to find the area under a curve with integration", "Jack's Maths"),
+        ("Ec1-qiCyP48", "Areas under curves", "Zeeshan Zamurred"),
+        ("QLHJl2_aM5Q", "Volume of a solid of revolution by integration", "Professor Dave Explains"),
+        ("zimC-9onLNo", "Integration: volumes of revolution", "HEGARTYMATHS"),
+    ]),
+    ("fpm:9d", &[
+        ("pFeuGMMiZWw", "Position, velocity and acceleration using derivatives", "Patrick J"),
+        ("JHFJC0vmfU0", "Differentiation: Introducing Connected Rates of Change", TLM),
+        ("MKj3nNIu0vE", "Connected rates of change", "Maths Genie"),
+        ("9GkYv-vTEOU", "Solving Problems using Differentiation", CM),
+    ]),
+    ("fpm:10a", &[
+        ("nzGDeZS2FF0", "Trigonometry: Introducing Radians", TLM),
+        ("pQTn-lgT_ko", "Radians in 18 minutes", BICEN),
+        ("UjgOR07zOzY", "Exact trigonometric values", CM),
+        ("vULd_UA2N_0", "Trigonometry: Using the Formula for Arc Length in Radians", TLM),
+        ("TEq-2fSDWvk", "Trigonometry: Using the Formula for Area of a Sector in Radians", TLM),
+    ]),
+    ("fpm:10b", &[
+        ("7xeLeDulY60", "The Sine Rule", FIRSTCLASS),
+        ("3H3u92WJAjw", "Cosine rule", CM),
+        ("Kvxoa97K1GQ", "Trigonometry: Using the Sine Rule", TLM),
+        ("99CL-tNyNR0", "3D Trigonometry and Pythagoras", FIRSTCLASS),
+    ]),
+    ("fpm:10c", &[
+        ("SifUQHn9f78", "Trigonometric Identities", FIRSTCLASS),
+        ("9wBG-gs7qRk", "Trigonometric Identities", CM),
+        ("R_8xC1W-DCQ", "Addition formulae", BICEN),
+        ("kJwCXuxLj4E", "An Introduction to Solving Trigonometric Equations", CM),
+        ("_McuKeG9DQI", "Solving Trigonometric Equations", FIRSTCLASS),
+        ("cILaBqbmPX0", "Solving Trigonometric Equations 1", CM),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
@@ -1768,7 +1886,7 @@ mod tests {
     /// Subjects whose every topic has a video to start from.
     #[test]
     fn covered_subjects_have_a_video_on_every_topic() {
-        for subj in ["maths", "bio", "chem", "phys", "bus", "econ", "englit", "englang"] {
+        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang"] {
             let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
             for (code, _, _) in def.topics {
                 assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");
