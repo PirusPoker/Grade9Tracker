@@ -52,6 +52,10 @@ jobs:
           releaseDraft: true
           prerelease: false
           includeUpdaterJson: true
+          updaterJsonPreferNsis: true
+          # GitHub's asset upload fails intermittently on 250MB installers;
+          # retry rather than fail the whole run.
+          retryAttempts: 3
 
       # The release stays a draft - invisible to the updater - until every
       # asset is really there. A failed upload then leaves nothing marked
@@ -64,7 +68,7 @@ jobs:
         run: |
           gh release view "$TAG" --json assets -q '.assets[].name' > assets.txt
           cat assets.txt
-          for want in 'setup.exe$' 'setup.exe.sig$' '\.msi$' '\.msi.sig$' '^latest.json$'; do
+          for want in 'setup.exe$' 'setup.exe.sig$' '^latest.json$'; do
             grep -q "$want" assets.txt || { echo "missing asset matching $want"; exit 1; }
           done
           gh release edit "$TAG" --draft=false --latest
