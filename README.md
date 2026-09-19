@@ -1,6 +1,23 @@
 # Grade 9 Tracker (Tauri + Rust)
 
-Two-year Edexcel IGCSE study plan. It works out what you should do each week for the next two years, puts one session a day in front of you with the objectives for it, and sends you to the right page of Save My Exams to do it. Runs offline, starts instantly.
+Two-year GCSE and IGCSE study plan. It works out what you should do each week for the next two years, puts one session a day in front of you with the objectives for it, and teaches every topic with its own lesson, worked examples and end-of-topic test. Runs offline, starts instantly.
+
+## Install it (Windows)
+
+**Download page:** https://piruspoker.github.io/Grade9Tracker/
+
+Or grab the installer directly — this link always gives the newest version:
+https://github.com/PirusPoker/Grade9Tracker/releases/latest/download/Grade9Tracker-Setup.exe
+
+1. Run `Grade9Tracker-Setup.exe`. Windows shows "Windows protected your PC" because the
+   app is not from the Microsoft Store: click **More info**, then **Run anyway** (once).
+2. Open Grade 9 Tracker from the Start menu, add yourself as a profile, tick your subjects.
+
+That is the last download you make: the app checks GitHub while it runs and installs
+new releases itself (Settings lets you switch that to "ask me first"). Your progress,
+plan and notes stay on your own PC.
+
+Everything below is for people who want to change the app itself.
 
 - `src-tauri/src/plan.rs` — the subjects, topics, calendar and scheduler (Rust). Change term dates or hours here.
 - `src-tauri/src/config.rs` — the editable plan: subjects, topics, hours, term dates and links. Changed from inside the app, saved to `config.json`.

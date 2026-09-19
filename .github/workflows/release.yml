@@ -57,6 +57,19 @@ jobs:
           # retry rather than fail the whole run.
           retryAttempts: 3
 
+      # A copy of the installer under a fixed name, so one link always fetches
+      # the newest version:
+      #   https://github.com/PirusPoker/Grade9Tracker/releases/latest/download/Grade9Tracker-Setup.exe
+      - name: Upload the installer under a fixed name
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          exe=$(ls src-tauri/target/release/bundle/nsis/*-setup.exe | head -1)
+          cp "$exe" Grade9Tracker-Setup.exe
+          gh release upload "$TAG" Grade9Tracker-Setup.exe --clobber
+
       # The release stays a draft - invisible to the updater - until every
       # asset is really there. A failed upload then leaves nothing marked
       # Latest, and a rerun simply fills in the missing files.
@@ -68,7 +81,7 @@ jobs:
         run: |
           gh release view "$TAG" --json assets -q '.assets[].name' > assets.txt
           cat assets.txt
-          for want in 'setup.exe$' 'setup.exe.sig$' '^latest.json$'; do
+          for want in 'setup.exe$' 'setup.exe.sig$' '^latest.json$' '^Grade9Tracker-Setup.exe$'; do
             grep -q "$want" assets.txt || { echo "missing asset matching $want"; exit 1; }
           done
           gh release edit "$TAG" --draft=false --latest
