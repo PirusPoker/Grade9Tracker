@@ -9,6 +9,7 @@ mod config;
 mod course;
 mod draft;
 mod lessons;
+mod papers;
 mod outlook;
 mod plan;
 mod profiles;
@@ -191,6 +192,18 @@ fn get_lesson(topic_id: String) -> Result<String, String> {
     lessons::lesson(&topic_id).map(str::to_string).ok_or_else(|| format!("No lesson written for {topic_id} yet"))
 }
 
+/// The built-in mock papers, one entry per paper, for the subject pages.
+#[tauri::command]
+fn list_papers() -> Vec<papers::PaperInfo> {
+    papers::all()
+}
+
+/// One mock paper's text (header plus questions). The UI renders and times it.
+#[tauri::command]
+fn get_paper(id: String) -> Result<String, String> {
+    papers::paper(&id).map(str::to_string).ok_or_else(|| format!("No paper called {id}"))
+}
+
 #[tauri::command]
 fn load_state(app: AppHandle) -> Result<Option<Value>, String> {
     Ok(read_json(&profile_dir(&app)?.join("state.json")))
@@ -282,7 +295,7 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .invoke_handler(tauri::generate_handler![
-            get_plan, get_config, save_config, reset_config, get_lesson,
+            get_plan, get_config, save_config, reset_config, get_lesson, list_papers, get_paper,
             load_state, save_state, state_path, backup,
             get_settings, set_settings, draft_subject, day_context, organise_day,
             list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile,

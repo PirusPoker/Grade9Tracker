@@ -681,6 +681,19 @@ table{max-width:100%}
 .tthist span{font-family:var(--mono);font-size:11.5px;padding:2px 8px;border-radius:999px;background:var(--surface2);color:var(--muted)}
 .tthist span.secure{background:var(--good-soft);color:var(--good)}
 .tthist span.notyet{background:var(--bad-soft);color:var(--bad)}
+.pband{display:flex;align-items:center;gap:10px;margin:18px 0 10px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
+.pband::after{content:"";flex:1;height:1px;background:var(--line)}
+.pband small{font-weight:600;letter-spacing:0;text-transform:none;color:var(--muted)}
+.pgrade{display:inline-flex;align-items:baseline;gap:6px;font-size:44px;font-weight:800;letter-spacing:-.02em;line-height:1;margin:2px 0 6px}
+.pgrade small{font-size:15px;font-weight:600;color:var(--muted)}
+.pgradechip{display:inline-block;font-family:var(--mono);font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--surface2);color:var(--ink-2)}
+.pgradechip.hi{background:var(--good-soft);color:var(--good)}.pgradechip.lo{background:var(--bad-soft);color:var(--bad)}
+.mprow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}.mprow:first-of-type{border-top:0}
+.pbands{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.pbands div{border:1px solid var(--line);border-radius:var(--r);padding:8px 10px;background:var(--surface2);font-size:12.5px;color:var(--muted)}
+.pbands b{display:block;font-size:17px;color:var(--ink);font-family:var(--mono)}
+.pbound{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.pbound span{font-family:var(--mono);font-size:11.5px;padding:2px 8px;border-radius:999px;background:var(--surface2);color:var(--muted)}
+@media(max-width:560px){.pbands{grid-template-columns:1fr}}
 .topic .lchip.test{border-color:var(--line-2)}
 .topic .lchip.test.secure{border-color:var(--good-line);background:var(--good-soft);color:var(--good)}
 .topic .lchip.test.notyet{border-color:var(--bad-line);background:var(--bad-soft);color:var(--bad)}
@@ -823,7 +836,7 @@ function dayMinutes(d){return d.items.filter(it=>!it.skipped).reduce((n,it)=>n+(
 function dayCounts(d){const live=d.items.filter(it=>!it.skipped&&it.key);return {n:live.length,done:live.filter(itemDone).length};}
 
 /* ---------- STATE ---------- */
-const BLANK={topics:{},tests:{},sessions:{},reviews:{},days:{},stmts:{},inbox:{},moves:{},skips:{},cards:{},mistakes:{},examDates:{},quotes:[],lessonQ:{},lessonNotes:{},topicTests:{}};
+const BLANK={topics:{},tests:{},sessions:{},reviews:{},days:{},stmts:{},inbox:{},moves:{},skips:{},cards:{},mistakes:{},examDates:{},quotes:[],lessonQ:{},lessonNotes:{},topicTests:{},papers:{}};
 let state={...BLANK};
 let LS="grade9-tracker-v2";
 let saveTimer=null;
@@ -1323,6 +1336,7 @@ async function pinLink(topicId){
 
 /* ---------- CATCHING UP ---------- */
 async function reloadPlan(){
+  try{PAPER_LIST=(await invoke("list_papers"))||[];}catch(e){PAPER_LIST=[];}
   try{applyPlan(await invoke("get_plan",{catchUp:state.catchUp||null}));return true;}
   catch(e){return false;}}
 function doneList(){const done=[];SUBJ_IDS.forEach(s=>SUBJECTS[s].topics.forEach(t=>{if(T(t.id).done)done.push(t.id);}));return done;}
@@ -1641,6 +1655,91 @@ function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[
       e.textContent=fmtSecs(n);e.classList.toggle("low",n<=60&&n>0);
       if(n<=0){stopTestTimer();X.timeUp=true;X.phase="mark";X.finished=Date.now();renderTopicTest(el);window.scrollTo({top:0});}};
     testTimer=setInterval(tick,1000);}}
+/* ---------- MOCK PAPERS (papers.rs) ----------
+   A paper is a list of ::: q <band> blocks that climb from grade 4-5 to 8-9.
+   Sat like a topic test - closed book, on the clock, self-marked - and the
+   percentage is turned into a grade with the paper's boundaries. */
+let paper=null,PAPER_LIST=[];const PAPER_CACHE={};
+const paperAttempts=id=>(state.papers=state.papers||{},state.papers[id]=state.papers[id]||[]);
+const paperHist=id=>(state.papers||{})[id]||[];
+const lastPaper=id=>{const l=paperHist(id);return l.length?l[l.length-1]:null;};
+const BAND_LABEL={"4-5":"Grades 4–5","6-7":"Grades 6–7","8-9":"Grades 8–9"};
+const bandLabel=b=>BAND_LABEL[b]||("Grades "+b);
+function paperGrade(info,pct){for(const [g,m] of info.boundaries)if(pct>=m)return g;return 0;}
+const gradeName=g=>g?String(g):"U";
+const papersOf=subj=>PAPER_LIST.filter(p=>p.subject===subj);
+async function openPaper(id){stopNarration();stopTestTimer();const info=PAPER_LIST.find(p=>p.id===id);if(!info)return;
+  let text=PAPER_CACHE[id];
+  if(!text){try{text=await invoke("get_paper",{id});PAPER_CACHE[id]=text;}catch(e){alert(errText(e));return;}}
+  const qs=parseLesson(text).filter(b=>b.kind==="q").map(b=>{const sp=splitQ(b);return {q:sp.q,a:sp.a,max:qMarks(sp.q),band:b.title||"4-5"};});
+  paper={id,info,qs,phase:"intro",marks:{},total:qs.reduce((n,q)=>n+q.max,0),limit:info.time*60,started:0,finished:0};
+  lesson=null;curSubj=info.subject;showView("subjects");}
+function startPaper(){const P=paper;P.phase="answer";P.marks={};P.timeUp=false;P.started=Date.now();P.finished=0;render();window.scrollTo({top:0});}
+function paperQLabel(q,i){const first=q.q.find(l=>l.trim())||"";return `Mock paper Q${i+1} (${bandLabel(q.band)}): `+plainText([first]).replace(/^\d+\.\s*/,"").replace(/\s*\(\d{1,2}\)\s*$/,"").slice(0,140);}
+function finishPaper(){const P=paper;const s=P.qs.reduce((n,q,i)=>n+(P.marks[i]||0),0);const pct=Math.round(100*s/P.total);
+  const secs=Math.round((P.finished-P.started)/1000);const grade=paperGrade(P.info,pct);
+  const bands={};P.qs.forEach((q,i)=>{const b=bands[q.band]=bands[q.band]||{s:0,t:0};b.s+=P.marks[i]||0;b.t+=q.max;});
+  paperAttempts(P.id).push({d:todayISO(),s,t:P.total,pct,g:grade,secs});if(paperAttempts(P.id).length>12)paperAttempts(P.id).shift();
+  P.qs.forEach((q,i)=>{const got=P.marks[i]||0;if(got<q.max)addMistake("subj:"+P.info.subject,paperQLabel(q,i)+` (${got}/${q.max})`,"test");});
+  P.phase="done";P.score=s;P.pct=pct;P.secs=secs;P.grade=grade;P.bands=bands;markDay();persist();}
+function papersCard(subj){const ps=papersOf(subj);if(!ps.length)return "";const S=SUBJECTS[subj];
+  return `<div class="card" style="margin-bottom:14px;--c:${S.color}"><div class="eyebrow" style="margin-bottom:4px">Mock papers</div><p class="muted" style="font-size:13.5px;margin:0 0 4px">Original exam-style papers that mix topics the way a real paper does, starting at grade 4–5 questions and climbing to grade 8–9. Closed book, on the clock, marked by you against the scheme, with a grade estimate at the end.</p>`+
+    ps.map(p=>{const h=lastPaper(p.id);const n=paperHist(p.id).length;
+      return `<div class="mprow"><div><b>${esc(p.title)}</b><span class="muted"> · ${p.time} min · ${p.marks} marks · ${p.questions} questions</span>${h?`<div class="muted" style="font-size:12.5px;margin-top:2px">Last: <b>${h.s}/${h.t}</b> (${h.pct}%) · <span class="pgradechip ${h.g>=7?"hi":(h.g<4?"lo":"")}">Grade ${gradeName(h.g)}</span> · ${fmt(new Date(h.d+"T00:00:00"))}${n>1?` · ${n} sittings`:""}</div>`:""}</div><button class="btn small ${h?"":"primary"}" data-paper="${esc(p.id)}">${h?"Sit it again":"Sit the paper"}</button></div>`;}).join("")+`</div>`;}
+function renderPaper(el){const P=paper;const S=SUBJECTS[P.info.subject];const hist=paperHist(P.id);
+  stopTestTimer();
+  const left=()=>P.limit-Math.round((Date.now()-P.started)/1000);
+  const counts={};P.qs.forEach(q=>{const c=counts[q.band]=counts[q.band]||{n:0,m:0};c.n++;c.m+=q.max;});
+  const bandHead=(b,i)=>(i===0||P.qs[i-1].band!==b)?`<div class="pband">${bandLabel(b)}<small>${counts[b].n} question${counts[b].n===1?"":"s"} · ${counts[b].m} marks</small></div>`:"";
+  let body="";
+  if(P.phase==="intro"){
+    body=`<div class="ttrules"><b>${P.qs.length} questions, ${P.total} marks, ${P.info.time} minutes.</b> ${esc(P.info.intro)}<ul><li>Closed book: no lessons, notes or answers until you have finished.</li><li>Write every answer on paper, showing working; the questions are numbered and grouped by the grade they aim at, so pace yourself — do not leave the last section unattempted.</li><li>When the clock runs out you go straight to marking. Press <b>Mark it</b> earlier if you finish.</li><li>Mark honestly against the scheme; the dropped marks go to the mistakes log and the percentage becomes a grade estimate.</li></ul>
+      <div class="eyebrow" style="margin-top:10px">How it climbs</div><div class="pbands">${Object.keys(counts).map(b=>`<div><b>${counts[b].n} Q · ${counts[b].m} marks</b>${bandLabel(b)}</div>`).join("")}</div>
+      <div class="eyebrow" style="margin-top:10px">Grade boundaries</div><div class="pbound">${P.info.boundaries.slice().reverse().map(([g,m])=>`<span>Grade ${g} · ${m}%</span>`).join("")}</div>
+      ${hist.length?`<div class="eyebrow" style="margin-top:10px">Sittings</div><div class="tthist">${hist.map(h=>`<span class="${h.g>=7?"secure":(h.g<4?"notyet":"")}" title="${esc(h.d)}">${h.s}/${h.t} · G${gradeName(h.g)}</span>`).join("")}</div>`:""}
+      <div class="wbtns" style="margin-top:14px"><button class="btn primary" id="pstart">Start the clock</button><button class="btn ghost" id="pback">Back</button></div></div>`;
+  }else if(P.phase==="answer"){
+    body=`<div class="ttrules"><b>Closed book.</b> ${P.qs.length} questions, ${P.total} marks, ${fmtSecs(P.limit)} on the clock. Answer on paper, then press <b>Mark it</b>.</div>`;
+    P.qs.forEach((q,i)=>{body+=bandHead(q.band,i)+`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div></div>`;});
+    body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="pmark">I've finished — mark it</button><button class="btn ghost" id="pquit">Abandon paper</button></div>`;
+  }else if(P.phase==="mark"){
+    const done=P.qs.filter((_,i)=>P.marks[i]!==undefined).length;const s=P.qs.reduce((n,q,i)=>n+(P.marks[i]||0),0);
+    body=`<div class="ttrules"><b>Mark it.</b> Compare what you wrote with each mark scheme and give yourself the marks — for essay questions, find the level that best describes what you wrote. ${P.timeUp?"<b>Time ran out</b> — anything unanswered scores 0. ":""}Running total: <b>${s} / ${P.total}</b> · ${done} of ${P.qs.length} marked.</div>`;
+    P.qs.forEach((q,i)=>{const got=P.marks[i];const cls=got===undefined?"":(got>=q.max?"full":(got>0?"part":"zero"));
+      body+=bandHead(q.band,i)+`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Mark scheme</div>${mdBlock(q.a)}</div><div class="ttmarks"><span class="lab">Marks out of ${q.max}</span>${q.max<=12?Array.from({length:q.max+1},(_,k)=>`<button class="btn small ${got===k?(k===q.max?"done":"primary"):""}" data-pm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${q.max}" value="${got===undefined?"":got}" data-pmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-pmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`}</div></div>`;});
+    body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="pfinish" ${done<P.qs.length?"disabled":""}>${done<P.qs.length?`Mark all ${P.qs.length} to finish`:"Finish paper"}</button><button class="btn ghost" id="pquit">Abandon paper</button></div>`;
+  }else{
+    const dropped=P.qs.map((q,i)=>({q,i,got:P.marks[i]||0})).filter(x=>x.got<x.q.max);const g=P.grade;
+    const next=P.info.boundaries.slice().reverse().find(([gg,m])=>gg>g);
+    const weakest=Object.keys(P.bands).map(b=>({b,pct:Math.round(100*P.bands[b].s/P.bands[b].t)})).sort((a,b)=>a.pct-b.pct)[0];
+    body=`<div class="ttres"><span class="ttband ${g>=7?"secure":(g>=4?"nearly":"notyet")}">${g>=7?"Top grades":(g>=4?"Pass — keep climbing":"Below grade 4")}</span><div class="pgrade">Grade ${gradeName(g)}<small>${P.score} / ${P.total} · ${P.pct}% · ${fmtSecs(P.secs)}</small></div>
+      <p class="muted" style="font-size:14px;margin:0 0 8px">${next?`${next[1]-P.pct} percentage point${next[1]-P.pct===1?"":"s"} (${Math.ceil(next[1]*P.total/100)-P.score} marks) from grade ${next[0]}. `:"That is the top boundary cleared. "}${weakest&&weakest.pct<100?`Most marks went in the <b>${bandLabel(weakest.b)}</b> questions (${weakest.pct}%); every dropped question is in the mistakes log under this subject — work back through those, revisit the lessons they come from, then sit the paper again in a week or two.`:"Nothing dropped."}</p>
+      <div class="pbands">${Object.keys(P.bands).map(b=>{const x=P.bands[b];return `<div><b>${x.s}/${x.t}</b>${bandLabel(b)} · ${Math.round(100*x.s/x.t)}%</div>`;}).join("")}</div>
+      ${hist.length>1?`<div class="eyebrow" style="margin-top:10px">Sittings</div><div class="tthist">${hist.map(h=>`<span class="${h.g>=7?"secure":(h.g<4?"notyet":"")}" title="${esc(h.d)}">${h.s}/${h.t} · G${gradeName(h.g)}</span>`).join("")}</div>`:""}
+      <div class="wbtns" style="margin-top:14px"><button class="btn" id="pretake">Sit it again</button><button class="btn ghost" id="pback">Back to ${esc(S.name)}</button></div></div>`;
+    if(dropped.length){body+=`<div class="lsub" style="margin-top:18px"><h3>Where the marks went</h3></div>`;
+      dropped.forEach(x=>{body+=`<div class="ttq ${x.got?"part":"zero"}"><div class="lqhead"><span class="lqn">${x.got}/${x.q.max}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">Q${x.i+1} · ${bandLabel(x.q.band)}</div>${mdBlock(x.q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Mark scheme</div>${mdBlock(x.q.a)}</div></div>`;});}
+    else body+=`<div class="ldone"><b>Full marks.</b> Nothing dropped.</div>`;
+  }
+  el.innerHTML=`<div class="lesson ttest" style="--c:${S.color}"><button class="back" id="plback">‹ ${esc(S.name)}</button>
+    <div class="tthead"><div><span class="pill"><span class="dot" style="background:${S.color}"></span>Mock paper</span> <span class="wcode">${P.info.marks} marks</span></div>${P.phase==="answer"?`<span class="ttimer" id="ttimer">${fmtSecs(left())}</span>`:(P.phase==="mark"?`<span class="ttimer">marking</span>`:(P.phase==="done"?`<span class="ttimer">${fmtSecs(P.secs)}</span>`:`<span class="ttimer">${P.info.time}:00</span>`))}</div>
+    <h1 style="font-size:24px;margin:4px 0 12px">${esc(P.info.title)}</h1>${body}</div>`;
+  const leave=()=>{stopTestTimer();paper=null;render();};
+  const quit=()=>{if(confirm("Abandon this paper? Nothing is recorded."))leave();};
+  el.querySelector("#plback").addEventListener("click",()=>{if(P.phase==="answer"||P.phase==="mark")quit();else leave();});
+  el.querySelector("#pback")?.addEventListener("click",leave);
+  el.querySelector("#pquit")?.addEventListener("click",quit);
+  el.querySelector("#pstart")?.addEventListener("click",startPaper);
+  el.querySelector("#pretake")?.addEventListener("click",()=>{P.phase="intro";renderPaper(el);window.scrollTo({top:0});});
+  el.querySelector("#pmark")?.addEventListener("click",()=>{P.phase="mark";P.finished=Date.now();stopTestTimer();renderPaper(el);window.scrollTo({top:0});});
+  el.querySelector("#pfinish")?.addEventListener("click",()=>{finishPaper();renderPaper(el);window.scrollTo({top:0});});
+  const keep=()=>{const y=window.scrollY;renderPaper(el);window.scrollTo({top:y});};
+  el.querySelectorAll("[data-pm]").forEach(b=>b.addEventListener("click",()=>{const[i,v]=b.dataset.pm.split("|");P.marks[+i]=+v;keep();}));
+  el.querySelectorAll("[data-pmset]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.pmset;const inp=el.querySelector(`[data-pmin="${i}"]`);const v=Math.round(+inp.value);if(inp.value===""||isNaN(v)||v<0||v>P.qs[i].max){inp.focus();return;}P.marks[i]=v;keep();}));
+  if(P.phase==="answer"){const tick=()=>{const n=left();const e=el.querySelector("#ttimer");if(!e){stopTestTimer();return;}
+      e.textContent=fmtSecs(n);e.classList.toggle("low",n<=300&&n>0);
+      if(n<=0){stopTestTimer();P.timeUp=true;P.phase="mark";P.finished=Date.now();renderPaper(el);window.scrollTo({top:0});}};
+    testTimer=setInterval(tick,1000);}}
 function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;render();return;}
   if(lesson.test)return renderTopicTest(el);const S=SUBJECTS[t.subj];const stt=T(t.id);
   const marks=lessonMarks(t.id);const blocks=parseLesson(lesson.text);const qs=blocks.filter(b=>b.kind==="q"),exs=blocks.filter(b=>b.kind==="example");const right=qs.filter((_,i)=>marks[i]===true).length;
@@ -1927,6 +2026,7 @@ function setKnown(id,on){const t=T(id);const tp=findTopic(id);
 function renderSubjects(){
   const el=document.getElementById("view-subjects");const now=todayWeek();
   if(lesson){renderLesson(el);return;}
+  if(paper){renderPaper(el);return;}
   if(qb){if(curSubj!=="englit")qb=null;else{renderQuoteBank(el);return;}}
   if(walk&&SUBJECTS[walk.subj]){renderWalk(el);return;}
   if(!curSubj){
@@ -1966,6 +2066,7 @@ function renderSubjects(){
   ${linkBar(curSubj,null,true)}
   ${(()=>{const ms=subjectMistakes(curSubj);if(!ms.length)return "";return `<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:6px">Open mistakes · ${ms.length}</div>`+ms.slice(0,12).map(x=>mistakeRow(x.key,x.i,x.m,x.code?`${x.code} ${x.label}`:x.label)).join("")+(ms.length>12?`<p class="muted" style="font-size:13px;margin:8px 0 0">+${ms.length-12} more under their topics.</p>`:"")+`<p class="muted" style="font-size:12.5px;margin:8px 0 0">Read these before a test. Tick each one once you can do it without the slip.</p></div>`;})()}
   ${taughtNote(curSubj)}
+  ${papersCard(curSubj)}
   ${coverageCard(curSubj)}
   ${state.knownDirty&&!knowMode?repourBar():""}
   <div class="card"><div class="prog" style="margin-bottom:6px"><i style="width:${Math.round(100*d/S.topics.length)}%;background:${S.color}"></i></div>
@@ -1982,6 +2083,7 @@ function renderSubjects(){
   el.querySelector("#knowmode").addEventListener("click",()=>{knowMode=!knowMode;render();});
   el.querySelector("#walkstart").addEventListener("click",()=>startWalk(curSubj));
   el.querySelector("#qbopen")?.addEventListener("click",()=>openQuoteBank(null));
+  el.querySelectorAll("[data-paper]").forEach(b=>b.addEventListener("click",()=>openPaper(b.dataset.paper)));
   el.querySelector("#examdate").addEventListener("change",e=>{state.examDates[curSubj]=e.target.value;persist();render();});
   el.querySelectorAll("[data-know]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.know;setKnown(id,!T(id).known);markDay();persist();render();}));
   el.querySelectorAll("[data-knowall]").forEach(b=>b.addEventListener("click",()=>{const[k,on]=b.dataset.knowall.split("|");grouped(S).find(g=>g.key===k).topics.forEach(t=>{if(!!T(t.id).known!==(on==="1"))setKnown(t.id,on==="1");});markDay();persist();render();}));
@@ -2165,6 +2267,7 @@ function renderGuide(){
   <h3>Your cards</h3><p>Under any topic you can write cards — a short quote on the front, the technique and its effect on the back; a formula; a definition. They come up in that topic's recall checks, front first. Nothing is pre-filled on purpose: writing the card is most of the learning.</p>
   <h3>Lessons</h3><p>For Maths, Further Maths, Economics, Business, Computer Science, Biology, Chemistry, Physics, English Literature and English Language, every topic carries its own lesson inside the app — no hunting for videos or notes. Open one from the session in <b>Today</b>, from the topic in <b>Subjects</b>, or from the walkthrough. Each lesson has the same shape: <b>What it is</b>, <b>How to do it</b> as numbered steps, worked examples with every line shown, <b>Try these</b> — practice questions with the answer hidden until you tap, then <b>Got it</b> or <b>Not yet</b> (Not yet goes straight into the mistakes log for that topic) — and <b>Where the marks go</b>, the errors examiners see most. Every number in the answers was checked by computer. <b>Cover the working</b> turns each worked example into a step-by-step reveal, so you attempt each line before you see it. <b>Notes</b> opens your own notebook beside the lesson — it autosaves, anything you highlight in the lesson can be added with one tap, the first line can become a card, and the notes come back on that topic's recall checks. <b>Print</b> gives you the lesson with every answer shown as a revision sheet. When you can do the questions without looking, tick the topic at the bottom and it joins the recall rotation. Lessons work offline; the maths is typeset locally.</p>
   <h3>End-of-topic tests</h3><p>Every lesson ends with <b>Take the test</b> (also under <b>Test</b> in the lesson's top bar, and on the topic row once you have taken one). It is closed book and timed: the questions appear with no answers and a clock, you write every answer on paper, then <b>Mark it</b> shows the answers and you give yourself the marks. 80% or more is <b>Secure</b> — tick the topic and it joins recall; below that, everything you dropped is already in the mistakes log, so read those, go back over that part of the lesson, and retake. Attempts are kept, so the subject page shows your last score on each topic and the lesson shows the run of attempts.</p>
+  <h3>Mock papers</h3><p>Each subject page has a <b>Mock papers</b> card: original exam-style papers, written for this app rather than copied from past papers, that mix topics the way a real paper does and climb from grade 4–5 questions through 6–7 to 8–9, so the last section is where the top grades are decided. A paper runs on the clock for its real duration; you write everything on paper, then <b>Mark it</b> shows the mark scheme (points for short questions, level descriptors for essays) and you give yourself the marks. The percentage becomes a <b>grade estimate</b> from the paper's boundaries, with a breakdown by band so you can see whether the marks went at the start or at the top end. Every dropped question goes to the mistakes log under the subject. Sit a paper once the topics it covers are done, fix what it exposes, and sit it again a week or two later.</p>
   <h3>Quote bank</h3><p>English Literature is closed book, so the quotes you can write from memory are the marks. <b>Subjects → Eng Literature → Quote bank</b> keeps every quote in one place: pick the text, type the quote, tag its themes and write the one sentence you would say about it. Every set text and all fifteen Power and Conflict poems are listed with a count, so a poem you have nothing for shows as a zero. <b>Test me</b> blanks out a third of the words and asks you to fill them in — or, switched round, gives you the theme and asks for the quote. Three right in a row makes a quote solid; one miss puts it back to the front. Quotes also come up in that text's recall checks, and <b>Print</b> gives you the lot on one sheet for the night before. Nothing is pre-filled: choosing the quote is the learning.</p>
   <h3>Already ahead?</h3><p>In <b>Subjects</b>, open a subject and hit <b>Where am I up to?</b> The course is laid out one topic at a time in specification order, with its objectives and checklist: <b>Done this</b> ticks it as known and shows the next; <b>Not yet</b> is where you are. Or use <b>Tick what you already know</b> to tick from the list, a section at a time. Anything ticked counts as done, leaves the schedule, and goes straight into recall. For subjects the app runs ahead in, a bar then offers to <b>re-pour</b> the plan so those hours go to what is left.</p>
   <h3>Tests</h3>
