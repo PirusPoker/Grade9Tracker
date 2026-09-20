@@ -2450,10 +2450,16 @@ const tracker={
 window.tracker=tracker;
 async function boot(){
   LS="grade9-tracker-v2:"+(PROFILE?PROFILE.id:"me");
-  try{const raw=localStorage.getItem(LS);if(raw)state=Object.assign({...BLANK},JSON.parse(raw));}catch(e){}
-  // Progress first: it carries the catch-up snapshot the plan is built from.
+  // This window's localStorage is the freshest copy: persist() writes it
+  // synchronously on every change, then mirrors to state.json after a short
+  // debounce. So localStorage wins; the file is only read to SEED a device with
+  // no local copy yet (fresh install, cleared data, a new profile). Reading the
+  // file back over localStorage was resurrecting ticked-off items whenever its
+  // debounced write hadn't landed.
+  let hasLocal=false;
+  try{const raw=localStorage.getItem(LS);if(raw){state=Object.assign({...BLANK},JSON.parse(raw));hasLocal=true;}}catch(e){}
   try{const saved=await tracker.load();
-    if(saved)state=Object.assign({...BLANK},saved);
+    if(saved&&!hasLocal)state=Object.assign({...BLANK},saved);
     document.getElementById("sync").textContent="Saved";}catch(e){}
   if(!await reloadPlan()){
     document.getElementById("view-today").innerHTML='<div class="card"><div class="empty">Could not build the plan.</div></div>';return;}
