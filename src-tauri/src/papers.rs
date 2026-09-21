@@ -12,7 +12,8 @@
 //! boundaries: 4:35 5:45 6:55 7:65 8:75 9:85    grade: minimum percentage
 //! intro: one sentence of instructions shown before the paper starts
 //!
-//! ::: q 4-5                     the grade band; bands must not go backwards
+//! ::: q 4-5 2.7a 1.4b           the grade band, then the topic codes the
+//!                               question draws on; bands never go backwards
 //! 1. The question, with parts marked (2) and the total at the end. (5)
 //! ---
 //! The mark scheme.
@@ -101,20 +102,22 @@ pub fn paper(id: &str) -> Option<&'static str> {
 mod tests {
     use super::*;
 
-    fn questions(text: &str) -> Vec<(String, String)> {
-        // (band, body) for each `::: q <band>` block
+    fn questions(text: &str) -> Vec<(String, Vec<String>, String)> {
+        // (band, topic codes, body) for each `::: q <band> <topics…>` block
         let mut out = Vec::new();
-        let mut cur: Option<(String, String)> = None;
+        let mut cur: Option<(String, Vec<String>, String)> = None;
         for line in text.lines() {
             let t = line.trim_end();
             if let Some(rest) = t.strip_prefix("::: ") {
                 assert!(cur.is_none(), "block opened inside a block: {t}");
                 let mut it = rest.split_whitespace();
                 assert_eq!(it.next(), Some("q"), "papers only contain q blocks: {t}");
-                cur = Some((it.next().unwrap_or("").to_string(), String::new()));
+                let band = it.next().unwrap_or("").to_string();
+                let topics: Vec<String> = it.map(str::to_string).collect();
+                cur = Some((band, topics, String::new()));
             } else if t == ":::" {
                 out.push(cur.take().expect("::: without an open block"));
-            } else if let Some((_, b)) = cur.as_mut() {
+            } else if let Some((_, _, b)) = cur.as_mut() {
                 b.push_str(line);
                 b.push('\n');
             }
@@ -135,7 +138,7 @@ mod tests {
         let cfg = crate::config::PlanConfig::default();
         let bands = ["4-5", "6-7", "8-9"];
         for (id, subject, text) in PAPERS {
-            assert!(cfg.subjects.iter().any(|s| s.id == *subject), "{id}: unknown subject {subject}");
+            let def = cfg.subjects.iter().find(|s| s.id == *subject).unwrap_or_else(|| panic!("{id}: unknown subject {subject}"));
             let i = info(id, subject, text);
             assert!(!i.title.is_empty() && i.time > 0 && i.marks > 0, "{id}: header needs title, time and marks");
             assert_eq!(i.boundaries.len(), 6, "{id}: boundaries must give grades 4 to 9");
@@ -144,7 +147,11 @@ mod tests {
             assert!(qs.len() >= 8, "{id}: too few questions ({})", qs.len());
             let mut total = 0;
             let mut last_band = 0;
-            for (n, (band, body)) in qs.iter().enumerate() {
+            for (n, (band, topics, body)) in qs.iter().enumerate() {
+                assert!(!topics.is_empty(), "{id}: question {} names no topics", n + 1);
+                for code in topics {
+                    assert!(def.topics.iter().any(|t| t.code == *code), "{id}: question {} names topic {code}, which {subject} does not have", n + 1);
+                }
                 let bi = bands.iter().position(|b| b == band).unwrap_or_else(|| panic!("{id}: question {} has band {band:?}, expected one of {bands:?}", n + 1));
                 assert!(bi >= last_band, "{id}: question {} steps down a band", n + 1);
                 last_band = bi;

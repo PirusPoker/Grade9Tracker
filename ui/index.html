@@ -974,10 +974,10 @@ function quizCards(id){const cs=cardsOf(id);if(!cs.length)return "";
    A mistake stays open until you tick it fixed. */
 const mistakesOf=key=>state.mistakes[key]||[];
 const openMistakes=key=>mistakesOf(key).filter(m=>!m.fixed);
-function addMistake(key,text,src){const t=String(text||"").trim();if(!t)return false;
+function addMistake(key,text,src,ref){const t=String(text||"").trim();if(!t)return false;
   const list=(state.mistakes[key]=state.mistakes[key]||[]);
   if(list.some(m=>!m.fixed&&m.text===t))return false;
-  list.push({t:todayISO(),text:t,src:src||"manual",fixed:false});return true;}
+  const m={t:todayISO(),text:t,src:src||"manual",fixed:false};if(ref)m.ref=ref;list.push(m);return true;}
 /* Every open mistake in a subject, topic-level and subject-level, newest first. */
 function subjectMistakes(subj){const out=[];
   SUBJECTS[subj].topics.forEach(t=>openMistakes(t.id).forEach((m,i)=>out.push({key:t.id,i:mistakesOf(t.id).indexOf(m),m,label:t[1],code:t[0]})));
@@ -1274,7 +1274,7 @@ function itemBody(it,w){
     ${t.subjects.filter(s=>SUBJECTS[s]&&ts.marks[s]==="shaky").map(s=>`<div class="mquickrow"><span class="pill"><span class="dot" style="background:${SUBJECTS[s].color}"></span>${esc(SUBJECTS[s].name)}</span>${quickMistake("subj:"+s,"test","What dropped marks in ${SUBJECTS[s].name}?")}</div>`).join("")}`;}
   if(it.kind==="flash"){const n=Object.values(state.cards).reduce((a,c)=>a+c.length,0);
     const nq=quotes().length,sq=quotes().filter(qbSolid).length;
-    return `<div class="sub">Quick retrieval on your own cards — poems, formulae, definitions. ${n?`You have ${n} card${n===1?"":"s"}.`:"You have no cards yet: add some under any topic."} ${nq?`Then test your ${nq} English quote${nq===1?"":"s"} — ${sq} solid so far.`:"Then start your English quote bank: three quotes per poem."}</div><div class="links" style="margin-top:8px"><button class="btn small" data-qbopen="1">${nq?"Test the quote bank":"Open the quote bank"}</button></div><div class="sub">${openMistakeCount()?` Then read your ${openMistakeCount()} open mistake${openMistakeCount()===1?"":"s"} — Subjects › each subject lists them.`:""} Then rest — Sunday is yours.</div>`;}
+    return `<div class="sub">Quick retrieval on your own cards — poems, formulae, definitions. ${n?`You have ${n} card${n===1?"":"s"}.`:"You have no cards yet: add some under any topic."} ${nq?`Then test your ${nq} English quote${nq===1?"":"s"} — ${sq} solid so far.`:"Then start your English quote bank: three quotes per poem."}</div><div class="links" style="margin-top:8px"><button class="btn small" data-qbopen="1">${nq?"Test the quote bank":"Open the quote bank"}</button>${fixitButton(null)}</div><div class="sub">${openMistakeCount()?` Then read your ${openMistakeCount()} open mistake${openMistakeCount()===1?"":"s"} — Subjects › each subject lists them.`:""} Then rest — Sunday is yours.</div>`;}
   return "";}
 function renderSpecial(it,w){
   if(it.kind==="catchup"){const overdue=[];WEEKS.slice(0,w.n-1).forEach(x=>SUBJ_IDS.forEach(s=>x.plan[s].forEach(e=>{if(e.kind==="topic"&&e.final&&!T(e.topic.id).done)overdue.push(e.topic);})));
@@ -1287,6 +1287,7 @@ function bind(root){
   root.querySelectorAll("[data-ttest]").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();openLesson(b.dataset.ttest).then(()=>{if(lesson&&lesson.topicId===b.dataset.ttest)startTopicTest();});}));
   root.querySelectorAll("[data-qbopen]").forEach(b=>b.addEventListener("click",()=>{openQuoteBank(null);if(quotes().length)startQuoteQuiz("gap");}));
   root.querySelectorAll("[data-walkstart]").forEach(b=>b.addEventListener("click",()=>startWalk(b.dataset.walkstart)));
+  root.querySelectorAll("[data-fixit]").forEach(b=>b.addEventListener("click",()=>startFixit(b.dataset.fixit||null)));
   root.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.open;if(openSess.has(k))openSess.delete(k);else openSess.add(k);menuKey=null;render();}));
   root.querySelectorAll("[data-menu]").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();menuKey=menuKey===b.dataset.menu?null:b.dataset.menu;render();}));
   root.querySelectorAll("[data-move]").forEach(b=>b.addEventListener("click",()=>{const[key,wk,day]=b.dataset.move.split("|");state.moves[key]={week:+wk,day:+day};delete state.skips[key];menuKey=null;persist();render();}));
@@ -1630,7 +1631,7 @@ function startTopicTest(){if(!lesson)return;stopNarration();const pool=testPool(
 function finishTopicTest(t){const T_=lesson.test;const s=T_.qs.reduce((n,q,i)=>n+(T_.marks[i]||0),0);const pct=Math.round(100*s/T_.total);
   const secs=Math.round((T_.finished-T_.started)/1000);
   topicTests(t.id).push({d:todayISO(),s,t:T_.total,pct,secs});if(topicTests(t.id).length>12)topicTests(t.id).shift();
-  T_.qs.forEach((q,i)=>{const got=T_.marks[i]||0;if(got<q.max)addMistake(t.id,"Topic test: "+plainText(q.q).slice(0,150)+(q.max>1?` (${got}/${q.max})`:""),"test");});
+  T_.qs.forEach((q,i)=>{const got=T_.marks[i]||0;if(got<q.max)addMistake(t.id,"Topic test: "+plainText(q.q).slice(0,150)+(q.max>1?` (${got}/${q.max})`:""),"test",{t:t.id,q:q.src});});
   T_.phase="done";T_.score=s;T_.pct=pct;T_.secs=secs;markDay();persist();}
 function fmtSecs(n){n=Math.max(0,Math.round(n));return `${Math.floor(n/60)}:${String(n%60).padStart(2,"0")}`;}
 function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[t.subj];const X=lesson.test;const stt=T(t.id);
@@ -1674,6 +1675,78 @@ function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[
       e.textContent=fmtSecs(n);e.classList.toggle("low",n<=60&&n>0);
       if(n<=0){stopTestTimer();X.timeUp=true;X.phase="mark";X.finished=Date.now();renderTopicTest(el);window.scrollTo({top:0});}};
     testTimer=setInterval(tick,1000);}}
+/* ---------- FIX-IT: re-testing dropped questions ----------
+   Mistakes logged by a topic test or a mock paper carry a ref back to the
+   question. A few days later they come back closed-book; full marks ticks
+   the mistake fixed, anything less keeps it open for another go. */
+let fixit=null; // {subj, items:[{key,i,m,q,a,max,label}], phase, marks, started}
+const FIX_GAP_DAYS=2;
+const refKey=r=>r.p?`p|${r.p}|${r.q}`:`t|${r.t}|${r.q}`;
+const fixDue=m=>{const last=m.tried||m.t;return Math.round((new Date(todayISO()+"T00:00:00")-new Date(last+"T00:00:00"))/86400000)>=FIX_GAP_DAYS;};
+/* Open mistakes with a ref, one per question (a paper question tagged with two topics is logged under both), oldest first. */
+function fixables(subj){const out=[];const keys=subj?[...SUBJECTS[subj].topics.map(t=>t.id),"subj:"+subj]:Object.keys(state.mistakes);
+  keys.forEach(key=>mistakesOf(key).forEach((m,i)=>{if(!m.fixed&&m.ref)out.push({key,i,m});}));
+  const seen=new Set();
+  return out.sort((a,b)=>(a.m.tried||a.m.t).localeCompare(b.m.tried||b.m.t)||refKey(a.m.ref).localeCompare(refKey(b.m.ref))).filter(x=>{const k=refKey(x.m.ref);if(seen.has(k))return false;seen.add(k);return true;});}
+const fixDueList=subj=>fixables(subj).filter(x=>fixDue(x.m));
+async function loadRef(ref){
+  if(ref.p){const info=PAPER_LIST.find(p=>p.id===ref.p);if(!info)return null;let text=PAPER_CACHE[ref.p];
+    if(!text){try{text=await invoke("get_paper",{id:ref.p});PAPER_CACHE[ref.p]=text;}catch(e){return null;}}
+    const b=parseLesson(text).filter(b=>b.kind==="q")[ref.q];if(!b)return null;const sp=splitQ(b);
+    const topics=(b.title||"").split(/\s+/).slice(1).map(c=>info.subject+":"+c).filter(findTopic);
+    return {q:sp.q,a:sp.a,max:qMarks(sp.q),label:`${info.title} · Q${ref.q+1}`,subj:info.subject,topics};}
+  const t=findTopic(ref.t);if(!t||!t.lesson)return null;let text=LESSON_CACHE[ref.t];
+  if(!text){try{text=await invoke("get_lesson",{topicId:ref.t});LESSON_CACHE[ref.t]=text;}catch(e){return null;}}
+  const b=testPool(text).qs[ref.q];if(!b)return null;const sp=splitQ(b);
+  return {q:sp.q,a:sp.a,max:qMarks(sp.q),label:`${t[0]} ${t[1]} · topic test`,subj:t.subj,topics:[t.id]};}
+async function startFixit(subj){const list=fixDueList(subj).slice(0,12);const items=[];
+  for(const x of list){const r=await loadRef(x.m.ref);if(r)items.push({...x,...r});}
+  if(!items.length){alert("Nothing due for a re-test yet. Dropped test and paper questions come back here a couple of days after you log them.");return;}
+  stopNarration();stopTestTimer();lesson=null;paper=null;
+  fixit={subj:subj||null,items,phase:"answer",marks:{},started:Date.now()};
+  if(subj)curSubj=subj;showView("subjects");}
+function finishFixit(){const F=fixit;const today=todayISO();let fixed=0;
+  F.items.forEach((x,i)=>{const got=F.marks[i]||0;const k=refKey(x.m.ref);const ok=got>=x.max;if(ok)fixed++;
+    // every copy of this question in the log (a paper question can sit under two topics)
+    Object.keys(state.mistakes).forEach(key=>mistakesOf(key).forEach(m=>{if(m.ref&&!m.fixed&&refKey(m.ref)===k){if(ok){m.fixed=true;m.fixedAt=today;}else{m.tried=today;m.tries=(m.tries||0)+1;}}}));});
+  F.phase="done";F.fixed=fixed;F.secs=Math.round((Date.now()-F.started)/1000);markDay();persist();}
+function fixitButton(subj){const due=fixDueList(subj).length,all=fixables(subj).length;if(!all)return "";
+  return `<button class="btn small ${due?"primary":""}" data-fixit="${esc(subj||"")}" ${due?"":"disabled"} title="${due?"Closed book: the questions come back without their answers":"Dropped questions come back for a re-test a couple of days after you log them"}">${due?`Re-test ${due} dropped question${due===1?"":"s"}`:`${all} dropped question${all===1?"":"s"} · due in a few days`}</button>`;}
+function renderFixit(el){const F=fixit;const S=F.subj?SUBJECTS[F.subj]:null;const color=S?S.color:"var(--accent)";
+  let body="";
+  if(F.phase==="answer"){
+    body=`<div class="ttrules"><b>Closed book.</b> ${F.items.length} question${F.items.length===1?"":"s"} you dropped marks on before, oldest first.<ul><li>Answer each one on paper, then press <b>Mark it</b>.</li><li>Full marks ticks the mistake as fixed. Anything less keeps it open and it comes back again in a couple of days.</li></ul></div>`;
+    F.items.forEach((x,i)=>{body+=`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">${esc(x.label)}${x.m.tries?` · retry ${x.m.tries+1}`:""}</div>${mdBlock(x.q)}</div></div></div>`;});
+    body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="fxmark">I've answered them — mark it</button><button class="btn ghost" id="fxquit">Not now</button></div>`;
+  }else if(F.phase==="mark"){
+    const done=F.items.filter((_,i)=>F.marks[i]!==undefined).length;
+    body=`<div class="ttrules"><b>Mark it.</b> Full marks means fixed; be honest, a mistake you tick away too early just costs you in the exam. ${done} of ${F.items.length} marked.</div>`;
+    F.items.forEach((x,i)=>{const got=F.marks[i];const cls=got===undefined?"":(got>=x.max?"full":(got>0?"part":"zero"));
+      body+=`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">${esc(x.label)}</div>${mdBlock(x.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(x.a)}</div><div class="ttmarks"><span class="lab">${x.max===1?"Did you get it?":`Marks out of ${x.max}`}</span>${x.max===1?`<button class="btn small ${got===1?"done":""}" data-fm="${i}|1">✓ Yes</button><button class="btn small ${got===0?"primary":""}" data-fm="${i}|0">✗ No</button>`:(x.max<=12?Array.from({length:x.max+1},(_,k)=>`<button class="btn small ${got===k?(k===x.max?"done":"primary"):""}" data-fm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${x.max}" value="${got===undefined?"":got}" data-fmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-fmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`)}</div></div>`;});
+    body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="fxfinish" ${done<F.items.length?"disabled":""}>${done<F.items.length?`Mark all ${F.items.length} to finish`:"Finish"}</button><button class="btn ghost" id="fxquit">Abandon</button></div>`;
+  }else{
+    const left=F.items.map((x,i)=>({x,i,got:F.marks[i]||0})).filter(y=>y.got<y.x.max);const all=F.fixed===F.items.length;
+    body=`<div class="ttres"><span class="ttband ${all?"secure":(F.fixed?"nearly":"notyet")}">${all?"All fixed":(F.fixed?"Some fixed":"None fixed yet")}</span><div class="ttscore">${F.fixed} / ${F.items.length}<small>fixed · ${fmtSecs(F.secs)}</small></div>
+      <p class="muted" style="font-size:14px;margin:0 0 8px">${all?"Those mistakes are ticked off. Anything you drop in future tests and papers lands back here.":`${left.length} stay${left.length===1?"s":""} open and come${left.length===1?"s":""} back in ${FIX_GAP_DAYS} days. Reopen the lesson for each one below before then.`}</p>
+      <div class="wbtns" style="margin-top:14px"><button class="btn primary" id="fxback">Done</button></div></div>`;
+    if(left.length){body+=`<div class="lsub" style="margin-top:18px"><h3>Still open</h3></div>`;
+      left.forEach(y=>{const ts=(y.x.topics||[]).map(findTopic).filter(t=>t&&t.lesson);
+        body+=`<div class="ttq ${y.got?"part":"zero"}"><div class="lqhead"><span class="lqn">${y.got}/${y.x.max}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">${esc(y.x.label)}</div>${mdBlock(y.x.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(y.x.a)}</div>${ts.length?`<div class="links" style="margin-top:8px">${ts.map(t=>`<button class="lchip" data-lesson="${esc(t.id)}">Lesson · ${esc(t[0])} ${esc(t[1])}</button>`).join("")}</div>`:""}</div>`;});}
+  }
+  el.innerHTML=`<div class="lesson ttest" style="--c:${color}"><button class="back" id="fxlback">‹ ${S?esc(S.name):"Subjects"}</button>
+    <div class="tthead"><div><span class="pill">${S?`<span class="dot" style="background:${S.color}"></span>`:""}Fix-it</span> <span class="wcode">${F.items.length} question${F.items.length===1?"":"s"}</span></div><span class="ttimer">${F.phase==="answer"?"closed book":(F.phase==="mark"?"marking":fmtSecs(F.secs))}</span></div>
+    <h1 style="font-size:24px;margin:4px 0 12px">Re-test what you dropped${S?` in ${esc(S.name)}`:""}</h1>${body}</div>`;
+  const leave=()=>{fixit=null;render();};
+  const quit=()=>{if(confirm("Stop this re-test? Nothing is recorded."))leave();};
+  el.querySelector("#fxlback").addEventListener("click",()=>{if(F.phase==="done")leave();else quit();});
+  el.querySelector("#fxquit")?.addEventListener("click",quit);
+  el.querySelector("#fxback")?.addEventListener("click",leave);
+  el.querySelector("#fxmark")?.addEventListener("click",()=>{F.phase="mark";renderFixit(el);window.scrollTo({top:0});});
+  el.querySelector("#fxfinish")?.addEventListener("click",()=>{finishFixit();renderFixit(el);window.scrollTo({top:0});});
+  const keep=()=>{const y=window.scrollY;renderFixit(el);window.scrollTo({top:y});};
+  el.querySelectorAll("[data-fm]").forEach(b=>b.addEventListener("click",()=>{const[i,v]=b.dataset.fm.split("|");F.marks[+i]=+v;keep();}));
+  el.querySelectorAll("[data-fmset]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.fmset;const inp=el.querySelector(`[data-fmin="${i}"]`);const v=Math.round(+inp.value);if(inp.value===""||isNaN(v)||v<0||v>F.items[i].max){inp.focus();return;}F.marks[i]=v;keep();}));
+  bind(el);}
 /* ---------- MOCK PAPERS (papers.rs) ----------
    A paper is a list of ::: q <band> blocks that climb from grade 4-5 to 8-9.
    Sat like a topic test - closed book, on the clock, self-marked - and the
@@ -1690,7 +1763,7 @@ const papersOf=subj=>PAPER_LIST.filter(p=>p.subject===subj);
 async function openPaper(id){stopNarration();stopTestTimer();const info=PAPER_LIST.find(p=>p.id===id);if(!info)return;
   let text=PAPER_CACHE[id];
   if(!text){try{text=await invoke("get_paper",{id});PAPER_CACHE[id]=text;}catch(e){alert(errText(e));return;}}
-  const qs=parseLesson(text).filter(b=>b.kind==="q").map(b=>{const sp=splitQ(b);return {q:sp.q,a:sp.a,max:qMarks(sp.q),band:b.title||"4-5"};});
+  const qs=parseLesson(text).filter(b=>b.kind==="q").map(b=>{const sp=splitQ(b);const [band,...codes]=(b.title||"4-5").split(/\s+/);return {q:sp.q,a:sp.a,max:qMarks(sp.q),band,topics:codes.map(c=>info.subject+":"+c).filter(findTopic)};});
   paper={id,info,qs,phase:"intro",marks:{},total:qs.reduce((n,q)=>n+q.max,0),limit:info.time*60,started:0,finished:0};
   lesson=null;curSubj=info.subject;showView("subjects");}
 function startPaper(){const P=paper;P.phase="answer";P.marks={};P.timeUp=false;P.started=Date.now();P.finished=0;render();window.scrollTo({top:0});}
@@ -1699,7 +1772,7 @@ function finishPaper(){const P=paper;const s=P.qs.reduce((n,q,i)=>n+(P.marks[i]|
   const secs=Math.round((P.finished-P.started)/1000);const grade=paperGrade(P.info,pct);
   const bands={};P.qs.forEach((q,i)=>{const b=bands[q.band]=bands[q.band]||{s:0,t:0};b.s+=P.marks[i]||0;b.t+=q.max;});
   paperAttempts(P.id).push({d:todayISO(),s,t:P.total,pct,g:grade,secs});if(paperAttempts(P.id).length>12)paperAttempts(P.id).shift();
-  P.qs.forEach((q,i)=>{const got=P.marks[i]||0;if(got<q.max)addMistake("subj:"+P.info.subject,paperQLabel(q,i)+` (${got}/${q.max})`,"test");});
+  P.qs.forEach((q,i)=>{const got=P.marks[i]||0;if(got<q.max){const text=paperQLabel(q,i)+` (${got}/${q.max})`,ref={p:P.id,q:i};if(q.topics.length)q.topics.forEach(id=>addMistake(id,text,"test",ref));else addMistake("subj:"+P.info.subject,text,"test",ref);}});
   P.phase="done";P.score=s;P.pct=pct;P.secs=secs;P.grade=grade;P.bands=bands;markDay();persist();}
 function papersCard(subj){const ps=papersOf(subj);if(!ps.length)return "";const S=SUBJECTS[subj];
   return `<div class="card" style="margin-bottom:14px;--c:${S.color}"><div class="eyebrow" style="margin-bottom:4px">Mock papers</div><p class="muted" style="font-size:13.5px;margin:0 0 4px">Original exam-style papers that mix topics the way a real paper does, starting at grade 4–5 questions and climbing to grade 8–9. Closed book, on the clock, marked by you against the scheme, with a grade estimate at the end.</p>`+
@@ -1731,13 +1804,16 @@ function renderPaper(el){const P=paper;const S=SUBJECTS[P.info.subject];const hi
     const dropped=P.qs.map((q,i)=>({q,i,got:P.marks[i]||0})).filter(x=>x.got<x.q.max);const g=P.grade;
     const next=P.info.boundaries.slice().reverse().find(([gg,m])=>gg>g);
     const weakest=Object.keys(P.bands).map(b=>({b,pct:Math.round(100*P.bands[b].s/P.bands[b].t)})).sort((a,b)=>a.pct-b.pct)[0];
+    const lost={};dropped.forEach(x=>x.q.topics.forEach(id=>{lost[id]=(lost[id]||0)+(x.q.max-x.got);}));
+    const reopen=Object.keys(lost).map(id=>({t:findTopic(id),n:lost[id]})).filter(x=>x.t).sort((a,b)=>b.n-a.n);
     body=`<div class="ttres"><span class="ttband ${g>=7?"secure":(g>=4?"nearly":"notyet")}">${g>=7?"Top grades":(g>=4?"Pass — keep climbing":"Below grade 4")}</span><div class="pgrade">Grade ${gradeName(g)}<small>${P.score} / ${P.total} · ${P.pct}% · ${fmtSecs(P.secs)}</small></div>
-      <p class="muted" style="font-size:14px;margin:0 0 8px">${next?`${next[1]-P.pct} percentage point${next[1]-P.pct===1?"":"s"} (${Math.ceil(next[1]*P.total/100)-P.score} marks) from grade ${next[0]}. `:"That is the top boundary cleared. "}${weakest&&weakest.pct<100?`Most marks went in the <b>${bandLabel(weakest.b)}</b> questions (${weakest.pct}%); every dropped question is in the mistakes log under this subject — work back through those, revisit the lessons they come from, then sit the paper again in a week or two.`:"Nothing dropped."}</p>
+      <p class="muted" style="font-size:14px;margin:0 0 8px">${next?`${next[1]-P.pct} percentage point${next[1]-P.pct===1?"":"s"} (${Math.ceil(next[1]*P.total/100)-P.score} marks) from grade ${next[0]}. `:"That is the top boundary cleared. "}${weakest&&weakest.pct<100?`Most marks went in the <b>${bandLabel(weakest.b)}</b> questions (${weakest.pct}%); every dropped question is in the mistakes log under its topic; reopen the lessons below, fix those, then sit the paper again in a week or two.`:"Nothing dropped."}</p>
       <div class="pbands">${Object.keys(P.bands).map(b=>{const x=P.bands[b];return `<div><b>${x.s}/${x.t}</b>${bandLabel(b)} · ${Math.round(100*x.s/x.t)}%</div>`;}).join("")}</div>
+      ${reopen.length?`<div class="eyebrow" style="margin-top:12px">Lessons to reopen, with the marks lost</div><div class="links" style="margin-top:6px">${reopen.map(x=>`<button class="btn small" data-lesson="${esc(x.t.id)}"><span class="wcode">${esc(x.t[0])}</span> ${esc(x.t[1])} <b>-${x.n}</b></button>`).join("")}</div>`:""}
       ${hist.length>1?`<div class="eyebrow" style="margin-top:10px">Sittings</div><div class="tthist">${hist.map(h=>`<span class="${h.g>=7?"secure":(h.g<4?"notyet":"")}" title="${esc(h.d)}">${h.s}/${h.t} · G${gradeName(h.g)}</span>`).join("")}</div>`:""}
       <div class="wbtns" style="margin-top:14px"><button class="btn" id="pretake">Sit it again</button><button class="btn ghost" id="pback">Back to ${esc(S.name)}</button></div></div>`;
     if(dropped.length){body+=`<div class="lsub" style="margin-top:18px"><h3>Where the marks went</h3></div>`;
-      dropped.forEach(x=>{body+=`<div class="ttq ${x.got?"part":"zero"}"><div class="lqhead"><span class="lqn">${x.got}/${x.q.max}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">Q${x.i+1} · ${bandLabel(x.q.band)}</div>${mdBlock(x.q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Mark scheme</div>${mdBlock(x.q.a)}</div></div>`;});}
+      dropped.forEach(x=>{body+=`<div class="ttq ${x.got?"part":"zero"}"><div class="lqhead"><span class="lqn">${x.got}/${x.q.max}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">Q${x.i+1} · ${bandLabel(x.q.band)}</div>${mdBlock(x.q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Mark scheme</div>${mdBlock(x.q.a)}</div>${x.q.topics.length?`<div class="links" style="margin-top:8px">${x.q.topics.map(id=>{const t=findTopic(id);return `<button class="lchip" data-lesson="${esc(id)}">Lesson · ${esc(t[0])} ${esc(t[1])}</button>`;}).join("")}</div>`:""}</div>`;});}
     else body+=`<div class="ldone"><b>Full marks.</b> Nothing dropped.</div>`;
   }
   el.innerHTML=`<div class="lesson ttest" style="--c:${S.color}"><button class="back" id="plback">‹ ${esc(S.name)}</button>
@@ -1754,6 +1830,7 @@ function renderPaper(el){const P=paper;const S=SUBJECTS[P.info.subject];const hi
   el.querySelector("#pfinish")?.addEventListener("click",()=>{finishPaper();renderPaper(el);window.scrollTo({top:0});});
   const keep=()=>{const y=window.scrollY;renderPaper(el);window.scrollTo({top:y});};
   el.querySelectorAll("[data-pm]").forEach(b=>b.addEventListener("click",()=>{const[i,v]=b.dataset.pm.split("|");P.marks[+i]=+v;keep();}));
+  bind(el);
   el.querySelectorAll("[data-pmset]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.pmset;const inp=el.querySelector(`[data-pmin="${i}"]`);const v=Math.round(+inp.value);if(inp.value===""||isNaN(v)||v<0||v>P.qs[i].max){inp.focus();return;}P.marks[i]=v;keep();}));
   if(P.phase==="answer"){const tick=()=>{const n=left();const e=el.querySelector("#ttimer");if(!e){stopTestTimer();return;}
       e.textContent=fmtSecs(n);e.classList.toggle("low",n<=300&&n>0);
@@ -2049,6 +2126,7 @@ function renderSubjects(){
   const el=document.getElementById("view-subjects");const now=todayWeek();
   if(lesson){renderLesson(el);return;}
   if(paper){renderPaper(el);return;}
+  if(fixit){renderFixit(el);return;}
   if(qb){if(curSubj!=="englit")qb=null;else{renderQuoteBank(el);return;}}
   if(walk&&SUBJECTS[walk.subj]){renderWalk(el);return;}
   if(!curSubj){
@@ -2086,7 +2164,7 @@ function renderSubjects(){
   <p class="muted" style="font-size:14px;margin:6px 0 12px">${esc(S.full)} · ${esc(S.papers)} · <a href="${esc(S.spec)}" target="_blank" rel="noopener">spec ↗</a><br>${school?`<b>School sets the pace.</b> Tick topics as known when school finishes them; your weekly sessions are recall on those, and each one comes back to be checked at ${REVIEW_GAPS.join(", ")} days.`:`All content done by week ${S.contentEndsWeek} (${fmt(WEEKS[S.contentEndsWeek-1].start)} ${WEEKS[S.contentEndsWeek-1].start.getFullYear()}); after that it's past papers.`}</p>
   <div class="examrow"><span class="ed-lbl">First exam</span><input type="date" id="examdate" value="${esc(ed)}"><span class="muted" style="font-size:12.5px">${ed?`${Math.max(0,Math.round((new Date(ed+"T00:00:00")-new Date())/86400000))} days`:"not published yet — leave blank"}</span></div>
   ${linkBar(curSubj,null,true)}
-  ${(()=>{const ms=subjectMistakes(curSubj);if(!ms.length)return "";return `<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:6px">Open mistakes · ${ms.length}</div>`+ms.slice(0,12).map(x=>mistakeRow(x.key,x.i,x.m,x.code?`${x.code} ${x.label}`:x.label)).join("")+(ms.length>12?`<p class="muted" style="font-size:13px;margin:8px 0 0">+${ms.length-12} more under their topics.</p>`:"")+`<p class="muted" style="font-size:12.5px;margin:8px 0 0">Read these before a test. Tick each one once you can do it without the slip.</p></div>`;})()}
+  ${(()=>{const ms=subjectMistakes(curSubj);if(!ms.length)return "";return `<div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px"><span class="eyebrow">Open mistakes · ${ms.length}</span>${fixitButton(curSubj)}</div>`+ms.slice(0,12).map(x=>mistakeRow(x.key,x.i,x.m,x.code?`${x.code} ${x.label}`:x.label)).join("")+(ms.length>12?`<p class="muted" style="font-size:13px;margin:8px 0 0">+${ms.length-12} more under their topics.</p>`:"")+`<p class="muted" style="font-size:12.5px;margin:8px 0 0">Read these before a test. Tick each one once you can do it without the slip.</p></div>`;})()}
   ${taughtNote(curSubj)}
   ${papersCard(curSubj)}
   ${coverageCard(curSubj)}
@@ -2289,7 +2367,8 @@ function renderGuide(){
   <h3>Your cards</h3><p>Under any topic you can write cards — a short quote on the front, the technique and its effect on the back; a formula; a definition. They come up in that topic's recall checks, front first. Nothing is pre-filled on purpose: writing the card is most of the learning.</p>
   <h3>Lessons</h3><p>For Maths, Further Maths, Economics, Business, Computer Science, Biology, Chemistry, Physics, English Literature and English Language, every topic carries its own lesson inside the app — no hunting for videos or notes. Open one from the session in <b>Today</b>, from the topic in <b>Subjects</b>, or from the walkthrough. Each lesson has the same shape: <b>What it is</b>, <b>How to do it</b> as numbered steps, worked examples with every line shown, <b>Try these</b> — practice questions with the answer hidden until you tap, then <b>Got it</b> or <b>Not yet</b> (Not yet goes straight into the mistakes log for that topic) — and <b>Where the marks go</b>, the errors examiners see most. Every number in the answers was checked by computer. <b>Cover the working</b> turns each worked example into a step-by-step reveal, so you attempt each line before you see it. <b>Notes</b> opens your own notebook beside the lesson — it autosaves, anything you highlight in the lesson can be added with one tap, the first line can become a card, and the notes come back on that topic's recall checks. <b>Print</b> gives you the lesson with every answer shown as a revision sheet. When you can do the questions without looking, tick the topic at the bottom and it joins the recall rotation. Lessons work offline; the maths is typeset locally.</p>
   <h3>End-of-topic tests</h3><p>Every lesson ends with <b>Take the test</b> (also under <b>Test</b> in the lesson's top bar, and on the topic row once you have taken one). It is closed book and timed: the questions appear with no answers and a clock, you write every answer on paper, then <b>Mark it</b> shows the answers and you give yourself the marks. 80% or more is <b>Secure</b> — tick the topic and it joins recall; below that, everything you dropped is already in the mistakes log, so read those, go back over that part of the lesson, and retake. Attempts are kept, so the subject page shows your last score on each topic and the lesson shows the run of attempts.</p>
-  <h3>Mock papers</h3><p>Each subject page has a <b>Mock papers</b> card: original exam-style papers, written for this app rather than copied from past papers, that mix topics the way a real paper does and climb from grade 4–5 questions through 6–7 to 8–9, so the last section is where the top grades are decided. A paper runs on the clock for its real duration; you write everything on paper, then <b>Mark it</b> shows the mark scheme (points for short questions, level descriptors for essays) and you give yourself the marks. The percentage becomes a <b>grade estimate</b> from the paper's boundaries, with a breakdown by band so you can see whether the marks went at the start or at the top end. Every dropped question goes to the mistakes log under the subject. Sit a paper once the topics it covers are done, fix what it exposes, and sit it again a week or two later.</p>
+  <h3>Mock papers</h3><p>Each subject page has a <b>Mock papers</b> card: original exam-style papers, written for this app rather than copied from past papers, that mix topics the way a real paper does and climb from grade 4–5 questions through 6–7 to 8–9, so the last section is where the top grades are decided. A paper runs on the clock for its real duration; you write everything on paper, then <b>Mark it</b> shows the mark scheme (points for short questions, level descriptors for essays) and you give yourself the marks. The percentage becomes a <b>grade estimate</b> from the paper's boundaries, with a breakdown by band so you can see whether the marks went at the start or at the top end. Every dropped question goes to the mistakes log under the subject. Sit a paper once the topics it covers are done, fix what it exposes, and sit it again a week or two later. Every paper question names the topics it draws on, so a dropped question is logged under those topics and the results page lists the <b>lessons to reopen</b> with the marks each one cost.</p>
+  <h3>Fix-it: re-testing mistakes</h3><p>A mistake logged by a topic test or a mock paper remembers the question. Two days later it is <b>due</b>: the subject page's mistakes card and the retrieval session on Today show <b>Re-test N dropped questions</b>, which brings those questions back closed-book, oldest first, a dozen at a time. Full marks ticks the mistake fixed; anything less keeps it open and it comes back again after another two days. That is the loop: test, drop, reopen the lesson, re-test until it holds.</p>
   <h3>Quote bank</h3><p>English Literature is closed book, so the quotes you can write from memory are the marks. <b>Subjects → Eng Literature → Quote bank</b> keeps every quote in one place: pick the text, type the quote, tag its themes and write the one sentence you would say about it. Every set text and all fifteen Power and Conflict poems are listed with a count, so a poem you have nothing for shows as a zero. <b>Test me</b> blanks out a third of the words and asks you to fill them in — or, switched round, gives you the theme and asks for the quote. Three right in a row makes a quote solid; one miss puts it back to the front. Quotes also come up in that text's recall checks, and <b>Print</b> gives you the lot on one sheet for the night before. Nothing is pre-filled: choosing the quote is the learning.</p>
   <h3>Already ahead?</h3><p>In <b>Subjects</b>, open a subject and hit <b>Where am I up to?</b> The course is laid out one topic at a time in specification order, with its objectives and checklist: <b>Done this</b> ticks it as known and shows the next; <b>Not yet</b> is where you are. Or use <b>Tick what you already know</b> to tick from the list, a section at a time. Anything ticked counts as done, leaves the schedule, and goes straight into recall. For subjects the app runs ahead in, a bar then offers to <b>re-pour</b> the plan so those hours go to what is left.</p>
   <h3>Tests</h3>
