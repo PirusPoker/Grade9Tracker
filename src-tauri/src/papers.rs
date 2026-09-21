@@ -28,15 +28,25 @@ use serde::Serialize;
 /// (paper id, subject id, text). The id is `<subject>/<file stem>`.
 const PAPERS: &[(&str, &str, &str)] = &[
     ("maths/p1", "maths", include_str!("../papers/maths/p1.md")),
+    ("maths/p2", "maths", include_str!("../papers/maths/p2.md")),
     ("phys/p1", "phys", include_str!("../papers/phys/p1.md")),
+    ("phys/p2", "phys", include_str!("../papers/phys/p2.md")),
     ("chem/p1", "chem", include_str!("../papers/chem/p1.md")),
+    ("chem/p2", "chem", include_str!("../papers/chem/p2.md")),
     ("bio/p1", "bio", include_str!("../papers/bio/p1.md")),
+    ("bio/p2", "bio", include_str!("../papers/bio/p2.md")),
     ("fpm/p1", "fpm", include_str!("../papers/fpm/p1.md")),
+    ("fpm/p2", "fpm", include_str!("../papers/fpm/p2.md")),
     ("cs/p1", "cs", include_str!("../papers/cs/p1.md")),
+    ("cs/p2", "cs", include_str!("../papers/cs/p2.md")),
     ("econ/p1", "econ", include_str!("../papers/econ/p1.md")),
+    ("econ/p2", "econ", include_str!("../papers/econ/p2.md")),
     ("bus/p1", "bus", include_str!("../papers/bus/p1.md")),
+    ("bus/p2", "bus", include_str!("../papers/bus/p2.md")),
     ("englit/p1", "englit", include_str!("../papers/englit/p1.md")),
+    ("englit/p2", "englit", include_str!("../papers/englit/p2.md")),
     ("englang/p1", "englang", include_str!("../papers/englang/p1.md")),
+    ("englang/p2", "englang", include_str!("../papers/englang/p2.md")),
 ];
 
 #[derive(Serialize, Clone, Debug)]
