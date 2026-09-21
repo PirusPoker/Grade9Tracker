@@ -16,6 +16,8 @@ https://github.com/PirusPoker/Grade9Tracker/releases/latest/download/Grade9Track
 That is the last download you make: the app checks GitHub while it runs and installs
 new releases itself (Settings lets you switch that to "ask me first"). Your progress,
 plan and notes stay on your own PC.
+The narrator fetches its voice (about 60 MB) the first time you press Listen; pick a
+different voice in the lesson's voice menu and it downloads that one too.
 
 Everything below is for people who want to change the app itself.
 
