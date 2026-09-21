@@ -3,6 +3,7 @@ src-tauri/target
 src-tauri/gen
 *.png
 !src-tauri/icons/*.png
+!web/icon-*.png
 
 .backup/
 app-icon.png
@@ -10,3 +11,7 @@ src-tauri/target*
 
 # Piper TTS engine + voice: large, fetched by scripts/fetch-tts.sh (and CI)
 src-tauri/resources/tts/
+
+# browser edition build output
+web/target
+site/
