@@ -1,31 +1,33 @@
-# Grade 9 Tracker — Teams assignment reader (calibration build)
+# Grade 9 Tracker — Teams assignment sync (Chrome / Edge extension)
 
-This is step one of reading your Microsoft Teams assignments into Grade 9 Tracker.
-Right now it only **captures** the assignment data Teams loads and **shows it to
-you** so you can send it back for calibration. **It sends nothing anywhere.**
+Reads your Microsoft Teams assignments from the Teams page in your browser and
+syncs them into Grade 9 Tracker on this computer. Nothing leaves your machine —
+the extension only talks to the app on `127.0.0.1`.
 
-## Install in Google Chrome (one time)
+## Install (one time)
 
-1. Open Chrome and go to `chrome://extensions`
-2. Turn on **Developer mode** (top-right toggle)
-3. Click **Load unpacked**
-4. Select this folder: `C:\Users\HP\Documents\Grade9Tracker\teams-extension`
-
-You'll see "Grade 9 Tracker — Teams assignment reader" appear.
+1. Open **`chrome://extensions`** (or `edge://extensions`).
+2. Turn on **Developer mode** (top-right).
+3. Click **Load unpacked** and select this folder:
+   `C:\Users\HP\Documents\Grade9Tracker\teams-extension`
 
 ## Use it
 
-1. In Chrome, go to **https://teams.microsoft.com** and sign in.
-2. Open your **Assignments** (open a class team → **Assignments**, or the
-   **Assignments** app in the left rail). Click into an assignment or two.
-3. A purple button **"Grade 9 Tracker · N captured"** appears bottom-right.
-4. Click it → **Copy all** → paste it back to me.
+1. Keep **Grade 9 Tracker** open (it runs the local receiver the extension sends to).
+2. In the browser, go to **https://teams.microsoft.com** and sign in.
+3. Open **Assignments** (a class → **Assignments**, or the Assignments app in the
+   left rail). As the list loads, the extension reads it and syncs.
+4. A small green toast confirms "synced N assignments". They appear in the app
+   under **Your day → Assignments**, tagged **Teams**.
 
-If it says **0 captured** after you've opened assignments, tell me — I'll widen
-what it listens for.
+Tip: the app's **Teams ↗** button opens Teams in your browser, which is also when
+a sync happens.
 
-## What happens next
+## Notes
 
-Once I can see the real shape of your data, I'll lock in the parsing, add the
-piece that receives it into Grade 9 Tracker, and your assignments will show up in
-**Your day**.
+- If you see "Grade 9 Tracker not running", open the app and reload the Teams tab.
+- Assignments you've already turned in drop off the list automatically.
+- How it works: it reads Teams' own data feed
+  (`assignments.edu.cloud.microsoft/api/v1.0/edu/me/work`) — the same data Teams
+  shows — so it's accurate, not screen-scraping. If Microsoft ever changes that
+  feed, the extension needs an update.
