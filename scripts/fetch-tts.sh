@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
-# Fetch the Piper neural TTS engine and the Jenny (en_GB) narrator voice into
-# src-tauri/resources/tts/, where tauri.conf.json bundles them and tts.rs finds
-# them at runtime. These files are large (~98 MB) so they are NOT committed:
-# run this once locally before `cargo tauri dev`, and CI runs it before each
-# release build.
+# Fetch the Piper neural TTS engine into src-tauri/resources/tts/, where
+# tauri.conf.json bundles it and tts.rs finds it at runtime. The engine is
+# ~40 MB so it is NOT committed: run this once locally before `cargo tauri dev`,
+# and CI runs it before each release build.
+#
+# Voices are NOT bundled: the app downloads them on first use into its data
+# folder (see tts.rs). Pass --voices to fetch them here too, which lets a dev
+# build narrate without a download.
 set -euo pipefail
+
+WANT_VOICES=0
+[ "${1:-}" = "--voices" ] && WANT_VOICES=1
 
 PIPER_TAG="2023.11.14-2"
 VOICES_ROOT="https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_GB"
@@ -45,7 +51,7 @@ if [ ! -f "$BASE/piper/piper.exe" ]; then
   rm -f "$BASE/piper.zip"
 fi
 
-echo "$VOICES" | while read -r id path; do
+[ "$WANT_VOICES" = 1 ] && echo "$VOICES" | while read -r id path; do
   [ -z "$id" ] && continue
   if [ ! -f "$BASE/voices/$id.onnx" ]; then
     echo "Downloading voice $id ..."
@@ -54,4 +60,4 @@ echo "$VOICES" | while read -r id path; do
   fi
 done
 
-echo "TTS assets ready in $BASE"
+echo "TTS engine ready in $BASE$([ "$WANT_VOICES" = 1 ] && echo " (with voices)")"

@@ -1513,12 +1513,29 @@ function ttsGet(k,d){try{const v=localStorage.getItem(k);return v==null?d:v;}cat
 let ttsVoiceName=ttsGet("g9.tts.voice",""),ttsRate=Math.min(1.4,Math.max(0.7,+ttsGet("g9.tts.rate","1")||1));
 function saveTts(){try{localStorage.setItem("g9.tts.voice",ttsVoiceName);localStorage.setItem("g9.tts.rate",String(ttsRate));}catch(e){}}
 let PIPER_VOICES=null;                                       // bundled neural voices, from the backend
-async function loadPiperVoices(){if(PIPER_VOICES)return PIPER_VOICES;try{PIPER_VOICES=(await invoke("voices"))||[];}catch(e){PIPER_VOICES=[];}return PIPER_VOICES;}
+async function loadPiperVoices(force){if(PIPER_VOICES&&!force)return PIPER_VOICES;try{PIPER_VOICES=(await invoke("voices"))||[];}catch(e){PIPER_VOICES=[];}return PIPER_VOICES;}
+function voiceLabel(v){return v.installed?v.label:`${v.label} · download ${v.size_mb||60} MB`;}
 function fillPiperVoices(sel,list){if(!sel)return;
-  if(!list||!list.length){sel.disabled=true;return;}          // no neural voices bundled → leave the default label
-  sel.disabled=false;sel.innerHTML=list.map(v=>`<option value="${esc(v.id)}">${esc(v.label)}</option>`).join("");
+  if(!list||!list.length){sel.disabled=true;return;}          // no neural engine → leave the default label
+  sel.disabled=false;sel.innerHTML=list.map(v=>`<option value="${esc(v.id)}">${esc(voiceLabel(v))}</option>`).join("");
   if(!list.some(v=>v.id===ttsVoiceName)){ttsVoiceName=list[0].id;}   // saved voice gone/old OS name → default
   sel.value=ttsVoiceName;}
+/* Voices are fetched on first use (~60 MB each) into the app's data folder.
+   Resolves to the id to narrate with: the chosen voice once it is on disk, or
+   any installed voice if the download fails and one exists. Progress goes to
+   the player label and, if open, the voice picker. */
+let voiceNote="";                                              // shown in the player while a voice downloads
+async function ensureVoice(id){const list=await loadPiperVoices();if(!list.length)return id||null;
+  let v=list.find(x=>x.id===id)||list[0];if(v.installed)return v.id;
+  const sel=document.querySelector("#ttsvoice");
+  const show=t=>{voiceNote=t;updateNarrUI();if(sel){const o=sel.querySelector(`option[value="${v.id}"]`);if(o)o.textContent=t?`${v.label} · ${t}`:voiceLabel(v);}};
+  show("downloading…");let un=null;
+  try{if(window.__TAURI__&&__TAURI__.event)un=await __TAURI__.event.listen("tts-progress",e=>{const d=e.payload||{};if(d.id!==v.id||!d.total)return;show(`downloading ${Math.min(99,Math.round(100*d.done/d.total))}%`);});
+    await invoke("download_voice",{id:v.id});v.installed=true;show("");return v.id;
+  }catch(e){show("");const fallback=list.find(x=>x.installed);
+    if(!fallback)throw new Error("Could not download the voice — check the connection and try again. "+(e&&e.message||e));
+    return fallback.id;}
+  finally{if(un)un();}}
 function ttsVoiceList(){const vs=(window.speechSynthesis&&speechSynthesis.getVoices())||[];return vs.filter(v=>/^en/i.test(v.lang));}
 function ttsVoice(){const vs=(window.speechSynthesis&&speechSynthesis.getVoices())||[];if(!vs.length)return null;
   if(ttsVoiceName){const m=vs.find(v=>v.name===ttsVoiceName);if(m)return m;}
@@ -1552,7 +1569,7 @@ function updateNarrUI(){const st=narrState();
   document.querySelectorAll("#llisten").forEach(b=>{b.textContent=st==="idle"?"Listen":"Stop";b.classList.toggle("primary",st!=="idle");});
   document.querySelectorAll("#lplayer").forEach(p=>{p.classList.toggle("on",st!=="idle");p.classList.toggle("busy",st==="preparing");
     const btn=p.querySelector(".lpplay");if(btn){btn.textContent=st==="preparing"?"…":(st==="playing"?"⏸":"▶");btn.title=st==="playing"?"Pause":(st==="paused"?"Resume":(st==="preparing"?"Preparing…":"Read the explanation aloud"));btn.setAttribute("aria-label",btn.title);}
-    const lab=p.querySelector(".lplab");if(lab)lab.textContent=st==="preparing"?"Preparing…":(st==="playing"?"Reading…":(st==="paused"?"Paused":"Listen"));});}
+    const lab=p.querySelector(".lplab");if(lab)lab.textContent=st==="preparing"?(voiceNote?`Voice ${voiceNote}`:"Preparing…"):(st==="playing"?"Reading…":(st==="paused"?"Paused":"Listen"));});}
 function clearNarrAudio(){if(narrAudio){try{narrAudio.pause();narrAudio.onended=narrAudio.onerror=null;narrAudio.src="";}catch(e){}narrAudio=null;}}
 function stopNarration(){narrToken++;narrPreparing=false;clearNarrAudio();try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}narrating=false;narrPaused=false;narratingText=null;updateNarrUI();}
 function applyPitchPreserve(a){try{a.preservesPitch=true;a.mozPreservesPitch=true;a.webkitPreservesPitch=true;}catch(e){}}
@@ -1568,7 +1585,9 @@ async function speakNow(text){const say=lessonToSpeech(text);if(!say)return fals
   const tok=++narrToken;clearNarrAudio();try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}
   narrating=true;narrPaused=false;narratingText=text;narrPreparing=true;updateNarrUI();
   try{
-    const b64=await invoke("narrate",{text:say,voice:ttsVoiceName||null}); // chosen offline neural voice
+    const vid=await ensureVoice(ttsVoiceName||null);          // first use of a voice fetches it (~60 MB)
+    if(tok!==narrToken)return false;
+    const b64=await invoke("narrate",{text:say,voice:vid||null}); // chosen offline neural voice
     if(tok!==narrToken)return false;                          // stopped/superseded while synthesising
     const a=new Audio("data:audio/wav;base64,"+b64);applyPitchPreserve(a);a.playbackRate=ttsRate;
     a.onended=()=>{if(tok===narrToken)stopNarration();};
@@ -1771,7 +1790,10 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
   el.querySelector("#ltts")?.addEventListener("click",()=>{if(ttsCfg)ttsCfg.hidden=!ttsCfg.hidden;});
   const vsel=el.querySelector("#ttsvoice");
   if(vsel){loadPiperVoices().then(list=>fillPiperVoices(el.querySelector("#ttsvoice")||vsel,list));
-    vsel.addEventListener("change",()=>{ttsVoiceName=vsel.value;saveTts();if(narrating||narrPreparing)restartNarration();});}
+    vsel.addEventListener("change",async()=>{ttsVoiceName=vsel.value;saveTts();
+      const v=(PIPER_VOICES||[]).find(x=>x.id===ttsVoiceName);
+      if(v&&!v.installed&&!narrating&&!narrPreparing){try{await ensureVoice(v.id);}catch(e){alert(errText(e));}fillPiperVoices(vsel,await loadPiperVoices(true));}
+      if(narrating||narrPreparing)restartNarration();});}
   const rsel=el.querySelector("#ttsrate"),rv=el.querySelector("#ttsratev");
   if(rsel){rsel.addEventListener("input",()=>{if(rv)rv.textContent=(+rsel.value).toFixed(1)+"×";narrSetRate(+rsel.value);});
     rsel.addEventListener("change",()=>{narrSetRate(+rsel.value);saveTts();if(narrating&&!narrAudio)restartNarration();});}

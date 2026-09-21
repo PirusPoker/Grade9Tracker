@@ -300,7 +300,7 @@ pub fn run() {
             get_settings, set_settings, draft_subject, day_context, organise_day,
             list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile,
             update::check_update, update::install_update,
-            tts::narrate, tts::voices,
+            tts::narrate, tts::voices, tts::download_voice,
             teams::open_teams
         ])
         .run(tauri::generate_context!())
