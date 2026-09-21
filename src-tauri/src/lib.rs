@@ -15,6 +15,7 @@ mod plan;
 mod profiles;
 mod statements;
 mod teams;
+mod teams_server;
 mod today;
 mod tts;
 mod update;
@@ -289,16 +290,32 @@ fn import_profile(app: AppHandle, bundle: Value) -> Result<String, String> {
     store(&app)?.import(&bundle)
 }
 
+/// The Microsoft Teams assignments the browser extension has synced, if any.
+/// Shape: `{ "items": [...], "syncedAt": "..." }`.
+#[tauri::command]
+fn teams_assignments(app: AppHandle) -> Result<Value, String> {
+    let path = data_dir(&app)?.join("teams.json");
+    Ok(read_json(&path).unwrap_or_else(|| serde_json::json!({ "items": [] })))
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
+        .setup(|app| {
+            // Receive Teams assignments pushed by the browser extension.
+            if let Ok(dir) = data_dir(app.handle()) {
+                teams_server::start(dir.join("teams.json"));
+            }
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![
             get_plan, get_config, save_config, reset_config, get_lesson, list_papers, get_paper,
             load_state, save_state, state_path, backup,
             get_settings, set_settings, draft_subject, day_context, organise_day,
             list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile,
+            teams_assignments,
             update::check_update, update::install_update,
             tts::narrate, tts::voices, tts::download_voice,
             teams::open_teams

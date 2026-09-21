@@ -1036,7 +1036,20 @@ function reviewCard(r){
    with no date. Nothing leaves the machine. */
 let DAY=null,DAY_ERR=null,DAY_BUSY=false,ORG_BUSY=false,ORG_SEQ=0,showDoneInbox=false,showAllAsks=false;
 const DAY_START=7*60,DAY_END=21*60+30,MIN_SLOT=30,AFTER_SCHOOL=15*60+30,SHOW_AHEAD_DAYS=14,ASKS_SHOWN=4;
+// Microsoft Teams assignments, synced in by the browser extension (teams_server.rs).
+let TEAMS_ASG=[];
+function mapTeams(items){
+  return (items||[]).map(t=>{
+    const submitted=t.turnedIn||t.completed||t.submission==="submitted"||t.submission==="returned"||t.submission==="excused";
+    const links=[]; if(t.webUrl)links.push({label:"Open in Teams",url:t.webUrl});
+    return {id:"teams:"+t.id, title:(t.title||"Assignment").trim(), course:"",
+      due:t.due?String(t.due).slice(0,10):null, description:(t.instructions||"").trim(),
+      links, unread:false, teams:true, submitted};
+  }).filter(a=>a.id&&!a.submitted);   // outstanding only; submitted ones drop off
+}
+async function loadTeams(){ try{const t=await invoke("teams_assignments");TEAMS_ASG=mapTeams(t&&t.items);}catch(e){TEAMS_ASG=[];} }
 async function loadDay(refresh){
+  loadTeams().then(()=>{if(view==="today")render();});   // Teams sync is independent of Outlook
   if(DAY_BUSY||settings.outlook===false)return;
   DAY_BUSY=true;if(view==="today")render();
   try{DAY=await invoke("day_context",{refresh});DAY_ERR=DAY.error||null;}
@@ -1085,13 +1098,23 @@ function whenLabel(dateISO){
   if(n<7)return {cls:"",text:DAYN[(d.getDay()+6)%7]};
   return {cls:"",text:fmt(d)};}
 const srcName={flag:"flagged",email:"email",calendar:"calendar",task:"task"};
+function asgSection(allAsg){
+  if(!allAsg||!allAsg.length)return "";
+  const done=id=>!!state.inbox[id];
+  const asg=allAsg.filter(x=>showDoneInbox||!done(x.id));
+  let h=`<div class="sec"><span class="eyebrow">Assignments</span>`;
+  if(!asg.length)h+=`<p class="muted" style="font-size:14px;margin:6px 0 0">All done ✓</p>`;
+  else h+=`<ul class="asg">`+asg.map(a=>{const w=a.due?whenLabel(a.due):null;
+    return `<li class="${done(a.id)?"done":""}"><input type="checkbox" data-inbox="${esc(a.id)}" ${done(a.id)?"checked":""} aria-label="Done"><div><div class="ah">${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(a.title)}</span>${a.course?`<span class="who">· ${esc(a.course)}</span>`:""}${a.teams?`<span class="who">· Teams</span>`:""}${a.unread?`<span class="who">· unread</span>`:""}</div>${a.description?`<div class="snip">${esc(a.description)}</div>`:""}${a.links&&a.links.length?`<div class="alinks">`+a.links.map(l=>`<a class="btn small" href="${esc(l.url)}">${esc(l.label)} ↗</a>`).join("")+`</div>`:""}</div></li>`;}).join("")+`</ul>`;
+  return h+`</div>`;
+}
 function dayPanel(d,isToday){
-  if(settings.outlook===false)return "";
+  if(settings.outlook===false && !TEAMS_ASG.length)return "";
   const upd=DAY?new Date(DAY.fetchedAt):null;
-  let html=`<div class="card dayplan"><div class="top"><span class="eyebrow">Your day</span>${upd?`<span class="upd">Outlook · ${upd.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</span>`:""}<button class="btn small" id="openteams" title="Sign in to Microsoft Teams inside the app">Teams ↗</button><button class="btn small" id="dayrefresh" ${DAY_BUSY?"disabled":""}>${DAY_BUSY?"Reading…":"Refresh"}</button></div>`;
+  let html=`<div class="card dayplan"><div class="top"><span class="eyebrow">Your day</span>${upd?`<span class="upd">Outlook · ${upd.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}</span>`:""}<button class="btn small" id="openteams" title="Open Teams in your browser to sync assignments">Teams ↗</button><button class="btn small" id="dayrefresh" ${DAY_BUSY?"disabled":""}>${DAY_BUSY?"Reading…":"Refresh"}</button></div>`;
   if(DAY_ERR){const cut=DAY_ERR.indexOf(". ");const head=cut>0?DAY_ERR.slice(0,cut+1):DAY_ERR,rest=cut>0?DAY_ERR.slice(cut+2):"";
     html+=`<div class="note">${esc(head)}${DAY?" Showing the last copy.":""}${rest?`<details><summary></summary><p>${esc(rest)}</p></details>`:""}</div>`;}
-  if(!DAY){html+=`<div class="muted" style="font-size:14px">${DAY_BUSY?"Reading your calendar and inbox from Outlook…":DAY_ERR?"":"Nothing read yet."}</div></div>`;return html;}
+  if(!DAY){html+=asgSection(TEAMS_ASG);if(!TEAMS_ASG.length)html+=`<div class="muted" style="font-size:14px">${DAY_BUSY?"Reading your calendar and inbox from Outlook…":DAY_ERR?"":"Nothing read yet."}</div>`;return html+`</div>`;}
   // timetable + gaps
   const evs=eventsOn(d.date),slots=freeSlots(evs,isToday),need=needMinutes(d),best=bestSlot(slots,need),now=isToday?minsOf(new Date()):-1;
   const rows=[];
@@ -1105,13 +1128,8 @@ function dayPanel(d,isToday){
   else html+=`<div class="muted" style="font-size:14px">Nothing in the calendar for this day.</div>`;
   if(isToday&&need&&!best)html+=`<div class="muted" style="font-size:13px;margin-top:6px">No gap of ${need} minutes left today — do what you can, or catch up tomorrow.</div>`;
   const done=id=>!!state.inbox[id];
-  // assignments — recognised from Teams notification emails (src/today.rs)
-  const allAsg=DAY.assignments||[],asg=allAsg.filter(x=>showDoneInbox||!done(x.id));
-  if(allAsg.length){html+=`<div class="sec"><span class="eyebrow">Assignments</span>`;
-    if(!asg.length)html+=`<p class="muted" style="font-size:14px;margin:6px 0 0">All done ✓</p>`;
-    else html+=`<ul class="asg">`+asg.map(a=>{const w=a.due?whenLabel(a.due):null;
-      return `<li class="${done(a.id)?"done":""}"><input type="checkbox" data-inbox="${esc(a.id)}" ${done(a.id)?"checked":""} aria-label="Done"><div><div class="ah">${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(a.title)}</span>${a.course?`<span class="who">· ${esc(a.course)}</span>`:""}${a.unread?`<span class="who">· unread</span>`:""}</div>${a.description?`<div class="snip">${esc(a.description)}</div>`:""}${a.links&&a.links.length?`<div class="alinks">`+a.links.map(l=>`<a class="btn small" href="${esc(l.url)}">${esc(l.label)} ↗</a>`).join("")+`</div>`:""}</div></li>`;}).join("")+`</ul>`;
-    html+=`</div>`;}
+  // Assignments: from Teams (synced by the extension) plus any found in Outlook mail.
+  html+=asgSection((DAY.assignments||[]).concat(TEAMS_ASG));
   // Organised by the local AI (src/ai.rs): the day triaged into "For today"
   // (due now or soon, or a fresh request) and "Later" (still days off, or a
   // request you've already seen). The split is decided in code from the dates —
