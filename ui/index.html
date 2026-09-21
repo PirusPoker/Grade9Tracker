@@ -694,6 +694,12 @@ table{max-width:100%}
 .pbands b{display:block;font-size:17px;color:var(--ink);font-family:var(--mono)}
 .pbound{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.pbound span{font-family:var(--mono);font-size:11.5px;padding:2px 8px;border-radius:999px;background:var(--surface2);color:var(--muted)}
 @media(max-width:560px){.pbands{grid-template-columns:1fr}}
+.ready{display:grid;grid-template-columns:150px 74px 1fr auto;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}.ready:first-of-type{border-top:0}
+.ready .rg{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1;font-family:var(--mono)}.ready .rg small{font-size:11px;font-weight:600;color:var(--muted);display:block;letter-spacing:0;margin-top:2px}
+.ready .rg.hi{color:var(--good)}.ready .rg.lo{color:var(--bad)}.ready .rg.none{color:var(--muted)}
+.ready .rt{font-family:var(--mono);font-size:11.5px;color:var(--muted)}.ready .rt b{color:var(--ink)}
+.ready .rd{color:var(--muted);line-height:1.5}.ready .rd b{color:var(--ink);font-weight:600}
+@media(max-width:640px){.ready{grid-template-columns:1fr auto;grid-template-rows:auto auto}.ready .rd{grid-column:1/-1}}
 .topic .lchip.test{border-color:var(--line-2)}
 .topic .lchip.test.secure{border-color:var(--good-line);background:var(--good-soft);color:var(--good)}
 .topic .lchip.test.notyet{border-color:var(--bad-line);background:var(--bad-soft);color:var(--bad)}
@@ -1789,7 +1795,7 @@ function paperQLabel(q,i){const first=q.q.find(l=>l.trim())||"";return `Mock pap
 function finishPaper(){const P=paper;const s=P.qs.reduce((n,q,i)=>n+(P.marks[i]||0),0);const pct=Math.round(100*s/P.total);
   const secs=Math.round((P.finished-P.started)/1000);const grade=paperGrade(P.info,pct);
   const bands={};P.qs.forEach((q,i)=>{const b=bands[q.band]=bands[q.band]||{s:0,t:0};b.s+=P.marks[i]||0;b.t+=q.max;});
-  paperAttempts(P.id).push({d:todayISO(),s,t:P.total,pct,g:grade,secs});if(paperAttempts(P.id).length>12)paperAttempts(P.id).shift();
+  paperAttempts(P.id).push({d:todayISO(),s,t:P.total,pct,g:grade,secs,b:Object.fromEntries(Object.keys(bands).map(k=>[k,Math.round(100*bands[k].s/bands[k].t)]))});if(paperAttempts(P.id).length>12)paperAttempts(P.id).shift();
   P.qs.forEach((q,i)=>{const got=P.marks[i]||0;if(got<q.max){const text=paperQLabel(q,i)+` (${got}/${q.max})`,ref={p:P.id,q:i};if(q.topics.length)q.topics.forEach(id=>addMistake(id,text,"test",ref));else addMistake("subj:"+P.info.subject,text,"test",ref);}});
   P.phase="done";P.score=s;P.pct=pct;P.secs=secs;P.grade=grade;P.bands=bands;markDay();persist();}
 function papersCard(subj){const ps=papersOf(subj);if(!ps.length)return "";const S=SUBJECTS[subj];
@@ -2215,6 +2221,40 @@ function repourBar(){const n=state.knownDirty;
   return `<div class="banner due" style="margin-bottom:14px"><span>${n} topic${n===1?"":"s"} ticked as known ${n===1?"is":"are"} still in the schedule</span><button id="repour">Re-pour the plan</button><button id="repourlater" style="margin-left:8px;text-decoration:none;opacity:.7">Later</button></div>`;}
 
 /* ---------- PROGRESS ---------- */
+/* ---------- EXAM READINESS ----------
+   One line per subject pulling together what the tests and papers say:
+   the latest paper grade and how it has moved, how the topic tests are
+   going, what is still open in the mistakes log, and how long is left. */
+function subjectReadiness(s){const S=SUBJECTS[s];
+  const sittings=papersOf(s).flatMap(p=>paperHist(p.id).map(h=>({...h,p:p.id}))).sort((a,b)=>a.d.localeCompare(b.d));
+  const latestByPaper={};sittings.forEach(h=>{latestByPaper[h.p]=h;});const latest=Object.values(latestByPaper);
+  const grade=latest.length?Math.round(latest.reduce((n,h)=>n+h.g,0)/latest.length):null;
+  const last=sittings.length?sittings[sittings.length-1]:null;
+  const weakBand=last&&last.b?Object.keys(last.b).sort((a,b)=>last.b[a]-last.b[b])[0]:null;
+  const tested=S.topics.map(t=>lastTest(t.id)).filter(Boolean);
+  const testAvg=tested.length?Math.round(tested.reduce((n,h)=>n+h.pct,0)/tested.length):null;
+  const shaky=S.topics.filter(t=>{const h=lastTest(t.id);return h&&h.pct<60;}).length;
+  const open=subjectMistakes(s).length,due=fixDueList(s).length;
+  const done=S.topics.filter(t=>T(t.id).done).length;
+  const ed=state.examDates[s]||firstExam();const days=Math.max(0,Math.round((new Date(ed+"T00:00:00")-new Date())/86400000));
+  const unsat=papersOf(s).filter(p=>!paperHist(p.id).length);
+  const nextPaper=unsat.length?unsat[0]:papersOf(s).slice().sort((a,b)=>(lastPaper(a.id).d).localeCompare(lastPaper(b.id).d))[0];
+  return {grade,trend:sittings.slice(-6).map(h=>h.g),last,weakBand,tested:tested.length,testAvg,shaky,open,due,done,days,nextPaper};}
+function readinessCard(){
+  const rows=SUBJ_IDS.map(s=>({s,r:subjectReadiness(s)})).sort((a,b)=>(a.r.grade??-1)-(b.r.grade??-1)||b.r.open-a.r.open);
+  return `<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:2px">Exam readiness · weakest first</div><p class="muted" style="font-size:13px;margin:0 0 6px">The grade is the average of your latest sitting of each mock paper; the run of grades shows how it is moving. Sit a paper again after fixing what it exposed.</p>`+
+    rows.map(({s,r})=>{const S=SUBJECTS[s];const g=r.grade;
+      const gcls=g===null?"none":(g>=7?"hi":(g<4?"lo":""));
+      const verdict=g===null?"No paper sat yet":(g>=8?"On track for 8–9":(g>=6?"Solid — the 8–9 questions decide it":(g>=4?"Foundations in; climb the bands":"Below grade 4 — back to the lessons")));
+      const detail=[
+        r.tested?`<b>${r.tested}</b> of ${S.topics.length} topics tested, avg <b>${r.testAvg}%</b>${r.shaky?` · <b>${r.shaky}</b> below 60%`:""}`:`${r.done} of ${S.topics.length} topics done · no topic tests yet`,
+        r.open?`<b>${r.open}</b> open mistake${r.open===1?"":"s"}${r.due?` · <b>${r.due}</b> due for re-test`:""}`:"no open mistakes",
+        r.weakBand&&r.last.b[r.weakBand]<100?`last paper weakest on <b>${bandLabel(r.weakBand)}</b> (${r.last.b[r.weakBand]}%)`:"",
+        `<b>${r.days}</b> days to the exam`].filter(Boolean).join(" · ");
+      return `<div class="ready"><span style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;white-space:nowrap"><span class="dot" style="width:9px;height:9px;border-radius:2px;flex:none;background:${S.color}"></span>${esc(S.name)}</span>
+        <div class="rg ${gcls}">${g===null?"–":gradeName(g)}<small>${r.trend.length>1?`<span class="rt">${r.trend.map(gradeName).join(" › ")}</span>`:(g===null?"no grade":"1 sitting")}</small></div>
+        <div class="rd"><b>${verdict}.</b> ${detail}</div>
+        <span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">${r.due?`<button class="btn small primary" data-fixit="${esc(s)}">Re-test ${r.due}</button>`:""}${r.nextPaper?`<button class="btn small ${g===null?"primary":""}" data-paper="${esc(r.nextPaper.id)}">${paperHist(r.nextPaper.id).length?"Sit again":"Sit a paper"}</button>`:""}<button class="btn small" data-subj="${esc(s)}">Open</button></span></div>`;}).join("")+`</div>`;}
 function renderProgress(){
   const el=document.getElementById("view-progress");const now=todayWeek();
   const all=SUBJ_IDS.flatMap(s=>SUBJECTS[s].topics);const doneN=all.filter(t=>T(t.id).done).length,dueN=all.filter(t=>TOPIC_DUE[t.id]<now).length,knownN=all.filter(t=>T(t.id).known).length;
@@ -2225,6 +2265,7 @@ function renderProgress(){
     <div class="kpi"><div class="eyebrow">Days to exams</div><div class="v num">${daysToExams()}</div><div class="d">first paper ≈ ${fmt(examDate)} ${examDate.getFullYear()}</div></div>
     <div class="kpi"><div class="eyebrow">Streak</div><div class="v num">${streak()}</div><div class="d">days in a row</div></div>
     <div class="kpi"><div class="eyebrow">Sessions done</div><div class="v num">${sessionsDone}</div><div class="d">${fixList().length} to redo · ${Object.keys(state.reviews).length} in review · ${openMistakeCount()} mistake${openMistakeCount()===1?"":"s"} open</div></div></div>`;
+  html+=readinessCard();
   // Most behind first; school-paced subjects after, since they cannot be behind.
   const order=SUBJ_IDS.slice().sort((a,b)=>{const ba=isSchool(a)?-1e9:SUBJECTS[a].topics.filter(t=>TOPIC_DUE[t.id]<now&&!T(t.id).done).length;const bb=isSchool(b)?-1e9:SUBJECTS[b].topics.filter(t=>TOPIC_DUE[t.id]<now&&!T(t.id).done).length;return bb-ba;});
   html+=`<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:8px">Coverage · most behind first</div>`;
@@ -2237,6 +2278,9 @@ function renderProgress(){
   if(past.length)html+=`<div class="card" style="margin-top:14px"><div class="eyebrow" style="margin-bottom:6px">Recent tests</div>`+past.map(t=>trow(t)).join("")+`</div>`;
   html+=catchUpCard();
   el.innerHTML=html;el.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>{cur=+b.dataset.goto;curDay=5;showView("today");}));
+  el.querySelectorAll("[data-paper]").forEach(b=>b.addEventListener("click",()=>openPaper(b.dataset.paper)));
+  el.querySelectorAll("[data-subj]").forEach(b=>b.addEventListener("click",()=>{curSubj=b.dataset.subj;knowMode=false;showView("subjects");}));
+  bind(el);
   el.querySelector("#catchup")?.addEventListener("click",doCatchUp);
   el.querySelector("#uncatchup")?.addEventListener("click",undoCatchUp);
 }
@@ -2387,6 +2431,7 @@ function renderGuide(){
   <h3>End-of-topic tests</h3><p>Every lesson ends with <b>Take the test</b> (also under <b>Test</b> in the lesson's top bar, and on the topic row once you have taken one). It is closed book and timed: the questions appear with no answers and a clock, you write every answer on paper, then <b>Mark it</b> shows the answers and you give yourself the marks. 80% or more is <b>Secure</b> — tick the topic and it joins recall; below that, everything you dropped is already in the mistakes log, so read those, go back over that part of the lesson, and retake. Attempts are kept, so the subject page shows your last score on each topic and the lesson shows the run of attempts.</p>
   <h3>Mock papers</h3><p>Each subject page has a <b>Mock papers</b> card: original exam-style papers, written for this app rather than copied from past papers, that mix topics the way a real paper does and climb from grade 4–5 questions through 6–7 to 8–9, so the last section is where the top grades are decided. A paper runs on the clock for its real duration; you write everything on paper, then <b>Mark it</b> shows the mark scheme (points for short questions, level descriptors for essays) and you give yourself the marks. The percentage becomes a <b>grade estimate</b> from the paper's boundaries, with a breakdown by band so you can see whether the marks went at the start or at the top end. Every dropped question goes to the mistakes log under the subject. Sit a paper once the topics it covers are done, fix what it exposes, and sit it again a week or two later. Every paper question names the topics it draws on, so a dropped question is logged under those topics and the results page lists the <b>lessons to reopen</b> with the marks each one cost.</p>
   <h3>Fix-it: re-testing mistakes</h3><p>A mistake logged by a topic test or a mock paper remembers the question. Two days later it is <b>due</b>: the subject page's mistakes card and the retrieval session on Today show <b>Re-test N dropped questions</b>, which brings those questions back closed-book, oldest first, a dozen at a time. Full marks ticks the mistake fixed; anything less keeps it open and it comes back again after another two days. That is the loop: test, drop, reopen the lesson, re-test until it holds.</p>
+  <h3>Exam readiness</h3><p>The top of <b>Progress</b> pulls the tests and papers together, one line per subject, weakest first: your <b>grade estimate</b> (the average of your latest sitting of each mock paper) with the run of grades from every sitting, how many topics you have tested closed-book and their average, open mistakes and how many are due for a re-test, which band the last paper was weakest on, and days to the exam. The buttons take you straight to the re-test, the next paper, or the subject.</p>
   <h3>Quote bank</h3><p>English Literature is closed book, so the quotes you can write from memory are the marks. <b>Subjects → Eng Literature → Quote bank</b> keeps every quote in one place: pick the text, type the quote, tag its themes and write the one sentence you would say about it. Every set text and all fifteen Power and Conflict poems are listed with a count, so a poem you have nothing for shows as a zero. <b>Test me</b> blanks out a third of the words and asks you to fill them in — or, switched round, gives you the theme and asks for the quote. Three right in a row makes a quote solid; one miss puts it back to the front. Quotes also come up in that text's recall checks, and <b>Print</b> gives you the lot on one sheet for the night before. Nothing is pre-filled: choosing the quote is the learning.</p>
   <h3>Already ahead?</h3><p>In <b>Subjects</b>, open a subject and hit <b>Where am I up to?</b> The course is laid out one topic at a time in specification order, with its objectives and checklist: <b>Done this</b> ticks it as known and shows the next; <b>Not yet</b> is where you are. Or use <b>Tick what you already know</b> to tick from the list, a section at a time. Anything ticked counts as done, leaves the schedule, and goes straight into recall. For subjects the app runs ahead in, a bar then offers to <b>re-pour</b> the plan so those hours go to what is left.</p>
   <h3>Tests</h3>
