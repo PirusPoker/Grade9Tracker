@@ -1049,14 +1049,21 @@ let DAY=null,DAY_ERR=null,DAY_BUSY=false,ORG_BUSY=false,ORG_SEQ=0,showDoneInbox=
 const DAY_START=7*60,DAY_END=21*60+30,MIN_SLOT=30,AFTER_SCHOOL=15*60+30,SHOW_AHEAD_DAYS=14,ASKS_SHOWN=4;
 // Microsoft Teams assignments, synced in by the browser extension (teams_server.rs).
 let TEAMS_ASG=[];
+const TEAMS_STALE_DAYS=30;   // hide work due more than a month ago — last term's leftovers Teams never drops
 function mapTeams(items){
+  const cutoff=Date.now()-TEAMS_STALE_DAYS*864e5;
   return (items||[]).map(t=>{
     const submitted=t.turnedIn||t.completed||t.submission==="submitted"||t.submission==="returned"||t.submission==="excused";
     const links=[]; if(t.webUrl)links.push({label:"Open in Teams",url:t.webUrl});
+    const due=t.due?String(t.due).slice(0,10):null;
     return {id:"teams:"+t.id, title:(t.title||"Assignment").trim(), course:"",
-      due:t.due?String(t.due).slice(0,10):null, description:(t.instructions||"").trim(),
+      due, description:(t.instructions||"").trim(),
       links, unread:false, teams:true, submitted};
-  }).filter(a=>a.id&&!a.submitted);   // outstanding only; submitted ones drop off
+  }).filter(a=>{
+    if(!a.id||a.submitted)return false;       // outstanding only; submitted ones drop off
+    if(a.due){const d=Date.parse(a.due+"T23:59:59");if(!isNaN(d)&&d<cutoff)return false;}  // drop stale last-term work
+    return true;
+  }).sort((a,b)=>(a.due||"9999-99-99").localeCompare(b.due||"9999-99-99"));   // soonest first
 }
 async function loadTeams(){ try{const t=await invoke("teams_assignments");TEAMS_ASG=mapTeams(t&&t.items);}catch(e){TEAMS_ASG=[];} }
 async function loadDay(refresh){
