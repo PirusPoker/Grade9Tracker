@@ -23,7 +23,7 @@ use std::mem::ManuallyDrop;
 use std::sync::OnceLock;
 use windows::core::{Interface, BSTR, GUID, IUnknown, PCWSTR, w};
 use windows::Win32::Foundation::SYSTEMTIME;
-use windows::Win32::Globalization::{GetDateFormatEx, GetTimeFormatEx, DATE_SHORTDATE, TIME_NOSECONDS};
+use windows::Win32::Globalization::{GetDateFormatEx, GetLocaleInfoEx, GetTimeFormatEx, DATE_SHORTDATE, LOCALE_SSHORTTIME, TIME_FORMAT_FLAGS, TIME_NOSECONDS};
 use windows::Win32::System::Com::{
     CLSIDFromProgID, IDispatch, DISPATCH_FLAGS, DISPATCH_METHOD, DISPATCH_PROPERTYGET, DISPATCH_PROPERTYPUT, DISPPARAMS, EXCEPINFO,
 };
@@ -99,6 +99,20 @@ fn arg_bool(b: bool) -> VARIANT {
         (*v.Anonymous.Anonymous).Anonymous.boolVal = windows::Win32::Foundation::VARIANT_BOOL(if b { -1 } else { 0 });
     }
     v
+}
+
+/// Arguments for one Invoke, cleared however the call ends. An early `?`
+/// used to skip the clearing and leak every string passed to Sort and Restrict.
+struct Args(Vec<VARIANT>);
+
+impl Drop for Args {
+    fn drop(&mut self) {
+        for a in self.0.iter_mut() {
+            unsafe {
+                let _ = VariantClear(a);
+            }
+        }
+    }
 }
 
 impl Var {
@@ -190,19 +204,20 @@ impl Com {
     /// Invoke `name` on `obj`. Arguments are given in their natural order.
     /// A cached DISPID that the object does not recognise is looked up again
     /// once; Outlook being busy is waited out for up to about three seconds.
-    fn invoke(&mut self, obj: &IDispatch, kind: Kind, name: &'static str, flags: DISPATCH_FLAGS, mut args: Vec<VARIANT>) -> ComResult<Var> {
-        args.reverse(); // IDispatch takes them right to left
+    fn invoke(&mut self, obj: &IDispatch, kind: Kind, name: &'static str, flags: DISPATCH_FLAGS, args: Vec<VARIANT>) -> ComResult<Var> {
+        let mut args = Args(args);
+        args.0.reverse(); // IDispatch takes them right to left
         let put = flags == DISPATCH_PROPERTYPUT;
         let mut named = DISPID_PROPERTYPUT;
         let params = DISPPARAMS {
-            rgvarg: if args.is_empty() { std::ptr::null_mut() } else { args.as_mut_ptr() },
+            rgvarg: if args.0.is_empty() { std::ptr::null_mut() } else { args.0.as_mut_ptr() },
             rgdispidNamedArgs: if put { &mut named } else { std::ptr::null_mut() },
-            cArgs: args.len() as u32,
+            cArgs: args.0.len() as u32,
             cNamedArgs: u32::from(put),
         };
         let mut fresh = false;
         let mut busy = 0;
-        let result = loop {
+        loop {
             let id = match self.ids.get(&(kind, name)) {
                 Some(&id) => id,
                 None => {
@@ -236,13 +251,7 @@ impl Com {
                     break Err(e);
                 }
             }
-        };
-        for a in args.iter_mut() {
-            unsafe {
-                let _ = VariantClear(a);
-            }
         }
-        result
     }
 
     fn get(&mut self, obj: &IDispatch, kind: Kind, name: &'static str) -> ComResult<Var> {
@@ -316,9 +325,15 @@ fn day(d: Option<f64>) -> Option<String> {
 }
 
 /// A local time the way .NET's `ToString('g')` writes it - the user's short
-/// date and short time, no seconds - because Restrict parses filter dates in
-/// the user's own locale. An en-GB machine wants `30/09/2026 00:00`, and a
-/// hard-coded US order would silently match the wrong fortnight.
+/// date pattern, a space, their short time pattern - because Restrict parses
+/// filter dates in the user's own locale. An en-GB machine wants
+/// `30/09/2026 00:00`, and a hard-coded US order would silently match the
+/// wrong fortnight.
+///
+/// The time half deliberately uses LOCALE_SSHORTTIME, which is what .NET
+/// reads for 'g'. TIME_NOSECONDS instead strips the seconds off the *long*
+/// time pattern: the same thing on a default install, but not once someone
+/// has customised the short time in Region settings.
 fn restrict_date(t: NaiveDateTime) -> String {
     let st = SYSTEMTIME {
         wYear: t.year() as u16,
@@ -333,7 +348,14 @@ fn restrict_date(t: NaiveDateTime) -> String {
     let mut d = [0u16; 128];
     let mut h = [0u16; 128];
     let dn = unsafe { GetDateFormatEx(PCWSTR::null(), DATE_SHORTDATE, Some(&st), PCWSTR::null(), Some(&mut d), PCWSTR::null()) };
-    let hn = unsafe { GetTimeFormatEx(PCWSTR::null(), TIME_NOSECONDS, Some(&st), PCWSTR::null(), Some(&mut h)) };
+    let mut pattern = [0u16; 80];
+    let pn = unsafe { GetLocaleInfoEx(PCWSTR::null(), LOCALE_SSHORTTIME, Some(&mut pattern)) };
+    let hn = if pn > 1 {
+        // pattern still ends in its null, so it is a valid PCWSTR as it stands
+        unsafe { GetTimeFormatEx(PCWSTR::null(), TIME_FORMAT_FLAGS(0), Some(&st), PCWSTR(pattern.as_ptr()), Some(&mut h)) }
+    } else {
+        unsafe { GetTimeFormatEx(PCWSTR::null(), TIME_NOSECONDS, Some(&st), PCWSTR::null(), Some(&mut h)) }
+    };
     // Both counts include the terminating null.
     let date = String::from_utf16_lossy(&d[..(dn.max(1) as usize - 1)]);
     let time = String::from_utf16_lossy(&h[..(hn.max(1) as usize - 1)]);

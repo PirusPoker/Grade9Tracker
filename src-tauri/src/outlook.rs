@@ -101,9 +101,12 @@ const TIMEOUT: Duration = Duration::from_secs(60);
 /// The COM work runs on its own apartment-threaded thread and we wait for it
 /// with a timeout. A call into an Outlook that is showing a modal dialog
 /// blocks until the dialog closes, and an in-process call cannot be killed
-/// the way the old PowerShell child could, so on timeout the thread is left
-/// to finish on its own once Outlook is free again, and its answer is
-/// dropped.
+/// the way the old PowerShell child could - so reads are single-flight: while
+/// one is out, later callers wait on that same read instead of starting
+/// another. Without that, every Refresh during a stuck dialog would park one
+/// more thread behind it, and they would all fire at once when it closed.
+/// Two genuinely overlapping reads (app start plus a Refresh) now share one
+/// trip to Outlook as well.
 pub fn fetch() -> Result<Dump, String> {
     #[cfg(not(windows))]
     {
@@ -111,29 +114,65 @@ pub fn fetch() -> Result<Dump, String> {
     }
     #[cfg(windows)]
     {
-        use std::sync::mpsc;
+        use std::sync::{Arc, Condvar, Mutex};
+        use std::time::Instant;
         use windows::Win32::System::Com::{CoInitializeEx, CoUninitialize, COINIT_APARTMENTTHREADED};
 
-        let (tx, rx) = mpsc::channel();
-        std::thread::Builder::new()
-            .name("outlook-com".into())
-            .spawn(move || {
-                let init = unsafe { CoInitializeEx(None, COINIT_APARTMENTTHREADED) };
-                if init.is_err() {
-                    let _ = tx.send(Err(com::Failure::Other(format!("COM would not start ({:#010x})", init.0 as u32))));
-                    return;
-                }
-                let result = com::read(); // every COM object is released inside
-                unsafe { CoUninitialize() };
-                let _ = tx.send(result);
-            })
-            .map_err(|e| format!("Outlook did not answer: {e}"))?;
-        match rx.recv_timeout(TIMEOUT) {
-            Ok(Ok(dump)) => Ok(dump),
-            Ok(Err(com::Failure::NotRunning)) => Err(NOT_RUNNING.into()),
-            Ok(Err(com::Failure::Other(why))) => Err(format!("Outlook did not answer: {why}")),
-            Err(mpsc::RecvTimeoutError::Timeout) => Err(NO_ANSWER.into()),
-            Err(mpsc::RecvTimeoutError::Disconnected) => Err("Outlook did not answer: the reader stopped unexpectedly.".into()),
+        type Slot = Arc<(Mutex<Option<Result<Dump, String>>>, Condvar)>;
+        /// The read that is out, if any, and when it left.
+        static FLIGHT: Mutex<Option<(Instant, Slot)>> = Mutex::new(None);
+        fn lock<T>(m: &Mutex<T>) -> std::sync::MutexGuard<'_, T> {
+            m.lock().unwrap_or_else(|e| e.into_inner()) // never panic: release aborts on panic
+        }
+
+        let (started, slot) = {
+            let mut flight = lock(&FLIGHT);
+            if let Some((t, slot)) = flight.as_ref() {
+                (*t, slot.clone()) // join the read already out
+            } else {
+                let slot: Slot = Arc::new((Mutex::new(None), Condvar::new()));
+                let mine = slot.clone();
+                std::thread::Builder::new()
+                    .name("outlook-com".into())
+                    .spawn(move || {
+                        let init = unsafe { CoInitializeEx(None, COINIT_APARTMENTTHREADED) };
+                        let result = if init.is_err() {
+                            Err(format!("Outlook did not answer: COM would not start ({:#010x})", init.0 as u32))
+                        } else {
+                            let r = com::read(); // every COM object is released inside
+                            unsafe { CoUninitialize() };
+                            r.map_err(|f| match f {
+                                com::Failure::NotRunning => NOT_RUNNING.to_string(),
+                                com::Failure::Other(why) => format!("Outlook did not answer: {why}"),
+                            })
+                        };
+                        let (cell, cv) = &*mine;
+                        *lock(cell) = Some(result);
+                        cv.notify_all();
+                        *lock(&FLIGHT) = None; // the next caller starts a fresh read
+                    })
+                    .map_err(|e| format!("Outlook did not answer: {e}"))?;
+                let now = Instant::now();
+                *flight = Some((now, slot.clone()));
+                (now, slot)
+            }
+        };
+
+        // Wait for the answer, but never past the read's own deadline: a
+        // caller who joins a read that has been stuck for a minute is told so
+        // at once rather than made to wait another minute.
+        let deadline = started + TIMEOUT;
+        let (cell, cv) = &*slot;
+        let mut answer = lock(cell);
+        loop {
+            if let Some(r) = answer.as_ref() {
+                return r.clone();
+            }
+            let now = Instant::now();
+            if now >= deadline {
+                return Err(NO_ANSWER.into());
+            }
+            answer = cv.wait_timeout(answer, deadline - now).map(|(g, _)| g).unwrap_or_else(|e| e.into_inner().0);
         }
     }
 }
