@@ -198,8 +198,13 @@ pub fn fetch() -> Result<Dump, String> {
     {
         use std::os::windows::process::CommandExt;
         const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+        // No -ExecutionPolicy Bypass: the policy governs script files, and the
+        // script goes in over stdin, so the flag never applied. Antivirus
+        // heuristics weigh it heavily - a hidden PowerShell started with
+        // Bypass is the shape of a dropper - and we were paying that for
+        // nothing. Defender quarantined the app over it on 22/09/2026.
         let mut child = Command::new("powershell.exe")
-            .args(["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-Command", "-"])
+            .args(["-NoProfile", "-NonInteractive", "-Command", "-"])
             .creation_flags(CREATE_NO_WINDOW)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
