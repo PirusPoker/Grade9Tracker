@@ -1471,6 +1471,7 @@ dependencies = [
  "tauri-plugin-opener",
  "tauri-plugin-updater",
  "tiny_http",
+ "windows",
  "windows-sys 0.59.0",
 ]
 
