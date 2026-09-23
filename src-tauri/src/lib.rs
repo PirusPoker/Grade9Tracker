@@ -8,6 +8,7 @@ mod ai;
 mod config;
 mod course;
 mod draft;
+mod elevation;
 mod lessons;
 mod papers;
 mod outlook;
@@ -298,6 +299,26 @@ fn teams_assignments(app: AppHandle) -> Result<Value, String> {
     Ok(read_json(&path).unwrap_or_else(|| serde_json::json!({ "items": [] })))
 }
 
+/// True when this copy was started with an administrator token. Nothing here
+/// wants one; it gets inherited from whatever launched us, and it breaks the
+/// Outlook panel - see elevation.rs.
+#[tauri::command]
+fn running_elevated() -> bool {
+    elevation::is_elevated()
+}
+
+/// Start an ordinary, unelevated copy and quit this one.
+#[tauri::command]
+fn restart_normally() -> Result<(), String> {
+    elevation::restart_unelevated()?;
+    // The replacement is Explorer's child and outlives us.
+    std::thread::spawn(|| {
+        std::thread::sleep(std::time::Duration::from_millis(200));
+        std::process::exit(0);
+    });
+    Ok(())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -318,7 +339,8 @@ pub fn run() {
             teams_assignments,
             update::check_update, update::install_update,
             tts::narrate, tts::voices, tts::download_voice,
-            teams::open_teams
+            teams::open_teams,
+            running_elevated, restart_normally
         ])
         .run(tauri::generate_context!())
         .expect("error while running Grade 9 Tracker");

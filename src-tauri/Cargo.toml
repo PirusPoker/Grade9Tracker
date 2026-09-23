@@ -25,6 +25,10 @@ sha2 = "0.10"
 base64 = "0.22"
 tiny_http = "0.12"
 
+# Reading our own token, to notice when we have been started elevated.
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_Security", "Win32_System_Threading"] }
+
 [profile.release]
 codegen-units = 1
 lto = true

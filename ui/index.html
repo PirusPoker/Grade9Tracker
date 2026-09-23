@@ -202,6 +202,8 @@ a{color:var(--accent);text-underline-offset:2px}
 .streak.cold{background:var(--surface2);color:var(--muted)}
 .banner{border-radius:var(--r-sm);padding:12px 14px;display:flex;gap:10px;align-items:center;font-weight:550;font-size:14px}
 .banner.due{background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent)}
+.banner.warn{background:var(--bad-soft);border:1px solid var(--bad-line);color:var(--bad);align-items:flex-start}
+.banner.warn .bt{font-weight:550}.banner.warn .bt small{display:block;font-weight:450;opacity:.85;margin-top:3px;font-size:12.5px}
 .banner button{margin-left:auto;font-weight:650;text-decoration:underline;white-space:nowrap;color:inherit}
 
 /* your day — timetable, free time and deadlines read out of Outlook */
@@ -1182,6 +1184,10 @@ function bindDay(root){
 /* ---------- TODAY VIEW ---------- */
 let cur=1,curDay=null,showFix=false,pinning=null,menuKey=null;
 const openSess=new Set();let autoOpenedFor="";
+function elevatedBanner(){if(!ELEVATED)return "";
+  return `<div class="banner warn" style="margin-bottom:14px"><span class="bt">Running as administrator<small>Windows started this copy with admin rights, which hides Outlook from it - the Outlook panel will keep saying Outlook is closed even when it is open. Nothing is wrong with your computer; restarting the app normally fixes it.</small></span><button id="unelevate">Restart normally</button></div>`;}
+function bindElevated(root){root.querySelector("#unelevate")?.addEventListener("click",async b=>{
+  try{await invoke("restart_normally");}catch(e){alert(errText(e));}});}
 function renderToday(){
   const w=WEEKS[cur-1];const days=buildDays(w);const ti=todayIndex(w);
   if(curDay==null)curDay=ti>=0?ti:0;
@@ -1190,6 +1196,7 @@ function renderToday(){
   html+=`<div class="days">`+days.map(d=>{const c=dayCounts(d);const all=c.n>0&&c.done===c.n;return `<button class="day ${d.i===ti?"today":""} ${all?"alldone":""}" data-day="${d.i}" aria-selected="${d.i===curDay}"><span class="dn">${DAYN[d.i]}</span><span class="dd">${d.date.getDate()}</span><span class="marks">${d.items.length?d.items.filter(it=>!it.skipped).slice(0,4).map(it=>`<i style="background:${itemColor(it)}" class="${itemDone(it)?"":"off"}"></i>`).join(""):`<i style="background:var(--rest)" class="off"></i>`}</span></button>`;}).join("")+`</div>`;
   const st=streak();
   html+=`<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px"><span class="streak ${st?"":"cold"}">${st?"🔥":"○"} ${st} day${st===1?"":"s"} in a row</span><span class="muted" style="font-size:13px">${daysToExams()} days to exams</span></div>`;
+  html+=elevatedBanner();
   const fixes=fixList();
   if(fixes.length){html+=`<div class="fixbanner">⚠ ${fixes.length} thing${fixes.length>1?"s":""} to redo <button id="togglefix">${showFix?"Hide":"Show"}</button></div>`;
     if(showFix)html+=`<div class="card" style="margin-top:10px"><div class="eyebrow">Fix list</div><ul class="fixlist">`+fixes.map(f=>`<li><input type="checkbox" data-fix="${esc(f.key)}" aria-label="Fixed"><span>${esc(f.label)}</span></li>`).join("")+`</ul><p class="muted" style="font-size:14px;margin:12px 0 0">Go back over it and do more questions. Tick it when you can do it unaided — it will come back later to check.</p></div>`;
@@ -1219,7 +1226,7 @@ function renderToday(){
   el.querySelector("#printwk")?.addEventListener("click",()=>window.print());
   el.querySelector("#togglefix")?.addEventListener("click",()=>{showFix=!showFix;render();});
   el.querySelectorAll("[data-day]").forEach(b=>b.addEventListener("click",()=>{curDay=+b.dataset.day;menuKey=null;render();}));
-  bind(el);bindDay(el);
+  bind(el);bindDay(el);bindElevated(el);
 }
 /* The whole week at a glance, shown beside the day on a wide window. Click a
    session to jump to it. */
@@ -1365,6 +1372,7 @@ async function pinLink(topicId){
 /* ---------- CATCHING UP ---------- */
 async function reloadPlan(){
   try{PAPER_LIST=(await invoke("list_papers"))||[];}catch(e){PAPER_LIST=[];}
+  try{ELEVATED=!!(await invoke("running_elevated"));}catch(e){ELEVATED=false;}
   try{applyPlan(await invoke("get_plan",{catchUp:state.catchUp||null}));return true;}
   catch(e){return false;}}
 function doneList(){const done=[];SUBJ_IDS.forEach(s=>SUBJECTS[s].topics.forEach(t=>{if(T(t.id).done)done.push(t.id);}));return done;}
@@ -1711,6 +1719,9 @@ function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[
    weeks later has. A part-marks answer slips back one gap, a blank one starts
    the ladder again. */
 let fixit=null; // {subj, items:[{key,i,m,q,a,max,label}], phase, marks, started}
+/* Started with an administrator token - inherited, never asked for. It
+   hides Outlook from us (see src-tauri/src/elevation.rs), so say so. */
+let ELEVATED=false;
 const FIX_GAPS=[1,3,8,21];
 const FIX_GAP_WORDS=FIX_GAPS.slice(0,-1).join(", ")+" and "+FIX_GAPS[FIX_GAPS.length-1];   // "1, 3, 8 and 21"
 const refKey=r=>r.p?`p|${r.p}|${r.q}`:`t|${r.t}|${r.q}`;
