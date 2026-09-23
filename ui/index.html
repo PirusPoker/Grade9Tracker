@@ -988,20 +988,23 @@ function addMistake(key,text,src,ref){const t=String(text||"").trim();if(!t)retu
 function subjectMistakes(subj){const out=[];
   SUBJECTS[subj].topics.forEach(t=>openMistakes(t.id).forEach((m,i)=>out.push({key:t.id,i:mistakesOf(t.id).indexOf(m),m,label:t[1],code:t[0]})));
   openMistakes("subj:"+subj).forEach(m=>out.push({key:"subj:"+subj,i:mistakesOf("subj:"+subj).indexOf(m),m,label:"Tests and papers",code:""}));
-  return out.sort((a,b)=>b.m.t.localeCompare(a.m.t));}
-const openMistakeCount=()=>Object.values(state.mistakes).reduce((n,l)=>n+l.filter(m=>!m.fixed).length,0);
+  return out.sort((a,b)=>(inReview(a.m)?1:0)-(inReview(b.m)?1:0)||b.m.t.localeCompare(a.m.t));}
+/* "Open" means still broken. A mistake that has survived at least one re-test
+   is holding, counted apart, so the headline number is what needs work. */
+const openMistakeCount=()=>Object.values(state.mistakes).reduce((n,l)=>n+l.filter(m=>!m.fixed&&!inReview(m)).length,0);
+const reviewMistakeCount=()=>Object.values(state.mistakes).reduce((n,l)=>n+l.filter(m=>inReview(m)).length,0);
 const srcLabel={recall:"recall check",test:"test",session:"session",manual:"note",lesson:"lesson"};
 function mistakeRow(key,i,m,label){
-  return `<div class="mrow ${m.fixed?"fixed":""}"><input type="checkbox" data-mfix="${esc(key)}|${i}" ${m.fixed?"checked":""} aria-label="Fixed"><div><div class="mt">${esc(m.text)}</div><div class="mm">${label?`${esc(label)} · `:""}${fmt(new Date(m.t+"T00:00:00"))} · ${srcLabel[m.src]||m.src}</div></div><button class="icon" data-mdel="${esc(key)}|${i}" aria-label="Delete">×</button></div>`;}
+  return `<div class="mrow ${m.fixed?"fixed":""}"><input type="checkbox" data-mfix="${esc(key)}|${i}" ${m.fixed?"checked":""} aria-label="Fixed"><div><div class="mt">${esc(m.text)}</div><div class="mm">${label?`${esc(label)} · `:""}${fmt(new Date(m.t+"T00:00:00"))} · ${srcLabel[m.src]||m.src}${fixNote(m)}</div></div><button class="icon" data-mdel="${esc(key)}|${i}" aria-label="Delete">×</button></div>`;}
 const openMist=new Set();
 function mistakeBlock(key,placeholder){
-  const all=mistakesOf(key),open=all.filter(m=>!m.fixed);
-  return `<details class="mist" data-mistbox="${esc(key)}" ${openMist.has(key)||open.length?"open":""}><summary><span class="eyebrow">Mistakes</span><span class="chip ${open.length?"bad":""}">${open.length?`${open.length} open`:(all.length?"all fixed":"none")}</span></summary>
+  const all=mistakesOf(key),live=all.filter(m=>!m.fixed),hold=live.filter(inReview),open=live.filter(m=>!inReview(m));
+  return `<details class="mist" data-mistbox="${esc(key)}" ${openMist.has(key)||live.length?"open":""}><summary><span class="eyebrow">Mistakes</span><span class="chip ${open.length?"bad":""}">${open.length?`${open.length} open`:(hold.length?`${hold.length} holding`:(all.length?"all fixed":"none"))}</span></summary>
     ${all.map((m,i)=>mistakeRow(key,i,m,"")).join("")}
     <div class="madd"><input type="text" data-mtext="${esc(key)}" placeholder="${esc(placeholder||"What went wrong? Be specific: the exact step, the exact mistake")}" maxlength="240"><button class="btn small" data-madd="${esc(key)}">Log it</button></div>
-    <p class="muted" style="font-size:12.5px;margin:6px 0 0">Tick a mistake when you have fixed it. Open ones show up the next time this topic comes round.</p></details>`;}
+    <p class="muted" style="font-size:12.5px;margin:6px 0 0">Tick a mistake when you have fixed it. Open ones show up the next time this topic comes round; ones a test or a paper logged bring their own question back, at ${FIX_GAP_WORDS} days.</p></details>`;}
 /* Shown at the top of a recall check: what went wrong last time. */
-function lastTimeBlock(key){const open=openMistakes(key);if(!open.length)return "";
+function lastTimeBlock(key){const open=openMistakes(key).filter(m=>!inReview(m));if(!open.length)return "";
   return `<div class="lasttime"><b>Last time you got wrong</b><ul>${open.map(m=>`<li>${esc(m.text)}</li>`).join("")}</ul></div>`;}
 function bindMistakes(root){
   root.querySelectorAll("[data-mistbox]").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)openMist.add(d.dataset.mistbox);else openMist.delete(d.dataset.mistbox);}));
@@ -1701,17 +1704,31 @@ function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[
     testTimer=setInterval(tick,1000);}}
 /* ---------- FIX-IT: re-testing dropped questions ----------
    Mistakes logged by a topic test or a mock paper carry a ref back to the
-   question. A few days later they come back closed-book; full marks ticks
-   the mistake fixed, anything less keeps it open for another go. */
+   question, and come back closed-book on expanding gaps: tomorrow, then after
+   3, 8 and 21 days. Each clean re-test moves the mistake on a stage; only
+   clearing the last gap ticks it fixed for good, because something answered
+   right once the next day has not been learned - something still there three
+   weeks later has. A part-marks answer slips back one gap, a blank one starts
+   the ladder again. */
 let fixit=null; // {subj, items:[{key,i,m,q,a,max,label}], phase, marks, started}
-const FIX_GAP_DAYS=2;
+const FIX_GAPS=[1,3,8,21];
+const FIX_GAP_WORDS=FIX_GAPS.slice(0,-1).join(", ")+" and "+FIX_GAPS[FIX_GAPS.length-1];   // "1, 3, 8 and 21"
 const refKey=r=>r.p?`p|${r.p}|${r.q}`:`t|${r.t}|${r.q}`;
-const fixDue=m=>{const last=m.tried||m.t;return Math.round((new Date(todayISO()+"T00:00:00")-new Date(last+"T00:00:00"))/86400000)>=FIX_GAP_DAYS;};
+const fixStage=m=>Math.min(m.stage||0,FIX_GAPS.length-1);
+/* When this one is next due, and in how many days (negative = overdue). */
+const fixDueOn=m=>iso(addDays(new Date((m.tried||m.t)+"T00:00:00"),FIX_GAPS[fixStage(m)]));
+const fixIn=m=>Math.round((new Date(fixDueOn(m)+"T00:00:00")-new Date(todayISO()+"T00:00:00"))/86400000);
+const fixDue=m=>fixIn(m)<=0;
+/* Held at least once, so it is being proved rather than repaired. */
+const inReview=m=>!m.fixed&&(m.stage||0)>0;
+/* The schedule in words, for a mistake row. */
+function fixNote(m){if(m.fixed||!m.ref)return "";const n=fixIn(m);
+  return `${inReview(m)?` · held ${m.stage} of ${FIX_GAPS.length}`:""}${n<=0?" · due for re-test":` · back in ${n} day${n===1?"":"s"}`}`;}
 /* Open mistakes with a ref, one per question (a paper question tagged with two topics is logged under both), oldest first. */
 function fixables(subj){const out=[];const keys=subj?[...SUBJECTS[subj].topics.map(t=>t.id),"subj:"+subj]:Object.keys(state.mistakes);
   keys.forEach(key=>mistakesOf(key).forEach((m,i)=>{if(!m.fixed&&m.ref)out.push({key,i,m});}));
   const seen=new Set();
-  return out.sort((a,b)=>(a.m.tried||a.m.t).localeCompare(b.m.tried||b.m.t)||refKey(a.m.ref).localeCompare(refKey(b.m.ref))).filter(x=>{const k=refKey(x.m.ref);if(seen.has(k))return false;seen.add(k);return true;});}
+  return out.sort((a,b)=>fixDueOn(a.m).localeCompare(fixDueOn(b.m))||refKey(a.m.ref).localeCompare(refKey(b.m.ref))).filter(x=>{const k=refKey(x.m.ref);if(seen.has(k))return false;seen.add(k);return true;});}
 const fixDueList=subj=>fixables(subj).filter(x=>fixDue(x.m));
 async function loadRef(ref){
   if(ref.p){const info=PAPER_LIST.find(p=>p.id===ref.p);if(!info)return null;let text=PAPER_CACHE[ref.p];
@@ -1725,22 +1742,26 @@ async function loadRef(ref){
   return {q:sp.q,a:sp.a,max:qMarks(sp.q),label:`${t[0]} ${t[1]} · topic test`,subj:t.subj,topics:[t.id]};}
 async function startFixit(subj){const list=fixDueList(subj).slice(0,12);const items=[];
   for(const x of list){const r=await loadRef(x.m.ref);if(r)items.push({...x,...r});}
-  if(!items.length){alert("Nothing due for a re-test yet. Dropped test and paper questions come back here a couple of days after you log them.");return;}
+  if(!items.length){alert("Nothing due for a re-test yet. A dropped question comes back the day after you log it, then at widening gaps — "+FIX_GAP_WORDS+" days — until it holds.");return;}
   stopNarration();stopTestTimer();lesson=null;paper=null;
   fixit={subj:subj||null,items,phase:"answer",marks:{},started:Date.now()};
   if(subj)curSubj=subj;showView("subjects");}
-function finishFixit(){const F=fixit;const today=todayISO();let fixed=0;
-  F.items.forEach((x,i)=>{const got=F.marks[i]||0;const k=refKey(x.m.ref);const ok=got>=x.max;if(ok)fixed++;
+function finishFixit(){const F=fixit;const today=todayISO();let held=0,retired=0;
+  F.items.forEach((x,i)=>{const got=F.marks[i]||0;const k=refKey(x.m.ref);const ok=got>=x.max;if(ok)held++;let gone=false;
     // every copy of this question in the log (a paper question can sit under two topics)
-    Object.keys(state.mistakes).forEach(key=>mistakesOf(key).forEach(m=>{if(m.ref&&!m.fixed&&refKey(m.ref)===k){if(ok){m.fixed=true;m.fixedAt=today;}else{m.tried=today;m.tries=(m.tries||0)+1;}}}));});
-  F.phase="done";F.fixed=fixed;F.secs=Math.round((Date.now()-F.started)/1000);markDay();persist();}
-function fixitButton(subj){const due=fixDueList(subj).length,all=fixables(subj).length;if(!all)return "";
-  return `<button class="btn small ${due?"primary":""}" data-fixit="${esc(subj||"")}" ${due?"":"disabled"} title="${due?"Closed book: the questions come back without their answers":"Dropped questions come back for a re-test a couple of days after you log them"}">${due?`Re-test ${due} dropped question${due===1?"":"s"}`:`${all} dropped question${all===1?"":"s"} · due in a few days`}</button>`;}
+    Object.keys(state.mistakes).forEach(key=>mistakesOf(key).forEach(m=>{if(m.ref&&!m.fixed&&refKey(m.ref)===k){m.tried=today;
+      if(ok){m.stage=(m.stage||0)+1;m.held=(m.held||0)+1;if(m.stage>=FIX_GAPS.length){m.fixed=true;m.fixedAt=today;gone=true;}}
+      else{m.stage=got>0?Math.max(0,(m.stage||0)-1):0;m.tries=(m.tries||0)+1;}}}));
+    if(gone)retired++;});
+  F.phase="done";F.fixed=held;F.retired=retired;F.secs=Math.round((Date.now()-F.started)/1000);markDay();persist();}
+function fixitButton(subj){const list=fixables(subj),due=list.filter(x=>fixDue(x.m)).length,all=list.length;if(!all)return "";
+  const next=all&&!due?Math.min(...list.map(x=>fixIn(x.m))):0;
+  return `<button class="btn small ${due?"primary":""}" data-fixit="${esc(subj||"")}" ${due?"":"disabled"} title="${due?"Closed book: the questions come back without their answers":`Dropped questions come back on widening gaps — ${FIX_GAP_WORDS} days — until they hold`}">${due?`Re-test ${due} dropped question${due===1?"":"s"}`:`${all} dropped question${all===1?"":"s"} · next in ${next} day${next===1?"":"s"}`}</button>`;}
 function renderFixit(el){const F=fixit;const S=F.subj?SUBJECTS[F.subj]:null;const color=S?S.color:"var(--accent)";
   let body="";
   if(F.phase==="answer"){
-    body=`<div class="ttrules"><b>Closed book.</b> ${F.items.length} question${F.items.length===1?"":"s"} you dropped marks on before, oldest first.<ul><li>Answer each one on paper, then press <b>Mark it</b>.</li><li>Full marks ticks the mistake as fixed. Anything less keeps it open and it comes back again in a couple of days.</li></ul></div>`;
-    F.items.forEach((x,i)=>{body+=`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">${esc(x.label)}${x.m.tries?` · retry ${x.m.tries+1}`:""}</div>${mdBlock(x.q)}</div></div></div>`;});
+    body=`<div class="ttrules"><b>Closed book.</b> ${F.items.length} question${F.items.length===1?"":"s"} you dropped marks on before, soonest due first.<ul><li>Answer each one on paper, then press <b>Mark it</b>.</li><li>Full marks moves it on to a longer gap; it is ticked off for good only once it has held at ${FIX_GAP_WORDS} days.</li><li>Anything less brings it back sooner — a blank starts the gaps again.</li></ul></div>`;
+    F.items.forEach((x,i)=>{body+=`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">${esc(x.label)}${inReview(x.m)?` · review ${x.m.stage+1} of ${FIX_GAPS.length}`:(x.m.tries?` · retry ${x.m.tries+1}`:"")}</div>${mdBlock(x.q)}</div></div></div>`;});
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="fxmark">I've answered them — mark it</button><button class="btn ghost" id="fxquit">Not now</button></div>`;
   }else if(F.phase==="mark"){
     const done=F.items.filter((_,i)=>F.marks[i]!==undefined).length;
@@ -1750,8 +1771,8 @@ function renderFixit(el){const F=fixit;const S=F.subj?SUBJECTS[F.subj]:null;cons
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="fxfinish" ${done<F.items.length?"disabled":""}>${done<F.items.length?`Mark all ${F.items.length} to finish`:"Finish"}</button><button class="btn ghost" id="fxquit">Abandon</button></div>`;
   }else{
     const left=F.items.map((x,i)=>({x,i,got:F.marks[i]||0})).filter(y=>y.got<y.x.max);const all=F.fixed===F.items.length;
-    body=`<div class="ttres"><span class="ttband ${all?"secure":(F.fixed?"nearly":"notyet")}">${all?"All fixed":(F.fixed?"Some fixed":"None fixed yet")}</span><div class="ttscore">${F.fixed} / ${F.items.length}<small>fixed · ${fmtSecs(F.secs)}</small></div>
-      <p class="muted" style="font-size:14px;margin:0 0 8px">${all?"Those mistakes are ticked off. Anything you drop in future tests and papers lands back here.":`${left.length} stay${left.length===1?"s":""} open and come${left.length===1?"s":""} back in ${FIX_GAP_DAYS} days. Reopen the lesson for each one below before then.`}</p>
+    body=`<div class="ttres"><span class="ttband ${all?"secure":(F.fixed?"nearly":"notyet")}">${all?"All held":(F.fixed?"Some held":"None held yet")}</span><div class="ttscore">${F.fixed} / ${F.items.length}<small>held${F.retired?` · ${F.retired} ticked off`:""} · ${fmtSecs(F.secs)}</small></div>
+      <p class="muted" style="font-size:14px;margin:0 0 8px">${all?(F.retired?`${F.retired===F.items.length?"All of those are":`${F.retired} of those are`} ticked off for good — they have held for three weeks. ${F.retired<F.items.length?"The rest come back once more at a longer gap.":"Anything you drop in future tests and papers lands back here."}`:"All held. Each comes back once more at a longer gap before it is ticked off for good."):`${left.length} stay${left.length===1?"s":""} open and come${left.length===1?"s":""} back within a few days. Reopen the lesson for each one below before then.`}</p>
       <div class="wbtns" style="margin-top:14px"><button class="btn primary" id="fxback">Done</button></div></div>`;
     if(left.length){body+=`<div class="lsub" style="margin-top:18px"><h3>Still open</h3></div>`;
       left.forEach(y=>{const ts=(y.x.topics||[]).map(findTopic).filter(t=>t&&t.lesson);
@@ -2188,7 +2209,7 @@ function renderSubjects(){
   <p class="muted" style="font-size:14px;margin:6px 0 12px">${esc(S.full)} · ${esc(S.papers)} · <a href="${esc(S.spec)}" target="_blank" rel="noopener">spec ↗</a><br>${school?`<b>School sets the pace.</b> Tick topics as known when school finishes them; your weekly sessions are recall on those, and each one comes back to be checked at ${REVIEW_GAPS.join(", ")} days.`:`All content done by week ${S.contentEndsWeek} (${fmt(WEEKS[S.contentEndsWeek-1].start)} ${WEEKS[S.contentEndsWeek-1].start.getFullYear()}); after that it's past papers.`}</p>
   <div class="examrow"><span class="ed-lbl">First exam</span><input type="date" id="examdate" value="${esc(ed)}"><span class="muted" style="font-size:12.5px">${ed?`${Math.max(0,Math.round((new Date(ed+"T00:00:00")-new Date())/86400000))} days`:"not published yet — leave blank"}</span></div>
   ${linkBar(curSubj,null,true)}
-  ${(()=>{const ms=subjectMistakes(curSubj);if(!ms.length)return "";return `<div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px"><span class="eyebrow">Open mistakes · ${ms.length}</span>${fixitButton(curSubj)}</div>`+ms.slice(0,12).map(x=>mistakeRow(x.key,x.i,x.m,x.code?`${x.code} ${x.label}`:x.label)).join("")+(ms.length>12?`<p class="muted" style="font-size:13px;margin:8px 0 0">+${ms.length-12} more under their topics.</p>`:"")+`<p class="muted" style="font-size:12.5px;margin:8px 0 0">Read these before a test. Tick each one once you can do it without the slip.</p></div>`;})()}
+  ${(()=>{const ms=subjectMistakes(curSubj);if(!ms.length)return "";return `<div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px"><span class="eyebrow">Open mistakes · ${ms.filter(x=>!inReview(x.m)).length}${ms.some(x=>inReview(x.m))?` · ${ms.filter(x=>inReview(x.m)).length} holding`:""}</span>${fixitButton(curSubj)}</div>`+ms.slice(0,12).map(x=>mistakeRow(x.key,x.i,x.m,x.code?`${x.code} ${x.label}`:x.label)).join("")+(ms.length>12?`<p class="muted" style="font-size:13px;margin:8px 0 0">+${ms.length-12} more under their topics.</p>`:"")+`<p class="muted" style="font-size:12.5px;margin:8px 0 0">Read these before a test. Tick each one once you can do it without the slip. A <b>holding</b> one you have already answered right in a re-test; it comes back at a longer gap to prove it stuck.</p></div>`;})()}
   ${taughtNote(curSubj)}
   ${papersCard(curSubj)}
   ${coverageCard(curSubj)}
@@ -2234,12 +2255,12 @@ function subjectReadiness(s){const S=SUBJECTS[s];
   const tested=S.topics.map(t=>lastTest(t.id)).filter(Boolean);
   const testAvg=tested.length?Math.round(tested.reduce((n,h)=>n+h.pct,0)/tested.length):null;
   const shaky=S.topics.filter(t=>{const h=lastTest(t.id);return h&&h.pct<60;}).length;
-  const open=subjectMistakes(s).length,due=fixDueList(s).length;
+  const ms=subjectMistakes(s),hold=ms.filter(x=>inReview(x.m)).length,open=ms.length-hold,due=fixDueList(s).length;
   const done=S.topics.filter(t=>T(t.id).done).length;
   const ed=state.examDates[s]||firstExam();const days=Math.max(0,Math.round((new Date(ed+"T00:00:00")-new Date())/86400000));
   const unsat=papersOf(s).filter(p=>!paperHist(p.id).length);
   const nextPaper=unsat.length?unsat[0]:papersOf(s).slice().sort((a,b)=>(lastPaper(a.id).d).localeCompare(lastPaper(b.id).d))[0];
-  return {grade,trend:sittings.slice(-6).map(h=>h.g),last,weakBand,tested:tested.length,testAvg,shaky,open,due,done,days,nextPaper};}
+  return {grade,trend:sittings.slice(-6).map(h=>h.g),last,weakBand,tested:tested.length,testAvg,shaky,open,hold,due,done,days,nextPaper};}
 function readinessCard(){
   const rows=SUBJ_IDS.map(s=>({s,r:subjectReadiness(s)})).sort((a,b)=>(a.r.grade??-1)-(b.r.grade??-1)||b.r.open-a.r.open);
   return `<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:2px">Exam readiness · weakest first</div><p class="muted" style="font-size:13px;margin:0 0 6px">The grade is the average of your latest sitting of each mock paper; the run of grades shows how it is moving. Sit a paper again after fixing what it exposed.</p>`+
@@ -2248,7 +2269,7 @@ function readinessCard(){
       const verdict=g===null?"No paper sat yet":(g>=8?"On track for 8–9":(g>=6?"Solid — the 8–9 questions decide it":(g>=4?"Foundations in; climb the bands":"Below grade 4 — back to the lessons")));
       const detail=[
         r.tested?`<b>${r.tested}</b> of ${S.topics.length} topics tested, avg <b>${r.testAvg}%</b>${r.shaky?` · <b>${r.shaky}</b> below 60%`:""}`:`${r.done} of ${S.topics.length} topics done · no topic tests yet`,
-        r.open?`<b>${r.open}</b> open mistake${r.open===1?"":"s"}${r.due?` · <b>${r.due}</b> due for re-test`:""}`:"no open mistakes",
+        r.open||r.hold?`${r.open?`<b>${r.open}</b> open mistake${r.open===1?"":"s"}`:"nothing open"}${r.hold?` · <b>${r.hold}</b> holding`:""}${r.due?` · <b>${r.due}</b> due for re-test`:""}`:"no open mistakes",
         r.weakBand&&r.last.b[r.weakBand]<100?`last paper weakest on <b>${bandLabel(r.weakBand)}</b> (${r.last.b[r.weakBand]}%)`:"",
         `<b>${r.days}</b> days to the exam`].filter(Boolean).join(" · ");
       return `<div class="ready"><span style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;white-space:nowrap"><span class="dot" style="width:9px;height:9px;border-radius:2px;flex:none;background:${S.color}"></span>${esc(S.name)}</span>
@@ -2264,7 +2285,7 @@ function renderProgress(){
     <div class="kpi"><div class="eyebrow">Topics done</div><div class="v num">${doneN}<span style="font-size:15px;color:var(--muted)"> / ${all.length}</span></div><div class="d">${knownN} known · ${dueN} due by now</div></div>
     <div class="kpi"><div class="eyebrow">Days to exams</div><div class="v num">${daysToExams()}</div><div class="d">first paper ≈ ${fmt(examDate)} ${examDate.getFullYear()}</div></div>
     <div class="kpi"><div class="eyebrow">Streak</div><div class="v num">${streak()}</div><div class="d">days in a row</div></div>
-    <div class="kpi"><div class="eyebrow">Sessions done</div><div class="v num">${sessionsDone}</div><div class="d">${fixList().length} to redo · ${Object.keys(state.reviews).length} in review · ${openMistakeCount()} mistake${openMistakeCount()===1?"":"s"} open</div></div></div>`;
+    <div class="kpi"><div class="eyebrow">Sessions done</div><div class="v num">${sessionsDone}</div><div class="d">${fixList().length} to redo · ${Object.keys(state.reviews).length} in review · ${openMistakeCount()} mistake${openMistakeCount()===1?"":"s"} open${reviewMistakeCount()?` · ${reviewMistakeCount()} holding`:""}</div></div></div>`;
   html+=readinessCard();
   // Most behind first; school-paced subjects after, since they cannot be behind.
   const order=SUBJ_IDS.slice().sort((a,b)=>{const ba=isSchool(a)?-1e9:SUBJECTS[a].topics.filter(t=>TOPIC_DUE[t.id]<now&&!T(t.id).done).length;const bb=isSchool(b)?-1e9:SUBJECTS[b].topics.filter(t=>TOPIC_DUE[t.id]<now&&!T(t.id).done).length;return bb-ba;});
@@ -2430,7 +2451,7 @@ function renderGuide(){
   <h3>Lessons</h3><p>For Maths, Further Maths, Economics, Business, Computer Science, Biology, Chemistry, Physics, English Literature and English Language, every topic carries its own lesson inside the app — no hunting for videos or notes. Open one from the session in <b>Today</b>, from the topic in <b>Subjects</b>, or from the walkthrough. Each lesson has the same shape: <b>What it is</b>, <b>How to do it</b> as numbered steps, worked examples with every line shown, <b>Try these</b> — practice questions with the answer hidden until you tap, then <b>Got it</b> or <b>Not yet</b> (Not yet goes straight into the mistakes log for that topic) — and <b>Where the marks go</b>, the errors examiners see most. Every number in the answers was checked by computer. <b>Cover the working</b> turns each worked example into a step-by-step reveal, so you attempt each line before you see it. <b>Notes</b> opens your own notebook beside the lesson — it autosaves, anything you highlight in the lesson can be added with one tap, the first line can become a card, and the notes come back on that topic's recall checks. <b>Print</b> gives you the lesson with every answer shown as a revision sheet. When you can do the questions without looking, tick the topic at the bottom and it joins the recall rotation. Lessons work offline; the maths is typeset locally.</p>
   <h3>End-of-topic tests</h3><p>Every lesson ends with <b>Take the test</b> (also under <b>Test</b> in the lesson's top bar, and on the topic row once you have taken one). It is closed book and timed: the questions appear with no answers and a clock, you write every answer on paper, then <b>Mark it</b> shows the answers and you give yourself the marks. 80% or more is <b>Secure</b> — tick the topic and it joins recall; below that, everything you dropped is already in the mistakes log, so read those, go back over that part of the lesson, and retake. Attempts are kept, so the subject page shows your last score on each topic and the lesson shows the run of attempts.</p>
   <h3>Mock papers</h3><p>Each subject page has a <b>Mock papers</b> card: original exam-style papers, written for this app rather than copied from past papers, that mix topics the way a real paper does and climb from grade 4–5 questions through 6–7 to 8–9, so the last section is where the top grades are decided. A paper runs on the clock for its real duration; you write everything on paper, then <b>Mark it</b> shows the mark scheme (points for short questions, level descriptors for essays) and you give yourself the marks. The percentage becomes a <b>grade estimate</b> from the paper's boundaries, with a breakdown by band so you can see whether the marks went at the start or at the top end. Every dropped question goes to the mistakes log under the subject. Sit a paper once the topics it covers are done, fix what it exposes, and sit it again a week or two later. Every paper question names the topics it draws on, so a dropped question is logged under those topics and the results page lists the <b>lessons to reopen</b> with the marks each one cost.</p>
-  <h3>Fix-it: re-testing mistakes</h3><p>A mistake logged by a topic test or a mock paper remembers the question. Two days later it is <b>due</b>: the subject page's mistakes card and the retrieval session on Today show <b>Re-test N dropped questions</b>, which brings those questions back closed-book, oldest first, a dozen at a time. Full marks ticks the mistake fixed; anything less keeps it open and it comes back again after another two days. That is the loop: test, drop, reopen the lesson, re-test until it holds.</p>
+  <h3>Fix-it: re-testing mistakes on widening gaps</h3><p>A mistake logged by a topic test or a mock paper remembers the question. The next day it is <b>due</b>: the subject page's mistakes card and the retrieval session on Today show <b>Re-test N dropped questions</b>, which brings those questions back closed-book, soonest due first, a dozen at a time.</p><p>Full marks does not tick it off — it moves the question on to a <b>longer gap</b>. The gaps widen: <b>1 day, then 3, then 8, then 21</b>. Hold it at all four and the mistake is ticked off for good; it has survived three weeks, which is the point at which it is actually yours. Drop marks and it comes back sooner — part marks slip back one gap, a blank starts the ladder again. A mistake part-way up the ladder shows as <b>holding</b> rather than open, so the open count is what still needs work.</p><p>Why widening gaps: answering something right the day after you got it wrong proves almost nothing, because it is still in your head from reading the answer. Each longer gap forces you to retrieve it from cold, and retrieving it from cold is what makes it stick. That is the loop: test, drop, reopen the lesson, then re-test at 1, 3, 8 and 21 days until it holds.</p>
   <h3>Exam readiness</h3><p>The top of <b>Progress</b> pulls the tests and papers together, one line per subject, weakest first: your <b>grade estimate</b> (the average of your latest sitting of each mock paper) with the run of grades from every sitting, how many topics you have tested closed-book and their average, open mistakes and how many are due for a re-test, which band the last paper was weakest on, and days to the exam. The buttons take you straight to the re-test, the next paper, or the subject.</p>
   <h3>Quote bank</h3><p>English Literature is closed book, so the quotes you can write from memory are the marks. <b>Subjects → Eng Literature → Quote bank</b> keeps every quote in one place: pick the text, type the quote, tag its themes and write the one sentence you would say about it. Every set text and all fifteen Power and Conflict poems are listed with a count, so a poem you have nothing for shows as a zero. <b>Test me</b> blanks out a third of the words and asks you to fill them in — or, switched round, gives you the theme and asks for the quote. Three right in a row makes a quote solid; one miss puts it back to the front. Quotes also come up in that text's recall checks, and <b>Print</b> gives you the lot on one sheet for the night before. Nothing is pre-filled: choosing the quote is the learning.</p>
   <h3>Already ahead?</h3><p>In <b>Subjects</b>, open a subject and hit <b>Where am I up to?</b> The course is laid out one topic at a time in specification order, with its objectives and checklist: <b>Done this</b> ticks it as known and shows the next; <b>Not yet</b> is where you are. Or use <b>Tick what you already know</b> to tick from the list, a section at a time. Anything ticked counts as done, leaves the schedule, and goes straight into recall. For subjects the app runs ahead in, a bar then offers to <b>re-pour</b> the plan so those hours go to what is left.</p>
