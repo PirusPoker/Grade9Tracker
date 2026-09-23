@@ -755,6 +755,26 @@ table{max-width:100%}
   .prow .pm{text-align:right;color:#555}
   .prow .box{width:12px;height:12px;border:1px solid #000;display:inline-block}
 }
+
+/* print: a mock paper, to sit at a desk with a pen */
+.printpaper{display:none}
+@media print{
+  body.printingpaper .lesson,body.printingpaper .printweek{display:none!important}
+  body.printingpaper .printpaper{display:block}
+  .printpaper .pphead{border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:10px}
+  .printpaper h1{font-size:16pt;margin:0 0 2px}
+  .printpaper .ppmeta{font-size:10pt;color:#333}
+  .printpaper .ppintro{font-size:10pt;margin:8px 0 0}
+  .printpaper .ppband{font-size:10pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:14px 0 4px;border-bottom:1px solid #000;padding-bottom:2px;break-after:avoid}
+  .printpaper .ppq{display:grid;grid-template-columns:2.2em 1fr;gap:6px;padding:7px 0;break-inside:avoid;font-size:11pt}
+  .printpaper .ppn{font-weight:700}
+  .printpaper .ppb :is(p,ul,ol,table){margin:3px 0}
+  .printpaper .ppb table{border-collapse:collapse;font-size:10pt}
+  .printpaper .ppb :is(td,th){border:1px solid #666;padding:2px 6px}
+  .printpaper .ppa{font-size:10pt;color:#222;border-left:2px solid #999;padding-left:8px;margin-top:4px}
+  .printpaper .ppfoot{margin-top:14px;padding-top:6px;border-top:1px solid #000;font-size:9.5pt;color:#333}
+  .printpaper.scheme .ppnoscheme,.printpaper:not(.scheme) .ppa{display:none}
+}
 </style>
 </head>
 <body>
@@ -1841,6 +1861,26 @@ function papersCard(subj){const ps=papersOf(subj);if(!ps.length)return "";const 
   return `<div class="card" style="margin-bottom:14px;--c:${S.color}"><div class="eyebrow" style="margin-bottom:4px">Mock papers</div><p class="muted" style="font-size:13.5px;margin:0 0 4px">Original exam-style papers that mix topics the way a real paper does, starting at grade 4–5 questions and climbing to grade 8–9. Closed book, on the clock, marked by you against the scheme, with a grade estimate at the end.</p>`+
     ps.map(p=>{const h=lastPaper(p.id);const n=paperHist(p.id).length;
       return `<div class="mprow"><div><b>${esc(p.title)}</b><span class="muted"> · ${p.time} min · ${p.marks} marks · ${p.questions} questions</span>${h?`<div class="muted" style="font-size:12.5px;margin-top:2px">Last: <b>${h.s}/${h.t}</b> (${h.pct}%) · <span class="pgradechip ${h.g>=7?"hi":(h.g<4?"lo":"")}">Grade ${gradeName(h.g)}</span> · ${fmt(new Date(h.d+"T00:00:00"))}${n>1?` · ${n} sittings`:""}</div>`:""}</div><button class="btn small ${h?"":"primary"}" data-paper="${esc(p.id)}">${h?"Sit it again":"Sit the paper"}</button></div>`;}).join("")+`</div>`;}
+/* The paper as a sheet of paper: questions only, or the mark scheme. Both
+   are in the DOM and print CSS picks one, so nothing re-renders mid-print. */
+function printPaper(P){
+  const counts={};P.qs.forEach(q=>{const c=counts[q.band]=counts[q.band]||{n:0,m:0};c.n++;c.m+=q.max;});
+  let out=`<div class="printpaper"><div class="pphead"><h1>${esc(P.info.title)}</h1><div class="ppmeta">${esc(SUBJECTS[P.info.subject].name)} · ${P.info.time} minutes · ${P.total} marks · ${P.qs.length} questions</div></div>
+    <p class="ppintro ppnoscheme">${esc(P.info.intro)}</p>
+    <p class="ppintro ppnoscheme"><b>Answer every question on paper, showing your working.</b> The mark for each question is given in brackets. Mark yourself afterwards in the app, or print the mark scheme separately.</p>`;
+  P.qs.forEach((q,i)=>{
+    if(i===0||P.qs[i-1].band!==q.band)out+=`<div class="ppband">${bandLabel(q.band)} · ${counts[q.band].n} question${counts[q.band].n===1?"":"s"} · ${counts[q.band].m} marks</div>`;
+    out+=`<div class="ppq"><span class="ppn">${i+1}</span><div class="ppb">${mdBlock(q.q)}<div class="ppa"><b>Mark scheme.</b> ${mdBlock(q.a)}</div></div></div>`;});
+  return out+`<div class="ppfoot">Grade 9 Tracker · original practice paper, not a past paper · grade boundaries ${P.info.boundaries.slice().reverse().map(([g,m])=>`${g}: ${m}%`).join(" · ")}</div></div>`;}
+/* Printing the questions must never print the answers, so the mode is set
+   before the dialog opens and cleared once it closes. */
+function doPrintPaper(mode){
+  const el=document.querySelector(".printpaper");if(!el)return;
+  el.classList.toggle("scheme",mode==="scheme");
+  document.body.classList.add("printingpaper");
+  const done=()=>{document.body.classList.remove("printingpaper");window.removeEventListener("afterprint",done);};
+  window.addEventListener("afterprint",done);
+  window.print();}
 function renderPaper(el){const P=paper;const S=SUBJECTS[P.info.subject];const hist=paperHist(P.id);
   stopTestTimer();
   const left=()=>P.limit-Math.round((Date.now()-P.started)/1000);
@@ -1852,7 +1892,7 @@ function renderPaper(el){const P=paper;const S=SUBJECTS[P.info.subject];const hi
       <div class="eyebrow" style="margin-top:10px">How it climbs</div><div class="pbands">${Object.keys(counts).map(b=>`<div><b>${counts[b].n} Q · ${counts[b].m} marks</b>${bandLabel(b)}</div>`).join("")}</div>
       <div class="eyebrow" style="margin-top:10px">Grade boundaries</div><div class="pbound">${P.info.boundaries.slice().reverse().map(([g,m])=>`<span>Grade ${g} · ${m}%</span>`).join("")}</div>
       ${hist.length?`<div class="eyebrow" style="margin-top:10px">Sittings</div><div class="tthist">${hist.map(h=>`<span class="${h.g>=7?"secure":(h.g<4?"notyet":"")}" title="${esc(h.d)}">${h.s}/${h.t} · G${gradeName(h.g)}</span>`).join("")}</div>`:""}
-      <div class="wbtns" style="margin-top:14px"><button class="btn primary" id="pstart">Start the clock</button><button class="btn ghost" id="pback">Back</button></div></div>`;
+      <div class="wbtns" style="margin-top:14px"><button class="btn primary" id="pstart">Start the clock</button><button class="btn" id="pprint">Print the paper</button><button class="btn ghost" id="pback">Back</button></div></div>`;
   }else if(P.phase==="answer"){
     body=`<div class="ttrules"><b>Closed book.</b> ${P.qs.length} questions, ${P.total} marks, ${fmtSecs(P.limit)} on the clock. Answer on paper, then press <b>Mark it</b>.</div>`;
     P.qs.forEach((q,i)=>{body+=bandHead(q.band,i)+`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div></div>`;});
@@ -1874,20 +1914,22 @@ function renderPaper(el){const P=paper;const S=SUBJECTS[P.info.subject];const hi
       <div class="pbands">${Object.keys(P.bands).map(b=>{const x=P.bands[b];return `<div><b>${x.s}/${x.t}</b>${bandLabel(b)} · ${Math.round(100*x.s/x.t)}%</div>`;}).join("")}</div>
       ${reopen.length?`<div class="eyebrow" style="margin-top:12px">Lessons to reopen, with the marks lost</div><div class="links" style="margin-top:6px">${reopen.map(x=>`<button class="btn small" data-lesson="${esc(x.t.id)}"><span class="wcode">${esc(x.t[0])}</span> ${esc(x.t[1])} <b>-${x.n}</b></button>`).join("")}</div>`:""}
       ${hist.length>1?`<div class="eyebrow" style="margin-top:10px">Sittings</div><div class="tthist">${hist.map(h=>`<span class="${h.g>=7?"secure":(h.g<4?"notyet":"")}" title="${esc(h.d)}">${h.s}/${h.t} · G${gradeName(h.g)}</span>`).join("")}</div>`:""}
-      <div class="wbtns" style="margin-top:14px"><button class="btn" id="pretake">Sit it again</button><button class="btn ghost" id="pback">Back to ${esc(S.name)}</button></div></div>`;
+      <div class="wbtns" style="margin-top:14px"><button class="btn" id="pretake">Sit it again</button><button class="btn" id="pprintms">Print the mark scheme</button><button class="btn ghost" id="pback">Back to ${esc(S.name)}</button></div></div>`;
     if(dropped.length){body+=`<div class="lsub" style="margin-top:18px"><h3>Where the marks went</h3></div>`;
       dropped.forEach(x=>{body+=`<div class="ttq ${x.got?"part":"zero"}"><div class="lqhead"><span class="lqn">${x.got}/${x.q.max}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">Q${x.i+1} · ${bandLabel(x.q.band)}</div>${mdBlock(x.q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Mark scheme</div>${mdBlock(x.q.a)}</div>${x.q.topics.length?`<div class="links" style="margin-top:8px">${x.q.topics.map(id=>{const t=findTopic(id);return `<button class="lchip" data-lesson="${esc(id)}">Lesson · ${esc(t[0])} ${esc(t[1])}</button>`;}).join("")}</div>`:""}</div>`;});}
     else body+=`<div class="ldone"><b>Full marks.</b> Nothing dropped.</div>`;
   }
   el.innerHTML=`<div class="lesson ttest" style="--c:${S.color}"><button class="back" id="plback">‹ ${esc(S.name)}</button>
     <div class="tthead"><div><span class="pill"><span class="dot" style="background:${S.color}"></span>Mock paper</span> <span class="wcode">${P.info.marks} marks</span></div>${P.phase==="answer"?`<span class="ttimer" id="ttimer">${fmtSecs(left())}</span>`:(P.phase==="mark"?`<span class="ttimer">marking</span>`:(P.phase==="done"?`<span class="ttimer">${fmtSecs(P.secs)}</span>`:`<span class="ttimer">${P.info.time}:00</span>`))}</div>
-    <h1 style="font-size:24px;margin:4px 0 12px">${esc(P.info.title)}</h1>${body}</div>`;
+    <h1 style="font-size:24px;margin:4px 0 12px">${esc(P.info.title)}</h1>${body}</div>`+printPaper(P);
   const leave=()=>{stopTestTimer();paper=null;render();};
   const quit=()=>{if(confirm("Abandon this paper? Nothing is recorded."))leave();};
   el.querySelector("#plback").addEventListener("click",()=>{if(P.phase==="answer"||P.phase==="mark")quit();else leave();});
   el.querySelector("#pback")?.addEventListener("click",leave);
   el.querySelector("#pquit")?.addEventListener("click",quit);
   el.querySelector("#pstart")?.addEventListener("click",startPaper);
+  el.querySelector("#pprint")?.addEventListener("click",()=>doPrintPaper("questions"));
+  el.querySelector("#pprintms")?.addEventListener("click",()=>doPrintPaper("scheme"));
   el.querySelector("#pretake")?.addEventListener("click",()=>{P.phase="intro";renderPaper(el);window.scrollTo({top:0});});
   el.querySelector("#pmark")?.addEventListener("click",()=>{P.phase="mark";P.finished=Date.now();stopTestTimer();renderPaper(el);window.scrollTo({top:0});});
   el.querySelector("#pfinish")?.addEventListener("click",()=>{finishPaper();renderPaper(el);window.scrollTo({top:0});});
@@ -2468,7 +2510,7 @@ function renderGuide(){
   <h3>Your cards</h3><p>Under any topic you can write cards — a short quote on the front, the technique and its effect on the back; a formula; a definition. They come up in that topic's recall checks, front first. Nothing is pre-filled on purpose: writing the card is most of the learning.</p>
   <h3>Lessons</h3><p>For Maths, Further Maths, Economics, Business, Computer Science, Biology, Chemistry, Physics, English Literature and English Language, every topic carries its own lesson inside the app — no hunting for videos or notes. Open one from the session in <b>Today</b>, from the topic in <b>Subjects</b>, or from the walkthrough. Each lesson has the same shape: <b>What it is</b>, <b>How to do it</b> as numbered steps, worked examples with every line shown, <b>Try these</b> — practice questions with the answer hidden until you tap, then <b>Got it</b> or <b>Not yet</b> (Not yet goes straight into the mistakes log for that topic) — and <b>Where the marks go</b>, the errors examiners see most. Every number in the answers was checked by computer. <b>Cover the working</b> turns each worked example into a step-by-step reveal, so you attempt each line before you see it. <b>Notes</b> opens your own notebook beside the lesson — it autosaves, anything you highlight in the lesson can be added with one tap, the first line can become a card, and the notes come back on that topic's recall checks. <b>Print</b> gives you the lesson with every answer shown as a revision sheet. When you can do the questions without looking, tick the topic at the bottom and it joins the recall rotation. Lessons work offline; the maths is typeset locally.</p>
   <h3>End-of-topic tests</h3><p>Every lesson ends with <b>Take the test</b> (also under <b>Test</b> in the lesson's top bar, and on the topic row once you have taken one). It is closed book and timed: the questions appear with no answers and a clock, you write every answer on paper, then <b>Mark it</b> shows the answers and you give yourself the marks. 80% or more is <b>Secure</b> — tick the topic and it joins recall; below that, everything you dropped is already in the mistakes log, so read those, go back over that part of the lesson, and retake. Attempts are kept, so the subject page shows your last score on each topic and the lesson shows the run of attempts.</p>
-  <h3>Mock papers</h3><p>Each subject page has a <b>Mock papers</b> card: original exam-style papers, written for this app rather than copied from past papers, that mix topics the way a real paper does and climb from grade 4–5 questions through 6–7 to 8–9, so the last section is where the top grades are decided. A paper runs on the clock for its real duration; you write everything on paper, then <b>Mark it</b> shows the mark scheme (points for short questions, level descriptors for essays) and you give yourself the marks. The percentage becomes a <b>grade estimate</b> from the paper's boundaries, with a breakdown by band so you can see whether the marks went at the start or at the top end. Every dropped question goes to the mistakes log under the subject. Sit a paper once the topics it covers are done, fix what it exposes, and sit it again a week or two later. Every paper question names the topics it draws on, so a dropped question is logged under those topics and the results page lists the <b>lessons to reopen</b> with the marks each one cost.</p>
+  <h3>Mock papers</h3><p>Each subject page has a <b>Mock papers</b> card: original exam-style papers, written for this app rather than copied from past papers, that mix topics the way a real paper does and climb from grade 4–5 questions through 6–7 to 8–9, so the last section is where the top grades are decided. A paper runs on the clock for its real duration; you write everything on paper, then <b>Mark it</b> shows the mark scheme (points for short questions, level descriptors for essays) and you give yourself the marks. The percentage becomes a <b>grade estimate</b> from the paper's boundaries, with a breakdown by band so you can see whether the marks went at the start or at the top end. Every dropped question goes to the mistakes log under the subject. <b>Print the paper</b> on the screen before you start it, and you can sit it at a desk with a pen the way you will in the hall - the printout has the questions and the marks and nothing else, and <b>Print the mark scheme</b> on the results screen gives you the answers to mark from. Sit a paper once the topics it covers are done, fix what it exposes, and sit it again a week or two later. Every paper question names the topics it draws on, so a dropped question is logged under those topics and the results page lists the <b>lessons to reopen</b> with the marks each one cost.</p>
   <h3>Fix-it: re-testing mistakes on widening gaps</h3><p>A mistake logged by a topic test or a mock paper remembers the question. The next day it is <b>due</b>: the subject page's mistakes card and the retrieval session on Today show <b>Re-test N dropped questions</b>, which brings those questions back closed-book, soonest due first, a dozen at a time.</p><p>Full marks does not tick it off — it moves the question on to a <b>longer gap</b>. The gaps widen: <b>1 day, then 3, then 8, then 21</b>. Hold it at all four and the mistake is ticked off for good; it has survived three weeks, which is the point at which it is actually yours. Drop marks and it comes back sooner — part marks slip back one gap, a blank starts the ladder again. A mistake part-way up the ladder shows as <b>holding</b> rather than open, so the open count is what still needs work.</p><p>Why widening gaps: answering something right the day after you got it wrong proves almost nothing, because it is still in your head from reading the answer. Each longer gap forces you to retrieve it from cold, and retrieving it from cold is what makes it stick. That is the loop: test, drop, reopen the lesson, then re-test at 1, 3, 8 and 21 days until it holds.</p>
   <h3>Exam readiness</h3><p>The top of <b>Progress</b> pulls the tests and papers together, one line per subject, weakest first: your <b>grade estimate</b> (the average of your latest sitting of each mock paper) with the run of grades from every sitting, how many topics you have tested closed-book and their average, open mistakes and how many are due for a re-test, which band the last paper was weakest on, and days to the exam. The buttons take you straight to the re-test, the next paper, or the subject.</p>
   <h3>Quote bank</h3><p>English Literature is closed book, so the quotes you can write from memory are the marks. <b>Subjects → Eng Literature → Quote bank</b> keeps every quote in one place: pick the text, type the quote, tag its themes and write the one sentence you would say about it. Every set text and all fifteen Power and Conflict poems are listed with a count, so a poem you have nothing for shows as a zero. <b>Test me</b> blanks out a third of the words and asks you to fill them in — or, switched round, gives you the theme and asks for the quote. Three right in a row makes a quote solid; one miss puts it back to the front. Quotes also come up in that text's recall checks, and <b>Print</b> gives you the lot on one sheet for the night before. Nothing is pre-filled: choosing the quote is the learning.</p>
