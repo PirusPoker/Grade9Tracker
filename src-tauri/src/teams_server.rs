@@ -5,7 +5,6 @@
 //! nothing is reachable from the network, and store what arrives to teams.json
 //! for the "Your day" panel to show. Nothing here touches the internet.
 
-use std::io::Read;
 use std::path::PathBuf;
 use tiny_http::{Header, Method, Response, Server};
 
