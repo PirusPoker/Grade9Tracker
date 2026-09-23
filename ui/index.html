@@ -772,6 +772,12 @@ table{max-width:100%}
   .printpaper .ppb table{border-collapse:collapse;font-size:10pt}
   .printpaper .ppb :is(td,th){border:1px solid #666;padding:2px 6px}
   .printpaper .ppa{font-size:10pt;color:#222;border-left:2px solid #999;padding-left:8px;margin-top:4px}
+  .printpaper .pplines{margin:5px 0 9px}
+  .printpaper .ppline{border-bottom:1px solid #bbb;height:8.5mm}
+  .printpaper .ppmore{font-size:9pt;color:#555;font-style:italic;margin-top:3px}
+  .printpaper .pptot{text-align:right;font-size:9.5pt;color:#333;border-top:1px solid #ccc;padding-top:2px;margin-top:2px}
+  .printpaper .ppq.tall{break-inside:auto}
+  .printpaper.scheme .pplines,.printpaper.scheme .pptot{display:none}
   .printpaper .ppfoot{margin-top:14px;padding-top:6px;border-top:1px solid #000;font-size:9.5pt;color:#333}
   .printpaper.scheme .ppnoscheme,.printpaper:not(.scheme) .ppa{display:none}
 }
@@ -1863,14 +1869,35 @@ function papersCard(subj){const ps=papersOf(subj);if(!ps.length)return "";const 
       return `<div class="mprow"><div><b>${esc(p.title)}</b><span class="muted"> · ${p.time} min · ${p.marks} marks · ${p.questions} questions</span>${h?`<div class="muted" style="font-size:12.5px;margin-top:2px">Last: <b>${h.s}/${h.t}</b> (${h.pct}%) · <span class="pgradechip ${h.g>=7?"hi":(h.g<4?"lo":"")}">Grade ${gradeName(h.g)}</span> · ${fmt(new Date(h.d+"T00:00:00"))}${n>1?` · ${n} sittings`:""}</div>`:""}</div><button class="btn small ${h?"":"primary"}" data-paper="${esc(p.id)}">${h?"Sit it again":"Sit the paper"}</button></div>`;}).join("")+`</div>`;}
 /* The paper as a sheet of paper: questions only, or the mark scheme. Both
    are in the DOM and print CSS picks one, so nothing re-renders mid-print. */
+/* Ruled space to write in, about a line and a half per mark, which is what
+   a real paper gives you. Each part gets its own space where the question
+   marks its parts, so the sheet matches how the answer is laid out. */
+function answerSpace(marks){
+  const n=Math.max(2,Math.min(Math.round(marks*1.7),34));
+  return `<div class="pplines">${Array.from({length:n},()=>`<div class="ppline"></div>`).join("")}${marks>=8?`<div class="ppmore">Continue on your own paper if you need more room.</div>`:""}</div>`;}
+/* A question as it prints: each paragraph, and after any paragraph that ends
+   in its own mark total, the space to answer it. The bare "(6)" line that
+   closes a multi-part question is the total, not a part, so it becomes a
+   footer instead of earning space of its own. */
+function printQuestionBody(q){
+  const isTotal=g=>/^\(\d{1,2}\)$/.test(plainText(g).trim());
+  const groups=paragraphs(q.q).filter(g=>!isTotal(g));
+  let out="",parts=0,lines=0;
+  groups.forEach(g=>{out+=mdBlock(g);
+    const m=plainText(g).match(/\((\d{1,2})\)\s*$/);
+    if(m){const n=Math.max(1,+m[1]);out+=answerSpace(n);parts++;lines+=Math.min(Math.round(n*1.7),34);}});
+  if(!parts){out+=answerSpace(q.max);lines+=Math.min(Math.round(q.max*1.7),34);}
+  if(parts>1)out+=`<div class="pptot">Total for this question: ${q.max} marks</div>`;
+  return {html:out,tall:lines>12};}
 function printPaper(P){
   const counts={};P.qs.forEach(q=>{const c=counts[q.band]=counts[q.band]||{n:0,m:0};c.n++;c.m+=q.max;});
   let out=`<div class="printpaper"><div class="pphead"><h1>${esc(P.info.title)}</h1><div class="ppmeta">${esc(SUBJECTS[P.info.subject].name)} · ${P.info.time} minutes · ${P.total} marks · ${P.qs.length} questions</div></div>
     <p class="ppintro ppnoscheme">${esc(P.info.intro)}</p>
-    <p class="ppintro ppnoscheme"><b>Answer every question on paper, showing your working.</b> The mark for each question is given in brackets. Mark yourself afterwards in the app, or print the mark scheme separately.</p>`;
+    <p class="ppintro ppnoscheme"><b>Answer in the space provided, showing your working.</b> The mark for each part is given in brackets, and the space is sized to match it. Mark yourself afterwards in the app, or print the mark scheme separately.</p>`;
   P.qs.forEach((q,i)=>{
     if(i===0||P.qs[i-1].band!==q.band)out+=`<div class="ppband">${bandLabel(q.band)} · ${counts[q.band].n} question${counts[q.band].n===1?"":"s"} · ${counts[q.band].m} marks</div>`;
-    out+=`<div class="ppq"><span class="ppn">${i+1}</span><div class="ppb">${mdBlock(q.q)}<div class="ppa"><b>Mark scheme.</b> ${mdBlock(q.a)}</div></div></div>`;});
+    const pq=printQuestionBody(q);
+    out+=`<div class="ppq${pq.tall?" tall":""}"><span class="ppn">${i+1}</span><div class="ppb">${pq.html}<div class="ppa"><b>Mark scheme.</b> ${mdBlock(q.a)}</div></div></div>`;});
   return out+`<div class="ppfoot">Grade 9 Tracker · original practice paper, not a past paper · grade boundaries ${P.info.boundaries.slice().reverse().map(([g,m])=>`${g}: ${m}%`).join(" · ")}</div></div>`;}
 /* Printing the questions must never print the answers, so the mode is set
    before the dialog opens and cleared once it closes. */
