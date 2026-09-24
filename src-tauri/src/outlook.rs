@@ -90,6 +90,15 @@ pub struct Dump {
 /// The UI splits an error at its first ". " into a headline and a "how to fix
 /// it" block, so both of these keep that shape.
 const NOT_RUNNING: &str = "Classic Outlook isn't open. Open Outlook — the classic desktop app, not the new one or the web version — and let it finish signing in, then press Refresh. The planner reads your day straight from the running app, so nothing leaves your computer and it never has to start Outlook itself.";
+/// When the app itself is running as administrator, Outlook is open but hidden
+/// from us (an elevated process can't see a normal one's COM objects), so "isn't
+/// open" would be wrong. Say what's actually going on.
+const ELEVATED: &str = "The app is running as administrator, which hides Outlook from it. Use Restart normally on the Today page, then try again.";
+
+fn not_running(normal: &str) -> String {
+    if crate::elevation::is_elevated() { ELEVATED.to_string() } else { normal.to_string() }
+}
+
 const NO_ANSWER: &str = "Outlook didn't respond in time — it's usually showing a dialog box (a prompt, or a message it's waiting on). Bring Outlook to the front, clear whatever box is open, then press Refresh.";
 
 /// Outlook answers COM calls only while it has no dialog box open; a security
@@ -142,7 +151,7 @@ pub fn fetch() -> Result<Dump, String> {
                             let r = com::read(); // every COM object is released inside
                             unsafe { CoUninitialize() };
                             r.map_err(|f| match f {
-                                com::Failure::NotRunning => NOT_RUNNING.to_string(),
+                                com::Failure::NotRunning => not_running(NOT_RUNNING),
                                 com::Failure::Other(why) => format!("Outlook did not answer: {why}"),
                             })
                         };
@@ -208,6 +217,13 @@ pub fn open_email(entry_id: String) -> Result<(), String> {
         if OPENING.swap(true, Ordering::SeqCst) {
             return Err("Outlook is busy — clear any box that's open in Outlook, then try again.".into());
         }
+        // Windows won't let a background process steal focus, so Outlook's own
+        // Activate usually just flashes its taskbar button. We are the foreground
+        // process at the moment of the click, so we may hand that right on.
+        unsafe {
+            use windows::Win32::UI::WindowsAndMessaging::{AllowSetForegroundWindow, ASFW_ANY};
+            let _ = AllowSetForegroundWindow(ASFW_ANY);
+        }
         let (tx, rx) = mpsc::channel();
         let spawned = std::thread::Builder::new().name("outlook-open".into()).spawn(move || {
             let _clear = Clear;
@@ -227,7 +243,7 @@ pub fn open_email(entry_id: String) -> Result<(), String> {
         }
         match rx.recv_timeout(Duration::from_secs(15)) {
             Ok(Ok(())) => Ok(()),
-            Ok(Err(com::Failure::NotRunning)) => Err("Classic Outlook isn't open. Open it, let it finish signing in, then try again.".into()),
+            Ok(Err(com::Failure::NotRunning)) => Err(not_running("Classic Outlook isn't open. Open it, let it finish signing in, then try again.")),
             Ok(Err(com::Failure::Other(why))) => Err(format!("Outlook couldn't open that email: {why}")),
             Err(_) => Err(NO_ANSWER.into()),
         }

@@ -30,7 +30,7 @@ tiny_http = "0.12"
 windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_Security", "Win32_System_Threading"] }
 # Reading Outlook over COM (outlook/com.rs). 0.61 is already in the tree via
 # tauri, so this only widens its features rather than adding a crate.
-windows = { version = "0.61", features = ["Win32_Foundation", "Win32_System_Com", "Win32_System_Ole", "Win32_System_Variant", "Win32_Globalization"] }
+windows = { version = "0.61", features = ["Win32_Foundation", "Win32_System_Com", "Win32_System_Ole", "Win32_System_Variant", "Win32_Globalization", "Win32_UI_WindowsAndMessaging"] }
 
 [profile.release]
 codegen-units = 1
