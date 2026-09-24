@@ -31,7 +31,8 @@
       el.textContent = "Grade 9 Tracker not running — open the app, then reload Teams";
     } else {
       el.style.background = "#1a7f37";
-      el.textContent = "Grade 9 Tracker · synced " + n + " assignment" + (n === 1 ? "" : "s");
+      el.textContent = n ? "Grade 9 Tracker · synced " + n + " upcoming assignment" + (n === 1 ? "" : "s")
+                         : "Grade 9 Tracker · no upcoming assignments";
     }
     el.style.opacity = "1";
     clearTimeout(el.__t);
