@@ -1098,6 +1098,15 @@ function mapTeams(items){
   }).sort((a,b)=>(a.due||"9999-99-99").localeCompare(b.due||"9999-99-99"));   // soonest first
 }
 async function loadTeams(){ try{const t=await invoke("teams_assignments");TEAMS_ASG=mapTeams(t&&t.items);}catch(e){TEAMS_ASG=[];} }
+// The sync lands while you're in Chrome, so re-read it when you come back to the
+// app — otherwise Your day keeps showing the list from when the app started.
+async function teamsOnReturn(){
+  const before=JSON.stringify(TEAMS_ASG);
+  await loadTeams();
+  if(view==="today"&&JSON.stringify(TEAMS_ASG)!==before)render();
+}
+window.addEventListener("focus",teamsOnReturn);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)teamsOnReturn();});
 async function loadDay(refresh){
   loadTeams().then(()=>{if(view==="today")render();});   // Teams sync is independent of Outlook
   if(DAY_BUSY||settings.outlook===false)return;
