@@ -185,6 +185,7 @@ enum Kind {
     Appt,
     Mail,
     Task,
+    Inspector,
 }
 
 #[derive(Default)]
@@ -517,6 +518,23 @@ pub fn read() -> Result<Dump, Failure> {
     let mails = inbox(&mut c, &ns, now).map_err(com_err)?;
     let tasks = tasks(&mut c, &ns).unwrap_or_default();
     Ok(Dump { events, mails, tasks })
+}
+
+/// Open one email in Outlook's own window, found by its EntryID. Attach-only
+/// like `read`: with no Outlook open this says so rather than starting one.
+/// Every COM object is released before this returns.
+pub fn open(entry_id: &str) -> Result<(), Failure> {
+    let mut c = Com::default();
+    let ol = attach()?;
+    let ns = c.object(&ol, Kind::App, "GetNamespace", vec![arg_str("MAPI")]).map_err(com_err)?;
+    let item = c.object(&ns, Kind::Namespace, "GetItemFromID", vec![arg_str(entry_id)]).map_err(com_err)?;
+    c.call(&item, Kind::Mail, "Display", Vec::new()).map_err(com_err)?;
+    // Display sometimes leaves the window behind ours; bringing it forward is
+    // a nicety, so a failure here doesn't fail the open.
+    if let Ok(insp) = c.object(&item, Kind::Mail, "GetInspector", Vec::new()) {
+        let _ = c.call(&insp, Kind::Inspector, "Activate", Vec::new());
+    }
+    Ok(())
 }
 
 #[cfg(test)]

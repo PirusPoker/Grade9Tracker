@@ -247,6 +247,15 @@ a{color:var(--accent);text-underline-offset:2px}
 .asg .alinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .asg li.done{opacity:.5}
 .asg li.done .title{text-decoration:line-through}
+/* The email an item came from, opened inline */
+.mailbtn{margin-left:6px;padding:1px 8px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--muted);font-size:11.5px;font-weight:600;cursor:pointer;vertical-align:1px}
+.mailbtn:hover,.mailbtn[aria-expanded="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+.mailview{margin-top:8px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--sunken);overflow:hidden}
+.mailview .mh{display:grid;gap:2px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.mailview .mh b{font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+.mailview .mh span{font-size:12px;color:var(--muted)}
+.mailview .mb{padding:10px 12px;font-size:13px;line-height:1.5;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:anywhere;max-height:320px;overflow:auto}
+.mailview .mf{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 12px;border-top:1px solid var(--line);font-size:12px}
 
 /* editor */
 input[type=text],input[type=search],input[type=date],input[type=url],input[type=number],select,textarea{font:inherit;font-size:14px;padding:9px 14px;
@@ -1157,14 +1166,25 @@ function whenLabel(dateISO){
   if(n<7)return {cls:"",text:DAYN[(d.getDay()+6)%7]};
   return {cls:"",text:fmt(d)};}
 const srcName={flag:"flagged",email:"email",calendar:"calendar",task:"task"};
+/* The email behind an item. "✉ email" opens it inline from the copy kept with
+   the day (so it works even when Outlook is closed), with a button to open the
+   real message in Outlook. Items point at it by id: mail:<EntryID> / flag:<EntryID>. */
+const OPEN_MAILS=new Set();
+const mailEntry=id=>{const m=/^(?:mail|flag):(.+)$/.exec(id||"");return m?m[1]:null;};
+function mailBtn(id){const e=mailEntry(id);if(!e||!DAY||!DAY.emails||!DAY.emails[e])return "";const on=OPEN_MAILS.has(id);
+  return `<button type="button" class="mailbtn" data-mail="${esc(id)}" aria-expanded="${on}" title="${on?"Hide the email":"Show the email this came from"}">✉ email</button>`;}
+function mailView(id){if(!OPEN_MAILS.has(id))return "";const eid=mailEntry(id),e=DAY&&DAY.emails&&DAY.emails[eid];if(!e)return "";
+  const t=e.received?new Date(e.received):null,when=t&&!isNaN(t)?t.toLocaleString("en-GB",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"";
+  const body=(e.body||"").trim();
+  return `<div class="mailview"><div class="mh"><b>${esc(e.subject||"(no subject)")}</b><span>${esc(e.from||"")}${when?` · ${esc(when)}`:""}</span></div><div class="mb">${body?esc(body):"<i>(no text)</i>"}</div><div class="mf"><button type="button" class="btn small" data-openmail="${esc(eid)}">Open in Outlook ↗</button>${body.length>=2400?`<span class="muted">This is the start of the email — open it in Outlook for the rest.</span>`:""}</div></div>`;}
 function asgSection(allAsg){
   if(!allAsg||!allAsg.length)return "";
   const done=id=>!!state.inbox[id];
-  const asg=allAsg.filter(x=>showDoneInbox||!done(x.id));
-  let h=`<div class="sec"><span class="eyebrow">Assignments</span>`;
+  const asg=allAsg.filter(x=>showDoneInbox||!done(x.id)),nDone=allAsg.filter(x=>done(x.id)).length;
+  let h=`<div class="sec"><div style="display:flex;align-items:center;gap:8px"><span class="eyebrow">Assignments</span>${nDone?`<button class="btn small showdone" style="margin-left:auto">${showDoneInbox?"Hide done":`Show ${nDone} done`}</button>`:""}</div>`;
   if(!asg.length)h+=`<p class="muted" style="font-size:14px;margin:6px 0 0">All done ✓</p>`;
   else h+=`<ul class="asg">`+asg.map(a=>{const w=a.due?whenLabel(a.due):null;
-    return `<li class="${done(a.id)?"done":""}"><input type="checkbox" data-inbox="${esc(a.id)}" ${done(a.id)?"checked":""} aria-label="Done"><div><div class="ah">${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(a.title)}</span>${a.course?`<span class="who">· ${esc(a.course)}</span>`:""}${a.teams?`<span class="who">· Teams</span>`:""}${a.unread?`<span class="who">· unread</span>`:""}</div>${a.description?`<div class="snip">${esc(a.description)}</div>`:""}${a.links&&a.links.length?`<div class="alinks">`+a.links.map(l=>`<a class="btn small" href="${esc(l.url)}">${esc(l.label)} ↗</a>`).join("")+`</div>`:""}</div></li>`;}).join("")+`</ul>`;
+    return `<li class="${done(a.id)?"done":""}"><input type="checkbox" data-inbox="${esc(a.id)}" ${done(a.id)?"checked":""} aria-label="Done"><div><div class="ah">${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(a.title)}</span>${a.course?`<span class="who">· ${esc(a.course)}</span>`:""}${a.teams?`<span class="who">· Teams</span>`:""}${a.unread?`<span class="who">· unread</span>`:""}${mailBtn(a.id)}</div>${a.description?`<div class="snip">${esc(a.description)}</div>`:""}${a.links&&a.links.length?`<div class="alinks">`+a.links.map(l=>`<a class="btn small" href="${esc(l.url)}">${esc(l.label)} ↗</a>`).join("")+`</div>`:""}${mailView(a.id)}</div></li>`;}).join("")+`</ul>`;
   return h+`</div>`;
 }
 function dayPanel(d,isToday){
@@ -1197,10 +1217,10 @@ function dayPanel(d,isToday){
   if(plan){
     const pick=a=>(a||[]).filter(x=>showDoneInbox||!done(x.id));
     const orgRow=x=>{const w=x.when?whenLabel(x.when):null;
-      return `<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div>${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(x.line)}</span></div></li>`;};
+      return `<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div>${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(x.line)}</span>${mailBtn(x.id)}${mailView(x.id)}</div></li>`;};
     const nowI=pick(DAY.organised.now),latI=pick(DAY.organised.later);
     const orgAll=(DAY.organised.now||[]).concat(DAY.organised.later||[]),orgDone=orgAll.filter(x=>done(x.id)).length;
-    html+=`<div class="sec"><div style="display:flex;align-items:center;gap:8px"><span class="eyebrow">For today</span>${ORG_BUSY?`<span class="muted" style="font-size:11.5px">✨ tidying wording…</span>`:""}${orgDone?`<button class="btn small" id="showdone" style="margin-left:auto">${showDoneInbox?"Hide done":`Show ${orgDone} done`}</button>`:""}</div>`;
+    html+=`<div class="sec"><div style="display:flex;align-items:center;gap:8px"><span class="eyebrow">For today</span>${ORG_BUSY?`<span class="muted" style="font-size:11.5px">✨ tidying wording…</span>`:""}${orgDone?`<button class="btn small showdone" style="margin-left:auto">${showDoneInbox?"Hide done":`Show ${orgDone} done`}</button>`:""}</div>`;
     if(!nowI.length)html+=`<p class="muted" style="font-size:14px;margin:6px 0 0">Nothing needs you today ✓</p>`;
     else html+=`<ul class="dl org">`+nowI.map(orgRow).join("")+`</ul>`;
     html+=`</div>`;
@@ -1210,21 +1230,25 @@ function dayPanel(d,isToday){
   const limit=iso(addDays(new Date(),SHOW_AHEAD_DAYS));
   const dl=DAY.deadlines.filter(x=>x.date<=limit),later=DAY.deadlines.length-dl.length;
   const dlShow=dl.filter(x=>showDoneInbox||!done(x.id)),dlDone=dl.filter(x=>done(x.id)).length;
-  html+=`<div class="sec"><div style="display:flex;align-items:center;gap:8px"><span class="eyebrow">Deadlines</span>${dlDone?`<button class="btn small" id="showdone" style="margin-left:auto">${showDoneInbox?"Hide done":`Show ${dlDone} done`}</button>`:""}</div>`;
+  html+=`<div class="sec"><div style="display:flex;align-items:center;gap:8px"><span class="eyebrow">Deadlines</span>${dlDone?`<button class="btn small showdone" style="margin-left:auto">${showDoneInbox?"Hide done":`Show ${dlDone} done`}</button>`:""}</div>`;
   if(!dlShow.length)html+=`<p class="muted" style="font-size:14px;margin:6px 0 0">Nothing found in the last fortnight of email.</p>`;
   else html+=`<ul class="dl">`+dlShow.map(x=>{const w=whenLabel(x.date);
-    return `<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div><span class="when ${w.cls}">${w.text}</span><span class="title">${esc(x.title)}</span> <span class="who">— ${esc(x.from)}${x.source!=="email"?` · ${srcName[x.source]||x.source}`:""}</span>${x.snippet?`<div class="snip">${esc(x.snippet)}</div>`:""}</div></li>`;}).join("")+`</ul>`;
+    return `<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div><span class="when ${w.cls}">${w.text}</span><span class="title">${esc(x.title)}</span> <span class="who">— ${esc(x.from)}${x.source!=="email"?` · ${srcName[x.source]||x.source}`:""}</span>${mailBtn(x.id)}${x.snippet?`<div class="snip">${esc(x.snippet)}</div>`:""}${mailView(x.id)}</div></li>`;}).join("")+`</ul>`;
   if(later)html+=`<p class="muted" style="font-size:12.5px;margin:8px 0 0">+${later} more than ${SHOW_AHEAD_DAYS} days away.</p>`;
   html+=`</div>`;
   // requests with no date
   const acts=DAY.actions.filter(x=>showDoneInbox||!done(x.id)),shown=showAllAsks?acts:acts.slice(0,ASKS_SHOWN);
-  if(acts.length)html+=`<div class="sec"><span class="eyebrow">Asked of you</span><ul class="dl">`+shown.map(x=>`<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div><span class="title">${esc(x.title)}</span> <span class="who">— ${esc(x.from)}${x.unread?" · unread":""}</span>${x.snippet?`<div class="snip">${esc(x.snippet)}</div>`:""}</div></li>`).join("")+`</ul>${acts.length>ASKS_SHOWN?`<button class="btn small" id="allasks" style="margin-top:10px">${showAllAsks?"Show fewer":`+${acts.length-shown.length} more`}</button>`:""}</div>`;
+  if(acts.length)html+=`<div class="sec"><span class="eyebrow">Asked of you</span><ul class="dl">`+shown.map(x=>`<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div><span class="title">${esc(x.title)}</span> <span class="who">— ${esc(x.from)}${x.unread?" · unread":""}</span>${mailBtn(x.id)}${x.snippet?`<div class="snip">${esc(x.snippet)}</div>`:""}${mailView(x.id)}</div></li>`).join("")+`</ul>${acts.length>ASKS_SHOWN?`<button class="btn small" id="allasks" style="margin-top:10px">${showAllAsks?"Show fewer":`+${acts.length-shown.length} more`}</button>`:""}</div>`;
   }
   return html+`</div>`;}
 function bindDay(root){
   root.querySelector("#dayrefresh")?.addEventListener("click",()=>loadDay(true));
   root.querySelector("#openteams")?.addEventListener("click",()=>{invoke("open_teams").catch(e=>alert(errText(e)));});
-  root.querySelector("#showdone")?.addEventListener("click",()=>{showDoneInbox=!showDoneInbox;render();});
+  root.querySelectorAll(".showdone").forEach(b=>b.addEventListener("click",()=>{showDoneInbox=!showDoneInbox;render();}));
+  root.querySelectorAll("[data-mail]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.mail;if(OPEN_MAILS.has(id))OPEN_MAILS.delete(id);else OPEN_MAILS.add(id);render();}));
+  root.querySelectorAll("[data-openmail]").forEach(b=>b.addEventListener("click",async()=>{const label=b.textContent;b.disabled=true;b.textContent="Opening…";
+    try{await invoke("open_email",{id:b.dataset.openmail});}catch(e){alert(errText(e));}
+    b.disabled=false;b.textContent=label;}));
   root.querySelector("#allasks")?.addEventListener("click",()=>{showAllAsks=!showAllAsks;render();});
   root.querySelectorAll("[data-inbox]").forEach(cb=>cb.addEventListener("change",()=>{if(cb.checked)state.inbox[cb.dataset.inbox]=true;else delete state.inbox[cb.dataset.inbox];persist();render();}));
 }

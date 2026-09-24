@@ -168,6 +168,16 @@ async fn day_context(app: AppHandle, refresh: bool) -> Result<today::Context, St
     }
 }
 
+/// Open the email an item in Your day came from, in Outlook's own window.
+/// `id` is the bare Outlook EntryID (hex); anything else is refused.
+#[tauri::command]
+async fn open_email(id: String) -> Result<(), String> {
+    if id.is_empty() || id.len() > 1024 || !id.bytes().all(|b| b.is_ascii_hexdigit()) {
+        return Err("That doesn't look like an Outlook email id.".into());
+    }
+    tauri::async_runtime::spawn_blocking(move || outlook::open_email(id)).await.map_err(|e| e.to_string())?
+}
+
 /// Reword the cached day with the local model, in the background. `day_context`
 /// has already returned the correct now/later split with plain titles; this
 /// upgrades each line to a short summary and hands back the tidied plan for the
@@ -334,7 +344,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             get_plan, get_config, save_config, reset_config, get_lesson, list_papers, get_paper,
             load_state, save_state, state_path, backup,
-            get_settings, set_settings, draft_subject, day_context, organise_day,
+            get_settings, set_settings, draft_subject, day_context, organise_day, open_email,
             list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile,
             teams_assignments,
             update::check_update, update::install_update,

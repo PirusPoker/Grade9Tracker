@@ -176,3 +176,60 @@ pub fn fetch() -> Result<Dump, String> {
         }
     }
 }
+
+/// Open one email in Outlook's own window, by its EntryID.
+///
+/// A click, not a read, so it doesn't share `fetch`'s single-flight: it gets
+/// its own short-lived COM thread and a short wait. A Display call behind an
+/// open Outlook dialog blocks just like a read, so at most one open is ever out
+/// - clicking again while one hangs is told Outlook is busy instead of parking
+/// another thread. The flag is cleared by a guard in the thread, so no error
+/// path can leave it stuck.
+pub fn open_email(entry_id: String) -> Result<(), String> {
+    #[cfg(not(windows))]
+    {
+        let _ = entry_id;
+        return Err("Opening emails needs classic Outlook on Windows.".into());
+    }
+    #[cfg(windows)]
+    {
+        use std::sync::atomic::{AtomicBool, Ordering};
+        use std::sync::mpsc;
+        use windows::Win32::System::Com::{CoInitializeEx, CoUninitialize, COINIT_APARTMENTTHREADED};
+
+        static OPENING: AtomicBool = AtomicBool::new(false);
+        struct Clear;
+        impl Drop for Clear {
+            fn drop(&mut self) {
+                OPENING.store(false, Ordering::SeqCst);
+            }
+        }
+
+        if OPENING.swap(true, Ordering::SeqCst) {
+            return Err("Outlook is busy — clear any box that's open in Outlook, then try again.".into());
+        }
+        let (tx, rx) = mpsc::channel();
+        let spawned = std::thread::Builder::new().name("outlook-open".into()).spawn(move || {
+            let _clear = Clear;
+            let init = unsafe { CoInitializeEx(None, COINIT_APARTMENTTHREADED) };
+            let result = if init.is_err() {
+                Err(com::Failure::Other(format!("COM would not start ({:#010x})", init.0 as u32)))
+            } else {
+                let r = com::open(&entry_id); // every COM object is released inside
+                unsafe { CoUninitialize() };
+                r
+            };
+            let _ = tx.send(result);
+        });
+        if let Err(e) = spawned {
+            OPENING.store(false, Ordering::SeqCst);
+            return Err(format!("Couldn't open the email: {e}"));
+        }
+        match rx.recv_timeout(Duration::from_secs(15)) {
+            Ok(Ok(())) => Ok(()),
+            Ok(Err(com::Failure::NotRunning)) => Err("Classic Outlook isn't open. Open it, let it finish signing in, then try again.".into()),
+            Ok(Err(com::Failure::Other(why))) => Err(format!("Outlook couldn't open that email: {why}")),
+            Err(_) => Err(NO_ANSWER.into()),
+        }
+    }
+}
