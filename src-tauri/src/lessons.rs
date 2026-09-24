@@ -460,7 +460,7 @@ mod tests {
 
     /// Subjects whose lessons all carry a Key terms block. Every subject is
     /// being brought up to this; add each one as its lessons are done.
-    const WITH_TERMS: &[&str] = &["bus", "econ", "cs"];
+    const WITH_TERMS: &[&str] = &["bus", "econ", "cs", "bio"];
 
     #[test]
     fn every_lesson_has_its_key_terms() {
