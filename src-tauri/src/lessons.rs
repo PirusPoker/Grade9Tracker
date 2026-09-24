@@ -458,18 +458,11 @@ mod tests {
         }
     }
 
-    /// Subjects whose lessons all carry a Key terms block. Every subject is
-    /// being brought up to this; add each one as its lessons are done.
-    const WITH_TERMS: &[&str] = &["bus", "econ", "cs", "bio", "chem", "phys", "maths", "fpm"];
-
+    /// Every lesson carries a Key terms block, before its method.
     #[test]
     fn every_lesson_has_its_key_terms() {
         for (id, text) in all() {
-            let subject = id.split(':').next().unwrap_or("");
             let terms = blocks(text, "terms");
-            if !WITH_TERMS.contains(&subject) && terms.is_empty() {
-                continue;
-            }
             assert_eq!(terms.len(), 1, "{id}: needs exactly one terms block");
             let lines: Vec<&str> = terms[0].lines().filter(|l| !l.trim().is_empty()).collect();
             assert!(lines.len() >= 4, "{id}: fewer than four key terms");
