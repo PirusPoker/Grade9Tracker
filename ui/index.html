@@ -1708,13 +1708,19 @@ const testBandLabel={secure:"Secure",nearly:"Nearly there",notyet:"Not yet"};
 function qMarks(lines){const m=plainText(lines).match(/\((\d{1,2})\)\s*$/);return m?Math.max(1,+m[1]):1;}
 function splitQ(b){const cut=b.lines.findIndex(l=>l.trim()==="---");return {q:cut<0?b.lines:b.lines.slice(0,cut),a:cut<0?[]:b.lines.slice(cut+1)};}
 function testPool(text){const blocks=parseLesson(text);const own=blocks.filter(b=>b.kind==="test");return {qs:own.length?own:blocks.filter(b=>b.kind==="q"),own:own.length>0};}
+/* Exam pace: about 75 seconds a mark (an extended answer of 12 or more marks
+   gets 90), never under a minute a question, never under five minutes. */
+const testSecs=marks=>marks.reduce((n,m)=>n+Math.max(60,(m>=12?90:75)*m),0);
+const testLimit=marks=>Math.max(300,testSecs(marks));
 let testTimer=null;
 function stopTestTimer(){if(testTimer){clearInterval(testTimer);testTimer=null;}}
 function startTopicTest(){if(!lesson)return;stopNarration();const pool=testPool(lesson.text);
-  const order=pool.qs.map((b,i)=>({b,i,r:Math.random()})).sort((a,b)=>a.r-b.r);
-  const qs=order.map(o=>{const sp=splitQ(o.b);return {q:sp.q,a:sp.a,max:qMarks(sp.q),src:o.i};});
+  // Like a real paper: short questions first, climbing to the extended ones;
+  // shuffled within each mark level so the order gives nothing away.
+  const qs=pool.qs.map((b,i)=>{const sp=splitQ(b);return {q:sp.q,a:sp.a,max:qMarks(sp.q),src:i,r:Math.random()};})
+    .sort((a,b)=>a.max-b.max||a.r-b.r);
   const total=qs.reduce((n,q)=>n+q.max,0);
-  lesson.test={qs,own:pool.own,phase:"answer",marks:{},started:Date.now(),limit:Math.max(300,qs.reduce((n,q)=>n+Math.max(60,90*q.max),0)),total,finished:0};
+  lesson.test={qs,own:pool.own,phase:"answer",marks:{},started:Date.now(),limit:testLimit(qs.map(q=>q.max)),total,finished:0};
   render();window.scrollTo({top:0});}
 function finishTopicTest(t){const T_=lesson.test;const s=T_.qs.reduce((n,q,i)=>n+(T_.marks[i]||0),0);const pct=Math.round(100*s/T_.total);
   const secs=Math.round((T_.finished-T_.started)/1000);
@@ -1728,7 +1734,7 @@ function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[
   const hist=topicTests(t.id);
   let body="";
   if(X.phase==="answer"){
-    body=`<div class="ttrules"><b>Closed book.</b> ${X.qs.length} questions, ${X.total} marks, ${fmtSecs(X.limit)} on the clock.<ul><li>Write every answer on paper first — no lesson, no notes, no answers until you have attempted them all.</li><li>Then press <b>Mark it</b>: the answers appear and you give yourself the marks, honestly.</li><li>${X.own?"These are the topic's test questions, different from the practice set.":"These are the practice questions in a fresh order — the test is whether they hold without the answers in front of you."}</li></ul></div>`;
+    body=`<div class="ttrules"><b>Closed book.</b> ${X.qs.length} questions, ${X.total} marks, ${fmtSecs(X.limit)} on the clock.<ul><li>Write every answer on paper first — no lesson, no notes, no answers until you have attempted them all.</li><li>Then press <b>Mark it</b>: the answers appear and you give yourself the marks, honestly.</li><li>${X.own?"These are the topic's test questions, different from the practice set, set out like an exam paper: short questions first, climbing to the extended answers at the end. The clock runs at exam pace, a little over a minute a mark.":"These are the practice questions in a fresh order — the test is whether they hold without the answers in front of you."}</li></ul></div>`;
     X.qs.forEach((q,i)=>{body+=`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div></div>`;});
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="ttmark">I've answered everything — mark it</button><button class="btn ghost" id="ttquit">Abandon test</button></div>`;
   }else if(X.phase==="mark"){
@@ -2003,7 +2009,7 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
     ${videoBox(t)}
     <div class="lbody" id="l-what">${lessonHtml(t.id,lesson.text)}</div>
     <div class="lend"><div class="eyebrow" style="margin-bottom:6px">Finished?</div><p class="muted" style="font-size:14px;margin:0 0 10px">${stt.done?"This topic is ticked as done. It comes back for recall checks; anything marked Not yet is in the mistakes log.":"If you can do the practice questions without looking, tick the topic. It then comes back for recall checks at "+REVIEW_GAPS.join(", ")+" days."}</p>
-      ${(()=>{const h=lastTest(t.id);const hist=topicTests(t.id);return `<div class="lessonbar" style="margin:0 0 12px"><div><b>End-of-topic test</b><span class="muted"> · closed book, ${fmtSecs(Math.max(300,testPool(lesson.text).qs.reduce((n,b)=>n+Math.max(60,90*qMarks(splitQ(b).q)),0)))} on the clock, mark yourself against the answers${h?`. Last: <b>${h.s}/${h.t}</b> (${h.pct}%) on ${fmt(new Date(h.d+"T00:00:00"))}${hist.length>1?`, ${hist.length} attempts`:""}`:""}</span></div><button class="btn small ${h&&testBand(h.pct)==="secure"?"":"primary"}" id="ltest">${h?"Retake the test":"Take the test"}</button></div>`;})()}
+      ${(()=>{const h=lastTest(t.id);const hist=topicTests(t.id);return `<div class="lessonbar" style="margin:0 0 12px"><div><b>End-of-topic test</b><span class="muted"> · closed book, ${(()=>{const ms=testPool(lesson.text).qs.map(b=>qMarks(splitQ(b).q));return `${ms.length} questions, ${ms.reduce((n,m)=>n+m,0)} marks, ${fmtSecs(testLimit(ms))}`;})()} on the clock, mark yourself against the answers${h?`. Last: <b>${h.s}/${h.t}</b> (${h.pct}%) on ${fmt(new Date(h.d+"T00:00:00"))}${hist.length>1?`, ${hist.length} attempts`:""}`:""}</span></div><button class="btn small ${h&&testBand(h.pct)==="secure"?"":"primary"}" id="ltest">${h?"Retake the test":"Take the test"}</button></div>`;})()}
       <div class="wbtns">${stt.done?`<button class="btn" id="ldone">Untick topic</button>`:`<button class="btn primary" id="ldone">✓ Tick topic as done</button>`}${next?`<button class="btn" data-lesson="${esc(next.id)}">Next lesson: ${esc(next[0])} ›</button>`:""}${prev?`<button class="btn ghost" data-lesson="${esc(prev.id)}">‹ ${esc(prev[0])}</button>`:""}</div>
       ${mistakeBlock(t.id,"What went wrong in this lesson? Be specific")}</div>
     <aside class="lnotesp" ${lesson.notes?"":"hidden"}><div class="lnoteshead"><span class="eyebrow">My notes · ${esc(t[0])}</span><button class="icon" id="lnotesclose" aria-label="Close">×</button></div>
