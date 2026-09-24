@@ -6,6 +6,7 @@
 //! renders specially:
 //!
 //! ```text
+//! ::: terms             the key terms, one "- **term**: definition" line each
 //! ::: method            the steps, as a numbered list
 //! ::: example Title     a worked example, every line shown
 //! ::: q                 a practice question; the answer follows a `---` line
@@ -454,6 +455,32 @@ mod tests {
             let dollars = text.replace("\\$", "").matches('$').count();
             assert_eq!(dollars % 2, 0, "{id}: unbalanced $ maths delimiters");
             assert!(!text.contains("TODO"), "{id}: TODO left in");
+        }
+    }
+
+    /// Subjects whose lessons all carry a Key terms block. Every subject is
+    /// being brought up to this; add each one as its lessons are done.
+    const WITH_TERMS: &[&str] = &["bus"];
+
+    #[test]
+    fn every_lesson_has_its_key_terms() {
+        for (id, text) in all() {
+            let subject = id.split(':').next().unwrap_or("");
+            let terms = blocks(text, "terms");
+            if !WITH_TERMS.contains(&subject) && terms.is_empty() {
+                continue;
+            }
+            assert_eq!(terms.len(), 1, "{id}: needs exactly one terms block");
+            let lines: Vec<&str> = terms[0].lines().filter(|l| !l.trim().is_empty()).collect();
+            assert!(lines.len() >= 4, "{id}: fewer than four key terms");
+            for l in &lines {
+                let ok = l.starts_with("- **")
+                    && l.find("**: ").map_or(false, |i| i > 4 && l.len() > i + 12);
+                assert!(ok, "{id}: key term not in \"- **term**: definition\" form: {l}");
+            }
+            let terms_at = text.find("::: terms").unwrap();
+            let method_at = text.find("::: method").unwrap();
+            assert!(terms_at < method_at, "{id}: key terms should come before the method");
         }
     }
 }

@@ -618,6 +618,12 @@ table{max-width:100%}
 .lbox.watch{border-left-color:var(--warn);background:var(--warn-soft)}
 .lbox.watch .eyebrow{color:var(--warn)}
 .lbox.watch li{margin:7px 0}
+.lbox.terms{border-left-color:var(--good)}
+.lbox.terms .eyebrow{color:var(--good)}
+.lterms{display:grid;grid-template-columns:minmax(130px,max-content) 1fr;gap:9px 18px;margin:6px 0 12px}
+.lterms dt{font-weight:700;color:var(--ink)}
+.lterms dd{margin:0;color:var(--ink-2)}
+@media (max-width:560px){.lterms{grid-template-columns:1fr;gap:2px}.lterms dd{margin:0 0 9px}}
 /* A newer release is ready: one line at the top, one button. */
 .upd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;background:var(--accent);color:var(--accent-ink);font-size:13.5px}
 .upd b{font-weight:650}.upd .muted{color:rgba(6,46,111,.72)}
@@ -1545,12 +1551,16 @@ function parseLesson(text){const out=[];let cur=null,plain=[];
   flush();return out;}
 /* Paragraph groups of a block, blank-line separated. A worked example is its
    question followed by steps, revealed one at a time when the working is covered. */
+/* A `::: terms` block: one "- **term**: definition" line per key term. */
+function lessonTerms(lines){return lines.map(l=>l.match(/^\s*[-*]\s+\*\*(.+?)\*\*\s*:\s*(.+)$/)).filter(Boolean).map(m=>({t:m[1].trim(),d:m[2].trim()}));}
 function paragraphs(lines){const groups=[];let g=[];for(const l of lines){if(!l.trim()){if(g.length){groups.push(g);g=[];}}else g.push(l);}if(g.length)groups.push(g);return groups;}
 const plainText=lines=>lines.join(" ").replace(/\$[^$]*\$/g,m=>m.slice(1,-1)).replace(/[*`\\]/g,"").replace(/\s+/g," ").trim();
 function lessonHtml(topicId,text){const blocks=parseLesson(text);const marks=lessonMarks(topicId);let q=0,ex=0,html="";
   const qs=blocks.filter(b=>b.kind==="q");const right=qs.filter((_,i)=>marks[i]===true).length;
   blocks.forEach(b=>{
     if(b.kind==="md")html+=mdBlock(b.lines);
+    else if(b.kind==="terms"){const ts=lessonTerms(b.lines);const have=new Set(cardsOf(topicId).map(c=>c.f.toLowerCase()));const got=ts.filter(x=>have.has(plainText([x.t]).toLowerCase())).length;
+      html+=`<div class="lbox terms" id="l-terms"><div class="lboxhead"><span class="eyebrow">Key terms</span><span class="muted" style="font-size:12.5px">the definitions the mark scheme wants</span></div><dl class="lterms">${ts.map(x=>`<dt>${mdInline(x.t)}</dt><dd>${mdInline(x.d)}</dd>`).join("")}</dl><div class="lqbtns"><button class="btn small ${got===ts.length?"done":""}" id="ltermcards" ${got===ts.length?"disabled":""} title="Each term becomes a card: the term on the front, the definition on the back. Cards come up in this topic's recall checks.">${got===ts.length?`All ${ts.length} are in your cards`:(got?`Add the other ${ts.length-got} to my cards`:`Make these ${ts.length} into cards`)}</button></div></div>`;}
     else if(b.kind==="method")html+=`<div class="lbox method" id="l-method"><div class="lboxhead"><span class="eyebrow">How to do it</span><span class="muted" style="font-size:12.5px">the steps, in order</span></div>${mdBlock(b.lines)}</div>`;
     else if(b.kind==="example"){const i=ex++;const groups=paragraphs(b.lines);const steps=groups.length-1;const shown=lesson.cover?Math.min(steps,lesson.steps[i]||0):steps;
       if(i===0)html+=`<div class="lsub" id="l-examples"><h3>Worked examples</h3><button class="btn small ${lesson.cover?"primary":""}" id="lcover">${lesson.cover?"Show all the working":"Cover the working — try each step first"}</button></div>`;
@@ -1631,7 +1641,8 @@ function ttsLines(lines){const kept=[];let skip=false;
     .replace(/\[([^\]]*)\]\([^)]*\)/g,"$1")
     .replace(/[*_`#>]/g,"").replace(/\s+/g," ").trim();}
 function lessonToSpeech(text){const out=[];
-  parseLesson(text||"").forEach(b=>{if(b.kind==="md"||b.kind==="method"||b.kind==="watch"){const s=ttsLines(b.lines);if(s)out.push(s);}});
+  parseLesson(text||"").forEach(b=>{if(b.kind==="md"||b.kind==="method"||b.kind==="watch"){const s=ttsLines(b.lines);if(s)out.push(s);}
+    else if(b.kind==="terms"){const s=lessonTerms(b.lines).map(x=>ttsLines([x.t])+": "+ttsLines([x.d]).replace(/[\s.]+$/,"")).join(". ");if(s)out.push("Key terms. "+s);}});
   return out.map(s=>s.replace(/[\s.]+$/,"")).join(". ");}
 function narrState(){return narrPreparing?"preparing":(!narrating?"idle":(narrPaused?"paused":"playing"));}
 function updateNarrUI(){const st=narrState();
@@ -1978,7 +1989,7 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
     <div class="lhead"><span class="pill"><span class="dot" style="background:${S.color}"></span>Lesson</span><span class="wcode">${esc(t[0])}</span><span class="muted" style="font-size:12.5px">· ${idx+1} of ${S.topics.length}</span></div>
     <h1 style="font-size:26px;margin:4px 0 6px">${esc(t[1])}</h1>
     <p class="muted" style="font-size:13.5px;margin:0 0 14px">${mins(t[2])} min in the plan · ${exs.length} worked examples · ${qs.length} practice questions${stt.done?" · <b>topic done</b>":""}</p>
-    <div class="lnav">${(t.videos||[]).length?`<button data-jump="l-video">Video</button>`:""}<button data-jump="l-what">What it is</button><button data-jump="l-method">How to do it</button><button data-jump="l-examples">Examples</button><button data-jump="l-try">Try these <span class="chip ${right===qs.length?"ok":""}">${right}/${qs.length}</span></button><button data-jump="l-watch">Marks</button><button id="lntest" title="Closed-book, timed, self-marked">Test${(()=>{const h=lastTest(t.id);return h?` <span class="chip ${testBand(h.pct)==="secure"?"ok":""}">${h.s}/${h.t}</span>`:"";})()}</button><span class="lnavsp"></span><button class="btn small ghost" id="llisten" title="Read the explanation aloud">${narrating?"Stop":"Listen"}</button><button class="btn small ghost" id="ltts" title="Narration speed" aria-label="Narration speed">⚙</button><button class="btn small ${lesson.notes?"primary":""}" id="lnotes">Notes${note.trim()?" ·":""}</button><button class="btn small ghost" id="lprint">Print</button></div>
+    <div class="lnav">${(t.videos||[]).length?`<button data-jump="l-video">Video</button>`:""}<button data-jump="l-what">What it is</button>${/^::: terms/m.test(lesson.text)?`<button data-jump="l-terms">Key terms</button>`:""}<button data-jump="l-method">How to do it</button><button data-jump="l-examples">Examples</button><button data-jump="l-try">Try these <span class="chip ${right===qs.length?"ok":""}">${right}/${qs.length}</span></button><button data-jump="l-watch">Marks</button><button id="lntest" title="Closed-book, timed, self-marked">Test${(()=>{const h=lastTest(t.id);return h?` <span class="chip ${testBand(h.pct)==="secure"?"ok":""}">${h.s}/${h.t}</span>`:"";})()}</button><span class="lnavsp"></span><button class="btn small ghost" id="llisten" title="Read the explanation aloud">${narrating?"Stop":"Listen"}</button><button class="btn small ghost" id="ltts" title="Narration speed" aria-label="Narration speed">⚙</button><button class="btn small ${lesson.notes?"primary":""}" id="lnotes">Notes${note.trim()?" ·":""}</button><button class="btn small ghost" id="lprint">Print</button></div>
     <div class="ttscfg" id="ttscfg" hidden><label>Voice <select id="ttsvoice"><option value="">Jenny</option></select></label><label>Speed <input type="range" id="ttsrate" min="0.7" max="1.4" step="0.1" value="${ttsRate}"><span class="ttsratev" id="ttsratev">${ttsRate.toFixed(1)}×</span></label></div>
     ${videoBox(t)}
     <div class="lbody" id="l-what">${lessonHtml(t.id,lesson.text)}</div>
@@ -2015,6 +2026,10 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
   el.querySelector("#ldone").addEventListener("click",()=>{if(stt.done){stt.done=false;stt.mark=null;stt.fixed=false;stt.known=false;}else{stt.done=true;markDay();}persist();renderLessonKeep(el);});
   el.querySelectorAll("[data-jump]").forEach(a=>a.addEventListener("click",()=>{document.getElementById(a.dataset.jump)?.scrollIntoView({behavior:"smooth",block:"start"});}));
   el.querySelector("#lcover")?.addEventListener("click",()=>{lesson.cover=!lesson.cover;lesson.steps={};renderLessonKeep(el);});
+  el.querySelector("#ltermcards")?.addEventListener("click",()=>{const tb=parseLesson(lesson.text).find(b=>b.kind==="terms");if(!tb)return;
+    const list=(state.cards[t.id]=state.cards[t.id]||[]);const have=new Set(list.map(c=>c.f.toLowerCase()));let n=0;
+    lessonTerms(tb.lines).forEach(x=>{const f=plainText([x.t]);if(!have.has(f.toLowerCase())){list.push({f:f.slice(0,80),b:plainText([x.d]).slice(0,300)});have.add(f.toLowerCase());n++;}});
+    if(n){openCards.add(t.id);markDay();persist();}renderLessonKeep(el);});
   el.querySelector("#lvplay")?.addEventListener("click",()=>{stopNarration();lesson.playing=true;lesson.playedAt=Date.now();renderLessonKeep(el);});
   el.querySelector("#lvthumb")?.addEventListener("error",()=>{el.querySelector(".lvid")?.classList.add("noimg");});
   el.querySelectorAll("[data-lvid]").forEach(b=>b.addEventListener("click",()=>{stopNarration();lesson.vid=+b.dataset.lvid;lesson.playing=true;lesson.playedAt=Date.now();renderLessonKeep(el);}));
