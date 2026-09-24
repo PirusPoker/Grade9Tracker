@@ -1457,7 +1457,7 @@ dependencies = [
 
 [[package]]
 name = "grade9-tracker"
-version = "1.24.0"
+version = "1.25.0"
 dependencies = [
  "base64 0.22.1",
  "chrono",
