@@ -65,7 +65,8 @@ a{color:var(--accent);text-underline-offset:2px}
 
 /* bottom nav */
 .nav{position:fixed;bottom:0;left:0;right:0;background:rgba(19,19,20,.82);backdrop-filter:saturate(160%) blur(16px);border-top:1px solid var(--line);z-index:10}
-.nav-in{max-width:680px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.nav-in{max-width:680px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr)}
+.nav .navn{position:absolute;top:4px;left:calc(50% + 6px);min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-size:10px;line-height:16px;font-weight:700;text-align:center}
 .nav button{position:relative;padding:9px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.01em}
 .nav button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .nav button[aria-selected=true]{color:var(--accent)}
@@ -230,7 +231,8 @@ a{color:var(--accent);text-underline-offset:2px}
 .dl .when{font-weight:650;white-space:nowrap;margin-right:6px}
 .dl .when.over{color:var(--bad)}
 .dl .when.soon{color:var(--accent)}
-.dl .who{color:var(--muted);font-size:12.5px}
+.dl .who{color:var(--muted);font-size:12.5px;display:inline;padding:0;border:0;border-radius:0;background:none;font-weight:400}
+.dl .who:hover{background:none}
 .dl .snip{color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.4}
 .dl li.done{opacity:.45}
 .dl li.done .title{text-decoration:line-through}
@@ -242,7 +244,8 @@ a{color:var(--accent);text-underline-offset:2px}
 .asg input{width:18px;height:18px;accent-color:var(--good);margin-top:2px}
 .asg .ah{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px}
 .asg .ah .title{font-weight:650}
-.asg .who{color:var(--muted);font-size:12.5px}
+.asg .who{color:var(--muted);font-size:12.5px;display:inline;padding:0;border:0;border-radius:0;background:none;font-weight:400}
+.asg .who:hover{background:none}
 .asg .snip{color:var(--ink-2);font-size:13px;margin-top:3px;line-height:1.45}
 .asg .alinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .asg li.done{opacity:.5}
@@ -256,6 +259,25 @@ a{color:var(--accent);text-underline-offset:2px}
 .mailview .mh span{font-size:12px;color:var(--muted)}
 .mailview .mb{padding:10px 12px;font-size:13px;line-height:1.5;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:anywhere;max-height:320px;overflow:auto}
 .mailview .mf{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 12px;border-top:1px solid var(--line);font-size:12px}
+/* Stars and tags on emails and assignments */
+.starbtn{margin-left:4px;padding:0 3px;border:0;background:transparent;color:var(--muted);font-size:16px;line-height:1;cursor:pointer;vertical-align:-1px}
+.starbtn:hover{color:var(--warn)}
+.starbtn.on{color:var(--warn)}
+.tagchip{display:inline-flex;align-items:center;gap:2px;margin-left:4px;padding:1px 4px 1px 9px;border-radius:999px;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent);font-size:11.5px;font-weight:600;vertical-align:1px}
+.tagchip button{border:0;background:transparent;color:inherit;font-size:13px;line-height:1;padding:0 3px;cursor:pointer;opacity:.7}
+.tagchip button:hover{opacity:1}
+.tagpick{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
+.tagpick .chipt{padding:3px 10px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--ink-2);font-size:12px;font-weight:600;cursor:pointer}
+.tagpick .chipt.on{background:var(--accent-soft2);border-color:var(--accent-line);color:var(--accent)}
+.tagpick input[type=text]{width:auto;flex:1;min-width:140px;padding:4px 10px;font-size:12.5px}
+.impf{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.impf button{padding:5px 12px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--ink-2);font-size:13px;font-weight:600;cursor:pointer}
+.impf button[aria-pressed=true]{background:var(--accent-soft2);border-color:var(--accent-line);color:var(--accent)}
+.asg li.plain{grid-template-columns:1fr}
+.impadd{border-top:1px solid var(--line);padding:10px 0 2px}
+.impadd:first-of-type{border-top:0}
+.impadd summary{cursor:pointer;font-weight:650;font-size:14.5px}
+.impadd summary .muted{font-weight:400;font-size:13px}
 
 /* editor */
 input[type=text],input[type=search],input[type=date],input[type=url],input[type=number],select,textarea{font:inherit;font-size:14px;padding:9px 14px;
@@ -804,6 +826,7 @@ table{max-width:100%}
 <header class="top" id="top" hidden></header>
 <main class="wrap">
   <section class="view" id="view-today"></section>
+  <section class="view" id="view-important" hidden></section>
   <section class="view" id="view-subjects" hidden></section>
   <section class="view" id="view-progress" hidden></section>
   <section class="view" id="view-plan" hidden></section>
@@ -812,6 +835,7 @@ table{max-width:100%}
 </main>
 <nav class="nav"><div class="nav-in" role="tablist">
   <button role="tab" data-view="today" aria-selected="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Today</button>
+  <button role="tab" data-view="important"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>Important<span class="navn" id="impn" hidden></span></button>
   <button role="tab" data-view="subjects"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Subjects</button>
   <button role="tab" data-view="progress"><svg viewBox="0 0 24 24"><path d="M4 19V10M10 19V4M16 19v-7M22 19H2"/></svg>Progress</button>
   <button role="tab" data-view="plan"><svg viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10l2 2.5h6.5A1.5 1.5 0 0 1 20 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z"/><path d="M12 11v5M9.5 13.5h5"/></svg>Plan</button>
@@ -1106,23 +1130,23 @@ function mapTeams(items){
     return true;
   }).sort((a,b)=>(a.due||"9999-99-99").localeCompare(b.due||"9999-99-99"));   // soonest first
 }
-async function loadTeams(){ try{const t=await invoke("teams_assignments");TEAMS_ASG=mapTeams(t&&t.items);}catch(e){TEAMS_ASG=[];} }
+async function loadTeams(){ try{const t=await invoke("teams_assignments");TEAMS_ASG=mapTeams(t&&t.items);refreshSaved();}catch(e){TEAMS_ASG=[];} }
 // The sync lands while you're in Chrome, so re-read it when you come back to the
 // app — otherwise Your day keeps showing the list from when the app started.
 async function teamsOnReturn(){
   const before=JSON.stringify(TEAMS_ASG);
   await loadTeams();
-  if(view==="today"&&JSON.stringify(TEAMS_ASG)!==before)render();
+  if(dayView()&&JSON.stringify(TEAMS_ASG)!==before)render();
 }
 window.addEventListener("focus",teamsOnReturn);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)teamsOnReturn();});
 async function loadDay(refresh){
-  loadTeams().then(()=>{if(view==="today")render();});   // Teams sync is independent of Outlook
+  loadTeams().then(()=>{if(dayView())render();});   // Teams sync is independent of Outlook
   if(DAY_BUSY||settings.outlook===false)return;
-  DAY_BUSY=true;if(view==="today")render();
-  try{DAY=await invoke("day_context",{refresh});DAY_ERR=DAY.error||null;}
+  DAY_BUSY=true;if(dayView())render();
+  try{DAY=await invoke("day_context",{refresh});DAY_ERR=DAY.error||null;refreshSaved();}
   catch(e){DAY_ERR=String(e);}
-  DAY_BUSY=false;if(view==="today")render();
+  DAY_BUSY=false;if(dayView())render();
   organiseDay();
 }
 /* The now/later split is already shown (built from the dates). This asks the
@@ -1131,12 +1155,12 @@ async function loadDay(refresh){
    reloaded meanwhile. */
 async function organiseDay(){
   if(!settings.aiOrganise||!DAY||DAY.error||!DAY.organised)return;
-  const seq=++ORG_SEQ;ORG_BUSY=true;if(view==="today")render();
+  const seq=++ORG_SEQ;ORG_BUSY=true;if(dayView())render();
   let org=null;try{org=await invoke("organise_day");}catch(e){}
   if(seq!==ORG_SEQ)return;                 // a newer load superseded this one
   ORG_BUSY=false;
   if(org&&DAY)DAY.organised=org;
-  if(view==="today")render();
+  if(dayView())render();
 }
 const hhmm=m=>`${String(Math.floor(m/60)).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
 const minsOf=d=>d.getHours()*60+d.getMinutes();
@@ -1171,12 +1195,129 @@ const srcName={flag:"flagged",email:"email",calendar:"calendar",task:"task"};
    real message in Outlook. Items point at it by id: mail:<EntryID> / flag:<EntryID>. */
 const OPEN_MAILS=new Set();
 const mailEntry=id=>{const m=/^(?:mail|flag):(.+)$/.exec(id||"");return m?m[1]:null;};
-function mailBtn(id){const e=mailEntry(id);if(!e||!DAY||!DAY.emails||!DAY.emails[e])return "";const on=OPEN_MAILS.has(id);
+/* The live copy if Outlook still has it in the fortnight read, else the copy
+   kept when it was starred or tagged. */
+function mailFor(id){const e=mailEntry(id);if(!e)return null;return (DAY&&DAY.emails&&DAY.emails[e])||(((state.saved||{})[id]||{}).item||{}).mail||null;}
+function mailBtn(id){if(!mailFor(id))return "";const on=OPEN_MAILS.has(id);
   return `<button type="button" class="mailbtn" data-mail="${esc(id)}" aria-expanded="${on}" title="${on?"Hide the email":"Show the email this came from"}">✉ email</button>`;}
-function mailView(id){if(!OPEN_MAILS.has(id))return "";const eid=mailEntry(id),e=DAY&&DAY.emails&&DAY.emails[eid];if(!e)return "";
+function mailView(id){if(!OPEN_MAILS.has(id))return "";const eid=mailEntry(id),e=mailFor(id);if(!e)return "";
   const t=e.received?new Date(e.received):null,when=t&&!isNaN(t)?t.toLocaleString("en-GB",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"";
   const body=(e.body||"").trim();
   return `<div class="mailview"><div class="mh"><b>${esc(e.subject||"(no subject)")}</b><span>${esc(e.from||"")}${when?` · ${esc(when)}`:""}</span></div><div class="mb">${body?esc(body):"<i>(no text)</i>"}</div><div class="mf"><button type="button" class="btn small" data-openmail="${esc(eid)}">Open in Outlook ↗</button>${body.length>=2400?`<span class="muted">This is the start of the email — open it in Outlook for the rest.</span>`:""}</div></div>`;}
+/* ---------- IMPORTANT ----------
+   Star an email or an assignment, or tag it ("Homework", "Reply"), and the
+   Important tab keeps it - with a copy of the item and of the email it came
+   from, so it stays put after it drops out of the fortnight Outlook is read
+   for, or Teams stops listing it. Stars and tags live in the profile
+   (state.saved) and are never written back to Outlook or Teams. Done is the
+   same tick as on Your day (state.inbox), so ticking it in either place ticks
+   both. */
+const TAG_SUGGEST=["Homework","Revise","Reply","Ask teacher","Bring in"];
+const KIND_LABEL={teams:"Teams assignment",assignment:"Assignment",deadline:"Deadline",ask:"Asked of you",email:"Email"};
+let tagOpen=null,impFilter="all",impShowDone=false,impOpen={asg:true,mail:false};
+function dayView(){return view==="today"||view==="important";}
+const savedOf=id=>(state.saved||{})[id];
+/* Everything Your day knows about right now, one record per id, richest
+   source first: an email that is also an assignment is kept as the assignment. */
+function dayRecords(){
+  const m=new Map(),put=(id,r)=>{if(id&&!m.has(id))m.set(id,r);};
+  ((DAY&&DAY.assignments)||[]).concat(TEAMS_ASG).forEach(a=>put(a.id,{kind:a.teams?"teams":"assignment",title:a.title,from:a.course||"",due:a.due||null,snippet:a.description||"",links:a.links||[],received:a.received||""}));
+  if(DAY){
+    (DAY.deadlines||[]).forEach(x=>put(x.id,{kind:"deadline",title:x.title,from:x.from||"",due:x.date||null,snippet:x.snippet||"",links:[]}));
+    (DAY.actions||[]).forEach(x=>put(x.id,{kind:"ask",title:x.title,from:x.from||"",due:null,snippet:x.snippet||"",links:[],received:x.received||""}));
+    (DAY.inbox||[]).forEach(x=>put(x.id,{kind:"email",title:x.subject||"(no subject)",from:x.from||"",due:null,snippet:x.snippet||"",links:[],received:x.received||"",unread:!!x.unread}));}
+  return m;}
+function snapshotOf(id,recs){const r=(recs||dayRecords()).get(id);if(!r)return null;
+  const eid=mailEntry(id),e=eid&&DAY&&DAY.emails&&DAY.emails[eid];
+  return {kind:r.kind,title:String(r.title||"").slice(0,200),from:String(r.from||"").slice(0,120),due:r.due||null,received:r.received||"",snippet:String(r.snippet||"").slice(0,400),
+    links:(r.links||[]).slice(0,6).map(l=>({label:String(l.label||"Link").slice(0,60),url:String(l.url||"").slice(0,600)})),
+    mail:e?{subject:e.subject||"",from:e.from||"",received:e.received||"",body:String(e.body||"").slice(0,2500)}:null};}
+/* Keep the saved copies current while Outlook and Teams still list them (a
+   due date moved, a fuller copy of the email), and leave them alone after. */
+function refreshSaved(){const S=state.saved;if(!S)return;const recs=dayRecords();let changed=false;
+  for(const id in S){const snap=snapshotOf(id,recs);if(!snap)continue;if(!snap.mail)snap.mail=(S[id].item&&S[id].item.mail)||null;
+    if(JSON.stringify(snap)!==JSON.stringify(S[id].item)){S[id].item=snap;changed=true;}}
+  if(changed)persist();}
+function allTags(){const seen=new Set();Object.values(state.saved||{}).forEach(s=>(s.tags||[]).forEach(t=>seen.add(t)));return [...seen];}
+function keepItem(id){const S=state.saved||(state.saved={});if(S[id])return S[id];const item=snapshotOf(id);if(!item)return null;
+  return S[id]={at:new Date().toISOString(),star:false,tags:[],item};}
+function dropIfEmpty(id){const S=state.saved||{};if(S[id]&&!S[id].star&&!S[id].tags.length)delete S[id];}
+function starItem(id){const s=savedOf(id);
+  if(s&&s.star){s.star=false;dropIfEmpty(id);}
+  else{const k=keepItem(id);if(!k)return;k.star=true;}
+  persist();render();}
+function tagItem(id,tag,on){
+  tag=String(tag||"").replace(/[|<>"]/g,"").replace(/\s+/g," ").trim().slice(0,24);if(!tag)return;
+  const known=allTags().concat(TAG_SUGGEST).find(t=>t.toLowerCase()===tag.toLowerCase());if(known)tag=known;
+  if(on){const k=keepItem(id);if(!k)return;if(!k.tags.includes(tag))k.tags.push(tag);}
+  else{const s=savedOf(id);if(!s)return;s.tags=s.tags.filter(t=>t!==tag);dropIfEmpty(id);}
+  persist();render();}
+/* The star, the item's tags, and "+ tag" - on every row that has an id. */
+function saveBtns(id){if(!id)return "";const s=savedOf(id),on=!!(s&&s.star),open=tagOpen===id;
+  return `<button type="button" class="starbtn${on?" on":""}" data-star="${esc(id)}" aria-pressed="${on}" title="${on?"Unmark as important":"Mark as important"}">${on?"★":"☆"}</button>`+
+    (s?s.tags.map(t=>`<span class="tagchip">${esc(t)}<button type="button" data-untag="${esc(id)}|${esc(t)}" aria-label="Remove the ${esc(t)} tag">×</button></span>`).join(""):"")+
+    `<button type="button" class="mailbtn" data-tagopen="${esc(id)}" aria-expanded="${open}">${open?"Close tags":"+ tag"}</button>`;}
+function tagPicker(id){if(tagOpen!==id)return "";const s=savedOf(id),has=new Set(s?s.tags:[]);
+  const opts=[...new Set(allTags().concat(TAG_SUGGEST))];
+  return `<div class="tagpick">${opts.map(t=>`<button type="button" class="chipt${has.has(t)?" on":""}" data-tagt="${esc(id)}|${esc(t)}" aria-pressed="${has.has(t)}">${esc(t)}</button>`).join("")}<input type="text" data-tagnew="${esc(id)}" placeholder="New tag, then Enter" maxlength="24" aria-label="New tag"></div>`;}
+function bindSaved(root){
+  const split=v=>{const i=v.indexOf("|");return [v.slice(0,i),v.slice(i+1)];};
+  root.querySelectorAll("[data-star]").forEach(b=>b.addEventListener("click",()=>starItem(b.dataset.star)));
+  root.querySelectorAll("[data-tagopen]").forEach(b=>b.addEventListener("click",()=>{tagOpen=tagOpen===b.dataset.tagopen?null:b.dataset.tagopen;render();
+    if(tagOpen)document.querySelector(`#view-${view} [data-tagnew="${CSS.escape(tagOpen)}"]`)?.focus();}));
+  root.querySelectorAll("[data-tagt]").forEach(b=>b.addEventListener("click",()=>{const [id,t]=split(b.dataset.tagt);tagItem(id,t,b.getAttribute("aria-pressed")!=="true");}));
+  root.querySelectorAll("[data-untag]").forEach(b=>b.addEventListener("click",()=>{const [id,t]=split(b.dataset.untag);tagItem(id,t,false);}));
+  root.querySelectorAll("[data-tagnew]").forEach(inp=>inp.addEventListener("keydown",e=>{
+    if(e.key==="Enter"){e.preventDefault();const id=inp.dataset.tagnew;tagItem(id,inp.value,true);document.querySelector(`#view-${view} [data-tagnew="${CSS.escape(id)}"]`)?.focus();}
+    else if(e.key==="Escape"){tagOpen=null;render();}}));}
+/* How many starred or tagged things are still to do, on the tab itself. */
+function navBadge(){const b=document.getElementById("impn");if(!b)return;
+  const n=Object.keys(state.saved||{}).filter(id=>!state.inbox[id]).length;b.textContent=n>99?"99+":String(n);b.hidden=!n;}
+function impRow(id,r,tick){const w=r.due?whenLabel(r.due):null,done=!!state.inbox[id];
+  return `<li class="${tick?"":"plain"} ${done?"done":""}">${tick?`<input type="checkbox" data-inbox="${esc(id)}" ${done?"checked":""} aria-label="Done">`:""}<div><div class="ah">${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(r.title||"(untitled)")}</span><span class="who">· ${esc(KIND_LABEL[r.kind]||"Item")}${r.from?` · ${esc(r.from)}`:""}${r.unread?" · unread":""}</span>${mailBtn(id)}${saveBtns(id)}</div>${r.snippet?`<div class="snip">${esc(r.snippet)}</div>`:""}${r.links&&r.links.length?`<div class="alinks">`+r.links.map(l=>`<a class="btn small" href="${esc(l.url)}">${esc(l.label)} ↗</a>`).join("")+`</div>`:""}${tagPicker(id)}${mailView(id)}</div></li>`;}
+function renderImportant(){
+  const el=document.getElementById("view-important");
+  const S=state.saved||{},ids=Object.keys(S),done=id=>!!state.inbox[id],tags=allTags();
+  if(impFilter!=="all"&&impFilter!=="star"&&!tags.includes(impFilter))impFilter="all";
+  const match=id=>impFilter==="all"||(impFilter==="star"?S[id].star:S[id].tags.includes(impFilter));
+  // Soonest due first (overdue on top), then starred, then the newest saved.
+  const order=(a,b)=>String(S[a].item.due||"9999").localeCompare(String(S[b].item.due||"9999"))||(S[b].star-S[a].star)||String(S[b].at).localeCompare(String(S[a].at));
+  const open=ids.filter(id=>!done(id)),shown=open.filter(match).sort(order),doneIds=ids.filter(id=>done(id)&&match(id)).sort(order);
+  const chip=(key,label,n)=>`<button type="button" data-impf="${esc(key)}" aria-pressed="${impFilter===key}">${label} <span class="muted">${n}</span></button>`;
+  let html=`<h1 style="font-size:24px;margin-bottom:6px">Important</h1>
+  <p class="muted" style="font-size:14px;margin:0 0 16px">Star <b>☆</b> anything that matters, or give it a tag with <b>+ tag</b> — on <b>Your day</b> in Today, or in the lists at the bottom of this page. It stays here, email and all, until you tick it done, even after it drops out of Outlook's last fortnight. Stars and tags are kept in the app; Outlook and Teams are not changed.</p>`;
+  if(ids.length)html+=`<div class="impf">${chip("all","All",open.length)}${chip("star","★ Important",open.filter(id=>S[id].star).length)}${tags.map(t=>chip(t,esc(t),open.filter(id=>S[id].tags.includes(t)).length)).join("")}</div>`;
+  html+=`<div class="card">`;
+  if(!ids.length)html+=`<div class="empty">Nothing starred or tagged yet. Star an email or an assignment and it lands here.</div>`;
+  else if(!shown.length)html+=`<p class="muted" style="font-size:14px;margin:0">${open.length?"Nothing with that tag left to do ✓":"All done ✓"}</p>`;
+  else html+=`<ul class="asg">`+shown.map(id=>impRow(id,S[id].item,true)).join("")+`</ul>`;
+  if(doneIds.length){html+=`<div style="display:flex;gap:8px;margin-top:14px"><button class="btn small" id="impdone">${impShowDone?"Hide done":`Show ${doneIds.length} done`}</button>${impShowDone?`<button class="btn small" id="impclear">Clear done</button>`:""}</div>`;
+    if(impShowDone)html+=`<ul class="asg" style="margin-top:12px">`+doneIds.map(id=>impRow(id,S[id].item,true)).join("")+`</ul>`;}
+  html+=`</div>`;
+  // Everything Your day can see right now, not yet starred or tagged.
+  const recs=dayRecords(),fresh=id=>!S[id];
+  const asg=[...recs].filter(([id,r])=>(r.kind==="teams"||r.kind==="assignment")&&fresh(id));
+  const mails=((DAY&&DAY.inbox)||[]).map(x=>x.id).filter(id=>fresh(id)&&recs.has(id)&&!["teams","assignment"].includes(recs.get(id).kind)).map(id=>[id,{...recs.get(id),unread:recs.get(id).unread||((DAY.inbox.find(x=>x.id===id))||{}).unread}]);
+  const upd=DAY&&DAY.fetchedAt?new Date(DAY.fetchedAt):null;
+  let status=settings.outlook===false?"Reading Outlook is off — turn it on in Guide → Outlook.":DAY_BUSY?"Reading Outlook…":DAY_ERR?DAY_ERR.split(". ")[0]+".":upd?`Outlook · read at ${upd.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}`:"";
+  html+=`<div style="display:flex;align-items:center;gap:8px;margin:22px 0 8px"><span class="eyebrow">Star or tag something</span><span class="muted" style="font-size:12.5px;margin-left:auto">${esc(status)}</span>${settings.outlook===false?"":`<button class="btn small" id="imprefresh" ${DAY_BUSY?"disabled":""}>Refresh</button>`}</div><div class="card">`;
+  html+=`<details class="impadd" data-impopen="asg" ${impOpen.asg?"open":""}><summary>Assignments <span class="muted">· ${asg.length}</span></summary>${asg.length?`<ul class="asg">`+asg.map(([id,r])=>impRow(id,r,false)).join("")+`</ul>`:`<p class="muted" style="font-size:13.5px;margin:8px 0">${TEAMS_ASG.length||(DAY&&DAY.assignments&&DAY.assignments.length)?"Every assignment is already starred or tagged.":"No assignments found — Teams ones arrive through the Teams button on Today."}</p>`}</details>`;
+  html+=`<details class="impadd" data-impopen="mail" ${impOpen.mail?"open":""}><summary>Recent email <span class="muted">· ${mails.length} from the last fortnight, newsletters left out</span></summary>${mails.length?`<ul class="asg">`+mails.map(([id,r])=>impRow(id,r,false)).join("")+`</ul>`:`<p class="muted" style="font-size:13.5px;margin:8px 0">${DAY?"Nothing else in the last fortnight.":"Open classic Outlook and press Refresh to list your email here."}</p>`}</details>`;
+  html+=`</div>`;
+  el.innerHTML=html;
+  el.querySelectorAll("[data-impf]").forEach(b=>b.addEventListener("click",()=>{impFilter=b.dataset.impf;render();}));
+  el.querySelector("#impdone")?.addEventListener("click",()=>{impShowDone=!impShowDone;render();});
+  el.querySelector("#impclear")?.addEventListener("click",()=>{if(!confirm(`Forget the ${doneIds.length} done item${doneIds.length===1?"":"s"}? They come off this page; nothing changes in Outlook or Teams.`))return;
+    doneIds.forEach(id=>delete S[id]);impShowDone=false;persist();render();});
+  el.querySelector("#imprefresh")?.addEventListener("click",()=>loadDay(true));
+  el.querySelectorAll("[data-impopen]").forEach(d=>d.addEventListener("toggle",()=>{impOpen[d.dataset.impopen]=d.open;}));
+  el.querySelectorAll("[data-mail]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.mail;if(OPEN_MAILS.has(id))OPEN_MAILS.delete(id);else OPEN_MAILS.add(id);render();}));
+  el.querySelectorAll("[data-openmail]").forEach(b=>b.addEventListener("click",async()=>{const label=b.textContent;b.disabled=true;b.textContent="Opening…";
+    try{await invoke("open_email",{id:b.dataset.openmail});}catch(e){alert(errText(e));}
+    b.disabled=false;b.textContent=label;}));
+  el.querySelectorAll("[data-inbox]").forEach(cb=>cb.addEventListener("change",()=>{if(cb.checked)state.inbox[cb.dataset.inbox]=true;else delete state.inbox[cb.dataset.inbox];persist();render();}));
+  bindSaved(el);
+}
 function asgSection(allAsg){
   if(!allAsg||!allAsg.length)return "";
   const done=id=>!!state.inbox[id];
@@ -1184,7 +1325,7 @@ function asgSection(allAsg){
   let h=`<div class="sec"><div style="display:flex;align-items:center;gap:8px"><span class="eyebrow">Assignments</span>${nDone?`<button class="btn small showdone" style="margin-left:auto">${showDoneInbox?"Hide done":`Show ${nDone} done`}</button>`:""}</div>`;
   if(!asg.length)h+=`<p class="muted" style="font-size:14px;margin:6px 0 0">All done ✓</p>`;
   else h+=`<ul class="asg">`+asg.map(a=>{const w=a.due?whenLabel(a.due):null;
-    return `<li class="${done(a.id)?"done":""}"><input type="checkbox" data-inbox="${esc(a.id)}" ${done(a.id)?"checked":""} aria-label="Done"><div><div class="ah">${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(a.title)}</span>${a.course?`<span class="who">· ${esc(a.course)}</span>`:""}${a.teams?`<span class="who">· Teams</span>`:""}${a.unread?`<span class="who">· unread</span>`:""}${mailBtn(a.id)}</div>${a.description?`<div class="snip">${esc(a.description)}</div>`:""}${a.links&&a.links.length?`<div class="alinks">`+a.links.map(l=>`<a class="btn small" href="${esc(l.url)}">${esc(l.label)} ↗</a>`).join("")+`</div>`:""}${mailView(a.id)}</div></li>`;}).join("")+`</ul>`;
+    return `<li class="${done(a.id)?"done":""}"><input type="checkbox" data-inbox="${esc(a.id)}" ${done(a.id)?"checked":""} aria-label="Done"><div><div class="ah">${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(a.title)}</span>${a.course?`<span class="who">· ${esc(a.course)}</span>`:""}${a.teams?`<span class="who">· Teams</span>`:""}${a.unread?`<span class="who">· unread</span>`:""}${mailBtn(a.id)}${saveBtns(a.id)}</div>${a.description?`<div class="snip">${esc(a.description)}</div>`:""}${a.links&&a.links.length?`<div class="alinks">`+a.links.map(l=>`<a class="btn small" href="${esc(l.url)}">${esc(l.label)} ↗</a>`).join("")+`</div>`:""}${tagPicker(a.id)}${mailView(a.id)}</div></li>`;}).join("")+`</ul>`;
   return h+`</div>`;
 }
 function dayPanel(d,isToday){
@@ -1217,7 +1358,7 @@ function dayPanel(d,isToday){
   if(plan){
     const pick=a=>(a||[]).filter(x=>showDoneInbox||!done(x.id));
     const orgRow=x=>{const w=x.when?whenLabel(x.when):null;
-      return `<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div>${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(x.line)}</span>${mailBtn(x.id)}${mailView(x.id)}</div></li>`;};
+      return `<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div>${w?`<span class="when ${w.cls}">${w.text}</span>`:""}<span class="title">${esc(x.line)}</span>${mailBtn(x.id)}${saveBtns(x.id)}${tagPicker(x.id)}${mailView(x.id)}</div></li>`;};
     const nowI=pick(DAY.organised.now),latI=pick(DAY.organised.later);
     const orgAll=(DAY.organised.now||[]).concat(DAY.organised.later||[]),orgDone=orgAll.filter(x=>done(x.id)).length;
     html+=`<div class="sec"><div style="display:flex;align-items:center;gap:8px"><span class="eyebrow">For today</span>${ORG_BUSY?`<span class="muted" style="font-size:11.5px">✨ tidying wording…</span>`:""}${orgDone?`<button class="btn small showdone" style="margin-left:auto">${showDoneInbox?"Hide done":`Show ${orgDone} done`}</button>`:""}</div>`;
@@ -1233,12 +1374,12 @@ function dayPanel(d,isToday){
   html+=`<div class="sec"><div style="display:flex;align-items:center;gap:8px"><span class="eyebrow">Deadlines</span>${dlDone?`<button class="btn small showdone" style="margin-left:auto">${showDoneInbox?"Hide done":`Show ${dlDone} done`}</button>`:""}</div>`;
   if(!dlShow.length)html+=`<p class="muted" style="font-size:14px;margin:6px 0 0">Nothing found in the last fortnight of email.</p>`;
   else html+=`<ul class="dl">`+dlShow.map(x=>{const w=whenLabel(x.date);
-    return `<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div><span class="when ${w.cls}">${w.text}</span><span class="title">${esc(x.title)}</span> <span class="who">— ${esc(x.from)}${x.source!=="email"?` · ${srcName[x.source]||x.source}`:""}</span>${mailBtn(x.id)}${x.snippet?`<div class="snip">${esc(x.snippet)}</div>`:""}${mailView(x.id)}</div></li>`;}).join("")+`</ul>`;
+    return `<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div><span class="when ${w.cls}">${w.text}</span><span class="title">${esc(x.title)}</span> <span class="who">— ${esc(x.from)}${x.source!=="email"?` · ${srcName[x.source]||x.source}`:""}</span>${mailBtn(x.id)}${saveBtns(x.id)}${x.snippet?`<div class="snip">${esc(x.snippet)}</div>`:""}${tagPicker(x.id)}${mailView(x.id)}</div></li>`;}).join("")+`</ul>`;
   if(later)html+=`<p class="muted" style="font-size:12.5px;margin:8px 0 0">+${later} more than ${SHOW_AHEAD_DAYS} days away.</p>`;
   html+=`</div>`;
   // requests with no date
   const acts=DAY.actions.filter(x=>showDoneInbox||!done(x.id)),shown=showAllAsks?acts:acts.slice(0,ASKS_SHOWN);
-  if(acts.length)html+=`<div class="sec"><span class="eyebrow">Asked of you</span><ul class="dl">`+shown.map(x=>`<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div><span class="title">${esc(x.title)}</span> <span class="who">— ${esc(x.from)}${x.unread?" · unread":""}</span>${mailBtn(x.id)}${x.snippet?`<div class="snip">${esc(x.snippet)}</div>`:""}${mailView(x.id)}</div></li>`).join("")+`</ul>${acts.length>ASKS_SHOWN?`<button class="btn small" id="allasks" style="margin-top:10px">${showAllAsks?"Show fewer":`+${acts.length-shown.length} more`}</button>`:""}</div>`;
+  if(acts.length)html+=`<div class="sec"><span class="eyebrow">Asked of you</span><ul class="dl">`+shown.map(x=>`<li class="${done(x.id)?"done":""}"><input type="checkbox" data-inbox="${esc(x.id)}" ${done(x.id)?"checked":""} aria-label="Done"><div><span class="title">${esc(x.title)}</span> <span class="who">— ${esc(x.from)}${x.unread?" · unread":""}</span>${mailBtn(x.id)}${saveBtns(x.id)}${x.snippet?`<div class="snip">${esc(x.snippet)}</div>`:""}${tagPicker(x.id)}${mailView(x.id)}</div></li>`).join("")+`</ul>${acts.length>ASKS_SHOWN?`<button class="btn small" id="allasks" style="margin-top:10px">${showAllAsks?"Show fewer":`+${acts.length-shown.length} more`}</button>`:""}</div>`;
   }
   return html+`</div>`;}
 function bindDay(root){
@@ -1251,6 +1392,7 @@ function bindDay(root){
     b.disabled=false;b.textContent=label;}));
   root.querySelector("#allasks")?.addEventListener("click",()=>{showAllAsks=!showAllAsks;render();});
   root.querySelectorAll("[data-inbox]").forEach(cb=>cb.addEventListener("change",()=>{if(cb.checked)state.inbox[cb.dataset.inbox]=true;else delete state.inbox[cb.dataset.inbox];persist();render();}));
+  bindSaved(root);
 }
 
 /* ---------- TODAY VIEW ---------- */
@@ -2603,12 +2745,13 @@ function renderGuide(){
   <h3>No scores</h3><p>Nothing here gives you a mark or predicts a grade. After a topic or a test you answer one question: <b>could you do it without notes?</b> If not, it goes on the fix list, and it comes back to be checked. The <b>streak</b> is the only number kept: days you did something.</p>
   <h3>Profiles</h3><p>The name at the top right is who is signed in. Click it to switch, add a profile, set a PIN, or export one. Each profile keeps its own progress, plan, known topics, cards, quotes and lesson notes, all on this PC. To move a profile to another computer, <b>Export</b> it here and <b>Import</b> the file there. A PIN only stops someone else on this PC opening the wrong profile; the files themselves are in the app data folder either way.</p>
   <h3>Window size</h3><p>Make the window wide and Today shows the whole week beside the day, with every session one click away. Make it narrow and everything compresses to fit — nothing is ever pushed off the edge.</p>
-  <h3>Keyboard</h3><p><b>1–5</b> switch tabs · <b>← →</b> change week · <b>T</b> today · <b>P</b> print the week · <b>Ctrl+K</b> search · <b>Esc</b> closes a menu.</p>
+  <h3>Keyboard</h3><p><b>1–6</b> switch tabs · <b>← →</b> change week · <b>T</b> today · <b>P</b> print the week · <b>Ctrl+K</b> search · <b>Esc</b> closes a menu.</p>
   <h3>Changing the plan</h3><p>The <b>Plan</b> tab is the whole thing laid bare — subjects, who sets their pace, every topic and its hours, fixed weekly sessions, where the links point, and your term dates. Change anything and save; the two years reschedule around it and your ticks stay put. Reset puts the built-in plan back.</p>
   <h3>If you fall behind</h3><p>Use the next holiday to catch up — the plan finishes content early on purpose. If you lose more than that, <b>Progress → Catch up</b> re-pours everything unfinished from this week onwards. If the remaining work no longer fits before the exams, the app names exactly which topics don't fit rather than quietly dropping them.</p>
   <h3>Specification checklists</h3><p>Every subject except English carries every individual statement the exam board makes for each topic, with a tick each — 242 for Maths, 43 Further Maths, 176 Biology, 182 Chemistry, 195 Physics, 113 Economics, 125 Business, 89 Computer Science (OCR J277). Where the board numbers its statements (all but Business) the numbering was read out of the document by machine and a test fails the build if one goes missing. AQA does not number Business outcomes and OCR does not number the Computer Science bullets, so those letters are the app's own, in the order each specification lists them - though the Computer Science counts were read from the document. In the sciences, a <b>B</b>, <b>C</b> or <b>P</b> suffix marks content only separate-science students sit — 142 statements Double Award students never see, and you do. English is texts and skills rather than statements, so it is checked at section level.</p>
   <h3>Exam dates</h3><p>Each subject page has a <b>First exam</b> box. The 2028 timetables are not published yet; when they are, write the dates in and the countdown uses the earliest.</p>
   <h3>Your day</h3><p>The card at the top of <b>Today</b> is read straight out of classic Outlook <b>while you have it open</b> on this computer — your timetable, the gaps between lessons where the session fits, and anything a teacher's email says is due ("hand in by Friday", "know by 6pm tomorrow"). It is done with rules, not AI, so it is free, works offline and nothing leaves the machine; the sentence each deadline came from is shown so a wrong guess is obvious. Tick things off as you do them. Newsletters are ignored. Flag an email in Outlook with a date and it shows up too.</p>
+  <h3>Important</h3><p>Every line in <b>Your day</b> has a <b>☆</b> and a <b>+ tag</b>. Star what matters, or tag it — Homework, Revise, Reply, Ask teacher, Bring in, or any tag you type — and it is kept on the <b>Important</b> tab, sorted by when it is due, with the number still to do on the tab itself. The lists at the bottom of that page hold every assignment and every email from the last fortnight (newsletters left out), so you can star an email the rules didn't pick up. A starred item keeps a copy of its email, so it is still there after it drops out of Outlook's fortnight; tick it done in either place and it is done in both. Tap a tag at the top to see only that tag. Stars and tags live in the app — nothing is changed in Outlook or Teams.</p>
   <p class="muted" style="font-size:13px">Term dates are typical English ones — change them in Plan to match your school.</p></div>
   <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Drafting new subjects</h3>
   <p class="muted" style="font-size:13.5px;margin:0 0 10px">The Plan tab can draft a whole subject — topics, hours, objectives — from a public specification page. That one feature calls the Anthropic API with your own key from <a href="https://console.anthropic.com">console.anthropic.com</a>, and costs a few pence each time. Everything else in the app works offline and needs no key.</p>
@@ -2659,19 +2802,19 @@ function renderGuide(){
 /* ---------- VIEWS ---------- */
 let view="today";
 function showView(v){view=v;document.querySelectorAll(".nav [role=tab]").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===v));document.querySelectorAll(".view").forEach(s=>s.hidden=(s.id!=="view-"+v));render();window.scrollTo({top:0});}
-function render(){({today:renderToday,subjects:renderSubjects,progress:renderProgress,plan:renderPlan,guide:renderGuide})[view]();}
+function render(){({today:renderToday,important:renderImportant,subjects:renderSubjects,progress:renderProgress,plan:renderPlan,guide:renderGuide})[view]();navBadge();}
 document.querySelectorAll(".nav [role=tab]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 
 /* ---------- KEYBOARD ----------
-   1-5 switch tabs. On Today: left and right change week, T jumps to today,
+   1-6 switch tabs. On Today: left and right change week, T jumps to today,
    P prints the week. Ctrl+K searches from anywhere. Escape closes menus. */
 document.addEventListener("keydown",e=>{
   const typing=/^(INPUT|TEXTAREA|SELECT)$/.test((e.target&&e.target.tagName)||"")||(e.target&&e.target.isContentEditable);
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();curSubj=null;showView("subjects");const b=document.getElementById("findbox");if(b){b.focus();b.select();}return;}
   if(e.key==="Escape"){if(menuKey){menuKey=null;render();}if(typing)e.target.blur();return;}
   if(typing||e.ctrlKey||e.metaKey||e.altKey)return;
-  const tabs=["today","subjects","progress","plan","guide"];
-  if(/^[1-5]$/.test(e.key)){showView(tabs[+e.key-1]);return;}
+  const tabs=["today","important","subjects","progress","plan","guide"];
+  if(/^[1-6]$/.test(e.key)){showView(tabs[+e.key-1]);return;}
   if(view!=="today")return;
   if(e.key==="ArrowLeft"&&cur>1){cur--;curDay=0;menuKey=null;render();}
   else if(e.key==="ArrowRight"&&cur<TOTAL){cur++;curDay=0;menuKey=null;render();}

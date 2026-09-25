@@ -117,9 +117,14 @@ pub struct Context {
     #[serde(default)]
     pub organised: Option<crate::ai::AiPlan>,
     pub mails_scanned: usize,
-    /// The emails the items above came from, by Outlook EntryID, so the UI can
-    /// show "the exact email" on the spot — and still can when Outlook is
-    /// closed and this is the cached copy. Only emails an item points at.
+    /// Every email from the fortnight that isn't a newsletter, newest first -
+    /// so the UI can star or tag any of them, not just the ones the rules
+    /// turned into a deadline or a request.
+    #[serde(default)]
+    pub inbox: Vec<InboxMail>,
+    /// The emails the items above and `inbox` point at, by Outlook EntryID, so
+    /// the UI can show "the exact email" on the spot — and still can when
+    /// Outlook is closed and this is the cached copy. Newsletters are left out.
     #[serde(default)]
     pub emails: BTreeMap<String, EmailView>,
     /// Set when this is a stale cached copy because a fresh read failed.
@@ -136,6 +141,26 @@ pub struct EmailView {
     pub from: String,
     pub received: String,
     pub body: String,
+}
+
+/// One line of the inbox list: enough to recognise the email and decide
+/// whether it matters. The text itself is in `Context::emails`.
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct InboxMail {
+    /// `mail:<EntryID>` — the same id a deadline or request from it carries,
+    /// so a star on one is a star on the other.
+    pub id: String,
+    pub subject: String,
+    #[serde(default)]
+    pub from: String,
+    pub received: String,
+    #[serde(default)]
+    pub unread: bool,
+    #[serde(default)]
+    pub flagged: bool,
+    #[serde(default)]
+    pub snippet: String,
 }
 
 /// The EntryID an item id points at, when the item came from an email
@@ -608,11 +633,28 @@ pub fn build(dump: &Dump, today: NaiveDate, fetched_at: String) -> Context {
     let mut events: Vec<Event> = dump.events.iter().map(|e| Event { body: String::new(), ..e.clone() }).collect();
     events.sort_by(|a, b| a.start.cmp(&b.start));
 
+    // Newsletters stay out, but an assignment's email is in whatever its
+    // links say (see the assignment check above).
+    let inbox: Vec<InboxMail> = mails
+        .iter()
+        .filter(|m| !is_bulk(m) || assignments.iter().any(|a| mail_entry_id(&a.id) == Some(m.id.as_str())))
+        .map(|m| InboxMail {
+            id: format!("mail:{}", m.id),
+            subject: clean_subject(&m.subject),
+            from: m.sender.clone(),
+            received: m.received.clone(),
+            unread: m.unread,
+            flagged: m.flagged,
+            snippet: snippet(&m.body, 0, 0),
+        })
+        .collect();
+
     let wanted: HashSet<&str> = deadlines
         .iter()
         .map(|x| x.id.as_str())
         .chain(actions.iter().map(|x| x.id.as_str()))
         .chain(assignments.iter().map(|x| x.id.as_str()))
+        .chain(inbox.iter().map(|x| x.id.as_str()))
         .filter_map(mail_entry_id)
         .collect();
     let emails = dump
@@ -621,7 +663,7 @@ pub fn build(dump: &Dump, today: NaiveDate, fetched_at: String) -> Context {
         .filter(|m| wanted.contains(m.id.as_str()))
         .map(|m| (m.id.clone(), EmailView { subject: m.subject.clone(), from: m.sender.clone(), received: m.received.clone(), body: m.body.clone() }))
         .collect();
-    Context { fetched_at, events, deadlines, actions, assignments, organised: None, mails_scanned: dump.mails.len(), emails, error: None }
+    Context { fetched_at, events, deadlines, actions, assignments, organised: None, mails_scanned: dump.mails.len(), inbox, emails, error: None }
 }
 
 #[cfg(test)]
@@ -711,7 +753,7 @@ mod tests {
     }
 
     #[test]
-    fn the_email_behind_each_item_is_kept_and_nothing_else() {
+    fn every_real_email_is_listed_and_kept_but_not_newsletters() {
         let dump = Dump { mails: vec![
             Mail { id: "AA01".into(), ..mail("Maths", "Hand in by Friday. See you then.") },
             Mail { id: "BB02".into(), ..mail("Please fill in the form", "The form is on the portal.") },
@@ -721,11 +763,16 @@ mod tests {
         let c = build(&dump, d(RECV), "now".into());
         let mut keys: Vec<&str> = c.emails.keys().map(|k| k.as_str()).collect();
         keys.sort();
-        assert_eq!(keys, ["AA01", "BB02"], "only emails an item points at");
+        assert_eq!(keys, ["AA01", "BB02", "DD04"], "every email but the newsletter");
+        let mut listed: Vec<&str> = c.inbox.iter().map(|m| m.id.as_str()).collect();
+        listed.sort();
+        assert_eq!(listed, ["mail:AA01", "mail:BB02", "mail:DD04"]);
+        let hello = c.inbox.iter().find(|m| m.id == "mail:DD04").unwrap();
+        assert_eq!((hello.subject.as_str(), hello.from.as_str(), hello.snippet.as_str()), ("Hello", "Mr Jones", "Nice to see everyone today."));
         let e = &c.emails["AA01"];
         assert_eq!((e.subject.as_str(), e.from.as_str(), e.body.as_str()), ("Maths", "Mr Jones", "Hand in by Friday. See you then."));
         // every mail-backed item resolves to a kept email
-        for id in c.deadlines.iter().map(|x| &x.id).chain(c.actions.iter().map(|x| &x.id)) {
+        for id in c.deadlines.iter().map(|x| &x.id).chain(c.actions.iter().map(|x| &x.id)).chain(c.inbox.iter().map(|x| &x.id)) {
             if let Some(eid) = mail_entry_id(id) { assert!(c.emails.contains_key(eid), "{id}"); }
         }
     }
@@ -792,6 +839,7 @@ mod tests {
         assert_eq!(c.assignments[0].title, "Photosynthesis worksheet");
         assert!(c.deadlines.is_empty(), "assignment should not also be a deadline");
         assert!(c.actions.is_empty());
+        assert_eq!(c.inbox.len(), 1, "its email can still be starred, newsletter-shaped or not");
     }
 
     #[test]
