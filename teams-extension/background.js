@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   fetch(APP_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ items: msg.items || [], syncedAt: new Date().toISOString() })
+    body: JSON.stringify({ items: msg.items || [], diag: msg.diag || null, syncedAt: new Date().toISOString() })
   })
     .then((r) => sendResponse({ ok: r.ok }))
     .catch(() => sendResponse({ ok: false }));

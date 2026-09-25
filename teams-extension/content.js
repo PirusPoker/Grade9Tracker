@@ -4,18 +4,45 @@
 (function () {
   "use strict";
   const IN_TOP = window.top === window;
+  const SEEN = new Map(), CALLS = [];
+
+  // Only forthcoming work is worth syncing. Teams keeps anything never formally
+  // handed in on the list forever, so the feed is mostly old term-time leftovers.
+  // Keep: not handed in, and due from a few days ago onwards (so a deadline you
+  // only just missed doesn't vanish). Undated: only if set in the last fortnight.
+  const DAY_MS = 864e5, GRACE_DAYS = 3, UNDATED_DAYS = 14;
+  function forthcoming(a) {
+    if (a.completed || a.turnedIn || ["submitted", "returned", "excused"].includes(a.submission)) return false;
+    const now = Date.now();
+    if (a.due) {
+      const d = Date.parse(a.due);
+      return isNaN(d) || d >= now - GRACE_DAYS * DAY_MS;
+    }
+    const set = Date.parse(a.assigned || "");
+    return !isNaN(set) && set >= now - UNDATED_DAYS * DAY_MS;
+  }
 
   window.addEventListener("message", (e) => {
     const d = e.data;
     if (!d || d.__g9teams !== 1 || d.kind !== "assignments") return;
     // Sub-frames relay up so the top frame does the sending and shows one toast.
     if (!IN_TOP) { try { window.top.postMessage(d, "*"); } catch (x) {} return; }
+    // Merge: every assignment seen on this page, by id, latest copy winning. A
+    // later response that only covers some of them (another view, a page of
+    // results, the "completed" tab) must not wipe out the ones it doesn't list.
+    (d.items || []).forEach((a) => { if (a && a.id) SEEN.set(a.id, a); });
+    CALLS.push({ q: d.query || "", n: (d.items || []).length, at: new Date().toISOString() });
+    if (CALLS.length > 15) CALLS.shift();
+    const all = [...SEEN.values()];
+    const items = all.filter(forthcoming);
+    // Dates and statuses only - never titles - so a sync that looks wrong can be read back.
+    const diag = { calls: CALLS.slice(), seen: all.map((a) => ({ due: a.due, assigned: a.assigned, status: a.status, submission: a.submission, completed: a.completed, turnedIn: a.turnedIn, kept: forthcoming(a) })) };
     try {
-      chrome.runtime.sendMessage({ type: "g9-assignments", items: d.items }, (resp) => {
+      chrome.runtime.sendMessage({ type: "g9-assignments", items: items, diag: diag }, (resp) => {
         void chrome.runtime.lastError; // ignore "no receiver" if the worker is asleep
-        toast(d.items.length, resp && resp.ok);
+        toast(items.length, resp && resp.ok);
       });
-    } catch (x) { toast(d.items.length, false); }
+    } catch (x) { toast(items.length, false); }
   });
   if (!IN_TOP) return;
 

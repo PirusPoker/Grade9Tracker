@@ -26,20 +26,12 @@
     };
   }
 
-  // Only forthcoming work is worth syncing. Teams keeps anything never formally
-  // handed in on the list forever, so the feed is mostly old term-time leftovers.
-  // Keep: not handed in, and due from a few days ago onwards (so a deadline you
-  // only just missed doesn't vanish). Undated: only if set in the last fortnight.
-  const DAY_MS = 864e5, GRACE_DAYS = 3, UNDATED_DAYS = 14;
-  function forthcoming(a) {
-    if (a.completed || a.turnedIn || ["submitted", "returned", "excused"].includes(a.submission)) return false;
-    const now = Date.now();
-    if (a.due) {
-      const d = Date.parse(a.due);
-      return isNaN(d) || d >= now - GRACE_DAYS * DAY_MS;
-    }
-    const set = Date.parse(a.assigned || "");
-    return !isNaN(set) && set >= now - UNDATED_DAYS * DAY_MS;
+  // Which feed request this was (path + query), so a sync can say what Teams asked for.
+  function queryOf(url) {
+    try {
+      const u = new URL(url, location.href);
+      return (u.pathname.replace(/^.*\/edu\//, "edu/") + decodeURIComponent(u.search)).slice(0, 200);
+    } catch (e) { return ""; }
   }
 
   function handle(url, text) {
@@ -48,9 +40,11 @@
       const j = JSON.parse(text);
       const arr = Array.isArray(j.value) ? j.value : (Array.isArray(j) ? j : null);
       if (!arr) return;                       // not the assignment feed after all
-      const items = arr.filter((a) => a && a.id).map(pick).filter(forthcoming);
-      // Sent even when empty, so the app drops assignments that are no longer due.
-      window.postMessage({ __g9teams: 1, kind: "assignments", items: items }, "*");
+      // Everything in this response goes up unfiltered: Teams asks for the feed
+      // more than once (different views, pages, frames), and only the top frame
+      // sees all of them, so it merges and decides what's forthcoming.
+      const items = arr.filter((a) => a && a.id).map(pick);
+      window.postMessage({ __g9teams: 1, kind: "assignments", items: items, query: queryOf(url) }, "*");
     } catch (e) {}
   }
 
