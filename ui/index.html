@@ -199,6 +199,7 @@ a{color:var(--accent);text-underline-offset:2px}
 .mark{font-size:11.5px;font-weight:650;padding:3px 9px;border-radius:999px;background:var(--surface2);color:var(--muted)}
 .mark.got{background:var(--good-soft);color:var(--good)}
 .mark.shaky{background:var(--bad-soft);color:var(--bad)}
+.mark.okay{background:var(--warn-soft);color:var(--warn)}
 .streak{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:var(--warn-soft);color:var(--warn);font-weight:650;font-size:13.5px}
 .streak.cold{background:var(--surface2);color:var(--muted)}
 .banner{border-radius:var(--r-sm);padding:12px 14px;display:flex;gap:10px;align-items:center;font-weight:550;font-size:14px}
@@ -729,6 +730,13 @@ table{max-width:100%}
 .lans{border-top:1px dashed var(--line-2);margin-top:10px;padding-top:10px}
 .lans p:last-child{margin-bottom:0}
 .lqbtns{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.qreport{display:inline-block;margin-top:10px;font-size:12px;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px}
+.qreport:hover{color:var(--accent)}
+details.ppbook>summary{display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none}
+details.ppbook>summary::-webkit-details-marker{display:none}
+.ppbook select,.ppbook input{margin-bottom:8px}
+.ppgrid{display:grid;grid-template-columns:1fr 6.5em 5em;gap:8px}
+@media (max-width:420px){.ppgrid{grid-template-columns:1fr 1fr}.ppgrid input:first-child{grid-column:1/-1}}
 .ldone{border:1px solid var(--good-line);background:var(--good-soft);color:var(--good);border-radius:var(--r);padding:12px 14px;margin:6px 0 14px;font-size:14.5px}
 .lend{border-top:1px solid var(--line);margin-top:26px;padding-top:18px}
 /* end-of-topic test */
@@ -1071,15 +1079,35 @@ function scheduleReview(key,label){
   r.label=label;
   r.due=stagger(addDays(new Date(),REVIEW_GAPS[Math.min(r.stage,REVIEW_GAPS.length-1)]),key);
   state.reviews[key]=r;}
+/* How solid a finished topic feels decides when it is first checked:
+   shaky comes back in 2 days (and goes on the fix list), okay after the
+   first recall gap (a week), solid after the second (three weeks). From
+   there it climbs the usual ladder. One tap instead of a quiz, and a topic
+   that felt solid still gets checked - just later. */
+const SHAKY_DAYS=2;
+const CONF={shaky:{label:"Shaky",chip:"On the fix list"},okay:{label:"Okay",chip:"Recall in a week"},got:{label:"Solid",chip:"Recall in 3 weeks"}};
+function setConfidence(id,v){const t=T(id);const tp=findTopic(id);const key="t:"+id;
+  t.mark=t.mark===v?null:v;if(t.mark!=="shaky")t.fixed=false;
+  const prev=state.reviews[key];
+  // Only replace a check this tap made, or one not yet started - never reset
+  // a topic that is already some way up the recall ladder.
+  if(!prev||prev.conf||(prev.stage||0)===0){
+    if(!t.mark){if(prev&&prev.conf)delete state.reviews[key];}
+    else if(tp){const label=`${SUBJECTS[tp.subj].name}: ${tp[1]}`;
+      const r={stage:0,label,conf:t.mark};
+      if(t.mark==="shaky"){r.pre=true;r.due=stagger(addDays(new Date(),SHAKY_DAYS),key);}
+      else{r.stage=t.mark==="got"?Math.min(1,REVIEW_GAPS.length-1):0;r.due=stagger(addDays(new Date(),REVIEW_GAPS[r.stage]),key);}
+      state.reviews[key]=r;}}
+  markDay();persist();render();}
 function dueReviews(){const t=todayISO();return Object.entries(state.reviews).filter(([,r])=>r.due<=t).map(([key,r])=>({key,...r}));}
 function passReview(key){const r=state.reviews[key];if(!r)return;
-  r.stage++;
+  if(r.pre)delete r.pre;else r.stage++;delete r.conf;
   if(r.stage>=REVIEW_GAPS.length)delete state.reviews[key];
   else r.due=stagger(addDays(new Date(),REVIEW_GAPS[r.stage]),key);
   if(key.startsWith("t:")){const t=T(key.slice(2));t.gaps=[];}
   delete recallMarks[key];markDay();persist();render();}
 function failReview(key){const r=state.reviews[key];if(!r)return;
-  r.stage=0;r.due=stagger(addDays(new Date(),REVIEW_GAPS[0]),key);
+  r.stage=0;delete r.pre;delete r.conf;r.due=stagger(addDays(new Date(),REVIEW_GAPS[0]),key);
   // A failed recall on a topic is a real gap: it goes on the fix list too.
   if(key.startsWith("t:")){const t=T(key.slice(2));t.done=true;t.mark="shaky";t.fixed=false;
     const m=recallMarks[key]||{};t.gaps=Object.entries(m).filter(([,v])=>v===false).map(([i])=>+i);
@@ -1167,7 +1195,7 @@ function subjectMistakes(subj){const out=[];
    is holding, counted apart, so the headline number is what needs work. */
 const openMistakeCount=()=>Object.values(state.mistakes).reduce((n,l)=>n+l.filter(m=>!m.fixed&&!inReview(m)).length,0);
 const reviewMistakeCount=()=>Object.values(state.mistakes).reduce((n,l)=>n+l.filter(m=>inReview(m)).length,0);
-const srcLabel={recall:"recall check",test:"test",session:"session",manual:"note",lesson:"lesson"};
+const srcLabel={recall:"recall check",test:"test",session:"session",manual:"note",lesson:"lesson",pastpaper:"past paper"};
 function mistakeRow(key,i,m,label){
   return `<div class="mrow ${m.fixed?"fixed":""}"><input type="checkbox" data-mfix="${esc(key)}|${i}" ${m.fixed?"checked":""} aria-label="Fixed"><div><div class="mt">${esc(m.text)}</div><div class="mm">${label?`${esc(label)} · `:""}${fmt(new Date(m.t+"T00:00:00"))} · ${srcLabel[m.src]||m.src}${fixNote(m)}</div></div><button class="icon" data-mdel="${esc(key)}|${i}" aria-label="Delete">×</button></div>`;}
 const openMist=new Set();
@@ -1180,7 +1208,37 @@ function mistakeBlock(key,placeholder){
 /* Shown at the top of a recall check: what went wrong last time. */
 function lastTimeBlock(key){const open=openMistakes(key).filter(m=>!inReview(m));if(!open.length)return "";
   return `<div class="lasttime"><b>Last time you got wrong</b><ul>${open.map(m=>`<li>${esc(m.text)}</li>`).join("")}</ul></div>`;}
+/* ---------- PAST-PAPER MISTAKES BOOK ----------
+   Real past papers are sat and marked outside the app. Log each question
+   that dropped marks - the paper, the question, what the answer needed - and
+   it goes into the mistakes log under its topic and comes back as a fix-it
+   re-test a fortnight later: get the paper out and redo that question closed
+   book. From there it climbs the usual gaps until it holds. */
+const PP_FIRST_DAYS=14;
+let ppForm={paper:"",q:"",marks:"1",topic:"",note:""},ppOpen=false;
+function pastPaperCard(subj){const S=SUBJECTS[subj];if(!S)return "";const f=ppForm;
+  const logged=Object.values(state.mistakes).flat().filter(m=>m.ref&&m.ref.pp&&m.ref.subj===subj),open=logged.filter(m=>!m.fixed).length;
+  return `<details class="card ppbook" data-ppbox ${ppOpen?"open":""} style="margin-bottom:14px"><summary><span class="eyebrow">Past-paper mistakes book</span><span class="chip ${open?"bad":""}">${logged.length?`${open} open · ${logged.length} logged`:"empty"}</span></summary>
+    <p class="muted" style="font-size:13px;margin:10px 0">Sat a real past paper? Log every question you dropped marks on. Each goes into the mistakes log under its topic and comes back as a re-test in ${PP_FIRST_DAYS} days: get the paper out and redo that question closed book.</p>
+    <div class="ppgrid"><input type="text" data-pp="paper" value="${esc(f.paper)}" placeholder="Paper, e.g. June 2024 Paper 2" maxlength="60" aria-label="Paper"><input type="text" data-pp="q" value="${esc(f.q)}" placeholder="Q, e.g. 7b" maxlength="12" aria-label="Question"><input type="number" data-pp="marks" value="${esc(f.marks)}" min="1" max="30" aria-label="Marks dropped" title="Marks dropped"></div>
+    <select data-pp="topic" aria-label="Topic"><option value="">Topic — not sure</option>${S.topics.map(t=>`<option value="${esc(t.id)}" ${f.topic===t.id?"selected":""}>${esc(t[0])} ${esc(t[1])}</option>`).join("")}</select>
+    <input type="text" data-pp="note" value="${esc(f.note)}" placeholder="What the answer needed that yours didn't have" maxlength="240" aria-label="What the answer needed">
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="btn small primary" data-pplog="${esc(subj)}">Log it</button><span class="muted" id="ppmsg" style="font-size:13px"></span></div></details>`;}
+function bindPastPaper(root){
+  root.querySelector("[data-ppbox]")?.addEventListener("toggle",e=>{ppOpen=e.target.open;});
+  root.querySelectorAll("[data-pp]").forEach(inp=>{const h=()=>{ppForm[inp.dataset.pp]=inp.value;};inp.addEventListener("input",h);inp.addEventListener("change",h);
+    if(inp.tagName==="INPUT")inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();root.querySelector("[data-pplog]")?.click();}});});
+  root.querySelector("[data-pplog]")?.addEventListener("click",e=>{const subj=e.currentTarget.dataset.pplog,f=ppForm,msg=root.querySelector("#ppmsg");
+    const paper=f.paper.trim(),q=f.q.trim().replace(/^q/i,""),note=f.note.trim(),marks=Math.max(1,Math.min(30,Math.round(+f.marks||1)));
+    if(!paper||!q){msg.textContent="Say which paper and which question.";return;}
+    if(!note){msg.textContent="Write what the answer needed — that is what you re-test against.";return;}
+    const key=f.topic&&findTopic(f.topic)?f.topic:"subj:"+subj;
+    if(!addMistake(key,`${paper} Q${q}: ${note} (−${marks})`,"pastpaper",{pp:1,subj,paper,q,note,marks})){msg.textContent="That one is already logged.";return;}
+    const list=mistakesOf(key);list[list.length-1].first=iso(addDays(new Date(),PP_FIRST_DAYS));
+    // keep the paper filled in: a sitting usually drops more than one question
+    ppForm={paper,q:"",marks:"1",topic:"",note:""};ppOpen=true;markDay();persist();render();});}
 function bindMistakes(root){
+  bindPastPaper(root);
   root.querySelectorAll("[data-mistbox]").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)openMist.add(d.dataset.mistbox);else openMist.delete(d.dataset.mistbox);}));
   root.querySelectorAll("[data-madd]").forEach(b=>b.addEventListener("click",()=>{const key=b.dataset.madd;const inp=root.querySelector(`[data-mtext="${CSS.escape(key)}"]`);
     if(addMistake(key,inp&&inp.value,"manual")){openMist.add(key);markDay();persist();render();const n=document.querySelector(`[data-mtext="${CSS.escape(key)}"]`);if(n)n.focus();}else if(inp)inp.focus();}));
@@ -1612,7 +1670,7 @@ function itemBody(it,w){
       <div class="step"><span class="n">2</span><div><b>Topic questions · 30 min</b><span>${it.subj==="bus"||it.subj==="econ"?"Work through the topic questions, then write one extended answer using a chain of reasoning: point → because → which means → therefore.":it.subj==="cs"?"Work through the topic questions, then 15 minutes of Python on this idea.":"Work through the topic questions, hardest first. The easy ones don't move you towards a 9."}</span></div></div>
       ${it.entry.final?`<div class="step"><span class="n">3</span><div><b>Check yourself · 10 min</b><span>Close everything and do a few more questions from memory. Then answer the question below honestly.</span></div></div>`:""}
     </div>`}
-    ${it.entry.final&&done?`<div class="selfcheck"><span class="q">Could you do it without notes?</span><button class="btn small ${stt.mark==="got"?"done":""}" data-mark="${t.id}|got">Yes</button><button class="btn small ${stt.mark==="shaky"?"done":""}" data-mark="${t.id}|shaky">Not really</button>${stt.mark?`<span class="mark ${stt.mark}">${stt.mark==="got"?"Solid":"On the fix list"}</span>`:""}</div>${stt.mark==="shaky"?quickMistake(t.id,"session","What went wrong? The exact step or the exact slip"):""}`:""}`;}
+    ${it.entry.final&&done?`<div class="selfcheck"><span class="q">How solid is it, without notes?</span>${["shaky","okay","got"].map(v=>`<button class="btn small ${stt.mark===v?"done":""}" data-mark="${t.id}|${v}">${CONF[v].label}</button>`).join("")}${CONF[stt.mark]?`<span class="mark ${stt.mark}">${stt.mark==="shaky"?`${CONF.shaky.chip} · recall in ${SHAKY_DAYS} days`:CONF[stt.mark].chip}</span>`:""}</div>${stt.mark==="shaky"?quickMistake(t.id,"session","What went wrong? The exact step or the exact slip"):""}`:""}`;}
   if(it.kind==="rev"){const S=SUBJECTS[it.subj];
     if(isSchool(it.subj)){const known=S.topics.filter(t=>T(t.id).known||T(t.id).done);
       return `<div class="sub">School sets the pace in ${esc(S.name)}, so this is recall, not new content. Closed book.</div>
@@ -1659,8 +1717,7 @@ function bind(root){
     if(b.dataset.topic&&b.dataset.final==="1"){const t=T(b.dataset.topic);t.done=on;if(!on){t.mark=null;t.fixed=false;t.known=false;}}
     if(on)openSess.delete(key);persist();render();}));
   root.querySelectorAll("[data-done]").forEach(cb=>cb.addEventListener("change",()=>{const t=T(cb.dataset.done);t.done=cb.checked;if(cb.checked)markDay();else{t.mark=null;t.fixed=false;t.known=false;}persist();render();}));
-  root.querySelectorAll("[data-mark]").forEach(b=>b.addEventListener("click",()=>{const[id,v]=b.dataset.mark.split("|");const t=T(id);
-    t.mark=t.mark===v?null:v;if(t.mark!=="shaky")t.fixed=false;markDay();persist();render();}));
+  root.querySelectorAll("[data-mark]").forEach(b=>b.addEventListener("click",()=>{const[id,v]=b.dataset.mark.split("|");setConfidence(id,v);}));
   root.querySelectorAll("[data-tmark]").forEach(b=>b.addEventListener("click",()=>{const[id,s,v]=b.dataset.tmark.split("|");const ts=TS(id);ts.marks=ts.marks||{};
     ts.marks[s]=ts.marks[s]===v?null:v;ts.fixed=ts.fixed||{};ts.fixed[s]=false;markDay();persist();render();}));
   root.querySelectorAll("[data-stmtbox]").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)openStmt.add(d.dataset.stmtbox);else openStmt.delete(d.dataset.stmtbox);}));
@@ -1862,7 +1919,7 @@ function lessonHtml(topicId,text){const blocks=parseLesson(text);const marks=les
       const cut=b.lines.findIndex(l=>l.trim()==="---");const qLines=cut<0?b.lines:b.lines.slice(0,cut),aLines=cut<0?[]:b.lines.slice(cut+1);
       const open=lesson.open.has(i),mk=marks[i];
       html+=`<div class="lq ${mk===true?"yes":(mk===false?"no":"")}"><div class="lqhead"><span class="lqn">${mk===true?"✓":(mk===false?"✗":i+1)}</span><div class="lqbody">${mdBlock(qLines)}</div></div>
-        ${open?`<div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(aLines)}</div><div class="lqbtns"><button class="btn small ${mk===true?"done":""}" data-lmark="${i}|1">✓ Got it</button><button class="btn small" data-lmark="${i}|0">✗ Not yet</button><button class="btn small ghost" data-lhide="${i}">Hide</button></div>`:`<div class="lqbtns"><button class="btn small" data-lshow="${i}">Show answer</button>${mk!==undefined?`<button class="btn small ghost" data-lmark="${i}|clear">Reset</button>`:""}</div>`}</div>`;
+        ${open?`<div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(aLines)}${reportLink(`${(findTopic(topicId)||[topicId])[0]} ${(findTopic(topicId)||[])[1]||""} (${topicId}) · Try these Q${i+1}`,qLines,aLines)}</div><div class="lqbtns"><button class="btn small ${mk===true?"done":""}" data-lmark="${i}|1">✓ Got it</button><button class="btn small" data-lmark="${i}|0">✗ Not yet</button><button class="btn small ghost" data-lhide="${i}">Hide</button></div>`:`<div class="lqbtns"><button class="btn small" data-lshow="${i}">Show answer</button>${mk!==undefined?`<button class="btn small ghost" data-lmark="${i}|clear">Reset</button>`:""}</div>`}</div>`;
       if(i===qs.length-1&&right===qs.length)html+=`<div class="ldone"><b>All ${qs.length} right.</b> That is the topic learned — tick it below and it joins the recall rotation, so it stays learned.</div>`;}
   });
   return html;}
@@ -2050,6 +2107,17 @@ function bindTyped(el,X,list,subject,again){
 function aiMissNote(X,i){const r=X.ai&&X.ai[i];if(!r||!r.points)return "";const miss=r.points.filter(p=>!p.hit).map(p=>p.point);
   return miss.length?(" — missed: "+miss.join("; ")).slice(0,220):"";}
 const subjectFull=S=>S?(S.full||S.name):"";
+/* ---------- REPORTING A MISTAKE IN THE CONTENT ----------
+   Every question and answer was written for the app, and some will be
+   wrong. "Report a mistake" opens a GitHub issue already filled in with
+   where the question lives and what it says, so the fix can go out in the
+   next update. Only the question and its answer go in - nothing about you
+   or your progress. */
+const ISSUES_URL="https://github.com/PirusPoker/Grade9Tracker/issues/new";
+function reportLink(where,q,a){
+  const clip=(v,n)=>{const t=linesText(v).trim();return t.length>n?t.slice(0,n)+" …":t;};
+  const body=`**Where:** ${where}\n\n**What's wrong, and what it should be:**\n\n\n**The question:**\n${clip(q,700)}\n\n**The answer in the app:**\n${clip(a,700)}\n`;
+  return `<a class="qreport" href="${esc(`${ISSUES_URL}?title=${encodeURIComponent("Content: "+where)}&body=${encodeURIComponent(body)}`)}" title="Opens a GitHub issue with this question filled in">Report a mistake ↗</a>`;}
 function fmtSecs(n){n=Math.max(0,Math.round(n));return `${Math.floor(n/60)}:${String(n%60).padStart(2,"0")}`;}
 function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[t.subj];const X=lesson.test;const stt=T(t.id);
   stopTestTimer();
@@ -2065,7 +2133,7 @@ function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[
     const done=X.qs.filter((_,i)=>X.marks[i]!==undefined).length;const s=X.qs.reduce((n,q,i)=>n+(X.marks[i]||0),0);
     body=`<div class="ttrules"><b>Mark it.</b> Compare what you wrote with each answer and give yourself the marks. ${X.timeUp?"<b>Time ran out</b> — mark what you have; anything unanswered scores 0. ":""}Running total: <b>${s} / ${X.total}</b> · ${done} of ${X.qs.length} marked.${aiAllBtn(X,X.qs)}</div>`;
     X.qs.forEach((q,i)=>{const got=X.marks[i];const cls=got===undefined?"":(got>=q.max?"full":(got>0?"part":"zero"));
-      body+=`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(q.a)}</div>${aiBlock(X,i,q)}<div class="ttmarks"><span class="lab">${q.max===1?"Did you get it?":`Marks out of ${q.max}`}</span>${q.max===1?`<button class="btn small ${got===1?"done":""}" data-tm="${i}|1">✓ Yes</button><button class="btn small ${got===0?"primary":""}" data-tm="${i}|0">✗ No</button>`:(q.max<=12?Array.from({length:q.max+1},(_,k)=>`<button class="btn small ${got===k?(k===q.max?"done":"primary"):""}" data-tm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${q.max}" value="${got===undefined?"":got}" data-tmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-tmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`)}</div></div>`;});
+      body+=`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(q.a)}${reportLink(`${t[0]} ${t[1]} (${t.id}) · test question ${q.src+1}`,q.q,q.a)}</div>${aiBlock(X,i,q)}<div class="ttmarks"><span class="lab">${q.max===1?"Did you get it?":`Marks out of ${q.max}`}</span>${q.max===1?`<button class="btn small ${got===1?"done":""}" data-tm="${i}|1">✓ Yes</button><button class="btn small ${got===0?"primary":""}" data-tm="${i}|0">✗ No</button>`:(q.max<=12?Array.from({length:q.max+1},(_,k)=>`<button class="btn small ${got===k?(k===q.max?"done":"primary"):""}" data-tm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${q.max}" value="${got===undefined?"":got}" data-tmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-tmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`)}</div></div>`;});
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="ttfinish" ${done<X.qs.length?"disabled":""}>${done<X.qs.length?`Mark all ${X.qs.length} to finish`:"Finish test"}</button><button class="btn ghost" id="ttquit">Abandon test</button></div>`;
   }else{
     const band=testBand(X.pct);const dropped=X.qs.map((q,i)=>({q,i,got:X.marks[i]||0})).filter(x=>x.got<x.q.max);
@@ -2109,10 +2177,10 @@ let fixit=null; // {subj, items:[{key,i,m,q,a,max,label}], phase, marks, started
 let ELEVATED=false;
 const FIX_GAPS=[1,3,8,21];
 const FIX_GAP_WORDS=FIX_GAPS.slice(0,-1).join(", ")+" and "+FIX_GAPS[FIX_GAPS.length-1];   // "1, 3, 8 and 21"
-const refKey=r=>r.p?`p|${r.p}|${r.q}`:`t|${r.t}|${r.q}`;
+const refKey=r=>r.pp?`pp|${r.subj}|${r.paper}|${r.q}`:(r.p?`p|${r.p}|${r.q}`:`t|${r.t}|${r.q}`);
 const fixStage=m=>Math.min(m.stage||0,FIX_GAPS.length-1);
 /* When this one is next due, and in how many days (negative = overdue). */
-const fixDueOn=m=>iso(addDays(new Date((m.tried||m.t)+"T00:00:00"),FIX_GAPS[fixStage(m)]));
+const fixDueOn=m=>(!m.tried&&m.first)?m.first:iso(addDays(new Date((m.tried||m.t)+"T00:00:00"),FIX_GAPS[fixStage(m)]));
 const fixIn=m=>Math.round((new Date(fixDueOn(m)+"T00:00:00")-new Date(todayISO()+"T00:00:00"))/86400000);
 const fixDue=m=>fixIn(m)<=0;
 /* Held at least once, so it is being proved rather than repaired. */
@@ -2127,6 +2195,8 @@ function fixables(subj){const out=[];const keys=subj?[...SUBJECTS[subj].topics.m
   return out.sort((a,b)=>fixDueOn(a.m).localeCompare(fixDueOn(b.m))||refKey(a.m.ref).localeCompare(refKey(b.m.ref))).filter(x=>{const k=refKey(x.m.ref);if(seen.has(k))return false;seen.add(k);return true;});}
 const fixDueList=subj=>fixables(subj).filter(x=>fixDue(x.m));
 async function loadRef(ref){
+  if(ref.pp)return {q:[`**${ref.paper}, question ${ref.q}.** Get the real paper out and redo this question closed book, then mark it against the real mark scheme. (${ref.marks||1})`],
+    a:[`What the answer needed: ${ref.note}`],max:ref.marks||1,label:`${ref.paper} · Q${ref.q}`,subj:ref.subj,topics:[]};
   if(ref.p){const info=PAPER_LIST.find(p=>p.id===ref.p);if(!info)return null;let text=PAPER_CACHE[ref.p];
     if(!text){try{text=await invoke("get_paper",{id:ref.p});PAPER_CACHE[ref.p]=text;}catch(e){return null;}}
     const b=parseLesson(text).filter(b=>b.kind==="q")[ref.q];if(!b)return null;const sp=splitQ(b);
@@ -2164,7 +2234,7 @@ function renderFixit(el){const F=fixit;const S=F.subj?SUBJECTS[F.subj]:null;cons
     const done=F.items.filter((_,i)=>F.marks[i]!==undefined).length;
     body=`<div class="ttrules"><b>Mark it.</b> Full marks means fixed; be honest, a mistake you tick away too early just costs you in the exam. ${done} of ${F.items.length} marked.${aiAllBtn(F,F.items)}</div>`;
     F.items.forEach((x,i)=>{const got=F.marks[i];const cls=got===undefined?"":(got>=x.max?"full":(got>0?"part":"zero"));
-      body+=`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">${esc(x.label)}</div>${mdBlock(x.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(x.a)}</div>${aiBlock(F,i,x)}<div class="ttmarks"><span class="lab">${x.max===1?"Did you get it?":`Marks out of ${x.max}`}</span>${x.max===1?`<button class="btn small ${got===1?"done":""}" data-fm="${i}|1">✓ Yes</button><button class="btn small ${got===0?"primary":""}" data-fm="${i}|0">✗ No</button>`:(x.max<=12?Array.from({length:x.max+1},(_,k)=>`<button class="btn small ${got===k?(k===x.max?"done":"primary"):""}" data-fm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${x.max}" value="${got===undefined?"":got}" data-fmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-fmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`)}</div></div>`;});
+      body+=`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">${esc(x.label)}</div>${mdBlock(x.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(x.a)}${x.m.ref&&x.m.ref.pp?"":reportLink(x.label,x.q,x.a)}</div>${aiBlock(F,i,x)}<div class="ttmarks"><span class="lab">${x.max===1?"Did you get it?":`Marks out of ${x.max}`}</span>${x.max===1?`<button class="btn small ${got===1?"done":""}" data-fm="${i}|1">✓ Yes</button><button class="btn small ${got===0?"primary":""}" data-fm="${i}|0">✗ No</button>`:(x.max<=12?Array.from({length:x.max+1},(_,k)=>`<button class="btn small ${got===k?(k===x.max?"done":"primary"):""}" data-fm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${x.max}" value="${got===undefined?"":got}" data-fmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-fmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`)}</div></div>`;});
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="fxfinish" ${done<F.items.length?"disabled":""}>${done<F.items.length?`Mark all ${F.items.length} to finish`:"Finish"}</button><button class="btn ghost" id="fxquit">Abandon</button></div>`;
   }else{
     const left=F.items.map((x,i)=>({x,i,got:F.marks[i]||0})).filter(y=>y.got<y.x.max);const all=F.fixed===F.items.length;
@@ -2284,7 +2354,7 @@ function renderPaper(el){const P=paper;const S=SUBJECTS[P.info.subject];const hi
     const done=P.qs.filter((_,i)=>P.marks[i]!==undefined).length;const s=P.qs.reduce((n,q,i)=>n+(P.marks[i]||0),0);
     body=`<div class="ttrules"><b>Mark it.</b> Compare what you wrote with each mark scheme and give yourself the marks — for essay questions, find the level that best describes what you wrote. ${P.timeUp?"<b>Time ran out</b> — anything unanswered scores 0. ":""}Running total: <b>${s} / ${P.total}</b> · ${done} of ${P.qs.length} marked.${aiAllBtn(P,P.qs)}</div>`;
     P.qs.forEach((q,i)=>{const got=P.marks[i];const cls=got===undefined?"":(got>=q.max?"full":(got>0?"part":"zero"));
-      body+=bandHead(q.band,i)+`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Mark scheme</div>${mdBlock(q.a)}</div>${aiBlock(P,i,q)}<div class="ttmarks"><span class="lab">Marks out of ${q.max}</span>${q.max<=12?Array.from({length:q.max+1},(_,k)=>`<button class="btn small ${got===k?(k===q.max?"done":"primary"):""}" data-pm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${q.max}" value="${got===undefined?"":got}" data-pmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-pmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`}</div></div>`;});
+      body+=bandHead(q.band,i)+`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Mark scheme</div>${mdBlock(q.a)}${reportLink(`${P.info.title} (${P.id}) · Q${i+1}`,q.q,q.a)}</div>${aiBlock(P,i,q)}<div class="ttmarks"><span class="lab">Marks out of ${q.max}</span>${q.max<=12?Array.from({length:q.max+1},(_,k)=>`<button class="btn small ${got===k?(k===q.max?"done":"primary"):""}" data-pm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${q.max}" value="${got===undefined?"":got}" data-pmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-pmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`}</div></div>`;});
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="pfinish" ${done<P.qs.length?"disabled":""}>${done<P.qs.length?`Mark all ${P.qs.length} to finish`:"Finish paper"}</button><button class="btn ghost" id="pquit">Abandon paper</button></div>`;
   }else{
     const dropped=P.qs.map((q,i)=>({q,i,got:P.marks[i]||0})).filter(x=>x.got<x.q.max);const g=P.grade;
@@ -2657,7 +2727,7 @@ function renderSubjects(){
   <p class="muted" style="font-size:14px;margin:6px 0 12px">${esc(S.full)} · ${esc(S.papers)} · <a href="${esc(S.spec)}" target="_blank" rel="noopener">spec ↗</a><br>${school?`<b>School sets the pace.</b> Tick topics as known when school finishes them; your weekly sessions are recall on those, and each one comes back to be checked at ${REVIEW_GAPS.join(", ")} days.`:`All content done by week ${S.contentEndsWeek} (${fmt(WEEKS[S.contentEndsWeek-1].start)} ${WEEKS[S.contentEndsWeek-1].start.getFullYear()}); after that it's past papers.`}</p>
   <div class="examrow"><span class="ed-lbl">First exam</span><input type="date" id="examdate" value="${esc(ed)}"><span class="muted" style="font-size:12.5px">${ed?`${Math.max(0,Math.round((new Date(ed+"T00:00:00")-new Date())/86400000))} days`:"not published yet — leave blank"}</span></div>
   ${linkBar(curSubj,null,true)}
-  ${(()=>{const ms=subjectMistakes(curSubj);if(!ms.length)return "";return `<div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px"><span class="eyebrow">Open mistakes · ${ms.filter(x=>!inReview(x.m)).length}${ms.some(x=>inReview(x.m))?` · ${ms.filter(x=>inReview(x.m)).length} holding`:""}</span>${fixitButton(curSubj)}</div>`+ms.slice(0,12).map(x=>mistakeRow(x.key,x.i,x.m,x.code?`${x.code} ${x.label}`:x.label)).join("")+(ms.length>12?`<p class="muted" style="font-size:13px;margin:8px 0 0">+${ms.length-12} more under their topics.</p>`:"")+`<p class="muted" style="font-size:12.5px;margin:8px 0 0">Read these before a test. Tick each one once you can do it without the slip. A <b>holding</b> one you have already answered right in a re-test; it comes back at a longer gap to prove it stuck.</p></div>`;})()}
+  ${(()=>{const ms=subjectMistakes(curSubj);if(!ms.length)return "";return `<div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px"><span class="eyebrow">Open mistakes · ${ms.filter(x=>!inReview(x.m)).length}${ms.some(x=>inReview(x.m))?` · ${ms.filter(x=>inReview(x.m)).length} holding`:""}</span>${fixitButton(curSubj)}</div>`+ms.slice(0,12).map(x=>mistakeRow(x.key,x.i,x.m,x.code?`${x.code} ${x.label}`:x.label)).join("")+(ms.length>12?`<p class="muted" style="font-size:13px;margin:8px 0 0">+${ms.length-12} more under their topics.</p>`:"")+`<p class="muted" style="font-size:12.5px;margin:8px 0 0">Read these before a test. Tick each one once you can do it without the slip. A <b>holding</b> one you have already answered right in a re-test; it comes back at a longer gap to prove it stuck.</p></div>`;})()}${pastPaperCard(curSubj)}
   ${taughtNote(curSubj)}
   ${papersCard(curSubj)}
   ${coverageCard(curSubj)}
@@ -2668,7 +2738,7 @@ function renderSubjects(){
   grouped(S).forEach(g=>{const allK=g.topics.every(t=>T(t.id).known);
     html+=`<div class="sect"><span>${esc(g.label)}</span>${knowMode?`<button class="btn small" data-knowall="${esc(g.key)}|${allK?0:1}">${allK?"Untick section":"Know the whole section"}</button>`:""}</div>`;
     g.topics.forEach(t=>{const stt=T(t.id),due=TOPIC_DUE[t.id];const rv=state.reviews["t:"+t.id];
-      const meta=stt.known?`Known${rv?` · recall check ${rv.due<=todayISO()?"<b>due now</b>":"on "+fmt(new Date(rv.due+"T00:00:00"))}`:""}`:(stt.done?(stt.mark?`<span class="mark ${stt.mark}">${stt.mark==="got"?"Solid":"Redo"}</span>`:"Done — not yet checked"):(school?"Not yet ticked":(due?`Week ${due} · ${fmt(WEEKS[due-1].start)} ${WEEKS[due-1].start.getFullYear()}`:`<span class="mark shaky">Does not fit before the exams</span>`)));
+      const meta=stt.known?`Known${rv?` · recall check ${rv.due<=todayISO()?"<b>due now</b>":"on "+fmt(new Date(rv.due+"T00:00:00"))}`:""}`:(stt.done?(stt.mark?`<span class="mark ${stt.mark}">${stt.mark==="got"?"Solid":(stt.mark==="okay"?"Okay":"Redo")}</span>${rv?` · recall ${rv.due<=todayISO()?"<b>due now</b>":"on "+fmt(new Date(rv.due+"T00:00:00"))}`:""}`:"Done — not yet checked"):(school?"Not yet ticked":(due?`Week ${due} · ${fmt(WEEKS[due-1].start)} ${WEEKS[due-1].start.getFullYear()}`:`<span class="mark shaky">Does not fit before the exams</span>`)));
       html+=`<div class="topic ${stt.done?"done":""}">${knowMode?`<button class="know ${stt.known?"on":""}" data-know="${t.id}" aria-label="Already know">${stt.known?"✓":""}</button>`:`<input type="checkbox" data-done="${t.id}" ${stt.done?"checked":""} aria-label="Done">`}<div><div class="t"><span class="code">${esc(t[0])}</span>${esc(t[1])}${t.url?` <a href="${esc(t.url)}" style="font-size:13px">↗</a>`:""}${lessonChip(t)}</div><div class="m">${meta}${cardsOf(t.id).length?` · ${cardsOf(t.id).length} card${cardsOf(t.id).length===1?"":"s"}`:""}${curSubj==="englit"&&quotesForTopic(t.id).length?` · ${quotesForTopic(t.id).length} quote${quotesForTopic(t.id).length===1?"":"s"}`:""}</div></div><button class="more" data-topicopen="${esc(t.id)}" aria-label="Open">›</button></div>`;
       if(openTopic===t.id)html+=`<div class="tbody">${lessonBar(t)}${objBlock(t)}${stmtBlock(t)}${cardBlock(t)}${mistakeBlock(t.id)}${linkBar(curSubj,t)}${pinRow(t)}</div>`;});});
   html+=`</div>`;el.innerHTML=html;
@@ -2899,15 +2969,17 @@ function renderGuide(){
   <h3>Your cards</h3><p>Under any topic you can write cards — a short quote on the front, the technique and its effect on the back; a formula; a definition. They come up in that topic's recall checks, front first. Nothing is pre-filled on purpose: writing the card is most of the learning.</p>
   <h3>Lessons</h3><p>For Maths, Further Maths, Economics, Business, Computer Science, Biology, Chemistry, Physics, English Literature and English Language, every topic carries its own lesson inside the app — no hunting for videos or notes. Open one from the session in <b>Today</b>, from the topic in <b>Subjects</b>, or from the walkthrough. Each lesson has the same shape: <b>What it is</b>, <b>How to do it</b> as numbered steps, worked examples with every line shown, <b>Try these</b> — practice questions with the answer hidden until you tap, then <b>Got it</b> or <b>Not yet</b> (Not yet goes straight into the mistakes log for that topic) — and <b>Where the marks go</b>, the errors examiners see most. Every number in the answers was checked by computer. <b>Cover the working</b> turns each worked example into a step-by-step reveal, so you attempt each line before you see it. <b>Notes</b> opens your own notebook beside the lesson — it autosaves, anything you highlight in the lesson can be added with one tap, the first line can become a card, and the notes come back on that topic's recall checks. <b>Print</b> gives you the lesson with every answer shown as a revision sheet. When you can do the questions without looking, tick the topic at the bottom and it joins the recall rotation. Lessons work offline; the maths is typeset locally.</p>
   <h3>End-of-topic tests</h3><p>Every lesson ends with <b>Take the test</b> (also under <b>Test</b> in the lesson's top bar, and on the topic row once you have taken one). It is closed book and timed: the questions appear with no answers and a clock, you write every answer on paper, then <b>Mark it</b> shows the answers and you give yourself the marks. 80% or more is <b>Secure</b> — tick the topic and it joins recall; below that, everything you dropped is already in the mistakes log, so read those, go back over that part of the lesson, and retake. Attempts are kept, so the subject page shows your last score on each topic and the lesson shows the run of attempts.</p>
+  <h3>Found a wrong answer?</h3><p>Every question and answer was written for this app, so some will have mistakes. Under any answer or mark scheme, <b>Report a mistake</b> opens a GitHub issue with the question and its answer already filled in — add a line saying what is wrong, submit it, and the fix goes out in the next update.</p>
   <h3>Typing answers and AI marking</h3><p>Tick <b>Type my answers here</b> at the top of a topic test, a mock paper or a fix-it re-test, and each question gets a box to type into instead of paper. On the marking screen, <b>Mark it with AI</b> (or <b>Mark all typed answers</b>) sends the question, its own mark scheme and your answer to Claude, which marks it the way an examiner would: every scheme point it earned, with the words that earned it, every point it missed, and exactly what would have got the missing marks. Essays are placed in a level first, then marked within it. The mark fills in the marking buttons, and you can still change it — treat it as a second opinion on the scheme. Missed points are written into the mistakes log with the question. This is the part of the app that uses your API key (see below); each answer costs well under a penny.</p>
   <h3>Mock papers</h3><p>Each subject page has a <b>Mock papers</b> card: original exam-style papers, written for this app rather than copied from past papers, that mix topics the way a real paper does and climb from grade 4–5 questions through 6–7 to 8–9, so the last section is where the top grades are decided. A paper runs on the clock for its real duration; you write everything on paper, then <b>Mark it</b> shows the mark scheme (points for short questions, level descriptors for essays) and you give yourself the marks. The percentage becomes a <b>grade estimate</b> using that subject's real grade boundaries — each board's published June 2025 and June 2026 boundaries averaged, so a Computer Science 7 needs about 78% while a Maths 7 needs about 58%, just as in the real exams. Boundaries shift a few marks each year, so treat the estimate as give or take a grade. You also get a breakdown by band, so you can see whether the marks went at the start or at the top end. Every dropped question goes to the mistakes log under the subject. <b>Print the paper</b> on the screen before you start it, and you can sit it at a desk with a pen the way you will in the hall - the printout has the questions and the marks and nothing else, and <b>Print the mark scheme</b> on the results screen gives you the answers to mark from. Sit a paper once the topics it covers are done, fix what it exposes, and sit it again a week or two later. Every paper question names the topics it draws on, so a dropped question is logged under those topics and the results page lists the <b>lessons to reopen</b> with the marks each one cost.</p>
   <h3>Fix-it: re-testing mistakes on widening gaps</h3><p>A mistake logged by a topic test or a mock paper remembers the question. The next day it is <b>due</b>: the subject page's mistakes card and the retrieval session on Today show <b>Re-test N dropped questions</b>, which brings those questions back closed-book, soonest due first, a dozen at a time.</p><p>Full marks does not tick it off — it moves the question on to a <b>longer gap</b>. The gaps widen: <b>1 day, then 3, then 8, then 21</b>. Hold it at all four and the mistake is ticked off for good; it has survived three weeks, which is the point at which it is actually yours. Drop marks and it comes back sooner — part marks slip back one gap, a blank starts the ladder again. A mistake part-way up the ladder shows as <b>holding</b> rather than open, so the open count is what still needs work.</p><p>Why widening gaps: answering something right the day after you got it wrong proves almost nothing, because it is still in your head from reading the answer. Each longer gap forces you to retrieve it from cold, and retrieving it from cold is what makes it stick. That is the loop: test, drop, reopen the lesson, then re-test at 1, 3, 8 and 21 days until it holds.</p>
+  <h3>Past-paper mistakes book</h3><p>Real past papers you sit and mark on paper, outside the app. Each subject page has a <b>Past-paper mistakes book</b>: for every question that dropped marks, write the paper, the question number, the marks lost, the topic if you know it, and what the answer needed that yours didn't. It goes into the mistakes log under that topic, and <b>${PP_FIRST_DAYS} days later</b> it comes back as a fix-it re-test — get the paper out and redo that question closed book. From there it climbs the usual gaps until it holds.</p>
   <h3>Exam readiness</h3><p>The top of <b>Progress</b> pulls the tests and papers together, one line per subject, weakest first: your <b>grade estimate</b> (the average of your latest sitting of each mock paper) with the run of grades from every sitting, how many topics you have tested closed-book and their average, open mistakes and how many are due for a re-test, which band the last paper was weakest on, and days to the exam. The buttons take you straight to the re-test, the next paper, or the subject.</p>
   <h3>Quote bank</h3><p>English Literature is closed book, so the quotes you can write from memory are the marks. <b>Subjects → Eng Literature → Quote bank</b> keeps every quote in one place: pick the text, type the quote, tag its themes and write the one sentence you would say about it. Every set text and all fifteen Power and Conflict poems are listed with a count, so a poem you have nothing for shows as a zero. <b>Test me</b> blanks out a third of the words and asks you to fill them in — or, switched round, gives you the theme and asks for the quote. Three right in a row makes a quote solid; one miss puts it back to the front. Quotes also come up in that text's recall checks, and <b>Print</b> gives you the lot on one sheet for the night before. Nothing is pre-filled: choosing the quote is the learning.</p>
   <h3>Already ahead?</h3><p>In <b>Subjects</b>, open a subject and hit <b>Where am I up to?</b> The course is laid out one topic at a time in specification order, with its objectives and checklist: <b>Done this</b> ticks it as known and shows the next; <b>Not yet</b> is where you are. Or use <b>Tick what you already know</b> to tick from the list, a section at a time. Anything ticked counts as done, leaves the schedule, and goes straight into recall. For subjects the app runs ahead in, a bar then offers to <b>re-pour</b> the plan so those hours go to what is left.</p>
   <h3>Tests</h3>
   <ul><li><b>Retrieval test</b> — every other Saturday. Do you still remember it?</li><li><b>Timed paper section</b> — end of each half-term. Can you do it at exam speed?</li><li><b>Mock</b> — end of each term, full papers at Easter 2028.</li></ul>
-  <h3>No scores</h3><p>Nothing here gives you a mark or predicts a grade. After a topic or a test you answer one question: <b>could you do it without notes?</b> If not, it goes on the fix list, and it comes back to be checked. The <b>streak</b> is the only number kept: days you did something.</p>
+  <h3>No scores</h3><p>Nothing here gives you a mark or predicts a grade. When you finish a topic you tap how solid it is without notes: <b>Shaky</b> puts it on the fix list and brings a recall check in two days; <b>Okay</b> brings one in a week; <b>Solid</b> in three weeks. Every topic gets checked, the shaky ones soonest; after that it climbs the usual recall ladder. The <b>streak</b> is the only number kept: days you did something.</p>
   <h3>Profiles</h3><p>The name at the top right is who is signed in. Click it to switch, add a profile, set a PIN, or export one. Each profile keeps its own progress, plan, known topics, cards, quotes and lesson notes, all on this PC. To move a profile to another computer, <b>Export</b> it here and <b>Import</b> the file there. A PIN only stops someone else on this PC opening the wrong profile; the files themselves are in the app data folder either way.</p>
   <h3>Window size</h3><p>Make the window wide and Today shows the whole week beside the day, with every session one click away. Make it narrow and everything compresses to fit — nothing is ever pushed off the edge.</p>
   <h3>Keyboard</h3><p><b>1–6</b> switch tabs · <b>← →</b> change week · <b>T</b> today · <b>P</b> print the week · <b>Ctrl+K</b> search · <b>Esc</b> closes a menu.</p>
