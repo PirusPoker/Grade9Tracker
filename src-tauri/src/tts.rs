@@ -39,6 +39,12 @@ const VOICES_ROOT: &str = "https://huggingface.co/rhasspy/piper-voices/resolve/m
 /// used for the picker label and as the progress total until the server says.
 const VOICE_BYTES: u64 = 63_201_294;
 
+/// Windows' own speech engine, offered after the Piper voices: nothing to
+/// download, so it's what reading aloud falls back to when a voice can't be
+/// fetched (offline, school network) or Piper can't run. Plainer than Piper,
+/// but always there.
+pub const SYSTEM_VOICE: &str = "system";
+
 /// Only ever synthesise with a voice we know, defaulting to Jenny.
 fn catalogue(id: &str) -> Option<&'static (&'static str, &'static str, &'static str)> {
     VOICES.iter().find(|(vid, _, _)| *vid == id)
@@ -96,10 +102,11 @@ fn voice_model(app: &AppHandle, id: &str) -> Option<PathBuf> {
         .find(|p| p.exists() && p.with_extension("onnx.json").exists())
 }
 
-/// The whole catalogue, flagged with whether each voice is on disk yet.
+/// The whole catalogue, flagged with whether each voice is on disk yet, then
+/// the built-in Windows voice (always "installed").
 #[tauri::command]
 pub fn voices(app: AppHandle) -> Vec<VoiceOption> {
-    VOICES
+    let mut list: Vec<VoiceOption> = VOICES
         .iter()
         .map(|(id, label, _)| VoiceOption {
             id: id.to_string(),
@@ -107,7 +114,16 @@ pub fn voices(app: AppHandle) -> Vec<VoiceOption> {
             installed: voice_model(&app, id).is_some(),
             size_mb: (VOICE_BYTES / 1_000_000) as u32,
         })
-        .collect()
+        .collect();
+    if cfg!(windows) {
+        list.push(VoiceOption {
+            id: SYSTEM_VOICE.into(),
+            label: "Windows voice — built in, no download".into(),
+            installed: true,
+            size_mb: 0,
+        });
+    }
+    list
 }
 
 /// Fetch one voice (model + config) into the data folder, reporting progress
@@ -217,12 +233,16 @@ fn engine_dir(app: &AppHandle) -> Result<PathBuf, String> {
 /// Synthesise `text` (plain prose, already stripped of markup and maths by the
 /// UI) with the chosen voice and return the WAV as base64. A voice that has
 /// not been downloaded yet gives `voice-missing:<id>` so the UI can offer the
-/// download; if the default is on disk it is used instead.
+/// download; if the default is on disk it is used instead. `system` reads with
+/// Windows' built-in voice instead of Piper.
 #[tauri::command]
 pub fn narrate(app: AppHandle, text: String, voice: Option<String>) -> Result<String, String> {
     let text = text.trim();
     if text.is_empty() {
         return Err("nothing to read".into());
+    }
+    if voice.as_deref() == Some(SYSTEM_VOICE) {
+        return system_wav(text).map(|wav| base64::engine::general_purpose::STANDARD.encode(wav));
     }
     let base = engine_dir(&app)?;
     let exe = base.join("piper/piper.exe");
@@ -277,9 +297,75 @@ pub fn narrate(app: AppHandle, text: String, voice: Option<String>) -> Result<St
     Ok(base64::engine::general_purpose::STANDARD.encode(bytes))
 }
 
+/// Read `text` with Windows' built-in speech (WinRT `SpeechSynthesizer`), as a
+/// WAV the UI plays exactly like a Piper one - so pause, resume and the speed
+/// slider all still work. Prefers a British voice when one is installed.
+///
+/// Runs on its own thread: `narrate` is a sync command on the main (UI) thread,
+/// and waiting on a WinRT async operation there is asking for trouble. The
+/// windows crate joins the multithreaded apartment on first use.
+#[cfg(windows)]
+fn system_wav(text: &str) -> Result<Vec<u8>, String> {
+    let text = text.to_string();
+    std::thread::Builder::new()
+        .name("system-voice".into())
+        .spawn(move || -> windows::core::Result<Vec<u8>> {
+            use windows::Media::SpeechSynthesis::SpeechSynthesizer;
+            use windows::Storage::Streams::DataReader;
+            let synth = SpeechSynthesizer::new()?;
+            let british = |v: &windows::Media::SpeechSynthesis::VoiceInformation| {
+                v.Language().map(|l| l.to_string().eq_ignore_ascii_case("en-GB")).unwrap_or(false)
+            };
+            // Windows' own default (set in Settings > Speech) if it's British;
+            // otherwise the first British voice installed.
+            let default_is_british = SpeechSynthesizer::DefaultVoice().map(|v| british(&v)).unwrap_or(false);
+            let others = if default_is_british { None } else { SpeechSynthesizer::AllVoices().ok() };
+            if let Some(all) = others {
+                for i in 0..all.Size().unwrap_or(0) {
+                    if let Ok(v) = all.GetAt(i) {
+                        if british(&v) {
+                            let _ = synth.SetVoice(&v);
+                            break;
+                        }
+                    }
+                }
+            }
+            let stream = synth.SynthesizeTextToStreamAsync(&windows::core::HSTRING::from(text.as_str()))?.get()?;
+            let size = u32::try_from(stream.Size()?).unwrap_or(u32::MAX);
+            let reader = DataReader::CreateDataReader(&stream.GetInputStreamAt(0)?)?;
+            let got = reader.LoadAsync(size)?.get()?;
+            let mut wav = vec![0u8; got as usize];
+            reader.ReadBytes(&mut wav)?;
+            Ok(wav)
+        })
+        .map_err(|e| format!("could not start the Windows voice: {e}"))?
+        .join()
+        .map_err(|_| "the Windows voice stopped unexpectedly".to_string())?
+        .map_err(|e| format!("the Windows voice could not read that: {}", e.message()))
+        .and_then(|wav| if wav.len() > 44 { Ok(wav) } else { Err("the Windows voice produced no audio".into()) })
+}
+
+#[cfg(not(windows))]
+fn system_wav(_text: &str) -> Result<Vec<u8>, String> {
+    Err("the built-in voice is only available on Windows".into())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// Speaks into memory, not the speakers. Ignored by default because it
+    /// needs a Windows machine with at least one speech voice installed:
+    /// `cargo test --lib system_voice -- --ignored`.
+    #[cfg(windows)]
+    #[test]
+    #[ignore]
+    fn system_voice_makes_a_wav() {
+        let wav = system_wav("Photosynthesis happens in the chloroplasts.").expect("Windows voice");
+        assert_eq!(&wav[0..4], b"RIFF");
+        assert_eq!(&wav[8..12], b"WAVE");
+        assert!(wav.len() > 16_000, "about a second of audio at least, got {} bytes", wav.len());
+    }
 
     #[test]
     fn default_voice_is_in_the_catalogue_and_first() {
