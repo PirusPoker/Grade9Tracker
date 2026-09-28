@@ -732,6 +732,14 @@ table{max-width:100%}
 .lqbtns{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
 .qreport{display:inline-block;margin-top:10px;font-size:12px;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px}
 .qreport:hover{color:var(--accent)}
+.card.daily{border-left:3px solid var(--c,var(--accent))}
+.daily .dhead{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:4px}
+.daily .dwhy{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.daily .dq{font-size:15px}
+.daily .dres{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:14px}
+.daily .dres b.full{color:var(--good)}
+.daily .dres b.part{color:var(--warn)}
+.daily .dres b.zero{color:var(--bad)}
 details.ppbook>summary{display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none}
 details.ppbook>summary::-webkit-details-marker{display:none}
 .ppbook select,.ppbook input{margin-bottom:8px}
@@ -1588,6 +1596,7 @@ function renderToday(){
   html+=`<div class="stack">`;
   html+=dayPanel(d,isToday);
   if(isToday)due.forEach(r=>html+=reviewCard(r));
+  if(isToday)html+=dailyCard();
   else if(due.length&&cur===todayWeek())html+=`<div class="banner due">↻ ${due.length} recall check${due.length>1?"s":""} waiting on today's page <button id="gotoday">Go to today</button></div>`;
   if(!d.items.length)html+=`<div class="card"><div class="empty">Nothing planned. Rest day — or use it to catch up on anything unticked.</div></div>`;
   // Open the first unfinished session automatically, once per day viewed.
@@ -1607,7 +1616,7 @@ function renderToday(){
   el.querySelector("#printwk")?.addEventListener("click",()=>window.print());
   el.querySelector("#togglefix")?.addEventListener("click",()=>{showFix=!showFix;render();});
   el.querySelectorAll("[data-day]").forEach(b=>b.addEventListener("click",()=>{curDay=+b.dataset.day;menuKey=null;render();}));
-  bind(el);bindDay(el);bindElevated(el);
+  bind(el);bindDay(el);bindElevated(el);bindDaily(el);
 }
 /* The whole week at a glance, shown beside the day on a wide window. Click a
    session to jump to it. */
@@ -2121,6 +2130,98 @@ function reportLink(where,q,a){
   const clip=(v,n)=>{const t=linesText(v).trim();return t.length>n?t.slice(0,n)+" …":t;};
   const body=`**Where:** ${where}\n\n**What's wrong, and what it should be:**\n\n\n**The question:**\n${clip(q,700)}\n\n**The answer in the app:**\n${clip(a,700)}\n`;
   return `<a class="qreport" href="${esc(`${ISSUES_URL}?title=${encodeURIComponent("Content: "+where)}&body=${encodeURIComponent(body)}`)}" title="Opens a GitHub issue with this question filled in">Report a mistake ↗</a>`;}
+/* ---------- DAILY EXAM QUESTION ----------
+   One exam question a day on Today, about ten minutes, picked from where the
+   marks are leaking: topics tapped Shaky or Okay, topics with open mistakes,
+   topic tests under 80% - otherwise anything already covered, so old topics
+   keep coming back between recall checks. Type it and have the AI mark it,
+   or answer on paper and mark it yourself; a dropped mark goes into the
+   mistakes log with the question, so fix-it brings it back. Chosen once a
+   day and kept in state.daily, so it stays put across refreshes. */
+const DAILY_MAX_MARKS=8,DAILY_REPEAT_DAYS=5,DAILY_SWAPS=2;
+let DAILY_LOADING=false,dailyCleaned=false;
+const dailyToday=()=>(state.daily=state.daily||{})[todayISO()];
+function hashStr(str){let h=2166136261;for(const c of str){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;}
+const topicCovered=id=>{const st=state.topics[id]||{};return !!(st.done||st.known||lastTest(id)||Object.keys((state.lessonQ||{})[id]||{}).length);};
+const daysApart=(a,b)=>Math.round((new Date(b+"T00:00:00")-new Date(a+"T00:00:00"))/864e5);
+/* Why a topic needs the practice, strongest reason first. */
+function dailyReasons(id){const st=state.topics[id]||{},lt=lastTest(id),open=openMistakes(id).filter(m=>!inReview(m)).length,out=[];
+  if(st.mark==="shaky")out.push({w:6,why:"you tapped it Shaky"});else if(st.mark==="okay")out.push({w:3,why:"you tapped it Okay"});
+  if(open)out.push({w:Math.min(open,4)*1.5,why:`${open} open mistake${open===1?"":"s"}`});
+  if(lt&&lt.pct<80)out.push({w:lt.pct<60?4:2,why:`last topic test ${lt.pct}%`});
+  return out;}
+/* Every topic with a lesson that has been reached, weighted by need. A topic
+   asked in the last few days is heavily down-weighted, so it rotates. */
+function dailyWeights(exclude){const today=todayISO(),recent=new Set();
+  Object.entries(state.daily||{}).forEach(([d,x])=>{if(x&&x.topic&&daysApart(d,today)<DAILY_REPEAT_DAYS)recent.add(x.topic);});
+  const out=[];
+  SUBJ_IDS.forEach(sj=>SUBJECTS[sj].topics.forEach(t=>{if(!t.lesson||exclude.includes(t.id))return;const st=state.topics[t.id]||{};
+    const due=TOPIC_DUE[t.id];if(!topicCovered(t.id)&&!(due&&due<=todayWeek()))return;
+    const need=dailyReasons(t.id).reduce((n,r)=>n+r.w,0);let w=1+need;if(recent.has(t.id))w*=0.1;
+    out.push({id:t.id,w,need:need>0});}));
+  return out;}
+async function pickDaily(exclude){if(DAILY_LOADING)return;DAILY_LOADING=true;
+  const today=todayISO(),prev=dailyToday()||{},skip=(exclude||[]).slice();
+  try{const all=dailyWeights(skip),needy=all.filter(x=>x.need);
+    // three days in four go to a topic that needs the work, when there is one;
+    // the fourth keeps something older from going cold
+    const cands=needy.length&&hashStr(today+"need")%4!==0?needy:all;
+    for(let tries=0;tries<6&&cands.length;tries++){
+      const sum=cands.reduce((n,x)=>n+x.w,0);let r=(hashStr(today+skip.join()+tries)%100000)/100000*sum,k=0;
+      while(k<cands.length-1&&(r-=cands[k].w)>0)k++;
+      const id=cands[k].id;cands.splice(k,1);
+      let text=LESSON_CACHE[id];if(!text){try{text=await invoke("get_lesson",{topicId:id});LESSON_CACHE[id]=text;}catch(e){continue;}}
+      const qs=testPool(text).qs.map((b,i)=>({i,max:qMarks(splitQ(b).q)}));if(!qs.length)continue;
+      const used=new Set(Object.values(state.daily).filter(x=>x&&x.topic===id).map(x=>x.q));
+      const fits=x=>x.max<=DAILY_MAX_MARKS;
+      const pool=[x=>fits(x)&&x.max>=2&&!used.has(x.i),x=>fits(x)&&!used.has(x.i),fits,()=>true].map(f=>qs.filter(f)).find(l=>l.length);
+      const pick=pool[hashStr(today+id)%pool.length];
+      state.daily[today]={topic:pick&&id,q:pick.i,marks:{},typed:{},ai:{},swaps:prev.swaps||0,seen:(prev.seen||[]).concat(prev.topic?[prev.topic]:[])};
+      persist();return;}
+    state.daily[today]={none:true};}
+  finally{DAILY_LOADING=false;if(view==="today")render();}}
+function dailyQuestion(X){const text=LESSON_CACHE[X.topic];if(!text)return null;const b=testPool(text).qs[X.q];if(!b)return null;
+  const sp=splitQ(b);return {q:sp.q,a:sp.a,max:qMarks(sp.q)};}
+function dailyCard(){
+  const X=dailyToday();
+  if(!X){if(!DAILY_LOADING)setTimeout(pickDaily,0);return `<div class="card daily"><div class="eyebrow">Today's exam question</div><div class="muted" style="font-size:14px;margin-top:6px">Picking one…</div></div>`;}
+  if(X.none||X.skipped)return "";
+  const t=findTopic(X.topic);if(!t)return "";const S=SUBJECTS[t.subj];
+  if(!LESSON_CACHE[X.topic]){invoke("get_lesson",{topicId:X.topic}).then(tx=>{LESSON_CACHE[X.topic]=tx;if(view==="today")render();}).catch(()=>{});
+    return `<div class="card daily" style="--c:${S.color}"><div class="eyebrow">Today's exam question</div><div class="muted" style="font-size:14px;margin-top:6px">Loading…</div></div>`;}
+  const q=dailyQuestion(X);if(!q)return "";
+  // an AI mark that was in flight when the app closed will never come back
+  if(!dailyCleaned){dailyCleaned=true;if(X.ai&&X.ai[0]&&X.ai[0].busy)delete X.ai[0];}
+  const head=`<div class="dhead"><span class="pill"><span class="dot" style="background:${S.color}"></span>Today's exam question</span><span class="wcode">${esc(t[0])}</span><span class="muted" style="font-size:13px">${esc(S.name)} · ${esc(t[1])} · ${q.max} mark${q.max===1?"":"s"} · about ${Math.max(3,Math.round(q.max*1.3))} min</span></div>`;
+  if(X.done){const g=X.got||0,cls=g>=q.max?"full":(g>0?"part":"zero");
+    const recent=Object.entries(state.daily).filter(([d,x])=>x&&x.done&&daysApart(d,todayISO())<14),sm=recent.reduce((n,[,x])=>n+(x.got||0),0),tm=recent.reduce((n,[,x])=>n+(x.max||0),0);
+    return `<div class="card daily" style="--c:${S.color}">${head}<div class="dres"><b class="${cls}">${g} / ${q.max}</b><span class="muted">${g>=q.max?"Full marks.":"The dropped marks are in the mistakes log; fix-it will bring this question back."}</span><button class="btn small ghost" data-dagain>${X.show?"Hide it":"See it again"}</button><button class="btn small ghost" data-lesson="${esc(t.id)}">Lesson</button></div>${X.show?`<div class="dq" style="margin-top:10px">${mdBlock(q.q)}</div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(q.a)}</div>${aiBlock(X,0,q)}`:""}${recent.length>1?`<p class="muted" style="font-size:12.5px;margin:10px 0 0">Last two weeks: ${recent.length} daily questions, ${tm?Math.round(100*sm/tm):0}% of the marks.</p>`:""}</div>`;}
+  const why=dailyReasons(t.id).map(r=>r.why);
+  let h=`<div class="card daily" style="--c:${S.color}">${head}<p class="dwhy">${why.length?`Picked because ${why.join(", ")}.`:(topicCovered(t.id)?"Picked to keep a topic you have covered from going cold.":"Picked from a topic the plan has already reached.")} Closed book.</p><div class="dq">${mdBlock(q.q)}</div>`;
+  if(X.phase!=="mark"){
+    h+=`<textarea class="typedans" data-typed="0" rows="${Math.min(14,Math.max(3,Math.round(q.max*1.4)))}" placeholder="Type your answer — or write it on paper and just press Mark it" aria-label="Your answer">${esc((X.typed||{})[0]||"")}</textarea>
+      <div class="wbtns" style="margin-top:10px"><button class="btn primary" data-dmark>Mark it</button>${(X.swaps||0)<DAILY_SWAPS?`<button class="btn" data-dswap>A different question</button>`:""}<button class="btn ghost" data-dskip>Skip today</button></div>`;}
+  else{const got=X.marks[0];
+    h+=`<div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(q.a)}${reportLink(`${t[0]} ${t[1]} (${t.id}) · test question ${X.q+1}`,q.q,q.a)}</div>${aiBlock(X,0,q)}
+      <div class="ttmarks"><span class="lab">${q.max===1?"Did you get it?":`Marks out of ${q.max}`}</span>${Array.from({length:q.max+1},(_,k)=>`<button class="btn small ${got===k?(k===q.max?"done":"primary"):""}" data-dm="${k}">${q.max===1?(k?"✓ Yes":"✗ No"):k}</button>`).join("")}</div>
+      <div class="wbtns" style="margin-top:10px"><button class="btn primary" data-ddone ${got===undefined?"disabled":""}>Done</button><button class="btn ghost" data-dback>Back to my answer</button></div>`;}
+  return h+`</div>`;}
+function bindDaily(root){const X=dailyToday();if(!X||X.none||!root.querySelector(".card.daily"))return;
+  const q=dailyQuestion(X);if(!q)return;const t=findTopic(X.topic);
+  const again=()=>{persist();if(view==="today"&&dailyToday()===X){const y=window.scrollY;render();window.scrollTo({top:y});}};
+  bindTyped(root,X,[q],subjectFull(SUBJECTS[t.subj]),again);
+  root.querySelector(".card.daily textarea[data-typed]")?.addEventListener("change",()=>persist());
+  root.querySelector("[data-dmark]")?.addEventListener("click",()=>{X.phase="mark";again();});
+  root.querySelector("[data-dback]")?.addEventListener("click",()=>{X.phase="answer";again();});
+  root.querySelector("[data-dswap]")?.addEventListener("click",()=>{if(X.phase==="mark"||(X.swaps||0)>=DAILY_SWAPS)return;X.swaps=(X.swaps||0)+1;
+    pickDaily((X.seen||[]).concat([X.topic])).then(()=>{const Y=dailyToday();if(Y&&Y!==X)Y.swaps=X.swaps;persist();render();});});
+  root.querySelector("[data-dskip]")?.addEventListener("click",()=>{X.skipped=true;persist();render();});
+  root.querySelectorAll("[data-dm]").forEach(b=>b.addEventListener("click",()=>{X.marks[0]=+b.dataset.dm;again();}));
+  root.querySelector("[data-dagain]")?.addEventListener("click",()=>{X.show=!X.show;again();});
+  root.querySelector("[data-ddone]")?.addEventListener("click",()=>{const got=X.marks[0];if(got===undefined)return;
+    X.done=true;X.got=got;X.max=q.max;
+    if(got<q.max)addMistake(t.id,"Daily question: "+plainText(q.q).slice(0,150)+(q.max>1?` (${got}/${q.max})`:"")+aiMissNote(X,0),"test",{t:t.id,q:X.q});
+    markDay();again();});}
 function fmtSecs(n){n=Math.max(0,Math.round(n));return `${Math.floor(n/60)}:${String(n%60).padStart(2,"0")}`;}
 function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[t.subj];const X=lesson.test;const stt=T(t.id);
   stopTestTimer();
@@ -2972,6 +3073,7 @@ function renderGuide(){
   <h3>Your cards</h3><p>Under any topic you can write cards — a short quote on the front, the technique and its effect on the back; a formula; a definition. They come up in that topic's recall checks, front first. Nothing is pre-filled on purpose: writing the card is most of the learning.</p>
   <h3>Lessons</h3><p>For Maths, Further Maths, Economics, Business, Computer Science, Biology, Chemistry, Physics, English Literature and English Language, every topic carries its own lesson inside the app — no hunting for videos or notes. Open one from the session in <b>Today</b>, from the topic in <b>Subjects</b>, or from the walkthrough. Each lesson has the same shape: <b>What it is</b>, <b>How to do it</b> as numbered steps, worked examples with every line shown, <b>Try these</b> — practice questions with the answer hidden until you tap, then <b>Got it</b> or <b>Not yet</b> (Not yet goes straight into the mistakes log for that topic) — and <b>Where the marks go</b>, the errors examiners see most. Every number in the answers was checked by computer. <b>Cover the working</b> turns each worked example into a step-by-step reveal, so you attempt each line before you see it. <b>Notes</b> opens your own notebook beside the lesson — it autosaves, anything you highlight in the lesson can be added with one tap, the first line can become a card, and the notes come back on that topic's recall checks. <b>Print</b> gives you the lesson with every answer shown as a revision sheet. When you can do the questions without looking, tick the topic at the bottom and it joins the recall rotation. Lessons work offline; the maths is typeset locally.</p>
   <h3>End-of-topic tests</h3><p>Every lesson ends with <b>Take the test</b> (also under <b>Test</b> in the lesson's top bar, and on the topic row once you have taken one). It is closed book and timed: the questions appear with no answers and a clock, you write every answer on paper, then <b>Mark it</b> shows the answers and you give yourself the marks. 80% or more is <b>Secure</b> — tick the topic and it joins recall; below that, everything you dropped is already in the mistakes log, so read those, go back over that part of the lesson, and retake. Attempts are kept, so the subject page shows your last score on each topic and the lesson shows the run of attempts.</p>
+  <h3>Today's exam question</h3><p>Every day <b>Today</b> has one exam question, about ten minutes, picked from where your marks are leaking: topics you tapped Shaky or Okay, topics with open mistakes, topic tests under 80% — and otherwise any topic you have already covered, so old ones keep coming back between recall checks. It tells you why it picked that one. Type your answer and use <b>Mark it with AI</b>, or write it on paper and mark it yourself against the answer. A dropped mark goes into the mistakes log with the question, so fix-it brings it back. <b>A different question</b> swaps it (twice a day at most); <b>Skip today</b> hides it until tomorrow.</p>
   <h3>Found a wrong answer?</h3><p>Every question and answer was written for this app, so some will have mistakes. Under any answer or mark scheme, <b>Report a mistake</b> opens a GitHub issue with the question and its answer already filled in — add a line saying what is wrong, submit it, and the fix goes out in the next update.</p>
   <h3>Typing answers and AI marking</h3><p>Tick <b>Type my answers here</b> at the top of a topic test, a mock paper or a fix-it re-test, and each question gets a box to type into instead of paper. On the marking screen, <b>Mark it with AI</b> (or <b>Mark all typed answers</b>) sends the question, its own mark scheme and your answer to Claude, which marks it the way an examiner would: every scheme point it earned, with the words that earned it, every point it missed, and exactly what would have got the missing marks. Essays are placed in a level first, then marked within it. The mark fills in the marking buttons, and you can still change it — treat it as a second opinion on the scheme. Missed points are written into the mistakes log with the question. This is the part of the app that uses your API key (see below); each answer costs well under a penny.</p>
   <h3>Mock papers</h3><p>Each subject page has a <b>Mock papers</b> card: original exam-style papers, written for this app rather than copied from past papers, that mix topics the way a real paper does and climb from grade 4–5 questions through 6–7 to 8–9, so the last section is where the top grades are decided. A paper runs on the clock for its real duration; you write everything on paper, then <b>Mark it</b> shows the mark scheme (points for short questions, level descriptors for essays) and you give yourself the marks. The percentage becomes a <b>grade estimate</b> using that subject's real grade boundaries — each board's published June 2025 and June 2026 boundaries averaged, so a Computer Science 7 needs about 78% while a Maths 7 needs about 58%, just as in the real exams. Boundaries shift a few marks each year, so treat the estimate as give or take a grade. You also get a breakdown by band, so you can see whether the marks went at the start or at the top end. Every dropped question goes to the mistakes log under the subject. <b>Print the paper</b> on the screen before you start it, and you can sit it at a desk with a pen the way you will in the hall - the printout has the questions and the marks and nothing else, and <b>Print the mark scheme</b> on the results screen gives you the answers to mark from. Sit a paper once the topics it covers are done, fix what it exposes, and sit it again a week or two later. Every paper question names the topics it draws on, so a dropped question is logged under those topics and the results page lists the <b>lessons to reopen</b> with the marks each one cost.</p>
