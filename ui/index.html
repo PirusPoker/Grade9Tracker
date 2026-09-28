@@ -744,6 +744,9 @@ details.ppbook>summary{display:flex;align-items:center;gap:8px;cursor:pointer;li
 details.ppbook>summary::-webkit-details-marker{display:none}
 .ppbook select,.ppbook input{margin-bottom:8px}
 .ppgrid{display:grid;grid-template-columns:1fr 6.5em 5em;gap:8px}
+.rpform{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto auto;gap:8px;align-items:center;margin-top:10px}.rpform .rpmark{display:flex;align-items:center;gap:6px;white-space:nowrap;font-size:14px}.rpform .rpmark input{width:5.5em}
+@media (max-width:560px){.rpform{grid-template-columns:minmax(0,1fr) auto auto}.rpform select{grid-column:1/-1}}
+.rprow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:7px 0;border-top:1px solid var(--line);font-size:13.5px}.rprow .icon{margin-left:auto}
 @media (max-width:420px){.ppgrid{grid-template-columns:1fr 1fr}.ppgrid input:first-child{grid-column:1/-1}}
 .ldone{border:1px solid var(--good-line);background:var(--good-soft);color:var(--good);border-radius:var(--r);padding:12px 14px;margin:6px 0 14px;font-size:14.5px}
 .lend{border-top:1px solid var(--line);margin-top:26px;padding-top:18px}
@@ -1245,8 +1248,72 @@ function bindPastPaper(root){
     const list=mistakesOf(key);list[list.length-1].first=iso(addDays(new Date(),PP_FIRST_DAYS));
     // keep the paper filled in: a sitting usually drops more than one question
     ppForm={paper,q:"",marks:"1",topic:"",note:""};ppOpen=true;markDay();persist();render();});}
+/* ---------- REAL PAST PAPERS ----------
+   The official papers, sat outside the app. Each subject lists its real
+   components and links to the board's own exam-materials page. Log the total
+   and it becomes a grade on the subject's boundaries (the same ones the mock
+   papers use), joins the readiness trend on Progress, and opens the mistakes
+   book with the paper filled in, ready for the questions that dropped marks. */
+const RP_BOARDS={aqa:{name:"AQA",months:["June"]},ocr:{name:"OCR",months:["June"]},
+  cie:{name:"Cambridge",months:["March","June","November"]},pearson:{name:"Pearson Edexcel",months:["January","June"]}};
+const RP_PEARSON="https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/";
+const RP_FILTER=".coursematerials.html#filterQuery=category:Pearson-UK:Category%2FExam-materials";
+// [code, name, marks, minutes]
+const REAL_PAPERS={
+  maths:{board:"pearson",from:2018,url:RP_PEARSON+"international-gcse-mathematics-a-2016"+RP_FILTER,comps:[["1H","Paper 1H",100,120],["2H","Paper 2H",100,120]]},
+  fpm:{board:"pearson",from:2019,url:RP_PEARSON+"international-gcse-further-pure-mathematics-2017"+RP_FILTER,comps:[["1","Paper 1",100,120],["2","Paper 2",100,120]]},
+  bio:{board:"pearson",from:2019,url:RP_PEARSON+"international-gcse-biology-2017"+RP_FILTER,comps:[["1B","Paper 1B",110,120],["2B","Paper 2B",70,75]]},
+  chem:{board:"pearson",from:2019,url:RP_PEARSON+"international-gcse-chemistry-2017"+RP_FILTER,comps:[["1C","Paper 1C",110,120],["2C","Paper 2C",70,75]]},
+  phys:{board:"pearson",from:2019,url:RP_PEARSON+"international-gcse-physics-2017"+RP_FILTER,comps:[["1P","Paper 1P",110,120],["2P","Paper 2P",70,75]]},
+  bus:{board:"aqa",from:2019,url:"https://www.aqa.org.uk/subjects/business/gcse/business-8132/assessment-resources",comps:[["1","Paper 1",90,105],["2","Paper 2",90,105]]},
+  econ:{board:"cie",from:2020,url:"https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-economics-9-1-0987/past-papers/",comps:[["1","Paper 1 (multiple choice)",30,45],["2","Paper 2 (structured)",90,135]]},
+  cs:{board:"ocr",from:2022,url:"https://www.ocr.org.uk/qualifications/gcse/computer-science-j277-from-2020/assessment/",comps:[["1","Paper 1 (computer systems)",80,90],["2","Paper 2 (algorithms and programming)",80,90]]},
+  englit:{board:"aqa",from:2017,url:"https://www.aqa.org.uk/subjects/english/gcse/english-8702/assessment-resources",comps:[["1","Paper 1 (Shakespeare and the novel)",64,105],["2","Paper 2 (modern texts and poetry)",96,135]]},
+  englang:{board:"aqa",from:2017,url:"https://www.aqa.org.uk/subjects/english/gcse/english-8700/assessment-resources",comps:[["1","Paper 1 (creative reading and writing)",80,105],["2","Paper 2 (viewpoints and perspectives)",80,105]]}};
+const RP_MONTH={January:0,March:2,June:5,November:10};
+/* Every series the board has sat since the spec began, newest first, stopping
+   at the most recent one that has already happened. */
+function rpSeries(subj){const R=REAL_PAPERS[subj],now=new Date(),out=[];
+  for(let y=now.getFullYear();y>=R.from;y--)RP_BOARDS[R.board].months.slice().reverse().forEach(m=>{if(new Date(y,RP_MONTH[m],28)<=now)out.push(`${m} ${y}`);});
+  return out.concat(["Specimen","School mock"]);}
+const rpMins=m=>m%60?(m>60?`${Math.floor(m/60)} h ${m%60} min`:`${m} min`):`${m/60} h`;
+const realPapersOf=subj=>(state.realPapers||[]).filter(x=>x.subj===subj);
+function rpGrade(subj,pct){const b=(papersOf(subj)[0]||{}).boundaries;return b&&b.length?paperGrade({boundaries:b},pct):null;}
+const rpForm={};let rpMsg={};
+function realPapersCard(subj){const R=REAL_PAPERS[subj],S=SUBJECTS[subj];if(!R||!S)return "";const B=RP_BOARDS[R.board];
+  const f=rpForm[subj]=rpForm[subj]||{comp:R.comps[0][0],series:"",mark:""};const comp=R.comps.find(c=>c[0]===f.comp)||R.comps[0];
+  const hist=realPapersOf(subj).slice().reverse(),series=rpSeries(subj);
+  const gchip=g=>g==null?"":`<span class="pgradechip ${g>=7?"hi":(g<4?"lo":"")}">Grade ${gradeName(g)}</span>`;
+  return `<div class="card" style="margin-bottom:14px;--c:${S.color}"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span class="eyebrow">Real past papers</span><a class="btn small" style="text-decoration:none" href="${esc(R.url)}" target="_blank" rel="noopener">${esc(B.name)} past papers ↗</a></div>
+    <p class="muted" style="font-size:13.5px;margin:6px 0 4px">Nothing beats the real thing. Download a paper and its mark scheme from ${esc(B.name)}, sit it closed book on the clock, mark it strictly, then log your total here for a grade. The questions you dropped go in the mistakes book.</p>`+
+    R.comps.map(c=>{const last=hist.find(h=>h.comp===c[0]);return `<div class="mprow"><div><b>${esc(c[1])}</b><span class="muted"> · ${rpMins(c[3])} · ${c[2]} marks</span>${last?`<div class="muted" style="font-size:12.5px;margin-top:2px">Last: <b>${last.s}/${last.t}</b> (${last.pct}%) · ${gchip(last.g)} · ${esc(last.series)}</div>`:""}</div></div>`;}).join("")+
+    `<div class="rpform"><select data-rp="comp" data-rpsubj="${esc(subj)}" aria-label="Paper">${R.comps.map(c=>`<option value="${esc(c[0])}" ${c[0]===comp[0]?"selected":""}>${esc(c[1])}</option>`).join("")}</select>
+    <select data-rp="series" data-rpsubj="${esc(subj)}" aria-label="Series"><option value="">Which series?</option>${series.map(x=>`<option ${x===f.series?"selected":""}>${esc(x)}</option>`).join("")}</select>
+    <span class="rpmark"><input type="number" data-rp="mark" data-rpsubj="${esc(subj)}" min="0" max="${comp[2]}" value="${esc(f.mark)}" placeholder="Mark" aria-label="Your mark"> / ${comp[2]}</span>
+    <button class="btn small primary" data-rplog="${esc(subj)}">Log score</button></div>
+    <div class="muted" id="rpmsg" style="font-size:13px;margin-top:6px">${rpMsg[subj]||""}</div>`+
+    (hist.length?`<div style="margin-top:8px">`+hist.slice(0,8).map(h=>`<div class="rprow"><span>${esc(h.series)} · ${esc(h.name)}</span><span><b>${h.s}/${h.t}</b> (${h.pct}%)</span>${gchip(h.g)}<span class="muted">${fmt(new Date(h.d+"T00:00:00"))}</span><button class="icon" data-rpdel="${esc(h.id)}" aria-label="Delete this score">×</button></div>`).join("")+(hist.length>8?`<p class="muted" style="font-size:12.5px;margin:6px 0 0">+${hist.length-8} older.</p>`:"")+`</div>`:"")+
+    `<p class="muted" style="font-size:12.5px;margin:8px 0 0">Grades use this subject's recent boundaries, so treat them as an estimate: the board sets new ones each year.</p></div>`;}
+function bindRealPapers(root){
+  const keep=()=>{const y=window.scrollY;render();window.scrollTo({top:y});};
+  root.querySelectorAll("[data-rp]").forEach(inp=>{const subj=inp.dataset.rpsubj,k=inp.dataset.rp;
+    inp.addEventListener(inp.tagName==="SELECT"?"change":"input",()=>{const f=rpForm[subj];if(!f)return;f[k]=inp.value;if(k==="comp")keep();});
+    if(k==="mark")inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();root.querySelector(`[data-rplog="${CSS.escape(subj)}"]`)?.click();}});});
+  root.querySelectorAll("[data-rplog]").forEach(b=>b.addEventListener("click",()=>{const subj=b.dataset.rplog,R=REAL_PAPERS[subj],f=rpForm[subj];if(!R||!f)return;
+    const c=R.comps.find(x=>x[0]===f.comp)||R.comps[0],msg=root.querySelector("#rpmsg"),mark=Math.round(+f.mark);
+    if(!f.series){msg.textContent="Pick which series the paper is from.";return;}
+    if(f.mark===""||isNaN(mark)||mark<0||mark>c[2]){msg.textContent=`Enter your total out of ${c[2]}.`;return;}
+    const pct=Math.round(100*mark/c[2]),g=rpGrade(subj,pct);
+    (state.realPapers=state.realPapers||[]).push({id:Date.now().toString(36),subj,comp:c[0],name:c[1],series:f.series,d:todayISO(),s:mark,t:c[2],pct,g});
+    rpMsg[subj]=`Logged ${esc(f.series)} ${esc(c[1])}: ${mark}/${c[2]} (${pct}%)${g!=null?`, grade ${gradeName(g)}`:""}. Now log each question you dropped marks on in the mistakes book — it is open with this paper filled in.`;
+    ppForm={paper:`${f.series} ${c[1]}`.slice(0,60),q:"",marks:"1",topic:"",note:""};ppOpen=true;
+    rpForm[subj]={comp:c[0],series:"",mark:""};markDay();persist();render();
+    document.querySelector("[data-ppbox]")?.scrollIntoView({block:"start",behavior:"smooth"});}));
+  root.querySelectorAll("[data-rpdel]").forEach(b=>b.addEventListener("click",()=>{if(!confirm("Delete this score?"))return;
+    state.realPapers=(state.realPapers||[]).filter(x=>x.id!==b.dataset.rpdel);persist();keep();}));}
 function bindMistakes(root){
   bindPastPaper(root);
+  bindRealPapers(root);
   root.querySelectorAll("[data-mistbox]").forEach(d=>d.addEventListener("toggle",()=>{if(d.open)openMist.add(d.dataset.mistbox);else openMist.delete(d.dataset.mistbox);}));
   root.querySelectorAll("[data-madd]").forEach(b=>b.addEventListener("click",()=>{const key=b.dataset.madd;const inp=root.querySelector(`[data-mtext="${CSS.escape(key)}"]`);
     if(addMistake(key,inp&&inp.value,"manual")){openMist.add(key);markDay();persist();render();const n=document.querySelector(`[data-mtext="${CSS.escape(key)}"]`);if(n)n.focus();}else if(inp)inp.focus();}));
@@ -2834,6 +2901,7 @@ function renderSubjects(){
   ${(()=>{const ms=subjectMistakes(curSubj);if(!ms.length)return "";return `<div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px"><span class="eyebrow">Open mistakes · ${ms.filter(x=>!inReview(x.m)).length}${ms.some(x=>inReview(x.m))?` · ${ms.filter(x=>inReview(x.m)).length} holding`:""}</span>${fixitButton(curSubj)}</div>`+ms.slice(0,12).map(x=>mistakeRow(x.key,x.i,x.m,x.code?`${x.code} ${x.label}`:x.label)).join("")+(ms.length>12?`<p class="muted" style="font-size:13px;margin:8px 0 0">+${ms.length-12} more under their topics.</p>`:"")+`<p class="muted" style="font-size:12.5px;margin:8px 0 0">Read these before a test. Tick each one once you can do it without the slip. A <b>holding</b> one you have already answered right in a re-test; it comes back at a longer gap to prove it stuck.</p></div>`;})()}${pastPaperCard(curSubj)}
   ${taughtNote(curSubj)}
   ${papersCard(curSubj)}
+  ${realPapersCard(curSubj)}
   ${coverageCard(curSubj)}
   ${state.knownDirty&&!knowMode?repourBar():""}
   <div class="card"><div class="prog" style="margin-bottom:6px"><i style="width:${Math.round(100*d/S.topics.length)}%;background:${S.color}"></i></div>
@@ -2869,7 +2937,9 @@ function repourBar(){const n=state.knownDirty;
    the latest paper grade and how it has moved, how the topic tests are
    going, what is still open in the mistakes log, and how long is left. */
 function subjectReadiness(s){const S=SUBJECTS[s];
-  const sittings=papersOf(s).flatMap(p=>paperHist(p.id).map(h=>({...h,p:p.id}))).sort((a,b)=>a.d.localeCompare(b.d));
+  // Mock sittings count per paper; real past papers per component, so the latest
+  // Paper 1 and Paper 2 you sat stand for the real exam.
+  const sittings=papersOf(s).flatMap(p=>paperHist(p.id).map(h=>({...h,p:p.id}))).concat(realPapersOf(s).filter(h=>h.g!=null).map(h=>({...h,p:"real:"+h.comp}))).sort((a,b)=>a.d.localeCompare(b.d));
   const latestByPaper={};sittings.forEach(h=>{latestByPaper[h.p]=h;});const latest=Object.values(latestByPaper);
   const grade=latest.length?Math.round(latest.reduce((n,h)=>n+h.g,0)/latest.length):null;
   const last=sittings.length?sittings[sittings.length-1]:null;
@@ -2885,7 +2955,7 @@ function subjectReadiness(s){const S=SUBJECTS[s];
   return {grade,trend:sittings.slice(-6).map(h=>h.g),last,weakBand,tested:tested.length,testAvg,shaky,open,hold,due,done,days,nextPaper};}
 function readinessCard(){
   const rows=SUBJ_IDS.map(s=>({s,r:subjectReadiness(s)})).sort((a,b)=>(a.r.grade??-1)-(b.r.grade??-1)||b.r.open-a.r.open);
-  return `<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:2px">Exam readiness · weakest first</div><p class="muted" style="font-size:13px;margin:0 0 6px">The grade is the average of your latest sitting of each mock paper; the run of grades shows how it is moving. Sit a paper again after fixing what it exposed.</p>`+
+  return `<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:2px">Exam readiness · weakest first</div><p class="muted" style="font-size:13px;margin:0 0 6px">The grade is the average of your latest sitting of each mock paper and each real past paper; the run of grades shows how it is moving. Sit a paper again after fixing what it exposed.</p>`+
     rows.map(({s,r})=>{const S=SUBJECTS[s];const g=r.grade;
       const gcls=g===null?"none":(g>=7?"hi":(g<4?"lo":""));
       const verdict=g===null?"No paper sat yet":(g>=8?"On track for 8–9":(g>=6?"Solid — the 8–9 questions decide it":(g>=4?"Foundations in; climb the bands":"Below grade 4 — back to the lessons")));
