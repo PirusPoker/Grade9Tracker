@@ -297,6 +297,18 @@ textarea.typedans{margin-top:10px;font-size:14.5px;line-height:1.5;min-height:0;
 .aipts li.miss>span{color:var(--bad);font-weight:700}
 .aipts .aiev{color:var(--muted);font-size:12.5px;font-style:italic}
 .aifb{font-size:13.5px;line-height:1.5;margin:8px 0 0;color:var(--ink-2)}
+.aicols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 2px}
+@media (max-width:560px){.aicols{grid-template-columns:1fr}}
+.aicol{border:1px solid var(--line);border-radius:var(--r-xs);padding:8px 10px;background:var(--surface)}
+.aicol .eyebrow{margin-bottom:6px}
+.aicol.got{border-color:color-mix(in srgb,var(--good) 45%,var(--line))}
+.aicol.miss{border-color:color-mix(in srgb,var(--bad) 45%,var(--line))}
+.aicol .none{font-size:13px;color:var(--muted);margin:0}
+.aiimprove{margin-top:10px;padding:9px 12px;border-radius:var(--r-xs);background:var(--accent-soft);border:1px solid var(--accent-line);font-size:13.5px;line-height:1.5;color:var(--ink)}
+.aiimprove b{display:block;margin-bottom:3px;color:var(--accent)}
+.aiby{font-size:11.5px;font-weight:650;padding:1px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2)}
+.aiby.local{color:var(--muted);border-style:dashed}
+.ainote{font-size:12.5px;color:var(--muted);margin:8px 0 0;line-height:1.45}
 /* Stars and tags on emails and assignments */
 .starbtn{margin-left:4px;padding:0 3px;border:0;background:transparent;color:var(--muted);font-size:16px;line-height:1;cursor:pointer;vertical-align:-1px}
 .starbtn:hover{color:var(--warn)}
@@ -2155,7 +2167,7 @@ function finishTopicTest(t){const T_=lesson.test;const s=T_.qs.reduce((n,q,i)=>n
 let TYPE_ANS=(()=>{try{return localStorage.getItem("g9.typeAnswers")==="1";}catch(e){return false;}})();
 const linesText=v=>Array.isArray(v)?v.join("\n"):String(v||"");
 const typedOf=(X,i)=>((X.typed||{})[i]||"").trim();
-function typeToggle(){return `<label class="typetog"><input type="checkbox" data-typetog ${TYPE_ANS?"checked":""}><span>Type my answers here, so the AI can mark them${settings.apiKey?"":` <span class="muted">— needs an API key, see Guide</span>`}</span></label>`;}
+function typeToggle(){return `<label class="typetog"><input type="checkbox" data-typetog ${TYPE_ANS?"checked":""}><span>Type my answers here, so the AI can mark them${settings.apiKey?"":` <span class="muted">— free, on this laptop (see Guide → AI marking)</span>`}</span></label>`;}
 function typedBox(X,i,q){if(!TYPE_ANS)return "";const rows=Math.min(16,Math.max(2,Math.round(q.max*1.2)));
   return `<textarea class="typedans" data-typed="${i}" rows="${rows}" placeholder="Your answer" aria-label="Your answer to question ${i+1}">${esc((X.typed||{})[i]||"")}</textarea>`;}
 const aiPending=(X,i)=>!!typedOf(X,i)&&!(X.ai&&X.ai[i]&&!X.ai[i].err);
@@ -2165,11 +2177,39 @@ function aiBlock(X,i,q){const v=typedOf(X,i);if(!v)return "";const r=(X.ai||{})[
   if(!r)h+=`<button class="btn small" data-aimark="${i}">✦ Mark it with AI</button>`;
   else if(r.busy)h+=`<div class="muted aibusy">✦ Marking it against the scheme…</div>`;
   else if(r.err)h+=`<div class="aierr">${esc(r.err)}</div><button class="btn small" data-aimark="${i}">Try again</button>`;
-  else h+=`<div class="aires"><div class="aihead"><b>AI mark: ${r.marks} / ${q.max}</b><span class="muted">filled in below — change it if you disagree</span></div><ul class="aipts">${(r.points||[]).map(p=>`<li class="${p.hit?"hit":"miss"}"><span>${p.hit?"✓":"✗"}</span><div>${esc(p.point)}${p.hit&&p.evidence?`<div class="aiev">“${esc(p.evidence)}”</div>`:""}</div></li>`).join("")}</ul>${r.feedback?`<p class="aifb">${esc(r.feedback)}</p>`:""}${r.improve&&r.marks<q.max?`<p class="aifb"><b>For the missing marks:</b> ${esc(r.improve)}</p>`:""}</div>`;
+  else h+=aiResult(r,q);
   return h+`</div>`;}
+/* The marked answer: the scheme points it earned and the ones it missed, side
+   by side, then exactly what would have earned the rest - the part worth
+   reading twice. Says who marked it; a local-model mark is a rough guide. */
+function aiResult(r,q){const pts=r.points||[],got=pts.filter(p=>p.hit),miss=pts.filter(p=>!p.hit);
+  const li=p=>`<li class="${p.hit?"hit":"miss"}"><span>${p.hit?"✓":"✗"}</span><div>${esc(p.point)}${p.hit&&p.evidence?`<div class="aiev">“${esc(p.evidence)}”</div>`:""}</div></li>`;
+  const by=r.by==="local"?`<span class="aiby local" title="Marked by the free AI on this laptop">Local AI</span>`:(r.by==="claude"?`<span class="aiby" title="Marked by Claude Haiku 4.5">Claude</span>`:"");
+  let h=`<div class="aires"><div class="aihead"><b>AI mark: ${r.marks} / ${q.max}</b>${by}<span class="muted">filled in below — change it if you disagree</span></div>`;
+  if(pts.length)h+=`<div class="aicols"><div class="aicol got"><div class="eyebrow">You got · ${got.length}</div>${got.length?`<ul class="aipts">${got.map(li).join("")}</ul>`:`<p class="none">None of the scheme's points yet.</p>`}</div>`+
+    `<div class="aicol miss"><div class="eyebrow">You missed · ${miss.length}</div>${miss.length?`<ul class="aipts">${miss.map(li).join("")}</ul>`:`<p class="none">Nothing — every point earned.</p>`}</div></div>`;
+  if(r.improve&&r.marks<q.max)h+=`<div class="aiimprove"><b>How to get the missing marks</b>${esc(r.improve)}</div>`;
+  if(r.feedback)h+=`<p class="aifb">${esc(r.feedback)}</p>`;
+  if(r.note)h+=`<p class="ainote">ⓘ ${esc(r.note)}</p>`;
+  return h+`</div>`;}
+/* Guide → AI marking: what marking can use right now, and the free model's download. */
+async function bindMarkStatus(){const box=document.getElementById("markstatus");if(!box)return;
+  const btn=document.getElementById("pullmark"),msg=document.getElementById("pullmsg");
+  const show=s=>{if(!document.body.contains(box))return;const ok=t=>`<span>✓ ${t}</span>`,no=t=>`<span class="muted">○ ${t}</span>`;
+    box.innerHTML=(s.claude?ok("Claude Haiku 4.5: your API key is set, so Claude marks first."):no("No API key, so the free local AI does the marking."))+
+      (!s.ollama?no(`The free local AI (Ollama) isn't running. Install it from <a href="https://ollama.com">ollama.com</a>, or start it, to mark for free and offline.`)
+        :(s.installed?ok(`Free marking model downloaded (${esc(s.model)}).`)
+          :no(`The free marking model isn't downloaded yet (${esc(s.model)}, ${s.modelGb} GB).${s.fallbackInstalled?` Until then the small ${esc(s.fallback)} model marks, as a rough guide.`:""}`)));
+    if(btn)btn.hidden=!(s.ollama&&!s.installed);};
+  try{show(await invoke("mark_status"));}catch(e){box.innerHTML=`<span class="muted">Couldn't check: ${esc(errText(e))}</span>`;}
+  btn?.addEventListener("click",async()=>{btn.disabled=true;msg.textContent="Starting the download…";let un=null;
+    try{if(window.__TAURI__&&__TAURI__.event)un=await __TAURI__.event.listen("mark-model-progress",e=>{const d=e.payload||{};
+        msg.textContent=d.total?`Downloading ${Math.floor(100*d.completed/d.total)}% of ${(d.total/1e9).toFixed(1)} GB…`:(d.status?`${d.status}…`:"Downloading…");});
+      await invoke("pull_mark_model");msg.textContent="Downloaded ✓";try{show(await invoke("mark_status"));}catch(e){}}
+    catch(e){msg.textContent="Couldn't download: "+errText(e);btn.disabled=false;}
+    finally{if(un)un();}});}
 async function aiMark(X,i,q,subject,again){
-  X.ai=X.ai||{};
-  if(!settings.apiKey){X.ai[i]={err:"AI marking needs your Anthropic API key — add it in Guide, under Drafting new subjects."};again();return;}
+  X.ai=X.ai||{};            // Claude with an API key, else the free local model - the backend decides
   X.ai[i]={busy:true};again();
   try{const r=await invoke("mark_answer",{req:{subject:typeof subject==="function"?subject(i):subject,question:linesText(q.q),scheme:linesText(q.a),max:q.max,answer:typedOf(X,i)}});
     X.ai[i]=r;X.marks[i]=Math.max(0,Math.min(q.max,Math.round(r.marks)));}
@@ -3166,9 +3206,14 @@ function renderGuide(){
   <h3>Important</h3><p>Every line in <b>Your day</b> has a <b>☆</b> and a <b>+ tag</b>. Star what matters, or tag it — Homework, Revise, Reply, Ask teacher, Bring in, or any tag you type — and it is kept on the <b>Important</b> tab, sorted by when it is due, with the number still to do on the tab itself. The lists at the bottom of that page hold every assignment and every email from the last fortnight (newsletters left out), so you can star an email the rules didn't pick up. A starred item keeps a copy of its email, so it is still there after it drops out of Outlook's fortnight; tick it done in either place and it is done in both. Tap a tag at the top to see only that tag. Stars and tags live in the app — nothing is changed in Outlook or Teams.</p>
   <p class="muted" style="font-size:13px">Term dates are typical English ones — change them in Plan to match your school.</p></div>
   <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Drafting new subjects</h3>
-  <p class="muted" style="font-size:13.5px;margin:0 0 10px">The Plan tab can draft a whole subject — topics, hours, objectives — from a public specification page. That, and marking typed answers in tests and papers, call the Anthropic API with your own key from <a href="https://console.anthropic.com">console.anthropic.com</a>, and costs a few pence each time. Everything else in the app works offline and needs no key.</p>
+  <p class="muted" style="font-size:13.5px;margin:0 0 10px">The Plan tab can draft a whole subject — topics, hours, objectives — from a public specification page. That, and marking typed answers in tests and papers, call the Anthropic API (Claude Haiku 4.5) with your own key from <a href="https://console.anthropic.com">console.anthropic.com</a>, and cost a fraction of a penny each time. Everything else in the app works offline and needs no key.</p>
   <div style="display:flex;gap:8px;flex-wrap:wrap"><input type="password" id="apikey" placeholder="sk-ant-…" value="${esc(settings.apiKey||"")}" style="flex:1;min-width:220px"><button class="btn primary" id="savekey">Save</button></div>
   <p class="muted" style="font-size:13px;margin:10px 0 0">Stored in plain text in settings.json next to your progress. Leave it blank if you would rather not.</p></div>
+
+  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">AI marking</h3>
+  <p class="muted" style="font-size:13.5px;margin:0 0 10px">Type your answers in a test, paper or fix-it and the AI marks them against the mark scheme, showing the points you got and the ones you missed. With an API key (above) that's Claude Haiku 4.5. Without one — or offline — it's a free AI running on this laptop through Ollama: your answers never leave the computer, but it's a rougher marker, so check its marks against the scheme.</p>
+  <div id="markstatus" style="display:grid;gap:4px;font-size:13.5px"><span class="muted">Checking what's set up…</span></div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px"><button class="btn small" id="pullmark" hidden>Download the free marking model</button><span class="muted" style="font-size:13px" id="pullmsg"></span></div></div>
 
   <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Outlook</h3>
   <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;cursor:pointer"><input type="checkbox" id="outlookon" ${settings.outlook===false?"":"checked"} style="width:18px;height:18px;accent-color:var(--ink)">Read my timetable and deadlines from classic Outlook</label>
@@ -3223,6 +3268,7 @@ function renderGuide(){
   document.getElementById("backup").addEventListener("click",async()=>{const m=document.getElementById("backupmsg");m.textContent="Backing up…";
     try{showBackup(await autoBackup(true));m.textContent="Backed up ✓";}catch(e){m.textContent="Couldn't back up: "+errText(e);}});
   document.getElementById("openbackups").addEventListener("click",()=>{invoke("open_backups").catch(e=>alert(errText(e)));});
+  bindMarkStatus();
   window.tracker.statePath().then(p=>{const el=document.getElementById("statepath");if(el)el.textContent="Everything is saved in: "+p;}).catch(()=>{});
 }
 

@@ -11,7 +11,8 @@
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-const MODEL: &str = "claude-opus-5";
+/// Claude Haiku 4.5, like every Claude call in the app (the user's choice).
+const MODEL: &str = "claude-haiku-4-5";
 /// Enough of a spec to work from without sending a whole textbook.
 const MAX_PAGE_CHARS: usize = 60_000;
 

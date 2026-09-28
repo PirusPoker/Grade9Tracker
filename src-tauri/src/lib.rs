@@ -122,12 +122,26 @@ async fn draft_subject(app: AppHandle, name: String, url: String, text: String) 
     draft::draft(&key, &name, &url, &text).await
 }
 
-/// Mark a typed answer against the question's own mark scheme with Claude
-/// (see marking.rs). Uses the same API key as drafting.
+/// Mark a typed answer against the question's own mark scheme (see
+/// marking.rs): Claude with the API key when there is one, otherwise the free
+/// local model.
 #[tauri::command]
 async fn mark_answer(app: AppHandle, req: marking::Request) -> Result<marking::Verdict, String> {
-    let key = get_settings(app)?.api_key;
-    marking::mark(&key, req).await
+    let settings = get_settings(app)?;
+    marking::mark(&settings, req).await
+}
+
+/// What AI marking can use right now, for Guide → AI marking.
+#[tauri::command]
+async fn mark_status(app: AppHandle) -> Result<marking::Status, String> {
+    Ok(marking::status(&get_settings(app)?).await)
+}
+
+/// Download the free local marking model through Ollama.
+#[tauri::command]
+async fn pull_mark_model(app: AppHandle) -> Result<(), String> {
+    let url = get_settings(app.clone())?.ai_url;
+    marking::pull(&app, &url).await
 }
 
 /// The day as Outlook sees it: events, deadlines pulled out of mail, requests
@@ -396,7 +410,7 @@ pub fn run() {
             tts::narrate, tts::voices, tts::download_voice,
             teams::open_teams,
             running_elevated, restart_normally,
-            mark_answer
+            mark_answer, mark_status, pull_mark_model
         ])
         .run(tauri::generate_context!())
         .expect("error while running Gradient");
