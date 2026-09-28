@@ -47,7 +47,7 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           tagName: ${{ github.ref_name }}
-          releaseName: "Grade 9 Tracker ${{ github.ref_name }}"
+          releaseName: "Gradient ${{ github.ref_name }}"
           releaseBody: "See the commit log for what changed."
           releaseDraft: true
           prerelease: false

@@ -35,7 +35,7 @@ head = ('<link rel="manifest" href="manifest.webmanifest">\n'
         '<meta name="apple-mobile-web-app-capable" content="yes">\n'
         '<meta name="mobile-web-app-capable" content="yes">\n'
         '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n'
-        '<meta name="apple-mobile-web-app-title" content="Grade 9">\n'
+        '<meta name="apple-mobile-web-app-title" content="Gradient">\n'
         '<link rel="apple-touch-icon" href="icon-192.png">\n'
         f'<meta name="g9-build" content="{ver}">\n')
 html = html.replace('<link rel="stylesheet" href="katex/katex.min.css">', head + '<link rel="stylesheet" href="katex/katex.min.css">', 1)

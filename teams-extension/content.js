@@ -1,5 +1,5 @@
 // Isolated world. Receives the parsed assignments from inject.js and hands them
-// to the background service worker, which sends them to Grade 9 Tracker running
+// to the background service worker, which sends them to Gradient running
 // on this computer. Shows a small confirmation toast.
 (function () {
   "use strict";
@@ -55,11 +55,11 @@
     }
     if (ok === false) {
       el.style.background = "#b3261e";
-      el.textContent = "Grade 9 Tracker not running — open the app, then reload Teams";
+      el.textContent = "Gradient not running — open the app, then reload Teams";
     } else {
       el.style.background = "#1a7f37";
-      el.textContent = n ? "Grade 9 Tracker · synced " + n + " upcoming assignment" + (n === 1 ? "" : "s")
-                         : "Grade 9 Tracker · no upcoming assignments";
+      el.textContent = n ? "Gradient · synced " + n + " upcoming assignment" + (n === 1 ? "" : "s")
+                         : "Gradient · no upcoming assignments";
     }
     el.style.opacity = "1";
     clearTimeout(el.__t);

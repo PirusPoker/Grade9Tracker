@@ -278,7 +278,7 @@ impl Store {
     /// Bring in an exported profile as a new profile. Never overwrites.
     pub fn import(&self, bundle: &Value) -> Result<String, String> {
         if bundle.get("grade9Profile").and_then(Value::as_i64) != Some(1) {
-            return Err("That is not a Grade 9 Tracker profile file.".into());
+            return Err("That is not a Gradient profile file.".into());
         }
         let name = bundle.get("name").and_then(Value::as_str).unwrap_or("Imported").trim().to_string();
         let reg = self.registry()?;

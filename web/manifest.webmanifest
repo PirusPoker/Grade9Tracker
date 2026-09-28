@@ -1,6 +1,6 @@
 {
-  "name": "Grade 9 Tracker",
-  "short_name": "Grade 9",
+  "name": "Gradient",
+  "short_name": "Gradient",
   "description": "Two-year GCSE and IGCSE study planner with a lesson for every topic.",
   "start_url": "./",
   "scope": "./",

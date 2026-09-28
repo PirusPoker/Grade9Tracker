@@ -166,7 +166,7 @@ pub async fn draft(api_key: &str, name: &str, url: &str, pasted: &str) -> Result
         check_public_url(url)?;
         let res = client
             .get(url.trim())
-            .header("user-agent", "Grade9Tracker/1.0")
+            .header("user-agent", "Gradient/1.0")
             .send()
             .await
             .map_err(|e| format!("Could not open that page: {e}"))?;

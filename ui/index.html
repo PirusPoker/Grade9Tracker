@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grade 9 Tracker</title>
+<title>Gradient</title>
 <link rel="stylesheet" href="katex/katex.min.css">
 <style>
 /* Dark, soft and rounded: deep graphite surfaces, a faint aurora behind the
@@ -506,7 +506,8 @@ table{max-width:100%}
 /* profiles */
 .top{position:sticky;top:0;z-index:9;background:rgba(19,19,20,.72);backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--line)}
 .top-in{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:1240px;margin:0 auto;padding:0 20px;height:44px}
-.top .brand{font-family:var(--display);font-weight:650;font-size:13.5px;letter-spacing:-.01em;color:var(--ink-2)}
+.top .brand{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-weight:650;font-size:13.5px;letter-spacing:-.01em;color:var(--ink-2)}
+.top .brand .logo{width:20px;height:20px;flex:none}
 .who{display:inline-flex;align-items:center;gap:8px;padding:4px 10px 4px 4px;border:1px solid var(--line-2);border-radius:999px;background:var(--surface2);font-size:13px;font-weight:600}
 .who:hover{background:var(--raised)}
 .av{width:24px;height:24px;border-radius:50%;display:inline-grid;place-items:center;font-size:10.5px;font-weight:700;color:#fff;background:#6b7280;flex:none;letter-spacing:.02em}
@@ -2156,7 +2157,7 @@ function printPaper(P){
     if(i===0||P.qs[i-1].band!==q.band)out+=`<div class="ppband">${bandLabel(q.band)} · ${counts[q.band].n} question${counts[q.band].n===1?"":"s"} · ${counts[q.band].m} marks</div>`;
     const pq=printQuestionBody(q);
     out+=`<div class="ppq${pq.tall?" tall":""}"><span class="ppn">${i+1}</span><div class="ppb">${pq.html}<div class="ppa"><b>Mark scheme.</b> ${mdBlock(q.a)}</div></div></div>`;});
-  return out+`<div class="ppfoot">Grade 9 Tracker · original practice paper, not a past paper · grade boundaries ${P.info.boundaries.slice().reverse().map(([g,m])=>`${g}: ${m}%`).join(" · ")}</div></div>`;}
+  return out+`<div class="ppfoot">Gradient · original practice paper, not a past paper · grade boundaries ${P.info.boundaries.slice().reverse().map(([g,m])=>`${g}: ${m}%`).join(" · ")}</div></div>`;}
 /* Printing the questions must never print the answers, so the mode is set
    before the dialog opens and cleared once it closes. */
 function doPrintPaper(mode){
@@ -2905,11 +2906,12 @@ const errText=e=>String(e).replace(/^Error:[ ]*/,"");
 const initials=n=>String(n||"?").trim().split(/\s+/).map(w=>w[0]).join("").slice(0,2).toUpperCase();
 const hue=id=>{let h=0;for(const c of String(id))h=(h*31+c.charCodeAt(0))%360;return h;};
 const hueClass=id=>"h"+(hue(id)%12);
+const BRAND_MARK=`<svg class="logo" viewBox="180 120 720 724" aria-hidden="true"><rect x="200" y="600" width="156" height="224" rx="40" fill="#5A6E92"/><rect x="396" y="456" width="156" height="368" rx="40" fill="#5E7FB3"/><rect x="592" y="300" width="156" height="524" rx="40" fill="#A8C7FA"/><path d="M278 548 L474 404 L670 248 L804 196" fill="none" stroke="#FDD663" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/><circle cx="816" cy="192" r="62" fill="#FDD663"/></svg>`;
 function renderTop(){
   const el=document.getElementById("top");if(!el)return;
-  if(!PROFILE){el.hidden=!PROFILES_ERR;el.innerHTML=PROFILES_ERR?`<div class="top-in"><span class="brand">Grade 9 Tracker</span><span class="muted" style="font-size:12.5px">Profiles unavailable: ${esc(PROFILES_ERR)}</span></div>`:"";return;}
+  if(!PROFILE){el.hidden=!PROFILES_ERR;el.innerHTML=PROFILES_ERR?`<div class="top-in"><span class="brand">${BRAND_MARK}Gradient</span><span class="muted" style="font-size:12.5px">Profiles unavailable: ${esc(PROFILES_ERR)}</span></div>`:"";return;}
   el.hidden=false;
-  el.innerHTML=`<div class="top-in"><span class="brand">Grade 9 Tracker</span><button class="who" id="who" title="Switch profile"><span class="av ${hueClass(PROFILE.id)}">${esc(initials(PROFILE.name))}</span>${esc(PROFILE.name)}<span class="muted">▾</span></button></div>`;
+  el.innerHTML=`<div class="top-in"><span class="brand">${BRAND_MARK}Gradient</span><button class="who" id="who" title="Switch profile"><span class="av ${hueClass(PROFILE.id)}">${esc(initials(PROFILE.name))}</span>${esc(PROFILE.name)}<span class="muted">▾</span></button></div>`;
   el.querySelector("#who").addEventListener("click",()=>showPicker(false));}
 function showPicker(forced){pick={open:true,forced,sel:null,pin:"",msg:"",manage:false,adding:!PROFILES||!PROFILES.profiles.length,newName:"",newPin:""};renderPicker();}
 function closePicker(){if(pick.forced)return;pick.open=false;renderPicker();}

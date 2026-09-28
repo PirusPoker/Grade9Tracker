@@ -1,4 +1,6 @@
-# Grade 9 Tracker (Tauri + Rust)
+# Gradient (Tauri + Rust)
+
+Formerly Grade 9 Tracker. The repository, download file name and app identifier keep the old name so existing installs update in place.
 
 Two-year GCSE and IGCSE study plan. It works out what you should do each week for the next two years, puts one session a day in front of you with the objectives for it, and teaches every topic with its own lesson, worked examples and end-of-topic test. Runs offline, starts instantly.
 
@@ -11,7 +13,7 @@ https://github.com/PirusPoker/Grade9Tracker/releases/latest/download/Grade9Track
 
 1. Run `Grade9Tracker-Setup.exe`. Windows shows "Windows protected your PC" because the
    app is not from the Microsoft Store: click **More info**, then **Run anyway** (once).
-2. Open Grade 9 Tracker from the Start menu, add yourself as a profile, tick your subjects.
+2. Open Gradient from the Start menu, add yourself as a profile, tick your subjects.
 
 That is the last download you make: the app checks GitHub while it runs and installs
 new releases itself (Settings lets you switch that to "ask me first"). Your progress,
@@ -50,7 +52,7 @@ cargo tauri dev
 cargo tauri build
 ```
 
-The installer appears in `src-tauri\target\release\bundle\nsis\Grade 9 Tracker_<version>_x64-setup.exe`. Run it once; the app then lives in your Start menu like any other program.
+The installer appears in `src-tauri\target\release\bundle\nsis\Gradient_<version>_x64-setup.exe`. Run it once; the app then lives in your Start menu like any other program.
 
 ## Ship an update
 

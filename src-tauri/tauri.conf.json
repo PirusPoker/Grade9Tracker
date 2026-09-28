@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Grade 9 Tracker",
+  "productName": "Gradient",
   "version": "1.28.0",
   "identifier": "uk.alastair.grade9tracker",
   "build": {
@@ -10,7 +10,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "Grade 9 Tracker",
+        "title": "Gradient",
         "width": 1000,
         "height": 820,
         "minWidth": 420,
@@ -35,7 +35,12 @@
     "resources": [
       "resources/tts/**/*"
     ],
-    "createUpdaterArtifacts": true
+    "createUpdaterArtifacts": true,
+    "windows": {
+      "nsis": {
+        "installerHooks": "windows/hooks.nsh"
+      }
+    }
   },
   "plugins": {
     "updater": {
