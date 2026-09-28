@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gradient</title>
+<title>Grade 9 Tracker</title>
 <link rel="stylesheet" href="katex/katex.min.css">
 <style>
 /* Dark, soft and rounded: deep graphite surfaces, a faint aurora behind the
@@ -250,6 +250,26 @@ a{color:var(--accent);text-underline-offset:2px}
 .asg .alinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .asg li.done{opacity:.5}
 .asg li.done .title{text-decoration:line-through}
+/* Week in review */
+.wrgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0 14px}
+.wrgrid div{background:var(--sunken);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;display:grid;gap:2px}
+.wrgrid b{font-size:22px;font-weight:700}
+.wrgrid span{font-size:12.5px;color:var(--muted)}
+@media (max-width:560px){.wrgrid{grid-template-columns:repeat(2,1fr)}}
+.wrlist{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:5px;font-size:14px}
+.wrlist b{font-variant-numeric:tabular-nums}
+.wrhead{font-size:13px;font-weight:650;color:var(--ink-2);margin:14px 0 4px}
+.wrnote{width:100%;min-height:58px;margin-top:6px;padding:9px 11px;border-radius:var(--r-sm);border:1px solid var(--line-2);background:var(--sunken);color:var(--ink);font:inherit;font-size:14px;resize:vertical;box-sizing:border-box}
+/* 25/5 session timer */
+.timer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px;padding:8px 10px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--sunken);font-size:13px}
+.timer .tlabel{font-weight:650;color:var(--ink-2)}
+.timer .tclock{font:650 18px var(--mono);min-width:4.6ch}
+.timer.on .tclock{color:var(--accent)}
+.timer.brk .tclock{color:var(--good)}
+.tmini{font:650 12px var(--mono);color:var(--accent);padding:2px 7px;border-radius:999px;border:1px solid var(--accent-line);background:var(--accent-soft);white-space:nowrap;align-self:center}
+.tmini.break{color:var(--good);border-color:var(--line-2);background:transparent}
+.keys{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px;margin:0}
+.keys kbd{font:600 12px var(--mono);padding:2px 7px;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:6px;background:var(--surface2);white-space:nowrap}
 /* The email an item came from, opened inline */
 .mailbtn{margin-left:6px;padding:1px 8px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--muted);font-size:11.5px;font-weight:600;cursor:pointer;vertical-align:1px}
 .mailbtn:hover,.mailbtn[aria-expanded="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
@@ -506,8 +526,7 @@ table{max-width:100%}
 /* profiles */
 .top{position:sticky;top:0;z-index:9;background:rgba(19,19,20,.72);backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--line)}
 .top-in{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:1240px;margin:0 auto;padding:0 20px;height:44px}
-.top .brand{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-weight:650;font-size:13.5px;letter-spacing:-.01em;color:var(--ink-2)}
-.top .brand .logo{width:20px;height:20px;flex:none}
+.top .brand{font-family:var(--display);font-weight:650;font-size:13.5px;letter-spacing:-.01em;color:var(--ink-2)}
 .who{display:inline-flex;align-items:center;gap:8px;padding:4px 10px 4px 4px;border:1px solid var(--line-2);border-radius:999px;background:var(--surface2);font-size:13px;font-weight:600}
 .who:hover{background:var(--raised)}
 .av{width:24px;height:24px;border-radius:50%;display:inline-grid;place-items:center;font-size:10.5px;font-weight:700;color:#fff;background:#6b7280;flex:none;letter-spacing:.02em}
@@ -949,6 +968,75 @@ const isSchool=s=>SUBJECTS[s]&&SUBJECTS[s].pace==="school";
 const iso=d=>{const x=new Date(d);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,"0")}-${String(x.getDate()).padStart(2,"0")}`;};
 const todayISO=()=>iso(new Date());
 function markDay(){state.days[todayISO()]=true;}
+
+/* ---------- SESSION TIMER ----------
+   25 minutes on, 5 off, for a session on Today. One timer at a time; it keeps
+   running while you move around the app and ticks in place without redrawing.
+   TIMER is {key, phase:"focus"|"break", end} while running, {..., end:0, left}
+   while paused, or null. */
+/* ---------- WEEK IN REVIEW ----------
+   Five minutes on a Sunday: what got done this week, how the tests and papers
+   went, what is still to fix and what next week asks for, plus one thing to
+   change. On Sunday - or Monday, if Sunday slipped - Today shows a banner
+   pointing here until the week is marked reviewed. Lives on Progress. */
+const WR=()=>(state.weekReviews=state.weekReviews||{});
+function reviewWeek(){const now=new Date(),ref=addDays(now,now.getDay()===1?-1:0);   // Monday looks back at the week just gone
+  let w=WEEKS[0];for(const x of WEEKS)if(x.start<=ref)w=x;return w;}
+function reviewDue(){const g=new Date().getDay();return (g===0||g===1)&&!(WR()[iso(reviewWeek().start)]||{}).done;}
+function reviewBanner(){if(!reviewDue()||cur!==todayWeek())return "";
+  return `<div class="banner due" style="margin-bottom:14px">🗓 Week in review: five minutes to look back at this week and plan the next. <button id="gorev">Open it</button></div>`;}
+function weekReviewCard(){
+  const w=reviewWeek(),key=iso(w.start),from=key,to=iso(addDays(w.start,6)),inWeek=d=>d>=from&&d<=to,r=WR()[key]||{};
+  const c=buildDays(w).reduce((a,d)=>{const x=dayCounts(d);return {n:a.n+x.n,done:a.done+x.done};},{n:0,done:0});
+  const worked=Object.keys(state.days).filter(d=>state.days[d]&&inWeek(d)).length;
+  const names={};SUBJ_IDS.forEach(s=>SUBJECTS[s].topics.forEach(t=>{names[t.id]=t[1];}));
+  const tests=Object.entries(state.topicTests||{}).flatMap(([id,h])=>h.filter(x=>inWeek(x.d)).map(x=>({...x,name:names[id]||id})));
+  const papers=SUBJ_IDS.flatMap(s=>papersOf(s).flatMap(p=>paperHist(p.id).filter(x=>inWeek(x.d)).map(x=>({...x,name:p.title}))));
+  const scores=papers.map(x=>`<li>📝 ${esc(x.name)}: <b>${x.s}/${x.t}</b> (${x.pct}%)${x.g!=null?` · grade ${esc(String(x.g))}`:""}</li>`)
+    .concat(tests.map(x=>`<li>✓ ${esc(x.name)}: <b>${x.s}/${x.t}</b> (${x.pct}%)</li>`));
+  const next=WEEKS[w.n];   // WEEKS is 0-based and n 1-based, so this is the week after
+  let nextLine="That was the last week of the plan.";
+  if(next){const nd=buildDays(next),n=nd.reduce((a,d)=>a+dayCounts(d).n,0),m=nd.reduce((a,d)=>a+dayMinutes(d),0),ts=TESTS.filter(t=>t.week===next.n);
+    nextLine=`${n} session${n===1?"":"s"}, about ${Math.round(m/6)/10} hours${ts.length?` · test: ${ts.map(t=>esc(t.title)).join(", ")}`:""}${next.label?` · ${esc(next.label)}`:""}`;}
+  const fix=fixList().length,mist=openMistakeCount();
+  return `<div class="card" id="weekreview" style="margin-bottom:14px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="eyebrow">Week in review · ${fmt(w.start)} – ${fmt(addDays(w.start,6))}</span>${r.done?`<span class="muted" style="font-size:12.5px;margin-left:auto">Reviewed ✓</span>`:""}</div>
+  <div class="wrgrid"><div><b class="num">${c.done}/${c.n}</b><span>sessions done</span></div><div><b class="num">${worked}</b><span>day${worked===1?"":"s"} worked</span></div>
+  <div><b class="num">${streak()}</b><span>day streak</span></div><div><b class="num">${fix+mist}</b><span>to fix${fix&&mist?` (${fix} redo · ${mist} mistake${mist===1?"":"s"})`:""}</span></div></div>
+  <div class="wrhead">Tests and papers this week</div>${scores.length?`<ul class="wrlist">${scores.join("")}</ul>`:`<p class="muted" style="font-size:14px;margin:4px 0 0">None this week.</p>`}
+  <div class="wrhead">Next week</div><p style="font-size:14px;margin:4px 0 0">${nextLine}</p>
+  <div class="wrhead">One thing to change next week</div><textarea class="wrnote" data-wrnote="${key}" placeholder="e.g. do maths before dinner, not after">${esc(r.note||"")}</textarea>
+  <div style="margin-top:10px"><button class="btn small ${r.done?"":"primary"}" data-wrdone="${key}">${r.done?"Mark as not reviewed":"Done — week reviewed"}</button></div></div>`;}
+function bindWeekReview(root){
+  root.querySelector("[data-wrnote]")?.addEventListener("input",e=>{const k=e.target.dataset.wrnote;WR()[k]={...(WR()[k]||{}),note:e.target.value};persist();});
+  root.querySelector("[data-wrdone]")?.addEventListener("click",e=>{const k=e.currentTarget.dataset.wrdone,r=WR()[k]||{};WR()[k]={...r,done:!r.done};persist();render();});}
+
+const FOCUS_MIN=25,BREAK_MIN=5;
+let TIMER=null,BASE_TITLE=null;
+function timerLeft(){return TIMER?(TIMER.end?Math.max(0,TIMER.end-Date.now()):TIMER.left):0;}
+function mmss(ms){const s=Math.ceil(ms/1000);return `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;}
+function timerBar(key){
+  if(!TIMER||TIMER.key!==key)return `<div class="timer"><button class="btn small" data-tstart="${esc(key)}">⏱ Start a ${FOCUS_MIN}-minute focus</button><span class="muted">then a ${BREAK_MIN}-minute break</span></div>`;
+  const brk=TIMER.phase==="break";
+  return `<div class="timer ${brk?"brk":"on"}"><span class="tlabel">${brk?"Break":"Focus"}</span><span class="tclock" data-tclock>${mmss(timerLeft())}</span>`+
+    `<button class="btn small" data-tpause>${TIMER.end?"Pause":"Resume"}</button><button class="btn small" data-tstop>Stop</button>`+
+    `<span class="muted">${brk?"Stand up, get some water.":TIMER.end?"Phone away.":"Paused."}</span></div>`;}
+function timerMini(key){return TIMER&&TIMER.key===key?`<span class="tmini ${TIMER.phase}" data-tclock>${mmss(timerLeft())}</span>`:"";}
+function timerTitle(){if(BASE_TITLE==null)BASE_TITLE=document.title;
+  document.title=TIMER?`${mmss(timerLeft())} ${TIMER.phase==="break"?"break":"focus"} · ${BASE_TITLE}`:BASE_TITLE;}
+function chime(){try{const a=new (window.AudioContext||window.webkitAudioContext)();[0,0.22].forEach((t,i)=>{const o=a.createOscillator(),g=a.createGain();
+  o.frequency.value=i?880:660;g.gain.setValueAtTime(0.0001,a.currentTime+t);g.gain.exponentialRampToValueAtTime(0.2,a.currentTime+t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+t+0.35);
+  o.connect(g).connect(a.destination);o.start(a.currentTime+t);o.stop(a.currentTime+t+0.4);});setTimeout(()=>a.close(),1200);}catch(e){}}
+setInterval(()=>{
+  if(!TIMER||!TIMER.end)return;
+  const left=timerLeft();
+  document.querySelectorAll("[data-tclock]").forEach(e=>e.textContent=mmss(left));
+  timerTitle();
+  if(left>0)return;
+  chime();
+  TIMER=TIMER.phase==="focus"?{key:TIMER.key,phase:"break",end:Date.now()+BREAK_MIN*60000}:null;
+  timerTitle();
+  if(view==="today")render();
+},1000);
 function streak(){let n=0,d=new Date();
   if(!state.days[iso(d)])d=addDays(d,-1);
   while(state.days[iso(d)]){n++;d=addDays(d,-1);}
@@ -1429,6 +1517,7 @@ function renderToday(){
   const st=streak();
   html+=`<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px"><span class="streak ${st?"":"cold"}">${st?"🔥":"○"} ${st} day${st===1?"":"s"} in a row</span><span class="muted" style="font-size:13px">${daysToExams()} days to exams</span></div>`;
   html+=elevatedBanner();
+  html+=reviewBanner();
   const fixes=fixList();
   if(fixes.length){html+=`<div class="fixbanner">⚠ ${fixes.length} thing${fixes.length>1?"s":""} to redo <button id="togglefix">${showFix?"Hide":"Show"}</button></div>`;
     if(showFix)html+=`<div class="card" style="margin-top:10px"><div class="eyebrow">Fix list</div><ul class="fixlist">`+fixes.map(f=>`<li><input type="checkbox" data-fix="${esc(f.key)}" aria-label="Fixed"><span>${esc(f.label)}</span></li>`).join("")+`</ul><p class="muted" style="font-size:14px;margin:12px 0 0">Go back over it and do more questions. Tick it when you can do it unaided — it will come back later to check.</p></div>`;
@@ -1455,6 +1544,7 @@ function renderToday(){
   el.querySelector("#next")?.addEventListener("click",()=>{cur++;curDay=0;menuKey=null;render();});
   el.querySelector("#jump")?.addEventListener("click",()=>{cur=todayWeek();curDay=null;render();});
   el.querySelector("#gotoday")?.addEventListener("click",()=>{curDay=ti;render();});
+  el.querySelector("#gorev")?.addEventListener("click",()=>{showView("progress");document.getElementById("weekreview")?.scrollIntoView({block:"start"});});
   el.querySelector("#printwk")?.addEventListener("click",()=>window.print());
   el.querySelector("#togglefix")?.addEventListener("click",()=>{showFix=!showFix;render();});
   el.querySelectorAll("[data-day]").forEach(b=>b.addEventListener("click",()=>{curDay=+b.dataset.day;menuKey=null;render();}));
@@ -1509,8 +1599,8 @@ function renderItem(it,w,d){
   let html=`<div class="sess ${done?"isdone":""} ${it.skipped?"isskip":""} ${open?"open":""}" style="--c:${color}">
     <div class="row"><button class="grab" data-open="${esc(it.key)}" aria-expanded="${open}"><span class="bar"></span><span class="pill"><span class="dot" style="background:${color}"></span>${esc(name)}</span><span class="title">${esc(sessTitle(it))}${multi?` <span class="muted">· part ${it.entry.partNo} of ${it.entry.parts}</span>`:""}</span>${tag}<span class="mins num">${sessMins(it)} min</span></button>
     ${it.kind==="test"?"":`<button class="tick ${done?"on":""}" data-sess="${esc(it.key)}" ${it.kind==="topic"?`data-topic="${esc(it.entry.topic.id)}" data-final="${it.entry.final?1:0}"`:""} aria-label="${done?"Done":"Mark as done"}" ${it.skipped?"disabled":""}>✓</button>`}
-    <button class="more" data-menu="${esc(it.key)}" aria-label="Move or skip">⋯</button>${menu(it,w,d)}</div>`;
-  if(open)html+=`<div class="body">${itemBody(it,w)}</div>`;
+    ${timerMini(it.key)}<button class="more" data-menu="${esc(it.key)}" aria-label="Move or skip">⋯</button>${menu(it,w,d)}</div>`;
+  if(open)html+=`<div class="body">${done?"":timerBar(it.key)}${itemBody(it,w)}</div>`;
   return html+`</div>`;}
 function itemBody(it,w){
   if(it.kind==="topic"){const t=it.entry.topic,stt=T(t.id),done=itemDone(it);
@@ -1556,6 +1646,10 @@ function bind(root){
   root.querySelectorAll("[data-fixit]").forEach(b=>b.addEventListener("click",()=>startFixit(b.dataset.fixit||null)));
   root.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.open;if(openSess.has(k))openSess.delete(k);else openSess.add(k);menuKey=null;render();}));
   root.querySelectorAll("[data-menu]").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();menuKey=menuKey===b.dataset.menu?null:b.dataset.menu;render();}));
+  root.querySelectorAll("[data-tstart]").forEach(b=>b.addEventListener("click",()=>{TIMER={key:b.dataset.tstart,phase:"focus",end:Date.now()+FOCUS_MIN*60000};timerTitle();render();}));
+  root.querySelector("[data-tpause]")?.addEventListener("click",()=>{if(!TIMER)return;
+    TIMER=TIMER.end?{...TIMER,left:timerLeft(),end:0}:{...TIMER,end:Date.now()+TIMER.left};timerTitle();render();});
+  root.querySelector("[data-tstop]")?.addEventListener("click",()=>{TIMER=null;timerTitle();render();});
   root.querySelectorAll("[data-move]").forEach(b=>b.addEventListener("click",()=>{const[key,wk,day]=b.dataset.move.split("|");state.moves[key]={week:+wk,day:+day};delete state.skips[key];menuKey=null;persist();render();}));
   root.querySelectorAll("[data-unmove]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.unmove;delete state.moves[k];delete state.skips[k];menuKey=null;persist();render();}));
   root.querySelectorAll("[data-skip]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.skip;state.skips[k]=true;delete state.moves[k];openSess.delete(k);menuKey=null;persist();render();}));
@@ -2157,7 +2251,7 @@ function printPaper(P){
     if(i===0||P.qs[i-1].band!==q.band)out+=`<div class="ppband">${bandLabel(q.band)} · ${counts[q.band].n} question${counts[q.band].n===1?"":"s"} · ${counts[q.band].m} marks</div>`;
     const pq=printQuestionBody(q);
     out+=`<div class="ppq${pq.tall?" tall":""}"><span class="ppn">${i+1}</span><div class="ppb">${pq.html}<div class="ppa"><b>Mark scheme.</b> ${mdBlock(q.a)}</div></div></div>`;});
-  return out+`<div class="ppfoot">Gradient · original practice paper, not a past paper · grade boundaries ${P.info.boundaries.slice().reverse().map(([g,m])=>`${g}: ${m}%`).join(" · ")}</div></div>`;}
+  return out+`<div class="ppfoot">Grade 9 Tracker · original practice paper, not a past paper · grade boundaries ${P.info.boundaries.slice().reverse().map(([g,m])=>`${g}: ${m}%`).join(" · ")}</div></div>`;}
 /* Printing the questions must never print the answers, so the mode is set
    before the dialog opens and cleared once it closes. */
 function doPrintPaper(mode){
@@ -2640,6 +2734,7 @@ function renderProgress(){
     <div class="kpi"><div class="eyebrow">Streak</div><div class="v num">${streak()}</div><div class="d">days in a row</div></div>
     <div class="kpi"><div class="eyebrow">Sessions done</div><div class="v num">${sessionsDone}</div><div class="d">${fixList().length} to redo · ${Object.keys(state.reviews).length} in review · ${openMistakeCount()} mistake${openMistakeCount()===1?"":"s"} open${reviewMistakeCount()?` · ${reviewMistakeCount()} holding`:""}</div></div></div>`;
   html+=readinessCard();
+  html+=weekReviewCard();
   // Most behind first; school-paced subjects after, since they cannot be behind.
   const order=SUBJ_IDS.slice().sort((a,b)=>{const ba=isSchool(a)?-1e9:SUBJECTS[a].topics.filter(t=>TOPIC_DUE[t.id]<now&&!T(t.id).done).length;const bb=isSchool(b)?-1e9:SUBJECTS[b].topics.filter(t=>TOPIC_DUE[t.id]<now&&!T(t.id).done).length;return bb-ba;});
   html+=`<div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:8px">Coverage · most behind first</div>`;
@@ -2651,7 +2746,7 @@ function renderProgress(){
   html+=`<div class="card"><div class="eyebrow" style="margin-bottom:6px">Coming up</div>`+(upcoming.map(t=>trow(t)).join("")||`<p class="muted">No more tests.</p>`)+`</div>`;
   if(past.length)html+=`<div class="card" style="margin-top:14px"><div class="eyebrow" style="margin-bottom:6px">Recent tests</div>`+past.map(t=>trow(t)).join("")+`</div>`;
   html+=catchUpCard();
-  el.innerHTML=html;el.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>{cur=+b.dataset.goto;curDay=5;showView("today");}));
+  el.innerHTML=html;bindWeekReview(el);el.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>{cur=+b.dataset.goto;curDay=5;showView("today");}));
   el.querySelectorAll("[data-paper]").forEach(b=>b.addEventListener("click",()=>openPaper(b.dataset.paper)));
   el.querySelectorAll("[data-subj]").forEach(b=>b.addEventListener("click",()=>{curSubj=b.dataset.subj;knowMode=false;showView("subjects");}));
   bind(el);
@@ -2844,9 +2939,19 @@ function renderGuide(){
   <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;cursor:pointer"><input type="checkbox" id="autoupdon" ${AUTO_UPD?"checked":""} style="width:18px;height:18px;accent-color:var(--ink)">Install updates automatically</label>
   <p class="muted" style="font-size:13px;margin:8px 0 0">The app checks for a new version while it's open and whenever you come back to it, so a fresh release shows up without reopening. With this on it downloads and installs in the background, waiting until you're not mid‑lesson so the restart never interrupts you. It always jumps straight to the newest version. With this off, a bar offers the update and you choose when.</p></div>
 
+  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 10px">Keyboard shortcuts</h3>
+  <div class="keys"><span><kbd>1</kbd>–<kbd>6</kbd></span><span>Switch tab</span>
+  <span><kbd>D</kbd></span><span>Tick the session you're on as done (Today)</span>
+  <span><kbd>Shift</kbd> + <kbd>←</kbd> <kbd>→</kbd></span><span>Previous / next day</span>
+  <span><kbd>←</kbd> <kbd>→</kbd></span><span>Previous / next week</span>
+  <span><kbd>T</kbd></span><span>Back to today</span>
+  <span><kbd>P</kbd></span><span>Print the week</span>
+  <span><kbd>Ctrl</kbd> + <kbd>K</kbd></span><span>Find a topic</span></div></div>
+
   <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Your data</h3>
   <p class="muted" style="font-size:13px;margin:0 0 12px" id="statepath"></p>
-  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn small" id="backup">Back up now</button><span class="muted" style="font-size:13px" id="backupmsg">Saves a dated copy of your progress and plan.</span></div></div>`;
+  <p class="muted" style="font-size:13px;margin:0 0 12px" id="backupinfo">Once a week a copy of your progress is saved to your Documents folder, in <b>Gradient backups</b>. The newest 8 are kept.</p>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn small" id="backup">Back up now</button><button class="btn small" id="openbackups">Open backups folder</button><span class="muted" style="font-size:13px" id="backupmsg"></span></div></div>`;
   document.getElementById("savekey").addEventListener("click",async()=>{
     settings.apiKey=document.getElementById("apikey").value.trim();
     try{await invoke("set_settings",{settings});document.getElementById("savekey").textContent="Saved ✓";setTimeout(render,900);}
@@ -2863,8 +2968,13 @@ function renderGuide(){
   document.getElementById("autoupdon")?.addEventListener("change",e=>{
     AUTO_UPD=e.target.checked;try{localStorage.setItem("g9.autoUpdate",AUTO_UPD?"1":"0");}catch(err){}
     if(AUTO_UPD)checkForUpdate();});
+  const showBackup=b=>{const el=document.getElementById("backupinfo");if(!el||!b)return;
+    el.innerHTML=`Once a week a copy of your progress is saved to your Documents folder, in <b>Gradient backups</b>. The newest 8 are kept. `+
+      (b.last?`Last backup: <b>${esc(backupWhen(b.last))}</b> · ${b.count} kept.`:"No backup yet.");};
+  invoke("backup_status").then(showBackup).catch(()=>{});
   document.getElementById("backup").addEventListener("click",async()=>{const m=document.getElementById("backupmsg");m.textContent="Backing up…";
-    try{m.textContent="Saved to "+await window.tracker.backup();}catch(e){m.textContent="Couldn't back up: "+String(e);}});
+    try{showBackup(await autoBackup(true));m.textContent="Backed up ✓";}catch(e){m.textContent="Couldn't back up: "+errText(e);}});
+  document.getElementById("openbackups").addEventListener("click",()=>{invoke("open_backups").catch(e=>alert(errText(e)));});
   window.tracker.statePath().then(p=>{const el=document.getElementById("statepath");if(el)el.textContent="Everything is saved in: "+p;}).catch(()=>{});
 }
 
@@ -2885,11 +2995,19 @@ document.addEventListener("keydown",e=>{
   const tabs=["today","important","subjects","progress","plan","guide"];
   if(/^[1-6]$/.test(e.key)){showView(tabs[+e.key-1]);return;}
   if(view!=="today")return;
+  if(e.shiftKey&&(e.key==="ArrowLeft"||e.key==="ArrowRight")){stepDay(e.key==="ArrowRight"?1:-1);return;}
+  if(e.key.toLowerCase()==="d"){const v=document.getElementById("view-today");
+    // the open session if there is one, else the first one not yet done
+    const b=v&&(v.querySelector(".sess.open [data-sess]:not([disabled])")||v.querySelector("[data-sess]:not(.on):not([disabled])"));
+    if(b)b.click();return;}
   if(e.key==="ArrowLeft"&&cur>1){cur--;curDay=0;menuKey=null;render();}
   else if(e.key==="ArrowRight"&&cur<TOTAL){cur++;curDay=0;menuKey=null;render();}
   else if(e.key.toLowerCase()==="t"){cur=todayWeek();curDay=null;render();}
   else if(e.key.toLowerCase()==="p"){window.print();}
 });
+function stepDay(n){const d=(curDay==null?0:curDay)+n;menuKey=null;
+  if(d<0){if(cur>1){cur--;curDay=6;}}else if(d>6){if(cur<TOTAL){cur++;curDay=0;}}else curDay=d;
+  render();}
 document.addEventListener("click",e=>{if(menuKey&&!e.target.closest(".menu")&&!e.target.closest("[data-menu]")){menuKey=null;render();}});
 
 /* ---------- PROFILES ----------
@@ -2906,12 +3024,11 @@ const errText=e=>String(e).replace(/^Error:[ ]*/,"");
 const initials=n=>String(n||"?").trim().split(/\s+/).map(w=>w[0]).join("").slice(0,2).toUpperCase();
 const hue=id=>{let h=0;for(const c of String(id))h=(h*31+c.charCodeAt(0))%360;return h;};
 const hueClass=id=>"h"+(hue(id)%12);
-const BRAND_MARK=`<svg class="logo" viewBox="180 120 720 724" aria-hidden="true"><rect x="200" y="600" width="156" height="224" rx="40" fill="#5A6E92"/><rect x="396" y="456" width="156" height="368" rx="40" fill="#5E7FB3"/><rect x="592" y="300" width="156" height="524" rx="40" fill="#A8C7FA"/><path d="M278 548 L474 404 L670 248 L804 196" fill="none" stroke="#FDD663" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/><circle cx="816" cy="192" r="62" fill="#FDD663"/></svg>`;
 function renderTop(){
   const el=document.getElementById("top");if(!el)return;
-  if(!PROFILE){el.hidden=!PROFILES_ERR;el.innerHTML=PROFILES_ERR?`<div class="top-in"><span class="brand">${BRAND_MARK}Gradient</span><span class="muted" style="font-size:12.5px">Profiles unavailable: ${esc(PROFILES_ERR)}</span></div>`:"";return;}
+  if(!PROFILE){el.hidden=!PROFILES_ERR;el.innerHTML=PROFILES_ERR?`<div class="top-in"><span class="brand">Grade 9 Tracker</span><span class="muted" style="font-size:12.5px">Profiles unavailable: ${esc(PROFILES_ERR)}</span></div>`:"";return;}
   el.hidden=false;
-  el.innerHTML=`<div class="top-in"><span class="brand">${BRAND_MARK}Gradient</span><button class="who" id="who" title="Switch profile"><span class="av ${hueClass(PROFILE.id)}">${esc(initials(PROFILE.name))}</span>${esc(PROFILE.name)}<span class="muted">▾</span></button></div>`;
+  el.innerHTML=`<div class="top-in"><span class="brand">Grade 9 Tracker</span><button class="who" id="who" title="Switch profile"><span class="av ${hueClass(PROFILE.id)}">${esc(initials(PROFILE.name))}</span>${esc(PROFILE.name)}<span class="muted">▾</span></button></div>`;
   el.querySelector("#who").addEventListener("click",()=>showPicker(false));}
 function showPicker(forced){pick={open:true,forced,sel:null,pin:"",msg:"",manage:false,adding:!PROFILES||!PROFILES.profiles.length,newName:"",newPin:""};renderPicker();}
 function closePicker(){if(pick.forced)return;pick.open=false;renderPicker();}
@@ -3012,7 +3129,23 @@ async function boot(){
   loadDay(false);
   checkForUpdate();
   startUpdateWatch();
+  autoBackup(false);          // runs for whichever profile just loaded
+  startBackupWatch();
 }
+
+/* ---------- BACKUPS ----------
+   Once a week a copy of the progress open in this window (the live copy, not
+   whatever last reached disk) goes to Documents\Gradient backups; backup.rs
+   keeps the newest 8 per profile. Checked at launch and every few hours while
+   the app stays open - the backend skips it when the newest is under a week old. */
+let BACKUP=null,BACKUP_TIMER=null;
+async function autoBackup(force){
+  try{BACKUP=await invoke("auto_backup",{state,force:!!force});}catch(e){if(force)throw e;}
+  return BACKUP;
+}
+function startBackupWatch(){if(!BACKUP_TIMER)BACKUP_TIMER=setInterval(()=>autoBackup(false),6*3600*1000);}
+function backupWhen(iso){const t=iso?new Date(iso):null;
+  return t&&!isNaN(t)?t.toLocaleString("en-GB",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"";}
 
 /* ---------- UPDATES ----------
    The backend check reads latest.json from the newest GitHub release, so it

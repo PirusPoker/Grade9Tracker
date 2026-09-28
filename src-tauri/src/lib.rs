@@ -1,10 +1,11 @@
-//! Gradient (formerly Grade 9 Tracker) — Tauri backend.
+//! Grade 9 Tracker — Tauri backend.
 //! Builds the study plan from an editable configuration and saves progress to
 //! JSON files in the app's data folder. The app finds and orders the work; the
 //! questions themselves live on Save My Exams, which each person opens with
 //! their own account.
 
 mod ai;
+mod backup;
 mod config;
 mod course;
 mod draft;
@@ -244,7 +245,7 @@ fn state_path(app: AppHandle) -> Result<String, String> {
 /// reinstall is never the end of two years of records.
 #[tauri::command]
 fn backup(app: AppHandle) -> Result<String, String> {
-    let dir = data_dir(&app)?;
+    let dir = profile_dir(&app)?; // progress moved into profiles/<id>/ with profiles
     let stamp = chrono::Local::now().format("%Y-%m-%d-%H%M%S").to_string();
     let backups = dir.join("backups");
     fs::create_dir_all(&backups).map_err(|e| e.to_string())?;
@@ -256,6 +257,41 @@ fn backup(app: AppHandle) -> Result<String, String> {
     });
     write_json(&target, &bundle)?;
     Ok(target.to_string_lossy().into_owned())
+}
+
+fn backups_folder(app: &AppHandle) -> Result<PathBuf, String> {
+    Ok(app.path().document_dir().map_err(|e| e.to_string())?.join(backup::FOLDER))
+}
+
+/// The weekly backup into Documents (see backup.rs). The UI passes the
+/// progress it has open - the live copy - and `force` for "Back up now".
+#[tauri::command]
+fn auto_backup(app: AppHandle, state: Value, force: bool) -> Result<backup::Info, String> {
+    let folder = backups_folder(&app)?;
+    let reg = store(&app)?.view()?;
+    let now = chrono::Local::now().naive_local();
+    let bundle = serde_json::json!({
+        "savedAt": now.format("%Y-%m-%dT%H:%M:%S").to_string(),
+        "profile": reg.profiles.iter().find(|p| p.id == reg.current).map(|p| p.name.clone()),
+        "state": state,
+        "config": read_json(&profile_dir(&app)?.join("config.json")),
+    });
+    backup::run(&folder, &reg.current, &bundle, force, now)
+}
+
+#[tauri::command]
+fn backup_status(app: AppHandle) -> Result<backup::Info, String> {
+    let reg = store(&app)?.view()?;
+    Ok(backup::status(&backups_folder(&app)?, &reg.current))
+}
+
+/// Show the backups folder in Explorer.
+#[tauri::command]
+fn open_backups(app: AppHandle) -> Result<(), String> {
+    use tauri_plugin_opener::OpenerExt;
+    let folder = backups_folder(&app)?;
+    fs::create_dir_all(&folder).map_err(|e| e.to_string())?;
+    app.opener().open_path(folder.to_string_lossy(), None::<&str>).map_err(|e| e.to_string())
 }
 
 // ---------- Profiles ----------
@@ -353,7 +389,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             get_plan, get_config, save_config, reset_config, get_lesson, list_papers, get_paper,
             load_state, save_state, state_path, backup,
-            get_settings, set_settings, draft_subject, day_context, organise_day, open_email,
+            get_settings, set_settings, draft_subject, day_context, organise_day, open_email, auto_backup, backup_status, open_backups,
             list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile,
             teams_assignments,
             update::check_update, update::install_update,
@@ -363,7 +399,7 @@ pub fn run() {
             mark_answer
         ])
         .run(tauri::generate_context!())
-        .expect("error while running Gradient");
+        .expect("error while running Grade 9 Tracker");
 }
 
 #[cfg(test)]
