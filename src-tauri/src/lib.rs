@@ -1,4 +1,4 @@
-//! Grade 9 Tracker — Tauri backend.
+//! Gradient (formerly Grade 9 Tracker) — Tauri backend.
 //! Builds the study plan from an editable configuration and saves progress to
 //! JSON files in the app's data folder. The app finds and orders the work; the
 //! questions themselves live on Save My Exams, which each person opens with
@@ -399,7 +399,7 @@ pub fn run() {
             mark_answer
         ])
         .run(tauri::generate_context!())
-        .expect("error while running Grade 9 Tracker");
+        .expect("error while running Gradient");
 }
 
 #[cfg(test)]
