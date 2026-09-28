@@ -10,6 +10,7 @@ mod course;
 mod draft;
 mod elevation;
 mod lessons;
+mod marking;
 mod papers;
 mod outlook;
 mod plan;
@@ -118,6 +119,14 @@ fn set_settings(app: AppHandle, settings: draft::Settings) -> Result<(), String>
 async fn draft_subject(app: AppHandle, name: String, url: String, text: String) -> Result<Value, String> {
     let key = get_settings(app)?.api_key;
     draft::draft(&key, &name, &url, &text).await
+}
+
+/// Mark a typed answer against the question's own mark scheme with Claude
+/// (see marking.rs). Uses the same API key as drafting.
+#[tauri::command]
+async fn mark_answer(app: AppHandle, req: marking::Request) -> Result<marking::Verdict, String> {
+    let key = get_settings(app)?.api_key;
+    marking::mark(&key, req).await
 }
 
 /// The day as Outlook sees it: events, deadlines pulled out of mail, requests
@@ -350,7 +359,8 @@ pub fn run() {
             update::check_update, update::install_update,
             tts::narrate, tts::voices, tts::download_voice,
             teams::open_teams,
-            running_elevated, restart_normally
+            running_elevated, restart_normally,
+            mark_answer
         ])
         .run(tauri::generate_context!())
         .expect("error while running Grade 9 Tracker");

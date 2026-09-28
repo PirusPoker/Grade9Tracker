@@ -259,6 +259,23 @@ a{color:var(--accent);text-underline-offset:2px}
 .mailview .mh span{font-size:12px;color:var(--muted)}
 .mailview .mb{padding:10px 12px;font-size:13px;line-height:1.5;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:anywhere;max-height:320px;overflow:auto}
 .mailview .mf{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 12px;border-top:1px solid var(--line);font-size:12px}
+/* Typed answers and AI marking */
+.typetog{display:flex;gap:9px;align-items:center;margin:0 0 12px;font-size:14px;cursor:pointer}
+.typetog input{width:18px;height:18px;accent-color:var(--accent)}
+textarea.typedans{margin-top:10px;font-size:14.5px;line-height:1.5;min-height:0;resize:vertical}
+.aimark{margin-top:10px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--sunken);padding:10px 12px}
+.aimark .aitxt{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13.5px;line-height:1.5;color:var(--ink-2);max-height:260px;overflow:auto;margin-bottom:10px}
+.aimark .aibusy{font-size:13px}
+.aimark .aierr{color:var(--bad);font-size:13px;margin-bottom:8px}
+.aires{border-top:1px solid var(--line);padding-top:10px}
+.aihead{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;font-size:14px;margin-bottom:6px}
+.aihead .muted{font-size:12.5px}
+.aipts{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.aipts li{display:grid;grid-template-columns:1.3em 1fr;gap:6px;font-size:13.5px;line-height:1.45}
+.aipts li.hit>span{color:var(--good);font-weight:700}
+.aipts li.miss>span{color:var(--bad);font-weight:700}
+.aipts .aiev{color:var(--muted);font-size:12.5px;font-style:italic}
+.aifb{font-size:13.5px;line-height:1.5;margin:8px 0 0;color:var(--ink-2)}
 /* Stars and tags on emails and assignments */
 .starbtn{margin-left:4px;padding:0 3px;border:0;background:transparent;color:var(--muted);font-size:16px;line-height:1;cursor:pointer;vertical-align:-1px}
 .starbtn:hover{color:var(--warn)}
@@ -1891,8 +1908,52 @@ function startTopicTest(){if(!lesson)return;stopNarration();const pool=testPool(
 function finishTopicTest(t){const T_=lesson.test;const s=T_.qs.reduce((n,q,i)=>n+(T_.marks[i]||0),0);const pct=Math.round(100*s/T_.total);
   const secs=Math.round((T_.finished-T_.started)/1000);
   topicTests(t.id).push({d:todayISO(),s,t:T_.total,pct,secs});if(topicTests(t.id).length>12)topicTests(t.id).shift();
-  T_.qs.forEach((q,i)=>{const got=T_.marks[i]||0;if(got<q.max)addMistake(t.id,"Topic test: "+plainText(q.q).slice(0,150)+(q.max>1?` (${got}/${q.max})`:""),"test",{t:t.id,q:q.src});});
+  T_.qs.forEach((q,i)=>{const got=T_.marks[i]||0;if(got<q.max)addMistake(t.id,"Topic test: "+plainText(q.q).slice(0,150)+(q.max>1?` (${got}/${q.max})`:"")+aiMissNote(T_,i),"test",{t:t.id,q:q.src});});
   T_.phase="done";T_.score=s;T_.pct=pct;T_.secs=secs;markDay();persist();}
+/* ---------- TYPED ANSWERS + AI MARKING (marking.rs) ----------
+   Type an answer instead of writing it, and the marking screen can have
+   Claude mark it against that question's own mark scheme: which points it
+   hit, which it missed, and what would have earned the rest. The mark goes
+   into the self-mark buttons, where it can still be changed - the model is a
+   second opinion on the scheme, not the last word. Works the same in topic
+   tests, mock papers and fix-it re-tests: each passes its sitting object X
+   (marks, typed, ai), its list of {q,a,max}, and a re-render that does
+   nothing once the sitting has been left. Typed answers live only in the
+   sitting. */
+let TYPE_ANS=(()=>{try{return localStorage.getItem("g9.typeAnswers")==="1";}catch(e){return false;}})();
+const linesText=v=>Array.isArray(v)?v.join("\n"):String(v||"");
+const typedOf=(X,i)=>((X.typed||{})[i]||"").trim();
+function typeToggle(){return `<label class="typetog"><input type="checkbox" data-typetog ${TYPE_ANS?"checked":""}><span>Type my answers here, so the AI can mark them${settings.apiKey?"":` <span class="muted">— needs an API key, see Guide</span>`}</span></label>`;}
+function typedBox(X,i,q){if(!TYPE_ANS)return "";const rows=Math.min(16,Math.max(2,Math.round(q.max*1.2)));
+  return `<textarea class="typedans" data-typed="${i}" rows="${rows}" placeholder="Your answer" aria-label="Your answer to question ${i+1}">${esc((X.typed||{})[i]||"")}</textarea>`;}
+const aiPending=(X,i)=>!!typedOf(X,i)&&!(X.ai&&X.ai[i]&&!X.ai[i].err);
+function aiAllBtn(X,list){const n=list.filter((_,i)=>aiPending(X,i)).length;return n>1?` <button class="btn small" data-aimarkall>✦ Mark all ${n} typed answers with AI</button>`:"";}
+function aiBlock(X,i,q){const v=typedOf(X,i);if(!v)return "";const r=(X.ai||{})[i];
+  let h=`<div class="aimark"><div class="eyebrow" style="margin-bottom:6px">Your answer</div><div class="aitxt">${esc(v)}</div>`;
+  if(!r)h+=`<button class="btn small" data-aimark="${i}">✦ Mark it with AI</button>`;
+  else if(r.busy)h+=`<div class="muted aibusy">✦ Marking it against the scheme…</div>`;
+  else if(r.err)h+=`<div class="aierr">${esc(r.err)}</div><button class="btn small" data-aimark="${i}">Try again</button>`;
+  else h+=`<div class="aires"><div class="aihead"><b>AI mark: ${r.marks} / ${q.max}</b><span class="muted">filled in below — change it if you disagree</span></div><ul class="aipts">${(r.points||[]).map(p=>`<li class="${p.hit?"hit":"miss"}"><span>${p.hit?"✓":"✗"}</span><div>${esc(p.point)}${p.hit&&p.evidence?`<div class="aiev">“${esc(p.evidence)}”</div>`:""}</div></li>`).join("")}</ul>${r.feedback?`<p class="aifb">${esc(r.feedback)}</p>`:""}${r.improve&&r.marks<q.max?`<p class="aifb"><b>For the missing marks:</b> ${esc(r.improve)}</p>`:""}</div>`;
+  return h+`</div>`;}
+async function aiMark(X,i,q,subject,again){
+  X.ai=X.ai||{};
+  if(!settings.apiKey){X.ai[i]={err:"AI marking needs your Anthropic API key — add it in Guide, under Drafting new subjects."};again();return;}
+  X.ai[i]={busy:true};again();
+  try{const r=await invoke("mark_answer",{req:{subject:typeof subject==="function"?subject(i):subject,question:linesText(q.q),scheme:linesText(q.a),max:q.max,answer:typedOf(X,i)}});
+    X.ai[i]=r;X.marks[i]=Math.max(0,Math.min(q.max,Math.round(r.marks)));}
+  catch(e){X.ai[i]={err:errText(e)};}
+  again();}
+function bindTyped(el,X,list,subject,again){
+  el.querySelectorAll("[data-typetog]").forEach(c=>c.addEventListener("change",()=>{TYPE_ANS=c.checked;try{localStorage.setItem("g9.typeAnswers",TYPE_ANS?"1":"0");}catch(e){}again();}));
+  el.querySelectorAll("[data-typed]").forEach(t=>t.addEventListener("input",()=>{(X.typed=X.typed||{})[+t.dataset.typed]=t.value;}));
+  el.querySelectorAll("[data-aimark]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.aimark;aiMark(X,i,list[i],subject,again);}));
+  el.querySelector("[data-aimarkall]")?.addEventListener("click",()=>{const todo=list.map((_,i)=>i).filter(i=>aiPending(X,i));let k=0;
+    // three at a time: quick, without tripping the API's rate limit
+    const run=async()=>{while(k<todo.length){const i=todo[k++];await aiMark(X,i,list[i],subject,again);}};run();run();run();});}
+/* The scheme points the AI said were missed, for the mistakes log. */
+function aiMissNote(X,i){const r=X.ai&&X.ai[i];if(!r||!r.points)return "";const miss=r.points.filter(p=>!p.hit).map(p=>p.point);
+  return miss.length?(" — missed: "+miss.join("; ")).slice(0,220):"";}
+const subjectFull=S=>S?(S.full||S.name):"";
 function fmtSecs(n){n=Math.max(0,Math.round(n));return `${Math.floor(n/60)}:${String(n%60).padStart(2,"0")}`;}
 function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[t.subj];const X=lesson.test;const stt=T(t.id);
   stopTestTimer();
@@ -1901,13 +1962,14 @@ function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[
   let body="";
   if(X.phase==="answer"){
     body=`<div class="ttrules"><b>Closed book.</b> ${X.qs.length} questions, ${X.total} marks, ${fmtSecs(X.limit)} on the clock.<ul><li>Write every answer on paper first — no lesson, no notes, no answers until you have attempted them all.</li><li>Then press <b>Mark it</b>: the answers appear and you give yourself the marks, honestly.</li><li>${X.own?"These are the topic's test questions, different from the practice set, set out like an exam paper: short questions first, climbing to the extended answers at the end. The clock runs at exam pace, a little over a minute a mark.":"These are the practice questions in a fresh order — the test is whether they hold without the answers in front of you."}</li></ul></div>`;
-    X.qs.forEach((q,i)=>{body+=`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div></div>`;});
+    body+=typeToggle();
+    X.qs.forEach((q,i)=>{body+=`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div>${typedBox(X,i,q)}</div>`;});
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="ttmark">I've answered everything — mark it</button><button class="btn ghost" id="ttquit">Abandon test</button></div>`;
   }else if(X.phase==="mark"){
     const done=X.qs.filter((_,i)=>X.marks[i]!==undefined).length;const s=X.qs.reduce((n,q,i)=>n+(X.marks[i]||0),0);
-    body=`<div class="ttrules"><b>Mark it.</b> Compare what you wrote with each answer and give yourself the marks. ${X.timeUp?"<b>Time ran out</b> — mark what you have; anything unanswered scores 0. ":""}Running total: <b>${s} / ${X.total}</b> · ${done} of ${X.qs.length} marked.</div>`;
+    body=`<div class="ttrules"><b>Mark it.</b> Compare what you wrote with each answer and give yourself the marks. ${X.timeUp?"<b>Time ran out</b> — mark what you have; anything unanswered scores 0. ":""}Running total: <b>${s} / ${X.total}</b> · ${done} of ${X.qs.length} marked.${aiAllBtn(X,X.qs)}</div>`;
     X.qs.forEach((q,i)=>{const got=X.marks[i];const cls=got===undefined?"":(got>=q.max?"full":(got>0?"part":"zero"));
-      body+=`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(q.a)}</div><div class="ttmarks"><span class="lab">${q.max===1?"Did you get it?":`Marks out of ${q.max}`}</span>${q.max===1?`<button class="btn small ${got===1?"done":""}" data-tm="${i}|1">✓ Yes</button><button class="btn small ${got===0?"primary":""}" data-tm="${i}|0">✗ No</button>`:(q.max<=12?Array.from({length:q.max+1},(_,k)=>`<button class="btn small ${got===k?(k===q.max?"done":"primary"):""}" data-tm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${q.max}" value="${got===undefined?"":got}" data-tmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-tmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`)}</div></div>`;});
+      body+=`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(q.a)}</div>${aiBlock(X,i,q)}<div class="ttmarks"><span class="lab">${q.max===1?"Did you get it?":`Marks out of ${q.max}`}</span>${q.max===1?`<button class="btn small ${got===1?"done":""}" data-tm="${i}|1">✓ Yes</button><button class="btn small ${got===0?"primary":""}" data-tm="${i}|0">✗ No</button>`:(q.max<=12?Array.from({length:q.max+1},(_,k)=>`<button class="btn small ${got===k?(k===q.max?"done":"primary"):""}" data-tm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${q.max}" value="${got===undefined?"":got}" data-tmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-tmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`)}</div></div>`;});
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="ttfinish" ${done<X.qs.length?"disabled":""}>${done<X.qs.length?`Mark all ${X.qs.length} to finish`:"Finish test"}</button><button class="btn ghost" id="ttquit">Abandon test</button></div>`;
   }else{
     const band=testBand(X.pct);const dropped=X.qs.map((q,i)=>({q,i,got:X.marks[i]||0})).filter(x=>x.got<x.q.max);
@@ -1931,6 +1993,7 @@ function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[
   el.querySelector("#ttmark")?.addEventListener("click",()=>{X.phase="mark";X.finished=Date.now();stopTestTimer();renderTopicTest(el);window.scrollTo({top:0});});
   el.querySelector("#ttfinish")?.addEventListener("click",()=>{finishTopicTest(t);renderTopicTest(el);window.scrollTo({top:0});});
   el.querySelectorAll("[data-tm]").forEach(b=>b.addEventListener("click",()=>{const[i,v]=b.dataset.tm.split("|");X.marks[+i]=+v;const y=window.scrollY;renderTopicTest(el);window.scrollTo({top:y});}));
+  bindTyped(el,X,X.qs,subjectFull(S),()=>{if(!lesson||lesson.test!==X)return;const y=window.scrollY;renderTopicTest(el);window.scrollTo({top:y});});
   el.querySelectorAll("[data-tmset]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.tmset;const inp=el.querySelector(`[data-tmin="${i}"]`);const v=Math.round(+inp.value);if(inp.value===""||isNaN(v)||v<0||v>X.qs[i].max){inp.focus();return;}X.marks[i]=v;const y=window.scrollY;renderTopicTest(el);window.scrollTo({top:y});}));
   if(X.phase==="answer"){const tick=()=>{const n=left();const e=el.querySelector("#ttimer");if(!e){stopTestTimer();return;}
       e.textContent=fmtSecs(n);e.classList.toggle("low",n<=60&&n>0);
@@ -1998,13 +2061,14 @@ function renderFixit(el){const F=fixit;const S=F.subj?SUBJECTS[F.subj]:null;cons
   let body="";
   if(F.phase==="answer"){
     body=`<div class="ttrules"><b>Closed book.</b> ${F.items.length} question${F.items.length===1?"":"s"} you dropped marks on before, soonest due first.<ul><li>Answer each one on paper, then press <b>Mark it</b>.</li><li>Full marks moves it on to a longer gap; it is ticked off for good only once it has held at ${FIX_GAP_WORDS} days.</li><li>Anything less brings it back sooner — a blank starts the gaps again.</li></ul></div>`;
-    F.items.forEach((x,i)=>{body+=`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">${esc(x.label)}${inReview(x.m)?` · review ${x.m.stage+1} of ${FIX_GAPS.length}`:(x.m.tries?` · retry ${x.m.tries+1}`:"")}</div>${mdBlock(x.q)}</div></div></div>`;});
+    body+=typeToggle();
+    F.items.forEach((x,i)=>{body+=`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">${esc(x.label)}${inReview(x.m)?` · review ${x.m.stage+1} of ${FIX_GAPS.length}`:(x.m.tries?` · retry ${x.m.tries+1}`:"")}</div>${mdBlock(x.q)}</div></div>${typedBox(F,i,x)}</div>`;});
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="fxmark">I've answered them — mark it</button><button class="btn ghost" id="fxquit">Not now</button></div>`;
   }else if(F.phase==="mark"){
     const done=F.items.filter((_,i)=>F.marks[i]!==undefined).length;
-    body=`<div class="ttrules"><b>Mark it.</b> Full marks means fixed; be honest, a mistake you tick away too early just costs you in the exam. ${done} of ${F.items.length} marked.</div>`;
+    body=`<div class="ttrules"><b>Mark it.</b> Full marks means fixed; be honest, a mistake you tick away too early just costs you in the exam. ${done} of ${F.items.length} marked.${aiAllBtn(F,F.items)}</div>`;
     F.items.forEach((x,i)=>{const got=F.marks[i];const cls=got===undefined?"":(got>=x.max?"full":(got>0?"part":"zero"));
-      body+=`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">${esc(x.label)}</div>${mdBlock(x.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(x.a)}</div><div class="ttmarks"><span class="lab">${x.max===1?"Did you get it?":`Marks out of ${x.max}`}</span>${x.max===1?`<button class="btn small ${got===1?"done":""}" data-fm="${i}|1">✓ Yes</button><button class="btn small ${got===0?"primary":""}" data-fm="${i}|0">✗ No</button>`:(x.max<=12?Array.from({length:x.max+1},(_,k)=>`<button class="btn small ${got===k?(k===x.max?"done":"primary"):""}" data-fm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${x.max}" value="${got===undefined?"":got}" data-fmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-fmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`)}</div></div>`;});
+      body+=`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody"><div class="eyebrow" style="margin-bottom:4px">${esc(x.label)}</div>${mdBlock(x.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Answer</div>${mdBlock(x.a)}</div>${aiBlock(F,i,x)}<div class="ttmarks"><span class="lab">${x.max===1?"Did you get it?":`Marks out of ${x.max}`}</span>${x.max===1?`<button class="btn small ${got===1?"done":""}" data-fm="${i}|1">✓ Yes</button><button class="btn small ${got===0?"primary":""}" data-fm="${i}|0">✗ No</button>`:(x.max<=12?Array.from({length:x.max+1},(_,k)=>`<button class="btn small ${got===k?(k===x.max?"done":"primary"):""}" data-fm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${x.max}" value="${got===undefined?"":got}" data-fmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-fmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`)}</div></div>`;});
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="fxfinish" ${done<F.items.length?"disabled":""}>${done<F.items.length?`Mark all ${F.items.length} to finish`:"Finish"}</button><button class="btn ghost" id="fxquit">Abandon</button></div>`;
   }else{
     const left=F.items.map((x,i)=>({x,i,got:F.marks[i]||0})).filter(y=>y.got<y.x.max);const all=F.fixed===F.items.length;
@@ -2027,6 +2091,7 @@ function renderFixit(el){const F=fixit;const S=F.subj?SUBJECTS[F.subj]:null;cons
   el.querySelector("#fxfinish")?.addEventListener("click",()=>{finishFixit();renderFixit(el);window.scrollTo({top:0});});
   const keep=()=>{const y=window.scrollY;renderFixit(el);window.scrollTo({top:y});};
   el.querySelectorAll("[data-fm]").forEach(b=>b.addEventListener("click",()=>{const[i,v]=b.dataset.fm.split("|");F.marks[+i]=+v;keep();}));
+  bindTyped(el,F,F.items,i=>subjectFull(SUBJECTS[F.items[i].subj]),()=>{if(fixit===F)keep();});
   el.querySelectorAll("[data-fmset]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.fmset;const inp=el.querySelector(`[data-fmin="${i}"]`);const v=Math.round(+inp.value);if(inp.value===""||isNaN(v)||v<0||v>F.items[i].max){inp.focus();return;}F.marks[i]=v;keep();}));
   bind(el);}
 /* ---------- MOCK PAPERS (papers.rs) ----------
@@ -2054,7 +2119,7 @@ function finishPaper(){const P=paper;const s=P.qs.reduce((n,q,i)=>n+(P.marks[i]|
   const secs=Math.round((P.finished-P.started)/1000);const grade=paperGrade(P.info,pct);
   const bands={};P.qs.forEach((q,i)=>{const b=bands[q.band]=bands[q.band]||{s:0,t:0};b.s+=P.marks[i]||0;b.t+=q.max;});
   paperAttempts(P.id).push({d:todayISO(),s,t:P.total,pct,g:grade,secs,b:Object.fromEntries(Object.keys(bands).map(k=>[k,Math.round(100*bands[k].s/bands[k].t)]))});if(paperAttempts(P.id).length>12)paperAttempts(P.id).shift();
-  P.qs.forEach((q,i)=>{const got=P.marks[i]||0;if(got<q.max){const text=paperQLabel(q,i)+` (${got}/${q.max})`,ref={p:P.id,q:i};if(q.topics.length)q.topics.forEach(id=>addMistake(id,text,"test",ref));else addMistake("subj:"+P.info.subject,text,"test",ref);}});
+  P.qs.forEach((q,i)=>{const got=P.marks[i]||0;if(got<q.max){const text=paperQLabel(q,i)+` (${got}/${q.max})`+aiMissNote(P,i),ref={p:P.id,q:i};if(q.topics.length)q.topics.forEach(id=>addMistake(id,text,"test",ref));else addMistake("subj:"+P.info.subject,text,"test",ref);}});
   P.phase="done";P.score=s;P.pct=pct;P.secs=secs;P.grade=grade;P.bands=bands;markDay();persist();}
 function papersCard(subj){const ps=papersOf(subj);if(!ps.length)return "";const S=SUBJECTS[subj];
   return `<div class="card" style="margin-bottom:14px;--c:${S.color}"><div class="eyebrow" style="margin-bottom:4px">Mock papers</div><p class="muted" style="font-size:13.5px;margin:0 0 4px">Original exam-style papers that mix topics the way a real paper does, starting at grade 4–5 questions and climbing to grade 8–9. Closed book, on the clock, marked by you against the scheme, with a grade estimate at the end.</p>`+
@@ -2116,13 +2181,14 @@ function renderPaper(el){const P=paper;const S=SUBJECTS[P.info.subject];const hi
       <div class="wbtns" style="margin-top:14px"><button class="btn primary" id="pstart">Start the clock</button><button class="btn" id="pprint">Print the paper</button><button class="btn ghost" id="pback">Back</button></div></div>`;
   }else if(P.phase==="answer"){
     body=`<div class="ttrules"><b>Closed book.</b> ${P.qs.length} questions, ${P.total} marks, ${fmtSecs(P.limit)} on the clock. Answer on paper, then press <b>Mark it</b>.</div>`;
-    P.qs.forEach((q,i)=>{body+=bandHead(q.band,i)+`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div></div>`;});
+    body+=typeToggle();
+    P.qs.forEach((q,i)=>{body+=bandHead(q.band,i)+`<div class="ttq"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div>${typedBox(P,i,q)}</div>`;});
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="pmark">I've finished — mark it</button><button class="btn ghost" id="pquit">Abandon paper</button></div>`;
   }else if(P.phase==="mark"){
     const done=P.qs.filter((_,i)=>P.marks[i]!==undefined).length;const s=P.qs.reduce((n,q,i)=>n+(P.marks[i]||0),0);
-    body=`<div class="ttrules"><b>Mark it.</b> Compare what you wrote with each mark scheme and give yourself the marks — for essay questions, find the level that best describes what you wrote. ${P.timeUp?"<b>Time ran out</b> — anything unanswered scores 0. ":""}Running total: <b>${s} / ${P.total}</b> · ${done} of ${P.qs.length} marked.</div>`;
+    body=`<div class="ttrules"><b>Mark it.</b> Compare what you wrote with each mark scheme and give yourself the marks — for essay questions, find the level that best describes what you wrote. ${P.timeUp?"<b>Time ran out</b> — anything unanswered scores 0. ":""}Running total: <b>${s} / ${P.total}</b> · ${done} of ${P.qs.length} marked.${aiAllBtn(P,P.qs)}</div>`;
     P.qs.forEach((q,i)=>{const got=P.marks[i];const cls=got===undefined?"":(got>=q.max?"full":(got>0?"part":"zero"));
-      body+=bandHead(q.band,i)+`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Mark scheme</div>${mdBlock(q.a)}</div><div class="ttmarks"><span class="lab">Marks out of ${q.max}</span>${q.max<=12?Array.from({length:q.max+1},(_,k)=>`<button class="btn small ${got===k?(k===q.max?"done":"primary"):""}" data-pm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${q.max}" value="${got===undefined?"":got}" data-pmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-pmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`}</div></div>`;});
+      body+=bandHead(q.band,i)+`<div class="ttq ${cls}"><div class="lqhead"><span class="lqn">${i+1}</span><div class="lqbody">${mdBlock(q.q)}</div></div><div class="lans"><div class="eyebrow" style="margin-bottom:6px">Mark scheme</div>${mdBlock(q.a)}</div>${aiBlock(P,i,q)}<div class="ttmarks"><span class="lab">Marks out of ${q.max}</span>${q.max<=12?Array.from({length:q.max+1},(_,k)=>`<button class="btn small ${got===k?(k===q.max?"done":"primary"):""}" data-pm="${i}|${k}">${k}</button>`).join(""):`<input type="number" min="0" max="${q.max}" value="${got===undefined?"":got}" data-pmin="${i}" style="width:80px;font-family:var(--mono)"> <button class="btn small ${got===undefined?"primary":"done"}" data-pmset="${i}">${got===undefined?"Set":"✓ "+got}</button>`}</div></div>`;});
     body+=`<div class="wbtns" style="margin-top:14px"><button class="btn primary" id="pfinish" ${done<P.qs.length?"disabled":""}>${done<P.qs.length?`Mark all ${P.qs.length} to finish`:"Finish paper"}</button><button class="btn ghost" id="pquit">Abandon paper</button></div>`;
   }else{
     const dropped=P.qs.map((q,i)=>({q,i,got:P.marks[i]||0})).filter(x=>x.got<x.q.max);const g=P.grade;
@@ -2156,6 +2222,7 @@ function renderPaper(el){const P=paper;const S=SUBJECTS[P.info.subject];const hi
   el.querySelector("#pfinish")?.addEventListener("click",()=>{finishPaper();renderPaper(el);window.scrollTo({top:0});});
   const keep=()=>{const y=window.scrollY;renderPaper(el);window.scrollTo({top:y});};
   el.querySelectorAll("[data-pm]").forEach(b=>b.addEventListener("click",()=>{const[i,v]=b.dataset.pm.split("|");P.marks[+i]=+v;keep();}));
+  bindTyped(el,P,P.qs,subjectFull(S),()=>{if(paper===P)keep();});
   bind(el);
   el.querySelectorAll("[data-pmset]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.pmset;const inp=el.querySelector(`[data-pmin="${i}"]`);const v=Math.round(+inp.value);if(inp.value===""||isNaN(v)||v<0||v>P.qs[i].max){inp.focus();return;}P.marks[i]=v;keep();}));
   if(P.phase==="answer"){const tick=()=>{const n=left();const e=el.querySelector("#ttimer");if(!e){stopTestTimer();return;}
@@ -2735,6 +2802,7 @@ function renderGuide(){
   <h3>Your cards</h3><p>Under any topic you can write cards — a short quote on the front, the technique and its effect on the back; a formula; a definition. They come up in that topic's recall checks, front first. Nothing is pre-filled on purpose: writing the card is most of the learning.</p>
   <h3>Lessons</h3><p>For Maths, Further Maths, Economics, Business, Computer Science, Biology, Chemistry, Physics, English Literature and English Language, every topic carries its own lesson inside the app — no hunting for videos or notes. Open one from the session in <b>Today</b>, from the topic in <b>Subjects</b>, or from the walkthrough. Each lesson has the same shape: <b>What it is</b>, <b>How to do it</b> as numbered steps, worked examples with every line shown, <b>Try these</b> — practice questions with the answer hidden until you tap, then <b>Got it</b> or <b>Not yet</b> (Not yet goes straight into the mistakes log for that topic) — and <b>Where the marks go</b>, the errors examiners see most. Every number in the answers was checked by computer. <b>Cover the working</b> turns each worked example into a step-by-step reveal, so you attempt each line before you see it. <b>Notes</b> opens your own notebook beside the lesson — it autosaves, anything you highlight in the lesson can be added with one tap, the first line can become a card, and the notes come back on that topic's recall checks. <b>Print</b> gives you the lesson with every answer shown as a revision sheet. When you can do the questions without looking, tick the topic at the bottom and it joins the recall rotation. Lessons work offline; the maths is typeset locally.</p>
   <h3>End-of-topic tests</h3><p>Every lesson ends with <b>Take the test</b> (also under <b>Test</b> in the lesson's top bar, and on the topic row once you have taken one). It is closed book and timed: the questions appear with no answers and a clock, you write every answer on paper, then <b>Mark it</b> shows the answers and you give yourself the marks. 80% or more is <b>Secure</b> — tick the topic and it joins recall; below that, everything you dropped is already in the mistakes log, so read those, go back over that part of the lesson, and retake. Attempts are kept, so the subject page shows your last score on each topic and the lesson shows the run of attempts.</p>
+  <h3>Typing answers and AI marking</h3><p>Tick <b>Type my answers here</b> at the top of a topic test, a mock paper or a fix-it re-test, and each question gets a box to type into instead of paper. On the marking screen, <b>Mark it with AI</b> (or <b>Mark all typed answers</b>) sends the question, its own mark scheme and your answer to Claude, which marks it the way an examiner would: every scheme point it earned, with the words that earned it, every point it missed, and exactly what would have got the missing marks. Essays are placed in a level first, then marked within it. The mark fills in the marking buttons, and you can still change it — treat it as a second opinion on the scheme. Missed points are written into the mistakes log with the question. This is the part of the app that uses your API key (see below); each answer costs well under a penny.</p>
   <h3>Mock papers</h3><p>Each subject page has a <b>Mock papers</b> card: original exam-style papers, written for this app rather than copied from past papers, that mix topics the way a real paper does and climb from grade 4–5 questions through 6–7 to 8–9, so the last section is where the top grades are decided. A paper runs on the clock for its real duration; you write everything on paper, then <b>Mark it</b> shows the mark scheme (points for short questions, level descriptors for essays) and you give yourself the marks. The percentage becomes a <b>grade estimate</b> using that subject's real grade boundaries — each board's published June 2025 and June 2026 boundaries averaged, so a Computer Science 7 needs about 78% while a Maths 7 needs about 58%, just as in the real exams. Boundaries shift a few marks each year, so treat the estimate as give or take a grade. You also get a breakdown by band, so you can see whether the marks went at the start or at the top end. Every dropped question goes to the mistakes log under the subject. <b>Print the paper</b> on the screen before you start it, and you can sit it at a desk with a pen the way you will in the hall - the printout has the questions and the marks and nothing else, and <b>Print the mark scheme</b> on the results screen gives you the answers to mark from. Sit a paper once the topics it covers are done, fix what it exposes, and sit it again a week or two later. Every paper question names the topics it draws on, so a dropped question is logged under those topics and the results page lists the <b>lessons to reopen</b> with the marks each one cost.</p>
   <h3>Fix-it: re-testing mistakes on widening gaps</h3><p>A mistake logged by a topic test or a mock paper remembers the question. The next day it is <b>due</b>: the subject page's mistakes card and the retrieval session on Today show <b>Re-test N dropped questions</b>, which brings those questions back closed-book, soonest due first, a dozen at a time.</p><p>Full marks does not tick it off — it moves the question on to a <b>longer gap</b>. The gaps widen: <b>1 day, then 3, then 8, then 21</b>. Hold it at all four and the mistake is ticked off for good; it has survived three weeks, which is the point at which it is actually yours. Drop marks and it comes back sooner — part marks slip back one gap, a blank starts the ladder again. A mistake part-way up the ladder shows as <b>holding</b> rather than open, so the open count is what still needs work.</p><p>Why widening gaps: answering something right the day after you got it wrong proves almost nothing, because it is still in your head from reading the answer. Each longer gap forces you to retrieve it from cold, and retrieving it from cold is what makes it stick. That is the loop: test, drop, reopen the lesson, then re-test at 1, 3, 8 and 21 days until it holds.</p>
   <h3>Exam readiness</h3><p>The top of <b>Progress</b> pulls the tests and papers together, one line per subject, weakest first: your <b>grade estimate</b> (the average of your latest sitting of each mock paper) with the run of grades from every sitting, how many topics you have tested closed-book and their average, open mistakes and how many are due for a re-test, which band the last paper was weakest on, and days to the exam. The buttons take you straight to the re-test, the next paper, or the subject.</p>
@@ -2754,7 +2822,7 @@ function renderGuide(){
   <h3>Important</h3><p>Every line in <b>Your day</b> has a <b>☆</b> and a <b>+ tag</b>. Star what matters, or tag it — Homework, Revise, Reply, Ask teacher, Bring in, or any tag you type — and it is kept on the <b>Important</b> tab, sorted by when it is due, with the number still to do on the tab itself. The lists at the bottom of that page hold every assignment and every email from the last fortnight (newsletters left out), so you can star an email the rules didn't pick up. A starred item keeps a copy of its email, so it is still there after it drops out of Outlook's fortnight; tick it done in either place and it is done in both. Tap a tag at the top to see only that tag. Stars and tags live in the app — nothing is changed in Outlook or Teams.</p>
   <p class="muted" style="font-size:13px">Term dates are typical English ones — change them in Plan to match your school.</p></div>
   <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Drafting new subjects</h3>
-  <p class="muted" style="font-size:13.5px;margin:0 0 10px">The Plan tab can draft a whole subject — topics, hours, objectives — from a public specification page. That one feature calls the Anthropic API with your own key from <a href="https://console.anthropic.com">console.anthropic.com</a>, and costs a few pence each time. Everything else in the app works offline and needs no key.</p>
+  <p class="muted" style="font-size:13.5px;margin:0 0 10px">The Plan tab can draft a whole subject — topics, hours, objectives — from a public specification page. That, and marking typed answers in tests and papers, call the Anthropic API with your own key from <a href="https://console.anthropic.com">console.anthropic.com</a>, and costs a few pence each time. Everything else in the app works offline and needs no key.</p>
   <div style="display:flex;gap:8px;flex-wrap:wrap"><input type="password" id="apikey" placeholder="sk-ant-…" value="${esc(settings.apiKey||"")}" style="flex:1;min-width:220px"><button class="btn primary" id="savekey">Save</button></div>
   <p class="muted" style="font-size:13px;margin:10px 0 0">Stored in plain text in settings.json next to your progress. Leave it blank if you would rather not.</p></div>
 
