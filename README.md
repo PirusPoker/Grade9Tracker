@@ -1,6 +1,6 @@
 # Gradient (Tauri + Rust)
 
-Formerly Grade 9 Tracker. The repository, download file name and app identifier keep the old name so existing installs update in place.
+The repository name and the app identifier are left over from the app's first name; they stay as they are so existing installs keep updating in place and keep their data.
 
 Two-year GCSE and IGCSE study plan. It works out what you should do each week for the next two years, puts one session a day in front of you with the objectives for it, and teaches every topic with its own lesson, worked examples and end-of-topic test. Runs offline, starts instantly.
 
@@ -9,9 +9,9 @@ Two-year GCSE and IGCSE study plan. It works out what you should do each week fo
 **Download page:** https://piruspoker.github.io/Grade9Tracker/
 
 Or grab the installer directly — this link always gives the newest version:
-https://github.com/PirusPoker/Grade9Tracker/releases/latest/download/Grade9Tracker-Setup.exe
+https://github.com/PirusPoker/Grade9Tracker/releases/latest/download/Gradient-Setup.exe
 
-1. Run `Grade9Tracker-Setup.exe`. Windows shows "Windows protected your PC" because the
+1. Run `Gradient-Setup.exe`. Windows shows "Windows protected your PC" because the
    app is not from the Microsoft Store: click **More info**, then **Run anyway** (once).
 2. Open Gradient from the Start menu, add yourself as a profile, tick your subjects.
 

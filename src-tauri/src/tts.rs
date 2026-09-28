@@ -153,7 +153,7 @@ pub async fn download_voice(app: AppHandle, id: String) -> Result<(), String> {
 async fn fetch_voice(app: &AppHandle, vid: &str, path: &str) -> Result<(), String> {
     let dir = voices_dir(app)?;
     let client = reqwest::Client::builder()
-        .user_agent("Grade9Tracker")
+        .user_agent("Gradient")
         .build()
         .map_err(|e| e.to_string())?;
     // The small config first: if the network is down we find out in a second

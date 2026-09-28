@@ -59,7 +59,9 @@ jobs:
 
       # A copy of the installer under a fixed name, so one link always fetches
       # the newest version:
-      #   https://github.com/PirusPoker/Grade9Tracker/releases/latest/download/Grade9Tracker-Setup.exe
+      #   https://github.com/PirusPoker/Grade9Tracker/releases/latest/download/Gradient-Setup.exe
+      # The pre-rename name is uploaded too, only so links already handed out
+      # keep working; nothing points at it any more.
       - name: Upload the installer under a fixed name
         shell: bash
         env:
@@ -67,8 +69,9 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           exe=$(ls src-tauri/target/release/bundle/nsis/*-setup.exe | head -1)
+          cp "$exe" Gradient-Setup.exe
           cp "$exe" Grade9Tracker-Setup.exe
-          gh release upload "$TAG" Grade9Tracker-Setup.exe --clobber
+          gh release upload "$TAG" Gradient-Setup.exe Grade9Tracker-Setup.exe --clobber
 
       # The release stays a draft - invisible to the updater - until every
       # asset is really there. A failed upload then leaves nothing marked
@@ -81,7 +84,7 @@ jobs:
         run: |
           gh release view "$TAG" --json assets -q '.assets[].name' > assets.txt
           cat assets.txt
-          for want in 'setup.exe$' 'setup.exe.sig$' '^latest.json$' '^Grade9Tracker-Setup.exe$'; do
+          for want in 'setup.exe$' 'setup.exe.sig$' '^latest.json$' '^Gradient-Setup.exe$'; do
             grep -q "$want" assets.txt || { echo "missing asset matching $want"; exit 1; }
           done
           gh release edit "$TAG" --draft=false --latest
