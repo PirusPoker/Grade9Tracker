@@ -745,6 +745,28 @@ table{max-width:100%}
 .qreport{display:inline-block;margin-top:10px;font-size:12px;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px}
 .qreport:hover{color:var(--accent)}
 .card.daily{border-left:3px solid var(--c,var(--accent))}
+/* Essay coach */
+.cskill{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.cskill:first-of-type{border-top:0}
+.cskill .cn{font-size:14px}
+.cskill .cn small{color:var(--muted);font-size:12px;margin-left:6px}
+.cband{display:flex;gap:3px}
+.cband i{width:22px;height:8px;border-radius:3px;background:var(--surface2)}
+.cband i.on{background:var(--c,var(--accent))}
+.cskill.weak .cn{color:var(--bad)}
+.cskill .cnote{grid-column:1/-1;font-size:13px;color:var(--ink-2);line-height:1.45}
+.cskill .cnote b{color:var(--ink)}
+.cqrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.cqrow .cql{font-size:12.5px;color:var(--muted)}
+.cqrow .cqt{font-size:14px;line-height:1.4}
+textarea.essay{font-size:15px;line-height:1.6;min-height:360px;resize:vertical}
+.cmeta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:13px;color:var(--muted);margin:8px 0}
+.cmeta .ctimer{font-family:var(--mono);color:var(--ink)}
+.clevel{font-family:var(--display);font-size:30px;font-weight:700;margin:4px 0}
+.clevel small{font-size:15px;color:var(--muted);font-weight:500;margin-left:8px}
+.cimp{display:grid;gap:10px;margin-top:8px}
+.cimp blockquote{margin:0;padding:10px 12px;border-left:3px solid var(--line-3);background:var(--sunken);border-radius:0 var(--r-xs) var(--r-xs) 0;font-size:14px;line-height:1.55;white-space:pre-wrap}
+.cimp blockquote.after{border-left-color:var(--good)}
 .daily .dhead{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:4px}
 .daily .dwhy{font-size:12.5px;color:var(--muted);margin:0 0 10px}
 .daily .dq{font-size:15px}
@@ -825,9 +847,18 @@ details.ppbook>summary::-webkit-details-marker{display:none}
 .lnoteshead .icon{width:26px;height:26px;font-size:13px}
 .lnotesp textarea{flex:1;min-height:220px;resize:vertical;font-size:14px;line-height:1.5;font-family:var(--body)}
 .lnotesfoot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
+.lncards{margin-top:10px;border-top:1px solid var(--line);padding-top:8px;min-height:0;overflow:auto;max-height:38%}
+.lncards summary{cursor:pointer;font-size:13px;font-weight:650}
+.lncards ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:6px}
+.lncards li{display:grid;grid-template-columns:1fr auto;gap:6px;font-size:12.5px;line-height:1.4;background:var(--sunken);border-radius:var(--r-xs);padding:6px 8px}
+.lncards li b{display:block;color:var(--ink)}
+.lncards li span{color:var(--muted)}
+.lncards .icon{width:22px;height:22px;font-size:12px}
 @media (min-width:1180px){
   .lesson.notes-open{padding-right:380px}
-  .lesson.notes-open .lnotesp{position:sticky;float:right;top:calc(var(--toph,46px) + 62px);right:auto;bottom:auto;width:340px;max-height:calc(100vh - 140px);margin:-40px -370px 0 0;box-shadow:none;background:var(--surface)}
+  /* pinned in the lesson's right-hand gutter (the page is 1240px wide with
+     20px padding, centred), so it stays in view the whole way down */
+  .lesson.notes-open .lnotesp{position:fixed;top:calc(var(--toph,46px) + 14px);bottom:calc(var(--navh) + 14px);right:max(20px,calc((100vw - 1240px)/2 + 20px));width:340px;max-height:none;margin:0;box-shadow:none;background:var(--surface)}
 }
 .lsel{position:absolute;z-index:30;background:var(--solid);color:var(--solid-ink);font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;box-shadow:var(--shadow)}
 .lnoterecall{border:1px solid var(--line);border-radius:var(--r-sm);background:var(--sunken);padding:8px 12px;margin:0 0 12px}
@@ -2329,6 +2360,119 @@ function bindDaily(root){const X=dailyToday();if(!X||X.none||!root.querySelector
     X.done=true;X.got=got;X.max=q.max;
     if(got<q.max)addMistake(t.id,"Daily question: "+plainText(q.q).slice(0,150)+(q.max>1?` (${got}/${q.max})`:"")+aiMissNote(X,0),"test",{t:t.id,q:X.q});
     markDay();again();});}
+/* ---------- ESSAY COACH (coach.rs) ----------
+   For the subjects decided on extended writing. Pick a long question from
+   the bank (or bring your own), write it in full, and the answer is placed
+   in a level against that board's own assessment objectives: the mark, a
+   band for each skill the question assesses, what would lift it a level,
+   and the weakest paragraph rewritten the way a top answer would write it.
+   Every essay is kept (state.essays), so the subject page can show which
+   skill is holding you back across the last few. The draft is saved as you
+   type (state.coachDraft) so a long essay is never lost. */
+const COACH={
+  englit:{min:10,skills:[["AO1","Response and references"],["AO2","Language, form and structure"],["AO3","Context"],["AO4","Accuracy"]]},
+  englang:{min:8,skills:[["AO1","Finding and synthesising"],["AO2","Language and structure"],["AO3","Comparing perspectives"],["AO4","Evaluating"],["AO5","Content and organisation"],["AO6","Technical accuracy"]]},
+  bus:{min:6,skills:[["AO1","Knowledge"],["AO2","Application"],["AO3a","Analysis"],["AO3b","Evaluation"]]},
+  econ:{min:6,skills:[["KU","Knowledge and understanding"],["APP","Application"],["AN","Analysis"],["EV","Evaluation"]]}};
+let coach=null,coachTimer=null;
+const essays=()=>(state.essays=state.essays||[]);
+const coachDrafts=()=>(state.coachDraft=state.coachDraft||{});
+/* Per skill: the average band of the last five essays that assessed it, and
+   the latest advice for it. */
+function coachProfile(subj){const C=COACH[subj];const mine=essays().filter(e=>e.subj===subj);
+  return C.skills.map(([key,name])=>{const hits=mine.filter(e=>e.skills&&e.skills[key]).slice(-5);
+    const avg=hits.length?hits.reduce((n,e)=>n+e.skills[key].band,0)/hits.length:null;
+    const last=hits.length?hits[hits.length-1].skills[key]:null;
+    return {key,name,avg,n:hits.length,next:last&&last.next_step};});}
+const bandBar=b=>`<span class="cband">${[1,2,3,4].map(i=>`<i class="${b!=null&&b>=i-0.25?"on":""}"></i>`).join("")}</span>`;
+function coachCard(subj){const C=COACH[subj];if(!C)return "";const S=SUBJECTS[subj];const mine=essays().filter(e=>e.subj===subj),draft=coachDrafts()[subj];
+  const prof=coachProfile(subj),scored=prof.filter(p=>p.avg!=null),weak=scored.length>1?scored.reduce((a,b)=>b.avg<a.avg?b:a):null;
+  let h=`<div class="card" style="margin-bottom:14px;--c:${S.color}"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px"><span class="eyebrow">Essay coach</span><button class="btn small ${mine.length?"":"primary"}" data-coach="${esc(subj)}">${draft?"Carry on your draft":"Write an answer"}</button></div>
+    <p class="muted" style="font-size:13.5px;margin:0 0 6px">Write a long answer in full and it is levelled against the exam board's own assessment objectives for ${esc(S.full||S.name)}: the mark, a band for each skill, what would lift it a level, and your weakest paragraph rewritten the way a top answer would.</p>`;
+  if(scored.length){h+=prof.filter(p=>p.avg!=null).map(p=>`<div class="cskill ${weak&&p.key===weak.key?"weak":""}"><span class="cn"><b>${esc(p.key)}</b> ${esc(p.name)}<small>${p.avg.toFixed(1)} of 4 · ${p.n} essay${p.n===1?"":"s"}</small></span>${bandBar(p.avg)}${weak&&p.key===weak.key&&p.next?`<div class="cnote"><b>Holding you back.</b> ${esc(p.next)}</div>`:""}</div>`).join("");}
+  if(mine.length)h+=`<div class="muted" style="font-size:12.5px;margin-top:8px">Latest: ${mine.slice(-3).reverse().map(e=>`${esc(e.level)} · ${e.marks}/${e.max} (${fmt(new Date(e.d+"T00:00:00"))})`).join(" · ")}</div>`;
+  return h+`</div>`;}
+function bindCoachCard(root){root.querySelectorAll("[data-coach]").forEach(b=>b.addEventListener("click",()=>openCoach(b.dataset.coach)));}
+function openCoach(subj){stopNarration();stopTestTimer();const d=coachDrafts()[subj];
+  coach=d?{subj,phase:"write",q:d.q,text:d.text||"",started:Date.now()-(d.secs||0)*1000}:{subj,phase:"pick",bank:null,own:{q:"",max:""}};
+  lesson=null;paper=null;fixit=null;curSubj=subj;showView("subjects");window.scrollTo({top:0});
+  if(coach.phase==="pick")loadCoachBank(coach);}
+/* The long questions in this subject's topic tests and mock papers. */
+async function loadCoachBank(C){const S=SUBJECTS[C.subj],min=COACH[C.subj].min,out=[];
+  for(const t of S.topics.filter(t=>t.lesson)){let text=LESSON_CACHE[t.id];
+    if(!text){try{text=await invoke("get_lesson",{topicId:t.id});LESSON_CACHE[t.id]=text;}catch(e){continue;}}
+    testPool(text).qs.forEach((b,i)=>{const sp=splitQ(b),max=qMarks(sp.q);if(max>=min)out.push({src:`t|${t.id}|${i}`,label:`${t[0]} ${t[1]}`,q:sp.q,a:sp.a,max});});}
+  for(const p of papersOf(C.subj)){let text=PAPER_CACHE[p.id];
+    if(!text){try{text=await invoke("get_paper",{id:p.id});PAPER_CACHE[p.id]=text;}catch(e){continue;}}
+    parseLesson(text).filter(b=>b.kind==="q").forEach((b,i)=>{const sp=splitQ(b),max=qMarks(sp.q);if(max>=min)out.push({src:`p|${p.id}|${i}`,label:`${p.title} · Q${i+1}`,q:sp.q,a:sp.a,max});});}
+  C.bank=out;if(coach===C&&view==="subjects")render();}
+const coachMins=max=>Math.round(max*1.5);
+function saveCoachDraft(){if(!coach||coach.phase!=="write")return;coachDrafts()[coach.subj]={q:coach.q,text:coach.text,secs:Math.round((Date.now()-coach.started)/1000)};persist();}
+function stopCoachTimer(){if(coachTimer){clearInterval(coachTimer);coachTimer=null;}}
+function renderCoach(el){const C=coach,S=SUBJECTS[C.subj],K=COACH[C.subj];stopCoachTimer();
+  let body="";
+  if(C.phase==="pick"){const done=new Set(essays().filter(e=>e.subj===C.subj).map(e=>e.src));
+    body=`<p class="muted" style="font-size:14px;margin:0 0 14px">Pick a question and write the whole answer, as you would in the exam — the coach needs a full answer to place it in a level. Or bring your own question from a past paper.</p>
+      <div class="card" style="margin-bottom:14px"><div class="eyebrow" style="margin-bottom:8px">Your own question</div><textarea data-cown="q" rows="3" placeholder="Paste or type the question">${esc(C.own.q)}</textarea><div style="display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap"><input type="number" data-cown="max" min="4" max="60" value="${esc(C.own.max)}" placeholder="Marks" style="width:90px" aria-label="Marks"><button class="btn small" data-cownstart>Write it</button><span class="muted" id="cownmsg" style="font-size:13px"></span></div></div>
+      <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span class="eyebrow">From the question bank${C.bank?` · ${C.bank.length}`:""}</span>${C.bank&&C.bank.length?`<button class="btn small primary" data-cpickany>Pick one for me</button>`:""}</div>`;
+    if(!C.bank)body+=`<div class="muted" style="font-size:14px;margin-top:8px">Gathering the long questions…</div>`;
+    else if(!C.bank.length)body+=`<div class="muted" style="font-size:14px;margin-top:8px">No long questions in the bank for this subject yet — use your own.</div>`;
+    else body+=C.bank.map((x,i)=>`<div class="cqrow"><div><div class="cql">${esc(x.label)} · ${x.max} marks${done.has(x.src)?" · written before":""}</div><div class="cqt">${esc(plainText(x.q).replace(/\(\d+\)\s*$/,"").slice(0,220))}</div></div><button class="btn small" data-cpick="${i}">Write this</button></div>`).join("");
+    body+=`</div>`;}
+  else if(C.phase==="write"||C.phase==="marking"){const words=(C.text.trim().match(/\S+/g)||[]).length;const busy=C.phase==="marking";
+    body=`<div class="card"><div class="eyebrow" style="margin-bottom:6px">${esc(C.q.label||"Your question")} · ${C.q.max} marks</div>${mdBlock(C.q.q)}
+      <div class="cmeta"><span>About ${coachMins(C.q.max)} minutes in the exam</span><span>Time so far <span class="ctimer" id="ctimer">${fmtSecs((Date.now()-C.started)/1000)}</span></span><span id="cwords">${words} words</span></div>
+      <textarea class="essay" id="cessay" placeholder="Write your full answer here. It saves as you type." ${busy?"readonly":""}>${esc(C.text)}</textarea>
+      ${C.err?`<div class="aierr" style="margin-top:8px">${esc(C.err)}</div>`:""}
+      ${C.prev?`<details style="margin-top:10px"><summary class="muted" style="font-size:13px;cursor:pointer">Last attempt: ${esc(C.prev.level)} · ${C.prev.marks}/${C.q.max} — what to fix</summary><p style="font-size:13.5px;margin:6px 0 0">${esc(C.prev.next_level)}</p></details>`:""}
+      <div class="wbtns" style="margin-top:12px"><button class="btn primary" id="cmark" ${busy?"disabled":""}>${busy?"Marking against the objectives… (up to a minute)":"Mark and coach it"}</button>${busy?"":`<button class="btn" id="csave">Save and leave</button><button class="btn ghost" id="cchange">Change question</button>`}</div>
+      ${settings.apiKey?"":`<p class="muted" style="font-size:12.5px;margin:8px 0 0">No API key is set, so the free local model marks this — read its level as a rough guide. With a key in Guide, Claude marks it.</p>`}</div>`;}
+  else{const r=C.result;const pct=Math.round(100*r.marks/C.q.max);
+    body=`<div class="card" style="--c:${S.color}"><div class="eyebrow">${esc(C.q.label||"Your question")}</div><div class="clevel">${esc(r.level)}<small>${r.marks} / ${C.q.max} · ${pct}%</small></div><p style="font-size:14.5px;line-height:1.55;margin:4px 0 0">${esc(r.summary)}</p>${r.note?`<p class="muted" style="font-size:12.5px;margin:8px 0 0">${esc(r.note)}</p>`:""}</div>
+      <div class="card" style="margin-top:12px;--c:${S.color}"><div class="eyebrow" style="margin-bottom:4px">Skill by skill</div>${r.skills.map(sk=>{const name=(K.skills.find(x=>x[0]===sk.key)||[sk.key,""])[1];return `<div class="cskill"><span class="cn"><b>${esc(sk.key)}</b> ${esc(name)}<small>band ${sk.band} of 4</small></span>${bandBar(sk.band)}<div class="cnote">${sk.did_well?`<b>Did well.</b> ${esc(sk.did_well)} `:""}${sk.next_step?`<br><b>Next time.</b> ${esc(sk.next_step)}`:""}</div></div>`;}).join("")}</div>
+      <div class="card" style="margin-top:12px"><div class="eyebrow" style="margin-bottom:6px">To reach the next level</div><p style="font-size:14.5px;line-height:1.55;margin:0">${esc(r.next_level)}</p></div>
+      ${r.improved&&r.improved.rewrite?`<div class="card" style="margin-top:12px"><div class="eyebrow">Your weakest paragraph, rewritten</div><div class="cimp"><div class="muted" style="font-size:12px">Yours</div><blockquote>${esc(r.improved.original)}</blockquote><div class="muted" style="font-size:12px">At the top level</div><blockquote class="after">${esc(r.improved.rewrite)}</blockquote><p class="muted" style="font-size:13px;margin:0">${esc(r.improved.why)}</p></div></div>`:""}
+      <div class="wbtns" style="margin-top:14px"><button class="btn primary" id="crewrite">Rewrite it</button><button class="btn" id="cnew">Another question</button><button class="btn ghost" id="cdone">Done</button></div>`;}
+  el.innerHTML=`<div class="lesson ttest" style="--c:${S.color}"><button class="back" id="cback">‹ ${esc(S.name)}</button>
+    <div class="tthead"><div><span class="pill"><span class="dot" style="background:${S.color}"></span>Essay coach</span> <span class="wcode">${esc(S.full||S.name)}</span></div></div>
+    <h1 style="font-size:24px;margin:4px 0 12px">${C.phase==="pick"?"Pick a question":(C.phase==="result"?"How it was marked":"Write it in full")}</h1>${body}</div>`;
+  const leave=()=>{stopCoachTimer();if(C.phase==="write")saveCoachDraft();coach=null;render();};
+  el.querySelector("#cback").addEventListener("click",leave);
+  el.querySelector("#cdone")?.addEventListener("click",leave);
+  el.querySelector("#csave")?.addEventListener("click",leave);
+  const start=q=>{C.phase="write";C.q=q;C.text="";C.started=Date.now();C.err=null;C.prev=null;C.result=null;saveCoachDraft();renderCoach(el);window.scrollTo({top:0});el.querySelector("#cessay")?.focus();};
+  el.querySelectorAll("[data-cpick]").forEach(b=>b.addEventListener("click",()=>start(C.bank[+b.dataset.cpick])));
+  el.querySelector("[data-cpickany]")?.addEventListener("click",()=>{const done=new Set(essays().filter(e=>e.subj===C.subj).map(e=>e.src));const fresh=C.bank.filter(x=>!done.has(x.src));const pool=fresh.length?fresh:C.bank;start(pool[Math.floor(Math.random()*pool.length)]);});
+  el.querySelectorAll("[data-cown]").forEach(i=>i.addEventListener("input",()=>{C.own[i.dataset.cown]=i.value;}));
+  el.querySelector("[data-cownstart]")?.addEventListener("click",()=>{const q=C.own.q.trim(),max=Math.round(+C.own.max);const msg=el.querySelector("#cownmsg");
+    if(!q){msg.textContent="Type the question first.";return;}if(!(max>=4&&max<=60)){msg.textContent="How many marks is it worth?";return;}
+    start({src:"own|"+hashStr(q),label:"Your question",q:q.split(/\r?\n/),a:[],max});});
+  el.querySelector("#cchange")?.addEventListener("click",()=>{if(C.text.trim()&&!confirm("Drop this answer and pick another question?"))return;delete coachDrafts()[C.subj];persist();coach={subj:C.subj,phase:"pick",bank:null,own:{q:"",max:""}};loadCoachBank(coach);renderCoach(el);});
+  el.querySelector("#cnew")?.addEventListener("click",()=>{coach={subj:C.subj,phase:"pick",bank:null,own:{q:"",max:""}};loadCoachBank(coach);renderCoach(el);window.scrollTo({top:0});});
+  el.querySelector("#crewrite")?.addEventListener("click",()=>{C.prev=C.result;C.result=null;C.phase="write";C.started=Date.now();C.err=null;saveCoachDraft();renderCoach(el);window.scrollTo({top:0});});
+  const ta=el.querySelector("#cessay");
+  if(ta){let t0=null;ta.addEventListener("input",()=>{C.text=ta.value;const w=(C.text.trim().match(/\S+/g)||[]).length;const c=el.querySelector("#cwords");if(c)c.textContent=`${w} words`;clearTimeout(t0);t0=setTimeout(saveCoachDraft,800);});}
+  if(C.phase==="write")coachTimer=setInterval(()=>{const e=el.querySelector("#ctimer");if(!e||coach!==C){stopCoachTimer();return;}e.textContent=fmtSecs((Date.now()-C.started)/1000);},1000);
+  el.querySelector("#cmark")?.addEventListener("click",async()=>{C.text=ta.value;saveCoachDraft();C.phase="marking";C.err=null;renderCoach(el);
+    try{const r=await invoke("coach_essay",{req:{subjectId:C.subj,question:linesText(C.q.q),scheme:linesText(C.q.a||[]),max:C.q.max,essay:C.text}});
+      C.result=r;C.phase="result";delete coachDrafts()[C.subj];
+      const skills={};(r.skills||[]).forEach(x=>{skills[x.key]={band:x.band,next_step:x.next_step};});
+      essays().push({d:todayISO(),subj:C.subj,src:C.q.src,title:C.q.label||"Your question",marks:r.marks,max:C.q.max,level:r.level,skills,words:(C.text.trim().match(/\S+/g)||[]).length,secs:Math.round((Date.now()-C.started)/1000)});
+      if(essays().length>80)essays().shift();
+      markDay();persist();}
+    catch(e){C.phase="write";C.err=errText(e);}
+    if(coach===C&&view==="subjects"){renderCoach(el);window.scrollTo({top:0});}});}
+/* The topic's cards, inside the notes panel, so "Make a card" visibly lands
+   somewhere. The same list is under the topic in Subjects, and the cards come
+   up in the topic's recall checks and on Sunday's cards session. */
+const openNoteCards=new Set();
+function noteCardsHtml(id){const cs=cardsOf(id);
+  return `<details class="lncards" data-lncards="${esc(id)}" ${openNoteCards.has(id)?"open":""}><summary>Your cards for this topic · ${cs.length}</summary>${cs.length?`<ul>${cs.map((c,i)=>`<li><div><b>${esc(c.f)}</b><span>${esc(c.b)}</span></div><button class="icon" data-ncdel="${i}" aria-label="Delete card">×</button></li>`).join("")}</ul>`:`<p class="muted" style="font-size:12px;margin:6px 0 0">None yet. Write a line as <i>front — back</i> and press Make a card.</p>`}<p class="muted" style="font-size:12px;margin:6px 0 0">Cards come up in this topic's recall checks and on Sunday's cards session, and are listed under the topic in Subjects.</p></details>`;}
+function bindNoteCards(box,id){
+  const again=()=>{box.innerHTML=noteCardsHtml(id);};
+  box.addEventListener("toggle",e=>{if(e.target.matches(".lncards")){if(e.target.open)openNoteCards.add(id);else openNoteCards.delete(id);}},true);
+  box.addEventListener("click",e=>{const b=e.target.closest("[data-ncdel]");if(!b)return;(state.cards[id]||[]).splice(+b.dataset.ncdel,1);persist();again();});
+  return again;}
 function fmtSecs(n){n=Math.max(0,Math.round(n));return `${Math.floor(n/60)}:${String(n%60).padStart(2,"0")}`;}
 function renderTopicTest(el){const t=findTopic(lesson.topicId);const S=SUBJECTS[t.subj];const X=lesson.test;const stt=T(t.id);
   stopTestTimer();
@@ -2625,7 +2769,8 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
       ${mistakeBlock(t.id,"What went wrong in this lesson? Be specific")}</div>
     <aside class="lnotesp" ${lesson.notes?"":"hidden"}><div class="lnoteshead"><span class="eyebrow">My notes · ${esc(t[0])}</span><button class="icon" id="lnotesclose" aria-label="Close">×</button></div>
       <textarea id="lnotestext" placeholder="Your own words. The method in three lines, the formula you keep forgetting, the trick that made it click. Highlight anything in the lesson and tap Add to notes.">${esc(note)}</textarea>
-      <div class="lnotesfoot"><span class="muted" id="lnotesstat" style="font-size:12px">${note.trim()?"Saved":"Autosaves as you type"}</span><button class="btn small" id="lnotescard" title="Make a card from the first line">Make a card</button></div>
+      <div class="lnotesfoot"><span class="muted" id="lnotesstat" style="font-size:12px">${note.trim()?"Saved":"Autosaves as you type"}</span><button class="btn small" id="lnotescard" title="Make a card from the line your cursor is on (or what you've selected). Write it as front — back">Make a card</button></div>
+      <div id="lncardsbox">${noteCardsHtml(t.id)}</div>
       <p class="muted" style="font-size:12px;margin:8px 0 0">These notes show up on this topic's recall checks, so write what future-you needs.</p></aside>
     <button class="lsel" id="lsel" hidden>+ Add to notes</button>
     <div class="lplayer" id="lplayer" title="Listen to this lesson"><button class="lpplay" aria-label="Read the explanation aloud">▶</button><span class="lplab">Listen</span><button class="lpstop" aria-label="Stop" title="Stop">×</button></div></div>`;
@@ -2674,8 +2819,15 @@ function renderLesson(el){const t=findTopic(lesson.topicId);if(!t){lesson=null;r
   const toggleNotes=on=>{lesson.notes=on;el.querySelector(".lesson").classList.toggle("notes-open",on);el.querySelector(".lnotesp").hidden=!on;el.querySelector("#lnotes").classList.toggle("primary",on);if(on)ta.focus();};
   el.querySelector("#lnotes").addEventListener("click",()=>toggleNotes(!lesson.notes));
   el.querySelector("#lnotesclose").addEventListener("click",()=>toggleNotes(false));
-  el.querySelector("#lnotescard").addEventListener("click",()=>{const first=ta.value.split("\n").map(s=>s.replace(/^[•\-\s]+/,"").trim()).filter(Boolean)[0];if(!first){ta.focus();return;}
-    const [f,...rest]=first.split(/\s[—:-]\s|:\s/);const bk=rest.join(" ").trim()||"(write the answer on the card)";(state.cards[t.id]=state.cards[t.id]||[]).push({f:f.trim().slice(0,80),b:bk.slice(0,200)});persist();stat.textContent="Card made from the first line — see Your cards under the topic";});
+  const cardsBox=el.querySelector("#lncardsbox"),showCards=bindNoteCards(cardsBox,t.id);
+  el.querySelector("#lnotescard").addEventListener("click",()=>{
+    // what's selected, else the line the cursor is on, else the first line
+    const v=ta.value,a=ta.selectionStart,z=ta.selectionEnd;const clean=x=>x.replace(/^[•\-\s]+/,"").trim();
+    let pick=a!==z?clean(v.slice(a,z).replace(/\s*\n\s*/g," ")):clean(v.slice(v.lastIndexOf("\n",a-1)+1,(v.indexOf("\n",a)+1||v.length+1)-1));
+    if(!pick)pick=v.split("\n").map(clean).filter(Boolean)[0]||"";
+    if(!pick){ta.focus();return;}
+    const [f,...rest]=pick.split(/\s[—:-]\s|:\s/);const bk=rest.join(" ").trim()||"(write the answer on the card)";(state.cards[t.id]=state.cards[t.id]||[]).push({f:f.trim().slice(0,80),b:bk.slice(0,200)});
+    openNoteCards.add(t.id);markDay();persist();showCards();stat.textContent=`Card made: “${f.trim().slice(0,40)}” — it's in Your cards below`;});
   // Highlight anything in the lesson and drop it into the notes.
   const sel=el.querySelector("#lsel");const body=el.querySelector(".lbody");
   const grabSelection=()=>{const s=window.getSelection();if(!s||s.isCollapsed||!s.rangeCount)return "";const r=s.getRangeAt(0);if(!body.contains(r.commonAncestorContainer))return "";
@@ -2901,6 +3053,7 @@ function renderSubjects(){
   if(lesson){renderLesson(el);return;}
   if(paper){renderPaper(el);return;}
   if(fixit){renderFixit(el);return;}
+  if(coach){renderCoach(el);return;}
   if(qb){if(curSubj!=="englit")qb=null;else{renderQuoteBank(el);return;}}
   if(walk&&SUBJECTS[walk.subj]){renderWalk(el);return;}
   if(!curSubj){
@@ -2942,6 +3095,7 @@ function renderSubjects(){
   ${taughtNote(curSubj)}
   ${papersCard(curSubj)}
   ${realPapersCard(curSubj)}
+  ${coachCard(curSubj)}
   ${coverageCard(curSubj)}
   ${state.knownDirty&&!knowMode?repourBar():""}
   <div class="card"><div class="prog" style="margin-bottom:6px"><i style="width:${Math.round(100*d/S.topics.length)}%;background:${S.color}"></i></div>
@@ -2959,6 +3113,7 @@ function renderSubjects(){
   el.querySelector("#walkstart").addEventListener("click",()=>startWalk(curSubj));
   el.querySelector("#qbopen")?.addEventListener("click",()=>openQuoteBank(null));
   el.querySelectorAll("[data-paper]").forEach(b=>b.addEventListener("click",()=>openPaper(b.dataset.paper)));
+  bindCoachCard(el);
   el.querySelector("#examdate").addEventListener("change",e=>{state.examDates[curSubj]=e.target.value;persist();render();});
   el.querySelectorAll("[data-know]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.know;setKnown(id,!T(id).known);markDay();persist();render();}));
   el.querySelectorAll("[data-knowall]").forEach(b=>b.addEventListener("click",()=>{const[k,on]=b.dataset.knowall.split("|");grouped(S).find(g=>g.key===k).topics.forEach(t=>{if(!!T(t.id).known!==(on==="1"))setKnown(t.id,on==="1");});markDay();persist();render();}));
@@ -3184,6 +3339,7 @@ function renderGuide(){
   <h3>Lessons</h3><p>For Maths, Further Maths, Economics, Business, Computer Science, Biology, Chemistry, Physics, English Literature and English Language, every topic carries its own lesson inside the app — no hunting for videos or notes. Open one from the session in <b>Today</b>, from the topic in <b>Subjects</b>, or from the walkthrough. Each lesson has the same shape: <b>What it is</b>, <b>How to do it</b> as numbered steps, worked examples with every line shown, <b>Try these</b> — practice questions with the answer hidden until you tap, then <b>Got it</b> or <b>Not yet</b> (Not yet goes straight into the mistakes log for that topic) — and <b>Where the marks go</b>, the errors examiners see most. Every number in the answers was checked by computer. <b>Cover the working</b> turns each worked example into a step-by-step reveal, so you attempt each line before you see it. <b>Notes</b> opens your own notebook beside the lesson — it autosaves, anything you highlight in the lesson can be added with one tap, the first line can become a card, and the notes come back on that topic's recall checks. <b>Print</b> gives you the lesson with every answer shown as a revision sheet. When you can do the questions without looking, tick the topic at the bottom and it joins the recall rotation. Lessons work offline; the maths is typeset locally.</p>
   <h3>End-of-topic tests</h3><p>Every lesson ends with <b>Take the test</b> (also under <b>Test</b> in the lesson's top bar, and on the topic row once you have taken one). It is closed book and timed: the questions appear with no answers and a clock, you write every answer on paper, then <b>Mark it</b> shows the answers and you give yourself the marks. 80% or more is <b>Secure</b> — tick the topic and it joins recall; below that, everything you dropped is already in the mistakes log, so read those, go back over that part of the lesson, and retake. Attempts are kept, so the subject page shows your last score on each topic and the lesson shows the run of attempts.</p>
   <h3>Today's exam question</h3><p>Every day <b>Today</b> has one exam question, about ten minutes, picked from where your marks are leaking: topics you tapped Shaky or Okay, topics with open mistakes, topic tests under 80% — and otherwise any topic you have already covered, so old ones keep coming back between recall checks. It tells you why it picked that one. Type your answer and use <b>Mark it with AI</b>, or write it on paper and mark it yourself against the answer. A dropped mark goes into the mistakes log with the question, so fix-it brings it back. <b>A different question</b> swaps it (twice a day at most); <b>Skip today</b> hides it until tomorrow.</p>
+  <h3>Essay coach</h3><p>English Literature, English Language, Business and Economics are decided on extended writing, so each has an <b>Essay coach</b> card on its subject page. Pick a long question from the bank — or paste one from a real past paper — and write the whole answer (it saves as you type, with a clock running). <b>Mark and coach it</b> places it in a level against that board's own assessment objectives: the level and mark, a band from 1 to 4 for each skill the question assesses with what you did well and what to do next time, exactly what would lift it to the next level, and your weakest paragraph rewritten the way a top answer would write it. <b>Rewrite it</b> takes you back to your answer with the advice beside it. Every essay is kept, so the card on the subject page shows your average band per skill across the last five and names the one <b>holding you back</b>. With an API key it is marked by Claude (a fraction of a penny an essay); without one, the free local model marks it, as a rough guide.</p>
   <h3>Found a wrong answer?</h3><p>Every question and answer was written for this app, so some will have mistakes. Under any answer or mark scheme, <b>Report a mistake</b> opens a GitHub issue with the question and its answer already filled in — add a line saying what is wrong, submit it, and the fix goes out in the next update.</p>
   <h3>Typing answers and AI marking</h3><p>Tick <b>Type my answers here</b> at the top of a topic test, a mock paper or a fix-it re-test, and each question gets a box to type into instead of paper. On the marking screen, <b>Mark it with AI</b> (or <b>Mark all typed answers</b>) sends the question, its own mark scheme and your answer to Claude, which marks it the way an examiner would: every scheme point it earned, with the words that earned it, every point it missed, and exactly what would have got the missing marks. Essays are placed in a level first, then marked within it. The mark fills in the marking buttons, and you can still change it — treat it as a second opinion on the scheme. Missed points are written into the mistakes log with the question. This is the part of the app that uses your API key (see below); each answer costs well under a penny.</p>
   <h3>Mock papers</h3><p>Each subject page has a <b>Mock papers</b> card: original exam-style papers, written for this app rather than copied from past papers, that mix topics the way a real paper does and climb from grade 4–5 questions through 6–7 to 8–9, so the last section is where the top grades are decided. A paper runs on the clock for its real duration; you write everything on paper, then <b>Mark it</b> shows the mark scheme (points for short questions, level descriptors for essays) and you give yourself the marks. The percentage becomes a <b>grade estimate</b> using that subject's real grade boundaries — each board's published June 2025 and June 2026 boundaries averaged, so a Computer Science 7 needs about 78% while a Maths 7 needs about 58%, just as in the real exams. Boundaries shift a few marks each year, so treat the estimate as give or take a grade. You also get a breakdown by band, so you can see whether the marks went at the start or at the top end. Every dropped question goes to the mistakes log under the subject. <b>Print the paper</b> on the screen before you start it, and you can sit it at a desk with a pen the way you will in the hall - the printout has the questions and the marks and nothing else, and <b>Print the mark scheme</b> on the results screen gives you the answers to mark from. Sit a paper once the topics it covers are done, fix what it exposes, and sit it again a week or two later. Every paper question names the topics it draws on, so a dropped question is logged under those topics and the results page lists the <b>lessons to reopen</b> with the marks each one cost.</p>

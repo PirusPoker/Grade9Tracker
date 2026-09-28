@@ -6,6 +6,7 @@
 
 mod ai;
 mod backup;
+mod coach;
 mod config;
 mod course;
 mod draft;
@@ -142,6 +143,14 @@ async fn mark_status(app: AppHandle) -> Result<marking::Status, String> {
 async fn pull_mark_model(app: AppHandle) -> Result<(), String> {
     let url = get_settings(app.clone())?.ai_url;
     marking::pull(&app, &url).await
+}
+
+/// Mark and coach an extended answer against its board's assessment
+/// objectives (see coach.rs).
+#[tauri::command]
+async fn coach_essay(app: AppHandle, req: coach::Request) -> Result<coach::Verdict, String> {
+    let settings = get_settings(app)?;
+    coach::coach(&settings, req).await
 }
 
 /// The day as Outlook sees it: events, deadlines pulled out of mail, requests
@@ -410,7 +419,8 @@ pub fn run() {
             tts::narrate, tts::voices, tts::download_voice,
             teams::open_teams,
             running_elevated, restart_normally,
-            mark_answer, mark_status, pull_mark_model
+            mark_answer, mark_status, pull_mark_model,
+            coach_essay
         ])
         .run(tauri::generate_context!())
         .expect("error while running Gradient");
