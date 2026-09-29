@@ -3,9 +3,13 @@
 //! Everything the scheduler needs — subjects, topics, term dates, weekly hours
 //! and the links each session sends you to — lives here as owned, serialisable
 //! data so it can all be changed from inside the app. `PlanConfig::default()`
-//! seeds it from the Edexcel specs hardcoded in `plan.rs`; after that the
-//! user's own copy is read from `config.json` in the app data folder.
+//! is the app author's own plan (the starter ten and their school's term
+//! dates), kept so profiles created before the app was shared keep it.
+//! Everyone else starts from `PlanConfig::blank()`: no subjects, and a
+//! standard school calendar they then set up for themselves. After that the
+//! user's own copy is read from `config.json` in their profile folder.
 
+use chrono::{Datelike, Duration, NaiveDate};
 use serde::{Deserialize, Serialize};
 
 /// Somewhere to go and work: a Save My Exams section, a past-paper archive, a
@@ -476,7 +480,129 @@ impl Default for PlanConfig {
     }
 }
 
+fn monday_of(d: NaiveDate) -> NaiveDate {
+    d - Duration::days(d.weekday().num_days_from_monday() as i64)
+}
+
+fn monday_on_or_after(d: NaiveDate) -> NaiveDate {
+    d + Duration::days((7 - d.weekday().num_days_from_monday() as i64) % 7)
+}
+
+fn ymd(y: i32, m: u32, d: u32) -> NaiveDate {
+    NaiveDate::from_ymd_opt(y, m, d).expect("valid date")
+}
+
+fn last_monday_of(y: i32, m: u32) -> NaiveDate {
+    let next = if m == 12 { ymd(y + 1, 1, 1) } else { ymd(y, m + 1, 1) };
+    monday_of(next - Duration::days(1))
+}
+
+/// Easter Sunday in the Gregorian calendar (the anonymous algorithm).
+fn easter(y: i32) -> NaiveDate {
+    let a = y % 19;
+    let b = y / 100;
+    let c = y % 100;
+    let d = b / 4;
+    let e = b % 4;
+    let f = (b + 8) / 25;
+    let g = (b - f + 1) / 3;
+    let h = (19 * a + b - d - g + 15) % 30;
+    let i = c / 4;
+    let k = c % 4;
+    let l = (32 + 2 * e + 2 * i - h - k) % 7;
+    let m = (a + 11 * h + 22 * l) / 451;
+    let month = (h + l - 7 * m + 114) / 31;
+    let day = (h + l - 7 * m + 114) % 31 + 1;
+    ymd(y, month as u32, day as u32)
+}
+
+/// The summer someone starting a two-year GCSE course today sits their exams:
+/// the summer after next, counting from the school year that `today` is in.
+pub fn default_exam_year(today: NaiveDate) -> i32 {
+    let school_year = if today.month() >= 8 { today.year() } else { today.year() - 1 };
+    school_year + 2
+}
+
+/// A typical English school calendar from the week of `from` to the GCSE exam
+/// season in the summer of `exam_year`: six half-terms a year with the usual
+/// holidays, Easter from the real date, and exams from the second Monday in
+/// May. Schools differ by a week here and there, so it is a starting point to
+/// edit, not a promise. Empty if the exams are already over.
+pub fn school_calendar(from: NaiveDate, exam_year: i32) -> Vec<BlockCfg> {
+    let from = monday_of(from);
+    let first = if from.month() >= 8 { from.year() } else { from.year() - 1 };
+    let mut out: Vec<BlockCfg> = Vec::new();
+    let mut push = |start: NaiveDate, end: NaiveDate, kind: &str, label: &str, year: u8, block: &str| {
+        let weeks = (end - start).num_days() / 7;
+        if weeks > 0 {
+            out.push(BlockCfg { start: start.format("%Y-%m-%d").to_string(), weeks: weeks as u32, kind: kind.into(), label: label.into(), year, block: block.into() });
+        }
+    };
+    for y in first..exam_year {
+        let year = (11 - (exam_year - 1 - y)).clamp(7, 11) as u8;
+        let a1 = monday_on_or_after(ymd(y, 9, 2));
+        let oct = last_monday_of(y, 10);
+        let xmas = monday_of(ymd(y, 12, 21));
+        let s1 = xmas + Duration::weeks(2);
+        let feb = monday_of(ymd(y + 1, 2, 15));
+        let easter_hol = monday_of(easter(y + 1));
+        let u1 = easter_hol + Duration::weeks(2);
+        push(a1, oct, "term", "Autumn 1", year, "A1");
+        push(oct, oct + Duration::weeks(1), "half", "October half-term", year, "H");
+        push(oct + Duration::weeks(1), xmas, "term", "Autumn 2", year, "A2");
+        push(xmas, s1, "holiday", "Christmas holiday", year, "H");
+        push(s1, feb, "term", "Spring 1", year, "S1");
+        push(feb, feb + Duration::weeks(1), "half", "February half-term", year, "H");
+        push(feb + Duration::weeks(1), easter_hol, "term", "Spring 2", year, "S2");
+        push(easter_hol, u1, "holiday", "Easter holiday", year, "H");
+        if y + 1 == exam_year {
+            let exams = monday_on_or_after(ymd(y + 1, 5, 1)) + Duration::weeks(1);
+            push(u1, exams, "term", "Summer 1", year, "U1");
+            push(exams, exams + Duration::weeks(7), "exam", "Exam season", year, "X");
+        } else {
+            let may = last_monday_of(y + 1, 5);
+            let summer = monday_of(ymd(y + 1, 7, 20));
+            let next = monday_on_or_after(ymd(y + 1, 9, 2));
+            push(u1, may, "term", "Summer 1", year, "U1");
+            push(may, may + Duration::weeks(1), "half", "May half-term", year, "H");
+            push(may + Duration::weeks(1), summer, "term", "Summer 2", year, "U2");
+            push(summer, next, "summer", "Summer holiday", year, "H");
+        }
+    }
+    // Start at this week: drop what is over and trim the block we are in.
+    out.retain_mut(|b| {
+        let start = NaiveDate::parse_from_str(&b.start, "%Y-%m-%d").expect("formatted above");
+        let end = start + Duration::weeks(b.weeks as i64);
+        if end <= from {
+            return false;
+        }
+        if start < from {
+            b.weeks = ((end - from).num_days() / 7) as u32;
+            b.start = from.format("%Y-%m-%d").to_string();
+        }
+        true
+    });
+    out
+}
+
 impl PlanConfig {
+    /// Where a new person starts: no subjects yet and a standard calendar
+    /// running to the exams two summers away, all of it theirs to set up.
+    pub fn blank(today: NaiveDate) -> Self {
+        PlanConfig { subjects: Vec::new(), blocks: school_calendar(today, default_exam_year(today)), review_gaps: vec![7, 21, 56] }
+    }
+
+    /// The same subjects back at their built-in topics, hours and links; a
+    /// subject someone wrote themselves is left as it is, and so are the
+    /// term dates.
+    pub fn reset_subjects(&self) -> Self {
+        let cat = catalog();
+        PlanConfig {
+            subjects: self.subjects.iter().map(|s| cat.iter().find(|c| c.id == s.id).cloned().unwrap_or_else(|| s.clone())).collect(),
+            ..self.clone()
+        }
+    }
+
     /// Weekly hours for a subject in a given week, honouring the rate bands.
     pub fn hours_for(&self, subject: &SubjectCfg, week_n: u32, kind: &str) -> f64 {
         match subject.rates.iter().filter(|b| b.from_week <= week_n).max_by_key(|b| b.from_week) {
@@ -541,4 +667,76 @@ impl PlanConfig {
 fn sane_url(raw: &str) -> String {
     let t = raw.trim();
     if t.starts_with("https://") || t.starts_with("http://") { t.to_string() } else { String::new() }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn d(s: &str) -> NaiveDate {
+        NaiveDate::parse_from_str(s, "%Y-%m-%d").unwrap()
+    }
+
+    #[test]
+    fn easter_is_right() {
+        assert_eq!(easter(2027), d("2027-03-28"));
+        assert_eq!(easter(2028), d("2028-04-16"));
+        assert_eq!(easter(2029), d("2029-04-01"));
+    }
+
+    /// Generated from the start of Year 10, the calendar lands on the same
+    /// weeks as the hand-entered one for 2026-2028, apart from Easter, which
+    /// it takes from the real date.
+    #[test]
+    fn the_standard_calendar_matches_a_real_school_year() {
+        let cal = school_calendar(d("2026-09-07"), 2028);
+        let legacy = PlanConfig::default().blocks;
+        let key = |b: &BlockCfg| (b.label.clone(), b.year);
+        assert_eq!(cal.iter().map(key).collect::<Vec<_>>(), legacy.iter().map(key).collect::<Vec<_>>());
+        for (a, b) in cal.iter().zip(&legacy) {
+            if !a.label.starts_with("Spring 2") && !a.label.starts_with("Easter") && !a.label.starts_with("Summer 1") {
+                assert_eq!((&a.start, a.weeks), (&b.start, b.weeks), "{} {}", a.label, a.year);
+            }
+        }
+        assert_eq!(cal.last().unwrap().start, "2028-05-08");
+        let weeks: u32 = cal.iter().map(|b| b.weeks).sum();
+        let legacy_weeks: u32 = legacy.iter().map(|b| b.weeks).sum();
+        assert_eq!(weeks, legacy_weeks, "same span, first Monday to the end of the exams");
+    }
+
+    #[test]
+    fn the_calendar_starts_this_week_and_runs_on_without_gaps() {
+        let cal = school_calendar(d("2026-09-30"), 2028);
+        assert_eq!(cal[0].start, "2026-09-28");
+        assert_eq!(cal[0].label, "Autumn 1");
+        for w in cal.windows(2) {
+            let end = d(&w[0].start) + Duration::weeks(w[0].weeks as i64);
+            assert_eq!(end, d(&w[1].start), "gap or overlap after {}", w[0].label);
+        }
+        assert!(school_calendar(d("2026-09-30"), 2026).is_empty(), "exams already over");
+        assert_eq!(school_calendar(d("2027-02-01"), 2027).last().unwrap().kind, "exam");
+    }
+
+    #[test]
+    fn a_new_person_starts_blank_and_the_plan_still_builds() {
+        let cfg = PlanConfig::blank(d("2026-09-30"));
+        assert!(cfg.subjects.is_empty());
+        assert_eq!(cfg.blocks.last().unwrap().start, "2028-05-08");
+        let plan = crate::plan::build(&cfg);
+        assert!(plan.unscheduled.is_empty());
+    }
+
+    #[test]
+    fn reset_restores_built_in_subjects_and_keeps_the_rest() {
+        let mut cfg = PlanConfig::blank(d("2026-09-30"));
+        let mut music = catalog().into_iter().find(|s| s.id == "music").unwrap();
+        music.topics.truncate(2);
+        let mut mine = music.clone();
+        mine.id = "mine".into();
+        cfg.subjects = vec![music, mine];
+        let reset = cfg.reset_subjects();
+        assert!(reset.subjects[0].topics.len() > 2, "built-in subject restored");
+        assert_eq!(reset.subjects[1].topics.len(), 2, "own subject untouched");
+        assert!(reset.blocks == cfg.blocks, "term dates kept");
+    }
 }

@@ -12,7 +12,9 @@
 //! ```
 //!
 //! The first run after this was added moves the old top-level state.json and
-//! config.json into a profile called "Me", so nothing is lost.
+//! config.json into a profile called "Me", so nothing is lost. A brand-new
+//! install has no profile at all: the first thing anyone sees is "create your
+//! account", so a shared copy of the app never opens on somebody else's plan.
 //!
 //! A PIN is a courtesy lock against a sibling opening the wrong profile, not
 //! security: the files are readable on disk by anyone with the login. It is
@@ -127,8 +129,9 @@ impl Store {
         self.root.join("profiles").join(id)
     }
 
-    /// The registry, creating it - and migrating any pre-profile files into a
-    /// first profile called "Me" - on first use.
+    /// The registry. On first use it migrates any pre-profile files into a
+    /// first profile called "Me"; a fresh install gets an empty registry, and
+    /// the app asks its user to create their own account.
     pub fn registry(&self) -> Result<Registry, String> {
         if let Some(v) = read_json(&self.registry_path()) {
             if let Ok(reg) = serde_json::from_value::<Registry>(v) {
@@ -138,6 +141,10 @@ impl Store {
             }
         }
         let mut reg = Registry::default();
+        let legacy = ["state.json", "config.json"].iter().any(|n| self.root.join(n).exists());
+        if !legacy {
+            return Ok(reg);
+        }
         let id = "me".to_string();
         let dir = self.dir_of(&id);
         fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
@@ -175,6 +182,9 @@ impl Store {
     /// The directory of whoever is signed in.
     pub fn current_dir(&self) -> Result<PathBuf, String> {
         let reg = self.registry()?;
+        if !reg.profiles.iter().any(|p| p.id == reg.current) {
+            return Err("Create your account first.".into());
+        }
         let dir = self.dir_of(&reg.current);
         fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
         Ok(dir)
@@ -332,9 +342,20 @@ mod tests {
     }
 
     #[test]
+    fn a_fresh_install_has_no_profile_until_someone_creates_one() {
+        let s = store();
+        let reg = s.registry().unwrap();
+        assert!(reg.profiles.is_empty(), "nobody else's account ships with the app");
+        assert!(s.current_dir().is_err());
+        let id = s.create("Sam", None).unwrap();
+        assert_eq!(s.registry().unwrap().current, id);
+        assert_eq!(s.current_dir().unwrap(), s.dir_of(&id));
+    }
+
+    #[test]
     fn profiles_are_separate_and_pins_are_checked() {
         let s = store();
-        s.registry().unwrap();
+        s.create("Me", None).unwrap();
         let id = s.create("Alex", Some("1234")).unwrap();
         assert_eq!(s.registry().unwrap().current, id);
         assert!(s.view().unwrap().profiles.iter().find(|p| p.id == id).unwrap().has_pin);
@@ -351,7 +372,7 @@ mod tests {
     #[test]
     fn names_must_be_unique_and_ids_are_file_safe() {
         let s = store();
-        s.registry().unwrap();
+        s.create("Me", None).unwrap();
         let a = s.create("Sam O'Neil!", None).unwrap();
         assert_eq!(a, "sam-o-neil");
         assert!(s.create("sam o'neil!", None).is_err(), "case-insensitive clash");
@@ -363,7 +384,7 @@ mod tests {
     #[test]
     fn export_then_import_round_trips_as_a_new_profile() {
         let s = store();
-        s.registry().unwrap();
+        s.create("Me", None).unwrap();
         fs::write(s.dir_of("me").join("state.json"), r#"{"days":{"2026-09-14":true}}"#).unwrap();
         let bundle = s.export("me").unwrap();
         assert_eq!(bundle["name"], "Me");
@@ -378,7 +399,7 @@ mod tests {
     #[test]
     fn deleting_moves_the_folder_aside_and_never_the_last_profile() {
         let s = store();
-        s.registry().unwrap();
+        s.create("Me", None).unwrap();
         assert!(s.delete("me", None).is_err());
         let id = s.create("Kit", None).unwrap();
         fs::write(s.dir_of(&id).join("state.json"), "{}").unwrap();

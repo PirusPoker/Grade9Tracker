@@ -59,14 +59,27 @@ fn write_json(path: &PathBuf, value: &Value) -> Result<(), String> {
     fs::rename(&tmp, path).map_err(|e| e.to_string())
 }
 
-/// The user's plan configuration, falling back to the Edexcel defaults the
-/// first time the app runs (or if the file has been corrupted).
+/// The signed-in person's plan, from their own profile folder (this used to
+/// read the top-level folder, so edits saved since profiles arrived were never
+/// read back). With no plan saved yet:
+/// - a profile that already has progress predates the app being shared and
+///   ran on the built-in plan, so that plan is written down for it and kept;
+/// - anyone else starts from a blank plan and sets up their own.
 fn load_config(app: &AppHandle) -> PlanConfig {
-    let mut cfg = data_dir(app)
-        .ok()
-        .and_then(|d| read_json(&d.join("config.json")))
-        .and_then(|v| serde_json::from_value::<PlanConfig>(v).ok())
-        .unwrap_or_default();
+    let today = chrono::Local::now().date_naive();
+    let Ok(dir) = profile_dir(app) else { return PlanConfig::blank(today) };
+    let path = dir.join("config.json");
+    let mut cfg = match read_json(&path).and_then(|v| serde_json::from_value::<PlanConfig>(v).ok()) {
+        Some(cfg) => cfg,
+        None if dir.join("state.json").exists() => {
+            let cfg = PlanConfig::default();
+            if let Ok(v) = serde_json::to_value(&cfg) {
+                let _ = write_json(&path, &v);
+            }
+            cfg
+        }
+        None => PlanConfig::blank(today),
+    };
     cfg.sanitise();
     cfg
 }
@@ -78,6 +91,13 @@ fn load_config(app: &AppHandle) -> PlanConfig {
 #[tauri::command]
 fn get_plan(app: AppHandle, catch_up: Option<plan::CatchUp>) -> plan::Plan {
     plan::build_with(&load_config(&app), catch_up.as_ref())
+}
+
+/// A standard school calendar from this week to the exams in `exam_year`, for
+/// first-time setup and the Plan tab.
+#[tauri::command]
+fn calendar_template(exam_year: i32) -> Vec<config::BlockCfg> {
+    config::school_calendar(chrono::Local::now().date_naive(), exam_year)
 }
 
 /// Every built-in subject, for the Plan tab's "add a built-in subject" list.
@@ -102,10 +122,11 @@ fn save_config(app: AppHandle, config: PlanConfig) -> Result<plan::Plan, String>
     Ok(plan::build(&cfg))
 }
 
-/// Throw away the edits and go back to the built-in Edexcel plan.
+/// Put every subject back to its built-in topics and hours. The subjects
+/// chosen and the term dates stay.
 #[tauri::command]
 fn reset_config(app: AppHandle) -> Result<plan::Plan, String> {
-    let cfg = PlanConfig::default();
+    let cfg = load_config(&app).reset_subjects();
     let value = serde_json::to_value(&cfg).map_err(|e| e.to_string())?;
     write_json(&profile_dir(&app)?.join("config.json"), &value)?;
     Ok(plan::build(&cfg))
@@ -113,7 +134,10 @@ fn reset_config(app: AppHandle) -> Result<plan::Plan, String> {
 
 #[tauri::command]
 fn get_settings(app: AppHandle) -> Result<draft::Settings, String> {
-    Ok(read_json(&data_dir(&app)?.join("settings.json")).and_then(|v| serde_json::from_value(v).ok()).unwrap_or_default())
+    // A fresh install leaves Outlook alone until its owner turns it on;
+    // existing settings files keep whatever they had.
+    Ok(read_json(&data_dir(&app)?.join("settings.json")).and_then(|v| serde_json::from_value(v).ok())
+        .unwrap_or(draft::Settings { outlook: false, ..Default::default() }))
 }
 
 #[tauri::command]
@@ -416,7 +440,7 @@ pub fn run() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
-            get_plan, get_config, subject_catalog, save_config, reset_config, get_lesson, list_papers, get_paper,
+            get_plan, get_config, subject_catalog, calendar_template, save_config, reset_config, get_lesson, list_papers, get_paper,
             load_state, save_state, state_path, backup,
             get_settings, set_settings, draft_subject, day_context, organise_day, open_email, auto_backup, backup_status, open_backups,
             list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile,

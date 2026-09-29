@@ -32,6 +32,30 @@ pub fn default_config() -> String {
     serde_json::to_string(&PlanConfig::default()).unwrap_or_else(|_| "{}".into())
 }
 
+fn day(today: &str) -> Result<chrono::NaiveDate, JsValue> {
+    chrono::NaiveDate::parse_from_str(today, "%Y-%m-%d").map_err(js_err)
+}
+
+/// Where a new person starts: no subjects and a standard calendar from
+/// `today` (YYYY-MM-DD, the browser's date) to the exams two summers away.
+#[wasm_bindgen]
+pub fn blank_config(today: &str) -> Result<String, JsValue> {
+    serde_json::to_string(&PlanConfig::blank(day(today)?)).map_err(js_err)
+}
+
+/// A standard school calendar from `today` to the exams in `exam_year`.
+#[wasm_bindgen]
+pub fn calendar_template(today: &str, exam_year: i32) -> Result<String, JsValue> {
+    serde_json::to_string(&config::school_calendar(day(today)?, exam_year)).map_err(js_err)
+}
+
+/// The same subjects back at their built-in topics and hours.
+#[wasm_bindgen]
+pub fn reset_subjects(config_json: &str) -> Result<String, JsValue> {
+    let cfg: PlanConfig = serde_json::from_str(config_json).map_err(js_err)?;
+    serde_json::to_string(&cfg.reset_subjects()).map_err(js_err)
+}
+
 /// Every built-in subject, as JSON, for the Plan tab's catalog.
 #[wasm_bindgen]
 pub fn subject_catalog() -> String {

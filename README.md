@@ -13,7 +13,11 @@ https://github.com/PirusPoker/Grade9Tracker/releases/latest/download/Gradient-Se
 
 1. Run `Gradient-Setup.exe`. Windows shows "Windows protected your PC" because the
    app is not from the Microsoft Store: click **More info**, then **Run anyway** (once).
-2. Open Gradient from the Start menu, add yourself as a profile, tick your subjects.
+2. Open Gradient from the Start menu and create your account. Nothing comes
+   pre-filled: you pick when your exams are and which subjects you take, and the
+   app builds a plan from a standard school calendar that you can adjust to your
+   school's term dates in the Plan tab. Outlook and Teams stay off until you turn
+   them on in the Guide tab.
 
 That is the last download you make: the app checks GitHub while it runs and installs
 new releases itself (Settings lets you switch that to "ask me first"). Your progress,

@@ -28,7 +28,7 @@ pub const STARTER: &[&str] = &["maths", "fpm", "bus", "econ", "cs", "englit", "e
 
 pub const SUBJECTS: &[SubjectDef] = &[
     SubjectDef {
-        id: "maths", name: "Maths", full: "Mathematics A (4MA1) Higher", color: "var(--maths)",
+        id: "maths", name: "Maths", full: "Pearson Edexcel International GCSE Mathematics A (4MA1) Higher", color: "var(--maths)",
         papers: "Two 2-hour papers, 100 marks each, calculator allowed",
         spec: "https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-mathematics-a-2016.html",
         sections: &["1 Number", "2 Algebra", "3 Sequences, functions, graphs & calculus", "4 Geometry & trigonometry", "5 Vectors & transformations", "6 Statistics & probability"],
@@ -86,7 +86,7 @@ pub const SUBJECTS: &[SubjectDef] = &[
         ],
     },
     SubjectDef {
-        id: "fpm", name: "Further Maths", full: "Further Pure Mathematics (4PM1)", color: "var(--fpm)",
+        id: "fpm", name: "Further Maths", full: "Pearson Edexcel International GCSE Further Pure Mathematics (4PM1)", color: "var(--fpm)",
         papers: "Two 2-hour papers, 100 marks each, calculator + formula sheet",
         spec: "https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-further-pure-mathematics-2017.html",
         sections: &["1 Logs & indices", "2 The quadratic function", "3 Identities & inequalities", "4 Graphs", "5 Series", "6 The binomial series", "7 Vectors", "8 Coordinate geometry", "9 Calculus", "10 Trigonometry"],
@@ -112,7 +112,7 @@ pub const SUBJECTS: &[SubjectDef] = &[
         ],
     },
     SubjectDef {
-        id: "bus", name: "Business", full: "Business (AQA 8132)", color: "var(--bus)",
+        id: "bus", name: "Business", full: "AQA GCSE Business (8132)", color: "var(--bus)",
         papers: "Paper 1 (3.1-3.4) and Paper 2 (3.1, 3.2, 3.5, 3.6), each 1h45, 90 marks, 50%. Each paper opens with 20 marks of multiple choice and short answer. Formulae are NOT given",
         spec: "https://www.aqa.org.uk/subjects/business/gcse/business-8132",
         sections: &["3.1 Business in the real world", "3.2 Influences on business", "3.3 Business operations", "3.4 Human resources", "3.5 Marketing", "3.6 Finance"],
@@ -149,7 +149,7 @@ pub const SUBJECTS: &[SubjectDef] = &[
         ],
     },
     SubjectDef {
-        id: "econ", name: "Economics", full: "Economics (Cambridge 0987)", color: "var(--econ)",
+        id: "econ", name: "Economics", full: "Cambridge IGCSE (9-1) Economics (0987)", color: "var(--econ)",
         papers: "Paper 1 multiple choice, 1h, 40 marks, 30%. Paper 2 structured, 2h, 80 marks, 70% - one compulsory six-part question, then three from four",
         spec: "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-economics-9-1-0987/",
         sections: &["1 The basic economic problem", "2 The allocation of resources", "3 Microeconomic decision-makers", "4 Government and the macroeconomy", "5 Economic development", "6 International trade and globalisation"],
@@ -193,7 +193,7 @@ pub const SUBJECTS: &[SubjectDef] = &[
         ],
     },
     SubjectDef {
-        id: "cs", name: "Computer Science", full: "Computer Science (OCR J277)", color: "var(--cs)",
+        id: "cs", name: "Computer Science", full: "OCR GCSE Computer Science (J277)", color: "var(--cs)",
         papers: "J277/01 Computer systems and J277/02 Computational thinking, algorithms and programming: each 1h30, 80 marks, 50%. No calculator. Paper 2 Section B (30 marks) is answered in OCR Exam Reference Language or a high-level language",
         spec: "https://www.ocr.org.uk/qualifications/gcse/computer-science-j277-from-2020/",
         sections: &["1.1 Systems architecture", "1.2 Memory and storage", "1.3 Computer networks, connections and protocols", "1.4 Network security", "1.5 Systems software", "1.6 Ethical, legal, cultural and environmental impacts", "2.1 Algorithms", "2.2 Programming fundamentals", "2.3 Producing robust programs", "2.4 Boolean logic", "2.5 Programming languages and IDEs"],
@@ -307,7 +307,7 @@ pub const SUBJECTS: &[SubjectDef] = &[
         ],
     },
     SubjectDef {
-        id: "bio", name: "Biology", full: "Biology (4BI1)", color: "var(--bio)",
+        id: "bio", name: "Biology", full: "Pearson Edexcel International GCSE Biology (4BI1)", color: "var(--bio)",
         papers: "Paper 1 2h (61.1%), Paper 2 1h15 (38.9%). 13 required practicals",
         spec: "https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-biology-2017.html",
         sections: &["1 Nature and variety of living organisms", "2 Structures and functions", "3 Reproduction and inheritance", "4 Ecology and the environment", "5 Use of biological resources"],
@@ -346,7 +346,7 @@ pub const SUBJECTS: &[SubjectDef] = &[
         ],
     },
     SubjectDef {
-        id: "chem", name: "Chemistry", full: "Chemistry (4CH1)", color: "var(--chem)",
+        id: "chem", name: "Chemistry", full: "Pearson Edexcel International GCSE Chemistry (4CH1)", color: "var(--chem)",
         papers: "Paper 1 2h (61.1%), Paper 2 1h15 (38.9%). Calculator allowed",
         spec: "https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-chemistry-2017.html",
         sections: &["1 Principles of chemistry", "2 Inorganic chemistry", "3 Physical chemistry", "4 Organic chemistry"],
@@ -386,7 +386,7 @@ pub const SUBJECTS: &[SubjectDef] = &[
         ],
     },
     SubjectDef {
-        id: "phys", name: "Physics", full: "Physics (4PH1)", color: "var(--phys)",
+        id: "phys", name: "Physics", full: "Pearson Edexcel International GCSE Physics (4PH1)", color: "var(--phys)",
         papers: "Paper 1 2h (61.1%), Paper 2 1h15 (38.9%). Formulae must be recalled",
         spec: "https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-physics-2017.html",
         sections: &["1 Forces and motion", "2 Electricity", "3 Waves", "4 Energy resources", "5 Solids, liquids and gases", "6 Magnetism and electromagnetism", "7 Radioactivity and particles", "8 Astrophysics"],

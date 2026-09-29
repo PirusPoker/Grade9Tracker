@@ -20,11 +20,21 @@
   const ready = import("./g9.js").then(async (m) => { await m.default(); core = m; return m; });
 
   // ---- profiles (a registry in localStorage; PINs stored as SHA-256) ----
+  // A browser that has never opened the app has no profile: the interface
+  // asks its user to create one. A browser that used it before profiles had
+  // names keeps that progress as "Me".
+  function hasProgress(id) {
+    try { return ls.get("state:" + id, null) != null || localStorage.getItem("grade9-tracker-v2:" + id) != null; } catch (e) { return false; }
+  }
   function registry() {
     let r = ls.get("profiles", null);
     if (!r || !Array.isArray(r.profiles) || !r.profiles.length) {
-      r = { current: "me", profiles: [{ id: "me", name: "Me", pinHash: "", createdAt: new Date().toISOString(), lastUsed: "" }] };
-      ls.set("profiles", r);
+      r = { current: "", profiles: [] };
+      if (hasProgress("me")) {
+        r = { current: "me", profiles: [{ id: "me", name: "Me", pinHash: "", createdAt: new Date().toISOString(), lastUsed: "" }] };
+        ls.set("profiles", r);
+      }
+      return r;
     }
     if (!r.profiles.some(p => p.id === r.current)) r.current = r.profiles[0].id;
     return r;
@@ -49,11 +59,15 @@
   const cur = () => registry().current;
 
   // ---- config + plan ----
+  const today = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); };
+  // No saved plan: someone with progress from before the app was shared keeps
+  // the built-in plan they were using; everyone else starts blank.
   async function config() {
     await ready;
-    const saved = ls.get("config:" + cur(), null);
-    const json = saved ? JSON.stringify(saved) : core.default_config();
-    try { return JSON.parse(core.sanitise_config(json)); } catch (e) { return JSON.parse(core.default_config()); }
+    let saved = ls.get("config:" + cur(), null);
+    if (!saved && cur() && hasProgress(cur())) { saved = JSON.parse(core.default_config()); ls.set("config:" + cur(), saved); }
+    const json = saved ? JSON.stringify(saved) : core.blank_config(today());
+    try { return JSON.parse(core.sanitise_config(json)); } catch (e) { return JSON.parse(core.blank_config(today())); }
   }
   async function plan(cfg, catchUp) {
     await ready;
@@ -76,7 +90,8 @@
       case "get_config": return config();
       case "subject_catalog": { await ready; return JSON.parse(core.subject_catalog()); }
       case "save_config": { await ready; const cfg = JSON.parse(core.sanitise_config(JSON.stringify(args.config))); ls.set("config:" + cur(), cfg); return plan(cfg, null); }
-      case "reset_config": { ls.del("config:" + cur()); return plan(await config(), null); }
+      case "reset_config": { const cfg = JSON.parse(core.reset_subjects(JSON.stringify(await config()))); ls.set("config:" + cur(), cfg); return plan(cfg, null); }
+      case "calendar_template": { await ready; return JSON.parse(core.calendar_template(today(), args.examYear)); }
       // built-in content
       case "get_lesson": { await ready; const t = core.lesson(args.topicId); if (t == null) throw new Error("No lesson written for " + args.topicId + " yet"); return t; }
       case "list_papers": { await ready; return JSON.parse(core.list_papers()); }
