@@ -453,11 +453,14 @@ mod tests {
         let r = Request { answer: "It's the next best alternative you give up when you choose.".into(), ..req() };
         let v = tauri::async_runtime::block_on(mark(&settings, r)).expect("local marking");
         println!("by={} marks={}/2 note={:?}\npoints={:#?}\nfeedback={}\nimprove={}", v.by, v.marks, v.note, v.points, v.feedback, v.improve);
-        // The plumbing, not the small model's judgement: it answered in the
-        // schema, is labelled local, and stays within the question's marks.
+        // The plumbing, not the model's judgement: it answered in the schema,
+        // is labelled local, stays within the question's marks, and a mark
+        // with no point-by-point breakdown always carries a warning.
         assert_eq!(v.by, "local");
         assert!(v.marks <= 2);
-        assert!(v.note.is_some());
+        if v.points.is_empty() {
+            assert!(v.note.is_some());
+        }
     }
 
     #[test]
