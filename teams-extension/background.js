@@ -1,5 +1,5 @@
 // Background service worker. Receives assignments from the content script and
-// POSTs them to Gradient's local receiver (the app listens on 127.0.0.1).
+// POSTs them to Zelinx Study Planner's local receiver (the app listens on 127.0.0.1).
 // Nothing goes to the internet — only to the app on this same computer.
 const APP_URL = "http://127.0.0.1:47814/teams";
 

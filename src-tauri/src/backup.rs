@@ -3,7 +3,7 @@
 //! Progress lives in the app's data folder, which an uninstall, a reinstall or a
 //! bad file can take with it. So once a week the UI hands over the progress it
 //! has open (the live copy, not whatever last reached disk) and a dated copy
-//! lands in `Documents\Gradient backups`, where it survives all of those and is
+//! lands in `Documents\Zelinx backups`, where it survives all of those and is
 //! easy to find. The newest few per profile are kept; older ones are removed,
 //! and only files this module wrote (`backup-<profile>-<stamp>.json`) are ever
 //! touched in that folder.
@@ -14,7 +14,9 @@ use serde_json::Value;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-pub const FOLDER: &str = "Gradient backups";
+pub const FOLDER: &str = "Zelinx backups";
+/// Where backups went before the app was renamed; moved across on first use.
+pub const OLD_FOLDER: &str = "Gradient backups";
 /// How long a backup counts as recent enough that a routine check skips.
 pub const EVERY_DAYS: i64 = 7;
 /// Backups kept per profile; anything older is removed.

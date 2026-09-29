@@ -3,39 +3,83 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gradient</title>
+<title>Zelinx Study Planner</title>
+<script>try{const t=localStorage.getItem("zx.theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="stylesheet" href="katex/katex.min.css">
 <style>
-/* Dark, soft and rounded: deep graphite surfaces, a faint aurora behind the
-   page, pill buttons and generous corners. Tokens only - nothing below this
-   block should name a raw colour. */
+/* Zelinx Study Planner. Light by default, calm and roomy: a pale ground,
+   white panels with a 1px line, one violet accent that fades to lilac, and
+   the subject hues as the only other colour. Dark mode follows Windows unless
+   Settings says otherwise. Tokens only - nothing below this block should name
+   a raw colour. */
+@font-face{font-family:"Plus Jakarta Sans";src:url("fonts/PlusJakartaSans.woff2") format("woff2");font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url("fonts/JetBrainsMono.woff2") format("woff2");font-weight:100 800;font-style:normal;font-display:swap}
 :root{
+  color-scheme:light;
+  --ground:#F5F6FA; --surface:#FFFFFF; --surface2:#ECEEF4; --sunken:#F7F8FB; --raised:#FFFFFF;
+  --ink:#181C28; --ink-2:#3A4152; --muted:#5C6472; --label:#8B92A3; --line:#E5E8F0; --line-2:#DCE0E9; --line-3:#C6CCD8;
+  --accent:#5D5FEF; --accent-2:#A78BFA; --accent-ink:#FFFFFF; --accent-soft:rgba(93,95,239,.08); --accent-soft2:rgba(93,95,239,.14); --accent-line:rgba(93,95,239,.34);
+  --hero:linear-gradient(90deg,#5D5FEF,#A78BFA); --hero-glow:0 10px 26px rgba(93,95,239,.30);
+  --solid:#181C28; --solid-ink:#FFFFFF; --solid-hover:#2B3142;
+  --good:#1E8A5A; --good-soft:#E7F6EE; --good-line:rgba(30,138,90,.30);
+  --bad:#C63A3A; --bad-soft:#FCE8E8; --bad-line:rgba(198,58,58,.30);
+  --warn:#A4581A; --warn-soft:#FBF0E6; --warn-line:rgba(164,88,26,.28);
+  --maths:#3D6FE0; --fpm:#8B5CF6; --bus:#D97A2B; --econ:#22A06B; --cs:#D6478E; --englit:#B25ADB; --englang:#C58F12;
+  --bio:#2F9E5B; --chem:#1592AE; --phys:#5B63E0; --test:#181C28; --rest:#A3AAB8;
+  --fre:#E0563F; --spa:#6E9E1E; --ger:#9A7A3C;
+  --geog:#1E9C8E;
+  --hist:#A8683A;
+  --music:#D6457E;
+  --rs:#5F7D8C;
+  --drama:#D84A6A;
+  --pe:#1A9FD0;
+  --media:#4C7CF0;
+  --dt:#8A9A2E;
+  --food:#D9803F;
+  --r:20px; --r-card:14px; --r-sm:12px; --r-xs:8px; --navh:58px; --rail:232px;
+  --glow-a:#D9E3FF; --glow-b:#FBDCEA; --glow-c:#FDE8D0; --glow-d:#DCF3E8; --aurora:.5;
+  --shadow:0 1px 2px rgba(24,28,40,.04),0 10px 30px rgba(24,28,40,.05);
+  --shadow-pop:0 12px 40px rgba(24,28,40,.14);
+  --glass:rgba(245,246,250,.82); --scrim:rgba(24,28,40,.36);
+  --display:"Plus Jakarta Sans","Segoe UI Variable Display","Segoe UI",-apple-system,system-ui,sans-serif;
+  --body:"Plus Jakarta Sans","Segoe UI Variable Text","Segoe UI",-apple-system,system-ui,sans-serif;
+  --mono:"JetBrains Mono","Cascadia Mono",Consolas,ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   color-scheme:dark;
-  --ground:#131314; --surface:#1E1F20; --surface2:#2A2B2D; --sunken:#19191B; --raised:#303134;
-  --ink:#E8EAED; --ink-2:#C4C7C5; --muted:#8E9196; --line:#2E3033; --line-2:#3C3F43; --line-3:#4C5056;
-  --accent:#A8C7FA; --accent-ink:#062E6F; --accent-soft:rgba(168,199,250,.13); --accent-soft2:rgba(168,199,250,.22); --accent-line:rgba(168,199,250,.38);
-  --solid:#E8EAED; --solid-ink:#131314; --solid-hover:#FFFFFF;
-  --good:#6DD58C; --good-soft:rgba(109,213,140,.13); --good-line:rgba(109,213,140,.38);
-  --bad:#F2A5A0; --bad-soft:rgba(242,165,160,.13); --bad-line:rgba(242,165,160,.38);
-  --warn:#FDD663; --warn-soft:rgba(253,214,99,.11); --warn-line:rgba(253,214,99,.32);
-  --maths:#7CACF8; --fpm:#B49BFF; --bus:#FFA45C; --econ:#5DD39E; --cs:#F58FBF; --englit:#E39BFF; --englang:#F6C15A;
-  --bio:#6FD68D; --chem:#5FD3E8; --phys:#9DA3FF; --test:#E8EAED; --rest:#6B6F76;
-  --fre:#FF7B7B; --spa:#B8E05A; --ger:#C9A86A;
-  --geog:#4DB6AC;
-  --hist:#C08457;
-  --music:#FF6FAE;
-  --rs:#90A4AE;
-  --drama:#EF6F8E;
-  --pe:#2EC4F0;
-  --media:#7AA2FF;
-  --dt:#B9C46A;
-  --food:#F2A36B;
-  --r:18px; --r-sm:12px; --r-xs:8px; --navh:58px;
-  --glow-a:rgba(66,133,244,.26); --glow-b:rgba(52,168,83,.16); --glow-c:rgba(171,71,188,.18);
-  --shadow:0 10px 30px rgba(0,0,0,.28);
-  --display:"Segoe UI Variable Display","Segoe UI",-apple-system,"Helvetica Neue",system-ui,sans-serif;
-  --body:"Segoe UI Variable Text","Segoe UI",-apple-system,"Helvetica Neue",system-ui,sans-serif;
-  --mono:"Cascadia Mono",Consolas,"SF Mono",Menlo,ui-monospace,monospace;
+  --ground:#0F1218; --surface:#171C28; --surface2:#1E2430; --sunken:#131722; --raised:#1E2430;
+  --ink:#E9ECF3; --ink-2:#C9CEDA; --muted:#A3ABBA; --label:#78808E; --line:#2A3140; --line-2:#343C4D; --line-3:#465064;
+  --accent:#8C8EF7; --accent-2:#B9A3FB; --accent-ink:#0F1218; --accent-soft:rgba(140,142,247,.14); --accent-soft2:rgba(140,142,247,.22); --accent-line:rgba(140,142,247,.42);
+  --hero-glow:0 10px 30px rgba(93,95,239,.35);
+  --solid:#E9ECF3; --solid-ink:#0F1218; --solid-hover:#FFFFFF;
+  --good:#5DD39E; --good-soft:rgba(93,211,158,.16); --good-line:rgba(93,211,158,.38);
+  --bad:#F2A5A0; --bad-soft:rgba(242,165,160,.16); --bad-line:rgba(242,165,160,.38);
+  --warn:#F2B872; --warn-soft:rgba(242,184,114,.14); --warn-line:rgba(242,184,114,.34);
+  --maths:#7CA2F2; --fpm:#AE8CFA; --bus:#EE9B55; --econ:#4FC894; --cs:#EB76AE; --englit:#D08BEE; --englang:#E6B84A;
+  --bio:#5CC586; --chem:#4CC1DB; --phys:#8E94F4; --test:#E9ECF3; --rest:#5C6474;
+  --fre:#F2826E; --spa:#A2CC52; --ger:#C9A86A; --geog:#4DC7B8; --hist:#D0935F; --music:#EE78A6; --rs:#90A8B4;
+  --drama:#F07892; --pe:#4FC3EF; --media:#7FA3FF; --dt:#B7C75A; --food:#F2A56B;
+  --glow-a:#26335C; --glow-b:#4A2340; --glow-c:#4A3420; --glow-d:#1E4034; --aurora:.22;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.25); --shadow-pop:0 14px 44px rgba(0,0,0,.5);
+  --glass:rgba(15,18,24,.8); --scrim:rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0F1218; --surface:#171C28; --surface2:#1E2430; --sunken:#131722; --raised:#1E2430;
+  --ink:#E9ECF3; --ink-2:#C9CEDA; --muted:#A3ABBA; --label:#78808E; --line:#2A3140; --line-2:#343C4D; --line-3:#465064;
+  --accent:#8C8EF7; --accent-2:#B9A3FB; --accent-ink:#0F1218; --accent-soft:rgba(140,142,247,.14); --accent-soft2:rgba(140,142,247,.22); --accent-line:rgba(140,142,247,.42);
+  --hero-glow:0 10px 30px rgba(93,95,239,.35);
+  --solid:#E9ECF3; --solid-ink:#0F1218; --solid-hover:#FFFFFF;
+  --good:#5DD39E; --good-soft:rgba(93,211,158,.16); --good-line:rgba(93,211,158,.38);
+  --bad:#F2A5A0; --bad-soft:rgba(242,165,160,.16); --bad-line:rgba(242,165,160,.38);
+  --warn:#F2B872; --warn-soft:rgba(242,184,114,.14); --warn-line:rgba(242,184,114,.34);
+  --maths:#7CA2F2; --fpm:#AE8CFA; --bus:#EE9B55; --econ:#4FC894; --cs:#EB76AE; --englit:#D08BEE; --englang:#E6B84A;
+  --bio:#5CC586; --chem:#4CC1DB; --phys:#8E94F4; --test:#E9ECF3; --rest:#5C6474;
+  --fre:#F2826E; --spa:#A2CC52; --ger:#C9A86A; --geog:#4DC7B8; --hist:#D0935F; --music:#EE78A6; --rs:#90A8B4;
+  --drama:#F07892; --pe:#4FC3EF; --media:#7FA3FF; --dt:#B7C75A; --food:#F2A56B;
+  --glow-a:#26335C; --glow-b:#4A2340; --glow-c:#4A3420; --glow-d:#1E4034; --aurora:.22;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.25); --shadow-pop:0 14px 44px rgba(0,0,0,.5);
+  --glass:rgba(15,18,24,.8); --scrim:rgba(0,0,0,.6);
 }
 *{box-sizing:border-box}
 /* The aurora: three soft radial washes fixed behind everything, like the gradient header of a notebook. */
@@ -937,9 +981,183 @@ details.ppbook>summary::-webkit-details-marker{display:none}
   .printpaper .ppfoot{margin-top:14px;padding-top:6px;border-top:1px solid #000;font-size:9.5pt;color:#333}
   .printpaper.scheme .ppnoscheme,.printpaper:not(.scheme) .ppa{display:none}
 }
+
+/* ================= Zelinx layer =================
+   The shapes of the redesign, on top of the component rules above: a left
+   rail on wide windows, roomy white panels (20px corners, 1px line), cards
+   inside panels at 14px, pill buttons, and one hero button per screen. */
+body{font-size:15px;line-height:1.6;letter-spacing:-.003em}
+body::before{display:none}
+body.v-today::before{display:block;content:"";position:fixed;left:0;right:0;top:-80px;height:460px;z-index:-1;pointer-events:none;opacity:var(--aurora);filter:blur(90px);background:
+  radial-gradient(420px 260px at 18% 40%,var(--glow-a),transparent 70%),
+  radial-gradient(380px 240px at 48% 20%,var(--glow-b),transparent 70%),
+  radial-gradient(420px 260px at 78% 45%,var(--glow-c),transparent 70%),
+  radial-gradient(360px 220px at 96% 10%,var(--glow-d),transparent 70%)}
+h1,h2,h3{font-weight:700;letter-spacing:-.02em}
+.eyebrow{font-size:11.5px;letter-spacing:.08em;font-weight:700;color:var(--label)}
+.muted{color:var(--muted)}
+.num,.chip,.wcode,.code{font-family:var(--mono)}
+
+/* panels and cards */
+.card{border-radius:var(--r);padding:22px 24px;border-color:var(--line)}
+.card.lift,.card.primary{box-shadow:var(--shadow)}
+.card.primary{border-top:3px solid var(--c,var(--accent))}
+.stack{gap:14px}
+
+/* buttons */
+.btn{background:var(--surface);border-color:var(--line-2);font-weight:600}
+.btn:hover{background:var(--sunken);border-color:var(--line-3)}
+.btn.primary{background:var(--solid);color:var(--solid-ink);border-color:var(--solid)}
+.btn.primary:hover{background:var(--solid-hover);border-color:var(--solid-hover)}
+.btn.hero{background:var(--hero);color:#fff;border:0;box-shadow:var(--hero-glow);padding:13px 24px;font-size:15px}
+.btn.hero:hover{filter:brightness(1.05)}
+.btn.hero:disabled{box-shadow:none}
+
+/* pills: a subject's own tint, darkened for the text */
+.pill{background:color-mix(in srgb,var(--c,var(--accent)) 10%,var(--surface));color:color-mix(in srgb,var(--c,var(--accent)) 70%,var(--ink));font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;padding:4px 11px}
+.status{font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:3px 10px}
+.status.ahead{background:var(--accent-soft);color:var(--accent)}
+.status.ontrack{background:var(--good-soft);color:var(--good)}
+.status.behind{background:var(--bad-soft);color:var(--bad)}
+.chip{background:var(--surface2)}
+
+/* inputs */
+input[type=text],input[type=search],input[type=date],input[type=url],input[type=number],input[type=password],select,textarea{border-radius:var(--r-sm);background:var(--sunken);border-color:var(--line-2)}
+input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px var(--accent-soft2)}
+
+/* page head (Today's date, a view's title) */
+.pagehead{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;margin:0 0 22px}
+.pagehead h1{font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.08;margin:6px 0 4px}
+.pagehead .phsub{color:var(--muted);font-size:15px}
+.weekpill{display:inline-flex;align-items:center;gap:7px;padding:4px 11px;border-radius:999px;background:var(--good-soft);color:var(--good);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.weekpill i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.phact{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wkbtns{display:flex;gap:6px;align-items:center}
+.wkbtns button{height:38px;min-width:38px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.wkbtns button:hover:not(:disabled){background:var(--sunken)}
+.wkbtns button:disabled{opacity:.35}
+.viewtitle{font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:0 0 22px}
+
+/* the week strip */
+.days{gap:10px;margin:0 0 20px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:13px 4px 11px;gap:6px}
+.day .dn{font-size:11px;letter-spacing:.08em;color:var(--label)}
+.day .dd{font-size:21px;font-weight:700;letter-spacing:-.02em}
+.day[aria-selected=true]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--shadow);background:var(--surface)}
+.day.today .dn{color:var(--accent)}
+.day .marks i{width:5px;height:5px}
+.day.alldone{background:var(--good-soft)}
+
+/* sessions: white cards with the subject in a pill */
+.sess{background:var(--surface);border-color:var(--line);border-radius:var(--r)}
+.sess .bar{display:none}
+.sess .grab{padding-left:20px;gap:12px}
+.sess .title{font-size:15.5px;font-weight:650}
+.sess.open{box-shadow:var(--shadow);border-color:var(--line)}
+.sess .tick,.sess .more{border-left-color:var(--line)}
+.sess .body{padding:6px 24px 22px 24px}
+.session{background:var(--surface);border-top:3px solid var(--c);box-shadow:var(--shadow)}
+.step .n{background:var(--accent-soft);color:var(--accent)}
+.steps{gap:10px}
+.fixbanner{border-radius:var(--r-card)}
+
+/* side panel cards on Today */
+.tside .card{padding:20px 22px}
+.statpair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.statpair .v{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-top:4px}
+.statpair .v small{font-size:15px;font-weight:600;color:var(--muted);letter-spacing:0}
+.weekbarline{height:6px;border-radius:3px;background:var(--surface2);margin-top:14px;overflow:hidden}
+.weekbarline i{display:block;height:100%;background:var(--hero);border-radius:3px}
+
+/* subjects: one card each */
+#view-subjects .card.slist{background:transparent;border:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.srow .name .dot{flex:none}
+.srow .status{align-self:start;margin-top:3px;white-space:nowrap}
+#view-subjects .card.slist .srow{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 22px;gap:12px 10px}
+#view-subjects .card.slist .srow:hover{box-shadow:var(--shadow);border-color:var(--line-2)}
+#view-subjects .card.slist .srow:hover .name{color:var(--ink)}
+.srow .name{font-size:18px;font-weight:700}
+.prog{height:6px;background:var(--surface2)}
+.topic input[type=checkbox]{accent-color:var(--accent);width:19px;height:19px}
+
+/* stats */
+.kpi{border-radius:var(--r);padding:18px 22px}
+.kpi .v{font-size:34px;font-weight:800;letter-spacing:-.03em}
+
+/* menus, overlays, profile picker */
+.menu{border-radius:var(--r-card);box-shadow:var(--shadow-pop);background:var(--surface)}
+.overlay{background:var(--scrim)}
+.pk{background:var(--surface);border-color:var(--line);box-shadow:var(--shadow-pop)}
+.pkrow{background:var(--surface)}
+.savebar{background:var(--surface);box-shadow:var(--shadow-pop)}
+
+/* brand */
+.top .brand{gap:10px;color:var(--ink)}
+.top .brand .logo{width:26px;height:26px;border-radius:8px}
+.top .brand .bn{display:flex;flex-direction:column;line-height:1.05;font-size:16px;font-weight:800;letter-spacing:-.02em}
+.top .brand .bn small{font-size:11px;font-weight:600;color:var(--label);letter-spacing:.01em}
+
+/* narrow: glass bars top and bottom */
+.top{background:var(--glass);border-bottom-color:var(--line)}
+.nav{background:var(--glass);border-top-color:var(--line)}
+.nav button[aria-selected=true]{color:var(--accent)}
+
+/* settings page */
+.setrow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.setrow:first-of-type{border-top:0;padding-top:0}
+.guidesum{cursor:pointer;font-weight:700;font-size:18px;list-style:none}
+.guidesum::-webkit-details-marker{display:none}
+.guidesum::before{content:"+ ";color:var(--muted)}
+#fullguide[open] .guidesum::before{content:"– "}
+#fullguide[open] .guidesum{margin-bottom:12px}
+.gcols{display:grid;gap:14px}
+.gmain,.gside{min-width:0}
+/* wide: the left rail */
+@media (min-width:1000px){
+  body{padding-left:var(--rail);padding-bottom:28px}
+  .top{position:fixed;top:0;left:0;bottom:0;width:var(--rail);height:auto;background:transparent;border:0;backdrop-filter:none;pointer-events:none;z-index:11}
+  .top-in{flex-direction:column;align-items:stretch;justify-content:space-between;height:100%;max-width:none;padding:26px 20px 22px}
+  .top-in>*{pointer-events:auto}
+  .top .brand{padding:0 8px}
+  .who{background:transparent;border:0;padding:8px;border-radius:12px;font-size:13.5px;justify-content:flex-start}
+  .who:hover{background:var(--surface)}
+  .nav{top:0;bottom:0;left:0;right:auto;width:var(--rail);background:transparent;border:0;backdrop-filter:none;padding:96px 16px 76px}
+  .nav-in{display:flex;flex-direction:column;gap:4px;height:100%;max-width:none;margin:0}
+  .nav button{flex-direction:row;justify-content:flex-start;gap:12px;padding:10px 14px;border-radius:12px;font-size:14.5px;font-weight:550;color:var(--muted);letter-spacing:0}
+  .nav button:hover{color:var(--ink);background:color-mix(in srgb,var(--surface) 60%,transparent)}
+  .nav button svg{width:19px;height:19px}
+  .nav button[aria-selected=true]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .nav button[aria-selected=true]::before{display:none}
+  .nav button[data-view=guide]{margin-top:auto}
+  .nav .navn{position:static;margin-left:auto}
+  .wrap{max-width:1200px;padding:34px 36px}
+  #view-today{grid-template-columns:minmax(0,1fr) 360px;gap:28px;justify-content:stretch}
+  .tside{top:34px}
+  .gcols{grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
+  .gside{position:sticky;top:34px}
+  .savebar{bottom:14px}
+}
+@media (min-width:1400px){
+  .wrap{max-width:1240px}
+  #view-today{grid-template-columns:minmax(0,1fr) 380px}
+}
+@media (max-width:999px){
+  .pagehead h1,.viewtitle{font-size:30px}
+}
+@media (max-width:560px){
+  .pagehead h1,.viewtitle{font-size:26px}
+  .pagehead{margin-bottom:16px}
+  .days{gap:4px}
+  .day{padding:8px 1px 7px;border-radius:10px}
+  .day .dd{font-size:16px}
+  .card{padding:16px}
+  .sess .grab{padding-left:12px}
+  .sess .body{padding:4px 14px 16px}
+}
+@media print{body{padding-left:0}body::before{display:none}}
 </style>
 </head>
-<body>
+<body class="v-today">
 
 <div class="upd" id="upd" hidden></div>
 <header class="top" id="top" hidden></header>
@@ -954,11 +1172,11 @@ details.ppbook>summary::-webkit-details-marker{display:none}
 </main>
 <nav class="nav"><div class="nav-in" role="tablist">
   <button role="tab" data-view="today" aria-selected="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Today</button>
-  <button role="tab" data-view="important"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>Important<span class="navn" id="impn" hidden></span></button>
   <button role="tab" data-view="subjects"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Subjects</button>
   <button role="tab" data-view="progress"><svg viewBox="0 0 24 24"><path d="M4 19V10M10 19V4M16 19v-7M22 19H2"/></svg>Progress</button>
+  <button role="tab" data-view="important"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>Important<span class="navn" id="impn" hidden></span></button>
   <button role="tab" data-view="plan"><svg viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10l2 2.5h6.5A1.5 1.5 0 0 1 20 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z"/><path d="M12 11v5M9.5 13.5h5"/></svg>Plan</button>
-  <button role="tab" data-view="guide"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>Guide</button>
+  <button role="tab" data-view="guide"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings</button>
 </div></nav>
 <div class="overlay" id="picker" hidden></div>
 
@@ -1598,7 +1816,7 @@ function renderImportant(){
   const order=(a,b)=>String(S[a].item.due||"9999").localeCompare(String(S[b].item.due||"9999"))||(S[b].star-S[a].star)||String(S[b].at).localeCompare(String(S[a].at));
   const open=ids.filter(id=>!done(id)),shown=open.filter(match).sort(order),doneIds=ids.filter(id=>done(id)&&match(id)).sort(order);
   const chip=(key,label,n)=>`<button type="button" data-impf="${esc(key)}" aria-pressed="${impFilter===key}">${label} <span class="muted">${n}</span></button>`;
-  let html=`<h1 style="font-size:24px;margin-bottom:6px">Important</h1>
+  let html=`<h1 class="viewtitle">Important</h1>
   <p class="muted" style="font-size:14px;margin:0 0 16px">Star <b>☆</b> anything that matters, or give it a tag with <b>+ tag</b> — on <b>Your day</b> in Today, or in the lists at the bottom of this page. It stays here, email and all, until you tick it done, even after it drops out of Outlook's last fortnight. Stars and tags are kept in the app; Outlook and Teams are not changed.</p>`;
   if(ids.length)html+=`<div class="impf">${chip("all","All",open.length)}${chip("star","★ Important",open.filter(id=>S[id].star).length)}${tags.map(t=>chip(t,esc(t),open.filter(id=>S[id].tags.includes(t)).length)).join("")}</div>`;
   html+=`<div class="card">`;
@@ -1613,7 +1831,7 @@ function renderImportant(){
   const asg=[...recs].filter(([id,r])=>(r.kind==="teams"||r.kind==="assignment")&&fresh(id));
   const mails=((DAY&&DAY.inbox)||[]).map(x=>x.id).filter(id=>fresh(id)&&recs.has(id)&&!["teams","assignment"].includes(recs.get(id).kind)).map(id=>[id,{...recs.get(id),unread:recs.get(id).unread||((DAY.inbox.find(x=>x.id===id))||{}).unread}]);
   const upd=DAY&&DAY.fetchedAt?new Date(DAY.fetchedAt):null;
-  let status=settings.outlook===false?"Reading Outlook is off — turn it on in Guide → Outlook.":DAY_BUSY?"Reading Outlook…":DAY_ERR?DAY_ERR.split(". ")[0]+".":upd?`Outlook · read at ${upd.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}`:"";
+  let status=settings.outlook===false?"Reading Outlook is off — turn it on in Settings → Outlook.":DAY_BUSY?"Reading Outlook…":DAY_ERR?DAY_ERR.split(". ")[0]+".":upd?`Outlook · read at ${upd.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}`:"";
   html+=`<div style="display:flex;align-items:center;gap:8px;margin:22px 0 8px"><span class="eyebrow">Star or tag something</span><span class="muted" style="font-size:12.5px;margin-left:auto">${esc(status)}</span>${settings.outlook===false?"":`<button class="btn small" id="imprefresh" ${DAY_BUSY?"disabled":""}>Refresh</button>`}</div><div class="card">`;
   html+=`<details class="impadd" data-impopen="asg" ${impOpen.asg?"open":""}><summary>Assignments <span class="muted">· ${asg.length}</span></summary>${asg.length?`<ul class="asg">`+asg.map(([id,r])=>impRow(id,r,false)).join("")+`</ul>`:`<p class="muted" style="font-size:13.5px;margin:8px 0">${TEAMS_ASG.length||(DAY&&DAY.assignments&&DAY.assignments.length)?"Every assignment is already starred or tagged.":"No assignments found — Teams ones arrive through the Teams button on Today."}</p>`}</details>`;
   html+=`<details class="impadd" data-impopen="mail" ${impOpen.mail?"open":""}><summary>Recent email <span class="muted">· ${mails.length} from the last fortnight, newsletters left out</span></summary>${mails.length?`<ul class="asg">`+mails.map(([id,r])=>impRow(id,r,false)).join("")+`</ul>`:`<p class="muted" style="font-size:13.5px;margin:8px 0">${DAY?"Nothing else in the last fortnight.":"Open classic Outlook and press Refresh to list your email here."}</p>`}</details>`;
@@ -1720,24 +1938,28 @@ function renderToday(){
   const w=WEEKS[cur-1];const days=buildDays(w);const ti=todayIndex(w);
   if(curDay==null)curDay=ti>=0?ti:0;
   const end=addDays(w.start,6);
-  let html=`<div class="tmain"><div class="weekbar"><button id="prev" ${cur===1?"disabled":""} aria-label="Previous week">‹</button><h2>Week ${w.n} of ${TOTAL} · Year ${w.year} · ${esc(w.label)}<br><span class="muted" style="font-weight:400">${fmt(w.start)} – ${fmt(end)} ${end.getFullYear()}</span></h2>${cur!==todayWeek()?`<button id="jump" class="wbtn">Today</button>`:""}<button id="printwk" class="wbtn" title="Print this week (P)">Print</button><button id="next" ${cur===TOTAL?"disabled":""} aria-label="Next week">›</button></div>`;
-  html+=`<div class="days">`+days.map(d=>{const c=dayCounts(d);const all=c.n>0&&c.done===c.n;return `<button class="day ${d.i===ti?"today":""} ${all?"alldone":""}" data-day="${d.i}" aria-selected="${d.i===curDay}"><span class="dn">${DAYN[d.i]}</span><span class="dd">${d.date.getDate()}</span><span class="marks">${d.items.length?d.items.filter(it=>!it.skipped).slice(0,4).map(it=>`<i style="background:${itemColor(it)}" class="${itemDone(it)?"":"off"}"></i>`).join(""):`<i style="background:var(--rest)" class="off"></i>`}</span></button>`;}).join("")+`</div>`;
-  const st=streak();
-  html+=`<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px"><span class="streak ${st?"":"cold"}">${st?"🔥":"○"} ${st} day${st===1?"":"s"} in a row</span><span class="muted" style="font-size:13px">${daysToExams()} days to exams</span></div>`;
-  html+=elevatedBanner();
-  html+=reviewBanner();
-  const fixes=fixList();
-  if(fixes.length){html+=`<div class="fixbanner">⚠ ${fixes.length} thing${fixes.length>1?"s":""} to redo <button id="togglefix">${showFix?"Hide":"Show"}</button></div>`;
-    if(showFix)html+=`<div class="card" style="margin-top:10px"><div class="eyebrow">Fix list</div><ul class="fixlist">`+fixes.map(f=>`<li><input type="checkbox" data-fix="${esc(f.key)}" aria-label="Fixed"><span>${esc(f.label)}</span></li>`).join("")+`</ul><p class="muted" style="font-size:14px;margin:12px 0 0">Go back over it and do more questions. Tick it when you can do it unaided — it will come back later to check.</p></div>`;
-    html+=`<div style="height:14px"></div>`;}
   const d=days[curDay];const c=dayCounts(d);const isToday=cur===todayWeek()&&d.i===ti;
   const due=dueReviews();
   const total=dayMinutes(d)+(isToday?due.length*10:0);
-  html+=`<div class="daybar"><div><div class="eyebrow">${isToday?"Today · ":""}${fmtLong(d.date)}</div><div class="dsum">${c.n+(isToday?due.length:0)?`${c.n?`${c.n} session${c.n===1?"":"s"}`:""}${c.n&&isToday&&due.length?" · ":""}${isToday&&due.length?`${due.length} recall check${due.length===1?"":"s"}`:""} · ${fmtMins(total)}${c.n?` · <b>${c.done} done</b>`:""}`:"Nothing planned"}</div></div>${c.n?`<div class="ring" style="--p:${Math.round(100*c.done/c.n)}"><span>${Math.round(100*c.done/c.n)}%</span></div>`:""}</div>`;
+  const wide=WIDE.matches;
+  const bits=[c.n?`${c.n} session${c.n===1?"":"s"}`:"",isToday&&due.length?`${due.length} recall check${due.length===1?"":"s"}`:"",c.n||due.length?`about ${fmtMins(total)}`:"",c.n&&c.done?`${c.done} done`:""].filter(Boolean);
+  const canStart=isToday&&d.items.some(it=>it.key&&!it.skipped&&!itemDone(it));
+  let html=`<div class="tmain"><div class="pagehead"><div><span class="weekpill"><i></i>Week ${w.n} of ${TOTAL} · ${esc(w.label)}</span><h1>${fmtLong(d.date)}</h1><div class="phsub">${bits.length?bits.join(" · "):"Nothing planned"} · ${daysToExams()} days to your first paper</div></div>
+    <div class="phact"><div class="wkbtns"><button id="prev" ${cur===1?"disabled":""} aria-label="Previous week" title="Previous week">‹</button>${cur!==todayWeek()?`<button id="jump">This week</button>`:""}<button id="printwk" title="Print this week (P)">Print</button><button id="next" ${cur===TOTAL?"disabled":""} aria-label="Next week" title="Next week">›</button></div>${canStart?`<button class="btn hero" id="startday">Start today's session ›</button>`:""}</div></div>`;
+  html+=`<div class="days">`+days.map(d=>{const c=dayCounts(d);const all=c.n>0&&c.done===c.n;return `<button class="day ${d.i===ti?"today":""} ${all?"alldone":""}" data-day="${d.i}" aria-selected="${d.i===curDay}"><span class="dn">${DAYN[d.i]}</span><span class="dd">${d.date.getDate()}</span><span class="marks">${d.items.length?d.items.filter(it=>!it.skipped).slice(0,4).map(it=>`<i style="background:${itemColor(it)}" class="${itemDone(it)?"":"off"}"></i>`).join(""):`<i style="background:var(--rest)" class="off"></i>`}</span></button>`;}).join("")+`</div>`;
+  const st=streak();
+  if(!wide)html+=`<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px"><span class="streak ${st?"":"cold"}">${st?"🔥":"○"} ${st} day${st===1?"":"s"} in a row</span></div>`;
+  html+=elevatedBanner();
+  html+=reviewBanner();
+  const fixes=fixList();
+  if(fixes.length&&!wide){html+=`<div class="fixbanner">⚠ ${fixes.length} thing${fixes.length>1?"s":""} to redo <button id="togglefix">${showFix?"Hide":"Show"}</button></div>`;
+    if(showFix)html+=`<div class="card" style="margin-top:10px"><div class="eyebrow">Fix list</div><ul class="fixlist">`+fixes.map(f=>`<li><input type="checkbox" data-fix="${esc(f.key)}" aria-label="Fixed"><span>${esc(f.label)}</span></li>`).join("")+`</ul><p class="muted" style="font-size:14px;margin:12px 0 0">Go back over it and do more questions. Tick it when you can do it unaided — it will come back later to check.</p></div>`;
+    html+=`<div style="height:14px"></div>`;}
+  if(false)html+=`<div class="daybar"><div><div class="eyebrow">${isToday?"Today · ":""}${fmtLong(d.date)}</div><div class="dsum">${c.n+(isToday?due.length:0)?`${c.n?`${c.n} session${c.n===1?"":"s"}`:""}${c.n&&isToday&&due.length?" · ":""}${isToday&&due.length?`${due.length} recall check${due.length===1?"":"s"}`:""} · ${fmtMins(total)}${c.n?` · <b>${c.done} done</b>`:""}`:"Nothing planned"}</div></div>${c.n?`<div class="ring" style="--p:${Math.round(100*c.done/c.n)}"><span>${Math.round(100*c.done/c.n)}%</span></div>`:""}</div>`;
   html+=`<div class="stack">`;
   html+=dayPanel(d,isToday);
   if(isToday)due.forEach(r=>html+=reviewCard(r));
-  if(isToday)html+=dailyCard();
+  if(isToday&&!wide)html+=dailyCard();
   else if(due.length&&cur===todayWeek())html+=`<div class="banner due">↻ ${due.length} recall check${due.length>1?"s":""} waiting on today's page <button id="gotoday">Go to today</button></div>`;
   if(!d.items.length)html+=`<div class="card"><div class="empty">Nothing planned. Rest day — or use it to catch up on anything unticked.</div></div>`;
   // Open the first unfinished session automatically, once per day viewed.
@@ -1745,7 +1967,14 @@ function renderToday(){
   if(autoOpenedFor!==dayId){autoOpenedFor=dayId;openSess.clear();const first=d.items.find(it=>it.key&&!it.skipped&&!itemDone(it));if(first)openSess.add(first.key);}
   d.items.forEach(it=>html+=renderItem(it,w,d));
   html+=`</div>`;
-  html+=`</div>`+weekSide(w,days,ti);
+  let side="";
+  if(wide){
+    if(isToday)side+=dailyCard();
+    if(fixes.length)side+=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span class="eyebrow">Fix list</span><span class="status behind">${fixes.length} to redo</span></div><ul class="fixlist">`+fixes.map(f=>`<li><input type="checkbox" data-fix="${esc(f.key)}" aria-label="Fixed"><span>${esc(f.label)}</span></li>`).join("")+`</ul></div>`;
+    const wk=days.reduce((a,dd)=>{const cc=dayCounts(dd);return {n:a.n+(cc.n?1:0),done:a.done+(cc.n&&cc.done===cc.n?1:0)};},{n:0,done:0});
+    side+=`<div class="card"><div class="statpair"><div><div class="eyebrow">Streak</div><div class="v">${st} <small>day${st===1?"":"s"}</small></div></div><div><div class="eyebrow">This week</div><div class="v">${wk.done} <small>/ ${wk.n} days done</small></div></div></div><div class="weekbarline"><i style="width:${wk.n?Math.round(100*wk.done/wk.n):0}%"></i></div></div>`;
+  }
+  html+=`</div>`+weekSide(w,days,ti,side);
   const el=document.getElementById("view-today");el.innerHTML=html+printWeek(w,days);
   el.querySelectorAll("[data-wday]").forEach(b=>b.addEventListener("click",()=>{curDay=+b.dataset.wday;menuKey=null;render();}));
   el.querySelectorAll("[data-wsess]").forEach(b=>b.addEventListener("click",()=>{const[dd,key]=b.dataset.wsess.split("|");curDay=+dd;openSess.clear();openSess.add(key);autoOpenedFor=`${w.n}:${dd}`;menuKey=null;render();}));
@@ -1755,16 +1984,18 @@ function renderToday(){
   el.querySelector("#gotoday")?.addEventListener("click",()=>{curDay=ti;render();});
   el.querySelector("#gorev")?.addEventListener("click",()=>{showView("progress");document.getElementById("weekreview")?.scrollIntoView({block:"start"});});
   el.querySelector("#printwk")?.addEventListener("click",()=>window.print());
+  el.querySelector("#startday")?.addEventListener("click",()=>{const it=d.items.find(x=>x.key&&!x.skipped&&!itemDone(x));if(!it)return;openSess.clear();openSess.add(it.key);render();
+    const b=document.querySelector(`[data-tstart="${CSS.escape(it.key)}"]`);if(b)b.click();document.querySelector(".sess.open")?.scrollIntoView({block:"start",behavior:"smooth"});});
   el.querySelector("#togglefix")?.addEventListener("click",()=>{showFix=!showFix;render();});
   el.querySelectorAll("[data-day]").forEach(b=>b.addEventListener("click",()=>{curDay=+b.dataset.day;menuKey=null;render();}));
   bind(el);bindDay(el);bindElevated(el);bindDaily(el);
 }
 /* The whole week at a glance, shown beside the day on a wide window. Click a
    session to jump to it. */
-function weekSide(w,days,ti){
+function weekSide(w,days,ti,top){
   const due=dueReviews().length,tests=(TEST_BY_WEEK[w.n]||[]).length;
   const tot=days.reduce((n,d)=>n+dayMinutes(d),0),done=days.reduce((n,d)=>n+dayCounts(d).done,0),all=days.reduce((n,d)=>n+dayCounts(d).n,0);
-  let html=`<aside class="tside"><div class="card"><div class="eyebrow" style="margin-bottom:4px">This week</div><div class="muted" style="font-size:13px;margin-bottom:10px">${all} session${all===1?"":"s"} · ${fmtMins(tot)}${all?` · ${done} done`:""}${due&&cur===todayWeek()?` · <b>${due} recall due</b>`:""}</div><div class="wk">`;
+  let html=`<aside class="tside"><div class="stack">${top||""}<div class="card"><div class="eyebrow" style="margin-bottom:4px">This week</div><div class="muted" style="font-size:13px;margin-bottom:10px">${all} session${all===1?"":"s"} · ${fmtMins(tot)}${all?` · ${done} done`:""}${due&&cur===todayWeek()?` · <b>${due} recall due</b>`:""}</div><div class="wk">`;
   days.forEach(d=>{const live=d.items.filter(it=>it.key||it.kind==="catchup"||it.kind==="exam");
     html+=`<div class="wd ${d.i===curDay?"sel":""}"><button class="d ${d.i===ti?"today":""}" data-wday="${d.i}"><small>${DAYN[d.i]}</small>${d.date.getDate()}</button><div>`;
     if(!live.length)html+=`<div class="none">—</div>`;
@@ -1773,8 +2004,8 @@ function weekSide(w,days,ti){
     html+=`</div></div>`;});
   html+=`</div></div>`;
   const up=TESTS.filter(t=>t.week>=todayWeek()).slice(0,3);
-  if(up.length)html+=`<div class="card" style="margin-top:12px"><div class="eyebrow" style="margin-bottom:6px">Coming up</div>`+up.map(t=>`<div style="font-size:13px;padding:4px 0"><b>${esc(t.title)}</b><span class="muted"> · week ${t.week}</span></div>`).join("")+`</div>`;
-  return html+`</aside>`;}
+  if(up.length)html+=`<div class="card"><div class="eyebrow" style="margin-bottom:6px">Coming up</div>`+up.map(t=>`<div style="font-size:13px;padding:4px 0"><b>${esc(t.title)}</b><span class="muted"> · week ${t.week}</span></div>`).join("")+`</div>`;
+  return html+`</div></aside>`;}
 /* Everything the week holds, on one page, for printing. */
 function printWeek(w,days){
   return `<div class="printweek"><h1>Week ${w.n} · ${esc(w.label)} · ${fmt(w.start)} – ${fmt(addDays(w.start,6))}</h1>`+days.map(d=>`<div class="pday"><h3>${DAYN[d.i]} ${d.date.getDate()}</h3>`+(d.items.filter(it=>!it.skipped).map(it=>{const t=it.entry&&it.entry.topic;const name=it.subj?SUBJECTS[it.subj].name:(it.kind==="test"?"Test":(it.kind==="flash"?"Cards":(it.kind==="catchup"?"Catch-up":"Exams")));const title=t?t[1]:(it.entry&&it.entry.kind==="rev"?`Recall: ${secName(it.entry.section)}`:(it.entry&&it.entry.label)||(it.test&&it.test.title)||(it.kind==="flash"?"Cards & poems":""));const m=it.entry?mins(it.entry.hours):(it.test?it.test.mins:30);return `<div class="prow"><span class="pn">${esc(name)}</span><span>${esc(title)}</span><span class="pm">${m} min</span><span class="box"></span></div>`;}).join("")||`<div class="prow muted">—</div>`)+`</div>`).join("")+`</div>`;}
@@ -2229,7 +2460,7 @@ function finishTopicTest(t){const T_=lesson.test;const s=T_.qs.reduce((n,q,i)=>n
 let TYPE_ANS=(()=>{try{return localStorage.getItem("g9.typeAnswers")==="1";}catch(e){return false;}})();
 const linesText=v=>Array.isArray(v)?v.join("\n"):String(v||"");
 const typedOf=(X,i)=>((X.typed||{})[i]||"").trim();
-function typeToggle(){return `<label class="typetog"><input type="checkbox" data-typetog ${TYPE_ANS?"checked":""}><span>Type my answers here, so the AI can mark them${settings.apiKey?"":` <span class="muted">— free, on this laptop (see Guide → AI marking)</span>`}</span></label>`;}
+function typeToggle(){return `<label class="typetog"><input type="checkbox" data-typetog ${TYPE_ANS?"checked":""}><span>Type my answers here, so the AI can mark them${settings.apiKey?"":` <span class="muted">— free, on this laptop (see Settings → AI marking)</span>`}</span></label>`;}
 function typedBox(X,i,q){if(!TYPE_ANS)return "";const rows=Math.min(16,Math.max(2,Math.round(q.max*1.2)));
   return `<textarea class="typedans" data-typed="${i}" rows="${rows}" placeholder="Your answer" aria-label="Your answer to question ${i+1}">${esc((X.typed||{})[i]||"")}</textarea>`;}
 const aiPending=(X,i)=>!!typedOf(X,i)&&!(X.ai&&X.ai[i]&&!X.ai[i].err);
@@ -2254,7 +2485,7 @@ function aiResult(r,q){const pts=r.points||[],got=pts.filter(p=>p.hit),miss=pts.
   if(r.feedback)h+=`<p class="aifb">${esc(r.feedback)}</p>`;
   if(r.note)h+=`<p class="ainote">ⓘ ${esc(r.note)}</p>`;
   return h+`</div>`;}
-/* Guide → AI marking: what marking can use right now, and the free model's download. */
+/* Settings → AI marking: what marking can use right now, and the free model's download. */
 async function bindMarkStatus(){const box=document.getElementById("markstatus");if(!box)return;
   const btn=document.getElementById("pullmark"),msg=document.getElementById("pullmsg");
   const show=s=>{if(!document.body.contains(box))return;const ok=t=>`<span>✓ ${t}</span>`,no=t=>`<span class="muted">○ ${t}</span>`;
@@ -2708,7 +2939,7 @@ function printPaper(P){
     if(i===0||P.qs[i-1].band!==q.band)out+=`<div class="ppband">${bandLabel(q.band)} · ${counts[q.band].n} question${counts[q.band].n===1?"":"s"} · ${counts[q.band].m} marks</div>`;
     const pq=printQuestionBody(q);
     out+=`<div class="ppq${pq.tall?" tall":""}"><span class="ppn">${i+1}</span><div class="ppb">${pq.html}<div class="ppa"><b>Mark scheme.</b> ${mdBlock(q.a)}</div></div></div>`;});
-  return out+`<div class="ppfoot">Gradient · original practice paper, not a past paper · grade boundaries ${P.info.boundaries.slice().reverse().map(([g,m])=>`${g}: ${m}%`).join(" · ")}</div></div>`;}
+  return out+`<div class="ppfoot">Zelinx Study Planner · original practice paper, not a past paper · grade boundaries ${P.info.boundaries.slice().reverse().map(([g,m])=>`${g}: ${m}%`).join(" · ")}</div></div>`;}
 /* Printing the questions must never print the answers, so the mode is set
    before the dialog opens and cleared once it closes. */
 function doPrintPaper(mode){
@@ -2984,7 +3215,7 @@ function renderQuoteBank(el){
   if(qb.quiz){renderQuoteQuiz(el);return;}
   const list=qbFiltered();const themes=qbThemes();
   let html=`<div class="qbscreen"><button class="back" id="qbback">‹ ${esc(S?S.name:"English Literature")}</button>
-    <div class="qbhead"><div><h1 style="font-size:24px">Quote bank</h1><p class="muted" style="font-size:13.5px;margin:4px 0 0">${all.length?`${all.length} quote${all.length===1?"":"s"} · ${solid} solid · ${all.length-solid} still to learn`:"Closed book: what you can write from memory is what you can use."}</p></div>
+    <div class="qbhead"><div><h1 class="viewtitle">Quote bank</h1><p class="muted" style="font-size:13.5px;margin:4px 0 0">${all.length?`${all.length} quote${all.length===1?"":"s"} · ${solid} solid · ${all.length-solid} still to learn`:"Closed book: what you can write from memory is what you can use."}</p></div>
     <div style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn small ${qb.add||qb.edit?"":"primary"}" id="qbadd">+ Add</button><button class="btn small" id="qbtest" ${list.length?"":"disabled"}>Test me${list.length&&(qb.text||qb.theme)?` · ${list.length}`:""}</button><button class="btn small" id="qbprint" ${all.length?"":"disabled"}>Print</button></div></div>`;
   if(qb.add||qb.edit)html+=qbForm();
   // Texts as filters, with counts: a zero is a poem you have nothing for.
@@ -3088,7 +3319,7 @@ function renderSubjects(){
   if(qb){if(curSubj!=="englit")qb=null;else{renderQuoteBank(el);return;}}
   if(walk&&SUBJECTS[walk.subj]){renderWalk(el);return;}
   if(!curSubj){
-    let html=`<h1 style="font-size:24px;margin-bottom:12px">Subjects</h1>
+    let html=`<h1 class="viewtitle">Subjects</h1>
       <input type="search" id="findbox" placeholder="Search all ${SUBJ_IDS.reduce((n,s)=>n+SUBJECTS[s].topics.length,0)} topics   (Ctrl+K)" value="${esc(query)}" style="margin-bottom:12px">`;
     if(query.trim()){
       const q=query.trim().toLowerCase();
@@ -3118,7 +3349,7 @@ function renderSubjects(){
   }
   const S=SUBJECTS[curSubj];const d=S.topics.filter(t=>T(t.id).done).length,kn=S.topics.filter(t=>T(t.id).known).length;
   const school=isSchool(curSubj);const ed=state.examDates[curSubj]||"";
-  let html=`<button class="back" id="back">‹ All subjects</button><h1 style="font-size:24px"><span class="dot" style="display:inline-block;width:14px;height:14px;border-radius:4px;background:${S.color};margin-right:8px"></span>${S.name}</h1>
+  let html=`<button class="back" id="back">‹ All subjects</button><h1 class="viewtitle"><span class="dot" style="display:inline-block;width:14px;height:14px;border-radius:4px;background:${S.color};margin-right:8px"></span>${S.name}</h1>
   <p class="muted" style="font-size:14px;margin:6px 0 12px">${esc(S.full)} · ${esc(S.papers)} · <a href="${esc(S.spec)}" target="_blank" rel="noopener">spec ↗</a><br>${school?`<b>School sets the pace.</b> Tick topics as known when school finishes them; your weekly sessions are recall on those, and each one comes back to be checked at ${REVIEW_GAPS.join(", ")} days.`:`All content done by week ${S.contentEndsWeek} (${fmt(WEEKS[S.contentEndsWeek-1].start)} ${WEEKS[S.contentEndsWeek-1].start.getFullYear()}); after that it's past papers.`}</p>
   <div class="examrow"><span class="ed-lbl">First exam</span><input type="date" id="examdate" value="${esc(ed)}"><span class="muted" style="font-size:12.5px">${ed?`${Math.max(0,Math.round((new Date(ed+"T00:00:00")-new Date())/86400000))} days`:"not published yet — leave blank"}</span></div>
   ${linkBar(curSubj,null,true)}
@@ -3199,7 +3430,7 @@ function renderProgress(){
   const all=SUBJ_IDS.flatMap(s=>SUBJECTS[s].topics);const doneN=all.filter(t=>T(t.id).done).length,dueN=all.filter(t=>TOPIC_DUE[t.id]<now).length,knownN=all.filter(t=>T(t.id).known).length;
   const examDate=new Date(firstExam()+"T00:00:00");
   const sessionsDone=Object.values(state.sessions).filter(Boolean).length;
-  let html=`<h1 style="font-size:24px;margin-bottom:14px">Progress</h1><div class="kpis">
+  let html=`<h1 class="viewtitle">Progress</h1><div class="kpis">
     <div class="kpi"><div class="eyebrow">Topics done</div><div class="v num">${doneN}<span style="font-size:15px;color:var(--muted)"> / ${all.length}</span></div><div class="d">${knownN} known · ${dueN} due by now</div></div>
     <div class="kpi"><div class="eyebrow">Days to exams</div><div class="v num">${daysToExams()}</div><div class="d">first paper ≈ ${fmt(examDate)} ${examDate.getFullYear()}</div></div>
     <div class="kpi"><div class="eyebrow">Streak</div><div class="v num">${streak()}</div><div class="d">days in a row</div></div>
@@ -3245,7 +3476,7 @@ function renderPlan(){
   const el=document.getElementById("view-plan");
   if(CATALOG===null){CATALOG=[];invoke("subject_catalog").then(c=>{CATALOG=c||[];if(!document.getElementById("view-plan").hidden)renderPlan();}).catch(()=>{});}
   if(!CFG){el.innerHTML=`<div class="card"><div class="empty">Loading your plan…</div></div>`;return;}
-  let html=`<h1 style="font-size:24px;margin-bottom:6px">Your plan</h1>
+  let html=`<h1 class="viewtitle">Your plan</h1>
   <p class="muted" style="font-size:14px;margin:0 0 18px">Everything the schedule is built from. Change a subject, a topic, the hours you give it, where its links point, or your term dates — then save, and the whole two years reschedules around it. Your ticks are kept.</p>
   <div class="eyebrow" style="margin-bottom:8px">Subjects</div>`;
 
@@ -3368,11 +3599,12 @@ function renderPlan(){
 /* ---------- GUIDE ---------- */
 function renderGuide(){
   const n=SUBJ_IDS.length,ahead=SUBJ_IDS.filter(s=>!isSchool(s)).map(s=>SUBJECTS[s].name),school=SUBJ_IDS.filter(isSchool).map(s=>SUBJECTS[s].name);
-  document.getElementById("view-guide").innerHTML=`<h1 style="font-size:24px;margin-bottom:14px">How this works</h1><div class="card prose">
-  <p><b>The goal:</b> grade 9s across ${n} GCSEs and IGCSEs. It works out <b>what you should be doing this week</b>, puts the day's sessions in front of you, and sends you to the right page to do them. Every built-in subject (the ten a new plan starts with, and the ones you can add under <b>Plan</b> → Add a built-in subject) is taught as well as scheduled: every topic has a lesson with worked examples and practice questions, and a notebook beside it.</p>
+  const theme=(()=>{try{return localStorage.getItem("zx.theme")||"system";}catch(e){return "system";}})();
+  const guide=`<details class="card prose" id="fullguide"><summary class="guidesum">The full guide <span class="muted">· everything the app does, in detail</span></summary>
+  <p><b>The goal:</b> your best grade in each of your ${n} subject${n===1?"":"s"}. It works out <b>what you should be doing this week</b>, puts the day's sessions in front of you, and sends you to the right page to do them. Every built-in subject (the ones you picked when you set up, and any you add under <b>Plan</b> → Add a built-in subject) is taught as well as scheduled: every topic has a lesson with worked examples and practice questions, and a notebook beside it.</p>
   <h3>Two kinds of subject</h3>
   <p><b>Running ahead</b> (${ahead.join(", ")||"none"}): the app schedules every topic in order, so school lessons become revision. These can be <i>behind</i>.</p>
-  <p><b>School-paced</b> (${school.join(", ")||"none"}): school teaches the content; your weekly sessions are closed-book <b>recall</b> of what it has covered. These are never behind. Go to <b>Subjects</b> and tick topics as <b>known</b> when school finishes them — each comes back for a recall check after ${REVIEW_GAPS.join(", then ")} days, which is how something learned in Year 10 is still there in May 2028. Change which is which in <b>Plan</b>.</p>
+  <p><b>School-paced</b> (${school.join(", ")||"none"}): school teaches the content; your weekly sessions are closed-book <b>recall</b> of what it has covered. These are never behind. Go to <b>Subjects</b> and tick topics as <b>known</b> when school finishes them — each comes back for a recall check after ${REVIEW_GAPS.join(", then ")} days, which is how something learned early in the course is still there in the exam. Change which is which in <b>Plan</b>.</p>
   <h3>Each day</h3><p>Open <b>Today</b>. The day's sessions are one line each — tap one to open it, tick it when done. The <b>⋯</b> on any session moves it to tomorrow, later in the week or next week, or skips it. Recall checks that are due appear at the top of today's page.</p>
   <ul><li><b>Mon–Sat:</b> sessions, spread so no day is swamped. The timed writing piece is on Monday.</li><li><b>Saturday:</b> the test, if there is one.</li><li><b>Sunday:</b> half an hour on your own cards, then rest.</li><li><b>Holidays:</b> no new topics. Catch up, clear the fix list, rest.</li></ul>
   <h3>Recall checks</h3><p>A due check shows the topic's objectives as prompts: can you do each one without looking? Mark each ✓ or ✗, then say whether it held. <b>Some gaps</b> puts it on the fix list with the gaps marked, and brings it back in a week.</p>
@@ -3391,46 +3623,50 @@ function renderGuide(){
   <h3>Quote bank</h3><p>English Literature is closed book, so the quotes you can write from memory are the marks. <b>Subjects → Eng Literature → Quote bank</b> keeps every quote in one place: pick the text, type the quote, tag its themes and write the one sentence you would say about it. Every set text and all fifteen Power and Conflict poems are listed with a count, so a poem you have nothing for shows as a zero. <b>Test me</b> blanks out a third of the words and asks you to fill them in — or, switched round, gives you the theme and asks for the quote. Three right in a row makes a quote solid; one miss puts it back to the front. Quotes also come up in that text's recall checks, and <b>Print</b> gives you the lot on one sheet for the night before. Nothing is pre-filled: choosing the quote is the learning.</p>
   <h3>Already ahead?</h3><p>In <b>Subjects</b>, open a subject and hit <b>Where am I up to?</b> The course is laid out one topic at a time in specification order, with its objectives and checklist: <b>Done this</b> ticks it as known and shows the next; <b>Not yet</b> is where you are. Or use <b>Tick what you already know</b> to tick from the list, a section at a time. Anything ticked counts as done, leaves the schedule, and goes straight into recall. For subjects the app runs ahead in, a bar then offers to <b>re-pour</b> the plan so those hours go to what is left.</p>
   <h3>Tests</h3>
-  <ul><li><b>Retrieval test</b> — every other Saturday. Do you still remember it?</li><li><b>Timed paper section</b> — end of each half-term. Can you do it at exam speed?</li><li><b>Mock</b> — end of each term, full papers at Easter 2028.</li></ul>
+  <ul><li><b>Retrieval test</b> — every other Saturday. Do you still remember it?</li><li><b>Timed paper section</b> — end of each half-term. Can you do it at exam speed?</li><li><b>Mock</b> — end of each term, full papers at Easter of your exam year.</li></ul>
   <h3>No scores</h3><p>Nothing here gives you a mark or predicts a grade. When you finish a topic you tap how solid it is without notes: <b>Shaky</b> puts it on the fix list and brings a recall check in two days; <b>Okay</b> brings one in a week; <b>Solid</b> in three weeks. Every topic gets checked, the shaky ones soonest; after that it climbs the usual recall ladder. The <b>streak</b> is the only number kept: days you did something.</p>
-  <h3>Profiles</h3><p>The name at the top right is who is signed in. Click it to switch, add a profile, set a PIN, or export one. Each profile keeps its own progress, plan, known topics, cards, quotes and lesson notes, all on this PC. To move a profile to another computer, <b>Export</b> it here and <b>Import</b> the file there. A PIN only stops someone else on this PC opening the wrong profile; the files themselves are in the app data folder either way.</p>
+  <h3>Profiles</h3><p>Your name at the bottom of the sidebar (at the top on a narrow window) is who is signed in. Click it to switch, add a profile, set a PIN, or export one. Each profile keeps its own progress, plan, known topics, cards, quotes and lesson notes, all on this PC. To move a profile to another computer, <b>Export</b> it here and <b>Import</b> the file there. A PIN only stops someone else on this PC opening the wrong profile; the files themselves are in the app data folder either way.</p>
   <h3>Window size</h3><p>Make the window wide and Today shows the whole week beside the day, with every session one click away. Make it narrow and everything compresses to fit — nothing is ever pushed off the edge.</p>
   <h3>Keyboard</h3><p><b>1–6</b> switch tabs · <b>← →</b> change week · <b>T</b> today · <b>P</b> print the week · <b>Ctrl+K</b> search · <b>Esc</b> closes a menu.</p>
-  <h3>Changing the plan</h3><p>The <b>Plan</b> tab is the whole thing laid bare — subjects, who sets their pace, every topic and its hours, fixed weekly sessions, where the links point, and your term dates. Change anything and save; the two years reschedule around it and your ticks stay put. Reset puts the built-in plan back.</p>
+  <h3>Changing the plan</h3><p>The <b>Plan</b> tab is the whole thing laid bare — subjects, who sets their pace, every topic and its hours, fixed weekly sessions, where the links point, and your term dates. Change anything and save; the rest of the course reschedules around it and your ticks stay put. Reset puts each built-in subject back to its original topics and hours.</p>
   <h3>If you fall behind</h3><p>Use the next holiday to catch up — the plan finishes content early on purpose. If you lose more than that, <b>Progress → Catch up</b> re-pours everything unfinished from this week onwards. If the remaining work no longer fits before the exams, the app names exactly which topics don't fit rather than quietly dropping them.</p>
-  <h3>Specification checklists</h3><p>Every subject except English carries every individual statement the exam board makes for each topic, with a tick each — 242 for Maths, 43 Further Maths, 176 Biology, 182 Chemistry, 195 Physics, 113 Economics, 125 Business, 89 Computer Science (OCR J277). Where the board numbers its statements (all but Business) the numbering was read out of the document by machine and a test fails the build if one goes missing. AQA does not number Business outcomes and OCR does not number the Computer Science bullets, so those letters are the app's own, in the order each specification lists them - though the Computer Science counts were read from the document. In the sciences, a <b>B</b>, <b>C</b> or <b>P</b> suffix marks content only separate-science students sit — 142 statements Double Award students never see, and you do. English is texts and skills rather than statements, so it is checked at section level.</p>
-  <h3>Exam dates</h3><p>Each subject page has a <b>First exam</b> box. The 2028 timetables are not published yet; when they are, write the dates in and the countdown uses the earliest.</p>
+  <h3>Specification checklists</h3><p>Where a subject has them, each topic lists every individual statement the exam board makes for it, with a tick each, so you can see exactly what the specification asks. Where the board numbers its statements, the numbering was read out of the document by machine and a test fails the build if one goes missing. In the separate sciences, a <b>B</b>, <b>C</b> or <b>P</b> suffix marks content only separate-science students sit. Subjects built on texts and skills, like English, are checked at section level instead.</p>
+  <h3>Exam dates</h3><p>Each subject page has a <b>First exam</b> box. When your exam timetable is published, write the dates in and the countdown uses the earliest.</p>
   <h3>Your day</h3><p>The card at the top of <b>Today</b> is read straight out of classic Outlook <b>while you have it open</b> on this computer — your timetable, the gaps between lessons where the session fits, and anything a teacher's email says is due ("hand in by Friday", "know by 6pm tomorrow"). It is done with rules, not AI, so it is free, works offline and nothing leaves the machine; the sentence each deadline came from is shown so a wrong guess is obvious. Tick things off as you do them. Newsletters are ignored. Flag an email in Outlook with a date and it shows up too.</p>
   <h3>Important</h3><p>Every line in <b>Your day</b> has a <b>☆</b> and a <b>+ tag</b>. Star what matters, or tag it — Homework, Revise, Reply, Ask teacher, Bring in, or any tag you type — and it is kept on the <b>Important</b> tab, sorted by when it is due, with the number still to do on the tab itself. The lists at the bottom of that page hold every assignment and every email from the last fortnight (newsletters left out), so you can star an email the rules didn't pick up. A starred item keeps a copy of its email, so it is still there after it drops out of Outlook's fortnight; tick it done in either place and it is done in both. Tap a tag at the top to see only that tag. Stars and tags live in the app — nothing is changed in Outlook or Teams.</p>
-  <p class="muted" style="font-size:13px">Term dates are typical English ones — change them in Plan to match your school.</p></div>
-  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Drafting new subjects</h3>
+  <p class="muted" style="font-size:13px">Term dates start as a typical English school year — change them in Plan to match your school.</p></details>`;
+  document.getElementById("view-guide").innerHTML=`<h1 class="viewtitle">Settings</h1><div class="gcols"><div class="stack gmain">
+  <div class="card"><h3 style="font-size:18px;margin:0 0 12px">You</h3>
+  <div class="setrow"><div><b>${PROFILE?esc(PROFILE.name):"Profile"}</b><div class="muted" style="font-size:13px">Each profile keeps its own plan, progress, cards and notes on this device.</div></div><button class="btn small" id="profilesbtn">Switch or manage profiles</button></div>
+  <div class="setrow"><div><b>Appearance</b><div class="muted" style="font-size:13px">Follows Windows unless you pick one.</div></div><select id="themepick" style="width:auto"><option value="system" ${theme==="system"?"selected":""}>System</option><option value="light" ${theme==="light"?"selected":""}>Light</option><option value="dark" ${theme==="dark"?"selected":""}>Dark</option></select></div></div>
+  <div class="card"><h3 style="font-size:18px;margin:0 0 8px">Drafting new subjects</h3>
   <p class="muted" style="font-size:13.5px;margin:0 0 10px">The Plan tab can draft a whole subject — topics, hours, objectives — from a public specification page. That, and marking typed answers in tests and papers, call the Anthropic API (Claude Haiku 4.5) with your own key from <a href="https://console.anthropic.com">console.anthropic.com</a>, and cost a fraction of a penny each time. Everything else in the app works offline and needs no key.</p>
   <div style="display:flex;gap:8px;flex-wrap:wrap"><input type="password" id="apikey" placeholder="sk-ant-…" value="${esc(settings.apiKey||"")}" style="flex:1;min-width:220px"><button class="btn primary" id="savekey">Save</button></div>
   <p class="muted" style="font-size:13px;margin:10px 0 0">Stored in plain text in settings.json next to your progress. Leave it blank if you would rather not.</p></div>
 
-  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">AI marking</h3>
+  <div class="card"><h3 style="font-size:18px;margin:0 0 8px">AI marking</h3>
   <p class="muted" style="font-size:13.5px;margin:0 0 10px">Type your answers in a test, paper or fix-it and the AI marks them against the mark scheme, showing the points you got and the ones you missed. With an API key (above) that's Claude Haiku 4.5. Without one — or offline — it's a free AI running on this laptop through Ollama: your answers never leave the computer, but it's a rougher marker, so check its marks against the scheme.</p>
   <div id="markstatus" style="display:grid;gap:4px;font-size:13.5px"><span class="muted">Checking what's set up…</span></div>
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px"><button class="btn small" id="pullmark" hidden>Download the free marking model</button><span class="muted" style="font-size:13px" id="pullmsg"></span></div></div>
 
-  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Outlook</h3>
+  <div class="card"><h3 style="font-size:18px;margin:0 0 8px">Outlook</h3>
   <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;cursor:pointer"><input type="checkbox" id="outlookon" ${settings.outlook===false?"":"checked"} style="width:18px;height:18px;accent-color:var(--ink)">Read my timetable and deadlines from classic Outlook</label>
   <p class="muted" style="font-size:13px;margin:8px 0 0">Needs classic Outlook <b>open and signed in</b> on this computer — the planner reads your day from it while it's running and never starts it for you, so if the card says "Classic Outlook isn't open", just open Outlook and press Refresh. The new Outlook and the web version don't let other programs read them. Nothing is sent anywhere.</p>
   <p class="muted" style="font-size:13px;margin:8px 0 0">If Outlook pops up <i>"A program is trying to access email address information"</i>, that is this app reading your own inbox. Tick <b>Allow access for</b> (1 minute is plenty — a read takes under a second) and click Allow. To stop it asking for good you have to launch Outlook once as administrator (right‑click Outlook → <b>Run as administrator</b>), then File → Options → Trust Center → Trust Center Settings → Programmatic Access → <b>Never warn me about suspicious activity</b> → OK, and reopen Outlook normally. Outlook asks because it can't confirm the antivirus status to its own satisfaction; Windows Defender is on and up to date.</p></div>
 
-  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Microsoft Teams</h3>
+  <div class="card"><h3 style="font-size:18px;margin:0 0 8px">Microsoft Teams</h3>
   <p class="muted" style="font-size:13.5px;margin:0 0 10px">Open Teams in its own window inside this app and sign in once — the login sticks between launches, so there's no separate browser to keep logging into. This is where your assignments live; a later update will read them straight into <b>Your day</b>.</p>
   <button class="btn" id="openteams2">Open Teams ↗</button></div>
 
-  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Organise my day with AI</h3>
+  <div class="card"><h3 style="font-size:18px;margin:0 0 8px">Organise my day with AI</h3>
   <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;cursor:pointer"><input type="checkbox" id="aion" ${settings.aiOrganise?"checked":""} style="width:18px;height:18px;accent-color:var(--ink)">Let a local AI summarise my emails and put each thing on the day it matters</label>
   <p class="muted" style="font-size:13px;margin:8px 0 0">Runs a small model (<span class="num">${esc(settings.aiModel||"llama3.2:3b")}</span>) through <a href="https://ollama.com">Ollama</a> on this computer — free, and nothing leaves the machine. It only loads for the second or two a refresh takes and then frees the memory, so it won't get in the way of a game. Set it up once: install Ollama, then run <span class="num">ollama pull ${esc(settings.aiModel||"llama3.2:3b")}</span>. If it's off or not installed, the app just falls back to the plain list. The AI only ever reshuffles and shortens what the rules already found — it can't invent tasks.</p></div>
 
-  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Updates</h3>
+  <div class="card"><h3 style="font-size:18px;margin:0 0 8px">Updates</h3>
   <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;cursor:pointer"><input type="checkbox" id="autoupdon" ${AUTO_UPD?"checked":""} style="width:18px;height:18px;accent-color:var(--ink)">Install updates automatically</label>
   <p class="muted" style="font-size:13px;margin:8px 0 0">The app checks for a new version while it's open and whenever you come back to it, so a fresh release shows up without reopening. With this on it downloads and installs in the background, waiting until you're not mid‑lesson so the restart never interrupts you. It always jumps straight to the newest version. With this off, a bar offers the update and you choose when.</p></div>
 
-  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 10px">Keyboard shortcuts</h3>
+  <div class="card"><h3 style="font-size:18px;margin:0 0 10px">Keyboard shortcuts</h3>
   <div class="keys"><span><kbd>1</kbd>–<kbd>6</kbd></span><span>Switch tab</span>
   <span><kbd>D</kbd></span><span>Tick the session you're on as done (Today)</span>
   <span><kbd>Shift</kbd> + <kbd>←</kbd> <kbd>→</kbd></span><span>Previous / next day</span>
@@ -3439,10 +3675,22 @@ function renderGuide(){
   <span><kbd>P</kbd></span><span>Print the week</span>
   <span><kbd>Ctrl</kbd> + <kbd>K</kbd></span><span>Find a topic</span></div></div>
 
-  <div class="card" style="margin-top:14px"><h3 style="font-size:18px;margin:0 0 8px">Your data</h3>
+  <div class="card"><h3 style="font-size:18px;margin:0 0 8px">Your data</h3>
   <p class="muted" style="font-size:13px;margin:0 0 12px" id="statepath"></p>
-  <p class="muted" style="font-size:13px;margin:0 0 12px" id="backupinfo">Once a week a copy of your progress is saved to your Documents folder, in <b>Gradient backups</b>. The newest 8 are kept.</p>
-  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn small" id="backup">Back up now</button><button class="btn small" id="openbackups">Open backups folder</button><span class="muted" style="font-size:13px" id="backupmsg"></span></div></div>`;
+  <p class="muted" style="font-size:13px;margin:0 0 12px" id="backupinfo">Once a week a copy of your progress is saved to your Documents folder, in <b>Zelinx backups</b>. The newest 8 are kept.</p>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn small" id="backup">Back up now</button><button class="btn small" id="openbackups">Open backups folder</button><span class="muted" style="font-size:13px" id="backupmsg"></span></div></div>
+  ${guide}</div>
+  <aside class="stack gside"><div class="card"><div class="eyebrow" style="margin-bottom:10px">How Zelinx works</div>
+  <p style="margin:0 0 10px;font-size:14px"><b>Each day:</b> open Today, do the sessions, tick them done.</p>
+  <p style="margin:0 0 10px;font-size:14px"><b>Tests:</b> a test after each topic, a retrieval test every other Saturday, a timed paper each half-term and a mock each term.</p>
+  <p style="margin:0 0 10px;font-size:14px"><b>The 80% rule:</b> anything under 80% goes on the fix list and comes back on widening gaps until it holds.</p>
+  <p style="margin:0 0 12px;font-size:14px"><b>Falling behind:</b> keep this week going and catch up in the next holiday.</p>
+  <button class="btn small" id="readguide">Read the full guide ›</button></div>
+  <div class="card"><div class="eyebrow" style="margin-bottom:8px">About</div><p class="muted" style="margin:0;font-size:13.5px">Zelinx Study Planner. A two-year GCSE and IGCSE planner with a lesson for every topic, built from each exam board's own specification. Works offline; your data stays on this device.</p></div></aside></div>`;
+  document.getElementById("profilesbtn")?.addEventListener("click",()=>showPicker(false));
+  document.getElementById("themepick")?.addEventListener("change",e=>{const v=e.target.value;try{if(v==="system")localStorage.removeItem("zx.theme");else localStorage.setItem("zx.theme",v);}catch(err){}
+    if(v==="system")delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=v;});
+  document.getElementById("readguide")?.addEventListener("click",()=>{const g=document.getElementById("fullguide");if(g){g.open=true;g.scrollIntoView({block:"start",behavior:"smooth"});}});
   document.getElementById("savekey").addEventListener("click",async()=>{
     settings.apiKey=document.getElementById("apikey").value.trim();
     try{await invoke("set_settings",{settings});document.getElementById("savekey").textContent="Saved ✓";setTimeout(render,900);}
@@ -3460,7 +3708,7 @@ function renderGuide(){
     AUTO_UPD=e.target.checked;try{localStorage.setItem("g9.autoUpdate",AUTO_UPD?"1":"0");}catch(err){}
     if(AUTO_UPD)checkForUpdate();});
   const showBackup=b=>{const el=document.getElementById("backupinfo");if(!el||!b)return;
-    el.innerHTML=`Once a week a copy of your progress is saved to your Documents folder, in <b>Gradient backups</b>. The newest 8 are kept. `+
+    el.innerHTML=`Once a week a copy of your progress is saved to your Documents folder, in <b>Zelinx backups</b>. The newest 8 are kept. `+
       (b.last?`Last backup: <b>${esc(backupWhen(b.last))}</b> · ${b.count} kept.`:"No backup yet.");};
   invoke("backup_status").then(showBackup).catch(()=>{});
   document.getElementById("backup").addEventListener("click",async()=>{const m=document.getElementById("backupmsg");m.textContent="Backing up…";
@@ -3472,7 +3720,7 @@ function renderGuide(){
 
 /* ---------- VIEWS ---------- */
 let view="today";
-function showView(v){view=v;document.querySelectorAll(".nav [role=tab]").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===v));document.querySelectorAll(".view").forEach(s=>s.hidden=(s.id!=="view-"+v));render();window.scrollTo({top:0});}
+function showView(v){view=v;document.body.className=document.body.className.replace(/\bv-\w+/g,"").trim();document.body.classList.add("v-"+v);document.querySelectorAll(".nav [role=tab]").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===v));document.querySelectorAll(".view").forEach(s=>s.hidden=(s.id!=="view-"+v));render();window.scrollTo({top:0});}
 /* ---------- FIRST-TIME SETUP ----------
    A new account has no subjects: before anything else it picks when its
    exams are and what it takes. The calendar is a standard school year from
@@ -3501,7 +3749,7 @@ function renderSetup(){
     ${SETUP.msg?`<p class="pkmsg">${esc(SETUP.msg)}</p>`:""}
     <div style="display:flex;gap:10px;align-items:center;margin-top:18px;flex-wrap:wrap"><button class="btn primary" id="setupgo" ${SETUP.chosen.size&&!SETUP.busy?"":"disabled"}>${SETUP.busy?"Building your plan…":"Build my plan"}</button>
       <span class="muted" style="font-size:13px">Term dates start from a typical school year. Check them against your school's calendar in Plan → Term dates.</span></div>
-    <p class="muted" style="font-size:13px;margin:14px 0 0">Outlook and Teams are not connected. If you want your timetable and homework on Today, turn them on later from the Guide tab.</p></div>`;
+    <p class="muted" style="font-size:13px;margin:14px 0 0">Outlook and Teams are not connected. If you want your timetable and homework on Today, turn them on later in Settings.</p></div>`;
   el.querySelectorAll("[data-exyear]").forEach(b=>b.addEventListener("click",()=>{SETUP.examYear=+b.dataset.exyear;render();}));
   el.querySelectorAll("[data-subpick]").forEach(i=>i.addEventListener("change",()=>{const id=i.dataset.subpick;if(i.checked)SETUP.chosen.add(id);else SETUP.chosen.delete(id);const y=window.scrollY;render();window.scrollTo({top:y});}));
   el.querySelector("#setupgo")?.addEventListener("click",async()=>{
@@ -3514,6 +3762,8 @@ function renderSetup(){
       SETUP.busy=false;document.body.classList.remove("setup");cur=todayWeek();curDay=null;showView("today");}
     catch(e){SETUP.busy=false;SETUP.msg=errText(e);render();}});
 }
+const WIDE=matchMedia("(min-width:1000px)");
+WIDE.addEventListener("change",()=>{if(typeof view!=="undefined"&&WEEKS.length)render();});
 function render(){if(needsSetup())return renderSetup();document.body.classList.remove("setup");({today:renderToday,important:renderImportant,subjects:renderSubjects,progress:renderProgress,plan:renderPlan,guide:renderGuide})[view]();navBadge();}
 document.querySelectorAll(".nav [role=tab]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 
@@ -3525,7 +3775,7 @@ document.addEventListener("keydown",e=>{
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();curSubj=null;showView("subjects");const b=document.getElementById("findbox");if(b){b.focus();b.select();}return;}
   if(e.key==="Escape"){if(menuKey){menuKey=null;render();}if(typing)e.target.blur();return;}
   if(typing||e.ctrlKey||e.metaKey||e.altKey)return;
-  const tabs=["today","important","subjects","progress","plan","guide"];
+  const tabs=["today","subjects","progress","important","plan","guide"];
   if(/^[1-6]$/.test(e.key)){showView(tabs[+e.key-1]);return;}
   if(view!=="today")return;
   if(e.shiftKey&&(e.key==="ArrowLeft"||e.key==="ArrowRight")){stepDay(e.key==="ArrowRight"?1:-1);return;}
@@ -3557,12 +3807,13 @@ const errText=e=>String(e).replace(/^Error:[ ]*/,"");
 const initials=n=>String(n||"?").trim().split(/\s+/).map(w=>w[0]).join("").slice(0,2).toUpperCase();
 const hue=id=>{let h=0;for(const c of String(id))h=(h*31+c.charCodeAt(0))%360;return h;};
 const hueClass=id=>"h"+(hue(id)%12);
-const BRAND_MARK=`<svg class="logo" viewBox="180 120 720 724" aria-hidden="true"><rect x="200" y="600" width="156" height="224" rx="40" fill="#5A6E92"/><rect x="396" y="456" width="156" height="368" rx="40" fill="#5E7FB3"/><rect x="592" y="300" width="156" height="524" rx="40" fill="#A8C7FA"/><path d="M278 548 L474 404 L670 248 L804 196" fill="none" stroke="#FDD663" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/><circle cx="816" cy="192" r="62" fill="#FDD663"/></svg>`;
+const BRAND_MARK=`<svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="zxg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5D5FEF"/><stop offset="1" stop-color="#A78BFA"/></linearGradient></defs><rect width="64" height="64" rx="17" fill="url(#zxg)"/><path d="M21 21.5h22L21 42.5h22" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const BRAND=`${BRAND_MARK}<span class="bn">Zelinx<small>Study Planner</small></span>`;
 function renderTop(){
   const el=document.getElementById("top");if(!el)return;
-  if(!PROFILE){el.hidden=!PROFILES_ERR;el.innerHTML=PROFILES_ERR?`<div class="top-in"><span class="brand">${BRAND_MARK}Gradient</span><span class="muted" style="font-size:12.5px">Profiles unavailable: ${esc(PROFILES_ERR)}</span></div>`:"";return;}
+  if(!PROFILE){el.hidden=!PROFILES_ERR;el.innerHTML=PROFILES_ERR?`<div class="top-in"><span class="brand">${BRAND}</span><span class="muted" style="font-size:12.5px">Profiles unavailable: ${esc(PROFILES_ERR)}</span></div>`:"";return;}
   el.hidden=false;
-  el.innerHTML=`<div class="top-in"><span class="brand">${BRAND_MARK}Gradient</span><button class="who" id="who" title="Switch profile"><span class="av ${hueClass(PROFILE.id)}">${esc(initials(PROFILE.name))}</span>${esc(PROFILE.name)}<span class="muted">▾</span></button></div>`;
+  el.innerHTML=`<div class="top-in"><span class="brand">${BRAND}</span><button class="who" id="who" title="Switch profile"><span class="av ${hueClass(PROFILE.id)}">${esc(initials(PROFILE.name))}</span>${esc(PROFILE.name)}<span class="muted">▾</span></button></div>`;
   el.querySelector("#who").addEventListener("click",()=>showPicker(false));}
 function showPicker(forced){pick={open:true,forced,sel:null,pin:"",msg:"",manage:false,adding:!PROFILES||!PROFILES.profiles.length,newName:"",newPin:""};renderPicker();}
 function closePicker(){if(pick.forced)return;pick.open=false;renderPicker();}
@@ -3670,7 +3921,7 @@ async function boot(){
 
 /* ---------- BACKUPS ----------
    Once a week a copy of the progress open in this window (the live copy, not
-   whatever last reached disk) goes to Documents\Gradient backups; backup.rs
+   whatever last reached disk) goes to Documents\Zelinx backups; backup.rs
    keeps the newest 8 per profile. Checked at launch and every few hours while
    the app stays open - the backend skips it when the newest is under a week old. */
 let BACKUP=null,BACKUP_TIMER=null;

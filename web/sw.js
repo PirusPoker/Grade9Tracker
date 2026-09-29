@@ -5,7 +5,7 @@
 const VERSION = "__VERSION__";
 const CACHE = "g9-" + VERSION;
 const SHELL = ["./", "./index.html", "./web.js", "./g9.js", "./g9_bg.wasm", "./manifest.webmanifest",
-  "./katex/katex.min.css", "./katex/katex.min.js", "./icon-192.png", "./icon-512.png"];
+  "./katex/katex.min.css", "./katex/katex.min.js", "./fonts/PlusJakartaSans.woff2", "./fonts/JetBrainsMono.woff2", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

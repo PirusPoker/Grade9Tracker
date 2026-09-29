@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Gradient",
+  "productName": "Zelinx Study Planner",
   "version": "1.33.1",
   "identifier": "app.zelinx.studyplanner",
   "build": {
@@ -10,7 +10,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "Gradient",
+        "title": "Zelinx Study Planner",
         "width": 1000,
         "height": 820,
         "minWidth": 420,

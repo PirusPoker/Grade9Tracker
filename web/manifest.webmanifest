@@ -1,6 +1,6 @@
 {
-  "name": "Gradient",
-  "short_name": "Gradient",
+  "name": "Zelinx Study Planner",
+  "short_name": "Zelinx",
   "description": "Two-year GCSE and IGCSE study planner with a lesson for every topic.",
   "start_url": "./",
   "scope": "./",

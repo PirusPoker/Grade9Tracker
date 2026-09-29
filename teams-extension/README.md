@@ -1,7 +1,7 @@
-# Gradient — Teams assignment sync (Chrome / Edge extension)
+# Zelinx Study Planner — Teams assignment sync (Chrome / Edge extension)
 
 Reads your Microsoft Teams assignments from the Teams page in your browser and
-syncs them into Gradient on this computer. Nothing leaves your machine —
+syncs them into Zelinx Study Planner on this computer. Nothing leaves your machine —
 the extension only talks to the app on `127.0.0.1`.
 
 ## Install (one time)
@@ -13,7 +13,7 @@ the extension only talks to the app on `127.0.0.1`.
 
 ## Use it
 
-1. Keep **Gradient** open (it runs the local receiver the extension sends to).
+1. Keep **Zelinx Study Planner** open (it runs the local receiver the extension sends to).
 2. In the browser, go to **https://teams.microsoft.com** and sign in.
 3. Open **Assignments** (a class → **Assignments**, or the Assignments app in the
    left rail). As the list loads, the extension reads it and syncs.
@@ -25,7 +25,7 @@ a sync happens.
 
 ## Notes
 
-- If you see "Gradient not running", open the app and reload the Teams tab.
+- If you see "Zelinx not running", open the app and reload the Teams tab.
 - Assignments you've already turned in drop off the list automatically.
 - How it works: it reads Teams' own data feed
   (`assignments.edu.cloud.microsoft/api/v1.0/edu/me/work`) — the same data Teams

@@ -1,4 +1,4 @@
-//! Gradient (formerly Grade 9 Tracker) — Tauri backend.
+//! Zelinx Study Planner (formerly Gradient, and before that Grade 9 Tracker) — Tauri backend.
 //! Builds the study plan from an editable configuration and saves progress to
 //! JSON files in the app's data folder. The app finds and orders the work; the
 //! questions themselves live on Save My Exams, which each person opens with
@@ -162,7 +162,7 @@ async fn mark_answer(app: AppHandle, req: marking::Request) -> Result<marking::V
     marking::mark(&settings, req).await
 }
 
-/// What AI marking can use right now, for Guide → AI marking.
+/// What AI marking can use right now, for Settings → AI marking.
 #[tauri::command]
 async fn mark_status(app: AppHandle) -> Result<marking::Status, String> {
     Ok(marking::status(&get_settings(app)?).await)
@@ -193,7 +193,7 @@ async fn day_context(app: AppHandle, refresh: bool) -> Result<today::Context, St
     const FRESH_MINUTES: i64 = 20;
     let settings = get_settings(app.clone())?;
     if !settings.outlook {
-        return Err("Outlook is switched off in the Guide tab.".into());
+        return Err("Outlook is switched off in Settings.".into());
     }
     let path = data_dir(&app)?.join("outlook.json");
     let cached: Option<today::Context> = read_json(&path).and_then(|v| serde_json::from_value(v).ok());
@@ -313,7 +313,12 @@ fn backup(app: AppHandle) -> Result<String, String> {
 }
 
 fn backups_folder(app: &AppHandle) -> Result<PathBuf, String> {
-    Ok(app.path().document_dir().map_err(|e| e.to_string())?.join(backup::FOLDER))
+    let docs = app.path().document_dir().map_err(|e| e.to_string())?;
+    let (new, old) = (docs.join(backup::FOLDER), docs.join(backup::OLD_FOLDER));
+    if !new.exists() && old.is_dir() {
+        let _ = fs::rename(&old, &new);
+    }
+    Ok(new)
 }
 
 /// The weekly backup into Documents (see backup.rs). The UI passes the
@@ -501,7 +506,7 @@ pub fn run() {
             coach_essay
         ])
         .run(tauri::generate_context!())
-        .expect("error while running Gradient");
+        .expect("error while running Zelinx Study Planner");
 }
 
 #[cfg(test)]

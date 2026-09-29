@@ -167,7 +167,7 @@ pub async fn draft(api_key: &str, name: &str, url: &str, pasted: &str) -> Result
         check_public_url(url)?;
         let res = client
             .get(url.trim())
-            .header("user-agent", "Gradient/1.0")
+            .header("user-agent", "ZelinxStudyPlanner/1.0")
             .send()
             .await
             .map_err(|e| format!("Could not open that page: {e}"))?;
@@ -199,7 +199,7 @@ pub async fn draft(api_key: &str, name: &str, url: &str, pasted: &str) -> Result
     let status = res.status();
     if !status.is_success() {
         return Err(match status.as_u16() {
-            401 => "That API key was rejected. Check it in Guide → Settings.".into(),
+            401 => "That API key was rejected. Check it in Settings.".into(),
             429 => "Rate limited by the API. Wait a minute and try again.".into(),
             code => format!("The API returned {code}."),
         });

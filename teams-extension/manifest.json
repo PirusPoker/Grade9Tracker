@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Gradient — Teams assignment sync",
+  "name": "Zelinx Study Planner — Teams assignment sync",
   "version": "1.2.0",
-  "description": "Reads your Microsoft Teams assignments and syncs them into Gradient on this computer. Nothing leaves your machine.",
+  "description": "Reads your Microsoft Teams assignments and syncs them into Zelinx Study Planner on this computer. Nothing leaves your machine.",
   "background": { "service_worker": "background.js" },
   "host_permissions": ["http://127.0.0.1:47814/*", "http://localhost:47814/*"],
   "content_scripts": [

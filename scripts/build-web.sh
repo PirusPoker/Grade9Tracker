@@ -21,6 +21,7 @@ mkdir -p "$OUT/app"
 cp -r "$ROOT/docs/." "$OUT/"
 wasm-bindgen --target web --no-typescript --out-dir "$OUT/app" --out-name g9 "$WASM"
 cp -r "$ROOT/ui/katex" "$OUT/app/katex"
+cp -r "$ROOT/ui/fonts" "$OUT/app/fonts"
 cp "$ROOT/web/web.js" "$ROOT/web/manifest.webmanifest" "$ROOT/web/icon-192.png" "$ROOT/web/icon-512.png" "$OUT/app/"
 sed "s/__VERSION__/$VERSION/" "$ROOT/web/sw.js" > "$OUT/app/sw.js"
 
@@ -35,7 +36,7 @@ head = ('<link rel="manifest" href="manifest.webmanifest">\n'
         '<meta name="apple-mobile-web-app-capable" content="yes">\n'
         '<meta name="mobile-web-app-capable" content="yes">\n'
         '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n'
-        '<meta name="apple-mobile-web-app-title" content="Gradient">\n'
+        '<meta name="apple-mobile-web-app-title" content="Zelinx">\n'
         '<link rel="apple-touch-icon" href="icon-192.png">\n'
         f'<meta name="g9-build" content="{ver}">\n')
 html = html.replace('<link rel="stylesheet" href="katex/katex.min.css">', head + '<link rel="stylesheet" href="katex/katex.min.css">', 1)

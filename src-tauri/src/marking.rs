@@ -7,7 +7,7 @@
 //! puts the mark in the self-mark box, where the student can still change it:
 //! the model is a second opinion on the scheme, not the last word.
 //!
-//! Which model: Claude, with the Anthropic API key from Guide, when there is
+//! Which model: Claude, with the Anthropic API key from Settings, when there is
 //! one; otherwise - or when Claude can't be reached - a free model running on
 //! this laptop through Ollama. [`ask_json`] makes that choice for anything that
 //! wants a structured answer (the essay coach uses it too).
@@ -23,7 +23,7 @@ use tauri::{AppHandle, Emitter};
 /// levels-based scheme before it commits to a mark.
 const MODEL: &str = "claude-haiku-4-5";
 const THINKING_BUDGET: u32 = 4000;
-/// The free local marker, downloaded from Guide → AI marking. A 7B model is the
+/// The free local marker, downloaded from Settings → AI marking. A 7B model is the
 /// most that fits a 6 GB laptop GPU and is far steadier against a scheme than
 /// the 3B one that organises the day; without it, that 3B one is used as a
 /// rough guide.
@@ -162,7 +162,7 @@ pub async fn ask_json(settings: &crate::draft::Settings, system: &str, prompt: &
         notes.push(format!("Claude wasn't available ({}), so the local AI answered.", w.trim_end_matches('.')));
     }
     if !is_model(&model, LOCAL_MODEL) {
-        notes.push("This came from the small local model, so treat it as a rough guide. The better marking model is a free download in Guide → AI marking.".to_string());
+        notes.push("This came from the small local model, so treat it as a rough guide. The better marking model is a free download in Settings → AI marking.".to_string());
     }
     Ok(Reply { value, by: "local", note: if notes.is_empty() { None } else { Some(notes.join(" ")) } })
 }
@@ -210,7 +210,7 @@ async fn claude_json(key: &str, system: &str, prompt: &str, schema: &Value) -> R
         let detail = res.json::<Value>().await.ok().and_then(|b| b["error"]["message"].as_str().map(String::from)).unwrap_or_default();
         let more = if detail.is_empty() { String::new() } else { format!(": {detail}") };
         return Err(ClaudeErr::Unavailable(match status {
-            401 => "your API key was rejected; check it in Guide".into(),
+            401 => "your API key was rejected; check it in Settings".into(),
             402 | 403 => format!("the API refused the key ({status}), maybe out of credit{more}"),
             429 => "rate limited by the API".into(),
             500..=599 => "the API is busy".into(),
@@ -248,8 +248,8 @@ fn pick_local(models: &[String], fallback: &str) -> Option<String> {
 async fn local_json(base: &str, fallback: &str, system: &str, prompt: &str, schema: &Value) -> Result<(Value, String), String> {
     let models = local_models(base)
         .await
-        .ok_or("The free local AI (Ollama) isn't running. Start Ollama, or add an Anthropic API key in Guide → AI marking.")?;
-    let model = pick_local(&models, fallback).ok_or("No local model is downloaded yet. Get the free marking model in Guide → AI marking, or add an Anthropic API key there.")?;
+        .ok_or("The free local AI (Ollama) isn't running. Start Ollama, or add an Anthropic API key in Settings → AI marking.")?;
+    let model = pick_local(&models, fallback).ok_or("No local model is downloaded yet. Get the free marking model in Settings → AI marking, or add an Anthropic API key there.")?;
     let body = json!({
         "model": model,
         "stream": false,
@@ -283,7 +283,7 @@ async fn local_json(base: &str, fallback: &str, system: &str, prompt: &str, sche
     Ok((value, model))
 }
 
-/// What's set up, for Guide → AI marking.
+/// What's set up, for Settings → AI marking.
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Status {

@@ -1,5 +1,5 @@
 // Isolated world. Receives the parsed assignments from inject.js and hands them
-// to the background service worker, which sends them to Gradient running
+// to the background service worker, which sends them to Zelinx Study Planner running
 // on this computer. Shows a small confirmation toast.
 (function () {
   "use strict";
@@ -55,11 +55,11 @@
     }
     if (ok === false) {
       el.style.background = "#b3261e";
-      el.textContent = "Gradient not running — open the app, then reload Teams";
+      el.textContent = "Zelinx not running — open the app, then reload Teams";
     } else {
       el.style.background = "#1a7f37";
-      el.textContent = n ? "Gradient · synced " + n + " upcoming assignment" + (n === 1 ? "" : "s")
-                         : "Gradient · no upcoming assignments";
+      el.textContent = n ? "Zelinx · synced " + n + " upcoming assignment" + (n === 1 ? "" : "s")
+                         : "Zelinx · no upcoming assignments";
     }
     el.style.opacity = "1";
     clearTimeout(el.__t);
