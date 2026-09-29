@@ -19,6 +19,23 @@
 //!   Language question), Mr Salles, Easy as GCSE and First Rate Tutors.
 //! - Further Maths: TLMaths' A-level series and Corbettmaths' Further Maths
 //!   page, with 1st Class Maths and Bicen Maths for the longer walkthroughs.
+//! - French (AQA 8652): Collins Revision's AQA GCSE theme videos first, then
+//!   Learn French With Alexa (grammar explainers and GCSE speaking topics) and
+//!   her AQA-specific GCSE French With Alexa channel for the listening,
+//!   dictation, photo card, reading, translation and writing tasks; with
+//!   No Waffle GCSE, I'm Stuck, GCSE Online Courses, The EverLearner, The
+//!   perfect French with Dylane, The Ideal Teacher Language School and
+//!   astarfrench alongside.
+//! - Spanish (AQA 8692): Collins Revision's AQA GCSE theme videos with
+//!   astarspanish's topic revision and speaking practice; grammar from The
+//!   Language Tutor, Señor Jordan and others (Spanish with James, SACAPUNTAS
+//!   SPANISH GCSE, Spanish With Qroo Paul, Real Fast Spanish, Lingo Learner);
+//!   exam skills from astarspanish and MyGCSESpanishTutor.
+//! - German (AQA 8662): The Ideal Teacher Language School's GCSE listening
+//!   practice and Learn German's vocabulary lessons for the themes; grammar
+//!   from German Lessons with Herr Ferguson, mugridge language, GCSE German
+//!   Tutorials, YourGermanTeacher, Bausteine eins and Learn German with Anja;
+//!   exam skills from Learn German with Herr Reid and The Ideal Teacher.
 
 use serde::Serialize;
 
@@ -51,6 +68,30 @@ const FRT: &str = "First Rate Tutors";
 const TLM: &str = "TLMaths";
 const FIRSTCLASS: &str = "1st Class Maths";
 const BICEN: &str = "Bicen Maths";
+
+const ALEXA: &str = "Learn French With Alexa";
+const ANJA: &str = "Learn German with Anja";
+const ASTARES: &str = "astarspanish";
+const BAUSTEINE: &str = "Bausteine eins";
+const COLLINS: &str = "Collins Revision";
+const DYLANE: &str = "The perfect French with Dylane";
+const EVERLEARNER: &str = "The EverLearner";
+const FERGUSON: &str = "German Lessons with Herr Ferguson";
+const GCSEGER: &str = "GCSE German Tutorials";
+const GCSEOC: &str = "GCSE Online Courses";
+const GCSE_ALEXA: &str = "GCSE French With Alexa";
+const HERRREID: &str = "Learn German with Herr Reid";
+const IDEAL: &str = "The Ideal Teacher Language School";
+const IMSTUCK: &str = "I'm Stuck - GCSE and A-Level Revision";
+const JORDAN: &str = "Señor Jordan";
+const LANGTUTOR: &str = "The Language Tutor - Spanish";
+const LEARNGERMAN: &str = "Learn German";
+const MUGRIDGE: &str = "mugridge language";
+const MYGCSEES: &str = "MyGCSESpanishTutor";
+const NOWAFFLE: &str = "No Waffle GCSE";
+const QROOPAUL: &str = "Spanish With Qroo Paul";
+const SACAPUNTAS: &str = "SACAPUNTAS SPANISH GCSE";
+const YGT: &str = "YourGermanTeacher";
 
 /// (topic id, [(video id, title, creator)]) in the order they should be watched.
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
@@ -1840,6 +1881,382 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("_McuKeG9DQI", "Solving Trigonometric Equations", FIRSTCLASS),
         ("cILaBqbmPX0", "Solving Trigonometric Equations 1", CM),
     ]),
+    // ---------- French (AQA GCSE 8652) ----------
+    ("fre:3.1.1a", &[
+        ("nQH0JWXA2v4", "Identity and relationships", COLLINS),
+        ("LianvgQORh8", "Talking about family relationships", ALEXA),
+        ("Eqraw7_JJRc", "Describing your best friend", ALEXA),
+    ]),
+    ("fre:3.1.1b", &[
+        ("gLXBXgyh5UI", "Healthy living and lifestyle", COLLINS),
+        ("E1Cuy4a5Ee4", "What you do to keep healthy", ALEXA),
+        ("FHkGo7-rDAw", "Vocabulary for health problems", IDEAL),
+    ]),
+    ("fre:3.1.1c", &[
+        ("h3y4ChZih3g", "Education and work", COLLINS),
+        ("qN6qQABYtdg", "School vocabulary", ALEXA),
+        ("ApOpvOmQU9U", "Jobs vocabulary", ALEXA),
+    ]),
+    ("fre:3.1.2a", &[
+        ("xl2FWFNftv8", "Free-time activities", COLLINS),
+        ("sqlbmwu4pJ8", "What you like doing in your spare time", ALEXA),
+    ]),
+    ("fre:3.1.2b", &[
+        ("J-2vN0_Pt1c", "Customs, festivals and celebrations", COLLINS),
+        ("jDBkqqhT3Bg", "Your favourite celebration and why", ALEXA),
+    ]),
+    ("fre:3.1.2c", &[
+        ("WY9a9VP42E0", "Celebrity culture", COLLINS),
+        ("UGtRUKD7P2k", "Listening practice on celebrity culture", IDEAL),
+    ]),
+    ("fre:3.1.3a", &[
+        ("QJWNS5a4pbo", "Travel and tourism", COLLINS),
+        ("jH3oZzf6z8k", "Your ideal holiday", ALEXA),
+    ]),
+    ("fre:3.1.3b", &[
+        ("WShudSFcWhg", "Media and technology", COLLINS),
+        ("Hf8PUjF3_1I", "The dangers of the internet", ALEXA),
+        ("qxFXklF5qIA", "Phrases for social media", ALEXA),
+    ]),
+    ("fre:3.1.3c", &[
+        ("wNfaKcWXZgQ", "The environment and where people live", COLLINS),
+        ("-m-GCjXI84M", "Town or countryside?", ALEXA),
+        ("psh5jpEufKo", "Environmental problems", EVERLEARNER),
+    ]),
+    ("fre:3.2.1a", &[
+        ("CvkiPiW32hc", "Definite, indefinite and partitive articles", ALEXA),
+        ("V7AjuIDn4oU", "Masculine or feminine? Noun gender", ALEXA),
+        ("6edld_vN7VA", "The partitive: du, de la, des and de", ALEXA),
+    ]),
+    ("fre:3.2.1b", &[
+        ("y8jiGE2uj_w", "Ce, cet, cette, ces", ALEXA),
+        ("jXt-dAm6_-U", "Possessive adjectives: mon, ma, mes", ALEXA),
+        ("2aFGlzmmVu4", "Direct object pronouns", ALEXA),
+    ]),
+    ("fre:3.2.1c", &[
+        ("r7lt91QIQzY", "The present tense", NOWAFFLE),
+        ("sgr9wgYAejs", "Simple negatives", ALEXA),
+        ("o0tgXagvolU", "Asking questions with est-ce que", ALEXA),
+    ]),
+    ("fre:3.2.1d", &[
+        ("I9owFJ1Z7fw", "How to form the perfect tense", IMSTUCK),
+        ("R7CMGVsanu8", "Etre or avoir in the perfect tense", ALEXA),
+        ("vmP4ISMLx-A", "The perfect tense, part 2", NOWAFFLE),
+    ]),
+    ("fre:3.2.1e", &[
+        ("6HDCdU3yJtk", "Near future or simple future?", ALEXA),
+        ("47vrMM7xIZo", "How to form the imperfect tense", IMSTUCK),
+        ("tHb1vDbJxzk", "The imperative", GCSEOC),
+    ]),
+    ("fre:3.2.1f", &[
+        ("3uWCHZ8NeQo", "Modal verbs", GCSEOC),
+        ("DybxlyAQrxo", "Reflexive verbs", ALEXA),
+        ("SDLhHuGZayU", "Falloir: il faut", ALEXA),
+    ]),
+    ("fre:3.2.1g", &[
+        ("I1RUF472SFY", "Adjectives before or after the noun", ALEXA),
+        ("7C-5_PllPuo", "Adjective agreement", EVERLEARNER),
+        ("Mj15n078_XM", "Comparatives: plus, moins, aussi", ALEXA),
+    ]),
+    ("fre:3.2.1h", &[
+        ("iEyvIzPKuIY", "French prepositions", ALEXA),
+        ("yI_iWNJ3kzQ", "A, en, au, aux and chez", ALEXA),
+        ("T17zerugsDI", "Dans, sous, sur, devant", ALEXA),
+    ]),
+    ("fre:3.2.2a", &[
+        ("OHQPlvD1ypc", "The pronouns y and en", ALEXA),
+        ("11KUkGmjZ30", "Emphatic pronouns: moi, toi, lui", DYLANE),
+        ("GxxyR8P0pOI", "Relative pronouns qui and que", ALEXA),
+    ]),
+    ("fre:3.2.2b", &[
+        ("GXu34g0DldQ", "How to form the future tense", IMSTUCK),
+        ("QQLoyENxrnU", "The conditional", NOWAFFLE),
+        ("JK5OMjjAc8A", "Imperfect or perfect?", ALEXA),
+    ]),
+    ("fre:3.2.2c", &[
+        ("F2jUqNyXpaI", "Depuis with the present tense", GCSEOC),
+        ("yAJv36ZGtYM", "Venir de and etre en train de", ALEXA),
+        ("iGbdNzaqv2I", "The present participle: en + -ant", ALEXA),
+    ]),
+    ("fre:3.2.2d", &[
+        ("uwIZHmbiMIE", "More negatives: ne plus, ne que, ne personne", DYLANE),
+        ("n2g63PMCqiE", "The passive", GCSEOC),
+        ("Ne431tdamsk", "Comparatives and superlatives", DYLANE),
+    ]),
+    ("fre:4.4a", &[
+        ("Kd8QFUepOEE", "Top tips for the listening exam", GCSE_ALEXA),
+        ("Idi2WO6mMus", "Listening Section A: positive or negative", GCSE_ALEXA),
+    ]),
+    ("fre:4.4b", &[
+        ("H0psUcYBf90", "The dictation exercise", GCSE_ALEXA),
+        ("0mC2zRtx8h8", "French vowel sounds", ALEXA),
+    ]),
+    ("fre:4.5", &[
+        ("dDVgw3cd6jk", "The AQA speaking exam explained", "astarfrench"),
+        ("vUFs3hp2vTY", "Full marks in the role-play", IDEAL),
+        ("5MyAvoL79-U", "The photo card", GCSE_ALEXA),
+    ]),
+    ("fre:4.6", &[
+        ("pOc6shgAm8s", "Top tips for the reading exam", GCSE_ALEXA),
+        ("IbcM6Gyo8us", "Reading Section B: translation into English", GCSE_ALEXA),
+    ]),
+    ("fre:4.7", &[
+        ("l5Yk23cCs4A", "Top tips for the writing exam", GCSE_ALEXA),
+        ("A7bVJfRebig", "Writing Section B, Theme 1", GCSE_ALEXA),
+        ("MqNFCjfrLlw", "How to get full marks in writing", IDEAL),
+    ]),
+    // ---------- Spanish (AQA GCSE 8692) ----------
+    ("spa:3.1.1a", &[
+        ("3ynFA-uR5dc", "Identity and relationships", COLLINS),
+        ("xUq9hdPZ94M", "Family, friends and relationships revision", ASTARES),
+        ("TtA_4FQDuAo", "Family and relationships vocabulary", MYGCSEES),
+    ]),
+    ("spa:3.1.1b", &[
+        ("aCpSbHo3KEg", "Healthy living and lifestyle", COLLINS),
+        ("YDzOqG8UL_o", "Healthy living and lifestyle revision", ASTARES),
+    ]),
+    ("spa:3.1.1c", &[
+        ("HCGe7PE8OUo", "Education and work", COLLINS),
+        ("Vn0O7Teek4A", "School and education revision", ASTARES),
+    ]),
+    ("spa:3.1.2a", &[
+        ("LQW-D6ebBOU", "Free-time activities", COLLINS),
+        ("uo8KIoA2kkA", "Free-time activities revision", ASTARES),
+    ]),
+    ("spa:3.1.2b", &[
+        ("ECrAuoMIU54", "Customs, festivals and celebrations", COLLINS),
+        ("9RWYJ2naqSs", "Customs and festivals revision", ASTARES),
+    ]),
+    ("spa:3.1.2c", &[
+        ("_p_SqUYgsIU", "Celebrity culture", COLLINS),
+        ("G6UOFKWP9o0", "Celebrity culture revision", ASTARES),
+        ("uVvUGxtTfUs", "Speaking practice: celebrities", ASTARES),
+    ]),
+    ("spa:3.1.3a", &[
+        ("x9-p4HOB34w", "Travel and tourism", COLLINS),
+        ("zRKDguMysIQ", "Speaking practice: holidays", ASTARES),
+    ]),
+    ("spa:3.1.3b", &[
+        ("u00GAQGTiBc", "Media and technology", COLLINS),
+        ("KTyk27WJHpM", "Speaking practice: social media", ASTARES),
+    ]),
+    ("spa:3.1.3c", &[
+        ("NXRHScAuelE", "The environment and where people live", COLLINS),
+        ("EBHhPbLZiCk", "Speaking practice: what there is in your region", ASTARES),
+    ]),
+    ("spa:3.2.1a", &[
+        ("TRMiMw4K5lo", "Noun gender", COLLINS),
+        ("YeTIwDcKwZ4", "Definite and indefinite articles", LANGTUTOR),
+        ("rUaX5OqTEzE", "Possessive adjectives: mi, tu, su", JORDAN),
+    ]),
+    ("spa:3.2.1b", &[
+        ("PdFcezn9naY", "Pronouns", COLLINS),
+        ("hVXSusr9nTg", "Direct object pronouns: lo, la, los, las", JORDAN),
+        ("g4UzE8c2wik", "This, these, that and those", LANGTUTOR),
+    ]),
+    ("spa:3.2.1c", &[
+        ("XWmVFzWXupk", "Regular -ar, -er and -ir verbs in the present", "Spanish with James"),
+        ("-sv8B4oy_0w", "O to ue stem-changing verbs", JORDAN),
+        ("BwSn383ghms", "Irregular yo forms: tengo, hago, salgo", JORDAN),
+    ]),
+    ("spa:3.2.1d", &[
+        ("ZwTPwRMjLD8", "-ar verbs in the preterite", LANGTUTOR),
+        ("bY_STs07NG4", "Past tenses", COLLINS),
+        ("2vOuHl1wQsU", "Irregular preterite verbs", MYGCSEES),
+    ]),
+    ("spa:3.2.1e", &[
+        ("ntY7ziEsxpI", "The present continuous", LANGTUTOR),
+        ("95GJjXY2s88", "The present perfect: he jugado", SACAPUNTAS),
+        ("AmnTX30VliE", "The imperfect tense", LANGTUTOR),
+    ]),
+    ("spa:3.2.1f", &[
+        ("jxgOIGl219E", "The future or ir a + infinitive", JORDAN),
+        ("nRaMf1Y1TCM", "The conditional", LANGTUTOR),
+        ("C2UnO5khpi4", "Giving commands", LANGTUTOR),
+    ]),
+    ("spa:3.2.1g", &[
+        ("SAfXpyZlz-I", "How to use gustar", LANGTUTOR),
+        ("_uH_tosBLyo", "Reflexive verbs", LANGTUTOR),
+        ("HCqsdkwpBAI", "Se puede and hay que + infinitive", "El Blog para aprender español"),
+    ]),
+    ("spa:3.2.1h", &[
+        ("zV-XLyuyDyo", "Ser or estar?", "Learn Spanish with SpanishPod101.com"),
+        ("U74ClJsbfb0", "Comparatives and superlatives", LANGTUTOR),
+        ("RFpYe7hemVo", "The -ísimo ending", JORDAN),
+    ]),
+    ("spa:3.2.1i", &[
+        ("hXkTwRWpyAU", "Por or para?", "Lingo Learner"),
+        ("qY6DgSpSiR0", "The personal a", JORDAN),
+        ("o88gkstA0ds", "Diminutives and augmentatives", LANGTUTOR),
+    ]),
+    ("spa:3.2.2a", &[
+        ("OL86D_omkSQ", "Possessive pronouns", LANGTUTOR),
+        ("4URFWAOaL64", "How to use lo que", "Real Fast Spanish"),
+        ("quzRXk0oKp8", "Prepositional pronouns: conmigo, contigo", LANGTUTOR),
+    ]),
+    ("spa:3.2.2b", &[
+        ("3nVHhqblh88", "Preterite or imperfect?", "The Spanish Dude"),
+        ("G86u9YrJc9s", "Preterite stem-changers: e to i", JORDAN),
+        ("U42loE1zhdw", "The future tense", LANGTUTOR),
+    ]),
+    ("spa:3.2.2c", &[
+        ("pG_2m9_sTTY", "Introduction to the present subjunctive", JORDAN),
+        ("-MZwa46X2C4", "The subjunctive in five minutes", "Breakthrough Spanish"),
+        ("KB4WG7SXAVA", "Para que + subjunctive", QROOPAUL),
+    ]),
+    ("spa:3.2.2d", &[
+        ("1BZalafcGNk", "Acabar de + infinitive", JORDAN),
+        ("W62TVclkgG0", "Seguir + gerund", QROOPAUL),
+        ("x1sh5raIbwo", "The passive voice", LANGTUTOR),
+    ]),
+    ("spa:3.2.3", &[
+        ("hsLYD1Jyf3A", "Spanish letters and sounds", "Butterfly Spanish"),
+        ("dvE_OCRHOhs", "Which syllable to stress, and accents", "Coffee Break Spanish"),
+        ("DHfegU4_g9U", "The hardest sounds in Spanish", SACAPUNTAS),
+    ]),
+    ("spa:4.4", &[
+        ("TeTu47OD1c8", "Last-minute tips for reading and listening", ASTARES),
+        ("Q7QtY9VZ3rc", "Dictation practice: technology and social media", "We Teach MFL"),
+        ("NKJbcx2LmKE", "Short listening practice", ASTARES),
+    ]),
+    ("spa:4.5", &[
+        ("6kpipp7CDOI", "Full marks in the AQA speaking exam", ASTARES),
+        ("JjvuQuX4xj0", "Full marks in the role-play", MYGCSEES),
+        ("8KGB63Vjzag", "How to describe a photo", ASTARES),
+    ]),
+    ("spa:4.6", &[
+        ("j5jTOGmbwqU", "Reading practice", ASTARES),
+        ("VraN9bIec6c", "Vocabulary for reading and listening", ASTARES),
+    ]),
+    ("spa:4.7", &[
+        ("JOM3_SpAzKE", "AQA Higher writing paper walkthrough", ASTARES),
+        ("jqHlSUxYqvo", "Full marks in the translation into Spanish", ASTARES),
+        ("mZHOiEs6wWk", "The 150-word task: model answer", MYGCSEES),
+    ]),
+    // ---------- German (AQA GCSE 8662) ----------
+    ("ger:3.1.1a", &[
+        ("3GQKN7LRjLA", "Listening practice: family", IDEAL),
+        ("R1ZLm9E-9nw", "Family members and relatives", YGT),
+        ("rmS00c5DsY4", "Describing people", "Spring German - Learn German with Chunks"),
+    ]),
+    ("ger:3.1.1b", &[
+        ("G5hfTT98Oxc", "Listening practice: a healthy lifestyle", IDEAL),
+        ("kYbg2rgq2W0", "Healthy food and drink vocabulary", IDEAL),
+        ("505AzsYTrHc", "Listening practice: health and happiness", IDEAL),
+    ]),
+    ("ger:3.1.1c", &[
+        ("95mtun_RIh0", "Listening practice: school", IDEAL),
+        ("lvYIxKye_7s", "School vocabulary", LEARNGERMAN),
+        ("Sa0whvtYau8", "Dream jobs and careers", LEARNGERMAN),
+    ]),
+    ("ger:3.1.2a", &[
+        ("lYHKQnGrtLM", "Talking about your hobbies", YGT),
+        ("dVb_VwVYehs", "Hobbies vocabulary", LEARNGERMAN),
+        ("ueBmlrZbmwA", "Ordering in a restaurant", LEARNGERMAN),
+    ]),
+    ("ger:3.1.2b", &[
+        ("wz2Ak8KJdWk", "Listening practice: celebrations and festivals", IDEAL),
+        ("1E1CI3917ss", "Five German Christmas traditions", "DW History and Culture"),
+    ]),
+    ("ger:3.1.2c", &[
+        ("UMWGkTusZhs", "Listening practice: celebrity culture", IDEAL),
+        ("2WpIFWkDkGc", "Theme 2 conversation: model answer", HERRREID),
+    ]),
+    ("ger:3.1.3a", &[
+        ("p8nJSKWnmxY", "Holidays and travel vocabulary", LEARNGERMAN),
+        ("jT8bdI8BCMI", "Holiday vocabulary", FERGUSON),
+        ("OL2K9_wJKMw", "Speaking practice: holidays", MUGRIDGE),
+    ]),
+    ("ger:3.1.3b", &[
+        ("GG5HjY1Fe2M", "Computer and internet vocabulary", LEARNGERMAN),
+        ("wa4oEGnjocs", "Mobile phone vocabulary", LEARNGERMAN),
+        ("d9SS1y-HNmc", "Theme 3 conversation: model answer", HERRREID),
+    ]),
+    ("ger:3.1.3c", &[
+        ("B3HJ5xnv75Q", "Listening practice: the environment", IDEAL),
+        ("8etayvawQmg", "The environment and protecting it", LEARNGERMAN),
+        ("RMH85sPUDHY", "Town or country? Pros and cons", LEARNGERMAN),
+    ]),
+    ("ger:3.2.1a", &[
+        ("61_33WIZs9c", "Noun genders", FERGUSON),
+        ("pb5CySTKP8w", "The German cases", BAUSTEINE),
+        ("l4tinKah6GE", "The accusative case", FERGUSON),
+    ]),
+    ("ger:3.2.1b", &[
+        ("MLgrCuKSMPE", "Possessive adjectives", FERGUSON),
+        ("GHRHSR-5thc", "Accusative pronouns: mich, dich", YGT),
+        ("gh8zSONIDoA", "Relative pronouns", BAUSTEINE),
+    ]),
+    ("ger:3.2.1c", &[
+        ("k3zSbed5zZg", "The present tense", GCSEGER),
+        ("x-9jPdkb_94", "Strong and stem-changing verbs", FERGUSON),
+        ("HdDmddOPs5I", "Asking questions", FERGUSON),
+    ]),
+    ("ger:3.2.1d", &[
+        ("jR4XeQxwGHQ", "Basic word order", MUGRIDGE),
+        ("lpezJZoxTOs", "Separable verbs", MUGRIDGE),
+        ("vfAWcUDScGM", "Nicht or kein?", MUGRIDGE),
+    ]),
+    ("ger:3.2.1e", &[
+        ("9EozuuoKhcw", "The perfect tense", GCSEGER),
+        ("X-Ry2ifoOIc", "Remembering the perfect tense", FERGUSON),
+        ("WC6klvZ4pWc", "War and hatte", FERGUSON),
+    ]),
+    ("ger:3.2.1f", &[
+        ("OdTjoC-m6rE", "The future tense", GCSEGER),
+        ("N9L5X2Xf-Bs", "Modal verbs", MUGRIDGE),
+        ("C7TPk1yDBH8", "Um ... zu", MUGRIDGE),
+    ]),
+    ("ger:3.2.1g", &[
+        ("SXKD5bQl-zQ", "Adjective endings: the whole system", YGT),
+        ("VoBwHY63_RQ", "Comparatives and superlatives", FERGUSON),
+        ("c_40J7e1nrc", "Gern, lieber and am liebsten", MUGRIDGE),
+    ]),
+    ("ger:3.2.1h", &[
+        ("OlRQT4V72LM", "Prepositions with the accusative and dative", YGT),
+        ("2ERK1-rVgqw", "Dative prepositions", MUGRIDGE),
+    ]),
+    ("ger:3.2.2a", &[
+        ("IsHeKV38SaY", "Weak nouns", FERGUSON),
+        ("4BqDoomAERw", "The genitive case", FERGUSON),
+        ("4F3oFBa3MuE", "Dative pronouns", YGT),
+    ]),
+    ("ger:3.2.2b", &[
+        ("B54cqfJ6xG0", "The past tense", MUGRIDGE),
+        ("J5FYjADg97c", "Modal verbs in the simple past", YGT),
+        ("7Q0AjA_BVfs", "The imperative", FERGUSON),
+    ]),
+    ("ger:3.2.2c", &[
+        ("5usFeazBaLY", "The conditional with würde", FERGUSON),
+        ("T7BIl5KtHQk", "Hätte and wäre", FERGUSON),
+        ("OHimNnDgbkQ", "How to use the passive", HERRREID),
+    ]),
+    ("ger:3.2.2d", &[
+        ("AZecRi-Achc", "Coordination, inversion and subordination", FERGUSON),
+        ("Dmv2BzXv_7U", "The nine two-way prepositions", ANJA),
+        ("d5IoSISsYyE", "Da- and wo- compounds", FERGUSON),
+    ]),
+    ("ger:3.2.3", &[
+        ("JGh9DR6bxpw", "Ei, ie, au and eu", ANJA),
+        ("BoFEG5h7d-o", "How to pronounce umlauts", "Feli from Germany"),
+        ("UFUqhT-rYzc", "Long and short vowels", FERGUSON),
+    ]),
+    ("ger:4.4", &[
+        ("CYWQaYxSbws", "Getting a grade 9 in listening", HERRREID),
+        ("BWDBr8LFWGU", "Higher dictation practice", IDEAL),
+        ("jSZOsYQPzfw", "Listening exam tips", IDEAL),
+    ]),
+    ("ger:4.5", &[
+        ("kxaTkx_DVJE", "The new-spec speaking exam", HERRREID),
+        ("0TlPiDGWR-Y", "The read-aloud task", IDEAL),
+        ("0VU_tfo_da0", "The speaking exam: all you need to know", HERRREID),
+    ]),
+    ("ger:4.6", &[("VebSZrHmsI4", "Reading German through cognates", "RobWords")]),
+    ("ger:4.7", &[
+        ("EUQut8achAQ", "Full marks in the 150-word task", IDEAL),
+        ("wSzcwtWex5A", "Full marks in the 90-word task", IDEAL),
+        ("ivMn0z6jVYI", "Translation into German", HERRREID),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
@@ -1886,7 +2303,7 @@ mod tests {
     /// Subjects whose every topic has a video to start from.
     #[test]
     fn covered_subjects_have_a_video_on_every_topic() {
-        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang"] {
+        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger"] {
             let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
             for (code, _, _) in def.topics {
                 assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");
