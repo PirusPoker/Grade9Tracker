@@ -2897,6 +2897,141 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("_6POMEniCXY", "GCSE RS: Theme E.7 Prison/Community service", NOWAFFLE),
         ("qqo0vYvrSPU", "What are the rights and wrongs of the death penalty? | Religious Studies - Matters of Life and Death", BBCTEACH),
     ]),
+    // AQA GCSE Drama 8261. Read off YouTube on 29 September 2026; every id,
+    // title and channel checked against YouTube's oEmbed response. George Coles
+    // teaches the AQA 8261 paper question by question; Pog Jam, Miss G Drama and
+    // Drama Department cover the AQA set plays; the National Theatre, RSC Learning
+    // and Frantic Assembly show professional practice. The two Around the World
+    // in 80 Days videos summarise Verne's novel, whose plot Laura Eason's play follows.
+    ("drama:3.1.1a", &[
+        ("k_lm16sOEfo", "Theatre Roles - GCSE Drama AQA", "Adam Goodger"),
+        ("JnQe6SkCGJg", "AQA GCSE Drama: Section A", "George Coles"),
+        ("frgpWqnsSpk", "Yes Let's...learn about job roles in the theatre!", "Yes Let's"),
+    ]),
+    ("drama:3.1.1b", &[
+        ("N5BhAeHWS8o", "Staging - Proscenium Arch // End On // Thrust Stage // Traverse // In The Round // Promenade Theatre", "Theatre Beard"),
+        ("RnmphZQMR50", "Stage Directions Explained: Upstage, Downstage, Stage Left & Stage Right", "Curtains Up Acting Studio"),
+        ("hUodZboyK2c", "Stage types for GCSE Drama w/b 20th April", "Miss Garred Drama"),
+    ]),
+    ("drama:3.1.1c", &[
+        ("JV83l2jiWso", "Form, Genre, Structure and Style", "The Drama Classroom"),
+        ("fwNt0uXk7Sk", "AQA GCSE Drama Key Terminology", "Kylie Sakura"),
+    ]),
+    ("drama:3.1.1d", &[
+        ("D4jbLgu1pjU", "Objectives and obstacles: Acting techniques | Drama - Acting Around Words", "BBC Bitesize for Teachers"),
+        ("EU0sDMDCnSI", "You NEED Subtext in your Acting", "Dan Tracy"),
+        ("XFAnBChBh00", "Dramatic Elements - Dramatic Tension", "Carissa Shale"),
+    ]),
+    ("drama:3.1.1e", &[
+        ("rB8Mt5c-guM", "AQA GCSE Drama Written Exam: Social Context", "DeeperRootsProject"),
+        ("4SqZdMecH0o", "Elizabethan Theatre Explained | Shakespeare’s Stage & The Globe in Under 3 Minutes", "Theatre Bites"),
+    ]),
+    ("drama:3.1.1f", &[
+        ("O5WxspCGbIg", "Vocal and Physical Acting Skills", "missdrurydrama"),
+        ("iKPHJndmjhQ", "How to use your voice | Key vocabulary | GCSE Drama Component 3 | Edexcel 9-1", "Anna Starbuck-Ahmed"),
+        ("Xln9A65G1Ag", "Applying Physical Skills to Drama Characters", "Open eLMS"),
+    ]),
+    ("drama:3.1.1g", &[
+        ("YqA0F9IRFJc", "Drama Skills - Levels and Proxemics", "The Drama Coach - Lisa Southam"),
+        ("RsCSDVjvWF0", "Daily Drama Briefing 1: Levels, Positioning, Use of Space.", "Remotely Funny Drama"),
+    ]),
+    ("drama:3.1.1h", &[
+        ("nuwGZOIdGjk", "GCSE Set Design: The Purpose of Set", "Pog Jam"),
+        ("CUtiZ7vCchc", "GCSE SET DESIGN TECHNIQUES", "Pog Jam"),
+        ("ItPwLajPYoc", "Set Design Terminology", "The Drama Classroom"),
+    ]),
+    ("drama:3.1.1i", &[
+        ("aLROmAKAUyo", "Costume, Wigs and Make-up | National Theatre", "National Theatre"),
+        ("1MymZm4l8WU", "COSTUME DESIGN with Mr Turner - a tutorial in costume design (Drama at KS3 & KS4)", "FLHS DRAMA"),
+        ("ZXFK9aKnqIs", "How To Make a Puppet in Theatre | With Handspring Theatre Company | National Theatre", "National Theatre"),
+    ]),
+    ("drama:3.1.1j", &[
+        ("dTOSNle7umc", "GCSE DRAMA - Lighting: The Purpose of Lighting", "Pog Jam"),
+        ("MGtX9P8gDI8", "Designing Sound for Theatre | National Theatre", "National Theatre"),
+        ("rOLem6kMDGo", "DRAMA GCSE - Sound Design Revision Video Part 1", "Drama FBS"),
+    ]),
+    ("drama:3.1.2a", &[
+        ("ikKG3j1wjKU", "AQA GCSE Drama: Section B (4-mark The Crucible)", "George Coles"),
+        ("JSkx0FyVnCg", "AQA GCSE Drama: Section B (4-mark TIKTBT)", "George Coles"),
+        ("KFE74mps9vw", "4 mark essay question  - Costume design", "Glenthorne Drama"),
+    ]),
+    ("drama:3.1.2b", &[
+        ("8rrF4N2Z4cg", "AQA GCSE Drama: Section B (8-mark The Crucible)", "George Coles"),
+        ("o6NqG_qKiRg", "AQA GCSE Drama: Section B (8-mark TIKTBT)", "George Coles"),
+    ]),
+    ("drama:3.1.2c", &[
+        ("vrzIT56cugs", "AQA GCSE Drama: Section B (12-mark The Crucible)", "George Coles"),
+        ("2cS4O4kx2sM", "AQA GCSE Drama: Section B (12-mark TIKTBT)", "George Coles"),
+    ]),
+    ("drama:3.1.2d", &[
+        ("bayEbEbZmnU", "AQA GCSE Drama: Section B (20-mark TIKTBT)", "George Coles"),
+        ("4TQwZhXsf2g", "AQA GCSE Drama - 20 Mark Question", "Miss Bell Drama"),
+    ]),
+    ("drama:3.1.2e", &[
+        ("cixS7dbsD7g", "GCSE Drama Set Design - Correcting Common Mistakes and a quick look at Mrs Lyons' house.", "Pog Jam"),
+        ("RWP9h7s3WTg", "Blood Brothers Lighting Questions 2 (Drama)", "Pog Jam"),
+        ("SP7uaCgqUos", "This WORKS for Almost Any Design Question // Edquas WJEC Drama GCSE Exam", "Drama Dan"),
+    ]),
+    ("drama:3.1.2f", &[
+        ("VqnS-HhY_YY", "Context of The Crucible - Arthur Miller", "Schooling Online"),
+        ("Sa7l0601i_E", "Plot Summary of The Crucible by Arthur Miller in Under 10 Minutes", "Schooling Online"),
+        ("tvNxesAUl1E", "How We Made It | The Olivier Rains for The Crucible | National Theatre at home", "National Theatre"),
+    ]),
+    ("drama:3.1.2g", &[
+        ("G7aQryhoKxM", "Blood Brothers Summary (Animated) || 7 Minute Summary", "Easy as GCSE"),
+        ("Ru5u96cJA1I", "Blood Brothers - Context", "Drama Talk with Mr Warner"),
+        ("DDDz0BZwtw0", "GCSE Drama Blood Brothers - Narrator", "Pog Jam"),
+        ("1thwA261Ee4", "Physical and Vocal Skills - Blood Brothers", "Drama Department"),
+    ]),
+    ("drama:3.1.2h", &[
+        ("7rfGAyLkNy4", "Noughts and Crosses Play Synopsis | Drama/English", "StudyWithLndz"),
+        ("ArDlbPrZ0CE", "GCSE Drama Revision - Section B- Noughts and Crosses", "Bellerive Drama"),
+        ("5btXTSDzOWw", "AQA GCSE Drama  Component 1 - Section B Noughts and Crosses 9.1", "Miss G Drama"),
+    ]),
+    ("drama:3.1.2i", &[
+        ("QB8wm1ip_is", "Around the World in 80 Days Video Summary", "GradeSaver"),
+        ("Lbr8T-TBeuE", "AROUND THE WORLD IN EIGHTY DAYS : The Illustrated Summary of Jules Verne's Epic Race Against Time", "Storytime Illustrated"),
+    ]),
+    ("drama:3.1.2j", &[
+        ("VkQXE1CB2n4", "Things I Know To Be True | Introduction for Students", "Apex Drama Tools"),
+        ("9EHJ_BwcetY", "Things I Know To Be True: Digital Theatre + Show Teaser", "franticassembly"),
+        ("OLi9IiCvb8o", "Things I Know To Be True: Geordie Brookman & Scott Graham", "franticassembly"),
+    ]),
+    ("drama:3.1.2k", &[
+        ("9flK30EKIi4", "Romeo and Juliet Context Lesson - Shakespeare Today", "Schooling Online"),
+        ("Ebop9PQS_ms", "Romeo And Juliet Summary || Shakespeare in 7 Minutes", "Easy as GCSE"),
+        ("y6OjbkAbB9o", "Staging Romeo and Juliet | English Literature - Romeo and Juliet: Shakespeare Unlocked", "BBC Bitesize for Teachers"),
+    ]),
+    ("drama:3.1.2l", &[
+        ("T8opucP3PRo", "A Taste of Honey - Shelagh Delaney and Joan Littlewood", "National Theatre"),
+        ("idPajMkQBUM", "A Taste of Honey by Shelagh Delaney - plot summary and main themes in 5 minutes", "Story Summaries"),
+        ("uPkyUANfK48", "A TASTE OF HONEY by SHELAGH DELANEY Explained | Kitchen Sink Realism | Summary | Analysis | Symbols", "TheCursedCulture"),
+    ]),
+    ("drama:3.1.2m", &[
+        ("Vgj-kJWzF6E", "The Great Wave | National Theatre | Interview with Indhu Rubasingham and Francis Turnly", "WhatsOnStage"),
+        ("IPDbalGesI0", "How We Made It | Using Video Projections in The Great Wave | National Theatre", "National Theatre"),
+        ("JmsC2k3WyIU", "The Great Wave (National Theatre Collection 3 on Drama Online) | Clip", "Drama Online"),
+    ]),
+    ("drama:3.1.2n", &[
+        ("m9YDcpWKDb4", "The Empress Context and Content", "RSC Learning"),
+        ("xtOrWfAssr4", "The Empress Design", "RSC Learning"),
+        ("4kqnr3dU4vA", "The Empress Movement", "RSC Learning"),
+    ]),
+    ("drama:3.1.3a", &[
+        ("_YQkSHqfTd0", "AQA GCSE Drama: Section C (Live theatre review)", "George Coles"),
+        ("PZZinJhmJ2c", "Theatre review?! | Exam series | GCSE Drama Component 3 | Edexcel 9-1", "Anna Starbuck-Ahmed"),
+        ("AC_u6gjjLvg", "The Curious Incident of the Dog in the Night-Time: Design Challenge", "National Theatre"),
+    ]),
+    ("drama:3.1.3b", &[
+        ("7b6ISSpTY-Y", "How do I analyse and evaluate? | GCSE Drama Component 3 | Edexcel 9-1", "Anna Starbuck-Ahmed"),
+        ("10oC4lrwPrM", "2 GCSE Drama Live Production Characterisation/Acting Question", "Joni McAuliffe"),
+        ("z7J6mnocp0s", "Ensemble acting | English Literature – The Curious Incident of the Dog in the Night-time", "BBC Bitesize for Teachers"),
+    ]),
+    ("drama:3.1.3c", &[
+        ("63FKY3Ixd7I", "3  GCSE Drama Live Production Revision - Design Question", "Joni McAuliffe"),
+        ("ZCZwSGApj6E", "Design Elements  | English Literature – The Curious Incident of the Dog in the Night-time", "BBC Bitesize for Teachers"),
+        ("XTt8Bd5gN9c", "5 GCSE Drama Live Production Revision Write This Way", "Joni McAuliffe"),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.

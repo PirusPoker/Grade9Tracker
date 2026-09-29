@@ -160,6 +160,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("music", &[(1, 0.5, 0.25)]),
     // AQA GCSE Religious Studies A (8062)
     ("rs", &[(1, 0.75, 0.5)]),
+    // Drama: one written paper, taught through both years at school.
+    ("drama", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -176,6 +178,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("hist", "ahead"),
     ("music", "school"),
     ("rs", "ahead"),
+    ("drama", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -337,6 +340,13 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Topic questions", "https://www.savemyexams.com/gcse/religious-studies/aqa/a/18/topic-questions/"),
         ("Mock exams", "https://www.savemyexams.com/gcse/religious-studies/aqa/a/18/mock-exams/"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/religious-studies/gcse/religious-studies-a-8062/assessment-resources"),
+    ]),
+    // AQA GCSE Drama 8261 - opened and checked against content.
+    ("drama", &[
+        ("BBC Bitesize (AQA)", "https://www.bbc.co.uk/bitesize/examspecs/zrnjwty"),
+        ("Past papers", "https://www.savemyexams.com/gcse/drama/aqa/past-papers/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/drama/gcse/drama-8261/assessment-resources"),
+        ("AQA spec (set plays are 3.1.2)", "https://www.aqa.org.uk/subjects/drama/gcse/drama-8261/specification"),
     ]),
 ];
 

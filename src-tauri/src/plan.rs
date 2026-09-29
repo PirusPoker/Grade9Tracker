@@ -711,6 +711,51 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("3.2.1.5b", "Punishment: its aims, prison, corporal punishment, community service, forgiveness and the death penalty", 1.5),
         ],
     },
+    // AQA GCSE Drama 8261, specification version 1.8 (June 2026). AQA is the
+    // most-taken board for Drama: 18,629 June 2026 entries against 12,840 for
+    // Eduqas and 10,820 for Pearson. Only Component 1, the written paper, is
+    // taught here. 3.1.2f-3.1.2n are the nine set plays on AQA's current list;
+    // a student studies one and deletes the other eight in the Plan tab, which
+    // leaves 16 h of study (24 h with all nine).
+    SubjectDef {
+        id: "drama", name: "Drama", full: "AQA GCSE Drama (8261)", color: "var(--drama)",
+        papers: "Component 1 Understanding drama: one written exam, 1h45, open book with a clean copy of your set play, 80 marks, 40%. Section A multiple choice on theatre roles and terminology (4 marks), Section B four questions on an extract from your set play (44 marks), Section C one question from a choice on a live production you have seen (32 marks). The nine Set play topics cover every play on AQA's list: in the Plan tab, delete the eight you do not study. Component 2 Devising drama (devising log and devised performance, 40%) and Component 3 Texts in practice (two performed extracts, 20%) are practical, assessed in school and by an AQA examiner, and are not taught in the app",
+        spec: "https://www.aqa.org.uk/subjects/drama/gcse/drama-8261/specification",
+        sections: &["3.1.1 Knowledge and understanding", "3.1.2 Set play (Section B)", "3.1.3 Live theatre production (Section C)"],
+        topics: &[
+            // 3.1.1 Knowledge and understanding - Section A, and the toolkit for B and C
+            ("3.1.1a", "Theatre makers: the twelve roles and what each is accountable for", 0.75),
+            ("3.1.1b", "Stage positions and staging configurations", 0.75),
+            ("3.1.1c", "Reading a play: genre, form, style, structure, language and stage directions", 0.75),
+            ("3.1.1d", "Character, sub-text, motivation, mood, pace and climax", 0.75),
+            ("3.1.1e", "Context, and the theatrical conventions of the period", 0.75),
+            ("3.1.1f", "The performer: vocal and physical interpretation of character", 1.0),
+            ("3.1.1g", "Performance conventions, use of space and the actor-audience relationship", 0.75),
+            ("3.1.1h", "Design fundamentals, set and props", 1.0),
+            ("3.1.1i", "Costume, hair, make-up and puppets", 0.75),
+            ("3.1.1j", "Lighting and sound design", 1.0),
+            // 3.1.2 Area of study 1: set play - the four Section B question types
+            ("3.1.2a", "Section B: the design and context question (4 marks)", 0.5),
+            ("3.1.2b", "Section B: performing a line (8 marks)", 0.75),
+            ("3.1.2c", "Section B: space and interaction in the shaded section (12 marks)", 0.75),
+            ("3.1.2d", "Section B: the 20-mark question as a performer", 1.0),
+            ("3.1.2e", "Section B: the 20-mark question as a designer", 1.0),
+            // 3.1.2 The nine set plays - keep only the one you study
+            ("3.1.2f", "Set play: The Crucible (Arthur Miller)", 1.0),
+            ("3.1.2g", "Set play: Blood Brothers (Willy Russell)", 1.0),
+            ("3.1.2h", "Set play: Noughts and Crosses (Malorie Blackman, adapted by Dominic Cooke)", 1.0),
+            ("3.1.2i", "Set play: Around the World in 80 Days (Jules Verne, adapted by Laura Eason)", 1.0),
+            ("3.1.2j", "Set play: Things I Know to Be True (Andrew Bovell)", 1.0),
+            ("3.1.2k", "Set play: Romeo and Juliet (William Shakespeare)", 1.0),
+            ("3.1.2l", "Set play: A Taste of Honey (Shelagh Delaney)", 1.0),
+            ("3.1.2m", "Set play: The Great Wave (Francis Turnly)", 1.0),
+            ("3.1.2n", "Set play: The Empress (Tanika Gupta)", 1.0),
+            // 3.1.3 Area of study 2: live theatre production - Section C
+            ("3.1.3a", "Section C: seeing, noting and researching a live production", 0.75),
+            ("3.1.3b", "Section C: analysing and evaluating performers (32 marks)", 1.0),
+            ("3.1.3c", "Section C: analysing and evaluating design (32 marks)", 1.0),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

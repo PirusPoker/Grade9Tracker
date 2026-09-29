@@ -104,6 +104,12 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ("music", &["ME", "MC", "ML", "AoS1", "AoS2", "AoS3", "AoS4"]),
     // AQA GCSE Religious Studies A (8062). Route built: Christianity and Islam with Themes A, B, D and E; the other religions and themes are not.
     ("rs", &["3.1.2.1", "3.1.2.2", "3.1.5.1", "3.1.5.2", "3.2.1.1", "3.2.1.2", "3.2.1.4", "3.2.1.5"]),
+    // AQA GCSE Drama 8261, specification version 1.8 (June 2026), read on
+    // 29 September 2026. Only 3.1 Understanding drama is examined in writing
+    // (Component 1); 3.2 Devising drama and 3.3 Texts in practice are practical
+    // and not taught in the app. 3.1.2 is split into the four Section B question
+    // types (a-e) and the nine set plays (f-n).
+    ("drama", &["3.1.1", "3.1.2", "3.1.3"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -3831,6 +3837,195 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Describe how the death penalty was abolished in Britain and where it is still used",
         "Use the principle of utility and the sanctity of life to argue both for and against the death penalty",
     ], "Losing the second mark in the contrasting-beliefs questions by giving two views that agree or leaving out Christianity. Set a Christian view (most oppose the death penalty because of the sanctity of life) against a Muslim one (many accept it for murder under 17:33)."),
+    // ---------- Drama (AQA 8261) ----------
+    ("drama:3.1.1a", &[
+        "Name the twelve theatre roles in the specification and say what each does day to day",
+        "Explain what each role is accountable for in rehearsal and in performance",
+        "Distinguish roles that are easily confused: director and stage manager, technician and designer, stage manager and theatre manager",
+        "Explain how an understudy and a stage manager keep a production running when things go wrong",
+    ], "The designer plans the lighting; the technician rigs, focuses and operates it. Section A regularly offers the designer as the wrong answer to an operating question."),
+
+    ("drama:3.1.1b", &[
+        "Label the nine stage positions from the performer's point of view, upstage to downstage and left to right",
+        "Describe the six staging configurations: proscenium arch, end on, thrust, traverse, in the round and promenade",
+        "Explain how each configuration affects sightlines, entrances, set and the actor-audience relationship",
+        "Choose and justify a configuration for a given scene or effect",
+    ], "Stage left is the actor's left as they face the audience, not the audience's left. Reversing it throws away an easy mark."),
+
+    ("drama:3.1.1c", &[
+        "Define genre, form, style and structure and identify each in a play you have studied",
+        "Explain how a playwright's language and stage directions give the performer and designer clues",
+        "Identify the practical demands of a text: locations, scene changes, effects, doubling and special requirements",
+        "Use this vocabulary accurately in Section B and C answers",
+    ], "Genre and style are not the same word: tragedy is a genre, naturalism is a style. Mixing them up undermines an otherwise good answer."),
+
+    ("drama:3.1.1d", &[
+        "Explain sub-text and show how a performer plays what a character means rather than what they say",
+        "Analyse a character's motivation and how characters interact within a scene",
+        "Explain how mood, atmosphere, pace and rhythm are created and changed across a scene",
+        "Locate the dramatic climax of a scene and of the play and explain how it is built",
+    ], "Naming a mood is not analysing it. Say which moment, which choice creates it, and what the audience feels as a result."),
+
+    ("drama:3.1.1e", &[
+        "Summarise the social, cultural and historical context in which your set play is set",
+        "Explain the theatrical conventions of the period in which it was written",
+        "Turn context into concrete staging and design choices",
+        "Explain why a play's setting and the time it was written can be different, and why both matter",
+    ], "Context has to change something on stage. A paragraph of history with no costume, set or acting choice attached earns nothing in Drama."),
+
+    ("drama:3.1.1f", &[
+        "Use the vocal terms accurately: accent, volume, pitch, timing, pace, intonation, phrasing, emotional range, delivery of lines",
+        "Use the physical terms accurately: build, age, height, facial features, movement, posture, gesture, facial expression",
+        "Describe a vocal or physical choice precisely enough that another actor could reproduce it",
+        "Explain the effect of each choice on the audience's understanding of the character",
+    ], "'Say it angrily' is not a vocal skill. Name the skill (raised volume, clipped pace, a falling pitch) and pin it to a word or moment."),
+
+    ("drama:3.1.1g", &[
+        "Explain performance conventions such as direct address, aside, soliloquy, freeze, flashback, multi-role and chorus",
+        "Use proxemics, levels and stage positions to show relationships and status",
+        "Explain how the actor-audience configuration shapes the relationship between performers and audience",
+        "Describe how blocking changes across a scene to show a shift in power or feeling",
+    ], "Proxemics answers lose marks for vagueness: say where each actor is, where they move to, and what the change in distance shows."),
+
+    ("drama:3.1.1h", &[
+        "Apply the design fundamentals of scale, shape, colour and texture to a set or prop design",
+        "Explain set types and features: composite, permanent, minimalist, naturalistic, flats, cyclorama, revolves, trucks, flying, projection, multimedia, pyrotechnics, smoke",
+        "Design props that tell the audience about character, period and place",
+        "Explain how a set supports scene changes, entrances and the chosen configuration",
+    ], "A set design that lists furniture without saying what it communicates stays in the bottom bands. Every item needs a reason."),
+
+    ("drama:3.1.1i", &[
+        "Specify a costume precisely: garment, fabric, colour, cut, fit, condition and accessories",
+        "Design hair and make-up that show age, status, health and period",
+        "Explain how costume communicates character, period, location and mood",
+        "Describe puppet types (rod, string, shadow, hand, human-arm) and what a puppet designer decides",
+    ], "Colour alone is not a costume design. Examiners want fabric, cut and condition too, each tied to the character or context."),
+
+    ("drama:3.1.1j", &[
+        "Use lighting terms accurately: direction, colour, intensity, gels, gobos, profile, Fresnel, flood, follow spot, fades and blackout",
+        "Explain how lighting establishes time, place, mood and focus",
+        "Use sound terms accurately: direction, amplification, live and recorded sound, music, sound effects, underscoring, soundscape",
+        "Explain how sound establishes location and period and builds or releases tension",
+    ], "'The lighting was dim' gains little. Name the colour, angle, intensity and the cue change, and say what it made the audience feel."),
+
+    ("drama:3.1.2a", &[
+        "Answer the compulsory 4-mark design question for costume or setting in the context given",
+        "Give precise design detail rather than general description",
+        "Link each design choice to the social, cultural and historical context in the question",
+        "Finish a full-mark answer in about five minutes",
+    ], "Four marks go on precision. A design that is right for the period but vague about fabric, colour and condition rarely gets beyond 2."),
+
+    ("drama:3.1.2b", &[
+        "Plan the vocal and physical delivery of a single line from the extract",
+        "Cover both voice and body, attached to specific words in the line",
+        "Explain the effect each choice creates for the audience in this moment of the play",
+        "Show awareness of the character's situation and motivation at that point",
+    ], "Covering only voice or only movement caps the answer. The question asks for both vocal and physical skills."),
+
+    ("drama:3.1.2c", &[
+        "Plan blocking for the shaded section: positions, moves, levels and proxemics",
+        "Describe interaction with the other actor: eye contact, touch, reactions and listening",
+        "Tie every move to a line or moment in the shaded section",
+        "Explain how the space shows the relationship or the effect the question names",
+    ], "The question is about the performance space and interaction, not voice. Answers that drift into vocal skills lose focus and marks."),
+
+    ("drama:3.1.2d", &[
+        "Build a 20-mark performer answer across the extract and the play as a whole",
+        "Use an extensive range of vocal and physical skills, each with precise detail",
+        "Justify each choice by the character's journey and the playwright's intentions",
+        "Refer to at least two other moments in the play to show knowledge of the whole",
+    ], "Staying inside the extract caps the answer below the top band. The question explicitly asks about the role in the play as a whole."),
+
+    ("drama:3.1.2e", &[
+        "Choose one design skill (lighting, sound, set, costume or puppets) and design it for the extract",
+        "Describe the design with precise technical detail and cue changes",
+        "Explain how the design supports the action and communicates meaning",
+        "Show how the same design approach works for the play as a whole",
+    ], "A designer answer must describe effects that support the action. A static description of what the stage looks like misses half the question."),
+
+    ("drama:3.1.2f", &[
+        "Summarise the plot of The Crucible act by act and its key moments",
+        "Explain the context: Salem 1692, Puritan society, and Miller's 1950s America and McCarthyism",
+        "Analyse the main characters: Proctor, Elizabeth, Abigail, Hale, Danforth, Parris, Mary Warren",
+        "Plan performance and design ideas for key moments across the four acts",
+    ], "The play is set in 1692 but written in 1953. Costume and set questions want the 1690s Puritan world unless the question says otherwise."),
+
+    ("drama:3.1.2g", &[
+        "Summarise the plot of Blood Brothers and its key moments, from the pact to the final shooting",
+        "Explain the context: Liverpool from the 1950s to the 1980s, class, unemployment and superstition",
+        "Analyse the main characters: Mrs Johnstone, Mrs Lyons, Mickey, Edward, Linda, Sammy and the Narrator",
+        "Plan performance and design ideas, including playing the twins as children and the role of the Narrator",
+    ], "The boys are played by adults at seven, fourteen and as young men. Answers that ignore how an adult performer shows each age lose precision."),
+
+    ("drama:3.1.2h", &[
+        "Summarise the plot of Noughts and Crosses and its key moments",
+        "Explain the context: a dystopian society that reverses real racial power and the history of segregation it draws on",
+        "Analyse the main characters: Sephy, Callum, Jude, Meggie, Ryan, Kamal and Jasmine",
+        "Plan performance and design ideas for its fast, episodic, epic structure",
+    ], "The play reverses real-world racial power: Crosses are the ruling dark-skinned group. Getting that backwards wrecks any design or context answer."),
+
+    ("drama:3.1.2i", &[
+        "Summarise the plot of Around the World in 80 Days and its key moments, from the wager to the missing day",
+        "Explain the context: Victorian England, the British Empire and the new age of steam travel",
+        "Analyse the main characters: Fogg, Passepartout, Fix and Aouda",
+        "Plan performance and design ideas for its storytelling style, multi-role playing and suggested locations",
+    ], "This is storytelling theatre with a small cast in many roles. Designs that try to build every location naturalistically miss the style."),
+
+    ("drama:3.1.2j", &[
+        "Summarise the plot of Things I Know to Be True and its key moments across the four seasons",
+        "Explain the context: a contemporary working-class family in suburban South Australia",
+        "Analyse the main characters: Bob, Fran, Pip, Mark/Mia, Ben and Rosie",
+        "Plan performance and design ideas, including direct address monologues and physical theatre",
+    ], "Each child's monologue is spoken to the audience. Answers that play those speeches as if to another character lose the convention."),
+
+    ("drama:3.1.2k", &[
+        "Summarise the plot of Romeo and Juliet and its key moments act by act",
+        "Explain the context: Verona in the late sixteenth century and Elizabethan theatre conventions",
+        "Analyse the main characters: Romeo, Juliet, the Nurse, Mercutio, Tybalt, Friar Laurence, Capulet and Lady Capulet",
+        "Plan performance ideas for verse and prose, and design ideas for key moments",
+    ], "Verse is a performance challenge, not just a literary one. Say how the actor handles the rhythm and the line ends, not only what the words mean."),
+
+    ("drama:3.1.2l", &[
+        "Summarise the plot of A Taste of Honey and its key moments",
+        "Explain the context: working-class Salford in the late 1950s and kitchen sink drama",
+        "Analyse the main characters: Jo, Helen, Peter, Boy and Geof",
+        "Plan performance and design ideas, including the music-hall touches of the first production",
+    ], "It is naturalistic but not only naturalistic: Joan Littlewood's first production added live jazz and direct address, and answers can use both."),
+
+    ("drama:3.1.2m", &[
+        "Summarise the plot of The Great Wave and its key moments across more than twenty years",
+        "Explain the context: North Korea's abductions of Japanese citizens in the late 1970s and 1980s and the politics that followed",
+        "Analyse the main characters: Hanako, Reiko, Etsuko, Tetsuo and Jung Sun",
+        "Plan performance and design ideas for a fast-moving political thriller set in two countries",
+    ], "The play moves between Japan and North Korea over more than twenty years. Designs must show which country and which decade each scene is in."),
+
+    ("drama:3.1.2n", &[
+        "Summarise the plot of The Empress and its key moments, from the voyage to the final scenes",
+        "Explain the context: Queen Victoria's last years, the British Empire in India and Indians living in Britain",
+        "Analyse the main characters: Rani, Abdul Karim, Queen Victoria, Hari, Firoza and Dadabhai Naoroji",
+        "Plan performance and design ideas for an ensemble play with many locations",
+    ], "The play is set between 1887 and 1901. Costume and setting answers need late Victorian detail, for both the British and the Indian characters."),
+
+    ("drama:3.1.3a", &[
+        "Prepare to see a production: research the play, the company and the production's style",
+        "Take useful notes during and straight after the performance on acting, design and key moments",
+        "Identify the production's interpretation and what the company was trying to communicate",
+        "Build a revision bank of precise moments for acting and for each design area",
+    ], "Section C marks precision. Students who wrote no notes after the show end up describing it in general terms and stall in the middle bands."),
+
+    ("drama:3.1.3b", &[
+        "Describe how performers used vocal and physical skills with precise, moment-by-moment detail",
+        "Analyse how those skills communicated character, relationships, mood or meaning",
+        "Evaluate how successful the performance was and justify every judgement",
+        "Plan and write a 32-mark response in about 45 minutes",
+    ], "Twenty of the 32 marks are for analysis and evaluation. Retelling the plot or describing without judging keeps the answer below half marks."),
+
+    ("drama:3.1.3c", &[
+        "Describe set, costume, lighting and sound design with accurate technical vocabulary",
+        "Analyse how the design created location, period, mood or meaning at specific moments",
+        "Evaluate how successful the design was and justify each judgement",
+        "Answer the design option in Section C with a clear line of argument",
+    ], "Answer only the design area the question names. A lighting question answered with costume detail earns almost nothing."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.
