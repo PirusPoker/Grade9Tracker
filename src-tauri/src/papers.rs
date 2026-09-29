@@ -65,6 +65,8 @@ const PAPERS: &[(&str, &str, &str)] = &[
     ("drama/p2", "drama", include_str!("../papers/drama/p2.md")),
     ("pe/p1", "pe", include_str!("../papers/pe/p1.md")),
     ("pe/p2", "pe", include_str!("../papers/pe/p2.md")),
+    ("media/p1", "media", include_str!("../papers/media/p1.md")),
+    ("media/p2", "media", include_str!("../papers/media/p2.md")),
 ];
 
 #[derive(Serialize, Clone, Debug)]

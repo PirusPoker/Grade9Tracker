@@ -165,6 +165,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // PE: taught through both years at school, with the practical NEA done
     // there too - recall on the written theory only.
     ("pe", &[(1, 0.5, 0.25)]),
+    // Media Studies: taught across both years at school; recall on the set products.
+    ("media", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -183,6 +185,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("rs", "ahead"),
     ("drama", "school"),
     ("pe", "school"),
+    ("media", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -361,6 +364,16 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/physical-education/aqa/past-papers/"),
         ("BBC Bitesize (AQA)", "https://www.bbc.co.uk/bitesize/examspecs/zp49cwx"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/physical-education/gcse/physical-education-8582/assessment-resources"),
+    ]),
+    // WJEC Eduqas GCSE Media Studies (C680QS). Every link opened and checked on
+    // 29 September 2026: the Save My Exams and Seneca courses are their Eduqas
+    // GCSE Media Studies notes (both list Desert Island Discs and Trigger Point).
+    ("media", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/media-studies/wjec-eduqas/17/revision-notes/"),
+        ("Seneca revision notes", "https://senecalearning.com/en-GB/revision-notes/gcse/media-studies/eduqas"),
+        ("Eduqas set product factsheets (Component 1)", "https://resources.eduqas.co.uk/Pages/ResourceSingle.aspx?rIid=1885"),
+        ("Eduqas set product factsheets (Component 2)", "https://resources.eduqas.co.uk/Pages/ResourceSingle.aspx?rIid=2072"),
+        ("Eduqas spec, papers & mark schemes", "https://www.eduqas.co.uk/qualifications/media-studies-gcse/#tab_pastpapers"),
     ]),
 ];
 

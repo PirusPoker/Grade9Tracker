@@ -797,6 +797,54 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("3.2.3.3", "Energy use, diet, nutrition and hydration", 0.75),
         ],
     },
+    // WJEC Eduqas GCSE Media Studies (C680QS), specification version 10,
+    // September 2025, read from the specification PDF. Eduqas is the
+    // most-taken board for Media Studies: 19,791 June 2026 entries against
+    // 5,484 for AQA and 3,588 for OCR. Set products are the list for exams
+    // from 2028. Codes 2a-2e are the theoretical framework and contexts
+    // (spec section 2), 2.1x Component 1 and 2.2x Component 2; the TV and
+    // music topics marked "option" are the school's choice.
+    SubjectDef {
+        id: "media", name: "Media Studies", full: "Media Studies (WJEC Eduqas C680QS)", color: "var(--media)",
+        papers: "Component 1 Exploring the Media, 1h30, 80 marks, 40%: Section A media language and representation in print (magazines, film posters, newspapers, print adverts), including a comparison with an unseen product; Section B industries and audiences (The Sun, Desert Island Discs, No Time to Die, Fortnite). Component 2 Understanding Media Forms and Products, 1h30, 60 marks, 30%: Section A television, starting from an extract of the set episode; Section B music videos and online media. Component 3 Creating Media Products is non-exam assessment (a production for a set brief) worth 30%, and is not taught in the app. Your school picks one TV option (Trigger Point with The Sweeney, or Man Like Mobeen or Modern Family with Friends) and one music video from each pair (Lizzo or Taylor Swift; Stormzy or Justin Bieber; Duran Duran or TLC): delete the topics for the options you don't study. Set products are those for exams from 2028",
+        spec: "https://www.eduqas.co.uk/qualifications/media-studies-gcse/",
+        sections: &["2 Theoretical framework and contexts", "2.1 Component 1: Exploring the Media", "2.2 Component 2: Understanding Media Forms and Products"],
+        topics: &[
+            // 2 The theoretical framework and the contexts of media
+            ("2a", "Media language: semiotics, codes and conventions, genre and narrative", 1.25),
+            ("2b", "Representation: selection, stereotypes, under-representation and feminist approaches", 1.25),
+            ("2c", "Media industries: ownership, convergence, funding and regulation", 1.25),
+            ("2d", "Audiences: targeting, categorising, uses and gratifications, active audiences", 1.0),
+            ("2e", "Media contexts: historical, social, cultural and political", 0.75),
+            // 2.1 Component 1, Section A: media language and representation (print)
+            ("2.1a", "Magazine front covers: Vogue (July 2021) and GQ (August 2019)", 1.25),
+            ("2.1b", "Film posters: The Man with the Golden Gun (1974) and No Time to Die (2021)", 1.25),
+            ("2.1c", "Newspaper front pages: The Guardian (6 May 2025) and The Sun (22 March 2025)", 1.25),
+            ("2.1d", "Print adverts: Quality Street (1956) and NHS 111 (2023)", 1.0),
+            ("2.1e", "Section A skills: the context question and comparing with an unseen product", 0.75),
+            // 2.1 Component 1, Section B: media industries and audiences
+            ("2.1f", "The Sun: the newspaper industry and its audiences", 1.0),
+            ("2.1g", "Desert Island Discs: the radio industry and its audiences", 0.75),
+            ("2.1h", "No Time to Die: the film industry", 0.75),
+            ("2.1i", "Fortnite: the video games industry and its audiences", 0.75),
+            // 2.2 Component 2, Section A: television (one option)
+            ("2.2a", "Television: crime drama and sitcom as genres, and the TV industry", 0.75),
+            ("2.2b", "Crime drama option: Trigger Point (Series 2, Episode 1)", 1.0),
+            ("2.2c", "Crime drama option: The Sweeney (1975 extract)", 0.5),
+            ("2.2d", "Sitcom option: Man Like Mobeen (Series 1, Episode 2)", 1.0),
+            ("2.2e", "Sitcom option: Modern Family (Season 8, Episode 2)", 1.0),
+            ("2.2f", "Sitcom option: Friends (1994 extract)", 0.5),
+            // 2.2 Component 2, Section B: music videos and online media (one from each pair)
+            ("2.2g", "Music videos and the music industry", 0.75),
+            ("2.2h", "Artist websites, and social and participatory media", 0.75),
+            ("2.2i", "Music option: Lizzo, Good as Hell, and her website", 0.75),
+            ("2.2j", "Music option: Taylor Swift, The Man, and her website", 0.75),
+            ("2.2k", "Music option: Stormzy, Superheroes, and his website", 0.5),
+            ("2.2l", "Music option: Justin Bieber, Intentions, and his website", 0.5),
+            ("2.2m", "Music option: Duran Duran, Rio (1982)", 0.5),
+            ("2.2n", "Music option: TLC, Waterfalls (1995)", 0.5),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

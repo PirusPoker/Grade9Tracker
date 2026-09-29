@@ -125,6 +125,12 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
         "3.2.2.1", "3.2.2.2", "3.2.2.3",
         "3.2.3.1", "3.2.3.2", "3.2.3.3",
     ]),
+    // Media Studies - WJEC Eduqas GCSE (C680QS), specification version 10,
+    // September 2025, read 29 September 2026. Section 2 is the theoretical
+    // framework and the contexts of media, 2.1 Component 1 (Exploring the
+    // Media) and 2.2 Component 2 (Understanding Media Forms and Products).
+    // Component 3 (2.3) is non-exam assessment and is not taught in the app.
+    ("media", &["2", "2.1", "2.2"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -4258,6 +4264,200 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Describe the role of carbohydrates, fat, protein and vitamins/minerals",
         "Explain the effects of dehydration on performance and evaluate them for different activities",
     ], "Fat gives more energy than carbohydrate but only at low intensity - saying fat is the main fuel for exercise is the classic error."),
+    // ---------- Media Studies (WJEC Eduqas C680QS) ----------
+    ("media:2a", &[
+        "Analyse any product with denotation and connotation, naming the sign before its meaning",
+        "Explain how selection, combination and exclusion of elements create meaning, narrative and point of view",
+        "Apply genre theory: repetition and variation, hybridity, intertextuality and how genres change over time",
+        "Apply Propp's character roles and the idea of enigmas to print and audio-visual products",
+        "Explain the relationship between technology and the look of a media product",
+    ], "Describing what is on the page earns little. Every point needs the connotation and why the producer chose it for this audience."),
+
+    ("media:2b", &[
+        "Explain why the media re-present rather than present reality, through selection, construction and mediation",
+        "Explain how stereotypes become established, change over time and let audiences read products quickly",
+        "Explain why some social groups are under-represented or misrepresented, with examples from the set products",
+        "Apply feminist approaches, including the male gaze, to the representation of gender",
+        "Explain how audiences' own experiences and beliefs affect how they read a representation",
+    ], "Saying a representation is 'stereotypical' is not analysis. Name the stereotype, show how media language builds it, and say whose interests it serves."),
+
+    ("media:2c", &[
+        "Explain conglomerate ownership, diversification and vertical integration with a real example",
+        "Compare commercial, public service (licence fee) and not-for-profit funding models",
+        "Explain convergence across platforms and how it helps organisations reach audiences",
+        "Name the regulators (Ofcom, IPSO, the BBFC, PEGI) and explain why digital media are harder to regulate",
+        "Explain how production processes, personnel and technology shape a final product",
+    ], "Industry answers lose marks for vague claims. Name the organisation, the owner and the funding model, then explain the effect on the product."),
+
+    ("media:2d", &[
+        "Explain how and why products target mass and niche audiences, and the assumptions producers make",
+        "Categorise audiences by demographics and psychographics",
+        "Apply Blumler and Katz's Uses and Gratifications theory with a specific example for each need",
+        "Compare active and passive audience ideas, and explain why interpretations differ and change over time",
+        "Explain how media use connects to identity, including actual and desired self",
+    ], "Listing the four gratifications is worth little. Each one needs a concrete feature of the set product that meets it."),
+
+    ("media:2e", &[
+        "Explain how a product reflects the time it was made through its representations, values and conventions",
+        "Explain how social and cultural contexts shape production, marketing and audience response",
+        "Explain how political contexts and ownership shape a product's viewpoint",
+        "Use context to explain meaning rather than as a separate paragraph of history",
+    ], "Context bolted on at the end scores low. Tie each piece of context to a specific choice in the product."),
+
+    ("media:2.1a", &[
+        "Analyse the layout, typography, images and cover lines of the Vogue (July 2021) and GQ (August 2019) covers",
+        "Explain how each cover constructs representations of gender and ethnicity",
+        "Explain how social and cultural contexts, including changes in editorial leadership and anti-racism debates, shaped the covers",
+        "Compare the set covers with an unseen magazine cover in the same form",
+    ], "Candidates describe the cover star and forget the cover lines. The written codes anchor the image and carry half the meaning."),
+
+    ("media:2.1b", &[
+        "Analyse how the two Bond posters use images, colour, typography and layout to sell the film",
+        "Compare the representation of gender in the 1974 and 2021 posters",
+        "Explain how historical and social contexts shaped each poster, including changing attitudes to women",
+        "Apply genre and Propp's roles to the characters on each poster",
+    ], "The Man with the Golden Gun is an illustrated poster from 1974. Judge it in its context, not only by today's standards."),
+
+    ("media:2.1c", &[
+        "Analyse how the Guardian (6 May 2025) and Sun (22 March 2025) front pages use layout, images and headlines",
+        "Contrast broadsheet-style and tabloid conventions, and each paper's house style",
+        "Explain how each front page represents gender, age, events and political viewpoints",
+        "Explain how the political stance and audience of each paper shape its choices",
+    ], "Many answers only analyse the main story. Off-leads, puffs and the skyline reveal the paper's audience and values too."),
+
+    ("media:2.1d", &[
+        "Analyse how the Quality Street (1956) and NHS 111 (2023) adverts use images, layout and written codes",
+        "Explain how each advert represents gender, family and social groups",
+        "Explain how 1950s post-war consumer culture and the post-Covid NHS shaped each advert",
+        "Contrast a commercial product advert with a public-information campaign",
+    ], "Quality Street answers often ignore the historical context. Link the gender roles and the luxury appeal to 1950s Britain."),
+
+    ("media:2.1e", &[
+        "Plan and write the 5-mark context question on a set product in about eight minutes",
+        "Write a 25-mark comparison that moves between the set and unseen products in every paragraph",
+        "Structure an argument around similarities, differences and the producers' choices",
+        "Use theory and terminology to sharpen, not replace, analysis",
+    ], "The 25-mark answer that analyses one product and then the other never gets past the middle band. Compare in every paragraph."),
+
+    ("media:2.1f", &[
+        "Explain The Sun's ownership by News UK and News Corp, and what conglomerate ownership means for it",
+        "Explain how The Sun uses its website, app and social media to reach audiences (convergence)",
+        "Explain how IPSO regulates the press and the challenges digital news brings",
+        "Explain who reads The Sun, how it targets them and why they read it",
+    ], "Section B is not textual analysis. Use the product as an example of the industry and audience issue asked about."),
+
+    ("media:2.1g", &[
+        "Explain the BBC's public service remit and licence-fee funding, and Ofcom's role",
+        "Trace how Desert Island Discs has evolved since 1942 as a talk-radio programme",
+        "Explain how BBC Sounds, podcasting and the archive reach new audiences",
+        "Apply Uses and Gratifications to why people listen",
+    ], "Radio answers often confuse commercial and public service radio. Know that the BBC carries no adverts and why."),
+
+    ("media:2.1h", &[
+        "Explain how No Time to Die was produced, financed and distributed across studios and franchise partners",
+        "Explain vertical integration, conglomerates and franchises using the Bond example",
+        "Explain how the 007 website and cross-media promotion show convergence",
+        "Explain the BBFC's role and how films reach global audiences",
+    ], "Film is industries only. Analysing the film's content earns nothing; explain the business behind it."),
+
+    ("media:2.1i", &[
+        "Explain Epic Games' free-to-play business model and in-game purchases",
+        "Explain how Fortnite reaches audiences across platforms and uses events and partnerships",
+        "Explain PEGI regulation and the challenges of regulating online games",
+        "Explain why audiences play, using Uses and Gratifications and ideas of identity",
+    ], "A free game still makes money. Show exactly how, with V-Bucks, battle passes and brand collaborations."),
+
+    ("media:2.2a", &[
+        "Identify the conventions of crime drama and sitcom, and how they have changed since the 1970s and 1990s",
+        "Explain public service and commercial broadcasting, and the growth of streaming",
+        "Explain how TV audiences are targeted and how their viewing has changed",
+        "Explain how Ofcom regulates broadcasters and the challenge of streaming",
+    ], "Genre answers list conventions. The marks are for explaining why a convention is used and how it is varied."),
+
+    ("media:2.2b", &[
+        "Analyse how Trigger Point's camerawork, editing, sound and mise-en-scène create tension",
+        "Explain how the episode represents gender and ethnicity, and how it challenges stereotypes",
+        "Explain ITV's commercial funding, HTM Television's production and the ITV/ITVX premiere",
+        "Compare the episode with The Sweeney to show how the genre has changed",
+    ], "Answers on Trigger Point forget industry. Know who made it, who paid for it and how it was released."),
+
+    ("media:2.2c", &[
+        "Analyse the conventions of 1970s action-led police drama in The Sweeney",
+        "Explain how its representations of gender and masculinity reflect the 1970s",
+        "Explain the ITV and commercial production context of the programme",
+    ], "The Sweeney is a comparison text. Use it to show change over time, not as a separate essay."),
+
+    ("media:2.2d", &[
+        "Analyse how Man Like Mobeen uses sitcom conventions and where it varies them",
+        "Explain how it represents British Muslim, working-class and Birmingham communities",
+        "Explain BBC Three, iPlayer and BBC One as its routes to audiences",
+        "Compare it with Friends to show how the sitcom has changed",
+    ], "Say how the humour works on stereotypes. Answers that only say it 'breaks stereotypes' stay in the middle band."),
+
+    ("media:2.2e", &[
+        "Analyse how Modern Family's mockumentary form varies sitcom conventions",
+        "Explain how the episode plays with stereotypes of family, gender, sexuality and ethnicity",
+        "Explain ABC and Disney ownership, and licensing to streaming services",
+        "Compare it with Friends to show how the sitcom has changed",
+    ], "The episode's title is a joke about stereotypes. Explain how it uses them and then undercuts them."),
+
+    ("media:2.2f", &[
+        "Analyse the typical sitcom conventions of the Friends pilot",
+        "Explain its representations of gender, sexuality and ethnicity in the 1990s context",
+        "Explain NBC production and Channel 4's purchase for UK audiences",
+    ], "Friends is not 'diverse'. Explain why its lack of diversity is itself a point about its time."),
+
+    ("media:2.2g", &[
+        "Identify music video conventions: performance, narrative and concept",
+        "Explain how music videos work as marketing and how the music industry makes money",
+        "Explain how record labels, streaming and YouTube distribute music globally",
+    ], "Music industry answers stay generic. Tie every point to one of the set artists."),
+
+    ("media:2.2h", &[
+        "Analyse an artist's home page, its images and topical material",
+        "Explain how websites link to videos, audio and online shops",
+        "Explain how social and participatory media let fans interact and become producers",
+    ], "Participatory media means audiences create and share, not just 'like'. Give concrete examples of fans producing content."),
+
+    ("media:2.2i", &[
+        "Analyse how Good as Hell uses performance, narrative, colour and setting",
+        "Explain how it represents Lizzo, young women and black university culture",
+        "Explain the body-positivity context and Lizzo's online brand",
+        "Analyse lizzomusic.com and her social media",
+    ], "Body positivity is the obvious point. Add how the marching-band setting and the three students' stories build the message."),
+
+    ("media:2.2j", &[
+        "Analyse how The Man uses its male alter ego, settings and editing to satirise double standards",
+        "Explain how it represents gender and Swift's self-representation as director",
+        "Explain the feminist and industry contexts, including ownership of her recordings",
+        "Analyse taylorswift.com and her social media",
+    ], "Say what the satire targets. Listing the scenes without the double standard behind each one gains little."),
+
+    ("media:2.2k", &[
+        "Analyse how the animated Superheroes video constructs meaning",
+        "Explain how it represents black British children and aspiration",
+        "Explain the 2020 Black Lives Matter context and Stormzy's education work",
+        "Analyse stormzy.com and his social media",
+    ], "The video is animated. Explain why animation suits its message rather than treating it like live action."),
+
+    ("media:2.2l", &[
+        "Analyse how Intentions blends documentary and performance",
+        "Explain how it represents women, families and Bieber himself",
+        "Explain the context of celebrity charity and image rebuilding",
+        "Analyse justinbiebermusic.com and his social media",
+    ], "Judge the video's purpose. Strong answers weigh genuine charity against promotion."),
+
+    ("media:2.2m", &[
+        "Analyse how Rio uses exotic locations, costume and editing",
+        "Explain how it represents men, women and wealth",
+        "Explain the early-MTV and 1980s consumer context",
+    ], "Rio is marketing for an MTV age. Link the glamour to how videos sold bands in 1982."),
+
+    ("media:2.2n", &[
+        "Analyse how Waterfalls uses narrative, performance and early CGI",
+        "Explain how it represents women, young black men and social issues",
+        "Explain the 1990s context of HIV/AIDS awareness and R&B on MTV",
+    ], "Waterfalls tells two stories. Explain how each narrative carries a warning, not only that it is 'about social issues'."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

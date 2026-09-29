@@ -664,6 +664,36 @@ const PE: &[(&str, &str)] = &[
     ("pe:3.2.3.2", include_str!("../lessons/pe/3.2.3.2.md")),
     ("pe:3.2.3.3", include_str!("../lessons/pe/3.2.3.3.md")),
 ];
+const MEDIA: &[(&str, &str)] = &[
+    ("media:2a", include_str!("../lessons/media/2a.md")),
+    ("media:2b", include_str!("../lessons/media/2b.md")),
+    ("media:2c", include_str!("../lessons/media/2c.md")),
+    ("media:2d", include_str!("../lessons/media/2d.md")),
+    ("media:2e", include_str!("../lessons/media/2e.md")),
+    ("media:2.1a", include_str!("../lessons/media/2.1a.md")),
+    ("media:2.1b", include_str!("../lessons/media/2.1b.md")),
+    ("media:2.1c", include_str!("../lessons/media/2.1c.md")),
+    ("media:2.1d", include_str!("../lessons/media/2.1d.md")),
+    ("media:2.1e", include_str!("../lessons/media/2.1e.md")),
+    ("media:2.1f", include_str!("../lessons/media/2.1f.md")),
+    ("media:2.1g", include_str!("../lessons/media/2.1g.md")),
+    ("media:2.1h", include_str!("../lessons/media/2.1h.md")),
+    ("media:2.1i", include_str!("../lessons/media/2.1i.md")),
+    ("media:2.2a", include_str!("../lessons/media/2.2a.md")),
+    ("media:2.2b", include_str!("../lessons/media/2.2b.md")),
+    ("media:2.2c", include_str!("../lessons/media/2.2c.md")),
+    ("media:2.2d", include_str!("../lessons/media/2.2d.md")),
+    ("media:2.2e", include_str!("../lessons/media/2.2e.md")),
+    ("media:2.2f", include_str!("../lessons/media/2.2f.md")),
+    ("media:2.2g", include_str!("../lessons/media/2.2g.md")),
+    ("media:2.2h", include_str!("../lessons/media/2.2h.md")),
+    ("media:2.2i", include_str!("../lessons/media/2.2i.md")),
+    ("media:2.2j", include_str!("../lessons/media/2.2j.md")),
+    ("media:2.2k", include_str!("../lessons/media/2.2k.md")),
+    ("media:2.2l", include_str!("../lessons/media/2.2l.md")),
+    ("media:2.2m", include_str!("../lessons/media/2.2m.md")),
+    ("media:2.2n", include_str!("../lessons/media/2.2n.md")),
+];
 
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
@@ -685,6 +715,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("rs", RS),
     ("drama", DRAMA),
     ("pe", PE),
+    ("media", MEDIA),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {

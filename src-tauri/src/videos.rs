@@ -3196,6 +3196,147 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("A9_-oMb4sec", "AQA GCSE PE - Reasons for a Balanced Diet", EVERLEARNER),
         ("BrPLUNc9zE4", "AQA GCSE PE - Hydration", EVERLEARNER),
     ]),
+    ("media:2a", &[
+        ("MQmBCqT8DSE", "Key Concepts - Media Language", "GCSE Media Revision"),
+        ("bow0Y9QUlBU", "Media Studies - Roland Barthes' Semiotic Theory - Simple Guide for Students And Teachers", "Mrs Fisher"),
+        ("_vINP4yXsFI", "Media Studies - Propp's Character Theory - Simple Guide For Students & Teachers", "Mrs Fisher"),
+        ("hNaDStRuPdI", "Media Studies - Steve Neale's Genre Theory - Simple Guide for Students & Teachers", "Mrs Fisher"),
+    ]),
+    ("media:2b", &[
+        ("yJr0gO_-w_Q", "Stuart Hall's Representation Theory Explained! Media Studies revision", "The Media Insider"),
+        ("HxK5CXfKSCI", "Media Studies - Stuart Hall's Representation Theory - Simple Guide For Students & Teachers", "Mrs Fisher"),
+        ("LeXzLUpw8mg", "Media Studies - Laura Mulvey’s Male Gaze / Feminist theory - Simple Guide", "Mrs Fisher"),
+        ("pyF2XVhWe0E", "Media Studies - Alvarado’s Theory Of Ethnicity & Racial Stereotypes - A Simple Guide", "Mrs Fisher"),
+    ]),
+    ("media:2c", &[
+        ("iYipVkF3pMI", "Media Studies - Ownership", "Mrs Fisher"),
+        ("T4_Qjm0yho8", "Media Studies - Vertical Integration - Key Words", "Mrs Fisher"),
+        ("PsPQoQSPI1c", "An Overview of Media Regulation in the UK", "Coombe Media & Film Studies"),
+        ("7lAZFkEUFKc", "Media Studies Concepts - Ofcom and U.K. Broadcast TV Regulation", "Mrs Fisher"),
+    ]),
+    ("media:2d", &[
+        ("koYBPkgXrBU", "Target Audience Explained: Demographics vs Psychographics | GCSE Media Studies | Eduqas", "TheMediaShepherd"),
+        ("_1pBBnnWbDQ", "Media Studies - Uses & Gratifications Theory - Simple Guide", "Mrs Fisher"),
+        ("FcJEkjn7sJY", "Active and Passive Audience", "GCSE Media Revision"),
+        ("U7RO60SkDbw", "Media Studies - Stuart Hall's Reception Theory - Simple Guide For Students & Teachers", "Mrs Fisher"),
+        ("tTRk3Y6BnqA", "Media Studies - Gauntlett's Identity Theory - Simple Guide for Students and Teachers", "Mrs Fisher"),
+    ]),
+    ("media:2e", &[
+        ("Fx8qLcYigAw", "Quality Street - Context", "GCSE Media Revision"),
+        ("L0_i-tva77M", "GCSE Media Studies Context The Sun Newspaper [Eduqas]", "Dr G Khan"),
+        ("YueiuY6NIZw", "0.1.7 - Contexts:  Political Contexts", "MrMediaStudies"),
+    ]),
+    ("media:2.1a", &[
+        ("kntvnqBQktQ", "GCSE Media - Vogue Cover (July 2021) - Media Language & Representation", "Mrs Fisher"),
+        ("5OzOZR72M3E", "GCSE Media - GQ (august 19 issue) - Media Language & Representation", "Mrs Fisher"),
+        ("phvRY_J7yxw", "Deconstructing GQ GCSE Media", "Mr Dolman"),
+    ]),
+    ("media:2.1b", &[
+        ("lRnTaDEWq3s", "GCSE - The Man With The Golden Gun - Media Language & Representation", "Mrs Fisher"),
+        ("Pn60surD2wQ", "GCSE Media - No Time To Die poster - Media Language & Representation", "Mrs Fisher"),
+        ("Dfk4xju42mw", "The Man with the Golden Gun - Annotations", "GCSE Media Revision"),
+    ]),
+    ("media:2.1c", &[
+        ("sfYmJUENktU", "Newspaper Conventions: Tabloid vs Broadsheets", "Coombe Media & Film Studies"),
+        ("SWExl3aNWfk", "GCSE Media - Guardian - Media Language & Representation", "Mrs Fisher"),
+        ("FT1Dun9i9LU", "The Sun Newspaper: Complete Exam Guide | GCSE Media Studies | Eduqas", "TheMediaShepherd"),
+        ("hXXsrabastk", "COMPONENT 1 SECTION A - THE SUN FRONT COVER - MEDIA STUDIES [EDUQAS]", "Ms P Harvey"),
+    ]),
+    ("media:2.1d", &[
+        ("0om_gIXb0ck", "GCSE Media - Quality Street Advert -- Media Language -  A Guide for Students & Teachers", "Mrs Fisher"),
+        ("nKI1BOyaKp8", "GCSE Media - Quality Street Advert -- Representation -  A Guide for Students & Teachers", "Mrs Fisher"),
+        ("ngcAqFDPT1U", "GCSE Media  Deconstructing the NHS 111 Advert", "Mr Dolman"),
+    ]),
+    ("media:2.1e", &[
+        ("1GmbuWAdLsE", "GCSE Media - Component 1 Exam Paper - What to Expect", "Mrs Fisher"),
+        ("uYn94pjI4BU", "GCSE 5 mark Representation Social Context question -  Vogue Magazine", "Dr G Khan"),
+        ("dz0R3AQL3dg", "GCSE Media Studies Component 1: Tips, Answers & Examples", "The Media Insider"),
+    ]),
+    ("media:2.1f", &[
+        ("2DmuTskxGgU", "GCSE Media - The Sun - Industries", "Mrs Fisher"),
+        ("eB2ny3yb-VA", "GCSE Media - The Sun - Audiences", "Mrs Fisher"),
+        ("uUODfEkWR9Q", "The Sun Newspaper: Following the Money - Business Model Explained | GCSE Media Studies | Eduqas", "TheMediaShepherd"),
+        ("t5MEEmVub_k", "The Sun Newspaper: Power, Politics & Influence | GCSE Media Studies | Eduqas", "TheMediaShepherd"),
+    ]),
+    ("media:2.1g", &[
+        ("qwmVmhgR8pA", "Desert Island Discs  The Original Podcast GCSE Media", "Mr Dolman"),
+        ("XKr8cZL-CLk", "The BBC Charter", "GCSE Media Revision"),
+        ("xTxPETlbyPc", "Radio Industries & BBC Radio 1 Live Lounge", "Coombe Media & Film Studies"),
+    ]),
+    ("media:2.1h", &[
+        ("6UimhBLR8_g", "GCSE Media - James Bond website - Industry", "Mrs Fisher"),
+        ("Kr9kLouS0OM", "What even is Vertical Integration?", "Coombe Media & Film Studies"),
+    ]),
+    ("media:2.1i", &[
+        ("P0ou3Sh-TFM", "GCSE Media - Fortnite - Industries & Audiences", "Mrs Fisher"),
+        ("7F1W7-PlH9s", "GCSE Media - Fortnite Website - Industry & Audience", "Mrs Fisher"),
+        ("70xcmxwlVKw", "Fortnite's Billion Dollar Secret: Games as a Service Explained | GCSE Media Studies | Eduqas", "TheMediaShepherd"),
+    ]),
+    ("media:2.2a", &[
+        ("WC8hKs8AN9o", "GCSE Media - Component 2 - What To Expect", "Mrs Fisher"),
+        ("nn53_SZnQpA", "Sitcom Genre", "GCSE Media Revision"),
+        ("G93hiTpW3Tw", "Crime Drama - Comparisons", "GCSE Media Revision"),
+        ("OrDwS1TSzE8", "GCSE Media - TV Sitcoms - Industry - Simple Guide for Students & Teachers", "Mrs Fisher"),
+        ("UtDb_0nrA9w", "Media Studies Concepts - Regulation of Streaming Sites in the U.K.", "Mrs Fisher"),
+    ]),
+    ("media:2.2b", &[
+        ("DMfIefdVq_g", "Trigger Point Series 2 | First Look | ITV", "ITV"),
+        ("_Ks1qiTKp04", "The Making of “Trigger Point”", "TV Horizon"),
+    ]),
+    ("media:2.2c", &[
+        ("tsymfcvb3Mw", "GCSE Media - The Sweeney - Industry", "Mrs Fisher"),
+        ("rkwwykpGgb4", "The Sweeney - Key Concepts and Context", "GCSE Media Revision"),
+    ]),
+    ("media:2.2d", &[
+        ("XVRykVTyLNw", "GCSE Media - Man Like Mobeen - Audience", "Mrs Fisher"),
+        ("3aYqKZ9Z1c0", "GCSE Media - Man Like Mobeen - Industry", "Mrs Fisher"),
+        ("AUpDW2lSucM", "Revising Television - Man Like Mobeen", "Octo Beard"),
+    ]),
+    ("media:2.2e", &[
+        ("dG7yHMFUNls", "GCSE Media - Modern Family - Media Language", "Mrs Fisher"),
+        ("DcXVkPOMBBg", "GCSE Media - Modern Family - Representation", "Mrs Fisher"),
+        ("-PH-U1SNYgo", "GCSE Eduqas Media Studies - Sitcom Revision (Modern Family and Friends)", "Edward"),
+    ]),
+    ("media:2.2f", &[
+        ("N7I_fAAPImc", "Friends - Set Episode", "GCSE Media Revision"),
+        ("8f_JH84_Mrs", "GCSE Media - TV Sitcoms - Audiences", "Mrs Fisher"),
+    ]),
+    ("media:2.2g", &[
+        ("Pel14H2QIDA", "Music Video - Questions", "GCSE Media Revision"),
+        ("78VQeJw1lNE", "GCSE Eduqas Media Studies Revision - Music Videos (The Man and Intentions)", "Edward"),
+    ]),
+    ("media:2.2h", &[
+        ("v2V03Asuh6Y", "Taylor Swift - Website Annotations", "GCSE Media Revision"),
+        ("Eo3_q9KFY0U", "Media Studies - Henry Jenkins Fandom theory - A simple guide for students  teachers", "Mrs Fisher"),
+        ("u8rFe2Z60Hg", "Media Studies - Clay Shirky's End Of Audience Theory - Simple Guide For Students & Teachers", "Mrs Fisher"),
+    ]),
+    ("media:2.2i", &[
+        ("mexblZDOHw4", "GCSE Media - Good As Hell by Lizzo", "Mrs Fisher"),
+        ("vuq-VAiW9kw", "Lizzo - Good As Hell (Official Music Video)", "Lizzo Music"),
+    ]),
+    ("media:2.2j", &[
+        ("I7HgJJR-yZc", "GCSE Media - The Man by Taylor Swift", "Mrs Fisher"),
+        ("AqAJLh9wuZ0", "Taylor Swift - The Man (Official Video)", "Taylor Swift"),
+        ("aXbrwoIVkLU", "GCSE Media - Taylor Swift - Online Media", "Mrs Fisher"),
+    ]),
+    ("media:2.2k", &[
+        ("dF9b8DXTFtI", "GCSE Media - Superheroes by Stormzy", "Mrs Fisher"),
+        ("q-EW4-B11hw", "STORMZY - SUPERHEROES", "Stormzy"),
+    ]),
+    ("media:2.2l", &[
+        ("KlLlJHDcyhQ", "GCSE Media - Intentions by Justin Bieber - Media Language, Representation & Audience", "Mrs Fisher"),
+        ("3AyMjyHu1bA", "Justin Bieber - Intentions (Official Video (Short Version)) ft. Quavo", "JustinBieberVEVO"),
+    ]),
+    ("media:2.2m", &[
+        ("ACONooRUGyc", "GCSE Media - Rio by Duran Duran - Media Language & Representation", "Mrs Fisher"),
+        ("nTizYn3-QN0", "Duran Duran - Rio (Official Music Video)", "DuranDuranVEVO"),
+        ("Sf2wVJlqn1A", "Rio - Case Study", "GCSE Media Revision"),
+    ]),
+    ("media:2.2n", &[
+        ("r40hohDAmvo", "GCSE Media - TLC Waterfalls", "Mrs Fisher"),
+        ("8WEtxJ4-sh4", "TLC - Waterfalls (Official HD Video)", "TLCVEVO"),
+        ("0rWZLuciS6U", "TLC Waterfalls - Case Study", "GCSE Media Revision"),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
