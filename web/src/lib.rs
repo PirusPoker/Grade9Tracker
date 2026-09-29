@@ -32,6 +32,12 @@ pub fn default_config() -> String {
     serde_json::to_string(&PlanConfig::default()).unwrap_or_else(|_| "{}".into())
 }
 
+/// Every built-in subject, as JSON, for the Plan tab's catalog.
+#[wasm_bindgen]
+pub fn subject_catalog() -> String {
+    serde_json::to_string(&config::catalog()).unwrap_or_else(|_| "[]".into())
+}
+
 /// Tidy a configuration the way the desktop app does before saving it.
 #[wasm_bindgen]
 pub fn sanitise_config(config_json: &str) -> Result<String, JsValue> {

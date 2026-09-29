@@ -3209,8 +3209,10 @@ function setPath(path,val){const ks=path.split(".");let o=CFG;for(let i=0;i<ks.l
 function delPath(path){const ks=path.split(".");let o=CFG;for(let i=0;i<ks.length-1;i++)o=o[ks[i]];const k=ks[ks.length-1];
   if(Array.isArray(o))o.splice(+k,1);else delete o[k];dirty=true;}
 
+let CATALOG=null,catalogOpen=false;
 function renderPlan(){
   const el=document.getElementById("view-plan");
+  if(CATALOG===null){CATALOG=[];invoke("subject_catalog").then(c=>{CATALOG=c||[];if(!document.getElementById("view-plan").hidden)renderPlan();}).catch(()=>{});}
   if(!CFG){el.innerHTML=`<div class="card"><div class="empty">Loading your plan…</div></div>`;return;}
   let html=`<h1 style="font-size:24px;margin-bottom:6px">Your plan</h1>
   <p class="muted" style="font-size:14px;margin:0 0 18px">Everything the schedule is built from. Change a subject, a topic, the hours you give it, where its links point, or your term dates — then save, and the whole two years reschedules around it. Your ticks are kept.</p>
@@ -3240,6 +3242,10 @@ function renderPlan(){
         <button class="btn small" data-add="topic:${i}">+ Add a topic</button></div>
       <button class="btn small" data-delsubj="${i}">Delete this subject</button>
     </div></details>`;});
+  const more=(CATALOG||[]).filter(c=>!CFG.subjects.some(s=>s.id===c.id));
+  if(more.length)html+=`<details class="acc" id="catalog" ${catalogOpen?"open":""}><summary>+ Add a built-in subject <span class="muted" style="font-weight:400;font-size:14px">${more.length} more, with lessons</span></summary><div class="body" style="display:grid;gap:8px;padding-top:10px">
+    ${more.map(c=>`<div class="trow"><div><b>${esc(c.name)}</b><div class="muted" style="font-size:13px">${esc(c.full)} · ${c.topics.length} topics</div></div><button class="btn small" data-addcat="${esc(c.id)}">Add</button></div>`).join("")}
+  </div></details>`;
   html+=`<button class="btn wide" data-add="subject" style="margin-bottom:8px">+ Add a subject by hand</button>
   <details class="acc" id="drafter" ${drafting?"open":""}><summary>✦ Draft a subject from a specification</summary><div class="body">
     <p class="muted" style="font-size:13.5px;margin:10px 0 12px">Give it a public spec page — a Pearson or AQA syllabus, an exam-board topic list — and it drafts the topics, hours, objectives and common mistakes for you. For a PDF, or anything behind a login, copy the spec text and paste it in the box instead. Save My Exams pages need an account, so they will not work here.</p>
@@ -3282,6 +3288,11 @@ function renderPlan(){
     else if(what==="res"){CFG.subjects[+idx].resources.push({label:"Notes",url:"https://www.savemyexams.com/"});openSubj=+idx;}
     else if(what==="block"){const last=CFG.blocks[CFG.blocks.length-1];CFG.blocks.push({start:last?last.start:iso(new Date()),weeks:1,kind:"term",label:"New block",year:last?last.year:10,block:"A1"});}
     dirty=true;render();}));
+  el.querySelector("#catalog")?.addEventListener("toggle",function(){catalogOpen=this.open;});
+  el.querySelectorAll("[data-addcat]").forEach(b=>b.addEventListener("click",()=>{
+    const c=CATALOG.find(c=>c.id===b.dataset.addcat);if(!c||CFG.subjects.some(s=>s.id===c.id))return;
+    CFG.subjects.push(JSON.parse(JSON.stringify(c)));openSubj=null;dirty=true;
+    planMsg=`${c.name} added — save the plan to schedule it`;render();}));
   el.querySelector("#drafter")?.addEventListener("toggle",function(){drafting=this.open;});
   ["dname","durl","dtext"].forEach(id=>el.querySelector("#"+id)?.addEventListener("input",e=>{
     if(id==="dname")draftName=e.target.value;else if(id==="durl")draftUrl=e.target.value;else draftText=e.target.value;}));

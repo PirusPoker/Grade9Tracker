@@ -80,6 +80,12 @@ fn get_plan(app: AppHandle, catch_up: Option<plan::CatchUp>) -> plan::Plan {
     plan::build_with(&load_config(&app), catch_up.as_ref())
 }
 
+/// Every built-in subject, for the Plan tab's "add a built-in subject" list.
+#[tauri::command]
+fn subject_catalog() -> Vec<config::SubjectCfg> {
+    config::catalog()
+}
+
 #[tauri::command]
 fn get_config(app: AppHandle) -> PlanConfig {
     load_config(&app)
@@ -410,7 +416,7 @@ pub fn run() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
-            get_plan, get_config, save_config, reset_config, get_lesson, list_papers, get_paper,
+            get_plan, get_config, subject_catalog, save_config, reset_config, get_lesson, list_papers, get_paper,
             load_state, save_state, state_path, backup,
             get_settings, set_settings, draft_subject, day_context, organise_day, open_email, auto_backup, backup_status, open_backups,
             list_profiles, create_profile, switch_profile, rename_profile, set_pin, delete_profile, export_profile, import_profile,

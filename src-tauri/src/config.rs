@@ -273,33 +273,45 @@ fn default_links_for(id: &str) -> Vec<ResourceLink> {
     lookup(DEFAULT_LINKS, id).iter().map(|(label, url)| ResourceLink { label: label.to_string(), url: url.to_string() }).collect()
 }
 
+/// One built-in subject as an editable configuration.
+fn subject_cfg(d: &crate::plan::SubjectDef) -> SubjectCfg {
+    SubjectCfg {
+        id: d.id.into(),
+        name: d.name.into(),
+        full: d.full.into(),
+        color: d.color.into(),
+        papers: d.papers.into(),
+        spec: d.spec.into(),
+        sections: d.sections.iter().map(|s| s.to_string()).collect(),
+        topics: d.topics.iter().map(|(code, title, hours)| {
+            let id = format!("{}:{}", d.id, code);
+            TopicCfg {
+                code: code.to_string(), title: title.to_string(), hours: *hours, url: String::new(),
+                objectives: crate::course::objectives_for(&id).iter().map(|s| s.to_string()).collect(),
+                watch: crate::course::watch_for(&id).to_string(),
+                videos: Vec::new(),
+            }
+        }).collect(),
+        rates: default_rates_for(d.id),
+        resources: default_links_for(d.id),
+        pace: default_pace_for(d.id).into(),
+        weekly: default_weekly_for(d.id),
+    }
+}
+
+/// Every built-in subject, ready to add to a plan: the starter ten plus the
+/// catalog of fully written subjects that start switched off.
+pub fn catalog() -> Vec<SubjectCfg> {
+    crate::plan::SUBJECTS.iter().map(subject_cfg).collect()
+}
+
 impl Default for PlanConfig {
     fn default() -> Self {
         PlanConfig {
             subjects: crate::plan::SUBJECTS
                 .iter()
-                .map(|d| SubjectCfg {
-                    id: d.id.into(),
-                    name: d.name.into(),
-                    full: d.full.into(),
-                    color: d.color.into(),
-                    papers: d.papers.into(),
-                    spec: d.spec.into(),
-                    sections: d.sections.iter().map(|s| s.to_string()).collect(),
-                    topics: d.topics.iter().map(|(code, title, hours)| {
-                        let id = format!("{}:{}", d.id, code);
-                        TopicCfg {
-                            code: code.to_string(), title: title.to_string(), hours: *hours, url: String::new(),
-                            objectives: crate::course::objectives_for(&id).iter().map(|s| s.to_string()).collect(),
-                            watch: crate::course::watch_for(&id).to_string(),
-                            videos: Vec::new(),
-                        }
-                    }).collect(),
-                    rates: default_rates_for(d.id),
-                    resources: default_links_for(d.id),
-                    pace: default_pace_for(d.id).into(),
-                    weekly: default_weekly_for(d.id),
-                })
+                .filter(|d| crate::plan::STARTER.contains(&d.id))
+                .map(subject_cfg)
                 .collect(),
             blocks: crate::plan::BLOCKS
                 .iter()

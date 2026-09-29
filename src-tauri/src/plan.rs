@@ -21,6 +21,11 @@ pub struct SubjectDef {
     pub topics: &'static [(&'static str, &'static str, f64)],
 }
 
+/// The subjects a new profile starts with. Everything else in [`SUBJECTS`] is
+/// the built-in catalog: fully written, but only in a plan once someone adds
+/// it from the Plan tab, so adding a subject here never changes anyone's plan.
+pub const STARTER: &[&str] = &["maths", "fpm", "bus", "econ", "cs", "englit", "englang", "bio", "chem", "phys"];
+
 pub const SUBJECTS: &[SubjectDef] = &[
     SubjectDef {
         id: "maths", name: "Maths", full: "Mathematics A (4MA1) Higher", color: "var(--maths)",
@@ -849,6 +854,23 @@ mod tests {
     #[test]
     fn the_plan_as_laid_out_fits_entirely() {
         assert!(build(&PlanConfig::default()).unscheduled.is_empty());
+    }
+
+    /// A new profile gets the starter ten and nothing else; every other
+    /// built-in subject waits in the catalog, and each one fits a plan when
+    /// added alongside them.
+    #[test]
+    fn new_profiles_start_with_the_starter_subjects_and_the_catalog_adds_the_rest() {
+        let ids: Vec<String> = PlanConfig::default().subjects.iter().map(|s| s.id.clone()).collect();
+        assert_eq!(ids, STARTER.iter().map(|s| s.to_string()).collect::<Vec<_>>());
+        let catalog = crate::config::catalog();
+        assert_eq!(catalog.len(), SUBJECTS.len());
+        for c in catalog.iter().filter(|c| !STARTER.contains(&c.id.as_str())) {
+            let mut cfg = PlanConfig::default();
+            cfg.subjects.push(c.clone());
+            let plan = build(&cfg);
+            assert!(plan.unscheduled.is_empty(), "{} does not fit alongside the starter subjects", c.id);
+        }
     }
 
     /// Catching up very late cannot invent time. Rather than silently dropping

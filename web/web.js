@@ -74,6 +74,7 @@
       // plan + config
       case "get_plan": return plan(await config(), args.catchUp || null);
       case "get_config": return config();
+      case "subject_catalog": { await ready; return JSON.parse(core.subject_catalog()); }
       case "save_config": { await ready; const cfg = JSON.parse(core.sanitise_config(JSON.stringify(args.config))); ls.set("config:" + cur(), cfg); return plan(cfg, null); }
       case "reset_config": { ls.del("config:" + cur()); return plan(await config(), null); }
       // built-in content
