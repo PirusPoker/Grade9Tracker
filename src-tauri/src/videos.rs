@@ -107,6 +107,11 @@ const CHSG: &str = "CHSG History";
 const MADDEN: &str = "Miss Madden's Awesome History Channel";
 const PEARSONUK: &str = "Pearson UK & International Schools";
 
+const FINLAYSON: &str = "Mr Finlayson";
+const HARRIS: &str = "Harris Federation Religious Studies";
+const WISEREV: &str = "Wise Revise";
+const BBCTEACH: &str = "BBC Bitesize for Teachers";
+
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
     // ---------- Computer Science (OCR GCSE J277) ----------
     ("cs:1.1.1", &[
@@ -2781,6 +2786,117 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("DAOi9NLbamQ", "Eduqas GCSE Music: Toto Africa Chord Revision Video", "Miss McCall"),
         ("ViZQm1yo1PA", "Eduqas GCSE Music: Toto Africa Practice Questions", "Miss McCall"),
     ]),
+    // Religious Studies (AQA GCSE Religious Studies A (8062))
+    ("rs:3.1.2.1a", &[
+        ("Sxwh9cY44Fk", "Nature of God (AQA GCSE Religious Studies - Christian Beliefs) REVISION", FINLAYSON),
+        ("5-EYFQmc_jY", "02 Christian Beliefs The Oneness of God and the Trinity", HARRIS),
+        ("r3lcJI2Wrmc", "Creation (AQA GCSE Religious Studies - Christian Beliefs) REVISION", FINLAYSON),
+    ]),
+    ("rs:3.1.2.1b", &[
+        ("39vXQVefNaA", "Afterlife, Judgement & Salvation (AQA GCSE Religious Studies - Christian Beliefs) REVISION", FINLAYSON),
+        ("pZ2IUyo5f6Q", "09 Christian Beliefs Different Christian Beliefs about the afterlife", HARRIS),
+        ("fEVCQfNKrNQ", "10 Christian Beliefs Judgement", HARRIS),
+    ]),
+    ("rs:3.1.2.1c", &[
+        ("tHAOzbH0Rmc", "Jesus Christ (AQA GCSE Religious Studies - Christian Beliefs) REVISION", FINLAYSON),
+        ("b7lP1li1uv0", "06 Christian Beliefs Incarnation, Crucifixion, Resurrection and Ascension", HARRIS),
+        ("OsXmmczMD9Y", "08 Christian Beliefs The role of Jesus in Salvation and atonement", HARRIS),
+    ]),
+    ("rs:3.1.2.2a", &[
+        ("dLkRqfICBGs", "Worship & Prayer (AQA GCSE Religious Studies - Christian Practices) REVISION", FINLAYSON),
+        ("x9W7r8gD_EI", "01 Christian Practices Prayer and Worship", HARRIS),
+        ("68fsYJ7r0Rk", "Prayer. Christianity: Practices. AQA Religious Studies GCSE 8062.", WISEREV),
+    ]),
+    ("rs:3.1.2.2b", &[
+        ("_5KtiDH18gM", "Sacraments (AQA GCSE Religious Studies - Christian Practices) REVISION", FINLAYSON),
+        ("VwP-y8sr2vY", "Baptism. Christianity: Practices. AQA Religious Studies GCSE 8062.", WISEREV),
+        ("LOclTTHVXuw", "Holy Communion | AQA Christianity", NOWAFFLE),
+    ]),
+    ("rs:3.1.2.2c", &[
+        ("z3Z7c6Nw7eE", "Pilgrimages & Festivals (AQA GCSE Religious Studies - Christian Practices) REVISION", FINLAYSON),
+        ("6boceruWNL4", "03 Christian Practices Pilgrimage", HARRIS),
+        ("BYDlkbT04_k", "04 Christian Practices Festivals", HARRIS),
+    ]),
+    ("rs:3.1.2.2d", &[
+        ("kPz8QNX8Vbk", "The Church (AQA GCSE Religious Studies - Christian Practices) REVISION", FINLAYSON),
+        ("v2Rihd8AT4E", "05 Christian Practices Role of the Church in the local community", HARRIS),
+        ("m7KBTcyzd1I", "07 Christian Practices Worldwide Church", HARRIS),
+    ]),
+    ("rs:3.1.5.1a", &[
+        ("jr4m90x0aQI", "01 Islam Beliefs 6 Articles of Faith & Five Roots", HARRIS),
+        ("dofjH2Y0-tQ", "02 Islam Beliefs Nature of Allah", HARRIS),
+        ("xbQssfoRbGA", "Sunni and Shia | AQA Islam", NOWAFFLE),
+    ]),
+    ("rs:3.1.5.1b", &[
+        ("8WxyWxIb-qU", "Angels | AQA Islam", NOWAFFLE),
+        ("Zeb6tANtzJ0", "Predestination | AQA Islam", NOWAFFLE),
+        ("PbfCIoHId00", "07 Islam Beliefs Life After Death", HARRIS),
+    ]),
+    ("rs:3.1.5.1c", &[
+        ("dOBz-zJztoA", "04 Islam Beliefs Prophethood", HARRIS),
+        ("plLvRRO3K-M", "Holy Books | AQA Islam", NOWAFFLE),
+        ("6ftBkumNdBY", "05 Islam Beliefs Imamate", HARRIS),
+    ]),
+    ("rs:3.1.5.2a", &[
+        ("VyElTrvo6_s", "01 Islam Practices 5 Pillars & 10 Obligatory Acts", HARRIS),
+        ("xM7_NwTRe48", "02 Islam Practices Shahadah", HARRIS),
+        ("nsYAkrUgRZw", "03 Islam Practices Salah", HARRIS),
+    ]),
+    ("rs:3.1.5.2b", &[
+        ("1HgxEUwlf4A", "04 Islam Practices Sawm", HARRIS),
+        ("jPeoWM4kqlQ", "05 Islam Practices Almsgiving", HARRIS),
+        ("B0QuObF43kU", "Edexcel Religious Studies - Living the Muslim Life - 5 Zakah and Khums", "Miss Morris Manc"),
+    ]),
+    ("rs:3.1.5.2c", &[
+        ("IwRUSqfnY2g", "06 Islam Practices Hajj", HARRIS),
+        ("7WKSymvzSOw", "6. Hajj (pilgrimage)", "ColmersRS"),
+        ("Ok7-mB62xeE", "What is Hajj? | Religious Studies - My Life, My Religion: Islam", BBCTEACH),
+    ]),
+    ("rs:3.1.5.2d", &[
+        ("zYL5x4mlRpo", "07 Islam Practices Jihad", HARRIS),
+        ("c7jIGfSGjDU", "08 Islam Practices Festivals", HARRIS),
+        ("qFU9Cb0D6lo", "Ramadan and Eid-ul-Fitr | Religious Studies - My Life, My Religion: Islam", BBCTEACH),
+    ]),
+    ("rs:3.2.1.1a", &[
+        ("dEa3TFxsGxY", "GCSE RS: Theme A.3 Sex before Marriage", NOWAFFLE),
+        ("hJRoIDiaMSg", "GCSE RS: Theme A.5 Marriage", NOWAFFLE),
+        ("B5fppTry9yo", "SUMMARY AQA Religious Studies A: Divorce and Remarriage", "Miss Appiah R2R (Road to RS)"),
+    ]),
+    ("rs:3.2.1.1b", &[
+        ("3Jo8YZI_xTo", "GCSE RS: Theme A.7 Nature of Families", NOWAFFLE),
+        ("EHBPzyDjRms", "GCSE RS: Theme A.8 Purpose of Families", NOWAFFLE),
+        ("sNb7GdwVClo", "GCSE RS: Theme A.9 Gender Equality", NOWAFFLE),
+    ]),
+    ("rs:3.2.1.2a", &[
+        ("wak1NXUqGVA", "GCSE RS: Theme B.1 Origins of the Universe", NOWAFFLE),
+        ("ToxHJoGXRyM", "GCSE RS: Theme B.3 The Environment", NOWAFFLE),
+        ("OuQjZhbqrHg", "GCSE RS: Theme B.4 Animals experimentation", NOWAFFLE),
+    ]),
+    ("rs:3.2.1.2b", &[
+        ("P6v3bS3_58o", "The value of human life. AQA RS GCSE 8062 Thematic Studies, Theme B, Religion and Life", WISEREV),
+        ("75JTvi2B1XQ", "GCSE RS: Theme B.6 Abortion", NOWAFFLE),
+        ("gJ-tFWsZDxQ", "GCSE RS: Theme B.7 Euthanasia", NOWAFFLE),
+    ]),
+    ("rs:3.2.1.4a", &[
+        ("lvfGKWnmJbc", "GCSE RS: Theme D.4 Just War", NOWAFFLE),
+        ("qL-naLCa6gs", "GCSE RS: Theme D.5 Holy War", NOWAFFLE),
+        ("WblLnovegek", "GCSE RS: Theme D.6 Pacifism", NOWAFFLE),
+    ]),
+    ("rs:3.2.1.4b", &[
+        ("ZcCwBwrtHlU", "GCSE RS: Theme D.3 Weapons of Mass destruction", NOWAFFLE),
+        ("mpbZEBWGd6Y", "Pacifism & Peacemaking. AQA RS 8062 Thematic Studies D, Religion, Peace and Conflict", WISEREV),
+        ("KK6_iQ1vxSY", "GCSE RS: Theme D.7 Responses to Victims", NOWAFFLE),
+    ]),
+    ("rs:3.2.1.5a", &[
+        ("pLx5ZtI7F4w", "GCSE RS: Theme E : Intentions", NOWAFFLE),
+        ("Iam3C5fzaY4", "GCSE RS: Theme E.2 Reasons for Crime", NOWAFFLE),
+        ("yjfI8u3915A", "GCSE RS: Theme E.4 Types of Crime", NOWAFFLE),
+    ]),
+    ("rs:3.2.1.5b", &[
+        ("VK4QXIK6rDI", "GCSE RS: Theme E.5 Aims of Punishment", NOWAFFLE),
+        ("_6POMEniCXY", "GCSE RS: Theme E.7 Prison/Community service", NOWAFFLE),
+        ("qqo0vYvrSPU", "What are the rights and wrongs of the death penalty? | Religious Studies - Matters of Life and Death", BBCTEACH),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
@@ -2827,7 +2943,7 @@ mod tests {
     /// Subjects whose every topic has a video to start from.
     #[test]
     fn covered_subjects_have_a_video_on_every_topic() {
-        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog", "hist"] {
+        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog", "hist", "rs"] {
             let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
             for (code, _, _) in def.topics {
                 assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");

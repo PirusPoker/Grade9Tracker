@@ -102,6 +102,8 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     // Areas of study 1-4. Set works for 2027 and 2028: Bach, Badinerie (AoS1) and
     // Toto, Africa (AoS4). Appendix C (list of musical terms) is covered across ME.
     ("music", &["ME", "MC", "ML", "AoS1", "AoS2", "AoS3", "AoS4"]),
+    // AQA GCSE Religious Studies A (8062). Route built: Christianity and Islam with Themes A, B, D and E; the other religions and themes are not.
+    ("rs", &["3.1.2.1", "3.1.2.2", "3.1.5.1", "3.1.5.2", "3.2.1.1", "3.2.1.2", "3.2.1.4", "3.2.1.5"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -3651,6 +3653,184 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Identify riff a and riff b, the pentatonic writing, syncopation, 2/2 time and the chord patterns of verse and chorus",
         "Explain how the band evokes African music through sonority, ostinato and rhythm",
     ], "The chorus is in A major, not B major. Knowing that the chorus changes key, and that the verse phrases are nine bars long, wins set-work marks."),
+
+    // ---------- Religious Studies (AQA GCSE Religious Studies A (8062)) ----------
+    ("rs:3.1.2.1a", &[
+        "Explain what Christians mean by God being omnipotent, loving and just, with a source for each",
+        "Explain the oneness of God and the Trinity: one God in three Persons",
+        "Explain the problem of evil and suffering, telling moral evil from natural evil, and how Christians respond",
+        "Explain the roles of the Word and the Spirit in creation, using Genesis 1:1-3 and John 1:1-3",
+        "Compare literal and non-literal Christian views of creation, and say who holds them",
+    ], "Explaining the Trinity as three gods, or one God playing three roles, loses the mark. Say 'one God in three Persons'."),
+
+    ("rs:3.1.2.1b", &[
+        "Explain Christian beliefs about resurrection, including St Paul's idea of a transformed spiritual body",
+        "Describe the particular judgement, the Last Judgement and the Parable of the Sheep and the Goats",
+        "Compare different Christian beliefs about heaven and hell, including hell as punishment, separation or annihilation",
+        "Explain the Catholic belief in purgatory and why Protestants reject it",
+        "Explain why beliefs about the afterlife matter to how Christians live and face death",
+    ], "Contrasting-belief questions need two genuinely different views, such as hell as eternal punishment against hell as separation from God. Two ways of describing heaven as happy count as one belief."),
+
+    ("rs:3.1.2.1c", &[
+        "Explain the incarnation and what Christians mean when they call Jesus the Son of God",
+        "Describe the crucifixion, resurrection and ascension and explain why each matters to Christians",
+        "Explain sin and original sin, including how Catholic and Orthodox views differ",
+        "Compare the roles of law, grace and the Holy Spirit in salvation, including Protestant and Catholic views",
+        "Explain atonement and the different ways Christians understand how Jesus' death saves",
+    ], "Answers on atonement often stop at \"Jesus died for our sins\". The marks go to explaining how his death restores the relationship with God, for example as a sacrifice, a substitution or a ransom."),
+
+    ("rs:3.1.2.2a", &[
+        "Describe liturgical, non-liturgical and informal worship with a named example of each, such as the Mass, a Baptist service and a Quaker meeting",
+        "Explain how the Bible is used in Christian worship",
+        "Explain the significance of private worship, including the rosary, icons and personal prayer",
+        "Compare set prayers with informal prayer and explain why Christians use each",
+        "Explain the meaning of each part of the Lord's Prayer and why it matters to Christians",
+    ], "\"Significance\" questions want why a form of worship matters to Christians. A description of what happens at Mass or a Quaker meeting only gets the first mark of each point."),
+
+    ("rs:3.1.2.2b", &[
+        "Explain what a sacrament is and why Catholics and Orthodox have seven, most Protestants two, and Quakers none",
+        "Describe infant baptism and believers' baptism and give the reasons each side uses, with Bible references",
+        "Explain the significance of baptism, using Matthew 28:19 and Romans 6:3-4",
+        "Describe how Holy Communion is celebrated in contrasting churches",
+        "Compare transubstantiation, spiritual presence and the memorial view, naming who holds each",
+    ], "Answers blur transubstantiation and the memorial view, or give a 'contrasting' pair that is really the same point. Name the denomination and its reason for each belief."),
+
+    ("rs:3.1.2.2c", &[
+        "Explain the role and importance of pilgrimage, including why some Christians think it unnecessary",
+        "Describe Lourdes and Iona: their history, what pilgrims do there and why it matters to them",
+        "Contrast Lourdes and Iona as two different kinds of pilgrimage",
+        "Explain how Christmas and Easter are celebrated and the beliefs behind them",
+        "Assess the importance of Christmas and Easter for Christians in Great Britain today",
+    ], "Students describe Lourdes and Iona but never state the contrast or say why the visit matters to the pilgrim. Say what the pilgrim does and what it does for their faith."),
+
+    ("rs:3.1.2.2d", &[
+        "Explain how churches serve the local community, using food banks and Street Pastors as examples",
+        "Explain mission, evangelism and Church growth, and why Christians see them as important",
+        "Describe how Christians work for reconciliation, with named examples such as Coventry and Corrymeela",
+        "Explain how churches respond to the persecution of Christians",
+        "Describe the work of Christian Aid and the Christian teaching behind it",
+    ], "Answers describe what a food bank or charity does but never say why Christians do it. Link each action to a teaching such as the Sheep and the Goats (Matthew 25) or the Good Samaritan."),
+
+    ("rs:3.1.5.1a", &[
+        "List the six Sunni articles of faith and the five Shi'a roots of Usul ad-Din, and explain their similarities and differences",
+        "Explain Tawhid using Surah 112, and why shirk is the greatest sin",
+        "Explain what Muslims mean by God's omnipotence, beneficence, mercy, fairness and justice, with a Qur'an reference for each",
+        "Explain Adalat and why Shi'a Muslims make it a root of faith",
+        "Compare immanence and transcendence and show how Muslims hold both together",
+    ], "Students mix up the two lists, or say Shi'a Muslims do not believe in angels. Learn the Sunni six and the Shi'a five as separate tables: Adalat and Imamah are the Shi'a additions."),
+
+    ("rs:3.1.5.1b", &[
+        "Describe the nature of angels in Islam, with a Qur'an reference",
+        "Explain the roles of Jibril and Mika'il, and tell them apart from Israfil and Izra'il",
+        "Explain predestination (al-Qadr) and how Muslims fit it with human freedom and responsibility",
+        "Explain the difference between Sunni and Shi'a understandings, including Adalat",
+        "Explain Akhirah: the Day of Judgement, resurrection, heaven and hell, and how the belief changes the way Muslims live",
+    ], "In a 4-mark influence question, describing the belief earns only half the marks. The second mark in each point needs what Muslims actually do because of it."),
+
+    ("rs:3.1.5.1c", &[
+        "Explain what Risalah means and why Muslims believe Muhammad is the Seal of the Prophets",
+        "Explain the role and importance of Adam, Ibrahim and Muhammad, with a Qur'an reference for each",
+        "Match each holy book to its prophet and explain why the Qur'an has the highest authority",
+        "Explain why most Muslims give the Torah, Psalms, Gospel and Scrolls of Abraham less authority than the Qur'an",
+        "Explain the Shi'a belief in the imamate and how it differs from the Sunni view of leadership after Muhammad",
+    ], "Pairing a book with the wrong prophet — Zabur goes with Dawud and Injil with Isa. The other common slip is calling the Shi'a Imams prophets, when Muhammad is the Seal of the Prophets."),
+
+    ("rs:3.1.5.2a", &[
+        "List the Five Pillars of Sunni Islam and the Ten Obligatory Acts of Shi'a Islam, and explain how the two lists differ",
+        "Explain the meaning of the Shahadah and where it comes in a Muslim's life, from birth to death",
+        "Describe how Muslims prepare for and perform salah: times, qiblah, wudu, rak'ahs and recitations",
+        "Explain how salah is practised in the mosque, at home, elsewhere, and at Friday Jummah",
+        "Explain the key differences between Sunni and Shi'a salah, and different Muslim views about the importance of prayer",
+    ], "Losing the second mark in contrasting questions by giving two points from the same side. A Sunni way against a Shi'a way (e.g. five separate prayer times against combining them into three) is the safest contrast."),
+
+    ("rs:3.1.5.2b", &[
+        "Explain the origins and purpose of fasting in Ramadan, using Qur'an 2:183 and 2:185",
+        "Describe the duties of sawm and explain its benefits for individuals and the community",
+        "Explain who is excused from fasting, why, and what they do instead",
+        "Explain what happened on the Night of Power and what Qur'an 96:1-5 teaches",
+        "Explain how and why zakah is given and how it benefits those who receive it",
+        "Explain Khums in Shi'a Islam and compare it with zakah",
+    ], "Swapping the numbers is the most common slip: zakah is 2.5% of wealth above the nisab and Khums is 20% of surplus income. Also give reasons, not just a list, for the exceptions from fasting. Qur'an 2:185, \"Allah intends for you ease\", earns the extra mark."),
+
+    ("rs:3.1.5.2c", &[
+        "Explain the origins of Hajj in the story of Ibrahim, Hajar and Isma'il and the Prophet's Farewell Pilgrimage",
+        "Describe ihram and explain what the clothing and restrictions mean",
+        "Describe in order the actions at the Ka'aba, Mina, Arafat and Muzdalifah, and explain the significance of each",
+        "Explain the role and significance of Hajj for Sunni and Shi'a Muslims, with Qur'an 3:97 or 22:27",
+        "Evaluate how important Hajj is for Muslims in Britain today, weighing cost, danger and its religious meaning",
+    ], "Students describe what pilgrims do but not why. In every 4- and 5-mark point the second mark is for the significance, such as Arafat being a rehearsal for the Day of Judgement."),
+
+    ("rs:3.1.5.2d", &[
+        "Explain the meaning of jihad and the difference between greater and lesser jihad",
+        "Explain the origins of lesser jihad and list the conditions for declaring it, with Qur'an references",
+        "Explain why most Muslims reject the use of jihad to justify terrorism",
+        "Describe the origins, meanings and practices of Id-ul-Fitr and Id-ul-Adha",
+        "Contrast how Sunni and Shi'a Muslims mark Ashura, and explain why the festivals matter for Muslims in Great Britain today",
+    ], "Translating jihad as \"holy war\" and giving vague conditions. Start with \"striving\", split greater and lesser, and name the conditions: legitimate authority, just cause, last resort, no harm to innocents."),
+
+    ("rs:3.2.1.1a", &[
+        "Explain Christian, Muslim and non-religious views on heterosexual and homosexual relationships, and on sex before and outside marriage",
+        "Explain contrasting beliefs about contraception and family planning, including Humanae Vitae and Muslim teaching",
+        "Explain the nature and purpose of marriage in Christianity and Islam, with Mark 10:9 or Qur'an 30:21",
+        "Explain different views on same-sex marriage and cohabitation in Britain today",
+        "Explain religious and non-religious views on divorce and remarriage, and use the arguments from the sanctity of marriage vows and from compassion",
+    ], "On contraception, sex before marriage and homosexual relationships the question demands Christianity plus another religion. A Christianity-versus-humanism answer doesn't meet it, so bring in Islam."),
+
+    ("rs:3.2.1.1b", &[
+        "Describe different types of family and explain religious teaching on the roles of parents and children",
+        "Explain the purposes of the family: procreation, stability and protection of children, and educating children in a faith",
+        "Explain Christian, Muslim and non-religious views on same-sex parents and polygamy",
+        "Explain contrasting beliefs about the roles of men and women and about gender equality, including women's leadership in religion",
+        "Define gender prejudice and discrimination, give real examples, and explain religious responses to them",
+    ], "Students treat all Christians or all Muslims as agreeing on gender. Name the tradition, e.g. the Church of England ordains women but the Catholic Church does not, and balance Qur'an 4:34 with 33:35."),
+
+    ("rs:3.2.1.2a", &[
+        "Explain the Big Bang theory and its evidence, and how literal and non-literal Christians and Muslims relate it to creation",
+        "Explain stewardship, dominion, responsibility and awe and wonder, with a Christian and a Muslim source for each",
+        "Describe how humans use and abuse the environment and how Christians, Muslims and humanists respond",
+        "Explain religious and non-religious views on using animals for food, including halal rules and vegetarianism",
+        "Explain contrasting beliefs about animal experimentation, comparing Christianity with Islam (a non-religious view can be added, never substituted)",
+    ], "Writing that dominion lets humans do what they like with nature loses the development mark. Most believers read dominion as responsible rule, so link it to stewardship (Genesis 2:15) or khalifah (Qur'an 2:30)."),
+
+    ("rs:3.2.1.2b", &[
+        "Explain evolution and how literal and non-literal Christians, Muslims and humanists relate it to the origins of human life",
+        "Explain the difference between sanctity of life and quality of life, with a Christian and a Muslim source",
+        "Explain contrasting beliefs about abortion, including when the mother's life is at risk",
+        "Explain contrasting beliefs about euthanasia, telling voluntary from non-voluntary and active from passive",
+        "Explain Christian, Muslim and humanist beliefs about death and the afterlife and how they shape the value placed on life",
+    ], "Writing that all Christians or all Muslims reject abortion in every case loses marks. The Catholic double effect, the Church of England's limited conditions and Islam's 120-day teaching all show diversity, and nearly every tradition accepts abortion to save the mother's life."),
+
+    ("rs:3.2.1.4a", &[
+        "Define peace, justice, forgiveness and reconciliation and explain why they matter to Christians and Muslims, with a source for each",
+        "Explain contrasting beliefs about violence, including violent protest, and why religious believers condemn terrorism",
+        "Explain the reasons for war — greed, self-defence and retaliation — and religious responses to each",
+        "State and apply the criteria of the just war theory, and compare them with the conditions for lesser jihad",
+        "Explain holy war and contrasting beliefs about pacifism, from Quakers to the just war majority to Islam",
+    ], "Listing the just war criteria without explaining or applying them earns little. Say what each criterion means and test it against a real war, and show that most Christians follow the theory while Quakers are pacifists."),
+
+    ("rs:3.2.1.4b", &[
+        "Evaluate whether religion causes war today, using real conflicts and separating religious labels from political causes",
+        "Explain nuclear, chemical and biological weapons and the arguments for and against nuclear deterrence",
+        "Explain contrasting beliefs about weapons of mass destruction, comparing Christianity with Islam",
+        "Describe the peace-making work of individuals influenced by religious teaching, such as Desmond Tutu",
+        "Explain how one present-day religious organisation, such as Christian Aid or Islamic Relief, helps victims of war, and the teachings behind it",
+    ], "Answers about WMD that do not say whether they mean using or possessing them lose marks. Almost all believers condemn using them; the real disagreement is about keeping them as a deterrent."),
+
+    ("rs:3.2.1.5a", &[
+        "Explain the difference between a crime and a sin, and Christian, Muslim and humanist views about obeying the law",
+        "Explain religious beliefs about good and evil intentions and actions, including whether it can ever be good to cause suffering",
+        "Describe the main reasons for crime: poverty and upbringing, mental illness and addiction, greed and hate, and opposition to an unjust law",
+        "Explain different views about people who break the law for each of these reasons, with a source for each side",
+        "Explain Christian, Muslim and non-religious views about hate crimes, theft and murder",
+    ], "Giving a cause of crime (greed, jealousy, poverty) when the question asks for a type of crime. The mark scheme refuses causes, so answer with hate crime, theft or murder."),
+
+    ("rs:3.2.1.5b", &[
+        "Define retribution, deterrence and reformation and explain Christian, Muslim and humanist views on each aim of punishment",
+        "Explain religious views about prison, corporal punishment and community service, with arguments for and against each",
+        "Explain contrasting Christian and Muslim beliefs about forgiveness, corporal punishment and the death penalty",
+        "Describe how the death penalty was abolished in Britain and where it is still used",
+        "Use the principle of utility and the sanctity of life to argue both for and against the death penalty",
+    ], "Losing the second mark in the contrasting-beliefs questions by giving two views that agree or leaving out Christianity. Set a Christian view (most oppose the death penalty because of the sanctity of life) against a Muslim one (many accept it for murder under 17:33)."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

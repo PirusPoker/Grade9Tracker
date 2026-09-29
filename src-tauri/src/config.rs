@@ -158,6 +158,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // Music: one listening paper, taught through both years at school. Recall
     // of terms and set works rather than front-loading.
     ("music", &[(1, 0.5, 0.25)]),
+    // AQA GCSE Religious Studies A (8062)
+    ("rs", &[(1, 0.75, 0.5)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -173,6 +175,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("geog", "ahead"),
     ("hist", "ahead"),
     ("music", "school"),
+    ("rs", "ahead"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -327,6 +330,13 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Component 3 past papers", "https://www.savemyexams.com/gcse/music/wjec-eduqas/past-papers/component-3/"),
         ("Set work: Badinerie notes & score", "https://resources.eduqas.co.uk/Pages/ResourceSingle.aspx?rIid=1444"),
         ("Set work: Africa notes & score", "https://resources.eduqas.co.uk/Pages/ResourceSingle.aspx?rIid=1445"),
+    ]),
+    // AQA GCSE Religious Studies A (8062). Each link opened and checked 29 September 2026
+    ("rs", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/religious-studies/aqa/a/18/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/religious-studies/aqa/a/18/topic-questions/"),
+        ("Mock exams", "https://www.savemyexams.com/gcse/religious-studies/aqa/a/18/mock-exams/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/religious-studies/gcse/religious-studies-a-8062/assessment-resources"),
     ]),
 ];
 

@@ -576,6 +576,31 @@ const MUSIC: &[(&str, &str)] = &[
     ("music:AoS4d", include_str!("../lessons/music/AoS4d.md")),
 ];
 
+const RS: &[(&str, &str)] = &[
+    ("rs:3.1.2.1a", include_str!("../lessons/rs/3.1.2.1a.md")),
+    ("rs:3.1.2.1b", include_str!("../lessons/rs/3.1.2.1b.md")),
+    ("rs:3.1.2.1c", include_str!("../lessons/rs/3.1.2.1c.md")),
+    ("rs:3.1.2.2a", include_str!("../lessons/rs/3.1.2.2a.md")),
+    ("rs:3.1.2.2b", include_str!("../lessons/rs/3.1.2.2b.md")),
+    ("rs:3.1.2.2c", include_str!("../lessons/rs/3.1.2.2c.md")),
+    ("rs:3.1.2.2d", include_str!("../lessons/rs/3.1.2.2d.md")),
+    ("rs:3.1.5.1a", include_str!("../lessons/rs/3.1.5.1a.md")),
+    ("rs:3.1.5.1b", include_str!("../lessons/rs/3.1.5.1b.md")),
+    ("rs:3.1.5.1c", include_str!("../lessons/rs/3.1.5.1c.md")),
+    ("rs:3.1.5.2a", include_str!("../lessons/rs/3.1.5.2a.md")),
+    ("rs:3.1.5.2b", include_str!("../lessons/rs/3.1.5.2b.md")),
+    ("rs:3.1.5.2c", include_str!("../lessons/rs/3.1.5.2c.md")),
+    ("rs:3.1.5.2d", include_str!("../lessons/rs/3.1.5.2d.md")),
+    ("rs:3.2.1.1a", include_str!("../lessons/rs/3.2.1.1a.md")),
+    ("rs:3.2.1.1b", include_str!("../lessons/rs/3.2.1.1b.md")),
+    ("rs:3.2.1.2a", include_str!("../lessons/rs/3.2.1.2a.md")),
+    ("rs:3.2.1.2b", include_str!("../lessons/rs/3.2.1.2b.md")),
+    ("rs:3.2.1.4a", include_str!("../lessons/rs/3.2.1.4a.md")),
+    ("rs:3.2.1.4b", include_str!("../lessons/rs/3.2.1.4b.md")),
+    ("rs:3.2.1.5a", include_str!("../lessons/rs/3.2.1.5a.md")),
+    ("rs:3.2.1.5b", include_str!("../lessons/rs/3.2.1.5b.md")),
+];
+
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
     ("maths", MATHS),
@@ -593,6 +618,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("hist", HIST),
     ("fre", FRE),
     ("music", MUSIC),
+    ("rs", RS),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
