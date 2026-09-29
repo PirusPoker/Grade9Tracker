@@ -92,6 +92,8 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ("ger", &["3.1.1", "3.1.2", "3.1.3", "3.2.1", "3.2.2", "3.2.3", "4.4", "4.5", "4.6", "4.7"]),
     // AQA GCSE Geography (8035). Options built: hot deserts, coasts and rivers, food; cold environments, glacial landscapes, water and energy are not.
     ("geog", &["3.1.1.1", "3.1.1.2", "3.1.1.3", "3.1.1.4", "3.1.2.1", "3.1.2.2", "3.1.2.3", "3.1.3.1", "3.1.3.2", "3.1.3.3", "3.2.1", "3.2.2", "3.2.3.1", "3.2.3.2", "3.3.1", "3.3.2", "3.4"]),
+    // Pearson Edexcel GCSE History (1HI0). Options built: 11 (Medicine and the Western Front), B4, P4 and 31; the other options are not.
+    ("hist", &["11.1", "11.2", "11.3", "11.4", "11.5", "B4.1", "B4.2", "B4.3", "P4.1", "P4.2", "P4.3", "31.1", "31.2", "31.3", "31.4"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -3019,6 +3021,324 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Give advice with man sollte and man muss, and purpose with damit and um ... zu",
         "Describe what you have done and will do to protect the environment",
     ], "Es gibt takes the accusative, so it is es gibt einen Park and keinen Bahnhof, and comparisons use als: ruhiger als, never ruhiger wie."),
+
+    // ---------- History (Pearson Edexcel GCSE History (1HI0)) ----------
+    ("hist:11.1a", &[
+        "Explain the supernatural and religious explanations of disease, c1250–c1500: God's punishment, a test of faith and astrology",
+        "Explain the rational explanations: Hippocrates' Four Humours, Galen's Theory of Opposites and miasma",
+        "Explain why the Church and the authority of Galen kept these ideas in place for so long",
+        "Show how a single physician could combine religious, astrological and rational ideas in one diagnosis",
+        "Answer a 12-mark 'Explain why' question with a point of your own beyond the two stimulus bullets",
+    ], "Answers that only use the two stimulus points are capped at 8 out of 12. Always add a reason of your own, and say how the Church acted rather than just naming it."),
+
+    ("hist:11.1b", &[
+        "Link each medieval prevention and treatment to the idea behind it: prayer to God, bloodletting and purging to the Humours, herbs and fires to miasma",
+        "Describe who treated the sick — physicians, apothecaries, barber surgeons and women at home — and how they differed",
+        "Explain what medieval hospitals did, and why most offered care and prayer rather than cure",
+        "Describe the Black Death of 1348–49: how people explained it, tried to prevent it and treated it",
+        "Explain one similarity or difference between medieval treatment and a later period, with precise evidence for both",
+    ], "A list of treatments without the idea behind them stays in Level 2. Say 'because they believed in miasma, they…' every time."),
+
+    ("hist:11.2a", &[
+        "Explain what changed and what stayed the same in ideas about the cause of disease, c1500–c1700",
+        "Explain Vesalius's contribution, with the 1543 De Fabrica and a specific error of Galen's he corrected",
+        "Explain Sydenham's approach: observing symptoms and treating diseases as separate things that could be classified",
+        "Explain how the printing press and the Royal Society spread new ideas, and why the Church could no longer stop them",
+        "Link factors — individuals, technology and a weaker Church — in a 12- or 16-mark answer",
+    ], "Vesalius and Sydenham changed knowledge, not treatment. Saying they changed how patients were treated loses the mark; keep knowledge and practice apart."),
+
+    ("hist:11.2b", &[
+        "Explain the continuity and change in prevention and treatment, c1500–c1700, including new remedies from overseas",
+        "Describe how care changed after the Dissolution of the Monasteries, and the role of re-founded hospitals and care at home",
+        "Explain what Harvey discovered about the circulation of the blood, what Galen had said, and why the discovery had little impact on treatment",
+        "Describe how people and the authorities responded to the Great Plague of 1665, with Plague Orders detail",
+        "Compare the Black Death (1348) with the Great Plague (1665) for one similarity and one difference",
+    ], "Harvey changed knowledge, not treatment: bloodletting carried on. Saying he cured people, or that 1665 was handled better because people understood plague, loses the mark."),
+
+    ("hist:11.3a", &[
+        "Explain how Pasteur's swan-necked flask experiments and 1861 germ theory overturned spontaneous generation",
+        "Describe Koch's methods and the bacteria he identified (anthrax 1876, TB 1882, cholera 1883)",
+        "Explain why germ theory was slow to change British medicine, and where it did have influence",
+        "Describe Jenner's 1796 experiment, the opposition he faced and why vaccination spread",
+        "Trace government action on vaccination from free (1840) to compulsory (1853) to opt-out (1898)",
+        "Weigh germ theory against other developments c1700-c1900 using a clear criterion",
+    ], "Students mix up Jenner and Pasteur: Jenner vaccinated against smallpox in 1796 without knowing germs existed; Pasteur's germ theory came in 1861 and only then could vaccines be made for other diseases."),
+
+    ("hist:11.3b", &[
+        "Explain how Nightingale changed nursing and hospital design, and the limits of her influence",
+        "Explain the impact of anaesthetics on surgery, including opposition and the black period",
+        "Explain how Lister's antiseptics and later aseptic methods tackled infection, and why they were resisted",
+        "Explain why the government moved from the voluntary 1848 Act to the compulsory Public Health Act of 1875",
+        "Describe how Snow traced the 1854 Broad Street cholera outbreak and assess the significance of his work",
+    ], "Students treat anaesthetics as making surgery safe straight away, but they led to the black period of rising infection deaths until antiseptic and aseptic methods caught up."),
+
+    ("hist:11.4a", &[
+        "Explain how understanding of the causes of illness changed after 1900: genetics and lifestyle factors",
+        "Name the improvements in diagnosis — blood tests, CT, MRI, ultrasound, ECG — and explain why they mattered",
+        "Explain how the NHS (1948) changed access to care, and its limits",
+        "Tell magic bullets (Salvarsan, Prontosil) apart from antibiotics",
+        "Explain the roles of Fleming, Florey, Chain and government in developing penicillin into a mass-produced drug",
+    ], "Crediting Fleming alone for penicillin caps you at Level 2. He spotted its effect in 1928; Florey and Chain made it a drug, and government money mass-produced it."),
+
+    ("hist:11.4b", &[
+        "Describe the high-tech treatments of the twentieth century — plastic surgery, transplants, keyhole surgery — with a name and date for each",
+        "Explain how mass vaccination and government lifestyle campaigns changed prevention",
+        "Describe how science and technology are used to diagnose and treat lung cancer today",
+        "Explain what the government has done about smoking and lung cancer, with dated laws",
+        "Weigh government against science and attitudes in a 16-mark judgement, using a criterion",
+    ], "Vague case study detail earns little. 'Scans and chemo' needs to become CT, bronchoscopy, biopsy, targeted therapy, and the smoking ban needs its date (2007)."),
+
+    ("hist:11.5a", &[
+        "Locate the Ypres salient, the Somme, Arras and Cambrai and give a key fact about each for medical treatment",
+        "Describe the organisation of the trench system and why it made moving the wounded difficult",
+        "Explain how the terrain, roads and communications affected the treatment of casualties",
+        "Describe the illnesses caused by trench life: trench foot, trench fever and shell shock",
+        "Describe the wounds caused by bullets, shells and shrapnel, and why infection and head injuries were such problems",
+        "Compare the effects of chlorine, phosgene and mustard gas",
+    ], "In 'Describe two features' questions the second mark for each feature needs a precise supporting detail; naming a feature with a vague follow-up sentence loses half the marks."),
+
+    ("hist:11.5b", &[
+        "Describe the work of the RAMC and of nurses (QAIMNS, VADs, FANY) on the Western Front",
+        "Put the stages of the chain of evacuation in order and give one precise fact about what happened at each",
+        "Explain how stretcher bearers, horse and motor ambulances, trains and barges moved the wounded, and why the terrain made it hard",
+        "Describe the underground hospital at Arras and what it shows about adapting to the front",
+        "Explain how wound excision, the Thomas splint, mobile X-rays and the Cambrai blood depot changed treatment",
+        "Link each new technique to the pre-war context: germ theory and aseptic surgery, X-rays, blood groups and storage",
+    ], "A field ambulance was an RAMC unit that ran the dressing stations, not a vehicle. Answers that say it drove men to hospital lose the detail mark."),
+
+    ("hist:11.5c", &[
+        "Name national sources (army records, newspapers, government reports, medical articles) and local sources (personal accounts, photographs, hospital records, army statistics) for the Western Front",
+        "Weigh the strengths and weaknesses of each type of source for a specific enquiry, including the effect of censorship",
+        "Judge how useful two sources are for an enquiry using content, provenance and your own knowledge",
+        "Frame a focused question that follows up a detail in a source",
+        "Select a realistic type of source to answer that question and explain how it would help",
+    ], "Usefulness is always for the enquiry in the question. Calling a source 'biased' or 'only one person's view' without saying how that affects this enquiry keeps the answer in the bottom levels."),
+
+    ("hist:B4.1a", &[
+        "Describe Elizabethan society and government in 1558: the hierarchy, the court, Privy Council, Parliament and JPs",
+        "Explain why Elizabeth's legitimacy was questioned, and keep that separate from the problems of her gender",
+        "Explain the marriage question and the strengths of character Elizabeth brought to the throne",
+        "Explain the challenges she faced at home and abroad in 1558: debt, religion, France and Scotland",
+        "Reach a 16-mark judgement on which challenge was most serious, backed by a criterion",
+    ], "Legitimacy is about Henry VIII's marriages and the Pope, not about Elizabeth being a woman. Mixing legitimacy and gender up costs the mark."),
+
+    ("hist:B4.1b", &[
+        "Explain why a religious settlement was needed in 1559 and what Elizabeth wanted from it",
+        "Describe the features of the Act of Supremacy and the Act of Uniformity, and keep the two apart",
+        "Explain why the settlement was called a 'middle way'",
+        "Explain the impact of the settlement, with evidence: bishops removed, most parish clergy staying, church papists in the north",
+        "Describe the role of the Church of England in society: the parish, Church courts, homilies and tithes",
+    ], "Elizabeth was Supreme Governor, not Supreme Head. And an 'impact' question wants evidence of what happened, not a list of the settlement's features."),
+
+    ("hist:B4.1c", &[
+        "Explain the nature and extent of the Puritan challenge, including the crucifix and vestments controversies",
+        "Explain the nature and extent of the Catholic challenge, and the roles of the nobility, the Papacy and foreign powers",
+        "Explain Mary, Queen of Scots' claim to the English throne through Margaret Tudor",
+        "Describe Mary's downfall in Scotland and her arrival in England in 1568",
+        "Explain why every option Elizabeth had for dealing with Mary in 1568–69 was dangerous",
+    ], "Answer both 'nature' (what kind of challenge) and 'extent' (how serious). Most answers describe the challenge and never judge how much of a threat it was."),
+
+    ("hist:B4.2a", &[
+        "Explain why the Northern Earls rebelled in 1569, giving political as well as religious reasons",
+        "Assess the significance of the revolt and of the excommunication that followed it",
+        "Describe the features of the Ridolfi, Throckmorton and Babington plots and explain what each one changed",
+        "Explain how Walsingham used spies, double agents and code-breakers to uncover plots",
+        "Explain why Mary, Queen of Scots was executed in 1587 and not earlier, and what her death changed",
+    ], "The three plots get mixed up: Ridolfi 1571 was a Spanish invasion under Alba, Throckmorton 1583 a French invasion under Guise, and Babington 1586 an assassination plan exposed by Mary's own letter. Swapping their details loses the supporting-detail marks."),
+
+    ("hist:B4.2b", &[
+        "Explain the political, religious and commercial rivalry between England and Spain, and keep the three apart",
+        "Describe privateering and Drake's voyages, and explain why Elizabeth backed them while denying responsibility",
+        "Explain the 1584–85 trigger for war in the Netherlands and the Treaty of Nonsuch",
+        "Explain Leicester's campaign in the Netherlands and why it went badly",
+        "Explain the consequences of Drake's raid on Cadiz in 1587",
+    ], "Cadiz answers tell the story and forget the consequence. Say what it did: it delayed the Armada by a year and destroyed the seasoned barrel staves."),
+
+    ("hist:B4.2c", &[
+        "Explain why Philip II launched the Armada in 1588",
+        "Describe the Spanish invasion plan and why it depended on meeting Parma's army",
+        "Describe the key events of the campaign, from the Channel to the fireships at Calais, Gravelines and the voyage home",
+        "Explain the reasons for the English victory, including ships, tactics, leadership, Spanish mistakes and the weather",
+        "Judge which reason mattered most, separating what stopped the invasion from what destroyed the fleet",
+    ], "Most answers blur what stopped the invasion (no link with Parma, fireships, Gravelines) with what destroyed the fleet (storms on the way home). Keep them apart."),
+
+    ("hist:B4.3a", &[
+        "Describe education at home and in schools, and say which social groups got which kind",
+        "Describe Elizabethan sport, pastimes and the theatre, and explain why the theatre was both popular and opposed",
+        "Explain why poverty and vagabondage increased, separating long-term from short-term causes",
+        "Explain how attitudes to the poor changed, and what stayed the same",
+        "Describe the poor laws of 1563, 1572 and 1576, and what each one added",
+    ], "Say which social group you mean. 'Elizabethans went to grammar school' is wrong: most did not, and answers that ignore rank and gender lose the mark."),
+
+    ("hist:B4.3b", &[
+        "Explain the factors that prompted exploration, separating trade and profit from new technology",
+        "Describe the ships and navigation instruments that made long voyages possible, and say what each one did",
+        "Explain why Drake sailed round the world in 1577–80 and weigh up the significance of the voyage",
+        "Explain why Raleigh and his investors tried to colonise Virginia, and judge how significant Raleigh was",
+        "Explain why the first settlement at Roanoke (1585–86) failed, showing how the causes were linked",
+    ], "Mixing up the two Roanoke colonies: the first settlement (1585–86) was Lane's soldiers, who went home with Drake; the 'Lost Colony' was John White's families in 1587. Also, Raleigh never went to Virginia himself."),
+
+    ("hist:P4.1a", &[
+        "Explain why the Grand Alliance formed in 1941 and what was agreed at Tehran, Yalta and Potsdam",
+        "Explain how ideology and the different aims of Stalin, Truman and Churchill turned wartime allies into rivals",
+        "Explain the importance of the atomic bomb and the Long and Novikov telegrams for US–Soviet relations",
+        "Describe how the USSR set up satellite states in Eastern Europe, 1945–48",
+        "Write a narrative account that links events with 'this led to…' and goes beyond the two bullet points",
+    ], "Keep the conferences apart. Tehran agreed the second front, Yalta the four zones and free elections, and Potsdam brought Truman, Attlee and the bomb. Mixing them up loses the marks for precise knowledge."),
+
+    ("hist:P4.1b", &[
+        "Explain the difference between the Truman Doctrine (the policy of containment) and the Marshall Plan (the money)",
+        "Explain how the USSR responded with Cominform (1947) and Comecon (1949)",
+        "Explain the causes, events and results of the Berlin Blockade and Airlift, 1948–49",
+        "Explain why NATO was formed in 1949 and how Germany was divided into the FRG and the GDR",
+        "Explain two consequences of an event, each with a specific result and a date or figure",
+    ], "The Truman Doctrine and the Marshall Plan are not the same thing. The Doctrine is the policy and the Plan is the money, and Marshall Aid was offered to the East as well. Stalin's refusal is where the marks are."),
+
+    ("hist:P4.1c", &[
+        "Describe the arms race of the 1950s, from the H-bomb to the ICBM and Sputnik, and explain its significance",
+        "Explain why the Warsaw Pact was set up in 1955",
+        "Explain how Khrushchev's Secret Speech and de-Stalinisation encouraged unrest in Eastern Europe",
+        "Explain the causes and events of the Hungarian Uprising of 1956 and Khrushchev's response",
+        "Explain the international reaction to the invasion of Hungary, including why the West did not intervene",
+    ], "Nagy's reforms were not the trigger. Soviet tanks went in because he announced Hungary would leave the Warsaw Pact. Soviet troops crushed the rising on their own; it was not a Warsaw Pact invasion."),
+
+    ("hist:P4.2a", &[
+        "Explain the refugee problem and brain drain from East Germany through Berlin, with figures",
+        "Explain Khrushchev's 1958 Berlin ultimatum and what happened at the Geneva, Camp David, Paris and Vienna summits",
+        "Explain why the Berlin Wall was built in August 1961 and how the USA responded",
+        "Explain the impact of the Wall on US–Soviet relations, including how it reduced the risk of war",
+        "Explain the importance of Kennedy's visit to West Berlin in June 1963",
+    ], "The Wall was built to stop East Germans leaving, not to keep Westerners out. Say 'refugee problem' and 'brain drain' and give the figures, about 2.7 million people between 1949 and 1961."),
+
+    ("hist:P4.2b", &[
+        "Explain why the Cuban Revolution damaged relations with the USA, and describe the Bay of Pigs invasion of April 1961",
+        "Explain why Khrushchev placed missiles in Cuba",
+        "Write a narrative account of the Thirteen Days of October 1962, in the right order",
+        "Explain how the crisis ended, including the secret deal over the US missiles in Turkey",
+        "Explain the consequences of the crisis: the hotline, the Test Ban, Outer Space and Non-Proliferation treaties",
+    ], "Consequence answers that retell the crisis score little. Say what it led to, and remember the 1963 Test Ban Treaty did not ban underground tests or cut the number of weapons."),
+
+    ("hist:P4.2c", &[
+        "Explain why there was opposition to Soviet control in Czechoslovakia by 1968",
+        "Describe Dubček's reforms, 'socialism with a human face', and the Action Programme",
+        "Explain why the USSR was alarmed by the Prague Spring and why it invaded in August 1968",
+        "Explain the Brezhnev Doctrine and how Soviet control was re-established under Husák",
+        "Explain the international reaction to the invasion, and why the West did not act",
+    ], "Do not mix up 1956 and 1968. Czechoslovakia did not try to leave the Warsaw Pact and mostly resisted without violence, and the Brezhnev Doctrine came after the invasion to justify it."),
+
+    ("hist:P4.3a", &[
+        "Explain why détente happened in the late 1960s and 1970s",
+        "Explain what SALT 1 (1972), the Helsinki Accords (1975) and SALT 2 (1979) agreed, and what each side gained",
+        "Explain why the USSR invaded Afghanistan in December 1979",
+        "Explain the consequences of the invasion: the Carter Doctrine, the end of détente and the Olympic boycotts",
+        "Write a narrative account of détente and its collapse that stays inside the question's dates",
+    ], "Détente was managed rivalry, not friendship, and SALT 2 was signed but never ratified. Saying it came into force or reduced weapons loses the mark."),
+
+    ("hist:P4.3b", &[
+        "Explain how Reagan's 'Second Cold War' raised tension in 1981–85: the build-up, missiles in Europe and the Reagan Doctrine",
+        "Explain the significance of the Strategic Defence Initiative for MAD, the Soviet economy and the Reykjavik summit",
+        "Explain Gorbachev's new thinking, and how it and the summits led to the INF Treaty of 1987",
+        "Explain how the Soviet grip on Eastern Europe loosened in 1989, and the importance of the fall of the Berlin Wall",
+        "Explain why the Warsaw Pact ended and the Soviet Union collapsed in 1991, in the right order",
+    ], "Saying Reagan alone ended the Cold War limits your mark. Link his pressure to the weak Soviet economy and to Gorbachev's own choices, and keep 1989–91 in order: Wall, reunification, Warsaw Pact, coup, collapse."),
+
+    ("hist:31.1a", &[
+        "Explain why Germany was at breaking point in autumn 1918: defeat, hunger, war debt and political division",
+        "Explain how the Kaiser abdicated and the Republic was set up, with the dates of the abdication (9 November), the armistice (11 November) and the move to Weimar",
+        "Describe the Weimar Constitution: the President, Chancellor, Reichstag, Reichsrat, proportional representation and Article 48",
+        "Weigh the strengths of the Constitution against its weaknesses, and link each weakness to what it later allowed to happen",
+        "Answer a Paper 3 inference question by going one step beyond what Source A says",
+    ], "Naming a weakness is not enough. Say how it worked, for example proportional representation led to coalitions that kept collapsing, or Article 48 let Hindenburg rule without the Reichstag from 1930."),
+
+    ("hist:31.1b", &[
+        "Explain why the Treaty of Versailles and the stab-in-the-back myth made the Republic unpopular, term by term",
+        "Describe the Spartacist uprising of January 1919 and explain how the Freikorps crushed it",
+        "Explain why the Kapp Putsch of March 1920 happened, why the army would not stop it and how the general strike defeated it",
+        "Explain the reasons for the French occupation of the Ruhr in 1923 and its effects, including passive resistance",
+        "Explain the causes of hyperinflation and who lost and who gained from it",
+    ], "The army did not crush the Kapp Putsch. It refused to act, and a general strike by workers defeated it. Getting this backwards loses the mark and the whole point about how weak the Republic was."),
+
+    ("hist:31.1c", &[
+        "Explain how Stresemann ended hyperinflation: calling off passive resistance, the Rentenmark and then the Reichsmark",
+        "Compare the Dawes Plan (1924) with the Young Plan (1929): what each changed about reparations and loans",
+        "Explain how American loans drove recovery, and why that made the recovery fragile",
+        "Explain how the Locarno Pact, League membership and the Kellogg–Briand Pact won Germany international acceptance",
+        "Judge how far 1924–29 really were Golden Years, using the limits as well as the successes",
+    ], "Treating the Golden Years as a complete recovery loses marks. Always add that it rested on short-term American loans, and that farmers and the unemployed never shared in it."),
+
+    ("hist:31.1d", &[
+        "Describe how the standard of living changed in 1924–29, with figures for wages, hours, housing and welfare",
+        "Explain which groups gained from the Golden Years and which did not",
+        "Explain how the position of women changed in politics, work and leisure, and how far the 'New Woman' was typical",
+        "Describe developments in architecture, art and the cinema, naming the Bauhaus, Dix, Grosz and key films",
+        "Explain why Weimar culture divided Germans and how the Nazis later exploited the resentment",
+    ], "Writing as if every German's life improved. Say which group you mean: industrial workers and young urban women gained most, while farmers, the middle classes and most rural women saw little change."),
+
+    ("hist:31.2a", &[
+        "Describe Hitler's early career and how he joined the German Workers' Party and set up the Nazi Party in 1919–20",
+        "Describe the Twenty-Five Point Programme and explain the role of the SA",
+        "Explain the reasons for, events and consequences of the Munich Putsch, and the main ideas of Mein Kampf",
+        "Explain why support for the Nazis was limited in 1924–28",
+        "Explain how Hitler reorganised the party, including the Bamberg Conference of 1926 and the Führerprinzip",
+    ], "Calling the Munich Putsch simply a failure. It failed as a seizure of power, but the trial made Hitler nationally famous and the defeat pushed him towards the legal route to power; the best answers weigh both."),
+
+    ("hist:31.2b", &[
+        "Explain why unemployment in Germany rose to over 6 million after the Wall Street Crash, and describe its impact on workers, the middle classes and farmers",
+        "Explain why support for the Communist Party grew and how that growth helped the Nazis",
+        "Explain why Nazi support rose from 2.6% in 1928 to 37.3% in July 1932, using the appeal of Hitler, propaganda and the SA",
+        "Describe the results of the presidential and Reichstag elections of 1932",
+        "Explain why Hitler became Chancellor in January 1933, including the roles of Hindenburg and von Papen",
+    ], "Hitler was appointed Chancellor, not elected. The Nazi vote fell in November 1932, and it was the Papen deal with Hindenburg that put him in office. Answers that skip this lose the top level."),
+
+    ("hist:31.3a", &[
+        "Explain how Hitler used the Reichstag Fire of February 1933, including the emergency decree and the March election",
+        "Explain how the Enabling Act was passed and why it gave Hitler the power to make laws without the Reichstag",
+        "Describe how trade unions and other political parties were removed in 1933 and local government brought under Nazi control",
+        "Explain why Röhm and the SA threatened Hitler, and the causes and consequences of the Night of the Long Knives",
+        "Explain how Hindenburg's death and the army's oath made Hitler Führer in August 1934",
+        "Explain why Hitler was able to build a dictatorship so quickly, linking legality, terror and the weakness of his opponents",
+    ], "The Reichstag Fire Decree (28 February 1933) and the Enabling Act (23 March 1933) are different measures. The first suspended civil rights; the second let Hitler make laws. Mixing them up costs the mark."),
+
+    ("hist:31.3b", &[
+        "Describe the roles of the SS, the Gestapo and concentration camps in the Nazi police state",
+        "Explain how the Nazis controlled the legal system, including judges, Special Courts and the People's Court",
+        "Explain how Goebbels used censorship, radio, film, rallies and the 1936 Berlin Olympics to influence attitudes",
+        "Describe Nazi control of art, architecture, literature and film through the Reich Chamber of Culture",
+        "Explain how the Nazis tried to control the Catholic and Protestant Churches through the Concordat and the Reich Church, and why they only partly succeeded",
+    ], "The Gestapo was small and relied on ordinary Germans denouncing each other. Describing it as a vast all-seeing force, or mixing it up with the SS, misses the point examiners reward."),
+
+    ("hist:31.3c", &[
+        "Explain the extent of support for the Nazi regime, using plebiscites, economic recovery, foreign policy success and the Hitler myth",
+        "Explain why opposition to the Nazis was so weak in the years 1933–39",
+        "Describe Church opposition, including Niemöller, the Pastors' Emergency League and the Confessing Church, and explain its limits",
+        "Describe the Swing Youth and the Edelweiss Pirates and explain why some young people rejected the Hitler Youth",
+        "Tell apart support, conformity, grumbling, non-conformity, opposition and resistance, and use the right word in an answer",
+    ], "Calling every kind of disagreement \"resistance\". The Swing Youth were non-conformists and Niemöller was defending the Church's independence; answers that say how limited opposition was reach the top level."),
+
+    ("hist:31.4a", &[
+        "Explain Nazi views on women and the family, including 'Kinder, Küche, Kirche' and the concern about the falling birth rate",
+        "Describe Nazi policies on marriage and the family: marriage loans, the Mother's Cross, Lebensborn and the 1938 divorce law",
+        "Explain how Nazi policy on women's employment and appearance worked, and why it changed after 1936–37",
+        "Describe the Hitler Youth and the League of German Maidens, and explain what the Nazis wanted from the young",
+        "Explain how the Nazis controlled education through teachers, the curriculum and elite schools",
+        "Judge how successful Nazi policies towards women and the young were by 1939",
+    ], "Saying women were banned from work. Women were pushed out of the professions, but labour shortages from 1937 reversed policy and women's employment rose to about 7.14 million by 1939."),
+
+    ("hist:31.4b", &[
+        "Explain how the Nazis reduced unemployment through the National Labour Service, the autobahns and other public works",
+        "Explain why rearmament, conscription and the Four-Year Plan were the biggest causes of the fall in unemployment",
+        "Explain what 'invisible unemployment' was and which groups were left out of the official figures",
+        "Describe the German Labour Front, Strength Through Joy and Beauty of Labour, and explain their purpose",
+        "Judge whether German workers' standard of living improved, using hours, wages, prices and rights",
+    ], "Saying workers were better off because wages rose. Weekly wages rose mainly through longer hours (about 43 to 49 a week) while food prices rose too, so real wages barely improved — and workers lost their unions."),
+
+    ("hist:31.4c", &[
+        "Explain Nazi racial beliefs, including the Aryan master race, Untermenschen, eugenics and anti-Semitism",
+        "Describe how the Nazis treated Slavs, Roma and Sinti, homosexuals and people with disabilities, naming a law or measure for each",
+        "Describe the boycott of Jewish shops and businesses in April 1933 and the two Nuremberg Laws of 1935",
+        "Explain the causes, events and consequences of Kristallnacht in November 1938",
+        "Explain why the persecution of Jews and other minorities increased between 1933 and 1939",
+    ], "Getting the sequence wrong. The boycott was 1 April 1933, the Nuremberg Laws 15 September 1935 and Kristallnacht 9–10 November 1938 — and one Nuremberg Law removed citizenship while the other banned marriage between Jews and Germans."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

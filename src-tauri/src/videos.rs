@@ -101,6 +101,12 @@ const HAWKS: &str = "Geography Hawks";
 const AUDEN: &str = "Audenshaw Geography";
 const GCS: &str = "Geography Case Studies";
 
+const CLOKE: &str = "MrClokeHistory";
+const HISTTEACH: &str = "The History Teacher";
+const CHSG: &str = "CHSG History";
+const MADDEN: &str = "Miss Madden's Awesome History Channel";
+const PEARSONUK: &str = "Pearson UK & International Schools";
+
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
     // ---------- Computer Science (OCR GCSE J277) ----------
     ("cs:1.1.1", &[
@@ -2440,6 +2446,205 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("wSzcwtWex5A", "Full marks in the 90-word task", IDEAL),
         ("ivMn0z6jVYI", "Translation into German", HERRREID),
     ]),
+    // History (Pearson Edexcel GCSE History (1HI0))
+    // ---------- History (Pearson Edexcel GCSE 1HI0: options 11, B4, P4, 31) ----------
+    ("hist:11.1a", &[
+        ("tzM7xtIkRnE", "GCSE History Rapid Revision: Medieval Causes of Disease", CLOKE),
+        ("ar3ijNoZuf8", "GCSE History Rapid Revision: The Theory of the 4 Humours", CLOKE),
+        ("4DYc3m0dc9k", "Edexcel GCSE History Medicine Through Time #2 - Rational Explanations for Disease (Medieval)", "Mr Richards"),
+    ]),
+    ("hist:11.1b", &[
+        ("1FecDvmleMs", "GCSE History Rapid Revision: Medieval Treatments", CLOKE),
+        ("jgLNgJPokcg", "GCSE History Rapid Revision: The Black Death", CLOKE),
+        ("7IGK5ghBcyM", "Revision: Medieval hospitals", CHSG),
+    ]),
+    ("hist:11.2a", &[
+        ("TJY4B6H_Fug", "GCSE History Rapid Revision: Renaissance Medicine Introduction", CLOKE),
+        ("CbNNqHj-f5I", "GCSE History Rapid Revision: Andreas Vesalius", CLOKE),
+        ("KIkIM34fVK8", "GCSE History Rapid Revision: Thomas Sydenham", CLOKE),
+        ("g_8R4n4QzLY", "Revision: The Royal Society", CHSG),
+    ]),
+    ("hist:11.2b", &[
+        ("y-xgbVy6olE", "GCSE History Rapid Revision: Renaissance Causes and Treatments of Disease", CLOKE),
+        ("SHNLbSTRFV8", "Revision: William Harvey", CHSG),
+        ("7r15ej0iN1k", "GCSE History Rapid Revision: The Great Plague, 1665", CLOKE),
+    ]),
+    ("hist:11.3a", &[
+        ("oMNIQ_0_yCI", "GCSE History Rapid Revision: Louis Pasteur and Germ Theory", CLOKE),
+        ("ZHW6kdeX3cI", "GCSE History Rapid Revision: Robert Koch", CLOKE),
+        ("N62VqXEKnSk", "GCSE History Rapid Revision: Edward Jenner and Vaccination", CLOKE),
+    ]),
+    ("hist:11.3b", &[
+        ("hbJ-09ZR9d4", "GCSE History Rapid Revision: 19th Century Advances in Surgery", CLOKE),
+        ("_ZDUmZGJiXo", "GCSE History Rapid Revision: Florence Nightingale and 19th Century Hospitals", CLOKE),
+        ("ZzhVLS-pXFM", "GCSE History Rapid Revision: 19th Century Public Health", CLOKE),
+    ]),
+    ("hist:11.4a", &[
+        ("GPXI4F5aByE", "GCSE History Rapid Revision: 20th Century Lifestyle and Disease", CLOKE),
+        ("REq1ywT0XfQ", "GCSE History Rapid Revision: Magic Bullets", CLOKE),
+        ("RsXHqYSIbbY", "GCSE History Rapid Revision: Penicillin", CLOKE),
+        ("hsDg9kquqHs", "GCSE History Rapid Revision: DNA", CLOKE),
+    ]),
+    ("hist:11.4b", &[
+        ("UPfufJZzZzM", "The NHS and Treatment and Prevention in the twentieth century", MADDEN),
+        ("nAGKsW9CwS0", "How has technology affected diagnosis and treatment?", MADDEN),
+        ("gqWy1O2VMfo", "Lung cancer", MADDEN),
+    ]),
+    ("hist:11.5a", &[
+        ("-dIOowtYEf4", "GCSE History Rapid Revision: Major Battles of WWI", CLOKE),
+        ("QfAOhH-JYPo", "GCSE History Rapid Revision: Trench Warfare and WWI Medicine", CLOKE),
+        ("w_Os19LsIs0", "GCSE History: WWI Medicine - Weapons and Wounds", CLOKE),
+    ]),
+    ("hist:11.5b", &[
+        ("yCQA6MhskDo", "GCSE History Rapid Revision: The Evacuation Chain", CLOKE),
+        ("SQuQEyz0Wto", "GCSE History Rapid Revision: Nursing and the RAMC in WWI", CLOKE),
+        ("ZVELfv81Py0", "GCSE History Rapid Revision: WWI New Medical Techniques", CLOKE),
+    ]),
+    ("hist:11.5c", &[
+        ("Ffvxk-zy4Dk", "GCSE History Exam Skills - Edexcel Paper 1 Q2a How Useful are the Sources? (8 Marks)", CLOKE),
+        ("tf78GZ5pD6I", "Edexcel GCSE History Student Walkthrough - Paper 1 Q2a: Source utility", PEARSONUK),
+        ("_pC-N5l4B0E", "Edexcel GCSE History Student Walkthrough - Paper 1 Q2b: Follow up an enquiry", PEARSONUK),
+    ]),
+    ("hist:B4.1a", &[
+        ("sMiLxjCptAU", "GCSE History Rapid Revision: Elizabeth's Challenges at Home and Abroad", CLOKE),
+        ("6QQiBA7fUUA", "Early Elizabethan England 1558-1588: The problem of Elizabeth's legitimacy", HISTTEACH),
+        ("niPNzy6X6os", "GCSE History Rapid Revision: Elizabeth I - The Virgin Queen", CLOKE),
+    ]),
+    ("hist:B4.1b", &[
+        ("J4luTCHc-tc", "GCSE History Rapid Revision: The Elizabethan Religious Settlement", CLOKE),
+        ("-GbkZ_Y1AeQ", "Early Elizabethan England 1558-1588: The Religious settlement", HISTTEACH),
+        ("P_SAHTOlNpg", "Early Elizabethan England: The difference between Catholics and Protestants", HISTTEACH),
+    ]),
+    ("hist:B4.1c", &[
+        ("53mYP84AB6g", "GCSE History Rapid Revision: Challenges to the Religious Settlement", CLOKE),
+        ("_tD3KvqCc8g", "Early Elizabethan England 1558-1588: Threats to Elizabeth's Religious Settlement", HISTTEACH),
+        ("LIZtyIgtVio", "The Problem of Mary Queen of Scots: Early Elizabethan England", HISTTEACH),
+    ]),
+    ("hist:B4.2a", &[
+        ("qLuPzcEON6s", "GCSE History Rapid Revision: Revolt of the Northern Earls, 1569", CLOKE),
+        ("mhNxus0ixoA", "GCSE History Rapid Revision - Ridolfi, Throckmorton, Babington Plots (UPDATED)", CLOKE),
+        ("jagJpQogoS8", "Early Elizabethan England 1558-1588: The Execution of Mary Queen of Scots", HISTTEACH),
+    ]),
+    ("hist:B4.2b", &[
+        ("S78nvATXBf0", "GCSE History Rapid Revision: Elizabethan England - War with Spain", CLOKE),
+        ("xPAKnqCOl_Q", "Early Elizabethan England: Spain and England - Commercial Rivalry", HISTTEACH),
+        ("33zs4b3iyyw", "Early Elizabethan England: The Netherlands and Cadiz", HISTTEACH),
+    ]),
+    ("hist:B4.2c", &[
+        ("q1etLovNOaY", "GCSE History Rapid Revision: Elizabethan England - The Spanish Armada", CLOKE),
+        ("p5iryutlvrM", "Early Elizabethan England: Reasons and Plans for the Spanish Armada", HISTTEACH),
+        ("l11MVbpQ-iQ", "The Spanish Armada: Early Elizabethan England", HISTTEACH),
+    ]),
+    ("hist:B4.3a", &[
+        ("eKyCtKwXBMI", "GCSE History Rapid Revision: Education in Early Elizabethan England", CLOKE),
+        ("lh5QMyinSNY", "GCSE History Rapid Revision: Elizabethan Sport, Leisure and Entertainment", CLOKE),
+        ("l_XAxCQvWZQ", "Poverty: Causes and Changes - Early Elizabethan England", HISTTEACH),
+    ]),
+    ("hist:B4.3b", &[
+        ("1qy1bJr3x9k", "GCSE History: The Elizabethan Age of Exploration", CLOKE),
+        ("Cc-jLvP05Zk", "GCSE History Rapid Revision: Drake's Circumnavigation", CLOKE),
+        ("pNmO9wEqxqU", "Sir Walter Raleigh & the Failure of Roanoke - Early Elizabethan England", HISTTEACH),
+    ]),
+    ("hist:P4.1a", &[
+        ("hvQ8i_xym_A", "GCSE History Rapid Revision: Wartime Conferences", CLOKE),
+        ("gl7BZUII91s", "Ideologies and Historic Differences: Superpower Relations and the Cold War Edexcel GCSE History", HISTTEACH),
+        ("2dIHp54b6og", "GCSE History: Superpower Relations/Cold War- The Kennan and Novikov Telegrams", CLOKE),
+    ]),
+    ("hist:P4.1b", &[
+        ("dgRR8DNKOcM", "GCSE History Rapid Revision: Cold War/Superpower Relation - Truman Doctrine and Marshall Plan", CLOKE),
+        ("iaiPIM5Jmgo", "The Truman Doctrine, The Marshall Plan and Stalin's Response - Superpower Relations GCSE History", HISTTEACH),
+        ("6XT17mR4_TM", "GCSE History Rapid Revision: Superpower Relations/The Cold War- The Berlin Crisis and Airlift", CLOKE),
+    ]),
+    ("hist:P4.1c", &[
+        ("IGIq7yyW7wQ", "GCSE History Rapid Revision: Superpower Relations/Cold War- The Nuclear Arms Race", CLOKE),
+        ("AiGNkwOXz-4", "The Arms Race, The Formation of NATO and the Warsaw Pact - Superpowers Edexcel GCSE History", HISTTEACH),
+        ("42Py3a7IdSM", "GCSE History Rapid Revision: Superpower Relations/The Cold War- The Hungarian Uprising 1956", CLOKE),
+    ]),
+    ("hist:P4.2a", &[
+        ("icjKb1BNiaA", "GCSE History Rapid Revision: Superpower Relations and the Cold War - The Berlin Ultimatum and Wall", CLOKE),
+        ("y6l8bboOJBk", "The Berlin Ultimatum - Superpower Relations & the Cold War GCSE Edexcel History", HISTTEACH),
+        ("E8SF3_TBFNA", "The Berlin Wall - Superpower Relations and the Cold War GCSE Edexcel 9-1", HISTTEACH),
+    ]),
+    ("hist:P4.2b", &[
+        ("YHrdTBe5rKE", "GCSE History Rapid Revision: Superpower Relations and the Cold War- Cuban Revolution & Bay of Pigs", CLOKE),
+        ("FVEDrterwVY", "GCSE History Rapid Revision: Superpower Relations and the Cold War - The Cuban Missile Crisis", CLOKE),
+        ("o1XefXF4UUM", "13 Days on the Brink: The Cuban Missile Crisis – Superpower Relations & the Cold War GCSE Edexcel", HISTTEACH),
+    ]),
+    ("hist:P4.2c", &[
+        ("ngjikj-7XBc", "GCSE History: Superpower Relations and The Cold War: The Prague Spring and Brezhnev Doctrine", CLOKE),
+        ("tv-wwgFJijk", "Crushed Dreams: The Prague Spring (1968) – Superpower Relations & the Cold War GCSE Edexcel History", HISTTEACH),
+        ("fzsFSyoX0-A", "Spotlight: Cold War crises in Hungary (1956) and Czechoslovakia (1968)", CHSG),
+    ]),
+    ("hist:P4.3a", &[
+        ("ge1E17HFAD4", "GCSE History: Superpower Relations and the Cold War - Détent, SALT 1+2 and the Helsinki Accords", CLOKE),
+        ("297oB9xFAjo", "From Conflict to Compromise: Détente – Superpower Relations & the Cold War GCSE Edexcel History", HISTTEACH),
+        ("QtdIpIIvYZ8", "GCSE History Rapid Revision: Superpower Relations/Cold War - Soviet Invasion of Afghanistan", CLOKE),
+    ]),
+    ("hist:P4.3b", &[
+        ("F0GTwVj_pQo", "The Second Cold War Explained | Superpower Relations & the Cold War | Edexcel History GCSE Revision", HISTTEACH),
+        ("VwNS-DshCuQ", "GCSE Rapid Revision: Superpower Relations/Cold War - Gorbachev, Perestroika and Glasnost", CLOKE),
+        ("TSWsW61NCHA", "GCSE Rapid Revision: Superpower Relations/Cold War - The End of the Soviet Union", CLOKE),
+    ]),
+    ("hist:31.1a", &[
+        ("qA1RUmVVF2E", "GCSE History Rapid Revision: The German Revolution 1918-19", CLOKE),
+        ("HvPYXUav-Z8", "GCSE History Rapid Revision: The Weimar Constitution", CLOKE),
+        ("0Rl5so_KGr8", "Abdication and Armistice - Weimar and Nazi Germany GCSE", HISTTEACH),
+    ]),
+    ("hist:31.1b", &[
+        ("u5stoytRj0Q", "The Treaty of Versailles and Dolchstoss - Weimar and Nazi Germany GCSE History", HISTTEACH),
+        ("fvxlMEN2Agc", "GCSE History Rapid Revision: Uprisings Against the Weimar Republic 1918-19", CLOKE),
+        ("z_-xakexp8E", "The Invasion of the Ruhr and Hyperinflation - Weimar and Nazi Germany GCSE", HISTTEACH),
+    ]),
+    ("hist:31.1c", &[
+        ("cuTorPxBL5Y", "GCSE History Rapid Revision: Gustav Stresemann", CLOKE),
+        ("z0iW8ChjE48", "Economic Recovery in the 1920s - Weimar and Nazi Germany Edexcel GCSE History", HISTTEACH),
+        ("xvrS5EDtedk", "Stresemann's Foreign Policy - Weimar and Nazi Germany GCSE Edexcel", HISTTEACH),
+    ]),
+    ("hist:31.1d", &[
+        ("YSINCa52cac", "GCSE History Rapid Revision: Germany in the 'The Golden Twenties'", CLOKE),
+        ("-j52Dx5wUFk", "Changes for workers, women and to culture in the 1920s - Weimar and Nazi Germany GCSE Edexcel", HISTTEACH),
+        ("Rv0Pz_YEk9M", "Cultural Changes in Weimar Germany, 1920s | GCSE History | Weimar & Nazi Germany", "A long, long time ago..."),
+    ]),
+    ("hist:31.2a", &[
+        ("qKhN0lD3GUk", "GCSE Rapid Revision- Hitler's Early Life and Early Years of the Nazi Party", CLOKE),
+        ("w1tZeS8CtB4", "Munich Putsch - causes, events and short-term consequences - Weimar and Nazi Germany", HISTTEACH),
+        ("l8vn5BjqET4", "GCSE History Rapid Revision- Lean Years of the Nazi Party 1924-28", CLOKE),
+    ]),
+    ("hist:31.2b", &[
+        ("bj6RIHbU7bs", "The Wall Street Crash and its impact on Germany - Weimar and Nazi Germany GCSE History", HISTTEACH),
+        ("VxVTNbvQI60", "GCSE History Rapid Revision- Why Did People Support the Nazis?", CLOKE),
+        ("35L3Ogldq4k", "GCSE History Rapid Revision- How did Hitler Become Chancellor?", CLOKE),
+    ]),
+    ("hist:31.3a", &[
+        ("XALGoKldRAE", "GCSE History Rapid Revision- Building Dictatorship 1933-34", CLOKE),
+        ("aqyltSaSjso", "From Chancellor to Fuhrer - Weimar and Nazi Germany GCSE Edexcel History", HISTTEACH),
+        ("gZiF32_9wCY", "Overview: Creation of dictatorship 1933-34", CHSG),
+    ]),
+    ("hist:31.3b", &[
+        ("RazvcEmXVpU", "GCSE History Rapid Revision- Control: Terror and the Police State", CLOKE),
+        ("exmLJeF4sqM", "GCSE History Rapid Revision- Control: Propaganda", CLOKE),
+        ("tbnQ1pCWg2c", "The Nazi Policies towards the Church and Resistance - Weimar and Nazi Germany GCSE Edexcel History", HISTTEACH),
+    ]),
+    ("hist:31.3c", &[
+        ("vTyk-k8PfHg", "GCSE History Rapid Revision- Opposition and Resistance to the Nazis", CLOKE),
+        ("SaIXbcwnyJ4", "Opposition and Resistance - Weimar and Nazi Germany Edexcel GCSE History", HISTTEACH),
+        ("QiMn8iA1uGY", "Youth Opposition", MADDEN),
+    ]),
+    ("hist:31.4a", &[
+        ("D2L4GQW-nr8", "GCSE History Rapid Revision: Women in Nazi Germany", CLOKE),
+        ("HVX52SbDnAM", "GCSE History Rapid Revision: Children and Young People in Nazi Germany", CLOKE),
+        ("rNlJUPhW3R0", "Policies towards the Young: Weimar and Nazi Germany Edexcel GCSE History", HISTTEACH),
+    ]),
+    ("hist:31.4b", &[
+        ("iQNYNyl_fEw", "GCSE History Rapid Revision: Work and Employment", CLOKE),
+        ("YQUHdGVkRc8", "Employment and Living Standards: Weimar and Nazi Germany Edexcel GCSE History", HISTTEACH),
+        ("9xJGnv1iG7E", "GCSE History Rapid Revision: Strength Through Joy", CLOKE),
+    ]),
+    ("hist:31.4c", &[
+        ("lCxAS5gy4I0", "GCSE History Rapid Revision: Nazi Persecution", CLOKE),
+        ("_xlM-pIAgqc", "The Nazis Attitudes and Policies toward Minorities - Weimar and Nazi Germany GCSE Edexcel History", HISTTEACH),
+        ("mQ1E6wO9jXQ", "What Was Kristallnacht in the Holocaust? | Holocaust Explainer", "United States Holocaust Memorial Museum"),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
@@ -2486,7 +2691,7 @@ mod tests {
     /// Subjects whose every topic has a video to start from.
     #[test]
     fn covered_subjects_have_a_video_on_every_topic() {
-        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog"] {
+        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog", "hist"] {
             let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
             for (code, _, _) in def.topics {
                 assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");

@@ -22,6 +22,7 @@
   --bio:#6FD68D; --chem:#5FD3E8; --phys:#9DA3FF; --test:#E8EAED; --rest:#6B6F76;
   --fre:#FF7B7B; --spa:#B8E05A; --ger:#C9A86A;
   --geog:#4DB6AC;
+  --hist:#C08457;
   --r:18px; --r-sm:12px; --r-xs:8px; --navh:58px;
   --glow-a:rgba(66,133,244,.26); --glow-b:rgba(52,168,83,.16); --glow-c:rgba(171,71,188,.18);
   --shadow:0 10px 30px rgba(0,0,0,.28);
@@ -1305,6 +1306,7 @@ const RP_PEARSON="https://qualifications.pearson.com/en/qualifications/edexcel-i
 const RP_FILTER=".coursematerials.html#filterQuery=category:Pearson-UK:Category%2FExam-materials";
 // [code, name, marks, minutes]
 const REAL_PAPERS={
+  hist:{board:"pearson",months:["June"],from:2018,url:"https://qualifications.pearson.com/en/qualifications/edexcel-gcses/history-2016.coursematerials.html",comps:[["1","Paper 1 (Medicine and the Western Front)",52,80],["2","Paper 2 (Cold War and Elizabeth)",64,110],["3","Paper 3 (Weimar and Nazi Germany)",52,90]]},
   geog:{board:"aqa",from:2018,url:"https://www.aqa.org.uk/subjects/geography/gcse/geography-8035/assessment-resources",comps:[["1","Paper 1 (physical environment)",88,90],["2","Paper 2 (human environment)",88,90],["3","Paper 3 (geographical applications)",76,90]]},
   maths:{board:"pearson",from:2018,url:RP_PEARSON+"international-gcse-mathematics-a-2016"+RP_FILTER,comps:[["1H","Paper 1H",100,120],["2H","Paper 2H",100,120]]},
   fpm:{board:"pearson",from:2019,url:RP_PEARSON+"international-gcse-further-pure-mathematics-2017"+RP_FILTER,comps:[["1","Paper 1",100,120],["2","Paper 2",100,120]]},
@@ -1323,7 +1325,7 @@ const RP_MONTH={January:0,March:2,June:5,November:10};
 /* Every series the board has sat since the spec began, newest first, stopping
    at the most recent one that has already happened. */
 function rpSeries(subj){const R=REAL_PAPERS[subj],now=new Date(),out=[];
-  for(let y=now.getFullYear();y>=R.from;y--)RP_BOARDS[R.board].months.slice().reverse().forEach(m=>{if(new Date(y,RP_MONTH[m],28)<=now)out.push(`${m} ${y}`);});
+  for(let y=now.getFullYear();y>=R.from;y--)(R.months||RP_BOARDS[R.board].months).slice().reverse().forEach(m=>{if(new Date(y,RP_MONTH[m],28)<=now)out.push(`${m} ${y}`);});
   return out.concat(["Specimen","School mock"]);}
 const rpMins=m=>m%60?(m>60?`${Math.floor(m/60)} h ${m%60} min`:`${m} min`):`${m/60} h`;
 const realPapersOf=subj=>(state.realPapers||[]).filter(x=>x.subj===subj);

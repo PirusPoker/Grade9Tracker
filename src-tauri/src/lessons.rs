@@ -477,6 +477,48 @@ const GEOG: &[(&str, &str)] = &[
     ("geog:3.4b", include_str!("../lessons/geog/3.4b.md")),
 ];
 
+const HIST: &[(&str, &str)] = &[
+    ("hist:11.1a", include_str!("../lessons/hist/11.1a.md")),
+    ("hist:11.1b", include_str!("../lessons/hist/11.1b.md")),
+    ("hist:11.2a", include_str!("../lessons/hist/11.2a.md")),
+    ("hist:11.2b", include_str!("../lessons/hist/11.2b.md")),
+    ("hist:11.3a", include_str!("../lessons/hist/11.3a.md")),
+    ("hist:11.3b", include_str!("../lessons/hist/11.3b.md")),
+    ("hist:11.4a", include_str!("../lessons/hist/11.4a.md")),
+    ("hist:11.4b", include_str!("../lessons/hist/11.4b.md")),
+    ("hist:11.5a", include_str!("../lessons/hist/11.5a.md")),
+    ("hist:11.5b", include_str!("../lessons/hist/11.5b.md")),
+    ("hist:11.5c", include_str!("../lessons/hist/11.5c.md")),
+    ("hist:B4.1a", include_str!("../lessons/hist/B4.1a.md")),
+    ("hist:B4.1b", include_str!("../lessons/hist/B4.1b.md")),
+    ("hist:B4.1c", include_str!("../lessons/hist/B4.1c.md")),
+    ("hist:B4.2a", include_str!("../lessons/hist/B4.2a.md")),
+    ("hist:B4.2b", include_str!("../lessons/hist/B4.2b.md")),
+    ("hist:B4.2c", include_str!("../lessons/hist/B4.2c.md")),
+    ("hist:B4.3a", include_str!("../lessons/hist/B4.3a.md")),
+    ("hist:B4.3b", include_str!("../lessons/hist/B4.3b.md")),
+    ("hist:P4.1a", include_str!("../lessons/hist/P4.1a.md")),
+    ("hist:P4.1b", include_str!("../lessons/hist/P4.1b.md")),
+    ("hist:P4.1c", include_str!("../lessons/hist/P4.1c.md")),
+    ("hist:P4.2a", include_str!("../lessons/hist/P4.2a.md")),
+    ("hist:P4.2b", include_str!("../lessons/hist/P4.2b.md")),
+    ("hist:P4.2c", include_str!("../lessons/hist/P4.2c.md")),
+    ("hist:P4.3a", include_str!("../lessons/hist/P4.3a.md")),
+    ("hist:P4.3b", include_str!("../lessons/hist/P4.3b.md")),
+    ("hist:31.1a", include_str!("../lessons/hist/31.1a.md")),
+    ("hist:31.1b", include_str!("../lessons/hist/31.1b.md")),
+    ("hist:31.1c", include_str!("../lessons/hist/31.1c.md")),
+    ("hist:31.1d", include_str!("../lessons/hist/31.1d.md")),
+    ("hist:31.2a", include_str!("../lessons/hist/31.2a.md")),
+    ("hist:31.2b", include_str!("../lessons/hist/31.2b.md")),
+    ("hist:31.3a", include_str!("../lessons/hist/31.3a.md")),
+    ("hist:31.3b", include_str!("../lessons/hist/31.3b.md")),
+    ("hist:31.3c", include_str!("../lessons/hist/31.3c.md")),
+    ("hist:31.4a", include_str!("../lessons/hist/31.4a.md")),
+    ("hist:31.4b", include_str!("../lessons/hist/31.4b.md")),
+    ("hist:31.4c", include_str!("../lessons/hist/31.4c.md")),
+];
+
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
     ("maths", MATHS),
@@ -491,6 +533,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("geog", GEOG),
     ("spa", SPA),
     ("ger", GER),
+    ("hist", HIST),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {

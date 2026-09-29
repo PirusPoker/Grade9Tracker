@@ -153,6 +153,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("ger", &[(1, 0.75, 0.5)]),
     // AQA GCSE Geography (8035)
     ("geog", &[(1, 1.0, 0.5)]),
+    // Pearson Edexcel GCSE History (1HI0)
+    ("hist", &[(1, 1.0, 0.5)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -166,6 +168,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("bio", "school"), ("chem", "school"), ("phys", "school"),
     ("fre", "school"), ("spa", "school"), ("ger", "school"),
     ("geog", "ahead"),
+    ("hist", "ahead"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -300,6 +303,15 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/geography/aqa/past-papers/"),
         ("Internet Geography", "https://www.internetgeography.net/aqa-gcse-geography/"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/geography/gcse/geography-8035/assessment-resources"),
+    ]),
+    // Pearson Edexcel GCSE History (1HI0). Each link opened and checked 29 September 2026
+    ("hist", &[
+        ("Paper 1 notes", "https://www.savemyexams.com/gcse/history/edexcel/24/the-thematic-historic-environment-paper-1/revision-notes/"),
+        ("Paper 2 Cold War notes", "https://www.savemyexams.com/gcse/history/edexcel/24/period-study-paper-2-booklet-p/revision-notes/"),
+        ("Paper 2 Elizabeth notes", "https://www.savemyexams.com/gcse/history/edexcel/24/british-depth-study-paper-2-booklet-b/revision-notes/"),
+        ("Paper 3 notes", "https://www.savemyexams.com/gcse/history/edexcel/24/modern-depth-study-paper-3/revision-notes/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/history/edexcel/past-papers/"),
+        ("Pearson papers & mark schemes", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/history-2016.coursematerials.html"),
     ]),
 ];
 
