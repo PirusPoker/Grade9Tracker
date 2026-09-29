@@ -3339,6 +3339,137 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Explain the causes, events and consequences of Kristallnacht in November 1938",
         "Explain why the persecution of Jews and other minorities increased between 1933 and 1939",
     ], "Getting the sequence wrong. The boycott was 1 April 1933, the Nuremberg Laws 15 September 1935 and Kristallnacht 9–10 November 1938 — and one Nuremberg Law removed citizenship while the other banned marriage between Jews and Germans."),
+
+    ("fre:3.2.1a", &[
+        "Use le, la, l', les, un, une and des to match the gender and number of the noun",
+        "Form feminine person nouns and plural nouns by the regular patterns",
+        "Choose between the definite article for likes and general statements and the partitive for amounts",
+        "Change articles to de after negatives and expressions of quantity",
+        "Use the infinitive as a noun where English uses -ing",
+    ], "After a negative the article becomes de: je n'ai pas de frère, not je n'ai pas un frère."),
+    ("fre:3.2.1b", &[
+        "Use ce, cet, cette, ces and the possessives so they agree with the noun that follows",
+        "Ask questions with quel, quelle, quels, quelles and use chaque, plusieurs, même, autre, tout and quelque",
+        "Place singular direct and indirect object pronouns and reflexive pronouns in front of the verb",
+        "Use moi and toi after prepositions and join sentences with qui",
+    ], "Son, sa and ses agree with the thing owned, not the owner: sa mère can mean his mother."),
+    ("fre:3.2.1c", &[
+        "Conjugate regular -er verbs and the seven anchor-verb patterns in all persons of the present",
+        "Use aller, avoir, être and faire accurately, including avoir faim, froid and ans",
+        "Make sentences negative with ne ... pas, jamais, rien and personne",
+        "Ask questions using intonation, est-ce que and inversion",
+    ], "There is no -ing form in French: je joue means I am playing, and je suis jouer scores nothing."),
+    ("fre:3.2.1d", &[
+        "Form the perfect tense with avoir or être and the correct past participle",
+        "Recognise the être verbs and reflexive verbs, and make the participle agree",
+        "Place negatives and object pronouns correctly around the auxiliary",
+        "Write a past-tense paragraph that mixes verbs from different clusters",
+    ], "Verbs of movement take être and agree: elle est allée, not elle a allé."),
+    ("fre:3.2.1e", &[
+        "Talk about the future with aller + infinitive",
+        "Form the imperfect in the singular and use it for habits and descriptions",
+        "Choose between the perfect for events and the imperfect for background",
+        "Give instructions and advice with the tu and vous imperative",
+    ], "Habits and descriptions in the past need the imperfect: quand j'étais petit, je jouais, not j'ai joué."),
+    ("fre:3.2.1f", &[
+        "Use devoir, pouvoir, savoir and vouloir in all persons followed by an infinitive",
+        "Conjugate reflexive verbs in all persons, including the reciprocal each other meaning",
+        "Use il y a, il y avait, il y aura, il fait, il faut and il est for time and weather",
+        "Use the perfect of modals such as j'ai dû and j'ai pu at Higher",
+    ], "A modal is followed straight by an infinitive with no à or de: je dois travailler."),
+    ("fre:3.2.1g", &[
+        "Make adjectives agree using the regular feminine and plural patterns",
+        "Place adjectives after the noun, except the listed set that go before it",
+        "Compare with plus, moins and aussi ... que, meilleur, pire and mieux",
+        "Place adverbs of time, manner, frequency and place correctly, including in the perfect",
+    ], "After être the adjective agrees with the subject: mes sœurs sont sportives."),
+    ("fre:3.2.1h", &[
+        "Contract à and de with le and les to au, aux, du and des",
+        "Use en, au and à correctly with countries and towns",
+        "Show possession with de and add purpose with pour and sans + infinitive",
+        "Recognise verbs and adjectives that take à or de",
+        "Work out unfamiliar words in reading from -ième, in-, -able, -ation, -ment and Higher -eur patterns",
+    ], "Feminine countries take en and masculine ones au: en France, au Canada, never à France."),
+    ("fre:3.2.2a", &[
+        "Replace places with y and quantities or de + noun with en",
+        "Use the plural object pronouns nous, vous, les and leur in front of the verb",
+        "Use emphatic pronouns such as lui, eux and elles after prepositions",
+        "Join sentences with que and où as well as qui",
+    ], "The pronoun leur (to them) never takes -s: je leur parle."),
+    ("fre:3.2.2b", &[
+        "Form the future of regular -er verbs and use aurai, ferai, irai and serai",
+        "Form the conditional of -er verbs and use aurais, ferais, irais, serais and voudrais",
+        "Form the imperfect in the plural for -er verbs, the anchor verbs, avoir, être and faire",
+        "Show three time frames in one answer using a range of future forms",
+    ], "Will is -rai and would is -rais: je jouerai means I will play, je jouerais means I would play."),
+    ("fre:3.2.2c", &[
+        "Use depuis with the present tense for actions that are still going on",
+        "Say what has just happened with venir de and what is happening with être en train de",
+        "Form present participles and use en + -ant for while or by doing",
+        "Link actions with avant de + infinitive and après avoir + past participle",
+    ], "Depuis takes the present tense for something still going on: j'habite ici depuis deux ans."),
+    ("fre:3.2.2d", &[
+        "Use ne ... plus, ne ... ni ... ni, ne ... pas encore, ne ... que and ne ... aucun",
+        "Use personne ne and rien ne as the subject of a verb",
+        "Form the present passive with être, an agreeing participle and par",
+        "Give advice with il est ... de, il manque, il vaut mieux and il vaut la peine de",
+        "Use superlative adjectives and adverbs, including le meilleur and le mieux",
+    ], "Ne ... que means only, not not: je n'ai que dix euros means I only have ten euros."),
+
+    ("fre:3.1.1a", &[
+        "Describe yourself, your family and friends: appearance, personality, relationships",
+        "Explain how you get on with people using s'entendre avec and se disputer avec, with reasons",
+        "Talk about family life in the past, present and future, including marriage and partnership",
+        "Use depuis with the present tense and qui to describe people",
+    ], "Adjectives agree with the person described, not with the speaker: ma mère est petite, mes frères sont petits."),
+    ("fre:3.1.1b", &[
+        "Describe your diet, exercise and sleep habits with frequency expressions",
+        "Use partitive articles and de after quantities and negatives accurately",
+        "Contrast old and new habits with the imperfect and the present",
+        "Give health advice with il faut, il vaut mieux and il est important de",
+    ], "After a negative or a quantity the article becomes de: je ne mange pas de viande, beaucoup de légumes."),
+    ("fre:3.1.1c", &[
+        "Describe your school, subjects and rules, giving justified opinions",
+        "Talk about work experience and part-time jobs in the perfect tense",
+        "Explain your plans after GCSEs with the future, the conditional and si + present",
+        "Name jobs and their feminine forms, with no article after être",
+    ], "Jobs after être take no article: je voudrais être médecin, not un médecin."),
+    ("fre:3.1.2a", &[
+        "Describe sport, music, cinema and eating out with frequency and opinions",
+        "Use jouer à, jouer de and faire de with the correct contracted articles",
+        "Narrate an outing with the perfect for events and the imperfect for description",
+        "Handle a restaurant or ticket role-play, including asking a question",
+    ], "Games take jouer à and instruments jouer de, and activities take faire de: je joue au foot, je fais de la natation."),
+    ("fre:3.1.2b", &[
+        "Recognise the listed festivals: la Fête Nationale, Noël, Pâques, l'Aïd and la Saint Valentin",
+        "Describe customs with on and give opinions about traditions",
+        "Narrate a celebration in the perfect and childhood traditions in the imperfect",
+        "Use offrir with an indirect object pronoun and the present passive with par",
+    ], "Festivals and dates take their own prepositions: à Noël, à Pâques, pour l'Aïd, le 14 juillet with no preposition."),
+    ("fre:3.1.2c", &[
+        "Describe a celebrity or role model and justify why you respect them",
+        "Weigh up the advantages and drawbacks of fame in a balanced argument",
+        "Use direct and indirect object pronouns before the verb, including les, lui and leur",
+        "Say whether you would like to be famous using structures on the AQA list",
+    ], "Object pronouns go before the verb, and before avoir in the perfect: je la respecte, je lui ai écrit."),
+    ("fre:3.1.3a", &[
+        "Describe past holidays, transport and accommodation with the perfect and imperfect",
+        "Use en, au and à correctly with countries, regions and towns",
+        "Recognise the listed francophone places, from La Réunion to le Québec",
+        "Plan a future trip and handle a hotel or station role-play",
+    ], "Place prepositions depend on gender and type: en France, au Maroc, à Paris."),
+    ("fre:3.1.3b", &[
+        "Explain how you use phones, apps, social media, TV and streaming",
+        "Give balanced advantages and dangers of technology with examples",
+        "Use venir de, depuis and en + present participle with technology verbs",
+        "Contrast past and present screen habits and plan changes for the future",
+    ], "Les réseaux sociaux is plural, so the verb and adjective are too: les réseaux sociaux sont dangereux."),
+    ("fre:3.1.3c", &[
+        "Describe where you live, its advantages and its problems",
+        "Explain environmental problems and their causes: pollution, traffic, waste, climate",
+        "Say what you have done and will do for the environment",
+        "Argue for solutions with il faut, il vaut mieux and the nous imperative",
+    ], "Quantities and negatives take de: trop de voitures, il n'y a pas de parc."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

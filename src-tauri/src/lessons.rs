@@ -437,6 +437,36 @@ const GER: &[(&str, &str)] = &[
     ("ger:4.7", include_str!("../lessons/ger/4.7.md")),
 ];
 
+/// AQA GCSE French (8652) Higher.
+const FRE: &[(&str, &str)] = &[
+    ("fre:3.1.1a", include_str!("../lessons/fre/3.1.1a.md")),
+    ("fre:3.1.1b", include_str!("../lessons/fre/3.1.1b.md")),
+    ("fre:3.1.1c", include_str!("../lessons/fre/3.1.1c.md")),
+    ("fre:3.1.2a", include_str!("../lessons/fre/3.1.2a.md")),
+    ("fre:3.1.2b", include_str!("../lessons/fre/3.1.2b.md")),
+    ("fre:3.1.2c", include_str!("../lessons/fre/3.1.2c.md")),
+    ("fre:3.1.3a", include_str!("../lessons/fre/3.1.3a.md")),
+    ("fre:3.1.3b", include_str!("../lessons/fre/3.1.3b.md")),
+    ("fre:3.1.3c", include_str!("../lessons/fre/3.1.3c.md")),
+    ("fre:3.2.1a", include_str!("../lessons/fre/3.2.1a.md")),
+    ("fre:3.2.1b", include_str!("../lessons/fre/3.2.1b.md")),
+    ("fre:3.2.1c", include_str!("../lessons/fre/3.2.1c.md")),
+    ("fre:3.2.1d", include_str!("../lessons/fre/3.2.1d.md")),
+    ("fre:3.2.1e", include_str!("../lessons/fre/3.2.1e.md")),
+    ("fre:3.2.1f", include_str!("../lessons/fre/3.2.1f.md")),
+    ("fre:3.2.1g", include_str!("../lessons/fre/3.2.1g.md")),
+    ("fre:3.2.1h", include_str!("../lessons/fre/3.2.1h.md")),
+    ("fre:3.2.2a", include_str!("../lessons/fre/3.2.2a.md")),
+    ("fre:3.2.2b", include_str!("../lessons/fre/3.2.2b.md")),
+    ("fre:3.2.2c", include_str!("../lessons/fre/3.2.2c.md")),
+    ("fre:3.2.2d", include_str!("../lessons/fre/3.2.2d.md")),
+    ("fre:4.4a", include_str!("../lessons/fre/4.4a.md")),
+    ("fre:4.4b", include_str!("../lessons/fre/4.4b.md")),
+    ("fre:4.5", include_str!("../lessons/fre/4.5.md")),
+    ("fre:4.6", include_str!("../lessons/fre/4.6.md")),
+    ("fre:4.7", include_str!("../lessons/fre/4.7.md")),
+];
+
 /// Every subject's lessons, one line per subject so new subjects append
 /// without touching anyone else's line.
 const GEOG: &[(&str, &str)] = &[
@@ -534,6 +564,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("spa", SPA),
     ("ger", GER),
     ("hist", HIST),
+    ("fre", FRE),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
