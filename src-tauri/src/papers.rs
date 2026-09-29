@@ -145,10 +145,10 @@ mod tests {
 
     #[test]
     fn every_paper_is_well_formed() {
-        let cfg = crate::config::PlanConfig::default();
+        let catalog = crate::config::catalog();
         let bands = ["4-5", "6-7", "8-9"];
         for (id, subject, text) in PAPERS {
-            let def = cfg.subjects.iter().find(|s| s.id == *subject).unwrap_or_else(|| panic!("{id}: unknown subject {subject}"));
+            let def = catalog.iter().find(|s| s.id == *subject).unwrap_or_else(|| panic!("{id}: unknown subject {subject}"));
             let i = info(id, subject, text);
             assert!(!i.title.is_empty() && i.time > 0 && i.marks > 0, "{id}: header needs title, time and marks");
             assert_eq!(i.boundaries.len(), 6, "{id}: boundaries must give grades 4 to 9");
