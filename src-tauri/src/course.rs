@@ -2689,6 +2689,42 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Use Higher structures accurately: seit with the present, hätte, wäre and würde, sollte, and the simple past in written narrative",
         "Plan each extended answer in a few minutes and check verbs, word order and endings at the end",
     ], "Putting the verb in the wrong place: it comes second after an opening time phrase and at the end after weil, dass, wenn and obwohl."),
+
+    ("fre:4.4a", &[
+        "Use the five minutes' reading time to underline question words and predict French vocabulary",
+        "Spot distractors created by negatives such as ne...plus, ne...que and ne...jamais",
+        "Separate time frames using time words and tenses before choosing an answer",
+        "Distinguish false from not mentioned in true / false / not mentioned questions",
+        "Give precise English answers with exactly the number of details asked for",
+    ], "Writing down the first keyword heard, when a negative, a time word or a mais later in the sentence makes it the wrong answer."),
+    ("fre:4.4b", &[
+        "Spell French sounds using the AQA sound-symbol correspondences",
+        "Add the silent endings that grammar requires: plural -s, -ent verb endings and feminine -e",
+        "Choose between é, -er and -ez using the grammar of the sentence",
+        "Recognise liaison and nasal vowels without writing extra letters",
+        "Build plausible spellings for the two words from outside the vocabulary list",
+    ], "Leaving out silent endings and agreements, such as writing ils parle or elles sont arrivé, which the grammar mark punishes."),
+    ("fre:4.5", &[
+        "Convey each role-play task without ambiguity, including the question task",
+        "Read a 50-word text aloud with accurate silent letters, liaisons and nasal vowels",
+        "Describe both photos on the photo card clearly for about ninety seconds",
+        "Develop conversation answers with opinions, reasons, examples and three time frames",
+        "Use the 15 minutes' preparation and the 12-minute limit to best effect",
+    ], "Giving minimal one-sentence answers in the conversation, which keeps the communication mark in the bottom bands however accurate they are."),
+    ("fre:4.6", &[
+        "Answer comprehension questions in precise English, avoiding negative and time-frame traps",
+        "Infer feelings, attitudes and meanings that a text implies but does not state",
+        "Work out unknown words from context, cognates and derivations such as -ment, -ion and -eur",
+        "Translate a passage into natural English, rendering every tense and every word",
+        "Recognise false friends such as journée, actuellement, car and sensible",
+    ], "Losing translation sections by flattening tenses or leaving out small words such as souvent, déjà or ne...que."),
+    ("fre:4.7", &[
+        "Translate five English sentences into French so that all 15 elements are conveyed accurately",
+        "Cover every bullet in the 90-word and 150-word tasks with developed ideas",
+        "Use past, present and future time frames securely in extended writing",
+        "Build in Higher structures from the AQA list with accurate verb forms",
+        "Plan time and length across the 75-minute paper",
+    ], "Missing a bullet point or writing Question 2 in only one time frame, which caps both the content and the language marks."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.
