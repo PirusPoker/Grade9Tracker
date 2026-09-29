@@ -131,6 +131,17 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     // Media) and 2.2 Component 2 (Understanding Media Forms and Products).
     // Component 3 (2.3) is non-exam assessment and is not taught in the app.
     ("media", &["2", "2.1", "2.2"]),
+    // Design and Technology - AQA GCSE 8552. Read from the specification PDF,
+    // version 1.2 (6 June 2022), on 29 September 2026. 3.1 core (3.1.6 is
+    // numbered 3.1.6.1 material categories and 3.1.6.2 material properties),
+    // 3.2 specialist (each taught through at least one material category or
+    // system; Section B lets students choose theirs, so all six are covered),
+    // 3.3 designing and making. The NEA (50%) is not taught in the app.
+    ("dt", &[
+        "3.1.1", "3.1.2", "3.1.3", "3.1.4", "3.1.5", "3.1.6.1", "3.1.6.2",
+        "3.2.1", "3.2.2", "3.2.3", "3.2.4", "3.2.5", "3.2.6", "3.2.7", "3.2.8", "3.2.9",
+        "3.3.1", "3.3.2", "3.3.3", "3.3.4", "3.3.5", "3.3.6", "3.3.7", "3.3.8", "3.3.9", "3.3.10", "3.3.11",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -4458,6 +4469,214 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Explain how it represents women, young black men and social issues",
         "Explain the 1990s context of HIV/AIDS awareness and R&B on MTV",
     ], "Waterfalls tells two stories. Explain how each narrative carries a warning, not only that it is 'about social issues'."),
+    // ---------- Design and Technology (AQA GCSE 8552) ----------
+    ("dt:3.1.1a", &[
+        "Explain how automation and robotics change the layout of the workplace, the building and the tools people use",
+        "Describe crowdfunding, virtual marketing and retail, co-operatives and fair trade as routes to launching an innovation",
+        "Compare CAD, CAM, flexible manufacturing systems, just in time and lean manufacturing, with a benefit and a drawback of each",
+        "Explain why a manufacturer would combine JIT with lean production, and what happens when a supply chain fails",
+    ], "JIT is about stock arriving exactly when it is needed, not about making products quickly. Answers that say JIT means fast production score nothing."),
+
+    ("dt:3.1.1b", &[
+        "Explain the difference between finite and non-finite resources, and the problem of waste disposal",
+        "Explain technology push and market pull with a real product for each, and how new technology changes job roles",
+        "Explain how products are designed for disabled and elderly users and for different faiths and cultures",
+        "Evaluate the environmental gains and costs of new products: continuous improvement, efficient working, pollution and global warming",
+        "Weigh planned obsolescence against design for maintenance, using ethics and the environment as criteria",
+    ], "Planned obsolescence is a deliberate design decision to limit a product's life. Saying it is when a product simply becomes out of date loses the mark."),
+
+    ("dt:3.1.2", &[
+        "Describe how electricity is generated from coal, gas and oil, and from nuclear fission",
+        "Describe how wind, solar, tidal, hydro-electric and biomass generate power",
+        "Give balanced arguments for and against fossil fuels, nuclear power and each renewable source",
+        "Explain how kinetic pumped storage works, and compare alkaline and rechargeable batteries for a product",
+    ], "Biomass is renewable but it is not carbon-free at the point of burning. Say it is carbon neutral over its life because regrowth absorbs the carbon released."),
+
+    ("dt:3.1.3", &[
+        "Explain what makes a material modern, with graphene, metal foams, titanium, coated metals, LCDs and nanomaterials as examples",
+        "Define a smart material and explain how shape memory alloys, thermochromic and photochromic pigments respond to a stimulus",
+        "Explain what a composite is and why GRP and carbon fibre reinforced plastic outperform their separate parts",
+        "Describe technical textiles such as conductive and fire-resistant fabrics, Kevlar and microencapsulated microfibres",
+    ], "A smart material changes a property in response to a stimulus and changes back. A composite does not respond to anything, so mixing the two definitions up costs the whole question."),
+
+    ("dt:3.1.4", &[
+        "Draw and explain a block diagram of input, process and output for a product",
+        "Choose between light sensors, temperature sensors, pressure sensors and switches as inputs",
+        "Explain how a programmed microcontroller works as a counter, a timer and a decision maker",
+        "Choose buzzers, speakers or lamps as outputs and justify the choice",
+    ], "A microcontroller is the process block, not an input or an output. Put the sensor, the chip and the buzzer in the right boxes."),
+
+    ("dt:3.1.5", &[
+        "Name and recognise linear, rotary, reciprocating and oscillating motion",
+        "Identify first, second and third order levers and calculate mechanical advantage and distance moved",
+        "Explain how bell cranks and push-pull linkages change the direction of motion",
+        "Explain cams and followers, and calculate gear and pulley ratios and output speeds",
+    ], "Always show the ratio working: driven teeth divided by driver teeth. The answer alone rarely earns the marks, and a ratio upside down gives the wrong speed."),
+
+    ("dt:3.1.6.1a", &[
+        "Name the listed papers (bleed proof, cartridge, grid, layout, tracing) and boards (corrugated, duplex, foil lined, foam core, ink jet card, solid white) with a use for each",
+        "Classify hardwoods (ash, beech, mahogany, oak, balsa) and softwoods (larch, pine, spruce), and explain the botanical difference",
+        "Compare MDF, plywood and chipboard and say why manufactured boards come in large stable sheets",
+        "Match each paper, board or timber to a product and justify it with a property",
+    ], "Hardwood and softwood describe the tree, not how hard the timber is. Balsa is a hardwood; saying otherwise is a classic lost mark."),
+
+    ("dt:3.1.6.1b", &[
+        "Classify ferrous metals, non-ferrous metals and alloys from the listed examples, and explain what makes a metal ferrous",
+        "Explain why an alloy is made, using brass, stainless steel and high speed steel",
+        "Explain the difference between thermoforming and thermosetting polymers and name the listed examples of each",
+        "Classify natural, synthetic and blended fibres, and woven, non-woven and knitted textiles",
+        "Match each metal, polymer or textile to a product and justify it with a property",
+    ], "Thermoforming polymers can be reheated and reshaped; thermosets cannot, because of their cross-links. Mixing the two up loses any question about recycling or moulding."),
+
+    ("dt:3.1.6.2", &[
+        "Define absorbency, density, fusibility, and electrical and thermal conductivity",
+        "Define strength, hardness, toughness, malleability, ductility and elasticity",
+        "Apply the properties to the main material categories and to a product's function",
+        "Distinguish physical properties from working properties",
+    ], "Hardness and toughness are different: hardness resists scratching and wear, toughness resists breaking on impact. Glass is hard but not tough."),
+
+    ("dt:3.2.1", &[
+        "Explain how functionality, aesthetics, environmental factors, availability and cost shape a material choice",
+        "Explain social, cultural and ethical factors, including FSC-certified sources",
+        "Justify a material choice for a named product against several factors",
+        "Calculate material costs, including bulk-buying discounts",
+    ], "State the factor, then link it to the product. 'It is cheap' earns nothing; 'pine is cheap to buy in bulk, keeping the flat-pack price low' earns both marks."),
+
+    ("dt:3.2.2", &[
+        "Define tension, compression, bending, torsion and shear, with a product example of each",
+        "Explain how lamination, bending, folding, webbing and fabric interfacing reinforce or stiffen a material",
+        "Choose a reinforcing method suitable for your chosen material category",
+    ], "Torsion is twisting and shear is sliding apart across a section. Describe the force acting, not the damage it causes."),
+
+    ("dt:3.2.3", &[
+        "Explain the ecological impact of deforestation, mining, drilling and farming",
+        "Explain product mileage and the carbon produced in manufacture, and how a designer can reduce both",
+        "Apply the six Rs: reduce, refuse, reuse, repair, recycle and rethink",
+        "Explain the social footprint: safe working conditions, pollution and the effect on others",
+    ], "Reuse and recycle are different: reuse keeps the product in its form, recycling reprocesses the material. Swapping them loses marks in six Rs questions."),
+
+    ("dt:3.2.4", &[
+        "Describe how paper is made from cellulose fibres in wood and grasses",
+        "Describe how timber is felled, converted and seasoned, and how manufactured boards are made",
+        "Describe how metals are extracted from ore and refined, and how polymers come from crude oil by fractional distillation and cracking",
+        "Describe how textile fibres come from animal, vegetable and chemical sources and are spun into yarn",
+        "Outline the stages of a life cycle assessment",
+    ], "Conversion and seasoning are different stages: conversion cuts the log into boards, seasoning dries them. Most students write one when asked for the other."),
+
+    ("dt:3.2.5a", &[
+        "Explain how properties are chosen for the commercial products named for each category: packaging, toys and flat-pack, utensils and hand tools, seating and electrical fittings, sportswear and furnishings, vehicles and appliances",
+        "Explain how properties are modified: moisture-resistant additives, seasoning, annealing, UV stabilisers, flame retardants, photosensitive PCB board and anodising",
+        "Link each modification to the performance problem it solves",
+    ], "Annealing softens a metal so it can be worked; it does not harden it. Say what the treatment does to the property and why that helps the product."),
+
+    ("dt:3.2.5b", &[
+        "Describe how card is cut, creased, scored, folded and perforated",
+        "Describe cutting, drilling, chiselling, sanding and planing timber",
+        "Describe cutting, drilling, turning, milling, casting, brazing and welding metals",
+        "Describe cutting, drilling, casting, deforming, printing and welding polymers; sewing, pleating, gathering, quilting and piping textiles; cutting, drilling and soldering in electronics",
+    ], "Name a specific tool and the step order. 'Cut it out' is not a process; 'mark out, clamp, cut with a coping saw, then file to the line' is."),
+
+    ("dt:3.2.6", &[
+        "Name the stock forms for each category, from paper sizes and board thickness to rod, bar and tube and E12 resistors",
+        "Explain how each category is sold: by size, length, width, thickness, gauge, diameter, weight, roll or rating",
+        "Name standard components such as KD fittings, rivets, zips and DIL IC packages",
+        "Calculate the quantity, area or volume of stock needed and its cost",
+    ], "Convert all units before calculating. Mixing millimetres with metres is the single most common reason the answer is out by a factor of a thousand."),
+
+    ("dt:3.2.7", &[
+        "Define prototype (one-off), batch, mass and continuous production with a product for each",
+        "Explain why the manufacturing method changes with volume: tooling cost, labour skill, unit cost and flexibility",
+        "Analyse and evaluate the different scales for a given product in an extended answer",
+    ], "An 8-mark scales answer with no product examples is capped at 6. Name a real product for every scale you discuss."),
+
+    ("dt:3.2.8a", &[
+        "Explain how reference points, templates, jigs and patterns speed up making and keep parts identical",
+        "Classify processes as wastage, addition, or deforming and reforming",
+        "Describe how die cutting, turning, milling, 3D printing, soldering, vacuum forming, blow moulding, injection moulding and extrusion work",
+    ], "A jig guides the tool and holds the work; a template is drawn round. Describing one as the other loses the mark."),
+
+    ("dt:3.2.8b", &[
+        "Explain what manufacturing to minimum and maximum sizes means, and read a tolerance",
+        "Describe each category's commercial processes: offset lithography and die cutting, routing and turning, milling and casting, injection moulding and extrusion, weaving, dyeing and printing, pick and place and flow soldering",
+        "Explain the quality control check for each category: registration marks, go/no-go fixtures, depth stops, laser settings, checking a print repeat, PCB exposure and etching times",
+    ], "Quality control is a measurable check during manufacture. 'Look at it to see if it is good' is not quality control; name the check and what it measures."),
+
+    ("dt:3.2.9", &[
+        "Explain why finishes are applied: function (protection, corrosion) and aesthetics",
+        "Describe printing, embossing and UV varnishing; painting, varnishing and tanalising; dip coating, powder coating and galvanising",
+        "Describe polishing, printing and vinyl decals for polymers; printing, dyes and stain protection for textiles; PCB lacquering and lubrication",
+        "Explain how to prepare a surface before a finish is applied",
+    ], "Galvanising is a zinc coating on steel, not a paint. Name the coating material and how it protects: a barrier plus sacrificial protection."),
+
+    ("dt:3.3.1", &[
+        "Explain market research, interviews, human factors, focus groups and product analysis as ways to understand users",
+        "Use anthropometric data and percentiles, and explain why designers often design for the 5th to 95th percentile",
+        "Write a design brief and a design and manufacturing specification",
+        "Explain why a brief is modified after investigation",
+    ], "Anthropometrics is body measurement data; ergonomics is how a product fits the body in use. Use both words correctly or lose both marks."),
+
+    ("dt:3.3.2", &[
+        "Explain how deforestation creates constraints and opportunities for designers",
+        "Explain how rising carbon dioxide levels and global warming influence material and energy choices",
+        "Explain the need for fair trade and its effect on producers and prices",
+    ], "Link the issue to a design decision. Describing global warming earns nothing unless you say what the designer does differently because of it."),
+
+    ("dt:3.3.3", &[
+        "Describe the work and influence of at least two of the listed designers",
+        "Describe the approach and products of at least two of the listed companies",
+        "Explain how studying past and present designers informs your own designing",
+    ], "Name specific products and features. 'Dyson makes good vacuums' is not credit-worthy; 'bagless cyclone technology' is."),
+
+    ("dt:3.3.4", &[
+        "Explain collaboration, user-centred design and a systems approach",
+        "Explain iterative design: sketch, model, test, evaluate, improve",
+        "Explain design fixation and at least two ways to avoid it",
+    ], "Iterative design is a repeated loop of testing and improving, not simply 'making several designs'. Describe the loop."),
+
+    ("dt:3.3.5", &[
+        "Choose between freehand, isometric, perspective, 2D and 3D drawings for a purpose",
+        "Draw and read third angle orthographic drawings with conventions, dimensions and scale",
+        "Explain system and schematic diagrams, exploded diagrams and annotated drawings",
+        "Explain modelling with materials, audio and visual recording, mathematical modelling and computer-based tools",
+    ], "In third angle, the plan goes above the front view and the right-hand view goes on the right. Swapping them turns it into first angle."),
+
+    ("dt:3.3.6", &[
+        "Explain how a prototype must meet the brief, the client's needs, innovation, function, aesthetics and marketability",
+        "Evaluate a prototype critically, respond to feedback and suggest modifications",
+        "Judge whether a prototype is fit for purpose",
+    ], "Evaluate means judge. Every point needs a strength or weakness and a reason, not a description of what the product looks like."),
+
+    ("dt:3.3.7", &[
+        "Select materials and components for a prototype by functional need, cost and availability",
+        "Use SI units and commercially available stock forms when specifying",
+        "Justify a choice of alloy or other material for a stated function",
+    ], "Answer all three factors separately when the question lists them. A combined sentence often earns only one of the marks."),
+
+    ("dt:3.3.8", &[
+        "Explain what a tolerance is and write it as a plus or minus value",
+        "Calculate the largest and smallest acceptable sizes",
+        "Explain why tolerances matter for fitting parts, resistors and seam allowances",
+    ], "A tolerance of ±0.5 mm on 40 mm means 39.5 to 40.5 mm. Students often add the tolerance only once and give a single number."),
+
+    ("dt:3.3.9", &[
+        "Explain nesting and tessellation, and calculate how many parts fit a sheet",
+        "Calculate area, volume, material requirements and percentage waste",
+        "Explain allowances for cutting (kerf), seams and joints",
+        "Use datums, reference points and coordinates for accurate marking out",
+    ], "Answer the question asked: the number of parts that fit is a whole number, rounded down; the number of sheets needed is rounded up."),
+
+    ("dt:3.3.10", &[
+        "Select hand tools, machines and digital equipment appropriate to a material and task",
+        "Explain safe working with each tool, including guards, PPE, extraction and risk assessment",
+        "Justify a choice of equipment for quality of outcome",
+    ], "Safety precautions must be specific to the machine. 'Be careful' earns nothing; 'lower the guard on the pillar drill and clamp the work in a machine vice' earns the mark."),
+
+    ("dt:3.3.11", &[
+        "Select wastage, addition, deforming and reforming techniques for a task and describe them in order",
+        "Explain how to work each technique accurately and safely",
+        "Explain how to prepare a surface, and choose and apply a finish for function and aesthetics",
+        "Explain how corrosion and oxidation affect materials and how finishes protect them",
+    ], "Preparation is part of the finish. A finish answer that skips cleaning, degreasing or sanding misses the first marking point."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

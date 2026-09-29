@@ -845,6 +845,50 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("2.2n", "Music option: TLC, Waterfalls (1995)", 0.5),
         ],
     },
+    // AQA GCSE Design and Technology 8552 (first exams June 2019). AQA is the
+    // most-taken board: 51,236 June 2026 entries, against about 11k for Eduqas
+    // and 9.6k for Pearson. One written paper plus the NEA; only the paper is
+    // taught here. Section B questions let each student answer through the
+    // material category they studied, so the 3.2 lessons cover all six.
+    SubjectDef {
+        id: "dt", name: "Design & Tech", full: "Design and Technology (AQA 8552)", color: "var(--dt)",
+        papers: "One written paper, 2 h, 100 marks, 50%: Section A core technical principles (20 marks: 10 multiple choice, then short answers), Section B specialist technical principles (30 marks: short answers of 2-5 marks, several letting you pick your own material category, then one extended response), Section C designing and making principles (50 marks: short answers, calculations, drawing and extended responses). At least 15% of the marks are maths and 10% science; bring a calculator and a protractor. The NEA (a 30-35 hour design-and-make project against an AQA contextual challenge, a prototype plus a portfolio, 100 marks, 50%) is not taught in the app",
+        spec: "https://www.aqa.org.uk/subjects/design-and-technology/gcse/design-and-technology-8552/specification",
+        sections: &["3.1 Core technical principles", "3.2 Specialist technical principles", "3.3 Designing and making principles"],
+        topics: &[
+            ("3.1.1a", "New technologies in industry, enterprise and production: automation, CAD/CAM, FMS, JIT and lean", 0.75),
+            ("3.1.1b", "Technology and society: sustainability, people, culture, environment and planned obsolescence", 0.75),
+            ("3.1.2", "Energy generation and storage: fossil fuels, nuclear, renewables and batteries", 0.75),
+            ("3.1.3", "Developments in new materials: modern, smart and composite materials, technical textiles", 0.75),
+            ("3.1.4", "Systems approach to designing: inputs, processes and outputs", 0.5),
+            ("3.1.5", "Mechanical devices: movement, levers, linkages, cams, gears and pulleys", 1.0),
+            ("3.1.6.1a", "Material categories: papers and boards, and natural and manufactured timbers", 0.75),
+            ("3.1.6.1b", "Material categories: metals and alloys, polymers and textiles", 1.0),
+            ("3.1.6.2", "Material properties: physical and working properties", 0.5),
+            ("3.2.1", "Selecting materials and components: the factors a designer weighs", 0.5),
+            ("3.2.2", "Forces and stresses, and how materials are reinforced and stiffened", 0.5),
+            ("3.2.3", "Ecological and social footprint, and the six Rs", 0.75),
+            ("3.2.4", "Sources and origins: from raw material to workable form, and life cycle assessment", 1.0),
+            ("3.2.5a", "Using materials: properties in commercial products, and modifying properties", 1.0),
+            ("3.2.5b", "Shaping and forming materials by cutting, abrasion and addition", 0.75),
+            ("3.2.6", "Stock forms, types and sizes, and calculating quantities", 0.75),
+            ("3.2.7", "Scales of production: prototype, batch, mass and continuous", 0.75),
+            ("3.2.8a", "Production aids, and processes of wastage, addition, deforming and reforming", 1.0),
+            ("3.2.8b", "Tolerances, commercial processes and quality control", 1.0),
+            ("3.2.9", "Surface treatments and finishes", 0.75),
+            ("3.3.1", "Investigation: primary and secondary data, anthropometrics, the brief and specification", 1.0),
+            ("3.3.2", "Environmental, social and economic challenges in design", 0.5),
+            ("3.3.3", "The work of others: designers and companies", 0.75),
+            ("3.3.4", "Design strategies: collaboration, user-centred, systems, iterative, avoiding fixation", 0.5),
+            ("3.3.5", "Communicating design ideas: sketching, orthographic, exploded views and modelling", 1.0),
+            ("3.3.6", "Prototype development and evaluation", 0.5),
+            ("3.3.7", "Selecting materials and components for a prototype", 0.5),
+            ("3.3.8", "Tolerances in making", 0.5),
+            ("3.3.9", "Material management: nesting, waste, marking out and datums", 0.75),
+            ("3.3.10", "Specialist tools and equipment, and working safely", 0.5),
+            ("3.3.11", "Specialist techniques and processes, and applying finishes", 0.5),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

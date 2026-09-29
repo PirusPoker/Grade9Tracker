@@ -167,6 +167,7 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("pe", &[(1, 0.5, 0.25)]),
     // Media Studies: taught across both years at school; recall on the set products.
     ("media", &[(1, 0.5, 0.25)]),
+    ("dt", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -186,6 +187,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("drama", "school"),
     ("pe", "school"),
     ("media", "school"),
+    ("dt", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -374,6 +376,16 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Eduqas set product factsheets (Component 1)", "https://resources.eduqas.co.uk/Pages/ResourceSingle.aspx?rIid=1885"),
         ("Eduqas set product factsheets (Component 2)", "https://resources.eduqas.co.uk/Pages/ResourceSingle.aspx?rIid=2072"),
         ("Eduqas spec, papers & mark schemes", "https://www.eduqas.co.uk/qualifications/media-studies-gcse/#tab_pastpapers"),
+    ]),
+    // AQA GCSE Design and Technology 8552. Every link opened on 29 September
+    // 2026 and checked: the Save My Exams pages are its AQA 8552 course
+    // (core, specialist, designing and making), Bitesize is its AQA 9-1 course.
+    ("dt", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/design-and-technology/aqa/17/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/design-and-technology/aqa/17/topic-questions/"),
+        ("BBC Bitesize (AQA)", "https://www.bbc.co.uk/bitesize/examspecs/zby2bdm"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/design-and-technology/gcse/design-and-technology-8552/assessment-resources"),
+        ("AQA specification", "https://www.aqa.org.uk/subjects/design-and-technology/gcse/design-and-technology-8552/specification"),
     ]),
 ];
 

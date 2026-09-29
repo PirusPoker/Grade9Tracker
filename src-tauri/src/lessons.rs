@@ -694,6 +694,39 @@ const MEDIA: &[(&str, &str)] = &[
     ("media:2.2m", include_str!("../lessons/media/2.2m.md")),
     ("media:2.2n", include_str!("../lessons/media/2.2n.md")),
 ];
+const DT: &[(&str, &str)] = &[
+    ("dt:3.1.1a", include_str!("../lessons/dt/3.1.1a.md")),
+    ("dt:3.1.1b", include_str!("../lessons/dt/3.1.1b.md")),
+    ("dt:3.1.2", include_str!("../lessons/dt/3.1.2.md")),
+    ("dt:3.1.3", include_str!("../lessons/dt/3.1.3.md")),
+    ("dt:3.1.4", include_str!("../lessons/dt/3.1.4.md")),
+    ("dt:3.1.5", include_str!("../lessons/dt/3.1.5.md")),
+    ("dt:3.1.6.1a", include_str!("../lessons/dt/3.1.6.1a.md")),
+    ("dt:3.1.6.1b", include_str!("../lessons/dt/3.1.6.1b.md")),
+    ("dt:3.1.6.2", include_str!("../lessons/dt/3.1.6.2.md")),
+    ("dt:3.2.1", include_str!("../lessons/dt/3.2.1.md")),
+    ("dt:3.2.2", include_str!("../lessons/dt/3.2.2.md")),
+    ("dt:3.2.3", include_str!("../lessons/dt/3.2.3.md")),
+    ("dt:3.2.4", include_str!("../lessons/dt/3.2.4.md")),
+    ("dt:3.2.5a", include_str!("../lessons/dt/3.2.5a.md")),
+    ("dt:3.2.5b", include_str!("../lessons/dt/3.2.5b.md")),
+    ("dt:3.2.6", include_str!("../lessons/dt/3.2.6.md")),
+    ("dt:3.2.7", include_str!("../lessons/dt/3.2.7.md")),
+    ("dt:3.2.8a", include_str!("../lessons/dt/3.2.8a.md")),
+    ("dt:3.2.8b", include_str!("../lessons/dt/3.2.8b.md")),
+    ("dt:3.2.9", include_str!("../lessons/dt/3.2.9.md")),
+    ("dt:3.3.1", include_str!("../lessons/dt/3.3.1.md")),
+    ("dt:3.3.2", include_str!("../lessons/dt/3.3.2.md")),
+    ("dt:3.3.3", include_str!("../lessons/dt/3.3.3.md")),
+    ("dt:3.3.4", include_str!("../lessons/dt/3.3.4.md")),
+    ("dt:3.3.5", include_str!("../lessons/dt/3.3.5.md")),
+    ("dt:3.3.6", include_str!("../lessons/dt/3.3.6.md")),
+    ("dt:3.3.7", include_str!("../lessons/dt/3.3.7.md")),
+    ("dt:3.3.8", include_str!("../lessons/dt/3.3.8.md")),
+    ("dt:3.3.9", include_str!("../lessons/dt/3.3.9.md")),
+    ("dt:3.3.10", include_str!("../lessons/dt/3.3.10.md")),
+    ("dt:3.3.11", include_str!("../lessons/dt/3.3.11.md")),
+];
 
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
@@ -716,6 +749,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("drama", DRAMA),
     ("pe", PE),
     ("media", MEDIA),
+    ("dt", DT),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {

@@ -3337,6 +3337,167 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("8WEtxJ4-sh4", "TLC - Waterfalls (Official HD Video)", "TLCVEVO"),
         ("0rWZLuciS6U", "TLC Waterfalls - Case Study", "GCSE Media Revision"),
     ]),
+    // ---------- Design and Technology (AQA GCSE 8552) - Collins Revision's AQA series, DTtoolbox, Tech Revision with Mrs Swanepoel, MR Ridley and others ----------
+    ("dt:3.1.1a", &[
+        ("GTgS6ozqsRk", "Types of Manufacturing, Automation and Robotics (JIT, FMS) - GCSE DT", "DTtoolbox"),
+        ("dlyw7C0HqHo", "Impact on Industry - AQA GCSE Design & Technology", "Collins Revision"),
+        ("AgTZa0Nd9F8", "Impact on Production - AQA GCSE Design & Technology", "Collins Revision"),
+        ("47Iz5mJ4t2E", "Enterprise, technology and the impact on people GCSE DT", "DTtoolbox"),
+    ]),
+    ("dt:3.1.1b", &[
+        ("-urTbV6Ep9M", "Impact on Society and the Environment - AQA GCSE Design & Technology", "Collins Revision"),
+        ("w2vEEtwT5_o", "Video 5 - Technology Push and Market Pull", "Tech Revision with Mrs Swanepoel"),
+        ("0-B8BEqbuWs", "Planned Obsolescence", "DT Mr C"),
+    ]),
+    ("dt:3.1.2", &[
+        ("thy3_w74fR0", "Energy generation and storage GCSE DT - The pros and cons of renewables and non-renewables", "DTtoolbox"),
+        ("Yh_zChJ8CiE", "Energy Generation and Storage - AQA GCSE Design & Storage", "Collins Revision"),
+        ("vUUOicGhmYs", "Mr Ridley's Quick Revision Power Generation  for GCSE D&T", "MR Ridley Design & Technology"),
+    ]),
+    ("dt:3.1.3", &[
+        ("tZsciepY4RY", "New Materials - AQA GCSE Design & Technology", "Collins Revision"),
+        ("ggQjmN3N92w", "Modern and Smart Materials GCSE DT", "DTtoolbox"),
+        ("cWI_iYGnufU", "GCSE D&T Question walkthrough Composite Materials", "MR Ridley Design & Technology"),
+    ]),
+    ("dt:3.1.4", &[
+        ("jEzH0CxEsKw", "Electronic Systems - AQA GCSE Design & Technology", "Collins Revision"),
+        ("fMFC1SaHeHk", "Electronic systems GCSE DT", "DTtoolbox"),
+        ("gQ1d08MjIZU", "GCSE - Electronics - Inputs and Outputs", "Tech Revision with Mrs Swanepoel"),
+    ]),
+    ("dt:3.1.5", &[
+        ("H3Mve7ZVG8A", "Mechanisms in life and industry - cams, linkages, pulleys, gears GCSE DT", "DTtoolbox"),
+        ("NKIY3ghQNOc", "Mechanical Systems: Principles of Lever - AQA GCSE Design & Technology", "Collins Revision"),
+        ("0yx_VaPsBKw", "Mechanical Systems: Gears - AQA GCSE Design & Technology", "Collins Revision"),
+        ("iJRKBsAnbZY", "GCSE - Mechanical Systems (Core)", "Tech Revision with Mrs Swanepoel"),
+    ]),
+    ("dt:3.1.6.1a", &[
+        ("AbWDLLS6cZk", "Materials: Paper and Board - AQA GCSE Design Technology", "Collins Revision"),
+        ("GaxXM7q3U70", "Materials: Timber - AQA GCSE Design & Technology", "Collins Revision"),
+        ("55z8P_HnSzQ", "Paper, card and board GCSE DT", "DTtoolbox"),
+        ("ez9Wap9G_OA", "Hardwoods and Softwoods GCSE DT", "DTtoolbox"),
+        ("0kjTxNPskoA", "Manufactured boards GCSE DT", "DTtoolbox"),
+    ]),
+    ("dt:3.1.6.1b", &[
+        ("3-wBZTEHBl4", "Materials: Metals - AQA GCSE Design & Technology", "Collins Revision"),
+        ("QUbfWwYV-Oc", "Materials: Polymers - AQA GCSE Design & Technology", "Collins Revision"),
+        ("kpf9WNOXrc0", "Materials: Textiles - AQA GCSE Design & Technology", "Collins Revision"),
+        ("TG3O6F3YxwU", "Metals GCSE DT", "DTtoolbox"),
+    ]),
+    ("dt:3.1.6.2", &[
+        ("dG6BTfS52HE", "Material properties GCSE DT", "DTtoolbox"),
+        ("donjm2xq3U8", "Properties of Materials - AQA GCSE Design & Technology", "Collins Revision"),
+        ("X9cfEOJjk_Y", "Material Properties Core", "Tech Revision with Mrs Swanepoel (V2)"),
+    ]),
+    ("dt:3.2.1", &[
+        ("q8f5ajj06AY", "Selection of Materials - AQA GCSE Design & Technology", "Collins Revision"),
+        ("VL918ge7dKg", "GCSE - Selecting Materials and Components", "Tech Revision with Mrs Swanepoel"),
+    ]),
+    ("dt:3.2.2", &[
+        ("MIMc2qxIfyo", "Forces & Stresses GCSE DT", "DTtoolbox"),
+        ("oVxNHNPGFNs", "GCSE - Forces", "Tech Revision with Mrs Swanepoel"),
+    ]),
+    ("dt:3.2.3", &[
+        ("W2jhLxSBE-g", "Ecological, Environmental and Social Issues - AQA GCSE Design & Technology", "Collins Revision"),
+        ("4KXmdFfZVcs", "Sustainability in Design GCSE DT", "DTtoolbox"),
+        ("AlBmyysGLtk", "Mr Ridley's Quick Revision Sustainability and the 6 R's for GCSE D&T", "MR Ridley Design & Technology"),
+    ]),
+    ("dt:3.2.4", &[
+        ("8KfM6o8AZT8", "GCSE - Production of Polymers", "Tech Revision with Mrs Swanepoel"),
+        ("5d28UhFLz0s", "D&T Home Learning The Conversion of Timber", "MR Ridley Design & Technology"),
+        ("OXQDsSctP1M", "How Paper Is Made", "PaperOne"),
+    ]),
+    ("dt:3.2.5a", &[
+        ("_YoWpYS2UGo", "Working with Materials - AQA GCSE Design & Technology", "Collins Revision"),
+        ("quVcegl1L_w", "Enhanced Materials", "Mr Everett's Design and Technology Workshop"),
+    ]),
+    ("dt:3.2.5b", &[
+        ("Fcu268fdIK0", "Manufacturing Processes 1: Process Types and Processes used with Paper and Board - AQA GCSE Design &", "Collins Revision"),
+        ("kPm3ZF__f-I", "Manufacturing Processes 2: Timber Based Materials - AQA GCSE Design & Technology", "Collins Revision"),
+        ("tsA1IHpyia4", "Manufacturing Processes 3: Metals and Alloys - AQA GCSE Design & Technology", "Collins Revision"),
+        ("Em_NE-pF1m8", "Manufacturing Processes 4: Polymers - AQA GCSE Design & Technology", "Collins Revision"),
+        ("dYao1yGgQtA", "Manufacturing Processes 5: Textiles and Electronic Systems - AQA GCSE Design & Technology", "Collins Revision"),
+    ]),
+    ("dt:3.2.6", &[
+        ("TY7Y_vOcLLI", "Mr Ridley’s Quick Revision Stock forms of materials", "MR Ridley Design & Technology"),
+        ("mNQDdtRMaLk", "Mr Ridley's Quick Revision Standard components for GCSE D&T", "MR Ridley Design & Technology"),
+        ("3OEl8o63xbs", "Video 12 - Standard Components", "Tech Revision with Mrs Swanepoel"),
+    ]),
+    ("dt:3.2.7", &[
+        ("XVW8Yt7EfJg", "Scales of Manufacture - AQA GCSE Design & Technology", "Collins Revision"),
+        ("GceGdHBegBs", "Scales of Production", "KS3-5 Design & Technology"),
+        ("asz34DefC8Q", "GCSE Style Question Scales of Production", "MR Ridley Design & Technology"),
+    ]),
+    ("dt:3.2.8a", &[
+        ("AA3R4hyenM4", "Measurement and Production Aids - AQA GCSE Design & Technology", "Collins Revision"),
+        ("pRQvLRMkaow", "GCSE - Production Aids (Core)", "Tech Revision with Mrs Swanepoel"),
+        ("cbV8Wbvmpjg", "Design and Technology (D&T) | KS3 | Vacuum forming | BBC Teach", "BBC Bitesize for Teachers"),
+    ]),
+    ("dt:3.2.8b", &[
+        ("nz3KfBcyqKk", "GCSE - Quality Control", "Tech Revision with Mrs Swanepoel"),
+        ("XcSIwcYU-rQ", "Commercial printing processes GCSE DT", "DTtoolbox"),
+        ("rph6uOD6ytI", "GCSE - Commercial processes - Polymers", "Tech Revision with Mrs Swanepoel"),
+    ]),
+    ("dt:3.2.9", &[
+        ("uB64p3HErVo", "Finishing Materials - AQA GCSE Design & Technology", "Collins Revision"),
+        ("UdowcJaiiPI", "Mr Ridley's RMT Revision 005 Metal Processes and Finishes", "Mr Ridley RMT Revision"),
+        ("PjOyzDmwWEw", "Design and Technology (D&T) | KS3 | Finishing wood | BBC Teach", "BBC Bitesize for Teachers"),
+    ]),
+    ("dt:3.3.1", &[
+        ("3sAeD_AxkcU", "Research and Investigation - AQA GCSE Design & Technology", "Collins Revision"),
+        ("lBTIFauPG4M", "Briefs and Specifications - AQA GCSE Design & Technology", "Collins Revision"),
+        ("QsSlV4H5cDM", "A brief guide to Anthropometrics and Ergonomics", "Mr Wolsey DT"),
+    ]),
+    ("dt:3.3.2", &[
+        ("wb1FiCigWnY", "Sustainability", "DT Mr C"),
+        ("M2vdUmYF1Q0", "Sustainability and Biopolymers Exam Question walkthrough", "MR Ridley Design & Technology"),
+        ("g8LC3PJ-7r4", "What is Fairtrade?", "Fairtrade Ireland"),
+    ]),
+    ("dt:3.3.3", &[
+        ("jtGXpIAlh0w", "The Work of Others: Designers - AQA GCSE Design & Technology", "Collins Revision"),
+        ("-t5w4aoQClI", "The Work of Others: Companies - AQA GCSE Design & Technology", "Collins Revision"),
+        ("r4lzmUbYX4A", "How the work of designers has shaped our world GCSE DT", "DTtoolbox"),
+        ("Yy9qtk3wzIw", "Design Companies - Apple and Dyson", "Tech Revision with Mrs Swanepoel"),
+        ("xUQt0Wp2eKE", "Section C - Designers - Breuer and Starck", "Tech Revision with Mrs Swanepoel"),
+    ]),
+    ("dt:3.3.4", &[
+        ("mhQ-Cx7dP0g", "Design Strategies - AQA GCSE Design & Technology", "Collins Revision"),
+        ("toqKqcMd5mY", "Mr Bailey D&T Avoiding design fixation", "Meden School"),
+        ("1hFx_Zz4FUw", "Video 13 - Iterative Design", "Tech Revision with Mrs Swanepoel"),
+    ]),
+    ("dt:3.3.5", &[
+        ("valOxAgXUZY", "Communication of Ideas: 3D Sketching - AQA GCSE Design & Technology", "Collins Revision"),
+        ("f3maOKCw4UQ", "Communication of Ideas: System and Schematic Drawings - AQA GCSE Design & Technology", "Collins Revision"),
+        ("qlIXUnWgDrc", "Computer-Based Tools - AQA GCSE Design & Technology", "Collins Revision"),
+        ("i4zof1MIhgI", "Mr Ridley's Quick revision Communication of Ideas for GCSE D&T", "MR Ridley Design & Technology"),
+        ("Kz1FqLyH9WM", "AQA GCSE Design and Technology Exam paper 2024 3rd Angle Orthographic Question ", "MrChoDT"),
+    ]),
+    ("dt:3.3.6", &[
+        ("7NrpE2n20P8", "Prototype Development - AQA GCSE Design & Technology", "Collins Revision"),
+        ("fsn-I6FnBuc", "Exploring and Developing Ideas - AQA GCSE Design & Technology", "Collins Revision"),
+    ]),
+    ("dt:3.3.7", &[
+        ("BwOYk6hLmkQ", "GCSE - Selecting Materials Video 2", "Tech Revision with Mrs Swanepoel"),
+        ("1liY9QTp80c", "GCSE D&T Exam Question walkthrough, Materials, stock forms and offshore manufacture.", "MR Ridley Design & Technology"),
+    ]),
+    ("dt:3.3.8", &[
+        ("kzqX0oUUY_U", "Engineering Tolerances Explained", "Nathan Nagele"),
+        ("wVWyY9k22Gk", "Introduction to Tolerances - Part I: What is a Tolerance?", "GD&T Basics - Engineer Essentials"),
+        ("1lZrJuYWqIA", "AQA GCSE Design and Technology Exam paper 2021 Quality control and Material processing Question", "MrChoDT"),
+    ]),
+    ("dt:3.3.9", &[
+        ("W5KH8bxrzLM", "Tessellation 🧩 and Nesting - Using materials efficiently", "DTtoolbox"),
+        ("htcGe5CbjMg", "Nesting , minimising waste and cutting efficiently", "M White"),
+    ]),
+    ("dt:3.3.10", &[
+        ("0TyUSku0asQ", "Health and Safety for DT", "CJDT - Happy DTing!"),
+        ("7LBv2UWOI4Y", "Mr Ridley's RMT Revison 007 Hand Tools", "Mr Ridley RMT Revision"),
+        ("yuah4GQ2n4M", "GCSE D&T exam walkthrough Pt 7 Risk assessment", "MR Ridley Design & Technology"),
+    ]),
+    ("dt:3.3.11", &[
+        ("zlFZjw-ync8", "Soldering Basics How to use a soldering iron", "MR Ridley Design & Technology"),
+        ("fEqUW_ND2Lo", "Design and Technology (D&T) | KS3 | Laminating wood | BBC Teach", "BBC Bitesize for Teachers"),
+        ("CP5E8P-KSV4", "Design and Technology (D&T) | KS3 | Finishing plastic | BBC Teach", "BBC Bitesize for Teachers"),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
