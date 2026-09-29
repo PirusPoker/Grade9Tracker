@@ -162,6 +162,9 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("rs", &[(1, 0.75, 0.5)]),
     // Drama: one written paper, taught through both years at school.
     ("drama", &[(1, 0.5, 0.25)]),
+    // PE: taught through both years at school, with the practical NEA done
+    // there too - recall on the written theory only.
+    ("pe", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -179,6 +182,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("music", "school"),
     ("rs", "ahead"),
     ("drama", "school"),
+    ("pe", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -347,6 +351,16 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/drama/aqa/past-papers/"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/drama/gcse/drama-8261/assessment-resources"),
         ("AQA spec (set plays are 3.1.2)", "https://www.aqa.org.uk/subjects/drama/gcse/drama-8261/specification"),
+    ]),
+    // AQA GCSE Physical Education 8582. Every link opened on 29 September 2026:
+    // the Save My Exams pages are its AQA GCSE PE course (spec 8582), and the
+    // BBC Bitesize page is its AQA-specific PE exam spec.
+    ("pe", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/physical-education/aqa/16/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/physical-education/aqa/16/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/physical-education/aqa/past-papers/"),
+        ("BBC Bitesize (AQA)", "https://www.bbc.co.uk/bitesize/examspecs/zp49cwx"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/physical-education/gcse/physical-education-8582/assessment-resources"),
     ]),
 ];
 

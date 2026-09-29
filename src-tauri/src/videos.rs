@@ -112,6 +112,11 @@ const HARRIS: &str = "Harris Federation Religious Studies";
 const WISEREV: &str = "Wise Revise";
 const BBCTEACH: &str = "BBC Bitesize for Teachers";
 
+const PEC: &str = "The PE Classroom";
+const MRMATT: &str = "Mr Matthews | PE Tutor & Life Coach";
+const PEIN10: &str = "PE in 10";
+const PLANETPE: &str = "Planet PE";
+
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
     // ---------- Computer Science (OCR GCSE J277) ----------
     ("cs:1.1.1", &[
@@ -3031,6 +3036,165 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("63FKY3Ixd7I", "3  GCSE Drama Live Production Revision - Design Question", "Joni McAuliffe"),
         ("ZCZwSGApj6E", "Design Elements  | English Literature – The Curious Incident of the Dog in the Night-time", "BBC Bitesize for Teachers"),
         ("XTt8Bd5gN9c", "5 GCSE Drama Live Production Revision Write This Way", "Joni McAuliffe"),
+    ]),
+// AQA GCSE Physical Education 8582. Channel constants - add beside the others at the top of videos.rs:
+
+// Entries - paste into VIDEOS after the last subject:
+    // ---------- Physical Education (AQA 8582) - The EverLearner, The PE Classroom, Mr Matthews and PE in 10 (all AQA-labelled), with Planet PE, PE TUTOR, simplype and others where they fill a gap. Titles and channels exactly as YouTube oEmbed returned them on 29 September 2026 ----------
+    ("pe:3.1.1.1a", &[
+        ("ZnIfjLnxwqs", "AQA GCSE PE: Bones Of The Human Body | The Skeletal System | The Skeleton | Anatomy | Paper 1", MRMATT),
+        ("j1QsLy8myZI", "AQA GCSE PE - Functions of the Skeleton", EVERLEARNER),
+        ("qVDaYnMHgkU", "AQA GCSE PE Synovial Joints", PEC),
+        ("DlwxIipAwJk", "AQA GCSE PE - Types of Freely Movable Joints", EVERLEARNER),
+        ("-uZqPl16CgY", "AQA GCSE PE: Joint Movements", EVERLEARNER),
+    ]),
+    ("pe:3.1.1.1b", &[
+        ("LSVKIj9xulY", "AQA GCSE PE: Muscle groups", EVERLEARNER),
+        ("lZ5td1-TM4E", "AQA GCSE PE: Antagonistic pairs", EVERLEARNER),
+        ("x1rBfg1vrAc", "AQA GCSE PE Revision - Types of Contractions", EVERLEARNER),
+    ]),
+    ("pe:3.1.1.2a", &[
+        ("AkA2w9gH7QI", "AQA GCSE PE: The Pathway Of Air & Gaseous Exchange | The Lungs & Alveoli | The Respiratory System", MRMATT),
+        ("RpZh3Edvdzw", "AQA GCSE PE - The Lungs & Gas Exchange", PEC),
+        ("DsyxRR4C8Mk", "AQA GCSE PE: Structure and function of blood vessels", EVERLEARNER),
+    ]),
+    ("pe:3.1.1.2b", &[
+        ("7xxRQJsuc5s", "AQA GCSE PE: Structure of the Heart", EVERLEARNER),
+        ("tTSL_Bwjib0", "AQA GCSE PE: Cardiac Cycle", EVERLEARNER),
+        ("CG0k1hw0e0k", "Cardiac output, stroke volume and heart rate- GCSE PE Paper 1", PLANETPE),
+    ]),
+    ("pe:3.1.1.2c", &[
+        ("BACMHCejqhw", "AQA GCSE PE: Mechanics of Breathing", EVERLEARNER),
+        ("-TnU6Kkn7SQ", "AQA GCSE PE: Spirometer Trace & Lung Volumes | Tidal Volume, Reserve Volumes & Residual Volume | AQA", MRMATT),
+        ("VOpq_p9t-Qw", "AQA GCSE PE Revision - Interpreting a Spiromter Trace", EVERLEARNER),
+    ]),
+    ("pe:3.1.1.3", &[
+        ("Jc73f_jxjWo", "AQA GCSE PE: Aerobic and anaerobic energy", EVERLEARNER),
+        ("ez0gFmFoWvU", "AQA GCSE PE EPOC", PEC),
+        ("Uuer25qlSI4", "GCSE PE- Recovery Methods (cool down, Diet, Ice Baths)", PLANETPE),
+    ]),
+    ("pe:3.1.1.4", &[
+        ("zXQyjdTPk08", "AQA GCSE PE - Short-Term Effects of Exercise", PEC),
+        ("5UeHb9zuvos", "AQA GCSE PE - Long-Term Effects of Exercise", PEC),
+        ("PDhXGyvPQew", "Long Term Effects of Exercise AQA GCSE PE", EVERLEARNER),
+    ]),
+    ("pe:3.1.2.1", &[
+        ("DEnuUfI3Ow0", "AQA GCSE PE: Levers", EVERLEARNER),
+        ("3o4XMyAg2gQ", "AQA GCSE PE: First, Second and Third Class Lever Systems & Mechanical Advantage | Movement Analysis", MRMATT),
+        ("MJtcEMT7G2c", "AQA GCSE PE: Movement Analysis", EVERLEARNER),
+    ]),
+    ("pe:3.1.2.2", &[
+        ("rXWAd3VFThk", "AQA GCSE PE Planes & Axes", PEC),
+        ("yu-U4AJticU", "Planes and Axes of Movement in Sport - GCSE PE", "The PE Tutor"),
+    ]),
+    ("pe:3.1.3.1", &[
+        ("GiezIBTfl68", "AQA GCSE PE   Health and Fitness", EVERLEARNER),
+        ("xq_ZQE13LvI", "GCSE PE- Health and Fitness", PLANETPE),
+    ]),
+    ("pe:3.1.3.2a", &[
+        ("4fRMWdYHmvM", "AQA GCSE PE - The Components of Fitness", PEC),
+        ("3ElyE8j03Sc", "AQA GCSE PE Revision - Components of Fitness", EVERLEARNER),
+    ]),
+    ("pe:3.1.3.2b", &[
+        ("gXzhVvylYYs", "AQA Fitness Tests 9 Marker", PEC),
+        ("YQf5U-bzcbs", "Fitness Tests GCSE PE", "simplype"),
+        ("Zc0EqncnHQg", "Fitness Testing Limitations - GCSE PE", "The PE Tutor"),
+    ]),
+    ("pe:3.1.3.3a", &[
+        ("U8b9x8tccCA", "Principles of Training, GCSE PE AQA, Paper 1", PEIN10),
+        ("fQloluDDngc", "GCSE PE- Principles of Training using Dual Coding from @pegeekscorner", PLANETPE),
+    ]),
+    ("pe:3.1.3.3b", &[
+        ("qNSh5TaXu9I", "AQA Types of Training 6 Marks", PEC),
+        ("bHRQ09Y3pDw", "Circuit Training- GCSE PE AQA, Paper 1", PEIN10),
+        ("GGrSLS81aYc", "Fartlek Training- GCSE PE AQA, Paper 1", PEIN10),
+        ("CasEg9GR6ng", "Interval Training- GCSE PE AQA, Paper 1", PEIN10),
+        ("fF7KK81hNN8", "Plyometric Training- GCSE PE AQA, Paper 1", PEIN10),
+    ]),
+    ("pe:3.1.3.4a", &[
+        ("NpuXPgj7CGY", "AQA GCSE PE - Training Intensity", EVERLEARNER),
+        ("DmjegRwCiXE", "AQA GCSE PE Revision Course: Training Zones & Thresholds Explained", "PE TUTOR"),
+    ]),
+    ("pe:3.1.3.4b", &[
+        ("wLrC5PLRN1g", "AQA GCSE PE: Altitude training", EVERLEARNER),
+        ("bchOAhUzskg", "GCSE PE- TRAINING SEASONS", PLANETPE),
+        ("8w3eE7IFgJk", "Seasonal Aspects of Training GCSE PE", "simplype"),
+    ]),
+    ("pe:3.1.3.5", &[
+        ("9FcW-KFy8Mk", "Warm-Ups and Cool-Downs, GCSE PE AQA- Paper 1", PEIN10),
+        ("9nBeRK5Gj0o", "AQA GCSE PE: The Benefits Of Warming Up & Cooling Down Before & After Exercise | Injury Prevention", MRMATT),
+    ]),
+    ("pe:3.1.4.1", &[
+        ("V9cchIesym8", "AQA GCSE PE - Quantitative & Qualitative Data", "High Tunstall PE"),
+        ("JBM88l_lghA", "Use of Data GCSE PE", "simplype"),
+    ]),
+    ("pe:3.1.4.2", &[
+        ("JBM88l_lghA", "Use of Data GCSE PE", "simplype"),
+        ("TvDvTT4WC4A", "PE: How is Data Collected, Presented and Evaluated", "Access GCSEPod"),
+    ]),
+    ("pe:3.1.4.3", &[
+        ("TvDvTT4WC4A", "PE: How is Data Collected, Presented and Evaluated", "Access GCSEPod"),
+        ("JBM88l_lghA", "Use of Data GCSE PE", "simplype"),
+    ]),
+    ("pe:3.2.1.1", &[
+        ("uH0Mvx2Tdok", "Skill Classification AQA GCSE PE", PEC),
+        ("e6jtvH6DDlo", "AQA GCSE PE: Skill Classification | Basic, Complex, Open & Closed Skills | Paper 2", MRMATT),
+    ]),
+    ("pe:3.2.1.2", &[
+        ("XYjhdDeFC9I", "Goal Setting AQA GCSE PE", PEC),
+        ("SGuuHGNfCLk", "AQA GCSE PE - Smart Targets", EVERLEARNER),
+    ]),
+    ("pe:3.2.1.3", &[
+        ("6Tzwij2banA", "AQA GCSE PE: The Basic Information Processing Model | AQA Paper 2", MRMATT),
+        ("c8EPHoU6JtM", "Information Processing - AQA GCSE PE", PEC),
+    ]),
+    ("pe:3.2.1.4", &[
+        ("84Kyb5F2-AY", "AQA GCSE PE: Guidance", EVERLEARNER),
+        ("3KtsGP_1iZU", "Guidance AQA GCSE PE", PEC),
+        ("RKnU5-YBr0k", "Feedback AQA GCSE PE", PEC),
+        ("T2c9TmrBbAU", "Types of Feedback in Sport- GCSE PE AQA- Paper 2", PEIN10),
+    ]),
+    ("pe:3.2.1.5a", &[
+        ("Q2vwBuR3Vwo", "GCSE PE  Paper 2- arousal inverted u Theory and How To Control It", PLANETPE),
+        ("4DkIOrHGf5g", "AQA GCSE PE Revision Course: Inverted U Theory", "PE TUTOR"),
+        ("3sryr6W73RU", "AQA GCSE PE Arousal & Motivation", PEC),
+    ]),
+    ("pe:3.2.1.5b", &[
+        ("jDrdd9GH0Fs", "AQA GCSE PE - Aggression & Personality", PEC),
+        ("Z-9e9eniWQQ", "AQA GCSE PE: Motivation", EVERLEARNER),
+        ("3sryr6W73RU", "AQA GCSE PE Arousal & Motivation", PEC),
+    ]),
+    ("pe:3.2.2.1", &[
+        ("7cAyWfEA5C4", "AQA GCSE PE: Engagement Patterns of Different Social Groups | Factors Affecting Sports Participation", MRMATT),
+        ("5D19l6OeMoc", "Engagement Patterns AQA GCSE PE", PEC),
+    ]),
+    ("pe:3.2.2.2", &[
+        ("oBrEsBlOxpk", "AQA GCSE PE: Commercialisation of Sport | Sport, Sponsorship & The Media | The Golden Triangle", MRMATT),
+        ("Pkmof4Nbev4", "AQA GCSE PE: Positive and Negative Impact of Sponsorship and Media", EVERLEARNER),
+        ("jkNKvLfCYoI", "AQA GCSE PE: Positive and Negative Impact of Technology", EVERLEARNER),
+    ]),
+    ("pe:3.2.2.3a", &[
+        ("W_MRRZYiDtY", "AQA GCSE PE: Conduct of Performers", EVERLEARNER),
+        ("pDQX_6d4Pr8", "AQA GCSE PE - Performance Enhancing Drugs", PEC),
+        ("ni-DoxNsEzw", "AQA GCSE PE: Positive and Negative Impact of PEDs", EVERLEARNER),
+        ("5jSIbrNDNl4", "What is blood doping? GCSE PE paper 2", PLANETPE),
+    ]),
+    ("pe:3.2.2.3b", &[
+        ("4-cjlVhO2B8", "AQA GCSE PE: Hooliganism, Spectator Behaviour & Strategies Used To Combat Hooliganism in Sport", MRMATT),
+        ("12bux6WBkC4", "AQA GCSE PE Spectator Behaviour", PEC),
+    ]),
+    ("pe:3.2.3.1", &[
+        ("mCHFq1kMsjk", "AQA GCSE PE: Health and Wellbeing", EVERLEARNER),
+        ("1ladU-3m-Kk", "AQA Health, Fitness & Well-Being", PEC),
+    ]),
+    ("pe:3.2.3.2", &[
+        ("btlthLwJOzk", "AQA GCSE PE Sedentary Lifestyle/Somatotypes", PEC),
+        ("2nhbw3ipm04", "Sedentary Lifestyle", PEC),
+    ]),
+    ("pe:3.2.3.3", &[
+        ("y-MfbxuF4hI", "AQA GCSE PE Diet & Nutrition", PEC),
+        ("A9_-oMb4sec", "AQA GCSE PE - Reasons for a Balanced Diet", EVERLEARNER),
+        ("BrPLUNc9zE4", "AQA GCSE PE - Hydration", EVERLEARNER),
     ]),
 ];
 

@@ -629,6 +629,41 @@ const DRAMA: &[(&str, &str)] = &[
     ("drama:3.1.3b", include_str!("../lessons/drama/3.1.3b.md")),
     ("drama:3.1.3c", include_str!("../lessons/drama/3.1.3c.md")),
 ];
+const PE: &[(&str, &str)] = &[
+    ("pe:3.1.1.1a", include_str!("../lessons/pe/3.1.1.1a.md")),
+    ("pe:3.1.1.1b", include_str!("../lessons/pe/3.1.1.1b.md")),
+    ("pe:3.1.1.2a", include_str!("../lessons/pe/3.1.1.2a.md")),
+    ("pe:3.1.1.2b", include_str!("../lessons/pe/3.1.1.2b.md")),
+    ("pe:3.1.1.2c", include_str!("../lessons/pe/3.1.1.2c.md")),
+    ("pe:3.1.1.3", include_str!("../lessons/pe/3.1.1.3.md")),
+    ("pe:3.1.1.4", include_str!("../lessons/pe/3.1.1.4.md")),
+    ("pe:3.1.2.1", include_str!("../lessons/pe/3.1.2.1.md")),
+    ("pe:3.1.2.2", include_str!("../lessons/pe/3.1.2.2.md")),
+    ("pe:3.1.3.1", include_str!("../lessons/pe/3.1.3.1.md")),
+    ("pe:3.1.3.2a", include_str!("../lessons/pe/3.1.3.2a.md")),
+    ("pe:3.1.3.2b", include_str!("../lessons/pe/3.1.3.2b.md")),
+    ("pe:3.1.3.3a", include_str!("../lessons/pe/3.1.3.3a.md")),
+    ("pe:3.1.3.3b", include_str!("../lessons/pe/3.1.3.3b.md")),
+    ("pe:3.1.3.4a", include_str!("../lessons/pe/3.1.3.4a.md")),
+    ("pe:3.1.3.4b", include_str!("../lessons/pe/3.1.3.4b.md")),
+    ("pe:3.1.3.5", include_str!("../lessons/pe/3.1.3.5.md")),
+    ("pe:3.1.4.1", include_str!("../lessons/pe/3.1.4.1.md")),
+    ("pe:3.1.4.2", include_str!("../lessons/pe/3.1.4.2.md")),
+    ("pe:3.1.4.3", include_str!("../lessons/pe/3.1.4.3.md")),
+    ("pe:3.2.1.1", include_str!("../lessons/pe/3.2.1.1.md")),
+    ("pe:3.2.1.2", include_str!("../lessons/pe/3.2.1.2.md")),
+    ("pe:3.2.1.3", include_str!("../lessons/pe/3.2.1.3.md")),
+    ("pe:3.2.1.4", include_str!("../lessons/pe/3.2.1.4.md")),
+    ("pe:3.2.1.5a", include_str!("../lessons/pe/3.2.1.5a.md")),
+    ("pe:3.2.1.5b", include_str!("../lessons/pe/3.2.1.5b.md")),
+    ("pe:3.2.2.1", include_str!("../lessons/pe/3.2.2.1.md")),
+    ("pe:3.2.2.2", include_str!("../lessons/pe/3.2.2.2.md")),
+    ("pe:3.2.2.3a", include_str!("../lessons/pe/3.2.2.3a.md")),
+    ("pe:3.2.2.3b", include_str!("../lessons/pe/3.2.2.3b.md")),
+    ("pe:3.2.3.1", include_str!("../lessons/pe/3.2.3.1.md")),
+    ("pe:3.2.3.2", include_str!("../lessons/pe/3.2.3.2.md")),
+    ("pe:3.2.3.3", include_str!("../lessons/pe/3.2.3.3.md")),
+];
 
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
@@ -649,6 +684,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("music", MUSIC),
     ("rs", RS),
     ("drama", DRAMA),
+    ("pe", PE),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {

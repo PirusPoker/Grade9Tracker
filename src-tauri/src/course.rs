@@ -110,6 +110,21 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     // and not taught in the app. 3.1.2 is split into the four Section B question
     // types (a-e) and the nine set plays (f-n).
     ("drama", &["3.1.1", "3.1.2", "3.1.3"]),
+    // Physical Education - AQA GCSE 8582, read from the specification PDF
+    // version 1.7 (11 November 2025) on 29 September 2026. Written-exam content
+    // only: 3.1 is Paper 1, 3.2 is Paper 2, and 3.1.4 Use of data is assessed on
+    // both. 25 four-level references; 3.1.1.1, 3.1.1.2, 3.1.3.2, 3.1.3.3,
+    // 3.1.3.4, 3.2.1.5 and 3.2.2.3 are split into lettered topics. The NEA
+    // (section 4.4) is not examined and not listed.
+    ("pe", &[
+        "3.1.1.1", "3.1.1.2", "3.1.1.3", "3.1.1.4",
+        "3.1.2.1", "3.1.2.2",
+        "3.1.3.1", "3.1.3.2", "3.1.3.3", "3.1.3.4", "3.1.3.5",
+        "3.1.4.1", "3.1.4.2", "3.1.4.3",
+        "3.2.1.1", "3.2.1.2", "3.2.1.3", "3.2.1.4", "3.2.1.5",
+        "3.2.2.1", "3.2.2.2", "3.2.2.3",
+        "3.2.3.1", "3.2.3.2", "3.2.3.3",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -4026,6 +4041,223 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Evaluate how successful the design was and justify each judgement",
         "Answer the design option in Section C with a clear line of argument",
     ], "Answer only the design area the question names. A lighting question answered with costume detail earns almost nothing."),
+    // ---------- Physical Education (AQA 8582) ----------
+    ("pe:3.1.1.1a", &[
+        "Identify the bones at the head/neck, shoulder, chest, elbow, hip, knee and ankle, including the patella in front of the knee",
+        "Explain the six functions of the skeleton and apply each to a movement or situation in sport",
+        "Label the structures of a synovial joint and explain how each one helps to prevent injury",
+        "Link hinge and ball and socket joints to the movements they allow: flexion, extension, abduction, adduction, rotation, circumduction, plantar flexion and dorsiflexion",
+    ], "Blood cell production and mineral storage are functions too, and a question asking for a sporting example wants the function applied - 'the cranium protects the brain when heading a football', not just 'protection'."),
+
+    ("pe:3.1.1.1b", &[
+        "Locate the thirteen named muscles and muscle groups and say which joint each acts on",
+        "Explain how agonist and antagonist work as a pair at the shoulder, elbow, hip, knee and ankle",
+        "State the role of tendons in attaching muscle to bone",
+        "Distinguish isometric from isotonic contractions, and concentric from eccentric, in a named sporting action",
+    ], "The lowering phase of a squat or press-up is an eccentric contraction of the muscle that did the lifting - the quadriceps or triceps - not a concentric contraction of the opposite muscle."),
+
+    ("pe:3.1.1.2a", &[
+        "Put the pathway of air in order from mouth and nose to alveoli",
+        "Explain how each feature of the alveoli assists gaseous exchange by diffusion",
+        "Describe how oxygen is carried as oxyhaemoglobin, and that haemoglobin can also carry carbon dioxide",
+        "Compare the structure of arteries, capillaries and veins and link each to its function",
+        "Explain how vasoconstriction and vasodilation redistribute blood to the working muscles during exercise",
+    ], "Diffusion goes from high to low concentration - say which gas moves which way and why, not just 'gases are exchanged'."),
+
+    ("pe:3.1.1.2b", &[
+        "Name the four chambers of the heart and the blood vessels entering and leaving it",
+        "Describe the pathway of blood and the cardiac cycle (diastole and systole) starting from any chamber",
+        "Explain that valves open under pressure and close to prevent backflow",
+        "Use Q = SV x HR to calculate and explain changes in cardiac output",
+        "Interpret heart rate graphs, including the anticipatory rise and changes of intensity",
+    ], "The pulmonary artery carries deoxygenated blood and the pulmonary vein oxygenated blood - the reverse of the usual rule, and the most common lost mark on the pathway."),
+
+    ("pe:3.1.1.2c", &[
+        "Explain inhalation and exhalation at rest through the intercostals, rib cage, diaphragm and changes in air pressure",
+        "Explain the extra muscles used during exercise: pectorals and sternocleidomastoid to inhale, abdominals to exhale",
+        "Identify tidal volume, inspiratory and expiratory reserve volumes and residual volume on a spirometer trace",
+        "Describe and continue a trace to show how the volumes change from rest to exercise",
+    ], "Tidal volume goes up during exercise while both reserve volumes go down - residual volume stays roughly the same. Students who say 'everything increases' lose both marks."),
+
+    ("pe:3.1.1.3", &[
+        "Define aerobic and anaerobic exercise and write both word summaries",
+        "Justify whether an activity is aerobic or anaerobic from its duration and intensity",
+        "Define EPOC (oxygen debt) and explain why breathing stays high after vigorous exercise",
+        "Evaluate cool-down, diet manipulation and ice baths/massage as recovery methods for different activities",
+    ], "Anaerobic means without enough oxygen, not with no oxygen at all - and a justification needs the intensity and duration of the named activity, not just the label."),
+
+    ("pe:3.1.1.4", &[
+        "List the immediate effects of exercise and the short-term effects up to 36 hours afterwards",
+        "Explain the long-term effects of months of training, including hypertrophy of the heart and bradycardia",
+        "Link long-term effects to the component of fitness they improve and to performance in a named activity",
+    ], "Short-term and long-term have fixed meanings here: DOMS and nausea are short-term (up to 36 hours), a lower resting heart rate is long-term. Mixing the timescales scores nothing."),
+
+    ("pe:3.1.2.1", &[
+        "Identify first, second and third class levers in sporting actions at the elbow, knee and ankle",
+        "Draw linear lever diagrams labelling fulcrum, load, effort, effort arm and load arm",
+        "Calculate and interpret mechanical advantage as effort arm divided by load (resistance) arm",
+        "Analyse the joint movements in push-ups, throw-ins, running, kicking, jumping, squats and bowling",
+    ], "Second class has the load in the middle, and a diagram without the arms labelled cannot score the mechanical advantage mark."),
+
+    ("pe:3.1.2.2", &[
+        "Name the three planes and three axes of movement",
+        "Pair each sporting action with its plane and axis: somersault/forward roll/running, 360 degree twist/discus, cartwheel",
+        "Apply the pairs to unfamiliar actions such as a star jump",
+    ], "The planes and axes pair across, not by name: the sagittal plane goes with the transverse axis, and the frontal plane with the sagittal axis."),
+
+    ("pe:3.1.3.1", &[
+        "Define health and fitness",
+        "Explain how ill health can reduce fitness because a person cannot train",
+        "Explain how someone can increase fitness while unhealthy, with an example",
+    ], "A definition of health that says only 'free from illness' is incomplete - it must cover physical, mental and social well-being."),
+
+    ("pe:3.1.3.2a", &[
+        "Define the ten components of fitness and the four types of strength",
+        "Give a sporting example for each component",
+        "Justify why a component is or is not needed in a named activity or position",
+    ], "Power is strength multiplied by speed, and agility is changing direction quickly while keeping control - vague definitions like 'being quick' do not score."),
+
+    ("pe:3.1.3.2b", &[
+        "Give the reasons for fitness testing and its limitations",
+        "Describe the procedure for each of the eleven named tests, including equipment, rules and how the score is measured",
+        "Evaluate whether a test is relevant to a performer in a given activity",
+        "Define qualitative and quantitative data and compare test scores with national averages",
+    ], "An evaluate question on a test needs both sides and must be applied to the named performer - a list of general limitations caps the answer."),
+
+    ("pe:3.1.3.3a", &[
+        "Define specificity, progressive overload, reversibility and tedium",
+        "Define frequency, intensity, time and type",
+        "Apply the principles to plan or improve a training programme for a named performer",
+    ], "Progressive overload means gradually increasing the demand - an answer that just says 'training harder' misses the 'gradually' that earns the mark."),
+
+    ("pe:3.1.3.3b", &[
+        "Describe circuit, continuous, fartlek, interval/HIIT, static stretching, weight and plyometric training",
+        "State the advantages and disadvantages (effects on the body) of each method",
+        "Select and justify a method for an aerobic or anaerobic performer, taking training thresholds and rest into account",
+    ], "Plyometrics works because an eccentric contraction is followed by a larger concentric one - learn that phrase, it is the physiological mark."),
+
+    ("pe:3.1.3.4a", &[
+        "Define training threshold and calculate maximum heart rate and the aerobic (60-80%) and anaerobic (80-90%) zones",
+        "Use one rep max to set strength/power (above 70%, 3 sets of 4-8) and muscular endurance (below 70%, 3 sets of 12-15) loads",
+        "Explain the factors that prevent injury in training",
+    ], "Show the working for a training-zone calculation: 220 minus age first, then each percentage - a zone given with no method often scores only one of three marks."),
+
+    ("pe:3.1.3.4b", &[
+        "Explain how high altitude training works and why it raises red blood cell count",
+        "Evaluate the benefits and limitations of altitude training for different performers",
+        "Name the three training seasons and explain the aims of each",
+        "Apply the seasons to a named sport's calendar",
+    ], "Altitude training suits endurance performers; claiming it helps a sprinter or weightlifter without qualification is marked as a misunderstanding."),
+
+    ("pe:3.1.3.5", &[
+        "List the parts of a warm-up and a cool-down",
+        "Explain the physical and psychological benefits of warming up",
+        "Explain the benefits of cooling down, including removal of lactic acid and preventing DOMS",
+        "Justify appropriate warm-up and cool-down activities for a named sport",
+    ], "Stretching in a warm-up should be matched to the activity - generic answers like 'do some stretches' lose the application marks."),
+
+    ("pe:3.1.4.1", &[
+        "Define quantitative and qualitative data",
+        "Name the methods for collecting each: questionnaires and surveys, interviews and observations",
+        "Identify whether a given piece of data is qualitative or quantitative and justify it",
+    ], "A questionnaire can collect both kinds of data - the justification must refer to whether the answer is a number or a description."),
+
+    ("pe:3.1.4.2", &[
+        "Present data in a table with clear headings and units",
+        "Plot bar charts and line graphs with correctly labelled x and y axes",
+        "Choose the right type of graph for the data given",
+    ], "Label both axes with what is measured and its unit - an unlabelled axis loses the mark even when the plotting is perfect."),
+
+    ("pe:3.1.4.3", &[
+        "Read values and describe trends from tables, bar charts, line graphs and pie charts",
+        "Carry out simple calculations such as differences, percentages and averages from the data",
+        "Draw conclusions and explain what the data suggests about performance or participation",
+    ], "Quote figures from the data when you describe a trend - 'it goes down' scores less than 'it falls from 72 to 62 bpm over ten weeks'."),
+
+    ("pe:3.2.1.1", &[
+        "Define skill and ability and tell them apart",
+        "Classify skills on the basic/complex, open/closed, self-paced/externally paced and gross/fine continua",
+        "Justify a classification with reference to the sporting example",
+        "Define performance and outcome goals and give suitable examples",
+    ], "A classification mark needs a justification tied to the example - 'a penalty is closed because the environment is stable: the ball is still and the keeper cannot move until it is struck'."),
+
+    ("pe:3.2.1.2", &[
+        "Evaluate the use of performance and outcome goals, including for beginners",
+        "Explain each part of SMART: specific, measurable, accepted, realistic, time-bound",
+        "Apply SMART targets to improve a named performer's performance",
+    ], "In AQA's version the A is 'accepted', not 'achievable'; using the wrong word loses the mark on a recall question."),
+
+    ("pe:3.2.1.3", &[
+        "Draw the basic information processing model in box format",
+        "Explain input (display, senses, selective attention), decision making (short- and long-term memory), output and feedback",
+        "Apply the model to a skill from a sporting example",
+    ], "Selective attention belongs to the input stage and memory to decision making - placing them in the wrong box is a common slip."),
+
+    ("pe:3.2.1.4", &[
+        "Describe visual, verbal, manual and mechanical guidance with an example of how each is given",
+        "Describe positive/negative, knowledge of results/knowledge of performance, and intrinsic/extrinsic feedback",
+        "Evaluate which guidance and feedback suit beginners and which suit elite performers",
+    ], "Always say who the performer is: beginners need visual guidance and positive, extrinsic feedback; elite performers can use intrinsic feedback and knowledge of performance."),
+
+    ("pe:3.2.1.5a", &[
+        "Define arousal and draw a labelled inverted-U graph",
+        "Describe the relationship between arousal and performance, including under- and over-arousal",
+        "Link high or low optimal arousal to gross and fine skills",
+        "Explain how deep breathing, mental rehearsal/visualisation/imagery and positive self-talk are carried out",
+    ], "Link arousal to the skill, not the sport - a rugby tackle needs high arousal but a conversion kick in the same match needs low arousal."),
+
+    ("pe:3.2.1.5b", &[
+        "Define direct and indirect aggression with sporting examples",
+        "Describe the characteristics of introverts and extroverts and the sports that suit each",
+        "Define intrinsic and extrinsic (tangible and intangible) motivation",
+        "Evaluate the merits of intrinsic and extrinsic motivation",
+    ], "Direct aggression involves physical contact with the opponent; a legal tackle in rugby is still direct aggression, so do not assume aggression means foul play."),
+
+    ("pe:3.2.2.1", &[
+        "Describe how engagement patterns differ by gender, race/religion/culture, age, family/friends/peers and disability",
+        "Explain how the twelve named factors, such as role models, accessibility and disposable income, affect participation",
+        "Make justified links between a factor and a particular social group",
+    ], "Each point needs a link to the group: 'media coverage' alone scores nothing, 'little TV coverage of women's sport means fewer female role models' scores."),
+
+    ("pe:3.2.2.2", &[
+        "Define commercialisation, sponsorship and the media, and explain the golden triangle",
+        "Name the types of sponsorship and of media",
+        "Explain positive and negative impacts of sponsorship and the media on the performer, sport, official, spectator and sponsor",
+        "Explain positive and negative impacts of technology on the same five groups",
+    ], "Make sure the impact is on the group the question names - an answer about the performer when the question asks about officials scores nothing."),
+
+    ("pe:3.2.2.3a", &[
+        "Define etiquette, sportsmanship, gamesmanship and contract to compete, with examples",
+        "Describe the categories of prohibited substances and blood doping, with their effects and side effects",
+        "Explain why beta blockers are restricted and which performers might use them",
+        "Evaluate the advantages and disadvantages of PEDs for the performer and for the sport",
+    ], "Match the drug to the performer: EPO and blood doping for endurance, anabolic agents for power, beta blockers for fine control, diuretics for weight categories."),
+
+    ("pe:3.2.2.3b", &[
+        "Explain the positive and negative influences of spectators at events",
+        "Explain the reasons why hooliganism occurs",
+        "Describe strategies used to combat hooliganism and evaluate how effective they are",
+    ], "Evaluating a strategy means weighing it - e.g. extra security improves safety but is expensive - not listing more strategies."),
+
+    ("pe:3.2.3.1", &[
+        "Explain the physical, mental (emotional) and social health and well-being benefits of physical activity",
+        "Explain how exercise improves fitness and the ability to work",
+        "Explain how exercise can suit the needs of different people",
+    ], "Keep the three kinds of health separate - serotonin release is a mental benefit, making friends is social; putting a benefit under the wrong heading loses the mark."),
+
+    ("pe:3.2.3.2", &[
+        "Define sedentary lifestyle and describe its possible consequences",
+        "Define obesity and explain how it limits performance and causes physical, mental and social ill health",
+        "Define the endomorph, mesomorph and ectomorph somatotypes",
+        "Identify and justify the best somatotype for a sport or position",
+    ], "Justify a somatotype with the demand of the position - 'an ectomorph suits a high jumper because low body weight and long levers help clear the bar' - not just the body shape."),
+
+    ("pe:3.2.3.3", &[
+        "Explain energy use in calories, with average daily needs and the factors that change them",
+        "Explain the reasons for a balanced diet and its proportions of carbohydrate, fat and protein",
+        "Describe the role of carbohydrates, fat, protein and vitamins/minerals",
+        "Explain the effects of dehydration on performance and evaluate them for different activities",
+    ], "Fat gives more energy than carbohydrate but only at low intensity - saying fat is the main fuel for exercise is the classic error."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.
