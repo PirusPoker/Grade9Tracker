@@ -376,8 +376,23 @@ const ENGLANG: &[(&str, &str)] = &[
 ];
 
 /// Every lesson, across subjects.
+/// Every subject's lessons, one line per subject so new subjects append
+/// without touching anyone else's line.
+const TABLES: &[(&str, &[(&str, &str)])] = &[
+    ("fpm", FPM),
+    ("maths", MATHS),
+    ("econ", ECON),
+    ("cs", CS),
+    ("bus", BUS),
+    ("bio", BIO),
+    ("chem", CHEM),
+    ("phys", PHYS),
+    ("englit", ENGLIT),
+    ("englang", ENGLANG),
+];
+
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
-    FPM.iter().chain(MATHS.iter()).chain(ECON.iter()).chain(CS.iter()).chain(BUS.iter()).chain(BIO.iter()).chain(CHEM.iter()).chain(PHYS.iter()).chain(ENGLIT.iter()).chain(ENGLANG.iter())
+    TABLES.iter().flat_map(|(_, t)| t.iter())
 }
 
 /// The lesson for a topic id such as `fpm:9a`, if one has been written.
@@ -425,7 +440,7 @@ mod tests {
     #[test]
     fn every_topic_of_a_taught_subject_has_a_lesson() {
         let cfg = crate::config::catalog();
-        for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON), ("cs", CS), ("bus", BUS), ("bio", BIO), ("chem", CHEM), ("phys", PHYS), ("englit", ENGLIT), ("englang", ENGLANG)] {
+        for &(subject, table) in TABLES {
             let def = cfg.iter().find(|s| s.id == subject).expect("subject");
             let missing: Vec<_> = def.topics.iter().map(|t| format!("{subject}:{}", t.code)).filter(|id| !has_lesson(id)).collect();
             assert!(missing.is_empty(), "{subject}: topics with no lesson: {missing:?}");
