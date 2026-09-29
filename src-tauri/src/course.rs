@@ -2631,6 +2631,64 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Design a data collection sheet and judge the accuracy, sample size and reliability of data",
         "Spot how selective presentation of statistics can mislead, and write a well-evidenced conclusion",
     ], "Percentage change is divided by the original value, not the new one, and a median needs the data in rank order first. Calculations with no working or no units throw away marks even when the method is right."),
+
+    ("spa:4.4", &[
+        "Use the five minutes' reading time to underline key words and predict the Spanish you will hear",
+        "Spot distractors: plans that change, past habits against present ones, and negatives such as ya no, nunca and tampoco",
+        "Decide between true, false and not mentioned from the evidence in the recording",
+        "Transcribe a Higher dictation using the Spanish sound-spelling rules, including words not on the list",
+        "Place written accents correctly using the stress rules",
+    ], "Writing the first detail that fits, when a later pero, al final or ya no changes the answer."),
+    ("spa:4.5", &[
+        "Plan the 15 minutes' preparation across the role-play, the reading-aloud text and the photo card",
+        "Convey each role-play message without ambiguity, in the right time frame, and ask the required question",
+        "Read a text aloud with accurate Spanish sounds and stress",
+        "Describe both photos in detail and develop every answer in the unprepared conversation",
+        "Use opinions with reasons, three time frames and listed Higher structures to reach the top band",
+    ], "Giving minimal answers in the conversation instead of developing each one with a reason, an example and another time frame."),
+    ("spa:4.6", &[
+        "Answer each Section A question type: multiple choice, which person, true or false or not mentioned, and short answers",
+        "Infer feelings and attitudes from clues in a text",
+        "Work out unknown words from context and from the endings -ito, -ísimo, -mente and -idad",
+        "Translate Spanish into natural English element by element, with every tense, person and negative correct",
+        "Recognise false friends such as actual, éxito, sensible, largo and asistir",
+    ], "Losing a translation element by missing a small word such as ya no, todavía or cada, or by getting the tense wrong."),
+    ("spa:4.7", &[
+        "Translate five English sentences into Spanish, conveying all 15 elements accurately",
+        "Plan and write the 90-word task, covering all three bullets in past, present and future",
+        "Plan and write the 150-word task, developing both bullets with regular, accurate complex language",
+        "Use listed Higher structures safely: the subjunctive after cuando, que and para que, desde hace, acabar de, ya no and lo + adjective",
+        "Check verbs, agreements and accents in a final pass",
+    ], "Copying English structures into Spanish, such as soy 15 for I am 15 or he estado jugando por for I have been playing for."),
+
+    ("ger:4.4", &[
+        "Use the five minutes' reading time to underline key words and predict the German you will hear",
+        "Spot distractors: früher against jetzt, corrections with sondern, and negatives such as nicht, kein, nie and nicht mehr",
+        "Decide between true, false and not mentioned from the evidence in the recording",
+        "Transcribe a Higher dictation with the German sound-spelling rules: ei and ie, w, z, sch, sp and st, ch, umlauts, ß and -er",
+        "Spell words from outside the vocabulary list from their sounds, and use grammar to fix capitals and endings",
+    ], "Writing down the first detail that fits, when a nicht, kein or jetzt later in the sentence changes the answer."),
+    ("ger:4.5", &[
+        "Plan the 15 minutes' preparation across the role-play, the reading-aloud text and the photo card",
+        "Convey each role-play message without ambiguity, in the time frame the task sets, and ask the required question",
+        "Read a text aloud with accurate German sounds, especially ei, ie, w, z, sp, st, ch, umlauts and final -er",
+        "Describe both photos in detail and develop every answer in the unprepared conversation",
+        "Build extended answers with a reason, an example, a second time frame and a conditional such as wenn ich ... hätte, würde ich",
+    ], "Giving short, minimal answers in the conversation, which caps the mark however accurate the German is."),
+    ("ger:4.6", &[
+        "Answer multiple-choice, which-person, true/false/not-mentioned and short-answer questions in English",
+        "Tell not mentioned from false by finding contradicting evidence in the text",
+        "Infer the meaning of unlisted words from prefixes, suffixes, compounds and context",
+        "Recognise the genitive after wegen, trotz and während in Higher texts",
+        "Translate German into natural English element by element, keeping tense, person, negatives and qualifiers",
+    ], "Falling for false friends and tense traps: bekommen means get, also means so, and seit with the present means have been doing."),
+    ("ger:4.7", &[
+        "Translate English into German so that all 15 elements are conveyed, with accurate verbs, word order and endings",
+        "Cover all three bullets of the 90-word task with all three time frames",
+        "Cover both bullets of the 150-word task, with developed ideas and regular complex language",
+        "Use Higher structures accurately: seit with the present, hätte, wäre and würde, sollte, and the simple past in written narrative",
+        "Plan each extended answer in a few minutes and check verbs, word order and endings at the end",
+    ], "Putting the verb in the wrong place: it comes second after an opening time phrase and at the end after weil, dass, wenn and obwohl."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.
