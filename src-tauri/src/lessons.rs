@@ -424,9 +424,9 @@ mod tests {
     /// and no lesson may name a topic that does not exist.
     #[test]
     fn every_topic_of_a_taught_subject_has_a_lesson() {
-        let cfg = crate::config::PlanConfig::default();
+        let cfg = crate::config::catalog();
         for (subject, table) in [("fpm", FPM), ("maths", MATHS), ("econ", ECON), ("cs", CS), ("bus", BUS), ("bio", BIO), ("chem", CHEM), ("phys", PHYS), ("englit", ENGLIT), ("englang", ENGLANG)] {
-            let def = cfg.subjects.iter().find(|s| s.id == subject).expect("subject");
+            let def = cfg.iter().find(|s| s.id == subject).expect("subject");
             let missing: Vec<_> = def.topics.iter().map(|t| format!("{subject}:{}", t.code)).filter(|id| !has_lesson(id)).collect();
             assert!(missing.is_empty(), "{subject}: topics with no lesson: {missing:?}");
             let extra: Vec<_> = table.iter().map(|(id, _)| *id)
