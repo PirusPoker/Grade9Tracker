@@ -90,6 +90,8 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ("fre", &["3.1.1", "3.1.2", "3.1.3", "3.2.1", "3.2.2", "4.4", "4.5", "4.6", "4.7"]),
     ("spa", &["3.1.1", "3.1.2", "3.1.3", "3.2.1", "3.2.2", "3.2.3", "4.4", "4.5", "4.6", "4.7"]),
     ("ger", &["3.1.1", "3.1.2", "3.1.3", "3.2.1", "3.2.2", "3.2.3", "4.4", "4.5", "4.6", "4.7"]),
+    // AQA GCSE Geography (8035). Options built: hot deserts, coasts and rivers, food; cold environments, glacial landscapes, water and energy are not.
+    ("geog", &["3.1.1.1", "3.1.1.2", "3.1.1.3", "3.1.1.4", "3.1.2.1", "3.1.2.2", "3.1.2.3", "3.1.3.1", "3.1.3.2", "3.1.3.3", "3.2.1", "3.2.2", "3.2.3.1", "3.2.3.2", "3.3.1", "3.3.2", "3.4"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -2342,6 +2344,293 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Explain red shift and what it tells us about the universe",
         "Explain the evidence for the Big Bang, including microwave background radiation",
     ], "Red shift shows galaxies moving away, and more distant ones moving faster. That second half is what supports expansion."),
+
+    // ---------- Geography (AQA GCSE Geography (8035)) ----------
+    ("geog:3.1.1.1", &[
+        "Define a natural hazard and say when a hazard becomes a disaster",
+        "Sort hazards into tectonic, atmospheric, hydrological and geomorphological types with an example of each",
+        "Explain hazard risk using hazard, vulnerability and capacity to cope",
+        "Explain how urbanisation, poverty, farming and climate change each raise hazard risk, with a named place for each",
+        "Judge which factor matters most, using a contrast such as Haiti and Chile in 2010",
+    ], "Listing urbanisation, poverty, farming and climate change without saying why each one raises risk stays in Level 1. Every factor needs a mechanism and a named place."),
+
+    ("geog:3.1.1.2a", &[
+        "Describe the Earth's layers and the differences between oceanic and continental crust",
+        "Explain plate tectonics theory, including convection currents and slab pull",
+        "Describe the global distribution of earthquakes and volcanoes from a map, including exceptions such as Hawaii",
+        "Explain the processes at constructive, destructive, collision and conservative margins that cause earthquakes and eruptions",
+        "Explain why there are no volcanoes at conservative and collision margins",
+    ], "Earthquake answers that just say the plates rub together lose marks. You need the chain: friction locks the plates, pressure builds, then it is released suddenly."),
+
+    ("geog:3.1.1.2b", &[
+        "Separate primary and secondary effects, and immediate and long-term responses, of an earthquake",
+        "Recall the key facts of the Chile earthquake of 2010: causes, effects and responses",
+        "Recall the key facts of the Nepal earthquake of 2015: causes, effects and responses",
+        "Compare the two and explain how wealth shaped the differences",
+        "Weigh wealth against other factors such as magnitude, remoteness and time of day",
+    ], "People put the Chile tsunami or the Everest avalanches under primary effects. Both are secondary. Vague case-study facts also cap answers, so learn a small set of accurate numbers."),
+
+    ("geog:3.1.1.2c", &[
+        "Explain why people keep living near volcanoes and fault lines, with named places such as Etna and Iceland",
+        "Describe how volcanoes are monitored and explain why earthquakes cannot be predicted",
+        "Explain how earthquake-resistant buildings and other protection reduce risk",
+        "Explain how hazard mapping, drills and evacuation planning reduce risk",
+        "Evaluate which management approach works best for which hazard, and how wealth changes that",
+    ], "Monitoring and prediction get mixed up. Monitoring collects the warning signs and prediction uses them to forecast. Every point should end with how it saves lives or property."),
+
+    ("geog:3.1.1.3a", &[
+        "Draw and label the three-cell model with the pressure belts and surface winds",
+        "Describe the global distribution of tropical storms and name them by ocean",
+        "Explain how tropical storms relate to the ITCZ, the trade winds and the Coriolis effect",
+        "Explain the conditions and sequence of a tropical storm's formation, including latent heat",
+        "Describe the structure of a tropical storm from the eye to the rain bands",
+        "Explain how climate change might affect tropical storms' distribution, frequency and intensity",
+    ], "Formation answers often leave out where the energy comes from: latent heat released when water vapour condenses. Many also put the strongest winds in the eye when they are in the eyewall."),
+
+    ("geog:3.1.1.3b", &[
+        "Separate the primary effects of a tropical storm from its secondary effects, and label each one",
+        "Describe the effects of Typhoon Haiyan (Philippines, November 2013) with figures: 6,300 dead, a 5 m surge in Tacloban, 4.1 million displaced",
+        "Separate immediate responses from long-term responses to Haiyan, and say who carried each out",
+        "Explain how monitoring, prediction, protection and planning each reduce the effects of tropical storms",
+        "Judge how effective the responses to a tropical storm were, and why",
+    ], "Disease, homelessness and rising food prices are secondary effects, not primary ones. Put them under the wrong heading and they earn nothing, however well you explain them."),
+
+    ("geog:3.1.1.3c", &[
+        "Name the main UK weather hazards and give the weather pattern and a real example for each",
+        "Explain the physical and human causes of the Somerset Levels floods of 2013-14",
+        "Describe the social, economic and environmental impacts of the floods, with figures",
+        "Explain how the management strategies (dredging, raised roads, pumping, the Bridgwater barrier) reduce the flood risk",
+        "Use records and data as evidence that UK weather is becoming more extreme",
+    ], "Answers mix up social, economic and environmental impacts. \"Homes were flooded\" earns nothing on a question about environmental impacts, so check the heading before you write."),
+
+    ("geog:3.1.1.4", &[
+        "Describe the evidence for climate change since the start of the Quaternary: ice cores, sediments, pollen, tree rings, historical and temperature records",
+        "Explain how orbital changes, volcanic activity and solar output change the climate",
+        "Explain how fossil fuels, agriculture and deforestation enhance the greenhouse effect",
+        "Outline the effects of climate change on people and on the environment",
+        "Tell mitigation apart from adaptation, give real examples of each and weigh them up",
+    ], "Students mix up mitigation and adaptation. Mitigation reduces the causes (wind farms, carbon capture, the Paris Agreement), while adaptation responds to the effects (sea walls, drought-resistant crops)."),
+
+    ("geog:3.1.2.1", &[
+        "Define an ecosystem and sort its parts into biotic and abiotic",
+        "Use a UK pond to name producers, consumers and decomposers, and draw a food chain and a food web",
+        "Explain how nutrients are cycled between plants, animals, dead matter and the soil or water",
+        "Explain the chain of effects when one part changes, e.g. eutrophication after fertiliser runoff",
+        "Describe where the world's main biomes are found and what each one is like",
+    ], "When one part of an ecosystem changes, students jump straight from cause to result (\"fertiliser gets in, so fish die\"). Every link in the chain is a mark, so write each step: algal bloom, light blocked, plants die, decomposers use up oxygen."),
+
+    ("geog:3.1.2.2a", &[
+        "Describe the climate, soils and vegetation layers of a tropical rainforest, quoting figures from a climate graph",
+        "Explain how climate, water, soils, plants, animals and people in the rainforest depend on each other",
+        "Explain how plants such as buttress roots, drip tips, lianas and epiphytes are adapted to the conditions",
+        "Explain how animals such as the sloth, spider monkey and orangutan are adapted",
+        "Explain why rainforest biodiversity is so high and why losing it matters",
+    ], "Answers name an adaptation and stop there. Link the feature to the condition it copes with and say how that helps: drip tips shed heavy rain, so algae cannot grow on the leaf."),
+
+    ("geog:3.1.2.2b", &[
+        "Describe changing rates of deforestation, globally and in Brazil and Malaysia, using figures",
+        "Explain the causes of deforestation in Malaysia with an example for each: palm oil, logging, roads, mining, the Bakun Dam, FELDA settlement, population growth",
+        "Explain the impacts of deforestation: economic development, soil erosion and the contribution to climate change",
+        "Explain why rainforests are valuable to people and the environment",
+        "Evaluate selective logging, conservation, ecotourism, hardwood agreements and debt-for-nature swaps using real examples",
+    ], "The case study is too vague: \"trees are cut down for farming\" stays in Level 1. Name the Malaysian detail, e.g. the second-largest palm oil producer, 14.4% of forest lost from 2000 to 2012, and the Bakun Dam flooding about 700 km²."),
+
+    ("geog:3.1.2.3a", &[
+        "Describe where hot deserts are and explain why they form around 30° north and south",
+        "Describe the physical characteristics of hot deserts: climate, soils, landscape and vegetation",
+        "Explain how climate, water, soils, plants, animals and people in a hot desert depend on each other",
+        "Explain how named plants and animals are adapted to heat and drought",
+        "Explain why hot desert biodiversity is low and vulnerable, with examples such as the addax",
+    ], "A camel's hump stores fat, not water. Saying water loses the mark, and every adaptation needs the 'so that' explaining why it helps in the desert."),
+
+    ("geog:3.1.2.3b", &[
+        "Use the Sahara to explain development opportunities from mineral extraction, energy, farming and tourism",
+        "Explain how extreme temperatures, water supply and inaccessibility make developing the Sahara difficult",
+        "Define desertification and locate the Sahel on the fringe of the Sahara",
+        "Explain the six causes of desertification and how they feed each other into soil erosion",
+        "Evaluate strategies to reduce desertification: water and soil management, tree planting and appropriate technology",
+    ], "Case-study answers without named places and facts (Noor Ouarzazate, Hassi Messaoud, magic stones in Burkina Faso) cannot reach the top level. Desertification is land degradation on the desert fringe, not the desert moving."),
+
+    ("geog:3.1.3.1", &[
+        "Locate the UK's major upland areas on a map, including the Grampians, Lake District, Pennines and Snowdonia",
+        "Locate the major lowland areas, including the Fens, East Anglia and the London Basin",
+        "Locate the major river systems, including the Severn, Thames, Trent, Tees and Tay",
+        "Describe the upland–lowland pattern using the Tees–Exe line and name its exceptions",
+        "Explain the pattern using rock type, glaciation and relief rainfall",
+    ], "Describe means the pattern with compass directions and named examples, not an explanation. The North and South Downs are lowland chalk hills, not uplands."),
+
+    ("geog:3.1.3.2a", &[
+        "Explain how waves form and compare constructive and destructive waves",
+        "Explain mechanical and chemical weathering: freeze-thaw, salt weathering and carbonation",
+        "Describe and explain sliding, slumping and rock falls",
+        "Explain erosion by hydraulic power, abrasion and attrition",
+        "Explain longshore drift step by step, and why sediment is deposited at the coast",
+    ], "Weathering breaks rock down in place; erosion removes it. In longshore drift the backwash runs straight down the beach because of gravity, not back out at an angle."),
+
+    ("geog:3.1.3.2b", &[
+        "Explain how rock type and geological structure produce discordant and concordant coasts",
+        "Explain the formation of headlands and bays, cliffs and wave-cut platforms, and caves, arches and stacks",
+        "Explain the formation of beaches, sand dunes, spits and bars",
+        "Identify the major landforms of erosion and deposition on the Dorset coast around Swanage",
+    ], "Formation answers must name the process at each stage, in order. A description of shapes with no hydraulic power, abrasion or longshore drift stays in the bottom level."),
+
+    ("geog:3.1.3.2c", &[
+        "Explain the costs and benefits of sea walls, rock armour, gabions and groynes",
+        "Explain the costs and benefits of beach nourishment, reprofiling and dune regeneration",
+        "Explain managed retreat and why it is used, using Medmerry as an example",
+        "Use Lyme Regis to explain the reasons for management, the strategy, and its effects and conflicts",
+        "Evaluate how successful a coastal management scheme has been",
+    ], "Costs and benefits questions need both, each developed. The cost examiners want most is that groynes starve beaches further down the coast of sediment."),
+
+    ("geog:3.1.3.3a", &[
+        "Describe how a river's long profile changes from source to mouth, using the word concave and the change in gradient",
+        "Describe how the cross profile changes from a steep V-shaped valley to a wide, flat valley floor",
+        "Explain how width, depth, discharge and velocity change downstream, using the Bradshaw model",
+        "Explain the four erosion processes: hydraulic action, abrasion, attrition and solution",
+        "Explain how a river transports its load by traction, saltation, suspension and solution",
+        "Explain why and where deposition happens when a river loses energy",
+    ], "Attrition and abrasion get swapped more than anything else. Attrition is rocks knocking into each other and wearing down the load; abrasion is rocks scraping the bed and banks and wearing away the channel."),
+
+    ("geog:3.1.3.3b", &[
+        "Explain how interlocking spurs, waterfalls and gorges form through erosion in the upper course",
+        "Explain how meanders and ox-bow lakes form through a combination of erosion and deposition",
+        "Explain how flood plains, levées and estuaries form through deposition in the lower course",
+        "Draw and annotate diagrams that show the stages in how each landform forms",
+        "Identify the major landforms of the River Tees, including High Force, the meanders near Yarm and the estuary at Seal Sands",
+    ], "On an explain question, describing the landform earns almost nothing. You have to give the sequence of formation, for example hard rock over soft rock, then undercutting, an overhang, collapse and retreat to form a gorge."),
+
+    ("geog:3.1.3.3c", &[
+        "Explain how physical factors (precipitation, geology, relief) and human factors (land use) increase or reduce flood risk",
+        "Label a flood hydrograph and measure lag time and peak discharge from it",
+        "Explain why some hydrographs are flashy and others are subdued",
+        "Assess the costs and benefits of hard engineering: dams and reservoirs, straightening, embankments and flood relief channels",
+        "Assess the costs and benefits of soft engineering: flood warnings, flood plain zoning, planting trees and river restoration",
+        "Use the Banbury scheme to explain why it was needed, what was built, and its social, economic and environmental issues",
+    ], "Lag time is measured from peak rainfall to peak discharge, not from the start of the rain, and it needs a unit. Reading it from the wrong point on the hydrograph loses the mark every time."),
+
+    ("geog:3.2.1a", &[
+        "Describe the global pattern of urban change and use data to compare urbanisation in HICs, NEEs and LICs",
+        "Explain how rural-urban migration drives urbanisation, using push and pull factors",
+        "Explain how natural increase adds to urban growth, linking it to young migrants",
+        "Explain what a megacity is and describe where megacities are emerging",
+        "Use figures from graphs and maps to describe urban trends",
+    ], "Urbanisation is an increase in the proportion of people living in towns and cities, not just cities getting bigger. HICs have the highest level of urbanisation but the slowest rate of change."),
+
+    ("geog:3.2.1b", &[
+        "Describe Rio de Janeiro's location and explain its regional, national and international importance",
+        "Explain the causes of Rio's growth: natural increase and migration",
+        "Explain the social and economic opportunities created by urban growth in Rio",
+        "Explain the challenges of urban growth in Rio: favelas, water, sanitation, energy, services, unemployment, crime and pollution",
+        "Evaluate how far the Favela Bairro Project improved quality of life for the urban poor",
+    ], "Generic answers such as 'favelas have no clean water' stay in the lower levels. Use Rio-specific evidence, and when you evaluate Favela Bairro include its problems as well as its successes before giving a judgement."),
+
+    ("geog:3.2.1c", &[
+        "Describe the distribution of population and major cities in the UK",
+        "Describe Bristol's location and explain its importance within the UK and the wider world",
+        "Explain how national and international migration have affected Bristol's growth and character",
+        "Explain the social, economic and environmental opportunities created by urban change in Bristol",
+        "Explain the challenges of urban change in Bristol, including inequality, dereliction, brownfield versus greenfield sites, and waste",
+        "Explain the impact of urban sprawl on the rural-urban fringe and the growth of commuter settlements",
+    ], "Answers that say what changed but not how it affects people stay in the lower levels. Finish every chain with the effect on residents, and back it with a Bristol fact."),
+
+    ("geog:3.2.1d", &[
+        "Explain why Bristol's Temple Quarter needed regeneration, using derelict and brownfield land as evidence",
+        "Describe the main features of the Temple Quarter project: the Enterprise Zone, Engine Shed, the university campus and the Temple Meads upgrade",
+        "Explain how water and energy conservation, waste recycling and green space make urban living sustainable, using Freiburg and Vauban",
+        "Explain how transport strategies such as MetroBus, park and ride and London's Congestion Charge reduce traffic congestion",
+        "Judge how successful regeneration and transport schemes have been, and for whom",
+    ], "Reasons for regeneration are the problems; features of the project are the solutions. Answers that blur the two, or list features without saying what problem each one fixes, stay in the lower levels."),
+
+    ("geog:3.2.2a", &[
+        "Compare ways of classifying countries: HIC/NEE/LIC, World Bank income groups, HDI categories and the Brandt Line",
+        "Define GNI per head, birth and death rates, infant mortality, life expectancy, people per doctor, literacy, access to safe water and HDI, and say which are economic and which social",
+        "Explain the limitations of each measure, especially averages hiding inequality",
+        "Explain how a country's stage on the Demographic Transition Model links to its level of development",
+        "Use development data tables and graphs, quoting figures with the correct units",
+    ], "The death rate is not a reliable sign of poverty: ageing HICs like the UK can have higher death rates than LICs with young populations. Saying 'rich countries have low death rates' loses the mark."),
+
+    ("geog:3.2.2b", &[
+        "Explain the physical, economic and historical causes of uneven development",
+        "Describe the consequences of uneven development: gaps in wealth and health, and international migration",
+        "Outline how investment, industrial development, tourism, aid, intermediate technology, fairtrade, debt relief and microfinance reduce the development gap, with a benefit and a drawback for each",
+        "Use Jamaica to explain how tourism helps close the development gap, and why leakage limits the gains",
+        "Judge how far a strategy can reduce the gap, giving evidence on both sides",
+    ], "Naming a cause without the 'so' that shows how it holds development back. 'Chad is landlocked' is a statement; 'so its exports cost more to reach a port' is where the mark is."),
+
+    ("geog:3.2.2c", &[
+        "Describe Nigeria's location and explain its regional and global importance",
+        "Explain Nigeria's political, social, cultural and environmental context",
+        "Describe how Nigeria's industrial structure has changed and explain how manufacturing stimulates development",
+        "Weigh the advantages and disadvantages of TNCs such as Shell and Unilever to Nigeria",
+        "Explain Nigeria's changing political and trading links, the types and impacts of aid, and the environmental effects of development",
+        "Judge how far economic development has improved quality of life, and for whom",
+    ], "Generic answers that could fit any country. Every paragraph needs a Nigerian fact such as Bodo, the Niger Delta, Dangote or ECOWAS, or the answer is capped at Level 1 or 2."),
+
+    ("geog:3.2.2d", &[
+        "Explain how de-industrialisation, globalisation and government policies have changed the UK economy",
+        "Describe the move to a post-industrial economy and explain why science parks such as Cambridge Science Park locate where they do",
+        "Explain how Torr Quarry reduces the environmental impact of industry",
+        "Compare the social and economic changes in South Cambridgeshire (growth) and the Outer Hebrides (decline)",
+        "Evaluate new road, rail, port and airport developments and the strategies used to reduce the north-south divide",
+        "Describe the UK's place in the world through trade, culture, transport, communications, the EU and the Commonwealth",
+    ], "Rural change needs both areas and both kinds of change, social and economic. Answers that describe only the growing area, or only house prices, can't reach the top level."),
+
+    ("geog:3.2.3.1", &[
+        "Explain why food, water and energy matter to economic and social well-being, and how the three are linked",
+        "Describe global inequalities in the supply and consumption of resources, and give reasons for them",
+        "Explain the UK trends in food: high-value imports from LICs, food miles and local sourcing, and agribusiness",
+        "Describe the UK's areas of water surplus and deficit, and explain why transfers such as Kielder and the Elan Valley are needed",
+        "Describe how the UK energy mix has changed and assess the economic and environmental issues of exploiting different energy sources",
+    ], "Deficit means demand is greater than supply, and the deficit is in the south-east, not the north-west. Swapping them throws away the easiest marks in the section."),
+
+    ("geog:3.2.3.2a", &[
+        "Define food security and food insecurity, and separate areas of surplus from areas of deficit",
+        "Describe the global pattern of calorie intake and food supply from a world map, quoting values",
+        "Explain how rising population and economic development increase food consumption",
+        "Explain how climate, technology, pests and disease, water stress, conflict and poverty affect food supply, with named examples",
+        "Explain the impacts of food insecurity: famine, undernutrition, soil erosion, rising prices and social unrest",
+    ], "Explaining rising food demand only through population growth. Economic development and the shift to meat and dairy is the other half of the answer, and the mark scheme expects both."),
+
+    ("geog:3.2.3.2b", &[
+        "Explain how irrigation, hydroponics and aeroponics, the new green revolution, biotechnology and appropriate technology increase food supply",
+        "Evaluate the advantages and disadvantages of the Indus Basin Irrigation System in Pakistan, using named dams and facts",
+        "Explain how organic farming, permaculture, urban farming, sustainable fish and meat, seasonal eating and less waste make food supply more sustainable",
+        "Explain how sand dams in Makueni County, Kenya, increase sustainable food supplies in an LIC",
+        "Judge whether large-scale or local schemes are the better way to feed people sustainably",
+    ], "Calling a scheme sustainable without saying why. Name the reason: local materials and labour, community ownership, no fuel, no damage to the environment."),
+
+    ("geog:3.3.1", &[
+        "Describe how the pre-release resource booklet works and use the twelve weeks to prepare",
+        "Identify the stakeholders in an issue and explain their conflicting viewpoints, using a conflict matrix",
+        "Assess options by their social, economic and environmental impacts, at different scales and over short and long time periods",
+        "Explain the links between physical and human impacts of a proposal",
+        "Make a clear decision and justify it in a 9-mark answer, using booklet evidence, admitting its drawbacks and rejecting the alternatives",
+    ], "A 9-mark decision with no specific evidence from the resource booklet cannot reach the top level, however good the argument. Quote the figures and data."),
+
+    ("geog:3.3.2", &[
+        "Name the six stages of a geographical enquiry and say what each one involves",
+        "Explain what makes a suitable enquiry question, the theory behind it, and how fieldwork risks are reduced",
+        "Describe and justify data collection methods, including random, systematic and stratified sampling",
+        "Choose, use and adapt presentation methods, and analyse results using statistics, links between data sets and anomalies",
+        "Draw evidenced conclusions and evaluate the accuracy and reliability of your own two enquiries",
+    ], "Own-enquiry answers written in general terms. Without your place, your sites, your equipment and your actual results the answer is held at the bottom level."),
+
+    ("geog:3.4a", &[
+        "Use latitude and longitude, and describe distributions and patterns on atlas maps with evidence and exceptions",
+        "Give four- and six-figure grid references and measure straight and curved distances at 1:50 000 and 1:25 000",
+        "Read height from contours and spot heights, recognise relief features, calculate gradient and draw a cross-section",
+        "Describe river and coastal landscapes from an OS map and infer settlement, communications, land use and tourism",
+        "Interpret ground, aerial and satellite photographs, draw sketch maps and field sketches, and annotate them",
+    ], "Giving northings before eastings in a grid reference loses the whole mark. Along the corridor first, then up the stairs."),
+
+    ("geog:3.4b", &[
+        "Choose, justify and draw the right graph for a data set, from bar charts and histograms to scattergraphs and population pyramids",
+        "Complete and interpret choropleth, isoline, dot, desire-line, proportional-symbol and flow-line maps",
+        "Calculate mean, median, mode, range, quartiles, interquartile range and percentage change, showing working and units",
+        "Describe relationships on a scattergraph, draw a line of best fit, and interpolate or extrapolate from it",
+        "Design a data collection sheet and judge the accuracy, sample size and reliability of data",
+        "Spot how selective presentation of statistics can mislead, and write a well-evidenced conclusion",
+    ], "Percentage change is divided by the original value, not the new one, and a median needs the data in rank order first. Calculations with no working or no units throw away marks even when the method is right."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

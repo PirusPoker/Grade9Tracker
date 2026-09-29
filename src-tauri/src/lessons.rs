@@ -378,6 +378,44 @@ const ENGLANG: &[(&str, &str)] = &[
 /// Every lesson, across subjects.
 /// Every subject's lessons, one line per subject so new subjects append
 /// without touching anyone else's line.
+const GEOG: &[(&str, &str)] = &[
+    ("geog:3.1.1.1", include_str!("../lessons/geog/3.1.1.1.md")),
+    ("geog:3.1.1.2a", include_str!("../lessons/geog/3.1.1.2a.md")),
+    ("geog:3.1.1.2b", include_str!("../lessons/geog/3.1.1.2b.md")),
+    ("geog:3.1.1.2c", include_str!("../lessons/geog/3.1.1.2c.md")),
+    ("geog:3.1.1.3a", include_str!("../lessons/geog/3.1.1.3a.md")),
+    ("geog:3.1.1.3b", include_str!("../lessons/geog/3.1.1.3b.md")),
+    ("geog:3.1.1.3c", include_str!("../lessons/geog/3.1.1.3c.md")),
+    ("geog:3.1.1.4", include_str!("../lessons/geog/3.1.1.4.md")),
+    ("geog:3.1.2.1", include_str!("../lessons/geog/3.1.2.1.md")),
+    ("geog:3.1.2.2a", include_str!("../lessons/geog/3.1.2.2a.md")),
+    ("geog:3.1.2.2b", include_str!("../lessons/geog/3.1.2.2b.md")),
+    ("geog:3.1.2.3a", include_str!("../lessons/geog/3.1.2.3a.md")),
+    ("geog:3.1.2.3b", include_str!("../lessons/geog/3.1.2.3b.md")),
+    ("geog:3.1.3.1", include_str!("../lessons/geog/3.1.3.1.md")),
+    ("geog:3.1.3.2a", include_str!("../lessons/geog/3.1.3.2a.md")),
+    ("geog:3.1.3.2b", include_str!("../lessons/geog/3.1.3.2b.md")),
+    ("geog:3.1.3.2c", include_str!("../lessons/geog/3.1.3.2c.md")),
+    ("geog:3.1.3.3a", include_str!("../lessons/geog/3.1.3.3a.md")),
+    ("geog:3.1.3.3b", include_str!("../lessons/geog/3.1.3.3b.md")),
+    ("geog:3.1.3.3c", include_str!("../lessons/geog/3.1.3.3c.md")),
+    ("geog:3.2.1a", include_str!("../lessons/geog/3.2.1a.md")),
+    ("geog:3.2.1b", include_str!("../lessons/geog/3.2.1b.md")),
+    ("geog:3.2.1c", include_str!("../lessons/geog/3.2.1c.md")),
+    ("geog:3.2.1d", include_str!("../lessons/geog/3.2.1d.md")),
+    ("geog:3.2.2a", include_str!("../lessons/geog/3.2.2a.md")),
+    ("geog:3.2.2b", include_str!("../lessons/geog/3.2.2b.md")),
+    ("geog:3.2.2c", include_str!("../lessons/geog/3.2.2c.md")),
+    ("geog:3.2.2d", include_str!("../lessons/geog/3.2.2d.md")),
+    ("geog:3.2.3.1", include_str!("../lessons/geog/3.2.3.1.md")),
+    ("geog:3.2.3.2a", include_str!("../lessons/geog/3.2.3.2a.md")),
+    ("geog:3.2.3.2b", include_str!("../lessons/geog/3.2.3.2b.md")),
+    ("geog:3.3.1", include_str!("../lessons/geog/3.3.1.md")),
+    ("geog:3.3.2", include_str!("../lessons/geog/3.3.2.md")),
+    ("geog:3.4a", include_str!("../lessons/geog/3.4a.md")),
+    ("geog:3.4b", include_str!("../lessons/geog/3.4b.md")),
+];
+
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
     ("maths", MATHS),
@@ -389,6 +427,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("phys", PHYS),
     ("englit", ENGLIT),
     ("englang", ENGLANG),
+    ("geog", GEOG),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {

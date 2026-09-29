@@ -47,6 +47,8 @@ const PAPERS: &[(&str, &str, &str)] = &[
     ("englit/p2", "englit", include_str!("../papers/englit/p2.md")),
     ("englang/p1", "englang", include_str!("../papers/englang/p1.md")),
     ("englang/p2", "englang", include_str!("../papers/englang/p2.md")),
+    ("geog/p1", "geog", include_str!("../papers/geog/p1.md")),
+    ("geog/p2", "geog", include_str!("../papers/geog/p2.md")),
 ];
 
 #[derive(Serialize, Clone, Debug)]

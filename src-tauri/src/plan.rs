@@ -552,6 +552,49 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("4.7", "Paper 4 Writing: translation into German, the 90- and 150-word tasks", 2.0),
         ],
     },
+    SubjectDef {
+        id: "geog", name: "Geography", full: "AQA GCSE Geography (8035)", color: "var(--geog)",
+        papers: "Paper 1 Living with the physical environment and Paper 2 Challenges in the human environment, each 1h30, 88 marks including 3 for SPaG, 35%. Paper 3 Geographical applications 1h30, 76 marks including 6 for SPaG, 30%, with a pre-release resource booklet 12 weeks before. Options here: hot deserts, coasts and rivers, food",
+        spec: "https://www.aqa.org.uk/subjects/geography/gcse/geography-8035",
+        sections: &["3.1.1 Natural hazards", "3.1.2 The living world", "3.1.3 Physical landscapes in the UK", "3.2.1 Urban issues and challenges", "3.2.2 The changing economic world", "3.2.3 Resource management", "3.3 Geographical applications", "3.4 Geographical skills"],
+        topics: &[
+            ("3.1.1.1", "Natural hazards and what makes the risk higher or lower", 0.5),
+            ("3.1.1.2a", "Plate tectonics and what happens at each plate margin", 1.5),
+            ("3.1.1.2b", "Earthquakes in contrasting countries: Chile 2010 and Nepal 2015", 1.5),
+            ("3.1.1.2c", "Living with tectonic hazards: why people stay, and monitoring, prediction, protection and planning", 1.0),
+            ("3.1.1.3a", "Global atmospheric circulation, and how tropical storms form", 1.5),
+            ("3.1.1.3b", "Tropical storm effects and responses: Typhoon Haiyan 2013, and reducing the effects", 1.5),
+            ("3.1.1.3c", "UK weather hazards and an extreme event: the Somerset Levels floods 2014", 1.0),
+            ("3.1.1.4", "Climate change: evidence, causes, effects, mitigation and adaptation", 2.0),
+            ("3.1.2.1", "Ecosystems: a small UK ecosystem, food webs, nutrient cycling and global biomes", 1.0),
+            ("3.1.2.2a", "Tropical rainforests: characteristics, interdependence and adaptations", 1.0),
+            ("3.1.2.2b", "Deforestation in Malaysia, and managing rainforests sustainably", 1.5),
+            ("3.1.2.3a", "Hot deserts: characteristics, interdependence and adaptations", 1.0),
+            ("3.1.2.3b", "The Sahara: opportunities and challenges, and desertification in the Sahel", 1.5),
+            ("3.1.3.1", "The UK's physical landscapes: uplands, lowlands and river systems", 0.5),
+            ("3.1.3.2a", "Coastal processes: waves, weathering, mass movement, erosion and longshore drift", 1.0),
+            ("3.1.3.2b", "Coastal landforms of erosion and deposition: the Dorset coast at Swanage", 1.5),
+            ("3.1.3.2c", "Coastal management: hard and soft engineering, managed retreat, and Lyme Regis", 1.5),
+            ("3.1.3.3a", "River valleys: long and cross profiles, and fluvial processes", 1.0),
+            ("3.1.3.3b", "River landforms from source to mouth: the River Tees", 1.5),
+            ("3.1.3.3c", "Flood risk, hydrographs and flood management: the Banbury scheme", 1.5),
+            ("3.2.1a", "Urbanisation: global patterns, push-pull migration and megacities", 1.0),
+            ("3.2.1b", "Rio de Janeiro: opportunities and challenges of urban growth, and Favela Bairro", 2.0),
+            ("3.2.1c", "Bristol: a major UK city and its opportunities and challenges", 2.0),
+            ("3.2.1d", "Urban regeneration at Temple Quarter, sustainable urban living and urban transport", 1.5),
+            ("3.2.2a", "Measuring development: classifications, indicators, their limits, and the DTM", 1.5),
+            ("3.2.2b", "Uneven development and strategies to close the gap: tourism in Jamaica", 1.5),
+            ("3.2.2c", "Nigeria: rapid economic development in an NEE", 2.0),
+            ("3.2.2d", "The changing UK economy: post-industrial jobs, rural change, infrastructure and the north-south divide", 2.0),
+            ("3.2.3.1", "Resource management: global inequality, and food, water and energy in the UK", 1.5),
+            ("3.2.3.2a", "Food security and insecurity: patterns, causes and impacts", 1.0),
+            ("3.2.3.2b", "Increasing food supply sustainably: Indus Basin Irrigation and Makueni, Kenya", 1.5),
+            ("3.3.1", "Issue evaluation: using the pre-release booklet and making the 9-mark decision", 1.0),
+            ("3.3.2", "Fieldwork: the six stages of a geographical enquiry", 1.5),
+            ("3.4a", "Map skills: OS maps, grid references, scale, contours, cross-sections and photos", 1.5),
+            ("3.4b", "Graphs, statistics and numbers in geography", 1.0),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).
@@ -849,11 +892,17 @@ mod tests {
         assert_eq!(plan.exam_start, "2028-05-08");
     }
 
+    /// Every built-in subject at once, catalog included, so checks on written
+    /// content reach the subjects a new profile does not start with.
+    fn every_subject() -> PlanConfig {
+        PlanConfig { subjects: crate::config::catalog(), ..PlanConfig::default() }
+    }
+
     /// A mistyped key (several contain en-dashes) would silently write
     /// objectives for a topic that does not exist, so check every one lands.
     #[test]
     fn every_written_topic_matches_a_real_one() {
-        let plan = build(&PlanConfig::default());
+        let plan = build(&every_subject());
         let ids: Vec<&str> = plan.subjects.iter().flat_map(|s| s.topics.iter().map(|t| t.id.as_str())).collect();
         for (id, _, _) in crate::course::TOPIC_DETAIL {
             assert!(ids.contains(id), "course notes written for unknown topic {id}");
@@ -866,7 +915,7 @@ mod tests {
     /// silently absent from the plan.
     #[test]
     fn every_spec_reference_is_covered() {
-        let plan = build(&PlanConfig::default());
+        let plan = build(&every_subject());
         for s in plan.subjects.iter().filter(|s| !s.spec_refs.is_empty()) {
             for r in &s.spec_refs {
                 assert!(
@@ -881,7 +930,7 @@ mod tests {
     /// And nothing is scheduled that is not in the specification.
     #[test]
     fn no_topic_invents_a_spec_reference() {
-        let plan = build(&PlanConfig::default());
+        let plan = build(&every_subject());
         for s in plan.subjects.iter().filter(|s| !s.spec_refs.is_empty()) {
             for t in &s.topics {
                 assert!(
@@ -896,7 +945,7 @@ mod tests {
     /// A subject is only marked as checked if we really do have its reference list.
     #[test]
     fn checked_subjects_are_the_ones_with_reference_lists() {
-        let plan = build(&PlanConfig::default());
+        let plan = build(&every_subject());
         for s in &plan.subjects {
             assert_eq!(
                 s.spec_refs.is_empty(),

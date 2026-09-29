@@ -151,6 +151,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("fre", &[(1, 0.75, 0.5)]),
     ("spa", &[(1, 0.75, 0.5)]),
     ("ger", &[(1, 0.75, 0.5)]),
+    // AQA GCSE Geography (8035)
+    ("geog", &[(1, 1.0, 0.5)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -163,6 +165,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("englit", "school"), ("englang", "school"),
     ("bio", "school"), ("chem", "school"), ("phys", "school"),
     ("fre", "school"), ("spa", "school"), ("ger", "school"),
+    ("geog", "ahead"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -289,6 +292,14 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/german/aqa/past-papers/"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/german/gcse/german-8662/assessment-resources"),
         ("AQA spec (vocabulary list is Appendix 2)", "https://www.aqa.org.uk/subjects/german/gcse/german-8662/specification"),
+    ]),
+    // AQA GCSE Geography (8035). Each link opened and checked 29 September 2026
+    ("geog", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/geography/aqa/18/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/geography/aqa/18/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/geography/aqa/past-papers/"),
+        ("Internet Geography", "https://www.internetgeography.net/aqa-gcse-geography/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/geography/gcse/geography-8035/assessment-resources"),
     ]),
 ];
 
