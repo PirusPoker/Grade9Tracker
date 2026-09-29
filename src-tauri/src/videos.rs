@@ -94,6 +94,13 @@ const SACAPUNTAS: &str = "SACAPUNTAS SPANISH GCSE";
 const YGT: &str = "YourGermanTeacher";
 
 /// (topic id, [(video id, title, creator)]) in the order they should be watched.
+const T2U: &str = "tutor2u";
+const KED: &str = "Keducate";
+const MRB: &str = "Mr B";
+const HAWKS: &str = "Geography Hawks";
+const AUDEN: &str = "Audenshaw Geography";
+const GCS: &str = "Geography Case Studies";
+
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
     // ---------- Computer Science (OCR GCSE J277) ----------
     ("cs:1.1.1", &[
@@ -1881,6 +1888,182 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("_McuKeG9DQI", "Solving Trigonometric Equations", FIRSTCLASS),
         ("cILaBqbmPX0", "Solving Trigonometric Equations 1", CM),
     ]),
+    // ---------- Geography (AQA GCSE 8035) ----------
+    ("geog:3.1.1.1", &[
+        ("LQp_82E2fTs", "What is a Natural Hazard? | AQA GCSE Geography | Natural Hazards 1", T2U),
+        ("9AAWepfiu2Q", "What is Hazard Risk & What Affects it?  AQA GCSE Geography | Natural Hazards 2", T2U),
+        ("-O-pKr8CtMU", "Natural Hazards & Hazard Risk | AQA GCSE 9-1 Geography", KED),
+    ]),
+    ("geog:3.1.1.2a", &[
+        ("-PQBgveU7q0", "Tectonic Plate Boundaries/Margins | AQA GCSE 9-1 Geography", KED),
+        ("GoCkjr5WfyQ", "Destructive Plate Margins | AQA GCSE Geography | Tectonic Hazards 5", T2U),
+        ("1RuhHqOdBnQ", "Constructive Plate Margins | AQA GCSE Geography | Tectonic Hazards 6", T2U),
+    ]),
+    ("geog:3.1.1.2b", &[
+        ("enOkPyisuz4", "5) Comparing the effects of earthquakes - Chile & Nepal - Powered by @GeographyHawks", HAWKS),
+        ("UHLTFaP-2ZE", "6) Comparing responses to earthquakes - Powered by @GeographyHawks", HAWKS),
+        ("Nlp_O6W5kXk", "The Nepal and Chile earthquakes, case studies of contrasting wealth.", "Bonhill Geography"),
+    ]),
+    ("geog:3.1.1.2c", &[
+        ("T6Botca1_FQ", "Why Live in Areas of Tectonic Risk? | AQA GCSE Geography | Tectonic Hazards 10", T2U),
+        ("hK-dUnWv7Zg", "Risk Mitigation (MP3) for Tectonic Hazards | AQA GCSE Geography | Tectonic Hazards 11", T2U),
+        ("dfq9Q6FPBME", "Why do people live near tectonic hazards? | AQA GCSE 9-1 Geography", KED),
+    ]),
+    ("geog:3.1.1.3a", &[
+        ("jvfB4YFRC3w", "Global Atmospheric Circulation | QA GCSE Geography | Weather Hazards 1", T2U),
+        ("0DIqel4KLW0", "How do Tropical Storms Form? | AQA GCSE Geography | Weather Hazards 4", T2U),
+        ("5MuabnhLOdY", "How Might Climate Change Affect Tropical Storms? | AQA GCSE Geography | Weather Hazards 6", T2U),
+    ]),
+    ("geog:3.1.1.3b", &[
+        ("AIZgRjERPgs", "Typhoon Haiyan 2013 (Tropical Storm Case Study) | AQA GCSE 9-1 Geography", KED),
+        ("luG3Wh76ikk", "Tropical Storms & Typhoon Haiyan, 2013 - SUNDAY MORNING COFFEE - AQA GCSE 9-1 Geography 2021", MRB),
+        ("rNPUPrHwuxA", "Reducing the effects of tropical storms | AQA GCSE 9-1 Geography", KED),
+    ]),
+    ("geog:3.1.1.3c", &[
+        ("lFNHFC4ZBgI", "Extreme Weather in the UK | AQA GCSE Geography | Weather Hazards 11", T2U),
+        ("rB4g0pE4Tw8", "Somerset Levels Flooding | AQA GCSE Geography | Weather Hazards 12", T2U),
+        ("FH8E2Q3qfJg", "How Will Extreme Weather Affect the UK? | AQA GCSE Geography | Weather Hazards 15", T2U),
+    ]),
+    ("geog:3.1.1.4", &[
+        ("MMSIp7l2vbU", "Climate Change - Evidence, Causes & Effects | AQA GCSE 9-1 Geography", KED),
+        ("EglASOE5eBo", "Human Causes of Climate Change | AQA GCSE Geography | Climate Change 4", T2U),
+        ("pasfzie_28Q", "Managing Climate Change - Mitigation & Adaptation | AQA GCSE 9-1 Geography", KED),
+    ]),
+    ("geog:3.1.2.1", &[
+        ("t4Pbt0a7E_I", "What is an Ecosystem? | AQA GCSE Geography | Ecosystems 1", T2U),
+        ("PlBTnEnhR44", "Small-scale Ecosystems | AQA GCSE Geography | Ecosystems 3", T2U),
+        ("f2vt9mh7dfc", "Global Biomes | AQA GCSE Geography | Ecosystems 4", T2U),
+    ]),
+    ("geog:3.1.2.2a", &[
+        ("EiBJ6fFDoAU", "What are Tropical Rainforests Like? | AQA GCSE Geography | Tropical Rainforests 1", T2U),
+        ("AoI_ueDjC-s", "Adapting to the Tropical Rainforest | AQA GCSE Geography | Tropical Rainforests 2", T2U),
+        ("15osu_Ga4-A", "The Tropical Rainforest's Interdependence - AQA GCSE Geography", "Mr Sheehan Geography"),
+    ]),
+    ("geog:3.1.2.2b", &[
+        ("7lW_CxGYtSA", "Malaysian Rainforest (Rainforest Case Study) | AQA GCSE 9-1 Geography", KED),
+        ("AItfFfU_8NA", "Paper 1 Section B - The Living World: Deforestation in Malaysia - Causes, Impacts and Management", AUDEN),
+        ("teezEfPopYI", "Sustainable Management of Tropical Rainforests | AQA GCSE 9-1 Geography", KED),
+    ]),
+    ("geog:3.1.2.3a", &[
+        ("umj-z3Q5154", "What are Hot Deserts Like? | AQA GCSE Geography | Hot Deserts 1", T2U),
+        ("uGRvnUVkwec", "Adapting to Hot Deserts | AQA GCSE Geography | Hot Deserts 2", T2U),
+        ("m0sc8-F2PmI", "How have plants and animals adapted to hot deserts?", "Internet Geography"),
+    ]),
+    ("geog:3.1.2.3b", &[
+        ("0K-7Um7Wi_A", "GCSE, Hot Deserts  - The Sahara, Challenges to Developments", "Horizon Education"),
+        ("uxeqjW0U9-w", "Sahel and Desertification AQA GCSE Geography", "mrcoolegeography"),
+        ("4xls7K_xFBQ", "Why is Africa building a Great Green Wall? BBC News", "BBC News"),
+    ]),
+    ("geog:3.1.3.1", &[
+        ("42mbHe0Epyg", "Physical Landscapes in the UK | AQA GCSE 9-1 Geography", KED),
+        ("O_Rsbt_Yg9w", "UK relief, rivers and landscapes", "Rob Gamesby"),
+        ("oOvm4c8O73E", "The UK's Physical Landscape: The Basics", "Simple Geography"),
+    ]),
+    ("geog:3.1.3.2a", &[
+        ("JC47DJU4gWE", "What Affects Waves? | AQA GCSE Geography | Coastal Landscapes 1", T2U),
+        ("l20SZC3O090", "Weathering and Mass Movement | AQA GCSE Geography | Coastal Landscapes 2", T2U),
+        ("6z2N8Mtv_kw", "Erosion, Transportation and Deposition | AQA GCSE Geography | Coastal Landscapes 3", T2U),
+    ]),
+    ("geog:3.1.3.2b", &[
+        ("JO1QeONbGCk", "COASTAL LANDFORMS at SWANAGE  | GCSE Geography Revision | 100 Day Exam Countdown 10.6", "Mrs B Geography"),
+        ("gIUThLF7bIw", "Landforms of Erosion: Caves, Arches, Stacks and Stumps | AQA GCSE Geography Coastal Landscapes 5", T2U),
+        ("MGHissPs180", "Landforms of Deposition: Spits | AQA GCSE Geography | Coastal Landscapes 9", T2U),
+    ]),
+    ("geog:3.1.3.2c", &[
+        ("Z2CsQjliQq4", "Coastal Management - Hard & Soft Engineering, Managed Retreat | AQA GCSE 9-1 Geography", KED),
+        ("goIBgpLn7yc", "Coastal Management/Engineering Strategies at Lyme Regis - OMG Revision – GCSE Geography 9-1", "OMG Revision"),
+        ("x7jemyJujg8", "Medmery managed realignment scheme", "Environment Agency"),
+    ]),
+    ("geog:3.1.3.3a", &[
+        ("67JGxLsi8oM", "The River's Long Profile | AQA GCSE Geography | River Landscapes 2", T2U),
+        ("mTIQDg1bV2I", "The River's Cross Profile | AQA GCSE Geography | River Landscapes 3", T2U),
+        ("5JBVCaDntzI", "Fluvial Erosion, Transportation and Deposition | AQA GCSE Geography | River Landscapes 1", T2U),
+    ]),
+    ("geog:3.1.3.3b", &[
+        ("gDnGumb5NrY", "River Landforms - Waterfalls, Meanders, Oxbow Lakes, Levees & More | AQA GCSE 9-1 Geography", KED),
+        ("nvPYWbIq8jE", "River Tees (River Landforms Case Study) | AQA GCSE 9-1 Geography", KED),
+        ("Nb5HNFdjcLo", "River Tees Case Study – Upper to Lower Course Explained | AQA GCSE Geography", "Hums Mums"),
+    ]),
+    ("geog:3.1.3.3c", &[
+        ("5ThPRongOzU", "Flood Hydrographs | AQA GCSE Geography | River Landscapes 9", T2U),
+        ("udCezdUJoXc", "Flood Management: Soft & Hard Engineering | AQA GCSE 9-1 Geography", KED),
+        ("c1ZpmItlvkQ", "BANBURY FLOOD ALLEVIATION SCHEME CASE STUDY - AQA GCSE 9-1 Geography 2020", MRB),
+    ]),
+    ("geog:3.2.1a", &[
+        ("7lwllykzeKo", "What is Urbanisation? | AQA GCSE Geography | Urbanisation 1", T2U),
+        ("llZ2-q_paoE", "Urbanisation: Natural Increase & Push/Pull Factors | AQA GCSE 9-1 Geography", KED),
+        ("REcu0XG0iqc", "Megacities | AQA GCSE Geography | Urbanisation 2", T2U),
+    ]),
+    ("geog:3.2.1b", &[
+        ("BHSo0mT9naY", "Rio de Janeiro Urbanisation Case Study - SUNDAY MORNING COFFEE - AQA GCSE 9-1 Geography 2021", MRB),
+        ("lk0efjOZPHo", "Why is Rio de Janeiro Important? | AQA GCSE Geography | Rio de Janeiro (Brazil) City Study 1", T2U),
+        ("H7Eh8jmS1pw", "Paper 2 Section A - Urban Issues and Challenges: The Favela Bairro Project", AUDEN),
+    ]),
+    ("geog:3.2.1c", &[
+        ("eulPP0MthKI", "Paper 2 Section A - Urban Issues and Challenges: Opportunities and Challenges in Bristol", AUDEN),
+        ("SeTfq_lMlYQ", "Bristol - AQA GCSE Geography Paper 2 Case Study", GCS),
+        ("yFCUbhr4YEw", "Where do people live in the UK (Urban Change in the UK) – OMG Revision – GCSE Geography 9-1", "OMG Revision"),
+    ]),
+    ("geog:3.2.1d", &[
+        ("NgvMGi9hAAo", "3 - Temple Quarter Regeneration Project - AQA GCSE GEOGRAPHY - BRISTOL CASE STUDY - Revision", MRB),
+        ("7HS_TdDphjc", "Freiburg, Germany (Sustainable Urban Living Example) | AQA GCSE 9-1 Geography", KED),
+        ("a_4U9KP6ZMw", "4) Sustainable urban transport strategies. Powered by @GeographyHawks", HAWKS),
+    ]),
+    ("geog:3.2.2a", &[
+        ("LbQ4G0JD-D8", "Classifying Development | AQA GCSE Geography | Development Gap 1", T2U),
+        ("7ckGMBrEVzw", "Measuring Development | AQA GCSE 9-1 Geography", KED),
+        ("6YYIXoywGm8", "Demographic Transition Model | AQA GCSE Geography | Development Gap 5", T2U),
+    ]),
+    ("geog:3.2.2b", &[
+        ("r7DOV2ZGzCM", "Uneven Development | AQA GCSE 9-1 Geography", KED),
+        ("2BK3L7Ctmj4", "Reducing the development gap | GCSE GEOGRAPHY", "No Waffle GCSE"),
+        ("73FvZ5-DlAk", "Tourism Reducing the Development Gap, Jamaica Case Study - AQA GCSE Geography", "Mr Sheehan Geography"),
+    ]),
+    ("geog:3.2.2c", &[
+        ("TmirbTQRPrQ", "Introduction to Nigeria - a NEE - AQA GCSE Geography Unit 2B", HAWKS),
+        ("S6RQMNR70tI", "NIGERIA CASE STUDY - NEE Example - SUNDAY MORNING COFFEE - AQA GCSE 9-1 Geography 2022", MRB),
+        ("FV2eOG7PbMo", "Paper 2 Section B - The Changing Economic World: Shell in Nigeria Case Study", AUDEN),
+    ]),
+    ("geog:3.2.2d", &[
+        ("9obg_rnGTJw", "The UK's Changing Employment Structure | AQA GCSE Geography | UK Economic Futures 1", T2U),
+        ("5M1CLvWatbs", "UK Rural Population Change | AQA GCSE Geography | UK Economic Futures 6", T2U),
+        ("_zgjuy0advs", "UK North South Divide | AQA GCSE Geography | UK Economic Futures 7", T2U),
+    ]),
+    ("geog:3.2.3.1", &[
+        ("C-XH8hqMePQ", "Global Access to Resources | AQA GCSE Geography | Global Resources 1", T2U),
+        ("o_ciFkYWTvo", "UK Food, Water and Energy", GCS),
+        ("zobzSFrQyqM", "UK Energy Mix | AQA GCSE Geography | UK Overview 7", T2U),
+    ]),
+    ("geog:3.2.3.2a", &[
+        ("bH13o72Wjlo", "Global Demand for Food | AQA GCSE Geography | Food 1", T2U),
+        ("HfOSq8ILL_4", "Causes of Food Insecurity | AQA GCSE Geography | Food 2", T2U),
+        ("yDccTm2Wv9U", "Impacts of Food Insecurity | AQA GCSE Geography | Food 3", T2U),
+    ]),
+    ("geog:3.2.3.2b", &[
+        ("Zz7y7lEKFag", "Increasing Food Supply | AQA GCSE Geography | Food 4", T2U),
+        ("irg6H2rpfwE", "Large-scale Agriculture Case Study: Indus River Basin | AQA GCSE Geography | Food 6", T2U),
+        ("jGgrGxl9A1o", "Sustainable Farming Case Study: Makueni Food and Water Security | AQA GCSE Geography | Food 10", T2U),
+    ]),
+    ("geog:3.3.1", &[
+        ("xR_Uyk6fpYo", "AQA Geography Paper 3 - Section A", "Geography Juice"),
+        ("fotZoKsyYSs", "How to answer a 9 marker! - GCSE GEOGRAPHY 9 Markers - Exam technique", MRB),
+        ("7fQJ1S6Ydis", "How to answer Geography Questions (Top tips for 4, 6 and 9 mark questions) AQA GCSE Geography", GCS),
+    ]),
+    ("geog:3.3.2", &[
+        ("iTP12kbUvFE", "AQA Geography Paper 3 - Fieldwork Examples", "Geography Juice"),
+        ("Gl6sPzd2gy8", "GCSE Geography | River Fieldwork | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+        ("a3SjbEpC-QM", "Unseen Fieldwork - AQA Geography GCSE Paper 3", "MrVisGeography"),
+    ]),
+    ("geog:3.4a", &[
+        ("YMeVobilUxo", "Ordnance Survey Maps - GEOGRAPHY BASICS", MRB),
+        ("Spi-7sT2Y5E", "4 & 6 Figure Grid References - GEOGRAPHY BASICS", MRB),
+        ("4i_6eToM3X8", "Understanding contour lines with Steve Backshall and Ordnance Survey", "Ordnance Survey"),
+    ]),
+    ("geog:3.4b", &[
+        ("_u0cZ-MXMoQ", "How to answer graph questions AQA GCSE Geography", "NDAGeography"),
+        ("MczCAN9hSEI", "Calculating the Interquartile Range", "Pimlico Geography"),
+        ("KnA9Xdv2I8g", "Percentage change in Geography", "lfata geography"),
+    ]),
     // ---------- French (AQA GCSE 8652) ----------
     ("fre:3.1.1a", &[
         ("nQH0JWXA2v4", "Identity and relationships", COLLINS),
@@ -2303,7 +2486,7 @@ mod tests {
     /// Subjects whose every topic has a video to start from.
     #[test]
     fn covered_subjects_have_a_video_on_every_topic() {
-        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger"] {
+        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog"] {
             let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
             for (code, _, _) in def.topics {
                 assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");
