@@ -142,6 +142,25 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
         "3.2.1", "3.2.2", "3.2.3", "3.2.4", "3.2.5", "3.2.6", "3.2.7", "3.2.8", "3.2.9",
         "3.3.1", "3.3.2", "3.3.3", "3.3.4", "3.3.5", "3.3.6", "3.3.7", "3.3.8", "3.3.9", "3.3.10", "3.3.11",
     ]),
+    // Food Preparation and Nutrition - AQA GCSE 8585, read from the
+    // specification PDF version 1.1, 21 January 2019 (read 29 September 2026).
+    // The lowest-level numbered references in sections 3.2-3.6; 3.2.2.1,
+    // 3.2.3.1 and 3.5.1.2 are split a/b. Section 3.1 (the twelve skill groups)
+    // has no numbered content of its own and is folded into these topics;
+    // 3.7 is assessed only through the NEA.
+    ("food", &[
+        "3.2.1.1", "3.2.1.2", "3.2.1.3",
+        "3.2.2.1", "3.2.2.2", "3.2.2.3",
+        "3.2.3.1", "3.2.3.2", "3.2.3.3", "3.2.3.4",
+        "3.3.1.1", "3.3.1.2",
+        "3.3.2.1", "3.3.2.2", "3.3.2.3", "3.3.2.4", "3.3.2.5",
+        "3.4.1.1", "3.4.1.2", "3.4.1.3", "3.4.1.4",
+        "3.4.2.1", "3.4.2.2",
+        "3.5.1.1", "3.5.1.2", "3.5.1.3",
+        "3.5.2", "3.5.3",
+        "3.6.1.1", "3.6.1.2", "3.6.1.3",
+        "3.6.2.1", "3.6.2.2",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -4677,6 +4696,263 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Explain how to prepare a surface, and choose and apply a finish for function and aesthetics",
         "Explain how corrosion and oxidation affect materials and how finishes protect them",
     ], "Preparation is part of the finish. A finish answer that skips cleaning, degreasing or sanding misses the first marking point."),
+    // ---------- Food Preparation and Nutrition (AQA GCSE 8585) ----------
+    ("food:3.2.1.1", &[
+        "Explain the functions of protein: growth, repair and maintenance of body tissue, and a secondary source of energy",
+        "Distinguish high and low biological value proteins, with plant and animal sources of each",
+        "Explain protein complementation with meal examples such as beans on toast or dhal with rice",
+        "Compare the protein alternatives TVP, soya, mycoprotein and tofu: source, nutrients and uses",
+        "State the effects of deficiency (poor growth, kwashiorkor, weak immunity) and excess, and the adult reference intake",
+    ], "HBV means all the essential amino acids, not 'a lot of protein'. Soya and quinoa are plant HBV proteins, and examiners reward knowing that exception."),
+
+    ("food:3.2.1.2", &[
+        "Explain the functions of fat: energy store, insulation, protecting organs and supplying vitamins A, D, E and K",
+        "Compare saturated and unsaturated fats by structure, state at room temperature and typical sources",
+        "Explain the link between high saturated fat intake, raised cholesterol and coronary heart disease",
+        "Apply the reference values (no more than 35% of energy from fat, 11% from saturated fat) to modify a recipe",
+    ], "Saying fats are 'bad for you' scores nothing. Name the type of fat, the health effect and a specific swap, such as grilling instead of frying or using a lower-fat cheese."),
+
+    ("food:3.2.1.3", &[
+        "Explain the function of carbohydrate as the body's main energy source, and the role of dietary fibre",
+        "Classify carbohydrates as monosaccharides, disaccharides and polysaccharides, with examples of each",
+        "Explain the difference between free sugars and naturally occurring sugars, and the 5% free-sugar limit",
+        "Explain the effects of too little fibre (constipation, bowel disease) and too much sugar (weight gain, tooth decay, type 2 diabetes)",
+        "Modify a recipe to increase fibre, for example wholemeal flour, skins left on, added pulses or oats",
+    ], "Fibre is not digested, so it gives no energy. Students who say fibre 'gives slow-release energy' lose the mark; that is starch."),
+
+    ("food:3.2.2.1a", &[
+        "State the functions of vitamins A, D, E and K and a main source of each",
+        "Explain the deficiency diseases: night blindness (A), rickets and osteomalacia (D), poor blood clotting (K)",
+        "Explain why fat-soluble vitamins can build up to harmful levels, including vitamin A in pregnancy",
+        "Explain how vitamin D works with calcium, and why sunlight is a major source",
+    ], "Vitamin D does not build bones by itself: it helps the body absorb calcium. Answers that miss the calcium link rarely get the second mark."),
+
+    ("food:3.2.2.1b", &[
+        "State the functions, sources and deficiencies of B1, B2, B3, folic acid, B12 and vitamin C",
+        "Explain why vitamin B12 is a concern for vegans and folic acid for women planning pregnancy",
+        "Explain how water-soluble vitamins are lost by leaching into cooking water, by heat and by oxidation",
+        "Give practical ways to conserve them: steam or microwave, cook briefly, cut just before cooking, use the cooking water",
+        "Explain the antioxidant role of vitamins A, C and E in protecting body cells from damage",
+    ], "A method to conserve vitamin C needs its reason. 'Steam the vegetables' is one mark; 'so the vitamin C does not dissolve into the water' earns the second."),
+
+    ("food:3.2.2.2", &[
+        "State the function, sources and effects of deficiency and excess for calcium, iron, sodium, fluoride, iodine and phosphorus",
+        "Explain how vitamin C helps iron absorption and vitamin D helps calcium absorption",
+        "Distinguish haem iron (meat) from non-haem iron (plants) and why vegetarians need to plan for iron",
+        "Explain the risks of too much salt and give ways to cut salt when cooking, such as herbs and spices",
+    ], "Iron deficiency anaemia causes tiredness and pale skin; it is not 'weak bones'. Mixing up the calcium and iron effects is the commonest lost mark here."),
+
+    ("food:3.2.2.3", &[
+        "Explain the functions of water: removing waste, cooling the body through sweat, and helping digestion",
+        "Describe how water is lost from the body and the signs of dehydration",
+        "State the daily fluid guidance (6 to 8 glasses) and what counts towards it",
+        "Identify occasions when extra fluid is needed: exercise, hot weather, illness, pregnancy and breastfeeding",
+    ], "Fluids count, not just plain water. But sugary drinks carry free sugars, so the best answers say which drinks to choose as well as how much."),
+
+    ("food:3.2.3.1a", &[
+        "Describe the Eatwell Guide's five groups and the current healthy eating guidelines",
+        "Apply the guidelines to judge a meal, a menu or a food diary",
+        "Explain portion size control and how to cost a recipe per portion",
+        "Explain how to maintain a healthy body weight through energy balance",
+    ], "Evaluating a food diary means naming the actual foods in it. A general lecture on healthy eating that ignores the diary caps you in the lowest level."),
+
+    ("food:3.2.3.1b", &[
+        "Explain how nutritional needs change for young children, teenagers, adults and the elderly",
+        "Plan a balanced meal for vegetarian and vegan diets, with the nutrients at risk and how to replace them",
+        "Plan meals for coeliac, lactose intolerant and high-fibre diets, naming safe substitutes",
+        "Justify each choice with the nutrient it supplies and why that group needs it",
+    ], "A teenage girl needs iron because of menstruation and calcium for peak bone mass. Listing nutrients without the reason for that life stage loses half the marks."),
+
+    ("food:3.2.3.2", &[
+        "Define basal metabolic rate and physical activity level, and the factors that affect BMR",
+        "Explain energy balance and what happens when intake and output do not match",
+        "Recall the recommended energy split: protein 15%, fat no more than 35%, carbohydrate 50% (free sugars no more than 5%)",
+        "Calculate energy from nutrients using 4 kcal/g for protein and carbohydrate and 9 kcal/g for fat",
+    ], "Energy calculations need the working shown. Grams times kcal per gram, then the percentage of the total: a bare answer usually scores only the final mark."),
+
+    ("food:3.2.3.3", &[
+        "Use food tables and nutritional analysis software to calculate the energy and nutrients in a recipe",
+        "Compare the results with dietary reference values for the target group",
+        "Modify a recipe to meet guidelines and explain the effect of each change",
+        "Interpret nutritional data in a table and draw a justified conclusion",
+    ], "When asked to modify a recipe, change the named ingredient and say what it improves. 'Use healthier ingredients' is too vague to score."),
+
+    ("food:3.2.3.4", &[
+        "Explain the dietary causes of obesity, coronary heart disease and high blood pressure",
+        "Explain bone health: rickets and osteoporosis, and the roles of calcium, vitamin D and exercise",
+        "Explain dental caries and the role of free sugars and fluoride",
+        "Explain iron deficiency anaemia and type 2 diabetes, with dietary advice to reduce each risk",
+    ], "Diet-related disease answers need a chain: which nutrient, what it does to the body, and the health result. A list of 'bad foods' does not reach the higher levels."),
+
+    ("food:3.3.1.1", &[
+        "Explain the reasons for cooking food: safety, flavour, texture, shelf life and variety",
+        "Explain conduction, convection and radiation with a cooking example of each",
+        "Explain why a sauce must be stirred (agitation) as it heats",
+        "Describe how cooking changes the appearance, colour, flavour, texture and smell of food",
+    ], "Most cooking uses more than one method. Boiling pasta is convection in the water and conduction through the pan; naming only one loses the mark."),
+
+    ("food:3.3.1.2", &[
+        "Classify cooking methods as water-based, dry and fat-based, with examples of each",
+        "Explain how a method conserves or reduces nutrients, especially water-soluble vitamins and fat",
+        "Choose and justify a method for a named food and outcome, such as braising a tough cut of meat",
+        "Explain how marinades, browning and glazing change flavour, texture and appearance",
+    ], "Justify the choice. 'Steam broccoli' earns a mark; 'because it does not sit in water, so less vitamin C leaches out' earns the rest."),
+
+    ("food:3.3.2.1", &[
+        "Explain denaturation by heat, acid and mechanical action, with examples such as marinades and whisking",
+        "Explain coagulation of egg, meat and fish proteins and the temperatures involved",
+        "Explain how gluten forms from glutenin and gliadin when flour is mixed with water and kneaded",
+        "Explain foam formation when egg white is whisked, and why fat or yolk stops it forming",
+        "Explain faults such as over-coagulated scrambled egg and curdled custard",
+    ], "Denaturation is the unfolding of the protein; coagulation is the setting that follows. Using the words the wrong way round costs marks in almost every series."),
+
+    ("food:3.3.2.2", &[
+        "Explain gelatinisation in a sauce: starch granules absorb liquid, swell and burst to thicken it",
+        "Explain how the starch-to-liquid ratio affects viscosity",
+        "Explain dextrinisation (dry heat on starch, as in toast or crusts) and caramelisation (heat on sugar)",
+        "Explain faults such as a lumpy or thin white sauce and how to prevent them",
+    ], "Gelatinisation needs liquid and heat. Dextrinisation is dry heat on starch; caramelisation is heat on sugar. Swapping them is the classic error."),
+
+    ("food:3.3.2.3", &[
+        "Explain shortening: fat coats flour particles and stops long gluten strands forming, giving a crumbly texture",
+        "Explain aeration in creaming, and plasticity in spreading and pastry",
+        "Explain emulsification: an emulsifier such as lecithin in egg yolk holds oil and water together",
+        "Explain faults such as a curdled cake mixture or split mayonnaise and how to prevent them",
+    ], "For shortening, say what the fat stops: gluten development. 'Fat makes pastry short' just restates the word."),
+
+    ("food:3.3.2.4", &[
+        "Explain enzymic browning: cut cells release enzymes that react with oxygen and turn fruit brown",
+        "Explain how acid, blanching, chilling and covering prevent enzymic browning",
+        "Explain oxidation as a cause of vitamin C loss when vegetables are cut and left exposed",
+        "Apply both ideas to a practical preparation task",
+    ], "Lemon juice works because its acid lowers the pH and slows the enzyme. Students who say it 'stops air getting in' confuse two separate methods."),
+
+    ("food:3.3.2.5", &[
+        "Explain chemical raising agents: bicarbonate of soda, baking powder and self-raising flour produce carbon dioxide",
+        "Explain mechanical methods that trap air: whisking, beating, folding, sieving, creaming and rubbing in",
+        "Explain steam as a raising agent in choux pastry, Yorkshire puddings and batters",
+        "Explain yeast fermentation and the conditions yeast needs: warmth, moisture, food and time",
+        "Explain faults such as a sunken cake or a dense loaf",
+    ], "Bicarbonate of soda alone leaves a soapy, bitter taste and a yellow colour unless an acid is present. That detail is what separates a grade 9 answer."),
+
+    ("food:3.4.1.1", &[
+        "Explain the growth conditions for microorganisms: temperature, moisture, food and time",
+        "Explain how temperature control, pH and removing water control growth",
+        "Define high-risk foods and give examples",
+        "Explain that enzymes are biological catalysts, and how blanching and acids control them",
+    ], "High-risk foods are ready to eat, moist and high in protein, and need no further cooking. Raw chicken is not a high-risk food by that definition, because it will be cooked."),
+
+    ("food:3.4.1.2", &[
+        "Describe the signs of enzymic action: ripening bananas and browning fruit",
+        "Recognise mould growth on bread and cheese, and why mouldy food should be discarded",
+        "Describe yeast action on fruits such as grapes, strawberries and tomatoes",
+        "Explain how washing, chilling and correct storage slow spoilage",
+    ], "Spoilage is not the same as food poisoning. Spoiled food looks or smells wrong; food with pathogenic bacteria can look perfectly normal."),
+
+    ("food:3.4.1.3", &[
+        "Explain how yeast is used to raise bread",
+        "Explain how bacteria are used to make yoghurt and cheese",
+        "Explain how moulds are used to make blue cheese",
+        "Sequence the stages of cheese or yoghurt making and explain what each stage does",
+    ], "In yoghurt the bacteria turn lactose into lactic acid, and the acid sets the milk protein. Missing the acid step leaves the explanation incomplete."),
+
+    ("food:3.4.1.4", &[
+        "Identify the sources of contamination: raw foods, surfaces and equipment, people, pests, waste",
+        "Match campylobacter, E. coli, salmonella, listeria and staphylococcus aureus to their main sources",
+        "Describe the general symptoms of food poisoning",
+        "Explain the controls for each bacterium, such as thorough cooking, chilling and hand hygiene",
+    ], "Staphylococcus aureus comes from people (skin, nose, cuts), so the control is personal hygiene, not just cooking. Matching the control to the source is the mark."),
+
+    ("food:3.4.2.1", &[
+        "Recall the key temperatures: freezer -18°C, fridge 0 to below 5°C, danger zone 5 to 63°C, cook and reheat to 75°C",
+        "Explain use-by and best-before dates and which foods carry each",
+        "Explain correct use of fridges and freezers, including where to store raw meat",
+        "Explain ambient storage and why food should be covered",
+    ], "Use-by is about safety and best-before about quality. Saying food is 'unsafe' after its best-before date loses the mark."),
+
+    ("food:3.4.2.2", &[
+        "Explain personal hygiene rules when preparing food",
+        "Explain how to prevent cross-contamination: separate boards and utensils, raw below cooked",
+        "Explain safe defrosting and reheating, and care with high-risk foods",
+        "Explain how to use and clean a temperature probe correctly",
+    ], "Give the reason with each rule. 'Tie hair back' is one mark; 'so hair and bacteria do not fall into the food' completes it."),
+
+    ("food:3.5.1.1", &[
+        "Explain how PAL, occasion, cost, preference, enjoyment, availability, healthy eating, income, lifestyle, seasonality, time of day and time available affect food choice",
+        "Cost a recipe and a single portion from ingredient prices",
+        "Modify a recipe to cut its cost while keeping it nutritious",
+        "Apply the factors to a named person or family in a scenario",
+    ], "Costing questions need the portion step. Work out the cost of the amount used, add the totals, then divide by the number of portions."),
+
+    ("food:3.5.1.2a", &[
+        "Describe the dietary practices of Buddhism, Christianity, Hinduism, Islam, Judaism, Rastafarianism and Sikhism",
+        "Explain the reasons behind the rules, such as halal and kosher slaughter or the Ital diet",
+        "Adapt a recipe so it suits a named religious or cultural group",
+        "Explain how culture shapes food choice beyond religion",
+    ], "Not every Hindu is vegetarian, but beef is avoided. Precise wording ('most', 'many', 'avoid') protects marks that sweeping statements lose."),
+
+    ("food:3.5.1.2b", &[
+        "Explain food choices linked to animal welfare, Fairtrade, local produce, organic and GM foods",
+        "Distinguish a food intolerance (gluten, lactose) from a food allergy",
+        "Explain the risks of allergies to nuts, egg, milk, wheat, fish and shellfish, including anaphylaxis",
+        "Adapt recipes for people with intolerances and allergies",
+    ], "An allergy is an immune-system reaction that can be fatal; an intolerance is a digestive reaction. Mixing them up is marked wrong every time."),
+
+    ("food:3.5.1.3", &[
+        "State the mandatory information on food labels",
+        "Identify non-mandatory information such as provenance and serving suggestions",
+        "Interpret a nutrition label and traffic-light front-of-pack labelling",
+        "Explain how marketing influences choice: multi-buy offers, meal deals, advertising, media and point of sale",
+    ], "Marketing answers should say why the technique works on the consumer, for example a meal deal encouraging extra spending on drinks and snacks."),
+
+    ("food:3.5.2", &[
+        "Describe the distinctive features of British cuisine and two international cuisines",
+        "Describe the equipment and cooking methods typical of each cuisine",
+        "Describe eating patterns and presentation styles",
+        "Compare traditional and modern variations of a recipe",
+    ], "Use named dishes, ingredients and equipment. 'Chinese food uses a wok and is stir fried' is thin; adding soy, ginger, rice and sharing dishes gives the detail."),
+
+    ("food:3.5.3", &[
+        "Explain how taste receptors and the olfactory system work together when tasting food",
+        "Describe preference tests (paired preference, hedonic) and the triangle discrimination test",
+        "Describe grading tests: ranking, rating and profiling (star diagrams)",
+        "Explain how to set up a fair taste panel under controlled conditions",
+    ], "Controlled conditions are about fairness: same portion size, same plates, coded samples, water between tastings. Each distinct control is a separate mark."),
+
+    ("food:3.6.1.1", &[
+        "Explain where and how food is grown, reared and caught",
+        "Compare organic and conventional farming",
+        "Compare free-range and intensive production",
+        "Explain sustainable fishing, and the advantages and disadvantages of local, seasonal and GM foods",
+    ], "Give both sides for farming methods. Free range has better welfare but costs more and uses more land; one-sided answers are capped."),
+
+    ("food:3.6.1.2", &[
+        "Explain the environmental impact of transport, food miles and the carbon footprint of food",
+        "Explain reasons for buying seasonal and locally produced food",
+        "Explain food waste in the home, in production and by retailers, and ways to reduce it",
+        "Explain the environmental issues of packaging and more sustainable alternatives",
+    ], "Evaluate, don't just list. Local food cuts food miles, but a tomato grown in a heated UK greenhouse can have a larger carbon footprint than one shipped from Spain."),
+
+    ("food:3.6.1.3", &[
+        "Define food security and explain the challenge of feeding a growing world population",
+        "Explain how climate change, drought, flooding and insufficient land affect food supply",
+        "Explain the roles of Fairtrade, GM foods and cutting food waste in food security",
+        "Evaluate solutions at local and global level",
+    ], "Food security is access to enough safe, nutritious, affordable food, not simply 'having enough food'. The definition has several parts and each earns credit."),
+
+    ("food:3.6.2.1", &[
+        "Distinguish primary processing (such as milling wheat or heat treating milk) from secondary processing",
+        "Compare pasteurised, UHT, sterilised and micro-filtered milk",
+        "Explain secondary processing examples: flour into bread and pasta, milk into cheese and yoghurt, fruit into jam",
+        "Explain vitamin loss from heating and drying, and the effect of heat on the flavour and colour of milk",
+    ], "Primary processing makes a raw material usable; secondary processing turns it into a different product. Flour is primary, bread secondary."),
+
+    ("food:3.6.2.2", &[
+        "Explain fortification, with the UK examples: white flour, breakfast cereals and fat spreads",
+        "Explain how cholesterol-lowering spreads work and judge their efficacy",
+        "Evaluate the use of additives: colourings, emulsifiers and stabilisers, flavourings and preservatives",
+        "Evaluate the positive and negative aspects of GM foods",
+    ], "Evaluation questions on additives and GM need both sides and a conclusion. Listing only disadvantages cannot reach the top level."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

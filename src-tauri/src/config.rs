@@ -168,6 +168,9 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // Media Studies: taught across both years at school; recall on the set products.
     ("media", &[(1, 0.5, 0.25)]),
     ("dt", &[(1, 0.5, 0.25)]),
+    // Food: taught through both years at school, and the NEA takes the lesson
+    // time in Year 11, so recall on the written-paper content only.
+    ("food", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -188,6 +191,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("pe", "school"),
     ("media", "school"),
     ("dt", "school"),
+    ("food", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -386,6 +390,17 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("BBC Bitesize (AQA)", "https://www.bbc.co.uk/bitesize/examspecs/zby2bdm"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/design-and-technology/gcse/design-and-technology-8552/assessment-resources"),
         ("AQA specification", "https://www.aqa.org.uk/subjects/design-and-technology/gcse/design-and-technology-8552/specification"),
+    ]),
+    // AQA GCSE Food Preparation and Nutrition 8585. Every link opened and checked
+    // on 29 September 2026: the Save My Exams pages are its AQA 8585 course
+    // (sections match the spec's 3.1-3.6, past papers are 8585/W). BBC Bitesize's
+    // GCSE food page is CCEA Home Economics, not AQA, so it is not listed.
+    ("food", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/food-and-nutrition/aqa/food-preparation-and-nutrition/16/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/food-and-nutrition/aqa/food-preparation-and-nutrition/16/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/food-and-nutrition/aqa/food-preparation-and-nutrition/past-papers/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/food-preparation-and-nutrition/gcse/food-preparation-and-nutrition-8585/assessment-resources"),
+        ("AQA spec", "https://www.aqa.org.uk/subjects/food-preparation-and-nutrition/gcse/food-preparation-and-nutrition-8585/specification"),
     ]),
 ];
 

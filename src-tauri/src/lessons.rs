@@ -727,6 +727,44 @@ const DT: &[(&str, &str)] = &[
     ("dt:3.3.10", include_str!("../lessons/dt/3.3.10.md")),
     ("dt:3.3.11", include_str!("../lessons/dt/3.3.11.md")),
 ];
+const FOOD: &[(&str, &str)] = &[
+    ("food:3.2.1.1", include_str!("../lessons/food/3.2.1.1.md")),
+    ("food:3.2.1.2", include_str!("../lessons/food/3.2.1.2.md")),
+    ("food:3.2.1.3", include_str!("../lessons/food/3.2.1.3.md")),
+    ("food:3.2.2.1a", include_str!("../lessons/food/3.2.2.1a.md")),
+    ("food:3.2.2.1b", include_str!("../lessons/food/3.2.2.1b.md")),
+    ("food:3.2.2.2", include_str!("../lessons/food/3.2.2.2.md")),
+    ("food:3.2.2.3", include_str!("../lessons/food/3.2.2.3.md")),
+    ("food:3.2.3.1a", include_str!("../lessons/food/3.2.3.1a.md")),
+    ("food:3.2.3.1b", include_str!("../lessons/food/3.2.3.1b.md")),
+    ("food:3.2.3.2", include_str!("../lessons/food/3.2.3.2.md")),
+    ("food:3.2.3.3", include_str!("../lessons/food/3.2.3.3.md")),
+    ("food:3.2.3.4", include_str!("../lessons/food/3.2.3.4.md")),
+    ("food:3.3.1.1", include_str!("../lessons/food/3.3.1.1.md")),
+    ("food:3.3.1.2", include_str!("../lessons/food/3.3.1.2.md")),
+    ("food:3.3.2.1", include_str!("../lessons/food/3.3.2.1.md")),
+    ("food:3.3.2.2", include_str!("../lessons/food/3.3.2.2.md")),
+    ("food:3.3.2.3", include_str!("../lessons/food/3.3.2.3.md")),
+    ("food:3.3.2.4", include_str!("../lessons/food/3.3.2.4.md")),
+    ("food:3.3.2.5", include_str!("../lessons/food/3.3.2.5.md")),
+    ("food:3.4.1.1", include_str!("../lessons/food/3.4.1.1.md")),
+    ("food:3.4.1.2", include_str!("../lessons/food/3.4.1.2.md")),
+    ("food:3.4.1.3", include_str!("../lessons/food/3.4.1.3.md")),
+    ("food:3.4.1.4", include_str!("../lessons/food/3.4.1.4.md")),
+    ("food:3.4.2.1", include_str!("../lessons/food/3.4.2.1.md")),
+    ("food:3.4.2.2", include_str!("../lessons/food/3.4.2.2.md")),
+    ("food:3.5.1.1", include_str!("../lessons/food/3.5.1.1.md")),
+    ("food:3.5.1.2a", include_str!("../lessons/food/3.5.1.2a.md")),
+    ("food:3.5.1.2b", include_str!("../lessons/food/3.5.1.2b.md")),
+    ("food:3.5.1.3", include_str!("../lessons/food/3.5.1.3.md")),
+    ("food:3.5.2", include_str!("../lessons/food/3.5.2.md")),
+    ("food:3.5.3", include_str!("../lessons/food/3.5.3.md")),
+    ("food:3.6.1.1", include_str!("../lessons/food/3.6.1.1.md")),
+    ("food:3.6.1.2", include_str!("../lessons/food/3.6.1.2.md")),
+    ("food:3.6.1.3", include_str!("../lessons/food/3.6.1.3.md")),
+    ("food:3.6.2.1", include_str!("../lessons/food/3.6.2.1.md")),
+    ("food:3.6.2.2", include_str!("../lessons/food/3.6.2.2.md")),
+];
 
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
@@ -750,6 +788,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("pe", PE),
     ("media", MEDIA),
     ("dt", DT),
+    ("food", FOOD),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {

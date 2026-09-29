@@ -889,6 +889,61 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("3.3.11", "Specialist techniques and processes, and applying finishes", 0.5),
         ],
     },
+    // AQA GCSE Food Preparation and Nutrition 8585 (first taught 2016, first
+    // examined 2018). AQA is the most-taken board for this subject: 31,938 June
+    // 2026 entries against 18,117 for Eduqas and 4,562 for OCR. Topics are the
+    // spec's own references for sections 3.2-3.6, read from the specification
+    // PDF (version 1.1, 21 January 2019). The twelve skill groups in 3.1 are
+    // folded into the topics they illustrate; 3.7 is assessed only by the NEA.
+    SubjectDef {
+        id: "food", name: "Food", full: "Food Preparation and Nutrition (AQA 8585)", color: "var(--food)",
+        papers: "One written paper, 1h45, 100 marks, 50%: 20 marks of multiple choice, then five questions worth 80 marks between them, ending in 8- and 12-mark analyse-and-evaluate answers. The NEA is the other 50% and is not taught in the app: Task 1 food investigation (30 marks) and Task 2 food preparation assessment (70 marks, three dishes cooked in 3 hours plus a portfolio)",
+        spec: "https://www.aqa.org.uk/subjects/food-preparation-and-nutrition/gcse/food-preparation-and-nutrition-8585/specification",
+        sections: &["3.2 Food, nutrition and health", "3.3 Food science", "3.4 Food safety", "3.5 Food choice", "3.6 Food provenance"],
+        topics: &[
+            // 3.2 Food, nutrition and health
+            ("3.2.1.1", "Protein: biological value, complementation, alternatives and needs", 0.75),
+            ("3.2.1.2", "Fats: saturated and unsaturated, functions, sources and limits", 0.5),
+            ("3.2.1.3", "Carbohydrates: starch, sugars and dietary fibre", 0.75),
+            ("3.2.2.1a", "Fat-soluble vitamins A, D, E and K", 0.5),
+            ("3.2.2.1b", "Water-soluble vitamins, cooking losses and antioxidants", 0.75),
+            ("3.2.2.2", "Minerals: calcium, iron, sodium, fluoride, iodine and phosphorus", 0.5),
+            ("3.2.2.3", "Water and hydration", 0.5),
+            ("3.2.3.1a", "Healthy eating guidelines, the Eatwell Guide, portions and costing", 0.75),
+            ("3.2.3.1b", "Planning diets for life stages and dietary groups", 0.5),
+            ("3.2.3.2", "Energy needs: BMR, PAL and energy from nutrients", 0.5),
+            ("3.2.3.3", "Nutritional analysis and modifying recipes", 0.5),
+            ("3.2.3.4", "Diet, nutrition and health: the diet-related diseases", 0.75),
+            // 3.3 Food science
+            ("3.3.1.1", "Why food is cooked, and conduction, convection and radiation", 0.5),
+            ("3.3.1.2", "Selecting cooking methods: water, dry heat and fat based", 0.5),
+            ("3.3.2.1", "Proteins: denaturation, coagulation, gluten and foams", 1.0),
+            ("3.3.2.2", "Carbohydrates: gelatinisation, dextrinisation and caramelisation", 0.75),
+            ("3.3.2.3", "Fats and oils: shortening, aeration, plasticity and emulsification", 0.75),
+            ("3.3.2.4", "Fruit and vegetables: enzymic browning and oxidation", 0.5),
+            ("3.3.2.5", "Raising agents: chemical, mechanical, steam and yeast", 0.75),
+            // 3.4 Food safety
+            ("3.4.1.1", "Microorganisms, enzymes and controlling spoilage", 0.75),
+            ("3.4.1.2", "The signs of food spoilage", 0.5),
+            ("3.4.1.3", "Microorganisms in food production: bread, cheese and yoghurt", 0.5),
+            ("3.4.1.4", "Bacterial contamination and the food poisoning bacteria", 0.75),
+            ("3.4.2.1", "Buying and storing food: temperatures, date marks and fridges", 0.75),
+            ("3.4.2.2", "Preparing, cooking and serving food safely", 0.5),
+            // 3.5 Food choice
+            ("3.5.1.1", "Factors which influence food choice, and costing recipes", 0.5),
+            ("3.5.1.2a", "Food choice, religion and culture", 0.5),
+            ("3.5.1.2b", "Ethical and moral choices, intolerances and allergies", 0.75),
+            ("3.5.1.3", "Food labelling and marketing influences", 0.5),
+            ("3.5.2", "British and international cuisines", 0.5),
+            ("3.5.3", "Sensory evaluation and taste panels", 0.75),
+            // 3.6 Food provenance
+            ("3.6.1.1", "Food sources: grown, reared and caught; farming methods", 0.5),
+            ("3.6.1.2", "Food and the environment: food miles, waste and packaging", 0.5),
+            ("3.6.1.3", "Sustainability of food and food security", 0.5),
+            ("3.6.2.1", "Primary and secondary processing, and its effects", 0.75),
+            ("3.6.2.2", "Fortification, modified foods, additives and GM", 0.5),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

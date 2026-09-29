@@ -117,6 +117,11 @@ const MRMATT: &str = "Mr Matthews | PE Tutor & Life Coach";
 const PEIN10: &str = "PE in 10";
 const PLANETPE: &str = "Planet PE";
 
+const FTT: &str = "The Food Tech Teacher";
+const FFL: &str = "Food - a fact of life";
+const ILLUM: &str = "Illuminate Publishing";
+const FSA: &str = "FoodStandardsAgency";
+
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
     // ---------- Computer Science (OCR GCSE J277) ----------
     ("cs:1.1.1", &[
@@ -3497,6 +3502,166 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("zlFZjw-ync8", "Soldering Basics How to use a soldering iron", "MR Ridley Design & Technology"),
         ("fEqUW_ND2Lo", "Design and Technology (D&T) | KS3 | Laminating wood | BBC Teach", "BBC Bitesize for Teachers"),
         ("CP5E8P-KSV4", "Design and Technology (D&T) | KS3 | Finishing plastic | BBC Teach", "BBC Bitesize for Teachers"),
+    ]),
+    // ---------- Food Preparation and Nutrition (AQA GCSE 8585) — The Food Tech Teacher, Collins Revision and others ----------
+    ("food:3.2.1.1", &[
+        ("apysgPLH1ow", "GCSE Food - Protein", FTT),
+        ("UUgD9ERiTIs", "Protein and Fat - AQA GCSE Food Preparation", COLLINS),
+    ]),
+    ("food:3.2.1.2", &[
+        ("7NaP_AaO3Ds", "GCSE Fats", FTT),
+        ("UUgD9ERiTIs", "Protein and Fat - AQA GCSE Food Preparation", COLLINS),
+    ]),
+    ("food:3.2.1.3", &[
+        ("pE8eTFpgQRg", "Carbohydrates (GCSE Food)", FTT),
+        ("1pp7iObepQI", "Carbohydrate - AQA GCSE Food Preparation", COLLINS),
+    ]),
+    ("food:3.2.2.1a", &[
+        ("TD1tjVDRmQA", "Fat and Water Soluble Vitamins GCSE Food", FTT),
+        ("B4xW7Es_eLo", "Vitamins - AQA GCSE Food Preparation", COLLINS),
+    ]),
+    ("food:3.2.2.1b", &[
+        ("TD1tjVDRmQA", "Fat and Water Soluble Vitamins GCSE Food", FTT),
+        ("B4xW7Es_eLo", "Vitamins - AQA GCSE Food Preparation", COLLINS),
+        ("wHH39VJEh9E", "The science behind vitamins and minerals | Biology  – Gastro Lab", BBCTEACH),
+    ]),
+    ("food:3.2.2.2", &[
+        ("RdTBZPL1UE0", "Minerals in food: calcium, iron, sodium, fluoride, iodine and phosphorus. GCSE Food", FTT),
+        ("RWniiQYkFpk", "Minerals and Water - AQA GCSE Food Preparation", COLLINS),
+    ]),
+    ("food:3.2.2.3", &[
+        ("b7s2Aqj72Q8", "Hydration | Design and Technology - Food Preparation and Nutrition", BBCTEACH),
+        ("RWniiQYkFpk", "Minerals and Water - AQA GCSE Food Preparation", COLLINS),
+        ("gficVLrGhS0", "The Eatwell Guide - Hydration", FFL),
+    ]),
+    ("food:3.2.3.1a", &[
+        ("kQELdUX2HP8", "Healthy Eating & the Eatwell Guide", FTT),
+        ("UIQ1Hyq9HG0", "Eight guidelines for healthy eating | Design Technology - Food Preparation and Nutrition", BBCTEACH),
+        ("tA3p1aXmE18", "Making Informed Choices - AQA GCSE Food Preparation", COLLINS),
+    ]),
+    ("food:3.2.3.1b", &[
+        ("tA3p1aXmE18", "Making Informed Choices - AQA GCSE Food Preparation", COLLINS),
+        ("i7Q8e9gNig8", "Nutrition and Life Stages", "Home Economics with Mrs McErlean"),
+        ("SKmKPKZi_0g", "The Gluten Free Diet - Coeliac UK", "Coeliac UK"),
+    ]),
+    ("food:3.2.3.2", &[
+        ("3sC8e0FZ3Po", "Energy Needs (GCSE Food)", FTT),
+        ("zLkWhIqaETE", "Energy Needs GCSE food", FTT),
+    ]),
+    ("food:3.2.3.3", &[
+        ("h7F-nhRosOo", "How to carry a nutritional analysis using Explore Food", FTT),
+    ]),
+    ("food:3.2.3.4", &[
+        ("vwM0Wc_9hKE", "Diet, Nutrition and Health - AQA GCSE Food Technology", COLLINS),
+        ("fiFi-d0RwKo", "Healthier cooking | Design and Technology - Food Preparation and Nutrition", BBCTEACH),
+    ]),
+    ("food:3.3.1.1", &[
+        ("r9ZrT5vtVv0", "Heat Transfer Methods (GCSE Food)", FTT),
+        ("vg5k6t6uZwE", "Conduction animation - AQA GCSE Food Preparation and Nutrition", ILLUM),
+        ("p6W53kHIXKc", "Cooking of Food, Heat Transfer and Selecting Appropriate Cooking Methods - AQA GCSE Food Preparation", COLLINS),
+    ]),
+    ("food:3.3.1.2", &[
+        ("p6W53kHIXKc", "Cooking of Food, Heat Transfer and Selecting Appropriate Cooking Methods - AQA GCSE Food Preparation", COLLINS),
+        ("fiFi-d0RwKo", "Healthier cooking | Design and Technology - Food Preparation and Nutrition", BBCTEACH),
+    ]),
+    ("food:3.3.2.1", &[
+        ("C2ipBYy5BMI", "Proteins:  Functional & Chemical Properties of Food  (GCSE)", FTT),
+        ("bJ7uXScRTWw", "Coagulation film -   AQA GCSE Food Preparation and Nutrition", ILLUM),
+        ("IOUUab3fq2k", "Gluten and Baking (Food Science)", FTT),
+        ("hCyYQgPLP0w", "Omelette (denaturation/coagulation)", FTT),
+    ]),
+    ("food:3.3.2.2", &[
+        ("NS6yWwiCyEg", "Carbohydrates Functions and Properties of Food (GCSE)", FTT),
+        ("f93XTxmg1ME", "Gelatinisation    GCSE Food", FTT),
+        ("ze8y7IXlYsc", "Caramelisation  GCSE Food", FTT),
+        ("xjTIocPYt0A", "Carbohydrates - AQA GCSE Food Preparation", COLLINS),
+    ]),
+    ("food:3.3.2.3", &[
+        ("Q7NKrlvUfBs", "Fats & Oils: Functional and Chemical Properties of Food (GCSE)", FTT),
+        ("TqpBtoqQ9qM", "Fats and Oils - AQA GCSE Food Preparation", COLLINS),
+        ("vc8O8vGCzXk", "Emulsions and Food Science (Mayonnaise)", FTT),
+    ]),
+    ("food:3.3.2.4", &[
+        ("ojNA099qYhs", "Proteins and Enzymic Browning - AQA GCSE Food Preparation", COLLINS),
+        ("P_1qp8GKNTY", "How to use lemon juice to  prevent browning of fruit", FTT),
+    ]),
+    ("food:3.3.2.5", &[
+        ("r8A5msR4oGc", "Raising Agents - AQA GCSE Food Preparation", COLLINS),
+        ("hzbDh5org2E", "Chemical Raising Agents (GCSE)  Baking Powder and Bicarbonate of Soda", FTT),
+        ("GwA1xU1XXrQ", "Science of bread making  GCSE Food", FTT),
+    ]),
+    ("food:3.4.1.1", &[
+        ("lLxq8kr0mzA", "Microorganisms, Enzymes and Food Spoilage - AQA GCSE Food Preparation", COLLINS),
+    ]),
+    ("food:3.4.1.2", &[
+        ("lLxq8kr0mzA", "Microorganisms, Enzymes and Food Spoilage - AQA GCSE Food Preparation", COLLINS),
+        ("P_1qp8GKNTY", "How to use lemon juice to  prevent browning of fruit", FTT),
+    ]),
+    ("food:3.4.1.3", &[
+        ("_kNOoFVIh04", "Microorganisms in Food Production - AQA GCSE Food Preparation", COLLINS),
+        ("FAXrblgNgK4", "How bacteria and moulds are used in cheese making", FTT),
+        ("uNy2-PHkFH8", "Yeast and Sugar Experiment using Balloons (Fermentation)", FTT),
+    ]),
+    ("food:3.4.1.4", &[
+        ("J8D-Mjv17YI", "Bacterial Contamination - AQA GCSE Food Preparation", COLLINS),
+        ("GYlp1_7XIw4", "FSA Explains: Campylobacter", FSA),
+        ("7XT8dBmJdMo", "FSA Explains: Salmonella", FSA),
+        ("mOXU7Yuhsds", "FSA Explains: Listeria", FSA),
+    ]),
+    ("food:3.4.2.1", &[
+        ("MBuHjXI_oAQ", "Buying and Storing Food - AQA GCSE Food Preparation", COLLINS),
+        ("CDIpDupYPiY", "Use by vs best before dates", FSA),
+        ("flxmB8NKMzE", "Food Safety | Design and Technology - Food Preparation and Nutrition", BBCTEACH),
+    ]),
+    ("food:3.4.2.2", &[
+        ("mBKXpn21PAo", "Preparing and Cooking Food - AQA GCSE Food Preparation", COLLINS),
+        ("flxmB8NKMzE", "Food Safety | Design and Technology - Food Preparation and Nutrition", BBCTEACH),
+    ]),
+    ("food:3.5.1.1", &[
+        ("duWLlUJhTo4", "Factors Affecting Food Choice - AQA GCSE Food Preparation", COLLINS),
+    ]),
+    ("food:3.5.1.2a", &[
+        ("I00oPUYlaDQ", "Food Choices - AQA GCSE Food Preparation", COLLINS),
+        ("I3gSqWiGqrY", "K is for Kosher | A to Z of Religion and Beliefs | BBC Teach", BBCTEACH),
+    ]),
+    ("food:3.5.1.2b", &[
+        ("I00oPUYlaDQ", "Food Choices - AQA GCSE Food Preparation", COLLINS),
+        ("fHo15_MxS4g", "FSA Explains: Food hypersensitivity", FSA),
+    ]),
+    ("food:3.5.1.3", &[
+        ("Cqw7CqDBKVk", "Food Labelling - AQA GCSE Food Preparation", COLLINS),
+        ("OZOIEYQ0axo", "Food labelling | Design and Technology - Food Preparation and Nutrition", BBCTEACH),
+    ]),
+    ("food:3.5.2", &[
+        ("sT8zpJ_OLYo", "British and International Cuisines - AQA GCSE Food Preparation", COLLINS),
+    ]),
+    ("food:3.5.3", &[
+        ("kXPGo9Lsydc", "Sensory Evaluation - AQA GCSE Food Preparation", COLLINS),
+        ("vFkiKSsYi0k", "Sensory Analysis GCSE Food", FTT),
+        ("zNchJla7G0E", "Sensory perception | Design and Technology - Food Preparation and Nutrition", BBCTEACH),
+    ]),
+    ("food:3.6.1.1", &[
+        ("AWaSsfEUnjE", "Food Provenance and Production Methods - AQA GCSE Food Preparation", COLLINS),
+        ("XPCBzcb49_M", "Sustainable fishing explained", "Marine Stewardship Council - Sustainable seafood"),
+    ]),
+    ("food:3.6.1.2", &[
+        ("CipUcBhG1G4", "Food and the Environment - AQA GCSE Food Preparation", COLLINS),
+        ("hhlmrlJN9uM", "What Are Food Miles - And Why Do They Matter? | BBC The Social", "BBC Scotland"),
+    ]),
+    ("food:3.6.1.3", &[
+        ("PewgG5ercM8", "Sustainability of Food - AQA GCSE Food Preparation", COLLINS),
+        ("_ACn3e4qnaM", "GCSE Biology Revision \"Food Security\" (Triple)", "Freesciencelessons"),
+    ]),
+    ("food:3.6.2.1", &[
+        ("WFYlLJMTRpI", "Food Production - AQA GCSE Food Preparation", COLLINS),
+        ("RPPWHSSIUdI", "Food Processing - AQA GCSE Food Preparation", COLLINS),
+        ("ZJw3E_Vip7Q", "Milk: Pasteurisation, homogenisation, sterilisation, UHT (GCSE Food)", FTT),
+        ("RwPzRMdMHOY", "From Wheat to Bread", FFL),
+    ]),
+    ("food:3.6.2.2", &[
+        ("sApHxtpWB5E", "Fortification and Enrichment of food (GCSE)", FTT),
+        ("JU51f737Obg", "FSA Explains: Food additives", FSA),
+        ("EfuIg7VtCnI", "FSA Explains: Genetically Modified Food", FSA),
     ]),
 ];
 
