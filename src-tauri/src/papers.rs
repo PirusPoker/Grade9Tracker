@@ -154,7 +154,10 @@ mod tests {
             assert_eq!(i.boundaries.len(), 6, "{id}: boundaries must give grades 4 to 9");
             assert!(i.boundaries.windows(2).all(|w| w[0].1 > w[1].1), "{id}: boundaries must decrease with grade");
             let qs = questions(text);
-            assert!(qs.len() >= 8, "{id}: too few questions ({})", qs.len());
+            // A paper of long written answers (a languages writing paper is three
+            // questions) may have fewer blocks, as long as each one is substantial.
+            let long_answers = qs.len() >= 3 && i.marks >= 7 * qs.len() as u32;
+            assert!(qs.len() >= 8 || long_answers, "{id}: too few questions ({})", qs.len());
             let mut total = 0;
             let mut last_band = 0;
             for (n, (band, topics, body)) in qs.iter().enumerate() {
