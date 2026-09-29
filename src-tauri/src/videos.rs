@@ -2645,6 +2645,142 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("_xlM-pIAgqc", "The Nazis Attitudes and Policies toward Minorities - Weimar and Nazi Germany GCSE Edexcel History", HISTTEACH),
         ("mQ1E6wO9jXQ", "What Was Kristallnacht in the Holocaust? | Holocaust Explainer", "United States Holocaust Memorial Museum"),
     ]),
+    // ---------- GCSE Music (Eduqas C660QS), Component 3 Appraising ----------
+    ("music:MEa", &[
+        ("kMvm3hJ3v7o", "Eduqas GCSE Music: musical elements - melody", "HPA Music"),
+        ("O7iC_194CIU", "GCSE MUSIC REVISION -  Describing a melody", "P Dillon"),
+        ("-7aJjkPTTgU", "Musical Intervals | ABRSM | GCSE Music", "Music Learning Club"),
+    ]),
+    ("music:MEb", &[
+        ("fB1GtVpWgoA", "Eduqas GCSE Music: musical elements - tonality", "HPA Music"),
+        ("8OA2Y3mLRv4", "Eduqas GCSE Music: musical elements - harmony", "HPA Music"),
+        ("9pxp7IDSpCQ", "GCSE MUSIC REVISION - TONALITY", "P Dillon"),
+        ("DDYYjHis7p0", "Elements of Music 2- Harmony and Tonality - GCSE Music", "Music Learning Club"),
+    ]),
+    ("music:MEc", &[
+        ("HyyZrEHNf2o", "Eduqas GCSE Music: musical elements - rhythm", "HPA Music"),
+        ("o78-6xNV8So", "Eduqas GCSE Music: musical elements - tempo", "HPA Music"),
+        ("oeer-e_xdWQ", "Elements of Music 4 - Tempo, Metre and Rhythm - GCSE Music", "Music Learning Club"),
+        ("UqJxXH2voMI", "How to Tell if Music is in Simple Time or Compound Time - Music Theory", "Music Matters"),
+    ]),
+    ("music:MEd", &[
+        ("mulSAumH_M8", "Elements of Music 6 - Sonority (Timbre) - GCSE Music", "Music Learning Club"),
+        ("aMQ7pSq3ymM", "Eduqas GCSE Music: musical elements - dynamics", "HPA Music"),
+        ("ZH3dTLwBZXM", "Elements of Music 5 - Dynamics and Articulation - GCSE Music", "Music Learning Club"),
+        ("UaJBRbk8KGQ", "GCSE Concepts-  Test 1a 5a - Vocal and Instrumental Techniques", "INA Music"),
+    ]),
+    ("music:MC", &[
+        ("1vTuZ0ls65k", "Eduqas GCSE Music Exam Paper Walk Through", "Miss McCall"),
+        ("eTRUaOfeGx4", "Musical Elements Revision - GCSE Music Eduqas", "Miss McCall"),
+        ("fn8W7Js47yI", "GCSE Music Exam How to answer a Listening Question", "Andrew Moxon"),
+    ]),
+    ("music:MLa", &[
+        ("FMp26uf9gE8", "Elements of Music 8 - Notation - GCSE Music", "Music Learning Club"),
+        ("-r8SjCso5Qo", "Let's Read Music 4 - Treble Clef Note Names", "JohnMcAllisterMusic"),
+        ("0Sos_zBGo1k", "Let's Read Music 5 - Bass Clef Note Names", "JohnMcAllisterMusic"),
+        ("LlNXEaO3CGY", "How to Group Notes and Rests in Simple Time Signatures | ABRSM Music Theory", "Serenity Music Tuition"),
+    ]),
+    ("music:MLb", &[
+        ("xY9Q0R0G2jM", "Key Signatures - Everything You Need To Know in 6 minutes", "Brad Harrison Music"),
+        ("G20foMzvczc", "Key Signatures Made Easy", "MusicTheoryAcademy"),
+        ("-MdQspoF9wQ", "How to Work Out the Key of a Piece of Music - Music Theory", "Music Matters"),
+    ]),
+    ("music:MLc", &[
+        ("iByJsZ9CnMA", "What are Primary Triads? | Music Theory | ABRSM Grade 4 | Video Lesson", "Liberty Park Music"),
+        ("M2skX-SNIvA", "How the Roman Numeral System Works - Music Theory", "Michael New"),
+        ("YBHY-0mmKkA", "How Chord Inversions Work - Music Theory", "Music Matters"),
+    ]),
+    ("music:MLd", &[
+        ("uJXKNYecFWk", "GCSE Music Revision - Melodic Dictation", "Baines Music"),
+        ("bsYPyb_WF38", "GCSE Music Revision - Rhythmic Dictation", "Baines Music"),
+    ]),
+    ("music:AoS1a", &[
+        ("XPaTjBOj2hI", "GCSE Concepts  - 7a Recognising Baroque Classical & Romantic", "INA Music"),
+        ("wXtYLSKXjgo", "OCR GCSE Music Virtual Textbook AoS 2 - 1. Baroque Features", "Flipping Fantastic"),
+        ("81POr1RrcCc", "OCR GCSE Music Virtual Textbook AoS 2 - 3. Classical Features", "Flipping Fantastic"),
+        ("7VJtknZcQk0", "OCR GCSE Music Virtual Textbook AoS 2 - 5. Romantic Features", "Flipping Fantastic"),
+    ]),
+    ("music:AoS1b", &[
+        ("nQn_bd8o27s", "Form and Structure - Eduqas GCSE Music", "Miss McCall"),
+        ("0C3M9vTzlcA", "Elements of Music 3 - Structure - GCSE Music", "Music Learning Club"),
+        ("dXdjjmW_qIk", "Analysing the form of the Minuet and Trio - Analysing music (6/8)", "OpenLearn from The Open University"),
+        ("JFkr8nCCvaw", "Theme and Variation Form", "Dave Conservatoire"),
+    ]),
+    ("music:AoS1c", &[
+        ("YAwf3rn6z7k", "Melodic Devices - GCSE and Alevel Music", "Mr Luke's Music Room"),
+        ("npkO85OJp7g", "Introduction to Sequence and Imitation in Music Theory", "Picardy"),
+        ("PZ52ZBrNGCg", "What is an Ostinato? - Explanation with Examples", "MusicHelpGuy"),
+    ]),
+    ("music:AoS1d", &[
+        ("CLqvmbXhXe0", "Cadences - GCSE Music", "Music Learning Club"),
+        ("nq1yUQmo2Lg", "GCSE MUSIC REVISION - CADENCES!", "P Dillon"),
+        ("3aRBWDHE4g8", "Cadences - The 4 types explained - Perfect, Plagal, Imperfect, Interrupted", "MusicTheoryAcademy"),
+        ("C59w4uRTaNE", "Using Alberti Bass as a Compositional Technique - Music Composition", "Music Matters"),
+    ]),
+    ("music:AoS1e", &[
+        ("710fqBgIgoc", "Bach - Badinerie (Eduqas GCSE Music)", "JHA Music"),
+        ("PkpxRFBpH2c", "EDUQAS GCSE Music Bach Badinerie revision", "Langdon Academy Music Department"),
+        ("-5yf67vQKfo", "GCSE Music | Bach's Badinerie - Analysis of Baroque Style and Structure | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+        ("qrMNlIKGHg8", "Eduqas GCSE Music: Bach Badinerie Practice Questions", "Miss McCall"),
+    ]),
+    ("music:AoS2a", &[
+        ("_D8WdBgiBtM", "GCSE MUSIC REVISION - Texture", "P Dillon"),
+        ("VXzIJbNLDe8", "Elements of Music 7 - Texture - GCSE Music", "Music Learning Club"),
+        ("Y1x6tM4wE_U", "GCSE Music Revision - What is Texture?", "Baines Music"),
+    ]),
+    ("music:AoS2b", &[
+        ("_KHjGruWLU8", "The string Quartet explained in less than 5 minutes", "Enjoy Classical Music"),
+        ("bqJ_cYjwjOA", "GCSE Music | Chamber music revision", "RevisionBuddy"),
+        ("fYvvp1WP5xo", "Trio Sonatas - Introduction for ABRSM Grade 8 Music Theory Candidates", "Victoria Williams (mymusictheory)"),
+    ]),
+    ("music:AoS2c", &[
+        ("o9-0-3aeQbc", "History of Musical Theatre With Mr  Lawrence - Types of Musicals", "Brandon Lawrence"),
+        ("6s5_tRFu22A", "What Makes a Song a Musical Theatre Song? (3 Brilliant Examples)", "Brett Boles"),
+        ("bC9yL5YdfQQ", "What is a Musical?", "StageAgent"),
+    ]),
+    ("music:AoS2d", &[
+        ("aBg_gQxAShM", "Jazz Fundamentals: What Are the Blues?", "Jazz at Lincoln Center's JAZZ ACADEMY"),
+        ("fT4H2xEE9NM", "What Does a Rhythm Section Do in Jazz?", "Jazz at Lincoln Center's JAZZ ACADEMY"),
+        ("31JgwfP15kw", "Jazz Fundamentals: What Is Swing?", "Jazz at Lincoln Center's JAZZ ACADEMY"),
+    ]),
+    ("music:AoS3a", &[
+        ("6wUuXWaVyUU", "Film music revision video", "Manningtree Music Department"),
+        ("yVVg-95K2nc", "OCR GCSE Music Virtual Textbook AoS 4 - 2. Film Music (Atmosphere)", "Flipping Fantastic"),
+        ("as_FkQenP-8", "OCR GCSE Music Virtual Textbook AoS 4 - 4. Film Music (Tension)", "Flipping Fantastic"),
+    ]),
+    ("music:AoS3b", &[
+        ("XacNZ5fRBuI", "OCR GCSE Music Virtual Textbook AoS 4 - 1. Film Music (Leitmotifs)", "Flipping Fantastic"),
+        ("A5YejJX_Ccs", "60 Second Guide to Film Music - Leitmotifs", "The Musicologist"),
+        ("itMJ-fUPXqE", "How to Transform a Leitmotif", "Sideways"),
+    ]),
+    ("music:AoS3c", &[
+        ("dltdKYUvhhE", "Minimalism and music technology | Music - Howard Goodall's Story of Music", "BBC Bitesize for Teachers"),
+        ("vOAwZrsxVnQ", "Minimalism Music Techniques", "musicmsrevision"),
+    ]),
+    ("music:AoS4a", &[
+        ("oXifpcE7ewU", "Learn Popular Music Song Structure", "Mr Morley Music Education"),
+        ("SDJwg1JoPtY", "Every type of Song Structure EXPLAINED", "David Bennett Music Theory"),
+        ("AGV7Gmnpvv0", "AABA Song Form - Music Theory 101", "McGovern Drums"),
+        ("nqA7_0Z1_PY", "12 Bar Blues Explained", "GuiTargetLessons"),
+    ]),
+    ("music:AoS4b", &[
+        ("W2rSTMiXT3Q", "OCR GCSE Music Virtual Textbook AoS 5 - 1. Voices in Pop", "Flipping Fantastic"),
+        ("NzVanMOoT3g", "OCR GCSE Music Virtual Textbook AoS 5 - 2. Instruments of Pop", "Flipping Fantastic"),
+        ("wecCctwwQOQ", "Using loops and samples | Music - Dev's Music Technology", "BBC Bitesize for Teachers"),
+        ("2Wt4OUgQrBk", "Using digital audio effects | Music - Dev's Music Technology", "BBC Bitesize for Teachers"),
+    ]),
+    ("music:AoS4c", &[
+        ("0G-ye4xnqPE", "OCR GCSE Music Virtual Textbook AoS 3 - 2. Bhangra", "Flipping Fantastic"),
+        ("7QhQTA8W73I", "Bhangra Music - Rhythms Of The World - OCR GCSE Music", "Music GCSE Revision"),
+        ("VI1bKCjgkAY", "GCSE Concepts -  8a Recognising Popular Music, Fusion and Minimalism", "INA Music"),
+        ("UKH3bwyDYaM", "What is Fusion Music and how can you define it?", "TOG Music Making"),
+    ]),
+    ("music:AoS4d", &[
+        ("o00iXaSlflk", "Toto - Africa (Eduqas GCSE Music revision)", "JHA Music"),
+        ("KBS1vxd06C4", "EDUQAS GCSE Music Toto Africa revision", "Langdon Academy Music Department"),
+        ("DAOi9NLbamQ", "Eduqas GCSE Music: Toto Africa Chord Revision Video", "Miss McCall"),
+        ("ViZQm1yo1PA", "Eduqas GCSE Music: Toto Africa Practice Questions", "Miss McCall"),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.

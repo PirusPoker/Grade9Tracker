@@ -155,6 +155,9 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("geog", &[(1, 1.0, 0.5)]),
     // Pearson Edexcel GCSE History (1HI0)
     ("hist", &[(1, 1.0, 0.5)]),
+    // Music: one listening paper, taught through both years at school. Recall
+    // of terms and set works rather than front-loading.
+    ("music", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -169,6 +172,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("fre", "school"), ("spa", "school"), ("ger", "school"),
     ("geog", "ahead"),
     ("hist", "ahead"),
+    ("music", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -312,6 +316,17 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Paper 3 notes", "https://www.savemyexams.com/gcse/history/edexcel/24/modern-depth-study-paper-3/revision-notes/"),
         ("Past papers", "https://www.savemyexams.com/gcse/history/edexcel/past-papers/"),
         ("Pearson papers & mark schemes", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/history-2016.coursematerials.html"),
+    ]),
+    // WJEC Eduqas GCSE Music C660QS. Every link opened and checked: Bitesize's
+    // Eduqas examspec, Eduqas's own knowledge organisers and set-work packs, and
+    // the Component 3 papers (question papers and mark schemes; the exam audio
+    // is only released to centres).
+    ("music", &[
+        ("BBC Bitesize (Eduqas)", "https://www.bbc.co.uk/bitesize/examspecs/zbmct39"),
+        ("Eduqas knowledge organisers", "https://resources.eduqas.co.uk/Pages/ResourceSingle.aspx?rIid=1508"),
+        ("Component 3 past papers", "https://www.savemyexams.com/gcse/music/wjec-eduqas/past-papers/component-3/"),
+        ("Set work: Badinerie notes & score", "https://resources.eduqas.co.uk/Pages/ResourceSingle.aspx?rIid=1444"),
+        ("Set work: Africa notes & score", "https://resources.eduqas.co.uk/Pages/ResourceSingle.aspx?rIid=1445"),
     ]),
 ];
 

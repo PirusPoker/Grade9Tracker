@@ -23,6 +23,7 @@
   --fre:#FF7B7B; --spa:#B8E05A; --ger:#C9A86A;
   --geog:#4DB6AC;
   --hist:#C08457;
+  --music:#FF6FAE;
   --r:18px; --r-sm:12px; --r-xs:8px; --navh:58px;
   --glow-a:rgba(66,133,244,.26); --glow-b:rgba(52,168,83,.16); --glow-c:rgba(171,71,188,.18);
   --shadow:0 10px 30px rgba(0,0,0,.28);
@@ -1300,7 +1301,7 @@ function bindPastPaper(root){
    and it becomes a grade on the subject's boundaries (the same ones the mock
    papers use), joins the readiness trend on Progress, and opens the mistakes
    book with the paper filled in, ready for the questions that dropped marks. */
-const RP_BOARDS={aqa:{name:"AQA",months:["June"]},ocr:{name:"OCR",months:["June"]},
+const RP_BOARDS={eduqas:{name:"Eduqas",months:["June"]},aqa:{name:"AQA",months:["June"]},ocr:{name:"OCR",months:["June"]},
   cie:{name:"Cambridge",months:["March","June","November"]},pearson:{name:"Pearson Edexcel",months:["January","June"]}};
 const RP_PEARSON="https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/";
 const RP_FILTER=".coursematerials.html#filterQuery=category:Pearson-UK:Category%2FExam-materials";
@@ -1320,7 +1321,8 @@ const REAL_PAPERS={
   englang:{board:"aqa",from:2017,url:"https://www.aqa.org.uk/subjects/english/gcse/english-8700/assessment-resources",comps:[["1","Paper 1 (creative reading and writing)",80,105],["2","Paper 2 (viewpoints and perspectives)",80,105]]},
   fre:{board:"aqa",from:2026,url:"https://www.aqa.org.uk/subjects/french/gcse/french-8652/assessment-resources",comps:[["1H","Paper 1 Listening (Higher)",50,45],["2H","Paper 2 Speaking (Higher)",50,12],["3H","Paper 3 Reading (Higher)",50,60],["4H","Paper 4 Writing (Higher)",50,75]]},
   spa:{board:"aqa",from:2026,url:"https://www.aqa.org.uk/subjects/spanish/gcse/spanish-8692/assessment-resources",comps:[["1H","Paper 1 Listening (Higher)",50,45],["2H","Paper 2 Speaking (Higher)",50,12],["3H","Paper 3 Reading (Higher)",50,60],["4H","Paper 4 Writing (Higher)",50,75]]},
-  ger:{board:"aqa",from:2026,url:"https://www.aqa.org.uk/subjects/german/gcse/german-8662/assessment-resources",comps:[["1H","Paper 1 Listening (Higher)",50,45],["2H","Paper 2 Speaking (Higher)",50,12],["3H","Paper 3 Reading (Higher)",50,60],["4H","Paper 4 Writing (Higher)",50,75]]}};
+  ger:{board:"aqa",from:2026,url:"https://www.aqa.org.uk/subjects/german/gcse/german-8662/assessment-resources",comps:[["1H","Paper 1 Listening (Higher)",50,45],["2H","Paper 2 Speaking (Higher)",50,12],["3H","Paper 3 Reading (Higher)",50,60],["4H","Paper 4 Writing (Higher)",50,75]]},
+  music:{board:"eduqas",from:2018,url:"https://www.eduqas.co.uk/qualifications/music-gcse/",comps:[["3","Component 3 (appraising, listening)",96,75]]}};
 const RP_MONTH={January:0,March:2,June:5,November:10};
 /* Every series the board has sat since the spec began, newest first, stopping
    at the most recent one that has already happened. */

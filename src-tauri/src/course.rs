@@ -94,6 +94,14 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ("geog", &["3.1.1.1", "3.1.1.2", "3.1.1.3", "3.1.1.4", "3.1.2.1", "3.1.2.2", "3.1.2.3", "3.1.3.1", "3.1.3.2", "3.1.3.3", "3.2.1", "3.2.2", "3.2.3.1", "3.2.3.2", "3.3.1", "3.3.2", "3.4"]),
     // Pearson Edexcel GCSE History (1HI0). Options built: 11 (Medicine and the Western Front), B4, P4 and 31; the other options are not.
     ("hist", &["11.1", "11.2", "11.3", "11.4", "11.5", "B4.1", "B4.2", "B4.3", "P4.1", "P4.2", "P4.3", "31.1", "31.2", "31.3", "31.4"]),
+    // Music - WJEC Eduqas GCSE (9-1) C660QS, specification "Version 4 October 2019"
+    // (PDF eduqas-gcse-music-spec-from-2016-e-050225.pdf, posted 05/02/25), read
+    // 29 September 2026. Only Component 3 Appraising (section 2.3) is examined in
+    // writing. The spec has no numbered statements, so the references are its own
+    // labels: ME Musical Elements, MC Musical Contexts, ML Musical Language and
+    // Areas of study 1-4. Set works for 2027 and 2028: Bach, Badinerie (AoS1) and
+    // Toto, Africa (AoS4). Appendix C (list of musical terms) is covered across ME.
+    ("music", &["ME", "MC", "ML", "AoS1", "AoS2", "AoS3", "AoS4"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -3470,6 +3478,179 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Say what you have done and will do for the environment",
         "Argue for solutions with il faut, il vaut mieux and the nous imperative",
     ], "Quantities and negatives take de: trop de voitures, il n'y a pas de parc."),
+    // ---------- Music (Eduqas C660QS): ME Musical elements ----------
+    ("music:MEa", &[
+        "Describe a melody's shape, range and movement using conjunct, disjunct, scalic, arpeggio and sequence",
+        "Name intervals from a semitone to an octave, and recognise the sound each one makes",
+        "Identify major, minor, pentatonic and chromatic melodic writing, blue notes and microtones",
+        "Recognise ornaments such as the trill and appoggiatura, and describe phrasing as regular or irregular",
+    ], "Count your features: a 2-mark melody answer needs two separate features such as 'conjunct' and 'narrow range', not one feature said twice."),
+
+    ("music:MEb", &[
+        "Tell major from minor tonality, and say where a piece modulates and to which related key",
+        "Explain diatonic, chromatic and dissonant harmony, and where each is used for effect",
+        "Describe harmonic rhythm as fast or slow, and count chords per bar",
+        "Recognise a pedal, a drone and power chords by their sound and their notation",
+    ], "'It changes key' earns nothing on its own. Name the new key or its relationship: dominant, relative major, relative minor."),
+
+    ("music:MEc", &[
+        "Identify simple time (2/4, 3/4, 4/4), compound time (6/8, 9/8, 12/8) and irregular metres (5/4, 7/8)",
+        "Recognise syncopation, dotted rhythms, triplets, swing rhythms and driving rhythms",
+        "Use the Italian tempo terms Adagio to Vivace, and accelerando, rallentando and rubato, accurately",
+        "Explain how rhythm and tempo shape the character of a piece",
+    ], "Tempo is speed and dynamics is volume. Answers that write 'it gets faster' when the music gets louder lose the mark every year."),
+
+    ("music:MEd", &[
+        "Identify orchestral, keyboard, popular and Indian instruments and the four voice types",
+        "Name performance techniques such as pizzicato, arco, tremolo, double stopping, muted, glissando, vibrato and falsetto",
+        "Use the dynamic markings pp to ff, crescendo, diminuendo and sforzando correctly",
+        "Describe how a sonority or dynamic creates a particular effect",
+    ], "Listing instruments is not describing sonority. Say how they are played (pizzicato, muted, high register) to reach the second mark."),
+
+    // ---------- MC Musical contexts ----------
+    ("music:MC", &[
+        "Explain how the purpose of a piece (dance, worship, film, concert, commission) shapes its musical features",
+        "Explain how occasion, audience and venue affect the way music is written and performed",
+        "Place music in its social, historical and cultural context using features you can hear",
+    ], "A context answer must link to a musical feature. 'It was for dancing' needs 'so it has a steady, regular pulse and short, balanced phrases'."),
+
+    // ---------- ML Musical language ----------
+    ("music:MLa", &[
+        "Name any note on the treble or bass stave, including ledger lines and accidentals",
+        "Give the value of every note and rest from semibreve to semiquaver, dotted notes and triplets",
+        "Read time signatures in simple and compound time, and work out a missing time signature from a bar",
+        "Find a named feature (a tie, a rest, an accidental, a dotted rhythm) in printed music by bar number",
+    ], "The bass clef is not the treble clef moved down. Read it from its own landmarks (the F line between the dots) or every note comes out a third wrong."),
+
+    ("music:MLb", &[
+        "Write and recognise major key signatures up to four sharps and four flats",
+        "Find the relative minor of each major key, and tell them apart using the raised seventh",
+        "Work out the key of a printed melody from its key signature, accidentals and final note",
+    ], "A key signature fits two keys. Look for the raised 7th (for example A sharp in B minor) before writing a major key."),
+
+    ("music:MLc", &[
+        "Build the triads I, ii, iii, IV, V and vi in any major key up to four sharps or flats",
+        "Translate between Roman numerals and chord symbols (for example C, Dm, Em, F, G7, Am in C major)",
+        "Tell primary chords from secondary chords, and recognise a dominant seventh",
+        "Name a chord from its notes on a stave, including a chord in inversion or written as a slash chord",
+    ], "Lower-case numerals mean minor chords. Writing ii as major, or naming the chord D when the notes are D-F-A, costs the mark."),
+
+    ("music:MLd", &[
+        "Complete the missing pitches of a short melody when the rhythm is given, using the major scale",
+        "Complete a missing rhythm when the pitches are given, checking each bar adds up",
+        "Use step, leap, repeated notes and the chord underneath to narrow down each pitch",
+    ], "Each correct pitch scores, so never leave a gap. A guess that keeps the right shape (step up, leap down) often earns partial credit."),
+
+    // ---------- AoS1 Musical forms and devices ----------
+    ("music:AoS1a", &[
+        "Describe the principal features of Baroque, Classical and Romantic music",
+        "Identify an era from features you hear: harpsichord and continuo, Alberti bass and balanced phrases, or a large orchestra and chromatic harmony",
+        "Explain how orchestras, dynamics and harmony changed between 1650 and 1910",
+    ], "Give features, not dates. 'It sounds old' scores nothing; 'harpsichord continuo and terraced dynamics, so Baroque' scores."),
+
+    ("music:AoS1b", &[
+        "Describe binary (AB), ternary (ABA), rondo (ABACA), minuet and trio, theme and variations and strophic forms",
+        "Identify a form from a description of its sections, repeats and key changes",
+        "Explain how composers vary a theme: melody, rhythm, harmony, tonality, texture or instrumentation",
+        "Compare ternary with rondo and binary with ternary",
+    ], "Minuet and trio is ternary overall (minuet-trio-minuet), but each part is itself in binary. Say both when the question asks for detail."),
+
+    ("music:AoS1c", &[
+        "Define and recognise repetition, contrast, sequence, imitation, canon, ostinato and anacrusis",
+        "Recognise syncopation, dotted rhythms, conjunct and disjunct movement and ornamentation",
+        "Explain melodic and rhythmic motifs and regular phrasing",
+        "Explain how a device creates and develops a piece",
+    ], "Sequence and imitation are confused constantly. A sequence repeats at a different pitch in the same part; imitation is copied by a different part."),
+
+    ("music:AoS1d", &[
+        "Identify perfect, imperfect, plagal and interrupted cadences by their chords",
+        "Recognise simple chord progressions, pedal notes, drones, broken chords and Alberti bass",
+        "Explain modulation to the dominant and to the relative minor, and how it is heard",
+        "Name chords at cadence points on a printed score",
+    ], "An imperfect cadence ends ON chord V; a perfect cadence goes FROM V to I. Check which chord is last before choosing."),
+
+    ("music:AoS1e", &[
+        "Describe the Badinerie's context, instrumentation (flute, strings, harpsichord continuo), key (B minor) and binary form",
+        "Explain the key scheme: B minor to F sharp minor in Section A, and back to B minor through E minor and D major in Section B",
+        "Identify motifs X and Y, sequences, imitation between flute and cello, trills and appoggiaturas",
+        "Explain the features that make the movement typically Baroque",
+    ], "The whole movement is in 2/4 and binary form with both halves repeated (AABB). Calling it ternary or rondo throws away easy marks."),
+
+    // ---------- AoS2 Music for ensemble ----------
+    ("music:AoS2a", &[
+        "Define and identify monophonic, homophonic, polyphonic, unison, chordal and layered textures",
+        "Recognise melody and accompaniment, round, canon, countermelody and descant",
+        "Describe how texture changes during a piece and why",
+    ], "Describe texture with a term and a change: 'monophonic at first, then homophonic when the strings enter' beats a single word."),
+
+    ("music:AoS2b", &[
+        "Describe the string quartet and the roles of its four instruments",
+        "Explain basso continuo and which instruments played it",
+        "Explain what a sonata is in the Baroque and Classical periods",
+        "Describe how texture is used in chamber music",
+    ], "Basso continuo is two jobs: a bass instrument playing the line and a keyboard or lute filling in the chords. Name both."),
+
+    ("music:AoS2c", &[
+        "Describe solos, duets, trios, ensembles and chorus numbers in musicals",
+        "Explain the role of backing vocals and how vocal lines are combined",
+        "Recognise features of musical theatre songs: belt, recitative-like singing, the pit orchestra, word painting",
+        "Explain how music tells a story and shows character in a musical",
+    ], "Say how the voices are combined (in unison, in harmony, in call and response, overlapping) rather than just how many sing."),
+
+    ("music:AoS2d", &[
+        "Describe the jazz/blues trio and the rhythm section (drums, bass, piano or guitar)",
+        "Write out the chord pattern of the 12-bar blues and explain blue notes",
+        "Recognise swing rhythm, improvisation, scat, walking bass, call and response and syncopation",
+        "Explain how texture is used in jazz and blues ensembles",
+    ], "The 12-bar blues ends I-I (or I-V turnaround) after V-IV. Writing V-V-I-I or missing the IV in bar 10 loses the mark."),
+
+    // ---------- AoS3 Film music ----------
+    ("music:AoS3a", &[
+        "Explain how composers use the elements to create mood and respond to a commission or stimulus",
+        "Describe how instrumental and vocal timbres create colour and atmosphere",
+        "Explain how performers interpret a score and how audience and venue affect a performance",
+        "Write an extended answer linking musical features to the action on screen",
+    ], "In the 10-mark answer every feature must be tied to the scene. A list of correct terms with no 'which creates...' stays in the lower bands."),
+
+    ("music:AoS3b", &[
+        "Define leitmotif and explain how it represents a character, object or idea",
+        "Explain thematic transformation: changing a theme's tonality, tempo, rhythm, instrumentation or dynamics",
+        "Describe how a transformed theme changes the meaning for the audience",
+    ], "Thematic transformation keeps the theme recognisable. Say what stays the same as well as what changes."),
+
+    ("music:AoS3c", &[
+        "Explain how dynamics and contrast create special effects such as shock or suspense",
+        "Describe how music technology enhances sonority: synthesisers, reverb, layering, sampling",
+        "Explain minimalist techniques used in film: ostinato, phasing, layering, additive melody, gradual change",
+    ], "Minimalism is not just 'repetitive'. Name the technique (phasing, additive rhythm, layered ostinati) and the slow change it creates."),
+
+    // ---------- AoS4 Popular music ----------
+    ("music:AoS4a", &[
+        "Describe strophic, 32-bar song form (AABA), 12-bar blues and verse-chorus structure",
+        "Identify intro, verse, pre-chorus, chorus, middle 8, bridge, instrumental break, fill and outro",
+        "Recognise riffs, standard chord progressions, primary and secondary chords and cadences in songs",
+        "Identify the section a printed or described extract comes from",
+    ], "A verse has the same music with new words each time; a chorus repeats both music and words. Use that to label sections, not the order."),
+
+    ("music:AoS4b", &[
+        "Describe vocal sounds: lead and backing vocals, syllabic and melismatic, falsetto, belt, rap, a cappella",
+        "Explain how instrumental, synthesised, amplified and computer-generated sounds are used",
+        "Explain loops, samples, panning, phasing, reverb, balance and backing tracks",
+        "Explain how original music may be modified: covers, remixes and arrangements",
+    ], "Panning is left-right placement, not volume. Phasing is a sweeping effect from two copies drifting out of time, not an echo."),
+
+    ("music:AoS4c", &[
+        "Describe the features of pop and rock and pop",
+        "Describe bhangra: dhol, chaal rhythm, tumbi, shouts, fast dance tempo and its fusion with pop",
+        "Explain fusion as the combination of two or more styles, and identify the styles in an example",
+    ], "The bhangra drum is the dhol, played with two sticks; it is not the tabla. Naming tabla costs the mark."),
+
+    ("music:AoS4d", &[
+        "Describe Africa's background: Toto, Toto IV, written by David Paich and Jeff Porcaro, single released 1982",
+        "Explain its verse-chorus structure, nine-bar verse phrases, and the key contrast between B major verses and A major choruses",
+        "Identify riff a and riff b, the pentatonic writing, syncopation, 2/2 time and the chord patterns of verse and chorus",
+        "Explain how the band evokes African music through sonority, ostinato and rhythm",
+    ], "The chorus is in A major, not B major. Knowing that the chorus changes key, and that the verse phrases are nine bars long, wins set-work marks."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

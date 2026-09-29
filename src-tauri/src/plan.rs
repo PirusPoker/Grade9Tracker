@@ -642,6 +642,45 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("31.4c", "The persecution of minorities and of Jewish people", 1.0),
         ],
     },
+    // Music - WJEC Eduqas GCSE (9-1) C660QS, the most-taken GCSE Music board
+    // (June 2026 entries: Eduqas 14,367, Pearson 7,972, OCR 7,290, AQA 4,449).
+    // Only Component 3 (Appraising) is a written exam. Topic codes are short
+    // forms of the spec's own labels for Component 3 (section 2.3): ME musical
+    // elements, MC musical contexts, ML musical language, AoS1-AoS4 the four
+    // areas of study, with a letter suffix where a section is split.
+    SubjectDef {
+        id: "music", name: "Music", full: "Music (WJEC Eduqas C660QS)", color: "var(--music)",
+        papers: "Component 3 Appraising: one listening exam, about 1h15, 96 marks, 40%. Eight 12-mark questions, two on each area of study; two are on the set works (Bach, Badinerie and Toto, Africa); one question contains a 10-mark extended answer and one a pitch or rhythm dictation. The real exam is played from a recording; the app cannot play it, so lessons teach the knowledge and vocabulary and point to videos for the listening. Component 1 Performing (30%) and Component 2 Composing (30%) are NEA and are not taught in the app",
+        spec: "https://www.eduqas.co.uk/qualifications/music-gcse/",
+        sections: &["ME Musical elements", "MC Musical contexts", "ML Musical language", "AoS1 Musical forms and devices", "AoS2 Music for ensemble", "AoS3 Film music", "AoS4 Popular music"],
+        topics: &[
+            ("MEa", "Melody: shape, intervals, scales and ornaments", 1.0),
+            ("MEb", "Tonality and harmony: major, minor, modulation, dissonance and harmonic rhythm", 0.75),
+            ("MEc", "Rhythm, metre and tempo", 0.75),
+            ("MEd", "Sonority and dynamics: instruments, voices and how they are played", 1.0),
+            ("MC", "Musical contexts: purpose, occasion, audience and venue", 0.5),
+            ("MLa", "Reading and writing staff notation in treble and bass clef", 1.0),
+            ("MLb", "Key signatures to four sharps and flats, major and relative minor", 0.75),
+            ("MLc", "Chords: Roman numerals I to vi and chord symbols in a major key", 1.0),
+            ("MLd", "Dictation: completing the pitch or rhythm of a short melody", 0.75),
+            ("AoS1a", "The Western Classical Tradition 1650-1910: Baroque, Classical and Romantic", 0.75),
+            ("AoS1b", "Forms: binary, ternary, minuet and trio, rondo, variation and strophic", 1.0),
+            ("AoS1c", "Melodic and rhythmic devices: repetition, sequence, imitation, ostinato and more", 1.0),
+            ("AoS1d", "Harmonic devices: cadences, chord progressions, pedal, drone, Alberti bass and modulation", 1.0),
+            ("AoS1e", "Set work: Bach, Badinerie from Orchestral Suite No. 2", 1.5),
+            ("AoS2a", "Texture: how composers combine musical lines", 1.0),
+            ("AoS2b", "Chamber music: string quartet, basso continuo and the sonata", 0.75),
+            ("AoS2c", "Musical theatre: solos, duets, trios, chorus and backing vocals", 0.75),
+            ("AoS2d", "Jazz and blues: the jazz/blues trio, rhythm section and 12-bar blues", 0.75),
+            ("AoS3a", "Film music: creating mood, responding to a commission, performers and audience", 1.0),
+            ("AoS3b", "Leitmotif and thematic transformation", 0.75),
+            ("AoS3c", "Timbre, dynamics, music technology and minimalism in film", 0.75),
+            ("AoS4a", "Song structures: strophic, 32-bar, 12-bar blues, verse-chorus and their features", 1.0),
+            ("AoS4b", "Voices, instruments and music technology in popular music", 1.0),
+            ("AoS4c", "Styles: pop, rock and pop, bhangra and fusion", 0.75),
+            ("AoS4d", "Set work: Toto, Africa", 1.5),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

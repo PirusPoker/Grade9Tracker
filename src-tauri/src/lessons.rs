@@ -548,6 +548,33 @@ const HIST: &[(&str, &str)] = &[
     ("hist:31.4b", include_str!("../lessons/hist/31.4b.md")),
     ("hist:31.4c", include_str!("../lessons/hist/31.4c.md")),
 ];
+const MUSIC: &[(&str, &str)] = &[
+    ("music:MEa", include_str!("../lessons/music/MEa.md")),
+    ("music:MEb", include_str!("../lessons/music/MEb.md")),
+    ("music:MEc", include_str!("../lessons/music/MEc.md")),
+    ("music:MEd", include_str!("../lessons/music/MEd.md")),
+    ("music:MC", include_str!("../lessons/music/MC.md")),
+    ("music:MLa", include_str!("../lessons/music/MLa.md")),
+    ("music:MLb", include_str!("../lessons/music/MLb.md")),
+    ("music:MLc", include_str!("../lessons/music/MLc.md")),
+    ("music:MLd", include_str!("../lessons/music/MLd.md")),
+    ("music:AoS1a", include_str!("../lessons/music/AoS1a.md")),
+    ("music:AoS1b", include_str!("../lessons/music/AoS1b.md")),
+    ("music:AoS1c", include_str!("../lessons/music/AoS1c.md")),
+    ("music:AoS1d", include_str!("../lessons/music/AoS1d.md")),
+    ("music:AoS1e", include_str!("../lessons/music/AoS1e.md")),
+    ("music:AoS2a", include_str!("../lessons/music/AoS2a.md")),
+    ("music:AoS2b", include_str!("../lessons/music/AoS2b.md")),
+    ("music:AoS2c", include_str!("../lessons/music/AoS2c.md")),
+    ("music:AoS2d", include_str!("../lessons/music/AoS2d.md")),
+    ("music:AoS3a", include_str!("../lessons/music/AoS3a.md")),
+    ("music:AoS3b", include_str!("../lessons/music/AoS3b.md")),
+    ("music:AoS3c", include_str!("../lessons/music/AoS3c.md")),
+    ("music:AoS4a", include_str!("../lessons/music/AoS4a.md")),
+    ("music:AoS4b", include_str!("../lessons/music/AoS4b.md")),
+    ("music:AoS4c", include_str!("../lessons/music/AoS4c.md")),
+    ("music:AoS4d", include_str!("../lessons/music/AoS4d.md")),
+];
 
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
@@ -565,6 +592,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("ger", GER),
     ("hist", HIST),
     ("fre", FRE),
+    ("music", MUSIC),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
