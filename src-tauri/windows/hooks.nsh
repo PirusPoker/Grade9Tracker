@@ -4,8 +4,8 @@
 ; After Gradient is installed, quietly remove the old copy: its folder, its
 ; Start menu and desktop shortcuts and its "Installed apps" entry.
 ;
-; Study data is safe. It lives under the bundle identifier
-; (uk.alastair.grade9tracker), which did not change, and the old uninstaller
+; Study data is safe. It lives in a folder named after the bundle identifier,
+; which the app itself moves across when that changes, and the old uninstaller
 ; only deletes it when its "delete app data" box is ticked, which never
 ; happens in a silent (/S) run. The main binary name (grade9-tracker.exe) is
 ; also unchanged, and the installer has already closed it before this runs.

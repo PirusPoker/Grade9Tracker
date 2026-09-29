@@ -2,7 +2,7 @@
 name = "grade9-tracker"
 version = "1.33.1"
 description = "Two-year Edexcel IGCSE study plan with daily sessions, scheduled tests and an automatic fix list."
-authors = ["Alastair"]
+authors = ["Zelinx"]
 edition = "2021"
 
 [lib]

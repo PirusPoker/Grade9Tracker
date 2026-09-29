@@ -80,7 +80,7 @@ copies will refuse any future update.
 
 ## Where your progress lives
 
-`%APPDATA%\uk.alastair.grade9tracker\` on Windows:
+`%APPDATA%\app.zelinx.studyplanner\` on Windows:
 
 - `state.json` — what you have ticked off, what is on the fix list, your streak
 - `config.json` — your edited plan, written whenever you save in the **Plan** tab

@@ -428,7 +428,55 @@ fn restart_normally() -> Result<(), String> {
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
+/// The app's identifier names its data folders (progress and settings under
+/// %APPDATA%, the window's own storage under %LOCALAPPDATA%). When the
+/// identifier changed, those folders stayed under the old name, so move them
+/// across once, before anything opens them. The old identifier was
+/// `uk.<something>.grade9tracker`; it is matched by that shape.
+#[cfg(windows)]
+fn move_data_to_new_identifier(new_id: &str) {
+    for var in ["APPDATA", "LOCALAPPDATA"] {
+        if let Some(base) = std::env::var_os(var).map(PathBuf::from) {
+            move_old_folder(&base, new_id);
+        }
+    }
+}
+
+fn move_old_folder(base: &PathBuf, new_id: &str) {
+    let new_dir = base.join(new_id);
+    if new_dir.exists() {
+        return;
+    }
+    let Ok(entries) = fs::read_dir(base) else { return };
+    let old = entries.filter_map(|e| e.ok()).map(|e| e.path()).find(|p| {
+        p.is_dir() && p.file_name().and_then(|n| n.to_str()).is_some_and(|n| n.starts_with("uk.") && n.ends_with(".grade9tracker"))
+    });
+    if let Some(old) = old {
+        if fs::rename(&old, &new_dir).is_err() {
+            // Something still has a file open: copy what can be copied, so
+            // at least the progress and settings files come across.
+            let _ = copy_dir(&old, &new_dir);
+        }
+    }
+}
+
+fn copy_dir(from: &PathBuf, to: &PathBuf) -> std::io::Result<()> {
+    fs::create_dir_all(to)?;
+    for e in fs::read_dir(from)? {
+        let e = e?;
+        let dest = to.join(e.file_name());
+        if e.file_type()?.is_dir() {
+            let _ = copy_dir(&e.path(), &dest);
+        } else {
+            let _ = fs::copy(e.path(), dest);
+        }
+    }
+    Ok(())
+}
+
 pub fn run() {
+    #[cfg(windows)]
+    move_data_to_new_identifier("app.zelinx.studyplanner");
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
@@ -476,5 +524,29 @@ mod command_registration {
             }
         }
         assert!(missing.is_empty(), "commands not registered in generate_handler!: {missing:?}");
+    }
+}
+
+#[cfg(test)]
+mod move_tests {
+    use super::*;
+
+    #[test]
+    fn the_old_data_folder_moves_to_the_new_identifier_once() {
+        let base = std::env::temp_dir().join(format!("g9-move-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&base);
+        fs::create_dir_all(base.join("uk.someone.grade9tracker").join("profiles")).unwrap();
+        fs::write(base.join("uk.someone.grade9tracker").join("profiles.json"), "{}").unwrap();
+        fs::create_dir_all(base.join("uk.other.somethingelse")).unwrap();
+        move_old_folder(&base, "app.zelinx.studyplanner");
+        assert!(base.join("app.zelinx.studyplanner").join("profiles.json").exists());
+        assert!(base.join("app.zelinx.studyplanner").join("profiles").is_dir());
+        assert!(!base.join("uk.someone.grade9tracker").exists());
+        assert!(base.join("uk.other.somethingelse").exists(), "unrelated folders are left alone");
+        // A second run with the new folder in place does nothing.
+        fs::create_dir_all(base.join("uk.someone.grade9tracker")).unwrap();
+        move_old_folder(&base, "app.zelinx.studyplanner");
+        assert!(base.join("uk.someone.grade9tracker").exists());
+        let _ = fs::remove_dir_all(&base);
     }
 }
