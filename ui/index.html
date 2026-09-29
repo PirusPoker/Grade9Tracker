@@ -20,6 +20,7 @@
   --warn:#FDD663; --warn-soft:rgba(253,214,99,.11); --warn-line:rgba(253,214,99,.32);
   --maths:#7CACF8; --fpm:#B49BFF; --bus:#FFA45C; --econ:#5DD39E; --cs:#F58FBF; --englit:#E39BFF; --englang:#F6C15A;
   --bio:#6FD68D; --chem:#5FD3E8; --phys:#9DA3FF; --test:#E8EAED; --rest:#6B6F76;
+  --fre:#FF7B7B; --spa:#B8E05A; --ger:#C9A86A;
   --r:18px; --r-sm:12px; --r-xs:8px; --navh:58px;
   --glow-a:rgba(66,133,244,.26); --glow-b:rgba(52,168,83,.16); --glow-c:rgba(171,71,188,.18);
   --shadow:0 10px 30px rgba(0,0,0,.28);
@@ -1312,7 +1313,10 @@ const REAL_PAPERS={
   econ:{board:"cie",from:2020,url:"https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-economics-9-1-0987/past-papers/",comps:[["1","Paper 1 (multiple choice)",30,45],["2","Paper 2 (structured)",90,135]]},
   cs:{board:"ocr",from:2022,url:"https://www.ocr.org.uk/qualifications/gcse/computer-science-j277-from-2020/assessment/",comps:[["1","Paper 1 (computer systems)",80,90],["2","Paper 2 (algorithms and programming)",80,90]]},
   englit:{board:"aqa",from:2017,url:"https://www.aqa.org.uk/subjects/english/gcse/english-8702/assessment-resources",comps:[["1","Paper 1 (Shakespeare and the novel)",64,105],["2","Paper 2 (modern texts and poetry)",96,135]]},
-  englang:{board:"aqa",from:2017,url:"https://www.aqa.org.uk/subjects/english/gcse/english-8700/assessment-resources",comps:[["1","Paper 1 (creative reading and writing)",80,105],["2","Paper 2 (viewpoints and perspectives)",80,105]]}};
+  englang:{board:"aqa",from:2017,url:"https://www.aqa.org.uk/subjects/english/gcse/english-8700/assessment-resources",comps:[["1","Paper 1 (creative reading and writing)",80,105],["2","Paper 2 (viewpoints and perspectives)",80,105]]},
+  fre:{board:"aqa",from:2026,url:"https://www.aqa.org.uk/subjects/french/gcse/french-8652/assessment-resources",comps:[["1H","Paper 1 Listening (Higher)",50,45],["2H","Paper 2 Speaking (Higher)",50,12],["3H","Paper 3 Reading (Higher)",50,60],["4H","Paper 4 Writing (Higher)",50,75]]},
+  spa:{board:"aqa",from:2026,url:"https://www.aqa.org.uk/subjects/spanish/gcse/spanish-8692/assessment-resources",comps:[["1H","Paper 1 Listening (Higher)",50,45],["2H","Paper 2 Speaking (Higher)",50,12],["3H","Paper 3 Reading (Higher)",50,60],["4H","Paper 4 Writing (Higher)",50,75]]},
+  ger:{board:"aqa",from:2026,url:"https://www.aqa.org.uk/subjects/german/gcse/german-8662/assessment-resources",comps:[["1H","Paper 1 Listening (Higher)",50,45],["2H","Paper 2 Speaking (Higher)",50,12],["3H","Paper 3 Reading (Higher)",50,60],["4H","Paper 4 Writing (Higher)",50,75]]}};
 const RP_MONTH={January:0,March:2,June:5,November:10};
 /* Every series the board has sat since the spec began, newest first, stopping
    at the most recent one that has already happened. */

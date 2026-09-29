@@ -146,6 +146,11 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("bio", &[(1, 0.75, 0.5)]),
     ("chem", &[(1, 0.75, 0.5)]),
     ("phys", &[(1, 0.75, 0.5)]),
+    // Languages: taught through both years at school, so recall and vocabulary
+    // rather than front-loading.
+    ("fre", &[(1, 0.75, 0.5)]),
+    ("spa", &[(1, 0.75, 0.5)]),
+    ("ger", &[(1, 0.75, 0.5)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -157,6 +162,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("bus", "ahead"), ("econ", "ahead"), ("cs", "ahead"),
     ("englit", "school"), ("englang", "school"),
     ("bio", "school"), ("chem", "school"), ("phys", "school"),
+    ("fre", "school"), ("spa", "school"), ("ger", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -165,6 +171,12 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
 const DEFAULT_WEEKLY: &[(&str, &[(&str, f64, &str)])] = &[
     ("englang", &[("Timed writing piece", 1.0,
         "45 minutes, handwritten, no stopping: Paper 1 Q5 (creative) one week, Paper 2 Q5 (non-fiction) the next. Mark it against the mark scheme tomorrow, cold - the marking is where the learning is.")]),
+    ("fre", &[("Vocabulary and speaking", 0.5,
+        "Two 15-minute bursts: learn 20 words from the AQA French vocabulary list (Appendix 2 of the specification) with the French side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
+    ("spa", &[("Vocabulary and speaking", 0.5,
+        "Two 15-minute bursts: learn 20 words from the AQA Spanish vocabulary list (Appendix 2 of the specification) with the Spanish side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
+    ("ger", &[("Vocabulary and speaking", 0.5,
+        "Two 15-minute bursts: learn 20 words from the AQA German vocabulary list (Appendix 2 of the specification) with the German side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
 ];
 
 fn default_pace_for(id: &str) -> &'static str {
@@ -254,6 +266,29 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Revision notes", "https://www.savemyexams.com/igcse/physics/edexcel/19/revision-notes/"),
         ("PMT past papers", "https://www.physicsandmathstutor.com/past-papers/gcse-physics/edexcel-igcse-paper-1/"),
         ("Pearson papers & reports", "https://qualifications.pearson.com/en/qualifications/edexcel-international-gcses/international-gcse-physics-2017.html"),
+    ]),
+    // AQA GCSE languages (2024 specifications). Every link opened and checked:
+    // the Save My Exams pages are its 2024-spec AQA course for that language.
+    ("fre", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/french/aqa/24/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/french/aqa/24/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/french/aqa/past-papers/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/french/gcse/french-8652/assessment-resources"),
+        ("AQA spec (vocabulary list is Appendix 2)", "https://www.aqa.org.uk/subjects/french/gcse/french-8652/specification"),
+    ]),
+    ("spa", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/spanish/aqa/24/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/spanish/aqa/24/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/spanish/aqa/past-papers/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/spanish/gcse/spanish-8692/assessment-resources"),
+        ("AQA spec (vocabulary list is Appendix 2)", "https://www.aqa.org.uk/subjects/spanish/gcse/spanish-8692/specification"),
+    ]),
+    ("ger", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/german/aqa/24/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/german/aqa/24/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/german/aqa/past-papers/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/german/gcse/german-8662/assessment-resources"),
+        ("AQA spec (vocabulary list is Appendix 2)", "https://www.aqa.org.uk/subjects/german/gcse/german-8662/specification"),
     ]),
 ];
 

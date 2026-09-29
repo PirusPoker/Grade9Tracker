@@ -82,6 +82,14 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ("chem", &["1", "2", "3", "4"]),
     // Physics (4PH1). Statements suffixed P are separate-science only.
     ("phys", &["1", "2", "3", "4", "5", "6", "7", "8"]),
+    // AQA GCSE French 8652, Spanish 8692 and German 8662 (first exams June 2026).
+    // 3.1.1-3.1.3 are the three themes, 3.2.1 and 3.2.2 the Foundation and
+    // Higher grammar, 3.2.3 the sound-symbol list (numbered in Spanish and
+    // German; French lists it unnumbered, so the dictation topic 4.4b carries
+    // it), and 4.4-4.7 the four papers.
+    ("fre", &["3.1.1", "3.1.2", "3.1.3", "3.2.1", "3.2.2", "4.4", "4.5", "4.6", "4.7"]),
+    ("spa", &["3.1.1", "3.1.2", "3.1.3", "3.2.1", "3.2.2", "3.2.3", "4.4", "4.5", "4.6", "4.7"]),
+    ("ger", &["3.1.1", "3.1.2", "3.1.3", "3.2.1", "3.2.2", "3.2.3", "4.4", "4.5", "4.6", "4.7"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
