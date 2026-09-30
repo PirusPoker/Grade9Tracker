@@ -1317,6 +1317,8 @@ mod tests {
         assert!(!covers("1.10", "1.1"), "1.10 is its own reference, not part of 1.1");
         assert!(!covers("1.11", "1.1"));
         assert!(covers("1.10", "1.10"));
+        assert!(covers("N1-3", "N1") && covers("N1-3", "N3") && !covers("N1-3", "N4"));
+        assert!(covers("A18-19b", "A19") && !covers("A18-19b", "N18") && !covers("N1-3", "N"));
     }
 
     /// Subjects checked against their specification must be written up in full.

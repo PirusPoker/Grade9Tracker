@@ -2167,7 +2167,12 @@ function catchUpCard(){
 function coversRef(code,ref){
   if(code===ref)return true;
   const rest=code.slice(ref.length);
-  return code.startsWith(ref)&&rest.length>0&&/^[a-z]+$/i.test(rest);}
+  if(code.startsWith(ref)&&rest.length>0&&/^[a-z]+$/i.test(rest))return true;
+  // A range code: "N1-3" covers N1, N2 and N3.
+  const m=/^([A-Za-z]+)(\d+)-(\d+)[a-z]*$/.exec(code);
+  if(!m||!ref.startsWith(m[1]))return false;
+  const k=ref.slice(m[1].length);
+  return /^\d+$/.test(k)&&+k>=+m[2]&&+k<=+m[3];}
 function coverageCard(subj){
   const S=SUBJECTS[subj];if(!S)return "";
   if(!S.specRefs.length)

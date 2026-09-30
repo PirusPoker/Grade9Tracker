@@ -173,11 +173,27 @@ pub fn spec_refs_for(subject_id: &str) -> &'static [&'static str] {
 /// is that reference, or that reference plus a letter suffix — 4.8 is split
 /// into 4.8a, 4.8b and 4.8c. The suffix must be letters, so "1.10" is never
 /// mistaken for part of "1.1".
+///
+/// A topic may also span a run of references written as a range: "N1-3"
+/// covers N1, N2 and N3 (the DfE GCSE Maths strands N, A, R, G, P, S number
+/// their statements this way), optionally with a letter suffix ("A18-19b").
 pub fn covers(code: &str, spec_ref: &str) -> bool {
     code == spec_ref
         || (code.starts_with(spec_ref)
             && !code[spec_ref.len()..].is_empty()
             && code[spec_ref.len()..].chars().all(|c| c.is_ascii_alphabetic()))
+        || covers_range(code, spec_ref)
+}
+
+fn covers_range(code: &str, spec_ref: &str) -> bool {
+    let Some((from, to)) = code.split_once('-') else { return false };
+    let prefix: String = from.chars().take_while(|c| c.is_ascii_alphabetic()).collect();
+    let (Ok(lo), Ok(hi)) = (
+        from[prefix.len()..].parse::<u32>(),
+        to.trim_end_matches(|c: char| c.is_ascii_alphabetic()).parse::<u32>(),
+    ) else { return false };
+    if prefix.is_empty() || !spec_ref.starts_with(&prefix) { return false; }
+    spec_ref[prefix.len()..].parse::<u32>().is_ok_and(|k| (lo..=hi).contains(&k))
 }
 
 /// (topic id, objectives, the mark people drop)
