@@ -119,7 +119,7 @@ a{color:var(--accent);text-underline-offset:2px}
 
 /* bottom nav */
 .nav{position:fixed;bottom:0;left:0;right:0;background:rgba(19,19,20,.82);backdrop-filter:saturate(160%) blur(16px);border-top:1px solid var(--line);z-index:10}
-.nav-in{max-width:680px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr)}
+.nav-in{max-width:680px;margin:0 auto;display:grid;grid-template-columns:repeat(7,1fr)}
 .nav .navn{position:absolute;top:4px;left:calc(50% + 6px);min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font-size:10px;line-height:16px;font-weight:700;text-align:center}
 .nav button{position:relative;padding:9px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.01em}
 .nav button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -1157,6 +1157,44 @@ header.top{background:var(--glass);border-bottom-color:var(--line)}
   .sess .body{padding:4px 14px 16px}
 }
 @media print{body{padding-left:0}body::before{display:none}}
+
+/* ---------- Flashcards ---------- */
+.fcstats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.fcstat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px}
+.fcstat b{display:block;font-size:24px;font-family:var(--display);line-height:1.1}
+.fcstat span{font-size:12.5px;color:var(--muted)}
+.fcstat.due b{color:var(--accent)}
+.fcbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.fcbar input[type=search]{flex:1;min-width:180px;padding:10px 14px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit}
+.fcdeck{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);margin-bottom:8px;overflow:hidden}
+.fcdeck>.row{display:flex;align-items:center;gap:10px;padding:12px 14px;flex-wrap:wrap}
+.fcdeck .nm{font-weight:650;flex:1;min-width:140px;display:flex;align-items:center;gap:8px;cursor:pointer;background:none;border:0;color:var(--ink);font:inherit;font-weight:650;text-align:left;padding:0}
+.fcdeck .dot{width:10px;height:10px;border-radius:50%;flex:none}
+.fcdeck .ct{font-size:13px;color:var(--muted)}
+.fcdeck .ct .d{color:var(--accent);font-weight:650}
+.fcdeck .tops{border-top:1px solid var(--line);padding:4px 14px 10px}
+.fcdeck .trow{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.fcdeck .trow:last-child{border-bottom:0}
+.fcdeck .trow .tt{flex:1}
+.fccard{display:block;width:100%;min-height:240px;margin:14px 0;padding:34px 28px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);color:var(--ink);font:inherit;text-align:center;cursor:pointer}
+.fccard .where{font-size:12px;color:var(--muted);margin-bottom:18px;display:flex;gap:6px;align-items:center;justify-content:center}
+.fccard .front{font-size:24px;font-weight:650;line-height:1.35;white-space:pre-wrap}
+.fccard .back{font-size:18px;line-height:1.5;margin-top:20px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-2);white-space:pre-wrap}
+.fccard .hint{display:block;margin-top:26px;font-size:13px;color:var(--label)}
+.fcrate{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.fcrate button{padding:12px 6px;border-radius:var(--r-sm);border:1px solid var(--line-2);background:var(--surface2);color:var(--ink);font:inherit;font-weight:650;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+.fcrate button small{font-weight:500;font-size:12px;color:var(--muted)}
+.fcrate button.again{border-color:var(--bad-line);background:var(--bad-soft)}
+.fcrate button.good{border-color:var(--good-line);background:var(--good-soft)}
+.fcprog{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.fcprog i{display:block;height:100%;background:var(--accent)}
+.fclist .fcitem{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--line)}
+.fclist .fcitem .f{font-weight:650}
+.fclist .fcitem .b{color:var(--ink-2)}
+.fclist .fcitem .meta{font-size:12px;color:var(--muted);margin-top:2px}
+.fclist .fcitem input,.fcadd input,.fcadd select{width:100%;padding:8px 10px;border-radius:var(--r-xs);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;box-sizing:border-box}
+.fcadd{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-top:12px}
+@media (max-width:640px){.fcstats{grid-template-columns:repeat(2,1fr)}.fclist .fcitem{grid-template-columns:1fr}.fcadd{grid-template-columns:1fr}.fcrate{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body class="v-today">
@@ -1169,12 +1207,14 @@ header.top{background:var(--glass);border-bottom-color:var(--line)}
   <section class="view" id="view-subjects" hidden></section>
   <section class="view" id="view-progress" hidden></section>
   <section class="view" id="view-plan" hidden></section>
+  <section class="view" id="view-cards" hidden></section>
   <section class="view" id="view-guide" hidden></section>
   <div class="sync" id="sync">Loading…</div>
 </main>
 <nav class="nav"><div class="nav-in" role="tablist">
   <button role="tab" data-view="today" aria-selected="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Today</button>
   <button role="tab" data-view="subjects"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Subjects</button>
+  <button role="tab" data-view="cards"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="14" height="12" rx="2"/><path d="M7 7V5.5A1.5 1.5 0 0 1 8.5 4h11A1.5 1.5 0 0 1 21 5.5v9a1.5 1.5 0 0 1-1.5 1.5H17"/></svg>Cards<span class="navn" id="fcn" hidden></span></button>
   <button role="tab" data-view="progress"><svg viewBox="0 0 24 24"><path d="M4 19V10M10 19V4M16 19v-7M22 19H2"/></svg>Progress</button>
   <button role="tab" data-view="important"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>Important<span class="navn" id="impn" hidden></span></button>
   <button role="tab" data-view="plan"><svg viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10l2 2.5h6.5A1.5 1.5 0 0 1 20 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z"/><path d="M12 11v5M9.5 13.5h5"/></svg>Plan</button>
@@ -2072,7 +2112,7 @@ function itemBody(it,w){
     ${t.subjects.filter(s=>SUBJECTS[s]&&ts.marks[s]==="shaky").map(s=>`<div class="mquickrow"><span class="pill"><span class="dot" style="background:${SUBJECTS[s].color}"></span>${esc(SUBJECTS[s].name)}</span>${quickMistake("subj:"+s,"test","What dropped marks in ${SUBJECTS[s].name}?")}</div>`).join("")}`;}
   if(it.kind==="flash"){const n=Object.values(state.cards).reduce((a,c)=>a+c.length,0);
     const nq=quotes().length,sq=quotes().filter(qbSolid).length;
-    return `<div class="sub">Quick retrieval on your own cards — poems, formulae, definitions. ${n?`You have ${n} card${n===1?"":"s"}.`:"You have no cards yet: add some under any topic."} ${nq?`Then test your ${nq} English quote${nq===1?"":"s"} — ${sq} solid so far.`:"Then start your English quote bank: three quotes per poem."}</div><div class="links" style="margin-top:8px"><button class="btn small" data-qbopen="1">${nq?"Test the quote bank":"Open the quote bank"}</button>${fixitButton(null)}</div><div class="sub">${openMistakeCount()?` Then read your ${openMistakeCount()} open mistake${openMistakeCount()===1?"":"s"} — Subjects › each subject lists them.`:""} Then rest — Sunday is yours.</div>`;}
+    return `<div class="sub">Quick retrieval on your own cards — poems, formulae, definitions. ${n?`You have ${n} card${n===1?"":"s"}.`:"You have no cards yet: add some under any topic."} ${nq?`Then test your ${nq} English quote${nq===1?"":"s"} — ${sq} solid so far.`:"Then start your English quote bank: three quotes per poem."}</div><div class="links" style="margin-top:8px"><button class="btn small primary" data-gocards="1">Flashcards${fcDueCount()?` · ${fcDueCount()} due`:""}</button><button class="btn small" data-qbopen="1">${nq?"Test the quote bank":"Open the quote bank"}</button>${fixitButton(null)}</div><div class="sub">${openMistakeCount()?` Then read your ${openMistakeCount()} open mistake${openMistakeCount()===1?"":"s"} — Subjects › each subject lists them.`:""} Then rest — Sunday is yours.</div>`;}
   return "";}
 function renderSpecial(it,w){
   if(it.kind==="catchup"){const overdue=[];WEEKS.slice(0,w.n-1).forEach(x=>SUBJ_IDS.forEach(s=>x.plan[s].forEach(e=>{if(e.kind==="topic"&&e.final&&!T(e.topic.id).done)overdue.push(e.topic);})));
@@ -3634,7 +3674,7 @@ function renderGuide(){
   <h3>No scores</h3><p>Nothing here gives you a mark or predicts a grade. When you finish a topic you tap how solid it is without notes: <b>Shaky</b> puts it on the fix list and brings a recall check in two days; <b>Okay</b> brings one in a week; <b>Solid</b> in three weeks. Every topic gets checked, the shaky ones soonest; after that it climbs the usual recall ladder. The <b>streak</b> is the only number kept: days you did something.</p>
   <h3>Profiles</h3><p>Your name at the bottom of the sidebar (at the top on a narrow window) is who is signed in. Click it to switch, add a profile, set a PIN, or export one. Each profile keeps its own progress, plan, known topics, cards, quotes and lesson notes, all on this PC. To move a profile to another computer, <b>Export</b> it here and <b>Import</b> the file there. A PIN only stops someone else on this PC opening the wrong profile; the files themselves are in the app data folder either way.</p>
   <h3>Window size</h3><p>Make the window wide and Today shows the whole week beside the day, with every session one click away. Make it narrow and everything compresses to fit — nothing is ever pushed off the edge.</p>
-  <h3>Keyboard</h3><p><b>1–6</b> switch tabs · <b>← →</b> change week · <b>T</b> today · <b>P</b> print the week · <b>Ctrl+K</b> search · <b>Esc</b> closes a menu.</p>
+  <h3>Keyboard</h3><p><b>1–7</b> switch tabs · <b>Space</b> then <b>1–4</b> on a flashcard · <b>← →</b> change week · <b>T</b> today · <b>P</b> print the week · <b>Ctrl+K</b> search · <b>Esc</b> closes a menu.</p>
   <h3>Changing the plan</h3><p>The <b>Plan</b> tab is the whole thing laid bare — subjects, who sets their pace, every topic and its hours, fixed weekly sessions, where the links point, and your term dates. Change anything and save; the rest of the course reschedules around it and your ticks stay put. Reset puts each built-in subject back to its original topics and hours.</p>
   <h3>If you fall behind</h3><p>Use the next holiday to catch up — the plan finishes content early on purpose. If you lose more than that, <b>Progress → Catch up</b> re-pours everything unfinished from this week onwards. If the remaining work no longer fits before the exams, the app names exactly which topics don't fit rather than quietly dropping them.</p>
   <h3>Specification checklists</h3><p>Where a subject has them, each topic lists every individual statement the exam board makes for it, with a tick each, so you can see exactly what the specification asks. Where the board numbers its statements, the numbering was read out of the document by machine and a test fails the build if one goes missing. In the separate sciences, a <b>B</b>, <b>C</b> or <b>P</b> suffix marks content only separate-science students sit. Subjects built on texts and skills, like English, are checked at section level instead.</p>
@@ -3674,7 +3714,7 @@ function renderGuide(){
   <p class="muted" style="font-size:13px;margin:8px 0 0">The app checks for a new version while it's open and whenever you come back to it, so a fresh release shows up without reopening. With this on it downloads and installs in the background, waiting until you're not mid‑lesson so the restart never interrupts you. It always jumps straight to the newest version. With this off, a bar offers the update and you choose when.</p></div>
 
   <div class="card"><h3 style="font-size:18px;margin:0 0 10px">Keyboard shortcuts</h3>
-  <div class="keys"><span><kbd>1</kbd>–<kbd>6</kbd></span><span>Switch tab</span>
+  <div class="keys"><span><kbd>1</kbd>–<kbd>7</kbd></span><span>Switch tab</span>
   <span><kbd>D</kbd></span><span>Tick the session you're on as done (Today)</span>
   <span><kbd>Shift</kbd> + <kbd>←</kbd> <kbd>→</kbd></span><span>Previous / next day</span>
   <span><kbd>←</kbd> <kbd>→</kbd></span><span>Previous / next week</span>
@@ -3778,19 +3818,158 @@ function renderSetup(){
 }
 const WIDE=matchMedia("(min-width:1000px)");
 WIDE.addEventListener("change",()=>{if(typeof view!=="undefined"&&WEEKS.length)render();});
-function render(){if(needsSetup())return renderSetup();document.body.classList.remove("setup");({today:renderToday,important:renderImportant,subjects:renderSubjects,progress:renderProgress,plan:renderPlan,guide:renderGuide})[view]();navBadge();}
+function render(){if(needsSetup())return renderSetup();document.body.classList.remove("setup");({today:renderToday,important:renderImportant,subjects:renderSubjects,progress:renderProgress,plan:renderPlan,cards:renderCards,guide:renderGuide})[view]();navBadge();fcBadge();}
 document.querySelectorAll(".nav [role=tab]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 
+/* ---------- FLASHCARDS ----------
+   Every card you make, by hand under a topic, from a lesson's key terms or
+   from your notes, lives in state.cards[topicId]. This tab studies them with
+   spaced repetition: each card carries its own schedule (due date, interval in
+   days, ease), so a card you know comes back rarely and one you miss comes back
+   tomorrow. A card with no schedule yet is new; at most FC_NEW_PER_DAY new
+   cards are introduced a day so reviews never pile up. */
+const FC_NEW_PER_DAY=20;
+let FC={mode:"decks",open:new Set(),q:"",browse:null,study:null,edit:null,msg:"",busy:""};
+const fcIsNew=c=>!c.due,fcIsDue=c=>!!c.due&&c.due<=todayISO();
+const fcSubjOf=id=>String(id).split(":")[0];
+const fcTopic=id=>{const S=SUBJECTS[fcSubjOf(id)];return (S&&S.topics.find(t=>t.id===id))||null;};
+const fcTopicName=id=>{const t=fcTopic(id);return t?`${t[0]} ${t[1]}`:String(id).split(":").slice(1).join(":");};
+const fcSubjName=s=>(SUBJECTS[s]&&SUBJECTS[s].name)||s;
+const fcColor=s=>(SUBJECTS[s]&&SUBJECTS[s].color)||"var(--rest)";
+function fcAll(filter){const out=[];Object.keys(state.cards||{}).forEach(id=>{if(filter&&!filter(id))return;(state.cards[id]||[]).forEach((c,i)=>out.push({id,i,c}));});return out;}
+function fcCounts(list){let due=0,nw=0,learned=0;list.forEach(x=>{if(fcIsNew(x.c))nw++;else{if(fcIsDue(x.c))due++;if((x.c.iv||0)>=21)learned++;}});return {total:list.length,due,nw,learned};}
+const fcNewLeft=()=>Math.max(0,FC_NEW_PER_DAY-(state.cardDay&&state.cardDay.date===todayISO()?state.cardDay.n:0));
+function fcDueCount(){return fcAll().filter(x=>fcIsDue(x.c)).length;}
+function fcBadge(){const b=document.getElementById("fcn");if(!b)return;const n=fcDueCount();b.hidden=!n;b.textContent=n>99?"99+":String(n);}
+// again = 1, hard = 2, good = 3, easy = 4. Returns the card's next interval and ease.
+function fcNext(c,g){let ez=c.ez||2.5,iv=c.iv||0;
+  if(g===1){ez=Math.max(1.3,ez-0.2);iv=0;}
+  else if(g===2){ez=Math.max(1.3,ez-0.15);iv=iv?Math.max(iv+1,Math.round(iv*1.2)):1;}
+  else if(g===3){iv=iv?Math.max(iv+1,Math.round(iv*ez)):1;}
+  else{ez+=0.15;iv=iv?Math.max(iv+2,Math.round(iv*ez*1.3)):4;}
+  return {iv:Math.min(iv,365),ez:Math.round(ez*100)/100};}
+const fcIvLabel=iv=>iv<=0?"again now":iv===1?"1 day":iv<31?iv+" days":iv<365?Math.round(iv/30.4)+" mo":"1 year";
+function fcDueLabel(c){if(fcIsNew(c))return "new";if(fcIsDue(c))return "due";const d=Math.round((new Date(c.due+"T00:00:00")-new Date(todayISO()+"T00:00:00"))/864e5);return d===1?"tomorrow":`in ${d} days`;}
+function fcShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function fcStart(label,filter,cram){const list=fcAll(filter);
+  let queue;
+  if(cram)queue=fcShuffle(list.slice());
+  else queue=fcShuffle(list.filter(x=>fcIsDue(x.c))).concat(list.filter(x=>fcIsNew(x.c)).slice(0,fcNewLeft()));
+  if(!queue.length){FC.msg=list.length?"Nothing due here right now. Practise all of them instead, or come back tomorrow.":"No cards here yet.";renderCards();return;}
+  FC.study={label,filter,queue,at:0,flip:false,done:0,tally:{},cram:!!cram};FC.mode="study";FC.msg="";renderCards();window.scrollTo({top:0});}
+function fcRate(g){const S=FC.study;if(!S||!S.flip)return;const x=S.queue[S.at];const c=(state.cards[x.id]||[])[x.i];
+  if(c&&!S.cram){const wasNew=fcIsNew(c),n=fcNext(c,g);c.iv=n.iv;c.ez=n.ez;c.due=iso(new Date(Date.now()+n.iv*864e5));c.reps=(c.reps||0)+1;if(g===1)c.lapses=(c.lapses||0)+1;
+    if(wasNew){if(!state.cardDay||state.cardDay.date!==todayISO())state.cardDay={date:todayISO(),n:0};state.cardDay.n++;}}
+  S.done++;S.tally[g]=(S.tally[g]||0)+1;if(g===1)S.queue.push(x);
+  S.at++;S.flip=false;markDay();persist();renderCards();}
+function fcKey(e){if(FC.mode!=="study"||!FC.study||FC.study.at>=FC.study.queue.length)return false;
+  if(e.key===" "||e.key==="Enter"){if(!FC.study.flip){e.preventDefault();FC.study.flip=true;renderCards();return true;}return false;}
+  if(FC.study.flip&&/^[1-4]$/.test(e.key)){e.preventDefault();fcRate(+e.key);return true;}
+  return false;}
+async function fcImportTerms(subj){const S=SUBJECTS[subj];if(!S||FC.busy)return;FC.busy=subj;FC.msg="";renderCards();let added=0,topics=0,k=0;const todo=S.topics.filter(t=>t.lesson);
+  for(const t of todo){k++;const btn=document.querySelector(`[data-fcterms="${CSS.escape(subj)}"]`);if(btn)btn.textContent=`Adding… ${k} of ${todo.length}`;let tx=LESSON_CACHE[t.id];
+    if(!tx){try{tx=await invoke("get_lesson",{topicId:t.id});LESSON_CACHE[t.id]=tx;}catch(e){continue;}}
+    if(!tx)continue;const tb=parseLesson(tx).find(b=>b.kind==="terms");if(!tb)continue;
+    const list=(state.cards[t.id]=state.cards[t.id]||[]);const have=new Set(list.map(c=>c.f.toLowerCase()));let n=0;
+    lessonTerms(tb.lines).forEach(x=>{const f=plainText([x.t]);if(f&&!have.has(f.toLowerCase())){list.push({f:f.slice(0,80),b:plainText([x.d]).slice(0,300)});have.add(f.toLowerCase());n++;}});
+    if(!list.length)delete state.cards[t.id];
+    if(n){added+=n;topics++;}}
+  if(added){markDay();persist();}
+  FC.busy="";FC.msg=added?`Added ${added} key term${added===1?"":"s"} from ${topics} ${S.name} lesson${topics===1?"":"s"}. They start as new cards, ${FC_NEW_PER_DAY} a day.`:`Every key term in the ${S.name} lessons is already a card.`;
+  if(view==="cards")renderCards();}
+function renderCards(){const el=document.getElementById("view-cards");if(!el)return;fcBadge();
+  if(FC.mode==="study"&&FC.study)return fcRenderStudy(el);
+  if(FC.mode==="browse"&&FC.browse)return fcRenderBrowse(el);
+  FC.mode="decks";fcRenderDecks(el);}
+function fcRenderDecks(el){const all=fcAll(),tot=fcCounts(all),left=fcNewLeft();
+  const subjs=SUBJ_IDS.concat([...new Set(Object.keys(state.cards||{}).map(fcSubjOf))].filter(s=>!SUBJ_IDS.includes(s)));
+  const studyN=tot.due+Math.min(tot.nw,left);
+  const deck=s=>{const mine=fcAll(id=>fcSubjOf(id)===s),c=fcCounts(mine),S=SUBJECTS[s],open=FC.open.has(s);
+    const topicIds=[...new Set(mine.map(x=>x.id))].sort((a,b)=>((fcTopic(a)||{}).idx??999)-((fcTopic(b)||{}).idx??999));
+    const lessons=S?S.topics.filter(t=>t.lesson).length:0;
+    return `<div class="fcdeck"><div class="row"><button class="nm" data-fcopen="${esc(s)}" aria-expanded="${open}"><span class="dot" style="background:${fcColor(s)}"></span>${esc(fcSubjName(s))}</button>
+      <span class="ct">${c.total?`${c.due?`<span class="d">${c.due} due</span> · `:""}${c.nw?`${c.nw} new · `:""}${c.total} card${c.total===1?"":"s"}`:"No cards yet"}</span>
+      ${c.total?`<button class="btn small ${c.due||(c.nw&&left)?"primary":""}" data-fcstudy="subj|${esc(s)}">Study</button><button class="btn small" data-fcbrowse="subj|${esc(s)}">Browse</button>`:""}
+      ${lessons?`<button class="btn small" data-fcterms="${esc(s)}" ${FC.busy?"disabled":""}>${FC.busy===s?"Adding…":"+ Key terms from lessons"}</button>`:""}</div>
+      ${open&&topicIds.length?`<div class="tops">${topicIds.map(id=>{const tc=fcCounts(mine.filter(x=>x.id===id));
+        return `<div class="trow"><span class="tt">${esc(fcTopicName(id))}</span><span class="ct">${tc.due?`<span class="d">${tc.due} due</span> · `:""}${tc.total}</span><button class="btn small" data-fcstudy="topic|${esc(id)}">Study</button><button class="btn small" data-fcbrowse="topic|${esc(id)}">Browse</button></div>`;}).join("")}</div>`:""}</div>`;};
+  el.innerHTML=`<div class="card lift"><span class="eyebrow">Flashcards</span><h2 style="margin:4px 0 6px">Your cards</h2>
+    <p class="muted" style="margin:0">Cards you know come back rarely; cards you miss come back tomorrow. Space shows the answer, then <b>1</b> Again · <b>2</b> Hard · <b>3</b> Good · <b>4</b> Easy.</p>
+    <div class="fcstats"><div class="fcstat due"><b>${tot.due}</b><span>due today</span></div><div class="fcstat"><b>${tot.nw}</b><span>new${tot.nw?` · ${left} today`:""}</span></div><div class="fcstat"><b>${tot.learned}</b><span>well learned</span></div><div class="fcstat"><b>${tot.total}</b><span>cards in all</span></div></div>
+    <div class="fcbar"><button class="btn primary" data-fcstudy="all|" ${studyN?"":"disabled"}>${studyN?`Study ${studyN} card${studyN===1?"":"s"}`:"All caught up"}</button>
+      <button class="btn" data-fccram="all|" ${tot.total?"":"disabled"}>Practise all</button>
+      <label class="muted" style="font-size:13.5px;display:flex;gap:6px;align-items:center"><input type="checkbox" id="fcrev" ${state.cardReverse?"checked":""}> Show the back first</label>
+      <input type="search" id="fcq" placeholder="Search your cards" value="${esc(FC.q)}"></div>
+    ${FC.msg?`<p class="muted" style="margin:0 0 12px">${esc(FC.msg)}</p>`:""}
+    ${tot.total?"":`<p style="margin:0 0 12px">No cards yet. The quickest start is <b>+ Key terms from lessons</b> on a subject below: every key term in its lessons becomes a card. You can also make cards under any topic in Subjects, or from a lesson's notes.</p>`}
+    ${subjs.map(deck).join("")}</div>`;
+  fcBind(el);}
+function fcScope(kind,arg){if(kind==="subj")return {label:fcSubjName(arg),filter:id=>fcSubjOf(id)===arg};
+  if(kind==="topic")return {label:fcTopicName(arg),filter:id=>id===arg};
+  return {label:"All subjects",filter:null};}
+function fcRenderStudy(el){const S=FC.study,n=S.queue.length;
+  if(S.at>=n){const t=S.tally;el.innerHTML=`<div class="card lift"><span class="eyebrow">${esc(S.label)}</span><h2 style="margin:4px 0 10px">Done: ${S.done} card${S.done===1?"":"s"}</h2>
+      <p style="margin:0 0 14px">${t[4]||0} easy · ${t[3]||0} good · ${t[2]||0} hard · ${t[1]||0} again.${S.cram?" Practice rounds do not change when cards are due.":` Tomorrow: ${fcAll().filter(x=>!fcIsNew(x.c)&&x.c.due<=iso(new Date(Date.now()+864e5))).length} due.`}</p>
+      <div class="fcbar"><button class="btn primary" data-fcback="1">Back to decks</button></div></div>`;fcBind(el);return;}
+  const x=S.queue[S.at],c=(state.cards[x.id]||[])[x.i]||{f:"(deleted card)",b:""},s=fcSubjOf(x.id),rev=!!state.cardReverse;
+  const front=rev?c.b:c.f,back=rev?c.f:c.b;
+  const pv=g=>S.cram?"":`<small>${fcIvLabel(fcNext(c,g).iv)}</small>`;
+  el.innerHTML=`<div class="card lift"><div class="fcbar" style="margin:0 0 10px"><button class="btn small" data-fcback="1">← End</button><span class="eyebrow" style="flex:1">${esc(S.label)}${S.cram?" · practice":""}</span><span class="muted" style="font-size:13px">${Math.min(S.at+1,n)} / ${n}</span></div>
+    <div class="fcprog"><i style="width:${Math.round(S.at/n*100)}%"></i></div>
+    <button class="fccard" id="fcflip"><div class="where"><span class="dot" style="width:8px;height:8px;border-radius:50%;background:${fcColor(s)}"></span>${esc(fcSubjName(s))} · ${esc(fcTopicName(x.id))}${fcIsNew(c)?" · new":""}</div>
+      <div class="front">${esc(front)}</div>${S.flip?`<div class="back">${esc(back)}</div>`:`<span class="hint">Say the answer, then tap or press Space</span>`}</button>
+    ${S.flip?`<div class="fcrate"><button class="again" data-fcrate="1">Again${pv(1)}</button><button data-fcrate="2">Hard${pv(2)}</button><button class="good" data-fcrate="3">Good${pv(3)}</button><button data-fcrate="4">Easy${pv(4)}</button></div>
+      <p class="muted" style="font-size:12.5px;margin:8px 0 0;text-align:center">Keys 1 to 4. Be honest: Again brings it back in this session.</p>`:""}</div>`;
+  fcBind(el);}
+function fcRenderBrowse(el){const B=FC.browse,q=FC.q.trim().toLowerCase();
+  const scope=B.kind==="search"?{label:`Search: “${FC.q}”`,filter:null}:fcScope(B.kind,B.arg);
+  const list=fcAll(scope.filter).filter(x=>!q||B.kind!=="search"||(x.c.f+" "+x.c.b).toLowerCase().includes(q));
+  const topics=B.kind==="topic"?[fcTopic(B.arg)].filter(Boolean):B.kind==="subj"&&SUBJECTS[B.arg]?SUBJECTS[B.arg].topics:[];
+  const item=x=>{const k=x.id+"|"+x.i;if(FC.edit===k)return `<div class="fcitem"><input data-fcef="${esc(k)}" value="${esc(x.c.f)}"><input data-fceb="${esc(k)}" value="${esc(x.c.b)}"><div style="display:flex;gap:6px"><button class="btn small primary" data-fcsave="${esc(k)}">Save</button><button class="btn small" data-fccancel="1">Cancel</button></div></div>`;
+    return `<div class="fcitem"><div><div class="f">${esc(x.c.f)}</div><div class="meta">${B.kind==="topic"?"":esc(fcTopicName(x.id))+" · "}${fcDueLabel(x.c)}${x.c.lapses?` · missed ${x.c.lapses}×`:""}</div></div><div class="b">${esc(x.c.b)}</div><div style="display:flex;gap:6px"><button class="btn small" data-fcedit="${esc(k)}">Edit</button><button class="icon" data-fcdel="${esc(k)}" aria-label="Delete card">×</button></div></div>`;};
+  el.innerHTML=`<div class="card lift"><div class="fcbar" style="margin:0 0 6px"><button class="btn small" data-fcback="1">← All decks</button><span class="eyebrow" style="flex:1">${esc(scope.label)}</span>
+      ${B.kind!=="search"&&list.length?`<button class="btn small primary" data-fcstudy="${esc(B.kind+"|"+B.arg)}">Study</button><button class="btn small" data-fccram="${esc(B.kind+"|"+B.arg)}">Practise all</button>`:""}</div>
+    <p class="muted" style="margin:0 0 8px">${list.length} card${list.length===1?"":"s"}</p>
+    <div class="fclist">${list.map(item).join("")||`<p class="muted">No cards${B.kind==="search"?" match":" here yet"}.</p>`}</div>
+    ${topics.length?`<div class="fcadd"><select id="fcnt">${topics.map(t=>`<option value="${esc(t.id)}">${esc(t[0]+" "+t[1])}</option>`).join("")}</select><input id="fcnf" placeholder="Front: the prompt"><input id="fcnb" placeholder="Back: the answer"><button class="btn small primary" id="fcnadd">Add card</button></div>`:""}</div>`;
+  fcBind(el);}
+function fcBind(el){
+  const go=(sel,fn)=>el.querySelectorAll(sel).forEach(b=>b.addEventListener("click",()=>fn(b)));
+  go("[data-fcopen]",b=>{const s=b.dataset.fcopen;FC.open.has(s)?FC.open.delete(s):FC.open.add(s);renderCards();});
+  go("[data-fcstudy]",b=>{const[k,...a]=b.dataset.fcstudy.split("|");const sc=fcScope(k,a.join("|"));fcStart(sc.label,sc.filter,false);});
+  go("[data-fccram]",b=>{const[k,...a]=b.dataset.fccram.split("|");const sc=fcScope(k,a.join("|"));fcStart(sc.label,sc.filter,true);});
+  go("[data-fcbrowse]",b=>{const[k,...a]=b.dataset.fcbrowse.split("|");FC.browse={kind:k,arg:a.join("|")};FC.mode="browse";FC.edit=null;renderCards();window.scrollTo({top:0});});
+  go("[data-fcterms]",b=>fcImportTerms(b.dataset.fcterms));
+  go("[data-fcback]",()=>{FC.mode="decks";FC.study=null;FC.browse=null;FC.edit=null;renderCards();});
+  go("[data-fcrate]",b=>fcRate(+b.dataset.fcrate));
+  go("[data-fcedit]",b=>{FC.edit=b.dataset.fcedit;renderCards();});
+  go("[data-fccancel]",()=>{FC.edit=null;renderCards();});
+  const ref=k=>{const j=k.lastIndexOf("|");return [k.slice(0,j),+k.slice(j+1)];};
+  go("[data-fcsave]",b=>{const k=b.dataset.fcsave,[id,i]=ref(k),c=(state.cards[id]||[])[i];if(!c)return;
+    const f=el.querySelector(`[data-fcef="${CSS.escape(k)}"]`).value.trim(),bk=el.querySelector(`[data-fceb="${CSS.escape(k)}"]`).value.trim();
+    if(f)c.f=f.slice(0,200);c.b=bk.slice(0,500);FC.edit=null;persist();renderCards();});
+  go("[data-fcdel]",b=>{const[id,i]=ref(b.dataset.fcdel);(state.cards[id]||[]).splice(i,1);if(state.cards[id]&&!state.cards[id].length)delete state.cards[id];persist();renderCards();});
+  el.querySelector("#fcflip")?.addEventListener("click",()=>{if(FC.study&&!FC.study.flip){FC.study.flip=true;renderCards();}});
+  el.querySelector("#fcrev")?.addEventListener("change",e=>{state.cardReverse=e.target.checked;persist();});
+  const q=el.querySelector("#fcq");
+  q?.addEventListener("keydown",e=>{if(e.key==="Enter"&&q.value.trim()){FC.q=q.value.trim();FC.browse={kind:"search",arg:""};FC.mode="browse";renderCards();}});
+  const add=el.querySelector("#fcnadd");
+  if(add){const f=el.querySelector("#fcnf"),bk=el.querySelector("#fcnb"),t=el.querySelector("#fcnt");
+    const doAdd=()=>{if(!f.value.trim()||!bk.value.trim()){(f.value.trim()?bk:f).focus();return;}(state.cards[t.value]=state.cards[t.value]||[]).push({f:f.value.trim().slice(0,200),b:bk.value.trim().slice(0,500)});markDay();persist();renderCards();el.querySelector("#fcnf")?.focus();};
+    add.addEventListener("click",doAdd);[f,bk].forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();doAdd();}}));}}
+document.addEventListener("click",e=>{if(e.target.closest("[data-gocards]")){FC.mode="decks";showView("cards");}});
+
 /* ---------- KEYBOARD ----------
-   1-6 switch tabs. On Today: left and right change week, T jumps to today,
+   1-7 switch tabs. On Cards: Space shows the answer, 1-4 rate it. On Today: left and right change week, T jumps to today,
    P prints the week. Ctrl+K searches from anywhere. Escape closes menus. */
 document.addEventListener("keydown",e=>{
   const typing=/^(INPUT|TEXTAREA|SELECT)$/.test((e.target&&e.target.tagName)||"")||(e.target&&e.target.isContentEditable);
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();curSubj=null;showView("subjects");const b=document.getElementById("findbox");if(b){b.focus();b.select();}return;}
   if(e.key==="Escape"){if(menuKey){menuKey=null;render();}if(typing)e.target.blur();return;}
   if(typing||e.ctrlKey||e.metaKey||e.altKey)return;
-  const tabs=["today","subjects","progress","important","plan","guide"];
-  if(/^[1-6]$/.test(e.key)){showView(tabs[+e.key-1]);return;}
+  if(view==="cards"&&fcKey(e))return;
+  const tabs=["today","subjects","cards","progress","important","plan","guide"];
+  if(/^[1-7]$/.test(e.key)){showView(tabs[+e.key-1]);return;}
   if(view!=="today")return;
   if(e.shiftKey&&(e.key==="ArrowLeft"||e.key==="ArrowRight")){stepDay(e.key==="ArrowRight"?1:-1);return;}
   if(e.key.toLowerCase()==="d"){const v=document.getElementById("view-today");
