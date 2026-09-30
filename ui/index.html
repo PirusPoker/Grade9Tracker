@@ -1582,6 +1582,8 @@ const RP_PEARSON="https://qualifications.pearson.com/en/qualifications/edexcel-i
 const RP_FILTER=".coursematerials.html#filterQuery=category:Pearson-UK:Category%2FExam-materials";
 // [code, name, marks, minutes]
 const REAL_PAPERS={
+  maths_aqa:{board:"aqa",months:["June","November"],from:2017,url:"https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/assessment-resources",comps:[["1H","Paper 1H (non-calculator)",80,90],["2H","Paper 2H (calculator)",80,90],["3H","Paper 3H (calculator)",80,90]]},
+  maths_edx:{board:"pearson",months:["June","November"],from:2017,url:"https://qualifications.pearson.com/en/qualifications/edexcel-gcses/mathematics-2015.coursematerials.html",comps:[["1H","Paper 1H (non-calculator)",80,90],["2H","Paper 2H (calculator)",80,90],["3H","Paper 3H (calculator)",80,90]]},
   rs:{board:"aqa",from:2018,url:"https://www.aqa.org.uk/subjects/religious-studies/gcse/religious-studies-a-8062/assessment-resources",comps:[["1","Paper 1 (Christianity and Islam)",96,105],["2A","Paper 2A (themes A, B, D, E)",96,105]]},
   hist:{board:"pearson",months:["June"],from:2018,url:"https://qualifications.pearson.com/en/qualifications/edexcel-gcses/history-2016.coursematerials.html",comps:[["1","Paper 1 (Medicine and the Western Front)",52,80],["2","Paper 2 (Cold War and Elizabeth)",64,110],["3","Paper 3 (Weimar and Nazi Germany)",52,90]]},
   geog:{board:"aqa",from:2018,url:"https://www.aqa.org.uk/subjects/geography/gcse/geography-8035/assessment-resources",comps:[["1","Paper 1 (physical environment)",88,90],["2","Paper 2 (human environment)",88,90],["3","Paper 3 (geographical applications)",76,90]]},
@@ -3349,7 +3351,9 @@ function renderQuoteQuiz(el){const z=qb.quiz,S=SUBJECTS.englit;
 let curSubj=null,query="",knowMode=false;
 /* Topics grouped under the specification's own sections, by code prefix. */
 function sectionOf(S,code){const keys=S.sections.map(l=>l.split(" ")[0]);let best=null;
-  for(const k of keys){if(code===k||coversRef(code,k)||code.startsWith(k+".")){if(!best||k.length>best.length)best=k;}}return best;}
+  // A letter-only key is a strand: "N" holds N1, N13-16 (GCSE Maths).
+  const strand=k=>/^[A-Za-z]+$/.test(k)&&code.startsWith(k)&&/\d/.test(code.charAt(k.length));
+  for(const k of keys){if(code===k||coversRef(code,k)||code.startsWith(k+".")||strand(k)){if(!best||k.length>best.length)best=k;}}return best;}
 function grouped(S){const groups=[];const by={};
   S.topics.forEach(t=>{const k=sectionOf(S,t[0])||"";if(!by[k]){by[k]={key:k,label:S.sections.find(l=>l.split(" ")[0]===k)||(k?k:"Topics"),topics:[]};groups.push(by[k]);}by[k].topics.push(t);});
   return groups;}

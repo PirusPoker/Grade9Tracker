@@ -175,6 +175,10 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // Food: taught through both years at school, and the NEA takes the lesson
     // time in Year 11, so recall on the written-paper content only.
     ("food", &[(1, 0.5, 0.25)]),
+    // Pearson Edexcel GCSE Mathematics (1MA1) Higher
+    ("maths_edx", &[(1, 1.0, 0.5)]),
+    // AQA GCSE Mathematics (8300) Higher
+    ("maths_aqa", &[(1, 1.0, 0.5)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -196,6 +200,8 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("media", "school"),
     ("dt", "school"),
     ("food", "school"),
+    ("maths_edx", "ahead"),
+    ("maths_aqa", "ahead"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -405,6 +411,24 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/food-and-nutrition/aqa/food-preparation-and-nutrition/past-papers/"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/food-preparation-and-nutrition/gcse/food-preparation-and-nutrition-8585/assessment-resources"),
         ("AQA spec", "https://www.aqa.org.uk/subjects/food-preparation-and-nutrition/gcse/food-preparation-and-nutrition-8585/specification"),
+    ]),
+    // Pearson Edexcel GCSE Mathematics (1MA1) Higher. Each link opened and checked 30 September 2026
+    ("maths_edx", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/maths/edexcel/22/higher/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/maths/edexcel/22/higher/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/maths/edexcel/past-papers/"),
+        ("Maths Genie", "https://www.mathsgenie.co.uk/gcse.php"),
+        ("Corbettmaths", "https://corbettmaths.com/contents/"),
+        ("Pearson papers & mark schemes", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/mathematics-2015.coursematerials.html"),
+    ]),
+    // AQA GCSE Mathematics (8300) Higher. Each link opened and checked 30 September 2026
+    ("maths_aqa", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/maths/aqa/22/higher/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/maths/aqa/22/higher/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/maths/aqa/past-papers/"),
+        ("Maths Genie", "https://www.mathsgenie.co.uk/gcse.php"),
+        ("Corbettmaths", "https://corbettmaths.com/contents/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/assessment-resources"),
     ]),
 ];
 
