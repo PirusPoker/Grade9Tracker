@@ -79,6 +79,8 @@ const PAPERS: &[(&str, &str, &str)] = &[
     ("maths_ocr/p2", "maths_ocr", include_str!("../papers/maths_ocr/p2.md")),
     ("englang_edq/p1", "englang_edq", include_str!("../papers/englang_edq/p1.md")),
     ("englang_edq/p2", "englang_edq", include_str!("../papers/englang_edq/p2.md")),
+    ("bio_aqa/p1", "bio_aqa", include_str!("../papers/bio_aqa/p1.md")),
+    ("bio_aqa/p2", "bio_aqa", include_str!("../papers/bio_aqa/p2.md")),
 ];
 
 #[derive(Serialize, Clone, Debug)]
