@@ -180,6 +180,24 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ("chem_aqa", &["4.1.1", "4.1.2", "4.1.3", "4.2.1", "4.2.2", "4.2.3", "4.2.4", "4.3.1", "4.3.2", "4.3.3", "4.3.4", "4.3.5", "4.4.1", "4.4.2", "4.4.3", "4.5.1", "4.5.2", "4.6.1", "4.6.2", "4.7.1", "4.7.2", "4.7.3", "4.8.1", "4.8.2", "4.8.3", "4.9.1", "4.9.2", "4.9.3", "4.10.1", "4.10.2", "4.10.3", "4.10.4"]),
     // AQA GCSE Physics (8463) Higher. Every subsection, Higher tier; lessons flag what Combined Science Trilogy leaves out.
     ("phys_aqa", &["4.1.1", "4.1.2", "4.1.3", "4.2.1", "4.2.2", "4.2.3", "4.2.4", "4.2.5", "4.3.1", "4.3.2", "4.3.3", "4.4.1", "4.4.2", "4.4.3", "4.4.4", "4.5.1", "4.5.2", "4.5.3", "4.5.4", "4.5.5", "4.5.6", "4.5.7", "4.6.1", "4.6.2", "4.6.3", "4.7.1", "4.7.2", "4.7.3", "4.8.1", "4.8.2"]),
+    // Economics - AQA GCSE 8136 (second board beside Cambridge 0987 "econ").
+    // Read from the specification PDF, version 1.0 (21 July 2016; still the
+    // current version on AQA's specification page), on 30 September 2026.
+    // 39 four-level references: 3.1 (content 1-6) is Paper 1, 3.2 (content
+    // 7-11) is Paper 2. No NEA. No reference is split.
+    ("econ_aqa", &[
+        "3.1.1.1", "3.1.1.2", "3.1.1.3",
+        "3.1.2.1", "3.1.2.2", "3.1.2.3",
+        "3.1.3.1", "3.1.3.2", "3.1.3.3", "3.1.3.4", "3.1.3.5", "3.1.3.6",
+        "3.1.4.1", "3.1.4.2", "3.1.4.3",
+        "3.1.5.1", "3.1.5.2", "3.1.5.3", "3.1.5.4",
+        "3.1.6.1", "3.1.6.2",
+        "3.2.1.1", "3.2.1.2",
+        "3.2.2.1", "3.2.2.2", "3.2.2.3", "3.2.2.4", "3.2.2.5", "3.2.2.6",
+        "3.2.3.1", "3.2.3.2", "3.2.3.3", "3.2.3.4",
+        "3.2.4.1", "3.2.4.2", "3.2.4.3", "3.2.4.4",
+        "3.2.5.1", "3.2.5.2",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -7084,6 +7102,263 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Explain how red-shift supports the Big Bang theory of a universe that began very small, extremely hot and dense",
         "Describe how observations lead to theories, and explain that the accelerating expansion, dark mass and dark energy are still not understood",
     ], "Red-shift means the wavelength increases, not that the galaxy looks red. In Big Bang answers, link every step: galaxies moving apart now, closer together in the past, so a very small, hot and dense beginning."),
+    // ---------- Economics (AQA GCSE 8136) ----------
+    ("econ_aqa:3.1.1.1", &[
+        "Distinguish needs from wants, and explain how both change over time",
+        "Explain that the central purpose of economic activity is producing goods and services to satisfy needs and wants",
+        "State the three key economic decisions: what, how and for whom to produce",
+        "Explain how consumers, producers and government interact as the main economic groups",
+    ], "A holiday, a phone or a games console is a want, not a need - and 'the government' is an economic group in its own right, not just a regulator of the other two."),
+
+    ("econ_aqa:3.1.1.2", &[
+        "Explain what makes something an economic resource",
+        "Identify examples of land, labour, capital and enterprise in a named business",
+        "State the reward to each factor: rent, wages, interest and profit",
+    ], "Capital means man-made aids to production such as machinery and buildings, not money - 'income' and 'profit' are never factors of production."),
+
+    ("econ_aqa:3.1.1.3", &[
+        "Explain the basic economic problem of scarce resources and unlimited wants",
+        "Explain how consumers, producers and government weigh up costs and benefits to make a choice",
+        "Define opportunity cost and apply it to a named decision",
+    ], "Opportunity cost is the single next best alternative given up, not the money spent and not every other possible use."),
+
+    ("econ_aqa:3.1.2.1", &[
+        "Define a market as any opportunity for buyers and sellers to interact to set a price",
+        "Explain how markets allocate scarce resources through price signals",
+        "Explain the difference between factor markets and product markets, with an example of each",
+    ], "Factor markets trade factors of production such as labour; product markets trade goods AND services - 'goods versus services' is the answer the examiners mark wrong."),
+
+    ("econ_aqa:3.1.2.2", &[
+        "Classify activities into the primary, secondary and tertiary sectors",
+        "Describe the relative sizes of the three sectors in the UK and how they have changed",
+        "Distinguish a good from a service",
+        "Calculate and explain the consequences of a change in the size of a sector",
+    ], "The secondary sector is mainly manufacturing and construction - its decline means lost factory jobs and structural unemployment, not fewer shops."),
+
+    ("econ_aqa:3.1.2.3", &[
+        "Define specialisation and the division of labour",
+        "Explain how and why individuals, firms and countries specialise, and why specialisation leads to exchange",
+        "Explain the costs and benefits of the division of labour to the worker and to the firm",
+    ], "Read who the question is about: a disadvantage 'for an individual worker' is boredom or redundancy risk, not the firm's loss of output."),
+
+    ("econ_aqa:3.1.3.1", &[
+        "Define demand as the quantity bought at a given price in a given time period",
+        "Explain the factors that shift demand: income, related goods, tastes, advertising, population",
+        "Construct an individual demand curve from consumer data",
+        "Distinguish a movement along the demand curve from a shift of it",
+    ], "Only a change in the good's own price moves along the curve; every other factor shifts it - and 'more demand' must say which way the curve moves."),
+
+    ("econ_aqa:3.1.3.2", &[
+        "Define supply and explain why the supply curve slopes upwards",
+        "Explain the factors that shift supply: costs, technology, taxes and subsidies, number of firms, weather",
+        "Construct an individual firm's supply curve from production data",
+        "Distinguish a movement along the supply curve from a shift of it",
+    ], "A rise in the cost of a raw material shifts SUPPLY to the left - students often shift demand instead and lose every diagram mark."),
+
+    ("econ_aqa:3.1.3.3", &[
+        "Explain how demand and supply determine equilibrium price and quantity on a diagram",
+        "Explain why excess demand and excess supply push the price to equilibrium",
+        "Analyse the effect of shifts in demand or supply on equilibrium price and quantity in real markets",
+        "Show and calculate total revenue on a demand and supply diagram",
+    ], "Say which curve shifts and in which direction before stating the price change - under half of candidates managed this in June 2025."),
+
+    ("econ_aqa:3.1.3.4", &[
+        "Define complementary and substitute goods, with examples",
+        "Explain how a change in price, demand or supply in one market affects related markets",
+        "Show the knock-on effect on a second demand and supply diagram",
+    ], "A rise in the price of a good raises demand for its substitute but lowers demand for its complement - trace the chain one step at a time."),
+
+    ("econ_aqa:3.1.3.5", &[
+        "Calculate price elasticity of demand from given data and interpret the answer",
+        "Distinguish price elastic from price inelastic demand",
+        "Explain the factors that affect PED: substitutes, necessity, share of income, habit, time",
+        "Explain the implications of PED for producers' pricing and revenue, and for consumers",
+    ], "Divide the percentage change in QUANTITY by the percentage change in PRICE - reversing it, or using raw numbers instead of percentages, scores nothing."),
+
+    ("econ_aqa:3.1.3.6", &[
+        "Calculate price elasticity of supply from given data and interpret the answer",
+        "Distinguish price elastic from price inelastic supply",
+        "Explain the factors that affect PES: time, spare capacity, stocks, availability of inputs",
+        "Explain the implications of PES for producers and consumers",
+    ], "A PES question wants supply-side factors such as spare capacity or growing time - many candidates answer with PED factors like substitutes."),
+
+    ("econ_aqa:3.1.4.1", &[
+        "Explain business objectives: profit, sales growth, market share and survival",
+        "Calculate total, average, fixed and variable costs, and total and average revenue",
+        "Calculate profit and explain how firms raise it by cutting average costs or raising revenue",
+        "Explain why higher prices give producers an incentive to expand production",
+        "Evaluate conflicts between producers' motives and ethical and moral interests",
+    ], "Business objectives are a firm's aims - 'low inflation' or 'economic growth' are government objectives and score nothing here."),
+
+    ("econ_aqa:3.1.4.2", &[
+        "Distinguish production (total output) from productivity (output per input)",
+        "Calculate labour productivity and its percentage change from data",
+        "Explain the factors that raise productivity: training, capital, specialisation, motivation, management",
+        "Analyse the benefits of higher productivity for firms, workers and the economy",
+    ], "More output is not higher productivity unless output per worker rises - examiners report candidates conflating the two every year."),
+
+    ("econ_aqa:3.1.4.3", &[
+        "Define economies of scale as the fall in average cost as production rises",
+        "Explain managerial, purchasing, financial, technical and risk-bearing economies of scale",
+        "Explain diseconomies of scale and why average costs can rise as a firm grows",
+        "Evaluate the costs and benefits of growth for a business",
+    ], "Economies of scale lower AVERAGE (unit) cost, not total cost - and making a wide range of products to spread risk is risk-bearing, not technical."),
+
+    ("econ_aqa:3.1.5.1", &[
+        "Explain that there is a range of market structures from competitive to monopoly",
+        "Use the number of producers, product differentiation and ease of entry to distinguish them",
+        "Calculate and interpret market shares",
+    ], "Barriers to entry are LOW in a competitive market and HIGH in a concentrated one - swapping them is the error the examiners name."),
+
+    ("econ_aqa:3.1.5.2", &[
+        "Describe the main characteristics of a competitive market",
+        "Explain how producers operate in a competitive market",
+        "Explain the impact of competition on consumers, producers and workers",
+        "Explain why profits are lower in a competitive market than in a concentrated one",
+    ], "'State two ways' needs two different features - 'many firms' and 'few firms' are one point stated twice."),
+
+    ("econ_aqa:3.1.5.3", &[
+        "Define monopoly and oligopoly",
+        "Explain how producers operate in a non-competitive market: price setting, differentiation, collusion",
+        "Explain the causes of monopoly and oligopoly power, including barriers to entry",
+        "Evaluate the consequences of monopoly power for consumers, including possible benefits from economies of scale and innovation",
+    ], "A 15-marker asking about consumers wants effects on consumers - answers that drift to profits for producers or tax for government were weaker in 2025."),
+
+    ("econ_aqa:3.1.5.4", &[
+        "Explain wage determination using demand for and supply of labour",
+        "Draw the effect of a change in the demand for a product on the labour market for its workers",
+        "Explain wage differentials within and between occupations",
+        "Distinguish gross from net pay and calculate net pay from deductions",
+    ], "Demand for labour is derived from demand for the product, so more grocery sales shift the DEMAND for drivers right - not their supply."),
+
+    ("econ_aqa:3.1.6.1", &[
+        "Define market failure as the market's inability to allocate resources efficiently",
+        "Explain the costs of a misallocation of resources",
+        "Explain the methods of government intervention: taxes, subsidies, regulation, provision, information",
+        "Evaluate how well an intervention corrects a misallocation",
+    ], "Evaluate the tool, not just describe it - a tax on a good with price inelastic demand raises money but changes behaviour very little."),
+
+    ("econ_aqa:3.1.6.2", &[
+        "Define an externality as the gap between social and private costs or benefits",
+        "Distinguish positive from negative externalities and identify them in context",
+        "Explain how both production and consumption create negative externalities",
+    ], "An externality falls on a THIRD party - a higher price paid by the buyer or a lower profit for the firm is a private cost, not an externality."),
+
+    ("econ_aqa:3.2.1.1", &[
+        "Explain what an interest rate is and why different loans and savings carry different rates",
+        "Explain how changes in interest rates affect consumers' decisions to save, borrow and spend",
+        "Explain how changes in interest rates affect producers' decisions to save, borrow and invest",
+        "Calculate interest on savings, including for part of a year",
+    ], "'How much interest' means the interest alone - adding back the deposit was the commonest error in June 2025, and loans cost more than mortgages because they carry more risk."),
+
+    ("econ_aqa:3.2.1.2", &[
+        "Identify the main sources of UK government revenue and main areas of spending",
+        "Distinguish direct from indirect taxes, with examples",
+        "Explain progressive, proportional and regressive taxation",
+    ], "Regressive means a larger PERCENTAGE of a low income, even though the rich pay more pounds - VAT is the classic example."),
+
+    ("econ_aqa:3.2.2.1", &[
+        "State the principal economic objectives: full employment, price stability, growth and the balance of payments",
+        "Explain other objectives such as reducing inequality and managing environmental change",
+        "Analyse how a policy for one objective can harm another",
+        "Evaluate how pursuing an objective affects different groups of people",
+    ], "A conflict needs the chain: the policy, what it does to spending, and why that worsens the second objective - naming two objectives is not enough."),
+
+    ("econ_aqa:3.2.2.2", &[
+        "Explain what economic growth is and why it matters",
+        "Distinguish GDP, real GDP and GDP per capita and calculate growth rates and per-capita figures",
+        "Explain the causes, costs and benefits of economic growth",
+        "Explain government policies to achieve growth",
+    ], "Nominal GDP can rise while living standards fall - adjust for inflation (real GDP) and for population (per capita) before judging."),
+
+    ("econ_aqa:3.2.2.3", &[
+        "Calculate the unemployment rate and explain how employment and unemployment are measured",
+        "Explain structural, seasonal, frictional and cyclical unemployment and their causes",
+        "Explain the consequences of unemployment for individuals, firms, government and communities",
+        "Evaluate government policies to reduce each type of unemployment",
+    ], "The unemployment rate divides by the economically active (employed plus unemployed), not the whole working-age population - the wrong denominator cost most of the marks in 2025."),
+
+    ("econ_aqa:3.2.2.4", &[
+        "Define inflation and the rate of inflation",
+        "Explain how the CPI measures inflation and calculate inflation from index figures",
+        "Explain cost-push and demand-pull inflation",
+        "Explain the consequences of inflation for savers, borrowers, workers, firms and government",
+    ], "A falling inflation rate still means prices are rising, just more slowly - only a negative rate is deflation."),
+
+    ("econ_aqa:3.2.2.5", &[
+        "Explain the components of the current account and calculate its balance",
+        "Explain the meaning and significance of a current account deficit or surplus",
+        "Explain the reasons for a deficit or surplus, including productivity and the exchange rate",
+        "Explain government policies to influence the balance of payments",
+    ], "The current account balance is about trade and income flows with other countries - don't confuse it with the government's budget balance."),
+
+    ("econ_aqa:3.2.2.6", &[
+        "Describe the distribution of income and wealth in the UK",
+        "Explain the causes of income and wealth inequality",
+        "Explain the consequences of inequality",
+        "Evaluate redistribution through taxation and government spending",
+    ], "Income is a flow and wealth is a stock - a policy that taxes income does not touch the inequality in property and savings."),
+
+    ("econ_aqa:3.2.3.1", &[
+        "Explain how fiscal policy affects income and spending in the economy",
+        "Explain how fiscal policy can be used to achieve government objectives",
+        "Define a balanced budget, a budget deficit and a budget surplus, and explain their consequences",
+        "Calculate the budget balance and express it as a percentage of GDP",
+    ], "Calculate the budget balance as revenue minus spending, divide by GDP (not by spending) and round to the places asked."),
+
+    ("econ_aqa:3.2.3.2", &[
+        "Explain what monetary policy is and who carries it out in the UK",
+        "Explain how interest rate changes are used to control inflation",
+        "Explain how monetary policy can help achieve other objectives, and its limits",
+    ], "Monetary policy is interest rates (and money supply) set by the Bank of England - tax and spending changes are fiscal policy."),
+
+    ("econ_aqa:3.2.3.3", &[
+        "Explain the supply-side policies named in the spec: education and training, lower direct taxes, lower taxes on profits, trade union reform, privatisation and deregulation",
+        "Explain how supply-side policies help achieve growth, employment and competitiveness",
+        "Evaluate the advantages and disadvantages of supply-side policies",
+    ], "Supply-side policies work by raising productive capacity, so they are slow - say how long the effect takes and who pays for it."),
+
+    ("econ_aqa:3.2.3.4", &[
+        "Explain policies to reduce negative externalities: taxes, regulation, fines, information",
+        "Explain policies to encourage positive externalities: subsidies, state provision, information",
+        "Evaluate how effective each policy is in a given context",
+    ], "A market-failure question wants market tools such as a tax, subsidy or labelling - answers about interest rates or growth policies scored nothing in 2025."),
+
+    ("econ_aqa:3.2.4.1", &[
+        "Explain why trade is important to economies",
+        "Describe the main types of UK exports and imports",
+        "Explain the advantages of trade and the consequences of global interdependence for the UK",
+    ], "Services are the UK's largest export - answers that treat UK trade as only goods miss the point of the data."),
+
+    ("econ_aqa:3.2.4.2", &[
+        "Explain how exchange rates are determined by the demand for and supply of a currency",
+        "Draw and label a change in the exchange rate on a currency diagram",
+        "Explain the effects of appreciation and depreciation on consumers and producers",
+    ], "More UK imports means more pounds SUPPLIED to buy foreign currency, so the supply curve shifts right and the pound falls."),
+
+    ("econ_aqa:3.2.4.3", &[
+        "Explain the arguments for and against free trade",
+        "Explain what a free-trade agreement is and the significance of agreements such as the EU",
+        "Analyse the impact of new free-trade agreements on UK consumers, producers and workers",
+    ], "A free-trade agreement helps exporters AND brings more competition from imports - analysis needs both sides to reach the top level."),
+
+    ("econ_aqa:3.2.4.4", &[
+        "Explain the factors behind globalisation, including technology and multinational companies",
+        "Explain the benefits and drawbacks of globalisation for producers, workers and consumers in the UK",
+        "Explain the benefits and drawbacks of globalisation for less developed countries",
+        "Evaluate the moral, ethical and sustainability issues in UK firms' overseas trade",
+    ], "Apply the effect to the group named - a drawback 'for producers in developed countries' is cheaper foreign competition, not low wages abroad."),
+
+    ("econ_aqa:3.2.5.1", &[
+        "Explain the four functions of money with examples",
+        "Explain why money is more than the notes and coins in circulation",
+    ], "A price label shows money as a unit of account; paying for it shows a medium of exchange - match the function to what the money is doing in the example."),
+
+    ("econ_aqa:3.2.5.2", &[
+        "Identify the main agents in the financial sector: the Bank of England, commercial banks and building societies",
+        "Explain the Bank of England's role in setting interest rates and keeping the financial system stable",
+        "Explain how high street banks fund investment and serve savers and borrowers",
+    ], "Keeping inflation at target is the Bank of England's job, not a high street bank's - and a building society is owned by its members, not shareholders."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

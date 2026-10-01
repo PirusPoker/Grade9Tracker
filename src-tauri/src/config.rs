@@ -190,6 +190,9 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("chem_aqa", &[(1, 1.0, 0.5)]),
     // AQA GCSE Physics (8463) Higher
     ("phys_aqa", &[(1, 1.0, 0.5)]),
+    // AQA GCSE Economics 8136: second-board Economics, school-paced - recall on
+    // what school has covered, with no NEA.
+    ("econ_aqa", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -218,6 +221,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("englang_edq", "school"),
     ("chem_aqa", "ahead"),
     ("phys_aqa", "ahead"),
+    ("econ_aqa", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -488,6 +492,16 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/physics/aqa/past-papers/"),
         ("PMT by topic", "https://www.physicsandmathstutor.com/physics-revision/gcse-aqa/"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/assessment-resources"),
+    ]),
+    // AQA GCSE Economics 8136. Every link opened on 30 September 2026: the
+    // tutor2u page is its AQA GCSE Economics student hub (study notes, quizzes,
+    // topic videos); Save My Exams has 8136 past papers but no revision notes
+    // for this course; BBC Bitesize has no GCSE Economics.
+    ("econ_aqa", &[
+        ("tutor2u notes & videos (AQA)", "https://www.tutor2u.net/students/gcse/aqa-gcse-economics"),
+        ("Past papers", "https://www.savemyexams.com/gcse/economics/aqa/past-papers/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/economics/gcse/economics-8136/assessment-resources"),
+        ("AQA spec", "https://www.aqa.org.uk/subjects/economics/gcse/economics-8136/specification"),
     ]),
 ];
 
