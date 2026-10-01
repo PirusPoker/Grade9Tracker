@@ -1159,42 +1159,134 @@ header.top{background:var(--glass);border-bottom-color:var(--line)}
 @media print{body{padding-left:0}body::before{display:none}}
 
 /* ---------- Flashcards ---------- */
-.fcstats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
-.fcstat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px}
-.fcstat b{display:block;font-size:24px;font-family:var(--display);line-height:1.1}
-.fcstat span{font-size:12.5px;color:var(--muted)}
-.fcstat.due b{color:var(--accent)}
-.fcbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
-.fcbar input[type=search]{flex:1;min-width:180px;padding:10px 14px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit}
-.fcdeck{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);margin-bottom:8px;overflow:hidden}
-.fcdeck>.row{display:flex;align-items:center;gap:10px;padding:12px 14px;flex-wrap:wrap}
-.fcdeck .nm{font-weight:650;flex:1;min-width:140px;display:flex;align-items:center;gap:8px;cursor:pointer;background:none;border:0;color:var(--ink);font:inherit;font-weight:650;text-align:left;padding:0}
-.fcdeck .dot{width:10px;height:10px;border-radius:50%;flex:none}
-.fcdeck .ct{font-size:13px;color:var(--muted)}
-.fcdeck .ct .d{color:var(--accent);font-weight:650}
-.fcdeck .tops{border-top:1px solid var(--line);padding:4px 14px 10px}
-.fcdeck .trow{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
-.fcdeck .trow:last-child{border-bottom:0}
-.fcdeck .trow .tt{flex:1}
-.fccard{display:block;width:100%;min-height:240px;margin:14px 0;padding:34px 28px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);color:var(--ink);font:inherit;text-align:center;cursor:pointer}
-.fccard .where{font-size:12px;color:var(--muted);margin-bottom:18px;display:flex;gap:6px;align-items:center;justify-content:center}
-.fccard .front{font-size:24px;font-weight:650;line-height:1.35;white-space:pre-wrap}
-.fccard .back{font-size:18px;line-height:1.5;margin-top:20px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-2);white-space:pre-wrap}
-.fccard .hint{display:block;margin-top:26px;font-size:13px;color:var(--label)}
-.fcrate{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.fcrate button{padding:12px 6px;border-radius:var(--r-sm);border:1px solid var(--line-2);background:var(--surface2);color:var(--ink);font:inherit;font-weight:650;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
-.fcrate button small{font-weight:500;font-size:12px;color:var(--muted)}
-.fcrate button.again{border-color:var(--bad-line);background:var(--bad-soft)}
-.fcrate button.good{border-color:var(--good-line);background:var(--good-soft)}
-.fcprog{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
-.fcprog i{display:block;height:100%;background:var(--accent)}
-.fclist .fcitem{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--line)}
-.fclist .fcitem .f{font-weight:650}
-.fclist .fcitem .b{color:var(--ink-2)}
-.fclist .fcitem .meta{font-size:12px;color:var(--muted);margin-top:2px}
-.fclist .fcitem input,.fcadd input,.fcadd select{width:100%;padding:8px 10px;border-radius:var(--r-xs);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;box-sizing:border-box}
-.fcadd{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-top:12px}
-@media (max-width:640px){.fcstats{grid-template-columns:repeat(2,1fr)}.fclist .fcitem{grid-template-columns:1fr}.fcadd{grid-template-columns:1fr}.fcrate{grid-template-columns:repeat(2,1fr)}}
+.fcwrap{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+@media (min-width:1000px){.fcwrap{grid-template-columns:minmax(0,1fr) 330px;align-items:start}}
+.fcrail{display:flex;flex-direction:column;gap:14px}
+.fcpanel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.fcpanel.top{border-top:3px solid var(--accent)}
+.fchd{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.fchd h1{margin:2px 0 0;font-size:40px;line-height:1.05;letter-spacing:-.02em;font-family:var(--display)}
+.fchd .grow{flex:1 1 240px}
+.fcsearch{width:auto!important;flex:0 1 300px;box-sizing:border-box;padding:11px 16px 11px 38px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface) no-repeat 14px 50%/16px;color:var(--ink);font:inherit;min-width:220px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B92A3' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E")}
+.btn.dark{background:var(--solid);color:var(--solid-ink);border-color:var(--solid)}
+.btn.grad{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;border:0;box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 35%,transparent)}
+.btn.wide{width:100%}
+.fccrumb{font-size:14px;color:var(--muted);margin-bottom:6px}
+.fccrumb button{background:none;border:0;padding:0;color:var(--ink-2);font:inherit;cursor:pointer}
+.fccrumb button:hover{color:var(--accent)}
+.fcdk{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) auto 24px;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 22px;margin-bottom:12px;cursor:pointer;text-align:left;width:100%;font:inherit;color:var(--ink)}
+.fcdk:hover{border-color:var(--accent-line)}
+.fcdk .nm{font-size:19px;font-weight:700;display:flex;gap:10px;align-items:baseline}
+.fcdk .nm i{width:11px;height:11px;border-radius:3px;flex:none;transform:translateY(-1px)}
+.fcdk .sm{font-size:13.5px;color:var(--muted);margin-top:2px}
+.fcdk .go{color:var(--accent);font-size:18px}
+.fcmb{display:flex;height:7px;border-radius:4px;background:var(--line);overflow:hidden;gap:2px}
+.fcmb i{display:block;height:100%}
+.fcmb .s{background:var(--good)}.fcmb .l{background:var(--accent)}.fcmb .w{background:var(--bad)}
+.fcmeta{font-size:13.5px;color:var(--muted);margin-top:6px}
+.fctag{font-size:11.5px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.fctag.weak{background:var(--bad-soft);color:var(--bad)}
+.fctag.ok{background:var(--good-soft);color:var(--good)}
+.fctag.new{background:var(--accent-soft);color:var(--accent)}
+.fctag.learn{background:var(--accent-soft);color:var(--accent)}
+.fcmake{display:block;width:100%;padding:18px;border:1.5px dashed var(--line-3);border-radius:var(--r);background:transparent;color:var(--muted);font:inherit;font-weight:650;cursor:pointer}
+.fcmake:hover{color:var(--accent);border-color:var(--accent-line)}
+.fcbig{font-size:44px;font-weight:750;font-family:var(--display);line-height:1}
+.fcbig small{font-size:16px;color:var(--muted);font-weight:600;margin-left:6px}
+.fclv{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.fclv b{font-size:26px;font-weight:600;font-family:var(--display)}
+.fcxp{height:6px;border-radius:3px;background:var(--line);margin:12px 0 6px;overflow:hidden}
+.fcxp i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.fclink{background:none;border:0;padding:0;color:var(--accent);font:inherit;font-weight:700;cursor:pointer}
+.fctitle{display:flex;gap:14px;align-items:flex-start}
+.fctitle i{width:8px;align-self:stretch;border-radius:4px;flex:none;max-height:26px;margin-top:12px}
+.fctabs{display:flex;gap:24px;border-bottom:1px solid var(--line);margin:18px 0 14px}
+.fctabs button{background:none;border:0;padding:10px 2px;font:inherit;font-size:17px;font-weight:650;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+.fctabs button[aria-selected=true]{color:var(--ink);border-color:var(--accent)}
+.fclegend{display:flex;gap:14px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin:8px 0 14px}
+.fclegend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--line-3)}
+.fclegend .s::before{background:var(--good)}.fclegend .l::before{background:var(--accent)}.fclegend .w::before{background:var(--bad)}
+.fcsub{display:flex;align-items:center;gap:14px;padding:14px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.fcsub:last-child{border-bottom:0}
+.fcsub .t{flex:1;font-weight:650;font-size:16px}
+.fcsub .t small{display:block;font-weight:500;font-size:13px;color:var(--muted)}
+.fcweak{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.fcweak b{font-weight:700}.fcweak span{color:var(--muted)}.fcweak em{color:var(--bad);font-style:normal;font-size:13px}
+.fcchips{display:flex;gap:8px;flex-wrap:wrap}
+.fcchip{padding:8px 16px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-weight:650;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.fcchip small{font-size:12px;background:var(--surface2);border-radius:999px;padding:1px 7px;color:var(--ink-2)}
+.fcchip[aria-pressed=true]{background:var(--solid);color:var(--solid-ink);border-color:var(--solid)}
+.fcchip[aria-pressed=true] small{background:color-mix(in srgb,var(--solid-ink) 18%,transparent);color:var(--solid-ink)}
+.fcchip:disabled{opacity:.45;cursor:default}
+.fcopts{display:grid;grid-template-columns:70px 1fr;gap:12px 16px;align-items:center}
+.fcmodes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.fcmode{display:flex;gap:14px;align-items:center;text-align:left;padding:18px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;cursor:pointer}
+.fcmode[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.fcmode:disabled{opacity:.45;cursor:default}
+.fcmode .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;flex:none;font-size:20px}
+.fcmode b{display:block;font-size:17px}
+.fcmode span{font-size:13.5px;color:var(--muted)}
+.fcstudyhd{display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.fcstudyhd .lbl{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.fcstudyhd .prog{flex:1;min-width:120px;height:7px;border-radius:4px;background:var(--line);overflow:hidden}
+.fcstudyhd .prog i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.fcscore{font-size:12px;font-weight:750;letter-spacing:.06em;padding:5px 10px;border-radius:999px}
+.fcscore.r{background:var(--good-soft);color:var(--good)}.fcscore.x{background:var(--bad-soft);color:var(--bad)}
+.fcclock{font-family:var(--mono);font-size:14px;color:var(--muted)}
+.fcpair{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.fcq,.fca{border-radius:26px;padding:34px 36px;min-height:360px;display:flex;flex-direction:column}
+.fcq{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.fca{background:#191D2A;color:#ECEFF6;border:1px solid #2A3042}
+.fcq .hd,.fca .hd{display:flex;gap:10px;align-items:center;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.fca .hd{color:#9AA2B4}
+.fcq .pill{background:var(--warn-soft);color:#A0561A;font-family:var(--body);font-weight:750;letter-spacing:.08em;font-size:12px}
+.fca .pill{background:#2C3244;color:#fff;font-family:var(--body);font-weight:750;letter-spacing:.08em;font-size:12px}
+.fcq .star{margin-left:auto;background:none;border:0;font-size:20px;color:var(--line-3);cursor:pointer}
+.fcq .star.on{color:#E7A41F}
+.fcq .body{flex:1;display:flex;align-items:center;font-size:30px;font-weight:750;line-height:1.25;white-space:pre-wrap;padding:20px 0}
+.fca .body{flex:1;display:flex;align-items:center;font-size:21px;line-height:1.6;white-space:pre-wrap;padding:20px 0}
+.fca .body.hide{justify-content:center;color:#6E7690;font-size:15px}
+.fcq .ft,.fca .ft{font-size:13.5px;color:var(--muted)}
+.fca .ft{color:#9AA2B4}.fca .ft em{color:#FF8A8A;font-style:normal}
+.fcq kbd,.fcrate kbd{font-family:var(--mono);font-size:11.5px;background:var(--surface2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--muted)}
+.fcq textarea{width:100%;min-height:90px;margin-top:6px;padding:12px;border-radius:12px;border:1px solid var(--line-2);background:var(--surface2);color:var(--ink);font:inherit;font-size:16px;resize:vertical;box-sizing:border-box}
+.fcq .body.small{font-size:24px}
+.fcyou{margin-top:14px;padding:12px 14px;border-radius:12px;background:#232838;font-size:15px;color:#C9CEDA}
+.fcyou b{color:#fff}
+.fcopt{display:block;width:100%;text-align:left;margin-top:8px;padding:12px 14px;border-radius:12px;border:1px solid var(--line-2);background:var(--surface2);color:var(--ink);font:inherit;cursor:pointer}
+.fcopt.right{border-color:var(--good);background:var(--good-soft)}
+.fcopt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.fcrate{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.fcrate button{padding:14px 8px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+.fcrate button b{font-size:16px}
+.fcrate button small{font-size:13px;color:var(--muted)}
+.fcrate .again{border-color:var(--bad)}.fcrate .again b{color:var(--bad)}
+.fcrate .hard b{color:#A0561A}.fcrate .good b{color:var(--accent)}
+.fcrate .easy{border-color:var(--good)}.fcrate .easy b{color:var(--good)}
+.fcrate button.sug{box-shadow:0 0 0 3px var(--accent-soft)}
+.fcstatrow{display:flex;gap:28px;flex-wrap:wrap;margin-top:14px}
+.fcstatrow div{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.fcstatrow b{display:block;font-size:24px;letter-spacing:0;text-transform:none;color:var(--ink);font-weight:600;font-family:var(--mono)}
+.fcheat{display:grid;grid-template-rows:repeat(7,14px);grid-auto-flow:column;grid-auto-columns:minmax(10px,1fr);gap:4px;margin:12px 0 8px;max-width:520px}
+.fcheat i{border-radius:3px;background:var(--line)}
+.fcbars .r{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 48px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.fcbars .r:last-child{border-bottom:0}
+.fcbars .bar{height:7px;border-radius:4px;background:var(--line);overflow:hidden}
+.fcbars .bar i{display:block;height:100%}
+.fcbars .p{text-align:right;font-family:var(--mono);font-size:13.5px}
+.fcres .row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;align-items:start}
+.fcadd2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.fcadd2 input,.fcadd2 select,.fcitem2 input{width:100%;padding:9px 12px;border-radius:10px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;box-sizing:border-box}
+.fcitem2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start;font-size:14.5px}
+.fcitem2 .f{font-weight:650}.fcitem2 .b{color:var(--ink-2)}.fcitem2 .m{font-size:12px;color:var(--muted);margin-top:3px}
+.fcrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.progtabs{display:flex;gap:22px;margin:-4px 0 16px}
+.progtabs button{background:none;border:0;padding:8px 2px;font:inherit;font-size:16px;font-weight:650;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent}
+.progtabs button[aria-selected=true]{color:var(--ink);border-color:var(--accent)}
+@media (max-width:760px){.fcpair{grid-template-columns:1fr}.fcq,.fca{min-height:200px;padding:24px}.fcq .body{font-size:23px}.fca .body{font-size:18px}
+  .fcdk{grid-template-columns:1fr auto;}.fcdk>div:nth-child(2){grid-column:1/-1;grid-row:2}.fcdk .go{display:none}
+  .fcmodes{grid-template-columns:1fr}.fcrate{grid-template-columns:repeat(2,1fr)}.fchd h1{font-size:32px}.fcitem2,.fcres .row{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="v-today">
@@ -3478,11 +3570,11 @@ function readinessCard(){
         <div class="rd"><b>${verdict}.</b> ${detail}</div>
         <span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">${r.due?`<button class="btn small primary" data-fixit="${esc(s)}">Re-test ${r.due}</button>`:""}${r.nextPaper?`<button class="btn small ${g===null?"primary":""}" data-paper="${esc(r.nextPaper.id)}">${paperHist(r.nextPaper.id).length?"Sit again":"Sit a paper"}</button>`:""}<button class="btn small" data-subj="${esc(s)}">Open</button></span></div>`;}).join("")+`</div>`;}
 function renderProgress(){
-  const el=document.getElementById("view-progress");const now=todayWeek();
+  const el=document.getElementById("view-progress");if(PROG_TAB==="cards")return fcRenderProgress(el);const now=todayWeek();
   const all=SUBJ_IDS.flatMap(s=>SUBJECTS[s].topics);const doneN=all.filter(t=>T(t.id).done).length,dueN=all.filter(t=>TOPIC_DUE[t.id]<now).length,knownN=all.filter(t=>T(t.id).known).length;
   const examDate=new Date(firstExam()+"T00:00:00");
   const sessionsDone=Object.values(state.sessions).filter(Boolean).length;
-  let html=`<h1 class="viewtitle">Progress</h1><div class="kpis">
+  let html=`<h1 class="viewtitle">Progress</h1>${progTabs()}<div class="kpis">
     <div class="kpi"><div class="eyebrow">Topics done</div><div class="v num">${doneN}<span style="font-size:15px;color:var(--muted)"> / ${all.length}</span></div><div class="d">${knownN} known · ${dueN} due by now</div></div>
     <div class="kpi"><div class="eyebrow">Days to exams</div><div class="v num">${daysToExams()}</div><div class="d">first paper ≈ ${fmt(examDate)} ${examDate.getFullYear()}</div></div>
     <div class="kpi"><div class="eyebrow">Streak</div><div class="v num">${streak()}</div><div class="d">days in a row</div></div>
@@ -3827,49 +3919,138 @@ function render(){if(needsSetup())return renderSetup();document.body.classList.r
 document.querySelectorAll(".nav [role=tab]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 
 /* ---------- FLASHCARDS ----------
-   Every card you make, by hand under a topic, from a lesson's key terms or
-   from your notes, lives in state.cards[topicId]. This tab studies them with
-   spaced repetition: each card carries its own schedule (due date, interval in
-   days, ease), so a card you know comes back rarely and one you miss comes back
-   tomorrow. A card with no schedule yet is new; at most FC_NEW_PER_DAY new
-   cards are introduced a day so reviews never pile up. */
+   Every card you make, by hand, from a lesson's key terms or from your notes,
+   lives in state.cards[topicId] as {f, b}. A subject is a deck and its topics
+   are subdecks. Each card carries its own schedule (due, iv days, ez ease) plus
+   what you have done with it (seen, wrong, starred, last answer), so this tab
+   can study what is due, drill what is weak, and show how strong each deck is.
+   A card with no schedule yet is new; at most FC_NEW_PER_DAY new cards are
+   introduced a day. Quiz and Mock never move a card's schedule. */
 const FC_NEW_PER_DAY=20;
-let FC={mode:"decks",open:new Set(),q:"",browse:null,study:null,edit:null,msg:"",busy:""};
+let FC={mode:"decks",q:"",deck:null,tab:"subs",sel:new Set(),setup:null,study:null,edit:null,adding:false,picker:false,msg:"",busy:""};
+let PROG_TAB="plan",FC_TIMER=null;
 const fcIsNew=c=>!c.due,fcIsDue=c=>!!c.due&&c.due<=todayISO();
+const fcIsWeak=c=>!fcIsNew(c)&&(((c.wrong||0)>0&&(c.wrong||0)/Math.max(1,c.seen||0)>=0.34)||((c.lapses||0)>0&&(c.iv||0)<3));
+const fcStrength=c=>fcIsNew(c)?"new":fcIsWeak(c)?"weak":(c.iv||0)>=21?"strong":"learning";
 const fcSubjOf=id=>String(id).split(":")[0];
 const fcTopic=id=>{const S=SUBJECTS[fcSubjOf(id)];return (S&&S.topics.find(t=>t.id===id))||null;};
 const fcTopicName=id=>{const t=fcTopic(id);return t?`${t[0]} ${t[1]}`:String(id).split(":").slice(1).join(":");};
 const fcSubjName=s=>(SUBJECTS[s]&&SUBJECTS[s].name)||s;
 const fcColor=s=>(SUBJECTS[s]&&SUBJECTS[s].color)||"var(--rest)";
 function fcAll(filter){const out=[];Object.keys(state.cards||{}).forEach(id=>{if(filter&&!filter(id))return;(state.cards[id]||[]).forEach((c,i)=>out.push({id,i,c}));});return out;}
-function fcCounts(list){let due=0,nw=0,learned=0;list.forEach(x=>{if(fcIsNew(x.c))nw++;else{if(fcIsDue(x.c))due++;if((x.c.iv||0)>=21)learned++;}});return {total:list.length,due,nw,learned};}
+function fcCounts(list){const k={total:list.length,due:0,nw:0,weak:0,strong:0,learning:0};
+  list.forEach(x=>{const s=fcStrength(x.c);if(s==="new")k.nw++;else{k[s]++;if(fcIsDue(x.c))k.due++;}});
+  k.mastered=k.total?Math.round(k.strong/k.total*100):0;return k;}
 const fcNewLeft=()=>Math.max(0,FC_NEW_PER_DAY-(state.cardDay&&state.cardDay.date===todayISO()?state.cardDay.n:0));
-function fcDueCount(){return fcAll().filter(x=>fcIsDue(x.c)).length;}
+const fcDueCount=()=>fcAll().filter(x=>fcIsDue(x.c)).length;
 function fcBadge(){const b=document.getElementById("fcn");if(!b)return;const n=fcDueCount();b.hidden=!n;b.textContent=n>99?"99+":String(n);}
-// again = 1, hard = 2, good = 3, easy = 4. Returns the card's next interval and ease.
+const fcStats=()=>state.fcStats||(state.fcStats={xp:0,correct:0,seen:0,confSum:0,confN:0,secs:0,days:{}});
+const fcLevel=()=>{const xp=fcStats().xp;return {lv:1+Math.floor(xp/100),xp:xp%100};};
+function fcStreaks(){const days=fcStats().days;let cur=0,d=new Date();if(!days[iso(d)])d=addDays(d,-1);while(days[iso(d)]){cur++;d=addDays(d,-1);}
+  let best=0,run=0,prev=null;Object.keys(days).sort().forEach(k=>{const t=new Date(k+"T00:00:00");run=prev&&Math.round((t-prev)/864e5)===1?run+1:1;best=Math.max(best,run);prev=t;});
+  return {cur,best:Math.max(best,cur)};}
+const fcPace=()=>{const s=fcStats();return s.seen>=10?Math.max(4,s.secs/s.seen):15;};
+const fcMins=(n,mul)=>Math.max(1,Math.round(n*fcPace()*(mul||1)/60));
+// again = 1, hard = 2, good = 3, easy = 4. The card's next interval and ease.
 function fcNext(c,g){let ez=c.ez||2.5,iv=c.iv||0;
   if(g===1){ez=Math.max(1.3,ez-0.2);iv=0;}
   else if(g===2){ez=Math.max(1.3,ez-0.15);iv=iv?Math.max(iv+1,Math.round(iv*1.2)):1;}
   else if(g===3){iv=iv?Math.max(iv+1,Math.round(iv*ez)):1;}
   else{ez+=0.15;iv=iv?Math.max(iv+2,Math.round(iv*ez*1.3)):4;}
   return {iv:Math.min(iv,365),ez:Math.round(ez*100)/100};}
-const fcIvLabel=iv=>iv<=0?"again now":iv===1?"1 day":iv<31?iv+" days":iv<365?Math.round(iv/30.4)+" mo":"1 year";
-function fcDueLabel(c){if(fcIsNew(c))return "new";if(fcIsDue(c))return "due";const d=Math.round((new Date(c.due+"T00:00:00")-new Date(todayISO()+"T00:00:00"))/864e5);return d===1?"tomorrow":`in ${d} days`;}
+const fcIvLabel=iv=>iv<=0?"this session":iv===1?"1 day":iv<31?iv+" days":iv<365?Math.round(iv/30.4)+" months":"1 year";
+function fcDueLabel(c){if(fcIsNew(c))return "new";if(fcIsDue(c))return "due now";const d=Math.round((new Date(c.due+"T00:00:00")-new Date(todayISO()+"T00:00:00"))/864e5);return d===1?"due tomorrow":`due in ${d} days`;}
 function fcShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function fcStart(label,filter,cram){const list=fcAll(filter);
-  let queue;
-  if(cram)queue=fcShuffle(list.slice());
-  else queue=fcShuffle(list.filter(x=>fcIsDue(x.c))).concat(list.filter(x=>fcIsNew(x.c)).slice(0,fcNewLeft()));
-  if(!queue.length){FC.msg=list.length?"Nothing due here right now. Practise all of them instead, or come back tomorrow.":"No cards here yet.";renderCards();return;}
-  FC.study={label,filter,queue,at:0,flip:false,done:0,tally:{},cram:!!cram};FC.mode="study";FC.msg="";renderCards();window.scrollTo({top:0});}
-function fcRate(g){const S=FC.study;if(!S||!S.flip)return;const x=S.queue[S.at];const c=(state.cards[x.id]||[])[x.i];
-  if(c&&!S.cram){const wasNew=fcIsNew(c),n=fcNext(c,g);c.iv=n.iv;c.ez=n.ez;c.due=iso(new Date(Date.now()+n.iv*864e5));c.reps=(c.reps||0)+1;if(g===1)c.lapses=(c.lapses||0)+1;
-    if(wasNew){if(!state.cardDay||state.cardDay.date!==todayISO())state.cardDay={date:todayISO(),n:0};state.cardDay.n++;}}
-  S.done++;S.tally[g]=(S.tally[g]||0)+1;if(g===1)S.queue.push(x);
-  S.at++;S.flip=false;markDay();persist();renderCards();}
-function fcKey(e){if(FC.mode!=="study"||!FC.study||FC.study.at>=FC.study.queue.length)return false;
-  if(e.key===" "||e.key==="Enter"){if(!FC.study.flip){e.preventDefault();FC.study.flip=true;renderCards();return true;}return false;}
-  if(FC.study.flip&&/^[1-4]$/.test(e.key)){e.preventDefault();fcRate(+e.key);return true;}
+const fcNorm=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9ß ]+/g," ").replace(/\s+/g," ").trim();
+const FC_STOP=new Set("a an the of to and or in on at is are be it its for by as with that this from was were".split(" "));
+// How much of the model answer an attempt contains, 0 to 1. Short answers are compared letter by letter.
+function fcSim(attempt,model){const a=fcNorm(attempt),m=fcNorm(model);if(!a||!m)return 0;if(a===m)return 1;
+  if(m.length<=24){const d=(x,y)=>{const r=Array.from({length:y.length+1},(_,j)=>j);for(let i=1;i<=x.length;i++){let p=r[0];r[0]=i;for(let j=1;j<=y.length;j++){const t=r[j];r[j]=Math.min(r[j]+1,r[j-1]+1,p+(x[i-1]===y[j-1]?0:1));p=t;}}return r[y.length];};
+    return Math.max(0,1-d(a,m)/Math.max(a.length,m.length));}
+  const words=m.split(" ").filter(w=>w.length>2&&!FC_STOP.has(w)),have=new Set(a.split(" "));
+  return words.length?words.filter(w=>have.has(w)||[...have].some(h=>h.length>4&&(h.startsWith(w.slice(0,5))))).length/words.length:0;}
+const fcWeekTopics=()=>{const w=WEEKS[todayWeek()-1];if(!w)return new Set();return new Set(SUBJ_IDS.flatMap(s=>(w.plan[s]||[]).filter(e=>e.kind==="topic").map(e=>e.topic.id)));};
+function fcScope(kind,arg){if(kind==="subj")return {label:fcSubjName(arg),filter:id=>fcSubjOf(id)===arg,subj:arg};
+  if(kind==="topic")return {label:fcTopicName(arg),filter:id=>id===arg,subj:fcSubjOf(arg)};
+  if(kind==="topics"){const set=new Set(arg.split(","));return {label:`${fcSubjName(fcSubjOf(arg.split(",")[0]))} · ${set.size} subdecks`,filter:id=>set.has(id),subj:fcSubjOf(arg.split(",")[0])};}
+  return {label:"All decks",filter:null,subj:null};}
+const fcRangeLabel=ids=>{const codes=ids.map(id=>(fcTopic(id)||[])[0]).filter(Boolean);if(!codes.length)return "";return codes.length===1?codes[0]:`${codes[0]}–${codes[codes.length-1]}`;};
+const fcOrder=(a,b)=>((fcTopic(a)||{}).idx??999)-((fcTopic(b)||{}).idx??999);
+
+/* ----- Building a session ----- */
+const FC_MODES=[
+  {k:"flash",n:"Flashcards",d:"Flip through cards. Self-grade.",ic:"▢",bg:"var(--accent-soft)",col:"var(--accent)",sched:true,mul:1},
+  {k:"type",n:"Type-to-Recall",d:"Type the answer. Proper active recall.",ic:"⌨",bg:"color-mix(in srgb,var(--accent) 10%,transparent)",col:"var(--accent)",sched:true,mul:2},
+  {k:"speak",n:"Speak-to-Recall",d:"Say your answers out loud. The strongest recall.",ic:"🎙",bg:"var(--accent-soft2)",col:"var(--accent)",sched:true,mul:1.3},
+  {k:"explain",n:"Explain it",d:"In your own words. AI checks your understanding.",ic:"✎",bg:"var(--bad-soft)",col:"var(--bad)",sched:true,mul:3},
+  {k:"quiz",n:"Quiz",d:"Multiple choice from your own cards. Needs 4 cards.",ic:"✓",bg:"var(--good-soft)",col:"var(--good)",sched:false,mul:0.6},
+  {k:"mock",n:"Mock",d:"Timed. No flips, no second chances. Marked at the end.",ic:"◷",bg:"var(--warn-soft)",col:"#A0561A",sched:false,mul:2}];
+const fcMode=k=>FC_MODES.find(m=>m.k===k)||FC_MODES[0];
+function fcPool(scope,from){const list=fcAll(scope.filter),wk=fcWeekTopics();
+  if(from==="weak")return fcShuffle(list.filter(x=>fcIsWeak(x.c)));
+  if(from==="star")return fcShuffle(list.filter(x=>x.c.st));
+  if(from==="week")return fcShuffle(list.filter(x=>wk.has(x.id)));
+  if(from==="all")return fcShuffle(list.filter(x=>fcIsWeak(x.c))).concat(fcShuffle(list.filter(x=>!fcIsWeak(x.c))));
+  const due=list.filter(x=>fcIsDue(x.c));
+  return fcShuffle(due.filter(x=>fcIsWeak(x.c))).concat(fcShuffle(due.filter(x=>!fcIsWeak(x.c)))).concat(list.filter(x=>fcIsNew(x.c)).slice(0,fcNewLeft()));}
+function fcOpenSetup(kind,arg,from){const sc=fcScope(kind,arg);const has=k=>fcPool(sc,k).length;
+  FC.setup={kind,arg,count:"20",from:from||(has("due")?"due":has("weak")?"weak":"all"),mode:FC.setup&&FC.setup.mode||"flash"};FC.mode="setup";FC.msg="";renderCards();window.scrollTo({top:0});}
+function fcStart(kind,arg,from,mode,count){const sc=fcScope(kind,arg);let q=fcPool(sc,from);if(count&&count!=="all")q=q.slice(0,+count);
+  if(mode==="quiz")q=q.slice(0,count==="all"?q.length:Math.min(q.length,+count||10));
+  if(!q.length){FC.msg="Nothing to study there right now.";renderCards();return;}
+  const M=fcMode(mode),opts=mode==="quiz"?q.map(x=>fcQuizOpts(x,sc)):null;
+  FC.study={kind,arg,from,mode,label:sc.label,queue:q,at:0,flip:false,right:0,wrong:0,start:Date.now(),shown:Date.now(),typed:"",opts,pick:null,ai:null,answers:[],
+    limit:mode==="mock"?q.length*45:0,sugg:0};
+  FC.mode="study";FC.msg="";renderCards();window.scrollTo({top:0});
+  clearInterval(FC_TIMER);FC_TIMER=setInterval(fcTick,1000);}
+function fcQuizOpts(x,sc){const pool=fcAll(sc.subj?(id=>fcSubjOf(id)===sc.subj):null).map(y=>y.c.b).filter(b=>b&&fcNorm(b)!==fcNorm(x.c.b));
+  let wrong=fcShuffle([...new Set(pool)]).slice(0,3);if(wrong.length<3)wrong=wrong.concat(fcShuffle([...new Set(fcAll().map(y=>y.c.b).filter(b=>b&&fcNorm(b)!==fcNorm(x.c.b)&&!wrong.includes(b)))]).slice(0,3-wrong.length));
+  return fcShuffle([x.c.b,...wrong]);}
+function fcTick(){const S=FC.study,el=document.getElementById("fcclock");if(!S||FC.mode!=="study"||view!=="cards"){if(!S||FC.mode!=="study")clearInterval(FC_TIMER);return;}
+  const secs=Math.round((Date.now()-S.start)/1000);
+  if(S.limit){const left=S.limit-secs;if(left<=0){fcFinishMock();return;}if(el)el.textContent=fcClock(left);}
+  else if(el)el.textContent=fcClock(secs);}
+const fcClock=s=>`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
+const fcCur=()=>{const S=FC.study,x=S&&S.queue[S.at];return x?{x,c:(state.cards[x.id]||[])[x.i]}:null;};
+function fcRecord(c,right,conf){const st=fcStats(),secs=Math.min(120,(Date.now()-FC.study.shown)/1000);
+  if(c){c.seen=(c.seen||0)+1;if(!right)c.wrong=(c.wrong||0)+1;}
+  st.seen++;if(right)st.correct++;st.xp+=right?10:3;st.confSum+=conf;st.confN++;st.secs+=secs;st.days[todayISO()]=(st.days[todayISO()]||0)+1;
+  if(right)FC.study.right++;else FC.study.wrong++;}
+function fcRate(g){const S=FC.study,cur=fcCur();if(!S||!S.flip||!cur)return;const {x,c}=cur,M=fcMode(S.mode);
+  if(c){if(M.sched){const wasNew=fcIsNew(c),n=fcNext(c,g);c.iv=n.iv;c.ez=n.ez;c.due=iso(new Date(Date.now()+n.iv*864e5));c.reps=(c.reps||0)+1;if(g===1)c.lapses=(c.lapses||0)+1;
+      if(wasNew){if(!state.cardDay||state.cardDay.date!==todayISO())state.cardDay={date:todayISO(),n:0};state.cardDay.n++;}}
+    const note=S.mode==="type"&&S.typed?`you typed “${S.typed.slice(0,60)}”`:S.mode==="explain"&&S.ai&&S.ai.improve?S.ai.improve.slice(0,120):"";
+    c.last={d:todayISO(),g,note};}
+  fcRecord(c,g>1,(g-1)/3*100);if(g===1&&M.sched)S.queue.push(x);
+  fcNextCard();}
+function fcNextCard(){const S=FC.study;S.at++;S.flip=false;S.typed="";S.pick=null;S.ai=null;S.sugg=0;S.shown=Date.now();markDay();persist();
+  if(S.at>=S.queue.length)fcFinish();else renderCards();}
+function fcFinish(){const S=FC.study;clearInterval(FC_TIMER);const n=S.right+S.wrong;
+  (state.fcSessions=state.fcSessions||[]).push({at:todayISO(),label:S.label,mode:S.mode,n,pct:n?Math.round(S.right/n*100):0,kind:S.kind,arg:S.arg});
+  state.fcSessions=state.fcSessions.slice(-60);persist();FC.mode="done";renderCards();}
+function fcReveal(){const S=FC.study;if(!S||S.flip)return;
+  if(S.mode==="type"||S.mode==="speak"){const ta=document.getElementById("fctyped");if(ta)S.typed=ta.value;const cur=fcCur();
+    if(cur&&cur.c&&S.typed.trim()){const sim=fcSim(S.typed,cur.c.b);S.sim=sim;S.sugg=sim>=0.85?4:sim>=0.6?3:sim>=0.35?2:1;}}
+  S.flip=true;renderCards();}
+function fcPickQuiz(i){const S=FC.study,cur=fcCur();if(!S||S.pick!=null||!cur)return;S.pick=i;const ok=fcNorm(S.opts[S.at][i])===fcNorm(cur.c.b);
+  fcRecord(cur.c,ok,ok?100:0);S.flip=true;renderCards();}
+function fcMockNext(){const S=FC.study,ta=document.getElementById("fctyped");S.answers[S.at]=ta?ta.value:"";S.at++;S.shown=Date.now();
+  if(S.at>=S.queue.length)fcFinishMock();else renderCards();}
+function fcFinishMock(){const S=FC.study;clearInterval(FC_TIMER);const ta=document.getElementById("fctyped");if(ta&&S.at<S.queue.length)S.answers[S.at]=ta.value;
+  S.marks=S.queue.map((x,i)=>{const c=(state.cards[x.id]||[])[x.i];return !!(c&&S.answers[i]&&fcSim(S.answers[i],c.b)>=0.6);});FC.mode="mockres";renderCards();window.scrollTo({top:0});}
+function fcSaveMock(){const S=FC.study;S.queue.forEach((x,i)=>{const c=(state.cards[x.id]||[])[x.i];S.shown=Date.now()-20000;fcRecord(c,S.marks[i],S.marks[i]?80:0);});
+  S.right=S.marks.filter(Boolean).length;S.wrong=S.queue.length-S.right;FC.study.right=S.right;FC.study.wrong=S.wrong;fcFinish();}
+async function fcExplainCheck(){const S=FC.study,cur=fcCur(),ta=document.getElementById("fctyped");if(!cur||!ta||!ta.value.trim())return;S.typed=ta.value;S.ai={busy:true};renderCards();
+  try{const subj=SUBJECTS[fcSubjOf(cur.x.id)];const r=await invoke("mark_answer",{req:{subject:subj?subj.full:fcSubjOf(cur.x.id),question:cur.c.f,scheme:cur.c.b,max:2,answer:S.typed}});
+    S.ai=r;S.sugg=r.marks>=2?3:r.marks>=1?2:1;}
+  catch(e){S.ai={err:typeof errText==="function"?errText(e):String(e)};}
+  S.flip=true;if(FC.study===S)renderCards();}
+function fcKey(e){const S=FC.study;if(view!=="cards"||FC.mode!=="study"||!S)return false;
+  if(S.mode==="quiz"){if(S.pick==null&&/^[1-4]$/.test(e.key)){e.preventDefault();fcPickQuiz(+e.key-1);return true;}
+    if(S.pick!=null&&(e.key===" "||e.key==="Enter")){e.preventDefault();fcNextCard();return true;}return false;}
+  if(S.mode==="mock")return false;
+  if(!S.flip&&(e.key===" "||e.key==="Enter")){e.preventDefault();S.mode==="explain"?fcExplainCheck():fcReveal();return true;}
+  if(S.flip&&/^[1-4]$/.test(e.key)){e.preventDefault();fcRate(+e.key);return true;}
   return false;}
 async function fcImportTerms(subj){const S=SUBJECTS[subj];if(!S||FC.busy)return;FC.busy=subj;FC.msg="";renderCards();let added=0,topics=0,k=0;const todo=S.topics.filter(t=>t.lesson);
   for(const t of todo){k++;const btn=document.querySelector(`[data-fcterms="${CSS.escape(subj)}"]`);if(btn)btn.textContent=`Adding… ${k} of ${todo.length}`;let tx=LESSON_CACHE[t.id];
@@ -3880,89 +4061,231 @@ async function fcImportTerms(subj){const S=SUBJECTS[subj];if(!S||FC.busy)return;
     if(!list.length)delete state.cards[t.id];
     if(n){added+=n;topics++;}}
   if(added){markDay();persist();}
-  FC.busy="";FC.msg=added?`Added ${added} key term${added===1?"":"s"} from ${topics} ${S.name} lesson${topics===1?"":"s"}. They start as new cards, ${FC_NEW_PER_DAY} a day.`:`Every key term in the ${S.name} lessons is already a card.`;
+  FC.busy="";FC.picker=false;FC.msg=added?`Added ${added} key term${added===1?"":"s"} from ${topics} ${S.name} lesson${topics===1?"":"s"}. They start as new cards, ${FC_NEW_PER_DAY} a day.`:`Every key term in the ${S.name} lessons is already a card.`;
   if(view==="cards")renderCards();}
+
+/* ----- Screens ----- */
 function renderCards(){const el=document.getElementById("view-cards");if(!el)return;fcBadge();
   if(FC.mode==="study"&&FC.study)return fcRenderStudy(el);
-  if(FC.mode==="browse"&&FC.browse)return fcRenderBrowse(el);
+  if(FC.mode==="done"&&FC.study)return fcRenderDone(el);
+  if(FC.mode==="mockres"&&FC.study)return fcRenderMockRes(el);
+  if(FC.mode==="setup"&&FC.setup)return fcRenderSetup(el);
+  if(FC.mode==="deck"&&FC.deck)return fcRenderDeck(el);
+  if(FC.mode==="search")return fcRenderSearch(el);
   FC.mode="decks";fcRenderDecks(el);}
-function fcRenderDecks(el){const all=fcAll(),tot=fcCounts(all),left=fcNewLeft();
-  const subjs=SUBJ_IDS.concat([...new Set(Object.keys(state.cards||{}).map(fcSubjOf))].filter(s=>!SUBJ_IDS.includes(s)));
-  const studyN=tot.due+Math.min(tot.nw,left);
-  const deck=s=>{const mine=fcAll(id=>fcSubjOf(id)===s),c=fcCounts(mine),S=SUBJECTS[s],open=FC.open.has(s);
-    const topicIds=[...new Set(mine.map(x=>x.id))].sort((a,b)=>((fcTopic(a)||{}).idx??999)-((fcTopic(b)||{}).idx??999));
-    const lessons=S?S.topics.filter(t=>t.lesson).length:0;
-    return `<div class="fcdeck"><div class="row"><button class="nm" data-fcopen="${esc(s)}" aria-expanded="${open}"><span class="dot" style="background:${fcColor(s)}"></span>${esc(fcSubjName(s))}</button>
-      <span class="ct">${c.total?`${c.due?`<span class="d">${c.due} due</span> · `:""}${c.nw?`${c.nw} new · `:""}${c.total} card${c.total===1?"":"s"}`:"No cards yet"}</span>
-      ${c.total?`<button class="btn small ${c.due||(c.nw&&left)?"primary":""}" data-fcstudy="subj|${esc(s)}">Study</button><button class="btn small" data-fcbrowse="subj|${esc(s)}">Browse</button>`:""}
-      ${lessons?`<button class="btn small" data-fcterms="${esc(s)}" ${FC.busy?"disabled":""}>${FC.busy===s?"Adding…":"+ Key terms from lessons"}</button>`:""}</div>
-      ${open&&topicIds.length?`<div class="tops">${topicIds.map(id=>{const tc=fcCounts(mine.filter(x=>x.id===id));
-        return `<div class="trow"><span class="tt">${esc(fcTopicName(id))}</span><span class="ct">${tc.due?`<span class="d">${tc.due} due</span> · `:""}${tc.total}</span><button class="btn small" data-fcstudy="topic|${esc(id)}">Study</button><button class="btn small" data-fcbrowse="topic|${esc(id)}">Browse</button></div>`;}).join("")}</div>`:""}</div>`;};
-  el.innerHTML=`<div class="card lift"><span class="eyebrow">Flashcards</span><h2 style="margin:4px 0 6px">Your cards</h2>
-    <p class="muted" style="margin:0">Cards you know come back rarely; cards you miss come back tomorrow. Space shows the answer, then <b>1</b> Again · <b>2</b> Hard · <b>3</b> Good · <b>4</b> Easy.</p>
-    <div class="fcstats"><div class="fcstat due"><b>${tot.due}</b><span>due today</span></div><div class="fcstat"><b>${tot.nw}</b><span>new${tot.nw?` · ${left} today`:""}</span></div><div class="fcstat"><b>${tot.learned}</b><span>well learned</span></div><div class="fcstat"><b>${tot.total}</b><span>cards in all</span></div></div>
-    <div class="fcbar"><button class="btn primary" data-fcstudy="all|" ${studyN?"":"disabled"}>${studyN?`Study ${studyN} card${studyN===1?"":"s"}`:"All caught up"}</button>
-      <button class="btn" data-fccram="all|" ${tot.total?"":"disabled"}>Practise all</button>
-      <label class="muted" style="font-size:13.5px;display:flex;gap:6px;align-items:center"><input type="checkbox" id="fcrev" ${state.cardReverse?"checked":""}> Show the back first</label>
-      <input type="search" id="fcq" placeholder="Search your cards" value="${esc(FC.q)}"></div>
+const fcBar=k=>k.total?`<div class="fcmb"><i class="s" style="width:${k.strong/k.total*100}%"></i><i class="l" style="width:${k.learning/k.total*100}%"></i><i class="w" style="width:${k.weak/k.total*100}%"></i></div>`:`<div class="fcmb"></div>`;
+const fcTag=k=>!k.total?"":k.weak?`<span class="fctag weak">${k.weak} weak</span>`:k.nw===k.total?`<span class="fctag new">New</span>`:`<span class="fctag ok">On track</span>`;
+function fcRail(){const all=fcAll(),k=fcCounts(all),L=fcLevel(),St=fcStreaks(),decks=new Set(all.filter(x=>fcIsDue(x.c)||fcIsNew(x.c)).map(x=>fcSubjOf(x.id))).size,dueN=k.due+Math.min(k.nw,fcNewLeft());
+  const wk=[...fcWeekTopics()],withDue=wk.map(id=>({id,n:(state.cards[id]||[]).filter(fcIsDue).length})).filter(x=>x.n).sort((a,b)=>b.n-a.n)[0];
+  const noCards=wk.find(id=>!(state.cards[id]||[]).length&&(fcTopic(id)||{}).lesson);
+  return `<div class="fcrail"><div class="fcpanel top"><span class="eyebrow">Due now</span><div class="fcbig" style="margin:10px 0 8px">${dueN}<small>card${dueN===1?"":"s"}</small></div>
+    <p class="muted" style="margin:0 0 14px">${dueN?`Across ${decks} deck${decks===1?"":"s"}. About ${fcMins(dueN)} minute${fcMins(dueN)===1?"":"s"} at your usual pace.`:"Nothing due. New cards and weak spots are still there to practise."}</p>
+    <button class="btn grad wide" data-fcgo="all||due" ${dueN?"":"disabled"}>Study everything due</button>
+    <button class="btn wide" style="margin-top:10px" data-fcgo="all||weak" ${k.weak?"":"disabled"}>Drill ${k.weak} weak spot${k.weak===1?"":"s"}</button></div>
+    <div class="fcpanel"><div class="fclv"><div><span class="eyebrow">Level</span><br><b>L${L.lv}</b></div><div><span class="eyebrow">Streak</span><br><b>${St.cur}</b> <span class="muted">day${St.cur===1?"":"s"}</span></div></div>
+      <div class="fcxp"><i style="width:${L.xp}%"></i></div><span class="muted" style="font-size:13px">${L.xp} / 100 XP to L${L.lv+1}</span></div>
+    <div class="fcpanel"><span class="eyebrow">From your plan</span>
+      ${withDue?`<p style="margin:10px 0">This week you're on <b>${esc(fcSubjName(fcSubjOf(withDue.id)))} · ${esc(fcTopicName(withDue.id))}</b>. That subdeck has ${withDue.n} card${withDue.n===1?"":"s"} due; do them after the session while it's fresh.</p><button class="fclink" data-fcdeck="topic|${esc(withDue.id)}">Open the subdeck →</button>`
+        :noCards?`<p style="margin:10px 0">This week's <b>${esc(fcSubjName(fcSubjOf(noCards)))} · ${esc(fcTopicName(noCards))}</b> has no cards yet. Turning its subject's key terms into cards takes one click.</p><button class="fclink" data-fcterms="${esc(fcSubjOf(noCards))}">Make ${esc(fcSubjName(fcSubjOf(noCards)))} cards →</button>`
+        :`<p class="muted" style="margin:10px 0 0">Nothing from this week's topics is due. Weak spots are the best use of five spare minutes.</p>`}</div></div>`;}
+function fcRenderDecks(el){const subjs=[...new Set(SUBJ_IDS.concat(Object.keys(state.cards||{}).map(fcSubjOf)))];
+  const q=FC.q.trim().toLowerCase();
+  const decks=subjs.map(s=>{const mine=fcAll(id=>fcSubjOf(id)===s);return {s,mine,k:fcCounts(mine),ids:[...new Set(mine.map(x=>x.id))].sort(fcOrder)};})
+    .filter(d=>d.k.total&&(!q||fcSubjName(d.s).toLowerCase().includes(q)||d.ids.some(id=>fcTopicName(id).toLowerCase().includes(q))));
+  const withLessons=SUBJ_IDS.filter(s=>SUBJECTS[s].topics.some(t=>t.lesson));
+  el.innerHTML=`<div class="fcwrap"><div>
+    <div class="fchd"><div class="grow"><span class="eyebrow">Your collection</span><h1>Flashcards</h1></div>
+      <input type="search" class="fcsearch" id="fcq" placeholder="Search decks and cards" value="${esc(FC.q)}"><button class="btn dark" data-fcnew="1">+ Add cards</button></div>
     ${FC.msg?`<p class="muted" style="margin:0 0 12px">${esc(FC.msg)}</p>`:""}
-    ${tot.total?"":`<p style="margin:0 0 12px">No cards yet. The quickest start is <b>+ Key terms from lessons</b> on a subject below: every key term in its lessons becomes a card. You can also make cards under any topic in Subjects, or from a lesson's notes.</p>`}
-    ${subjs.map(deck).join("")}</div>`;
+    ${FC.adding?fcAddForm(null):""}
+    ${decks.map(d=>`<button class="fcdk" data-fcdeck="subj|${esc(d.s)}"><div><div class="nm"><i style="background:${fcColor(d.s)}"></i>${esc(fcSubjName(d.s))}</div>
+        <div class="sm">${d.ids.length} subdeck${d.ids.length===1?"":"s"} · ${d.k.total} card${d.k.total===1?"":"s"}${SUBJECTS[d.s]?` · linked to ${esc(fcSubjName(d.s))} ${esc(fcRangeLabel(d.ids))} in your plan`:""}</div></div>
+      <div>${fcBar(d.k)}<div class="fcmeta">${d.k.mastered}% mastered · ${d.k.due} due${d.k.nw?` · ${d.k.nw} new`:""}</div></div>${fcTag(d.k)}<span class="go">→</span></button>`).join("")}
+    ${!decks.length&&!q?`<div class="fcpanel" style="margin-bottom:12px"><b>No cards yet.</b><p class="muted" style="margin:6px 0 0">The quickest start: make a deck from a subject's key terms below. Every key term in its lessons becomes a card. You can also make cards under any topic, or from a lesson's notes.</p></div>`:""}
+    ${q&&!decks.length?`<p class="muted">No deck matches “${esc(FC.q)}”. Press Enter to search the cards themselves.</p>`:""}
+    ${FC.picker?`<div class="fcpanel" style="margin-bottom:12px"><span class="eyebrow">Make a deck from a subject's key terms</span><div class="fcchips" style="margin-top:10px">${withLessons.map(s=>`<button class="fcchip" data-fcterms="${esc(s)}" ${FC.busy?"disabled":""}>${FC.busy===s?"Adding…":esc(fcSubjName(s))}<small>${SUBJECTS[s].topics.filter(t=>t.lesson).length} lessons</small></button>`).join("")}</div></div>`
+      :`<button class="fcmake" data-fcpicker="1">+ Make a deck from a lesson's key terms</button>`}
+  </div>${fcRail()}</div>`;
   fcBind(el);}
-function fcScope(kind,arg){if(kind==="subj")return {label:fcSubjName(arg),filter:id=>fcSubjOf(id)===arg};
-  if(kind==="topic")return {label:fcTopicName(arg),filter:id=>id===arg};
-  return {label:"All subjects",filter:null};}
-function fcRenderStudy(el){const S=FC.study,n=S.queue.length;
-  if(S.at>=n){const t=S.tally;el.innerHTML=`<div class="card lift"><span class="eyebrow">${esc(S.label)}</span><h2 style="margin:4px 0 10px">Done: ${S.done} card${S.done===1?"":"s"}</h2>
-      <p style="margin:0 0 14px">${t[4]||0} easy · ${t[3]||0} good · ${t[2]||0} hard · ${t[1]||0} again.${S.cram?" Practice rounds do not change when cards are due.":` Tomorrow: ${fcAll().filter(x=>!fcIsNew(x.c)&&x.c.due<=iso(new Date(Date.now()+864e5))).length} due.`}</p>
-      <div class="fcbar"><button class="btn primary" data-fcback="1">Back to decks</button></div></div>`;fcBind(el);return;}
-  const x=S.queue[S.at],c=(state.cards[x.id]||[])[x.i]||{f:"(deleted card)",b:""},s=fcSubjOf(x.id),rev=!!state.cardReverse;
-  const front=rev?c.b:c.f,back=rev?c.f:c.b;
-  const pv=g=>S.cram?"":`<small>${fcIvLabel(fcNext(c,g).iv)}</small>`;
-  el.innerHTML=`<div class="card lift"><div class="fcbar" style="margin:0 0 10px"><button class="btn small" data-fcback="1">← End</button><span class="eyebrow" style="flex:1">${esc(S.label)}${S.cram?" · practice":""}</span><span class="muted" style="font-size:13px">${Math.min(S.at+1,n)} / ${n}</span></div>
-    <div class="fcprog"><i style="width:${Math.round(S.at/n*100)}%"></i></div>
-    <button class="fccard" id="fcflip"><div class="where"><span class="dot" style="width:8px;height:8px;border-radius:50%;background:${fcColor(s)}"></span>${esc(fcSubjName(s))} · ${esc(fcTopicName(x.id))}${fcIsNew(c)?" · new":""}</div>
-      <div class="front">${esc(front)}</div>${S.flip?`<div class="back">${esc(back)}</div>`:`<span class="hint">Say the answer, then tap or press Space</span>`}</button>
-    ${S.flip?`<div class="fcrate"><button class="again" data-fcrate="1">Again${pv(1)}</button><button data-fcrate="2">Hard${pv(2)}</button><button class="good" data-fcrate="3">Good${pv(3)}</button><button data-fcrate="4">Easy${pv(4)}</button></div>
-      <p class="muted" style="font-size:12.5px;margin:8px 0 0;text-align:center">Keys 1 to 4. Be honest: Again brings it back in this session.</p>`:""}</div>`;
+function fcAddForm(scope){const subj=scope&&scope.subj,fixed=scope&&FC.deck&&FC.deck.kind==="topic"?FC.deck.arg:null;
+  const topics=subj?SUBJECTS[subj]?SUBJECTS[subj].topics:[]:SUBJ_IDS.flatMap(s=>SUBJECTS[s].topics);
+  return `<div class="fcpanel" style="margin-bottom:12px"><span class="eyebrow">Add a card</span>
+    <div class="fcadd2">${fixed?`<input type="hidden" id="fcnt" value="${esc(fixed)}">`:`<select id="fcnt" style="grid-column:1/-1">${topics.map(t=>`<option value="${esc(t.id)}">${esc((subj?"":fcSubjName(t.subj)+" · ")+t[0]+" "+t[1])}</option>`).join("")}</select>`}
+      <input id="fcnf" placeholder="Front: the prompt"><input id="fcnb" placeholder="Back: the answer"></div>
+    <div class="fcrow" style="margin-top:10px"><button class="btn small primary" id="fcnadd">Add card</button><button class="btn small" data-fcnew="0">Done</button><span class="muted" style="font-size:13px">Enter adds and keeps the form open.</span></div></div>`;}
+function fcRenderDeck(el){const D=FC.deck,sc=fcScope(D.kind,D.arg),mine=fcAll(sc.filter),k=fcCounts(mine),s=sc.subj,S=SUBJECTS[s];
+  const ids=[...new Set(mine.map(x=>x.id))].sort(fcOrder),isSubj=D.kind==="subj";if(!isSubj)FC.tab="cards";
+  const weakest=mine.filter(x=>(x.c.seen||0)>0&&(x.c.wrong||0)>0).sort((a,b)=>(b.c.wrong/b.c.seen)-(a.c.wrong/a.c.seen)||b.c.wrong-a.c.wrong).slice(0,3);
+  const ed=state.examDates&&state.examDates[s]||"";const daysLeft=ed?Math.max(1,Math.round((new Date(ed+"T00:00:00")-new Date())/864e5)):0;
+  const toMaster=k.total-k.strong;
+  const linkTxt=isSubj?`${esc(fcSubjName(s))} ${esc(fcRangeLabel(ids))}`:esc(fcTopicName(D.arg));
+  el.innerHTML=`<div class="fcwrap"><div>
+    <div class="fccrumb"><button data-fcback="1">Flashcards</button> › ${isSubj?esc(fcSubjName(s)):`<button data-fcdeck="subj|${esc(s)}">${esc(fcSubjName(s))}</button> › ${esc((fcTopic(D.arg)||[""])[0])}`}</div>
+    <div class="fchd"><div class="grow fctitle"><i style="background:${fcColor(s)}"></i><div><h1>${esc(isSubj?fcSubjName(s):fcTopicName(D.arg))}</h1>
+      <div class="muted" style="margin-top:6px">${k.total} card${k.total===1?"":"s"} · ${k.mastered}% mastered${S?` · linked to <button class="fclink" data-fcplan="${esc(isSubj?s:D.arg)}">${linkTxt} in your plan</button>`:""}</div></div></div>
+      <button class="btn" data-fcnew="1">+ Add</button><button class="btn dark" data-fcsetup="${esc(D.kind+"|"+D.arg)}" ${k.total?"":"disabled"}>▶ Study deck</button></div>
+    ${FC.adding?fcAddForm(sc):""}
+    ${FC.msg?`<p class="muted" style="margin:0 0 12px">${esc(FC.msg)}</p>`:""}
+    <div class="fcpanel" style="border-top:3px solid ${fcColor(s)}"><div style="display:flex;justify-content:space-between"><span class="eyebrow">What to improve</span><b>${k.mastered}% strong</b></div>
+      <div style="margin-top:12px">${fcBar(k)}</div>
+      <div class="fclegend"><span class="s">Strong ${k.strong}</span><span class="l">Learning ${k.learning}</span><span class="w">Weak ${k.weak}</span><span>New ${k.nw}</span></div>
+      <div class="fcrow"><button class="btn grad" data-fcgo="${esc(D.kind+"|"+D.arg)}|weak" ${k.weak?"":"disabled"}>Drill ${k.weak} weak spot${k.weak===1?"":"s"}</button><button class="btn" data-fcgo="${esc(D.kind+"|"+D.arg)}|due" ${k.due+Math.min(k.nw,fcNewLeft())?"":"disabled"}>Due now · ${k.due+Math.min(k.nw,fcNewLeft())}</button></div></div>
+    <div class="fctabs" role="tablist"><button role="tab" aria-selected="${FC.tab==="cards"}" data-fctab="cards">Cards · ${k.total}</button>${isSubj?`<button role="tab" aria-selected="${FC.tab==="subs"}" data-fctab="subs">Subdecks · ${ids.length}</button>`:""}</div>
+    ${FC.tab==="subs"&&isSubj?`<div class="fcpanel">${ids.map(id=>{const tk=fcCounts(mine.filter(x=>x.id===id));
+        return `<div class="fcsub" data-fcdeck="topic|${esc(id)}"><input type="checkbox" data-fcsel="${esc(id)}" ${FC.sel.has(id)?"checked":""} aria-label="Select"><div class="t">${esc(fcTopicName(id))}<small>${tk.total} card${tk.total===1?"":"s"} · ${tk.weak?`${tk.weak} weak`:`${tk.due} due`}</small></div>${tk.weak?`<span class="fctag weak">Weak</span>`:tk.nw===tk.total?`<span class="fctag new">New</span>`:tk.strong===tk.total?`<span class="fctag ok">Strong</span>`:`<span class="fctag learn">Learning</span>`}<span class="go" style="color:var(--accent)">→</span></div>`;}).join("")||`<p class="muted">No cards yet.</p>`}
+        ${FC.sel.size?`<div class="fcrow" style="margin-top:12px"><button class="btn primary" data-fcsetup="topics|${esc([...FC.sel].join(","))}">Study ${FC.sel.size} selected</button><button class="btn small" data-fcclearsel="1">Clear</button></div>`:""}</div>`
+      :`<div class="fcpanel">${mine.sort((a,b)=>fcOrder(a.id,b.id)||a.i-b.i).map(x=>fcItem(x,isSubj)).join("")||`<p class="muted" style="margin:0">No cards yet. Add one above, or turn this subject's key terms into cards from the Flashcards page.</p>`}</div>`}
+  </div><div class="fcrail">
+    <div class="fcpanel"><span class="eyebrow">Exam coming up?</span><p class="muted" style="margin:8px 0 12px">Set the date and you'll see how many cards to master each day to be ready in time.</p>
+      <div class="fcrow"><input type="date" id="fcexam" value="${esc(ed)}" style="flex:1;padding:9px 12px;border-radius:10px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit"></div>
+      ${ed&&k.total?`<p style="margin:12px 0 0">${daysLeft} day${daysLeft===1?"":"s"} to go: master <b>${Math.max(1,Math.ceil(toMaster/daysLeft))} card${Math.ceil(toMaster/daysLeft)===1?"":"s"} a day</b> to have all ${k.total} strong in time.</p>`:""}</div>
+    <div class="fcpanel"><span class="eyebrow">Weakest cards</span>${weakest.length?weakest.map(x=>`<div class="fcweak"><b>${esc(x.c.f)}</b><span>${esc(x.c.b.slice(0,60))}${x.c.b.length>60?"…":""}</span><em>${x.c.wrong}/${x.c.seen}</em></div>`).join("")+`<button class="fclink" style="margin-top:12px" data-fcgo="${esc(D.kind+"|"+D.arg)}|weak">Drill these →</button>`:`<p class="muted" style="margin:8px 0 0">None yet. Cards you get wrong show up here, with how often you've missed them.</p>`}</div>
+    ${S?`<div class="fcpanel"><span class="eyebrow">In your plan</span><p style="margin:8px 0 0">These cards belong to <b>${linkTxt}</b>. They also come up front-first in that topic's recall checks, and Today's flashcard sessions point here.</p></div>`:""}
+  </div></div>`;
   fcBind(el);}
-function fcRenderBrowse(el){const B=FC.browse,q=FC.q.trim().toLowerCase();
-  const scope=B.kind==="search"?{label:`Search: “${FC.q}”`,filter:null}:fcScope(B.kind,B.arg);
-  const list=fcAll(scope.filter).filter(x=>!q||B.kind!=="search"||(x.c.f+" "+x.c.b).toLowerCase().includes(q));
-  const topics=B.kind==="topic"?[fcTopic(B.arg)].filter(Boolean):B.kind==="subj"&&SUBJECTS[B.arg]?SUBJECTS[B.arg].topics:[];
-  const item=x=>{const k=x.id+"|"+x.i;if(FC.edit===k)return `<div class="fcitem"><input data-fcef="${esc(k)}" value="${esc(x.c.f)}"><input data-fceb="${esc(k)}" value="${esc(x.c.b)}"><div style="display:flex;gap:6px"><button class="btn small primary" data-fcsave="${esc(k)}">Save</button><button class="btn small" data-fccancel="1">Cancel</button></div></div>`;
-    return `<div class="fcitem"><div><div class="f">${esc(x.c.f)}</div><div class="meta">${B.kind==="topic"?"":esc(fcTopicName(x.id))+" · "}${fcDueLabel(x.c)}${x.c.lapses?` · missed ${x.c.lapses}×`:""}</div></div><div class="b">${esc(x.c.b)}</div><div style="display:flex;gap:6px"><button class="btn small" data-fcedit="${esc(k)}">Edit</button><button class="icon" data-fcdel="${esc(k)}" aria-label="Delete card">×</button></div></div>`;};
-  el.innerHTML=`<div class="card lift"><div class="fcbar" style="margin:0 0 6px"><button class="btn small" data-fcback="1">← All decks</button><span class="eyebrow" style="flex:1">${esc(scope.label)}</span>
-      ${B.kind!=="search"&&list.length?`<button class="btn small primary" data-fcstudy="${esc(B.kind+"|"+B.arg)}">Study</button><button class="btn small" data-fccram="${esc(B.kind+"|"+B.arg)}">Practise all</button>`:""}</div>
-    <p class="muted" style="margin:0 0 8px">${list.length} card${list.length===1?"":"s"}</p>
-    <div class="fclist">${list.map(item).join("")||`<p class="muted">No cards${B.kind==="search"?" match":" here yet"}.</p>`}</div>
-    ${topics.length?`<div class="fcadd"><select id="fcnt">${topics.map(t=>`<option value="${esc(t.id)}">${esc(t[0]+" "+t[1])}</option>`).join("")}</select><input id="fcnf" placeholder="Front: the prompt"><input id="fcnb" placeholder="Back: the answer"><button class="btn small primary" id="fcnadd">Add card</button></div>`:""}</div>`;
+function fcItem(x,showTopic){const key=x.id+"|"+x.i,st=fcStrength(x.c);
+  if(FC.edit===key)return `<div class="fcitem2"><input data-fcef="${esc(key)}" value="${esc(x.c.f)}"><input data-fceb="${esc(key)}" value="${esc(x.c.b)}"><div class="fcrow"><button class="btn small primary" data-fcsave="${esc(key)}">Save</button><button class="btn small" data-fccancel="1">Cancel</button></div></div>`;
+  return `<div class="fcitem2"><div><div class="f">${x.c.st?"★ ":""}${esc(x.c.f)}</div><div class="m">${showTopic?esc(fcTopicName(x.id))+" · ":""}${st} · ${fcDueLabel(x.c)}${x.c.seen?` · ${x.c.seen-(x.c.wrong||0)}/${x.c.seen} right`:""}</div></div><div class="b">${esc(x.c.b)}</div>
+    <div class="fcrow"><button class="icon" data-fcstar="${esc(key)}" aria-label="Star" title="Star">${x.c.st?"★":"☆"}</button><button class="btn small" data-fcedit="${esc(key)}">Edit</button><button class="icon" data-fcdel="${esc(key)}" aria-label="Delete card">×</button></div></div>`;}
+function fcRenderSearch(el){const q=fcNorm(FC.q),list=fcAll().filter(x=>fcNorm(x.c.f+" "+x.c.b).includes(q));
+  el.innerHTML=`<div class="fccrumb"><button data-fcback="1">Flashcards</button> › Search</div><div class="fchd"><div class="grow"><h1>“${esc(FC.q)}”</h1><div class="muted">${list.length} card${list.length===1?"":"s"}</div></div></div>
+    <div class="fcpanel">${list.map(x=>fcItem(x,true)).join("")||`<p class="muted" style="margin:0">No cards match.</p>`}</div>`;fcBind(el);}
+function fcRenderSetup(el){const U=FC.setup,sc=fcScope(U.kind,U.arg),all=fcAll(sc.filter),cnt=k=>fcPool(sc,k).length;
+  const froms=[["all","All cards"],["weak","Weak spots"],["due","Due now"],["star","Starred"],["week","This week's topics"]];
+  const avail=cnt(U.from),n=U.count==="all"?avail:Math.min(+U.count,avail),M=fcMode(U.mode);
+  const last=(state.fcSessions||[]).filter(x=>x.kind===U.kind&&x.arg===U.arg).slice(-3).reverse();
+  el.innerHTML=`<div class="fcwrap"><div>
+    <div class="fccrumb"><button data-fcback="1">Flashcards</button> › ${sc.subj&&U.kind!=="all"?`<button data-fcdeck="subj|${esc(sc.subj)}">${esc(fcSubjName(sc.subj))}</button> › `:""}Study</div>
+    <div class="fchd"><div class="grow"><h1>${esc(sc.label)}</h1><div class="muted">${all.length} card${all.length===1?"":"s"} · pick how you want to study</div></div></div>
+    <div class="fcpanel"><div class="fcopts"><span class="eyebrow">Cards</span><div class="fcchips">${["10","20","50","all"].map(c=>`<button class="fcchip" aria-pressed="${U.count===c}" data-fccount="${c}">${c==="all"?"All":c}</button>`).join("")}</div>
+      <span class="eyebrow">From</span><div class="fcchips">${froms.map(([k,l])=>`<button class="fcchip" aria-pressed="${U.from===k}" data-fcfrom="${k}" ${cnt(k)?"":"disabled"}>${l}<small>${cnt(k)}</small></button>`).join("")}</div></div></div>
+    <div class="fcmodes">${FC_MODES.map(m=>`<button class="fcmode" aria-pressed="${U.mode===m.k}" data-fcmode="${m.k}" ${m.k==="quiz"&&fcAll().length<4?"disabled":""}><span class="ic" style="background:${m.bg};color:${m.col}">${m.ic}</span><span style="flex:1"><b>${m.n}</b><span>${m.d}</span></span><span style="color:var(--accent)">→</span></button>`).join("")}</div>
+  </div><div class="fcrail">
+    <div class="fcpanel top"><span class="eyebrow">This session</span><div class="fcbig" style="margin:10px 0 8px">${n}<small>card${n===1?"":"s"} · ${esc(froms.find(f=>f[0]===U.from)[1].toLowerCase())}</small></div>
+      <p class="muted" style="margin:0 0 14px">About ${fcMins(n,M.mul)} minute${fcMins(n,M.mul)===1?"":"s"} as ${esc(M.n.toLowerCase())}.${U.from==="due"||U.from==="all"?" Weak cards come first.":""}${M.sched?"":" This mode doesn't change when cards are due."}</p>
+      <button class="btn dark wide" data-fcstart="1" ${n?"":"disabled"}>Start</button></div>
+    <div class="fcpanel"><span class="eyebrow">Which mode?</span><p style="margin:8px 0 0"><b>Flashcards</b> for a first pass. <b>Type</b> or <b>Speak</b> when you think you know it. <b>Explain it</b> for the longer answers. <b>Mock</b> the week before a test.</p></div>
+    ${last.length?`<div class="fcpanel"><span class="eyebrow">Last time</span>${last.map(x=>`<div style="margin-top:8px">${esc(fcMode(x.mode).n)} · ${x.n} cards · <b style="color:${x.pct>=70?"var(--good)":x.pct<50?"var(--bad)":"var(--ink)"}">${x.pct}%</b> · ${esc(fmt(new Date(x.at+"T00:00:00")))}</div>`).join("")}</div>`:""}
+  </div></div>`;
   fcBind(el);}
+function fcRenderStudy(el){const S=FC.study,cur=fcCur(),M=fcMode(S.mode);if(!cur){fcFinish();return;}
+  const {x,c}=cur,card=c||{f:"(deleted card)",b:""},s=fcSubjOf(x.id),rev=!!state.cardReverse&&S.mode!=="quiz",front=rev?card.b:card.f,back=rev?card.f:card.b,n=S.queue.length;
+  const t=fcTopic(x.id),secs=Math.round((Date.now()-S.start)/1000);
+  const pv=g=>M.sched?`back in ${fcIvLabel(fcNext(card,g).iv)}`:"practice";
+  const typing=S.mode==="type"||S.mode==="speak"||S.mode==="explain"||S.mode==="mock";
+  const speech=window.SpeechRecognition||window.webkitSpeechRecognition;
+  let qfoot=`Say it or think it, then reveal. <kbd>Space</kbd> flips.`;
+  if(S.mode==="type")qfoot=`Type it, then <kbd>Enter</kbd> to check.`;
+  if(S.mode==="speak")qfoot=speech?`Tap the mic and say it, or type. <kbd>Enter</kbd> to check.`:`Say it out loud, then <kbd>Space</kbd> to check yourself.`;
+  if(S.mode==="explain")qfoot=`Explain it in your own words, then <kbd>Enter</kbd> to have it checked.`;
+  if(S.mode==="quiz")qfoot=`Pick an answer: keys <kbd>1</kbd> to <kbd>4</kbd>.`;
+  if(S.mode==="mock")qfoot=`<kbd>Enter</kbd> moves on. You can't go back.`;
+  const ansBody=S.mode==="mock"?`<div class="body hide">Answers are marked at the end.</div>`
+    :!S.flip?`<div class="body hide">${S.ai&&S.ai.busy?"Checking your answer…":"Hidden until you answer"}</div>`
+    :`<div class="body"><div>${esc(back)}${S.typed&&S.mode!=="explain"?`<div class="fcyou">You ${S.mode==="speak"?"said":"wrote"}: <b>${esc(S.typed)}</b>${S.sim!=null?` · about ${Math.round(S.sim*100)}% of the key words`:""}</div>`:""}
+      ${S.ai&&!S.ai.busy?S.ai.err?`<div class="fcyou">Couldn't check it: ${esc(S.ai.err)}</div>`:`<div class="fcyou"><b>${S.ai.marks}/2</b> · ${esc(S.ai.feedback||"")}${S.ai.improve?`<br>${esc(S.ai.improve)}`:""}</div>`:""}</div></div>`;
+  const qBody=S.mode==="quiz"?`<div><div class="body small" style="padding:10px 0 4px">${esc(front)}</div>${S.opts[S.at].map((o,i)=>{const ok=fcNorm(o)===fcNorm(card.b);const cls=S.pick==null?"":ok?"right":i===S.pick?"wrong":"";return `<button class="fcopt ${cls}" data-fcpick="${i}" ${S.pick!=null?"disabled":""}><kbd>${i+1}</kbd> ${esc(o)}</button>`;}).join("")}</div>`
+    :`<div class="body ${typing?"small":""}">${esc(front)}</div>${typing&&!S.flip?`<textarea id="fctyped" placeholder="${S.mode==="explain"?"Explain it…":"Your answer…"}">${esc(S.typed)}</textarea>${S.mode==="speak"&&speech?`<button class="btn small" id="fcmic" style="margin-top:8px">🎙 Speak</button>`:""}`:""}`;
+  el.innerHTML=`<div class="fcstudyhd"><button class="btn small" data-fcend="1">✕ End</button><div><div class="lbl">${esc(fcSubjName(s))} · ${esc(S.from==="due"?"due now":S.from==="weak"?"weak spots":S.from==="star"?"starred":S.from==="week"?"this week":"all cards")} · ${esc(M.n)}</div><b>Card ${Math.min(S.at+1,n)} of ${n}</b></div>
+      <div class="prog"><i style="width:${S.at/n*100}%"></i></div>${S.mode==="mock"?"":`<span class="fcscore r">${S.right} right</span><span class="fcscore x">${S.wrong} wrong</span>`}<span class="fcclock" id="fcclock">${fcClock(S.limit?Math.max(0,S.limit-secs):secs)}</span></div>
+    <div class="fcpair"><div class="fcq"><div class="hd"><span class="pill">${rev?"Answer":"Question"}</span>${t?esc(t[0])+" · "+esc(t[1]):""}<button class="star ${card.st?"on":""}" data-fcstar="${esc(x.id+"|"+x.i)}" aria-label="Star">★</button></div>${qBody}<div class="ft">${qfoot}</div></div>
+      <div class="fca"><div class="hd"><span class="pill">${rev?"Question":"Answer"}</span>${fcIsNew(card)?"new card":"your card"}</div>${ansBody}
+        <div class="ft">${card.last?`Your last answer: <em>${esc(card.last.note||["","Again","Hard","Good","Easy"][card.last.g]||"")}</em> · ${esc(fmt(new Date(card.last.d+"T00:00:00")))}`:card.seen?`Seen ${card.seen} time${card.seen===1?"":"s"}, ${card.seen-(card.wrong||0)} right.`:"First time you've seen this one."}</div></div></div>
+    ${S.mode==="mock"?`<div class="fcrow" style="margin-top:16px;justify-content:flex-end"><button class="btn" data-fcmockend="1">Finish now</button><button class="btn dark" data-fcmocknext="1">${S.at+1<n?"Next":"Finish"} →</button></div>`
+    :S.mode==="quiz"?(S.pick!=null?`<div class="fcrow" style="margin-top:16px;justify-content:flex-end"><button class="btn dark" data-fcnext="1">Next → <kbd>Space</kbd></button></div>`:"")
+    :S.flip?`<div class="fcrate">${[[1,"again","Again"],[2,"hard","Hard"],[3,"good","Good"],[4,"easy","Easy"]].map(([g,cl,l])=>`<button class="${cl} ${S.sugg===g?"sug":""}" data-fcrate="${g}"><b>${l}</b><small>${pv(g)}</small><kbd>${g}</kbd></button>`).join("")}</div>`
+    :`<div class="fcrow" style="margin-top:16px;justify-content:center">${S.mode==="explain"?`<button class="btn dark" data-fcexplain="1" ${S.ai&&S.ai.busy?"disabled":""}>Check my answer</button><button class="btn" data-fcreveal="1">Just show me</button>`:`<button class="btn dark" data-fcreveal="1">Show the answer</button>`}</div>`}`;
+  fcBind(el);
+  const ta=el.querySelector("#fctyped");
+  if(ta){ta.focus();ta.addEventListener("input",()=>{S.typed=ta.value;});
+    ta.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();S.typed=ta.value;if(S.mode==="mock")fcMockNext();else if(S.mode==="explain")fcExplainCheck();else fcReveal();}});}
+  el.querySelector("#fcmic")?.addEventListener("click",()=>{try{const R=new speech();R.lang=({fre:"fr-FR",spa:"es-ES",ger:"de-DE"})[s]||"en-GB";R.interimResults=false;
+    const b=el.querySelector("#fcmic");b.textContent="Listening…";R.onresult=e=>{const tx=e.results[0][0].transcript;S.typed=(S.typed?S.typed+" ":"")+tx;const t2=document.getElementById("fctyped");if(t2)t2.value=S.typed;};
+    R.onerror=()=>{b.textContent="Mic unavailable: type instead";};R.onend=()=>{if(b.textContent==="Listening…")b.textContent="🎙 Speak";};R.start();}catch(e){}});}
+function fcRenderDone(el){const S=FC.study,n=S.right+S.wrong,pct=n?Math.round(S.right/n*100):0,L=fcLevel(),M=fcMode(S.mode);
+  const tomorrow=fcAll().filter(x=>!fcIsNew(x.c)&&x.c.due<=iso(addDays(new Date(),1))).length;
+  el.innerHTML=`<div class="fcwrap"><div><div class="fcpanel top"><span class="eyebrow">${esc(S.label)} · ${esc(M.n)}</span><h1 style="margin:6px 0 4px;font-size:34px">${pct}% · ${n} card${n===1?"":"s"}</h1>
+    <p class="muted" style="margin:0 0 16px">${S.right} right · ${S.wrong} wrong · ${fcClock(Math.round((Date.now()-S.start)/1000))}. ${M.sched?`${tomorrow} card${tomorrow===1?"":"s"} due by tomorrow.`:"Practice rounds don't change when cards are due."}</p>
+    <div class="fcrow"><button class="btn dark" data-fcback="1">Back to Flashcards</button>${S.kind!=="all"?`<button class="btn" data-fcdeck="${esc(S.kind==="topics"?"subj|"+fcSubjOf(S.arg):S.kind+"|"+S.arg)}">Back to the deck</button>`:""}<button class="btn" data-fcsetup="${esc(S.kind+"|"+S.arg)}">Study again</button></div></div></div>
+    <div class="fcrail"><div class="fcpanel"><div class="fclv"><div><span class="eyebrow">Level</span><br><b>L${L.lv}</b></div><div><span class="eyebrow">Streak</span><br><b>${fcStreaks().cur}</b> <span class="muted">days</span></div></div><div class="fcxp"><i style="width:${L.xp}%"></i></div><span class="muted" style="font-size:13px">${L.xp} / 100 XP to L${L.lv+1}</span></div></div></div>`;
+  fcBind(el);}
+function fcRenderMockRes(el){const S=FC.study,right=S.marks.filter(Boolean).length,n=S.queue.length;
+  el.innerHTML=`<div class="fcpanel top"><span class="eyebrow">${esc(S.label)} · Mock</span><h1 style="margin:6px 0 4px;font-size:34px">${right} / ${n} · ${Math.round(right/n*100)}%</h1>
+    <p class="muted" style="margin:0 0 12px">Marked by how much of each answer's key wording you used. Check every row: tap ✓ or ✗ to correct the mark, then save.</p>
+    <div class="fcres">${S.queue.map((x,i)=>{const c=(state.cards[x.id]||[])[x.i]||{f:"",b:""};return `<div class="row"><b>${esc(c.f)}</b><span>${esc(S.answers[i]||"(blank)")}</span><span class="muted">${esc(c.b)}</span><button class="btn small ${S.marks[i]?"primary":""}" data-fcmark="${i}">${S.marks[i]?"✓":"✗"}</button></div>`;}).join("")}</div>
+    <div class="fcrow" style="margin-top:14px"><button class="btn dark" data-fcmocksave="1">Save the result</button><button class="btn" data-fcback="1">Discard</button></div></div>`;
+  fcBind(el);}
+function fcRenderProgress(el){const st=fcStats(),L=fcLevel(),Sk=fcStreaks(),conf=st.confN?Math.round(st.confSum/st.confN):0;
+  const days=[];let d=addDays(new Date(),-(7*12-1));const off=(d.getDay()+6)%7;d=addDays(d,-off);
+  for(let i=0;i<7*12+off&&d<=new Date();i++){days.push(iso(d));d=addDays(d,1);}
+  const mx=Math.max(1,...days.map(k=>st.days[k]||0));
+  const decks=[...new Set(Object.keys(state.cards||{}).map(fcSubjOf))].map(s=>({s,k:fcCounts(fcAll(id=>fcSubjOf(id)===s))})).filter(x=>x.k.total).sort((a,b)=>a.k.mastered-b.k.mastered);
+  const mocks=(state.fcSessions||[]).filter(x=>x.mode==="mock").slice(-8);
+  const pts=mocks.map((m,i)=>[mocks.length===1?150:10+i*(280/(mocks.length-1)),70-m.pct*0.6]);
+  el.innerHTML=`<h1 class="viewtitle">Progress</h1>${progTabs()}<div class="fcwrap"><div>
+    <div class="fcpanel top"><span class="eyebrow">Your level</span><div style="display:flex;align-items:baseline;justify-content:space-between"><div class="fcbig">L${L.lv}</div><span class="fcclock">${L.xp} / 100 XP</span></div><div class="fcxp"><i style="width:${L.xp}%"></i></div>
+      <div class="fcstatrow"><div>Streak<b>${Sk.cur} day${Sk.cur===1?"":"s"}</b></div><div>Best<b>${Sk.best}</b></div><div>Correct<b>${st.correct.toLocaleString()}</b></div><div>Cards seen<b>${st.seen.toLocaleString()}</b></div><div>Avg confidence<b>${conf}%</b></div></div></div>
+    <div class="fcpanel" style="margin-top:14px"><span class="eyebrow">Last 12 weeks · cards answered per day</span>
+      <div class="fcheat">${days.map(k=>{const v=st.days[k]||0;return `<i title="${esc(k)}: ${v}" style="background:${v?`color-mix(in srgb,var(--accent) ${20+Math.round(v/mx*80)}%,var(--line))`:"var(--line)"}"></i>`;}).join("")}</div>
+      <span class="muted" style="font-size:13px">Brighter = more cards. One column per week, Monday at the top.</span></div>
+    <div class="fcpanel" style="margin-top:14px"><div style="display:flex;justify-content:space-between"><span class="eyebrow">Mastery by deck</span><span class="muted" style="font-size:13px">weakest first</span></div>
+      <div class="fcbars">${decks.map(x=>`<div class="r"><span><span class="dot" style="display:inline-block;width:9px;height:9px;border-radius:3px;background:${fcColor(x.s)};margin-right:8px"></span>${esc(fcSubjName(x.s))}</span><div class="bar"><i style="width:${x.k.mastered}%;background:${fcColor(x.s)}"></i></div><span class="p" style="color:${x.k.mastered>=70?"var(--good)":x.k.mastered<40?"var(--bad)":"var(--ink)"}">${x.k.mastered}%</span></div>`).join("")||`<p class="muted" style="margin:8px 0 0">No cards yet.</p>`}</div></div>
+  </div><div class="fcrail"><div class="fcpanel"><span class="eyebrow">Mock history</span>
+    ${mocks.length?`<svg viewBox="0 0 300 80" style="width:100%;margin:10px 0"><line x1="0" y1="22" x2="300" y2="22" stroke="var(--line-2)" stroke-dasharray="3 4"/><text x="2" y="18" font-size="9" fill="var(--muted)">80%</text>
+      <polyline fill="none" stroke="var(--accent)" stroke-width="2" points="${pts.map(p=>p.join(",")).join(" ")}"/>${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="var(--accent)"/>`).join("")}</svg>
+      ${mocks.slice().reverse().map(m=>`<div class="fcweak" style="grid-template-columns:70px 1fr auto"><span>${esc(fmt(new Date(m.at+"T00:00:00")))}</span><b style="font-weight:500">${esc(m.label)} · ${m.n} Qs</b><em style="color:${m.pct>=70?"var(--good)":"var(--ink)"}">${m.pct}%</em></div>`).join("")}`
+      :`<p class="muted" style="margin:8px 0 0">Run a Mock from any deck's Study page and your scores chart here.</p>`}</div>
+    <div class="fcpanel"><span class="eyebrow">How XP works</span><p class="muted" style="margin:8px 0 0">10 XP for each card you get right, 3 for each you miss (trying still counts). Every 100 XP is a level.</p></div></div></div>`;
+}
+const progTabs=()=>`<div class="progtabs" role="tablist">${[["plan","Plan"],["cards","Flashcards"]].map(([k,l])=>`<button role="tab" data-progtab="${k}" aria-selected="${PROG_TAB===k}">${l}</button>`).join("")}</div>`;
+
 function fcBind(el){
-  const go=(sel,fn)=>el.querySelectorAll(sel).forEach(b=>b.addEventListener("click",()=>fn(b)));
-  go("[data-fcopen]",b=>{const s=b.dataset.fcopen;FC.open.has(s)?FC.open.delete(s):FC.open.add(s);renderCards();});
-  go("[data-fcstudy]",b=>{const[k,...a]=b.dataset.fcstudy.split("|");const sc=fcScope(k,a.join("|"));fcStart(sc.label,sc.filter,false);});
-  go("[data-fccram]",b=>{const[k,...a]=b.dataset.fccram.split("|");const sc=fcScope(k,a.join("|"));fcStart(sc.label,sc.filter,true);});
-  go("[data-fcbrowse]",b=>{const[k,...a]=b.dataset.fcbrowse.split("|");FC.browse={kind:k,arg:a.join("|")};FC.mode="browse";FC.edit=null;renderCards();window.scrollTo({top:0});});
-  go("[data-fcterms]",b=>fcImportTerms(b.dataset.fcterms));
-  go("[data-fcback]",()=>{FC.mode="decks";FC.study=null;FC.browse=null;FC.edit=null;renderCards();});
+  const go=(sel,fn)=>el.querySelectorAll(sel).forEach(b=>b.addEventListener("click",e=>fn(b,e)));
+  const toDeck=(k,a)=>{FC.deck={kind:k,arg:a};FC.mode="deck";FC.edit=null;FC.adding=false;FC.msg="";if(k==="subj"&&(!FC.deck||FC.tab!=="cards"))FC.tab="subs";FC.sel.clear();renderCards();window.scrollTo({top:0});};
+  go("[data-fcdeck]",(b,e)=>{if(e.target.closest("[data-fcsel]"))return;const[k,...a]=b.dataset.fcdeck.split("|");toDeck(k,a.join("|"));});
+  go("[data-fcback]",()=>{FC.mode="decks";FC.study=null;FC.deck=null;FC.setup=null;FC.edit=null;FC.adding=false;clearInterval(FC_TIMER);renderCards();});
+  go("[data-fcend]",()=>{const S=FC.study;if(S&&S.mode==="mock"){fcFinishMock();return;}if(S&&S.right+S.wrong)fcFinish();else{FC.mode=FC.deck?"deck":"decks";clearInterval(FC_TIMER);renderCards();}});
+  go("[data-fcsetup]",b=>{const[k,...a]=b.dataset.fcsetup.split("|");fcOpenSetup(k,a.join("|"));});
+  go("[data-fcgo]",b=>{const p=b.dataset.fcgo.split("|"),from=p.pop(),k=p.shift();fcStart(k,p.join("|"),from,"flash",from==="weak"?"all":"all");});
+  go("[data-fccount]",b=>{FC.setup.count=b.dataset.fccount;renderCards();});
+  go("[data-fcfrom]",b=>{FC.setup.from=b.dataset.fcfrom;renderCards();});
+  go("[data-fcmode]",b=>{FC.setup.mode=b.dataset.fcmode;renderCards();});
+  go("[data-fcstart]",()=>{const U=FC.setup;fcStart(U.kind,U.arg,U.from,U.mode,U.count);});
+  go("[data-fcreveal]",()=>fcReveal());
+  go("[data-fcexplain]",()=>fcExplainCheck());
   go("[data-fcrate]",b=>fcRate(+b.dataset.fcrate));
+  go("[data-fcpick]",b=>fcPickQuiz(+b.dataset.fcpick));
+  go("[data-fcnext]",()=>fcNextCard());
+  go("[data-fcmocknext]",()=>fcMockNext());
+  go("[data-fcmockend]",()=>fcFinishMock());
+  go("[data-fcmark]",b=>{const i=+b.dataset.fcmark;FC.study.marks[i]=!FC.study.marks[i];renderCards();});
+  go("[data-fcmocksave]",()=>fcSaveMock());
+  go("[data-fctab]",b=>{FC.tab=b.dataset.fctab;renderCards();});
+  go("[data-fcclearsel]",()=>{FC.sel.clear();renderCards();});
+  el.querySelectorAll("[data-fcsel]").forEach(c=>{c.addEventListener("click",e=>e.stopPropagation());c.addEventListener("change",()=>{c.checked?FC.sel.add(c.dataset.fcsel):FC.sel.delete(c.dataset.fcsel);renderCards();});});
+  go("[data-fcterms]",b=>fcImportTerms(b.dataset.fcterms));
+  go("[data-fcpicker]",()=>{FC.picker=true;renderCards();});
+  go("[data-fcnew]",b=>{FC.adding=b.dataset.fcnew==="1";renderCards();if(FC.adding)el.querySelector("#fcnf")?.focus();});
+  go("[data-fcplan]",b=>{const v=b.dataset.fcplan;curSubj=fcSubjOf(v);showView("subjects");});
   go("[data-fcedit]",b=>{FC.edit=b.dataset.fcedit;renderCards();});
   go("[data-fccancel]",()=>{FC.edit=null;renderCards();});
   const ref=k=>{const j=k.lastIndexOf("|");return [k.slice(0,j),+k.slice(j+1)];};
+  go("[data-fcstar]",b=>{const[id,i]=ref(b.dataset.fcstar),c=(state.cards[id]||[])[i];if(!c)return;c.st=!c.st;if(!c.st)delete c.st;persist();renderCards();});
   go("[data-fcsave]",b=>{const k=b.dataset.fcsave,[id,i]=ref(k),c=(state.cards[id]||[])[i];if(!c)return;
     const f=el.querySelector(`[data-fcef="${CSS.escape(k)}"]`).value.trim(),bk=el.querySelector(`[data-fceb="${CSS.escape(k)}"]`).value.trim();
     if(f)c.f=f.slice(0,200);c.b=bk.slice(0,500);FC.edit=null;persist();renderCards();});
   go("[data-fcdel]",b=>{const[id,i]=ref(b.dataset.fcdel);(state.cards[id]||[]).splice(i,1);if(state.cards[id]&&!state.cards[id].length)delete state.cards[id];persist();renderCards();});
-  el.querySelector("#fcflip")?.addEventListener("click",()=>{if(FC.study&&!FC.study.flip){FC.study.flip=true;renderCards();}});
-  el.querySelector("#fcrev")?.addEventListener("change",e=>{state.cardReverse=e.target.checked;persist();});
+  el.querySelector("#fcexam")?.addEventListener("change",e=>{const s=fcScope(FC.deck.kind,FC.deck.arg).subj;if(!s)return;state.examDates=state.examDates||{};if(e.target.value)state.examDates[s]=e.target.value;else delete state.examDates[s];persist();renderCards();});
   const q=el.querySelector("#fcq");
-  q?.addEventListener("keydown",e=>{if(e.key==="Enter"&&q.value.trim()){FC.q=q.value.trim();FC.browse={kind:"search",arg:""};FC.mode="browse";renderCards();}});
+  q?.addEventListener("input",()=>{FC.q=q.value;const pos=q.selectionStart;renderCards();const q2=document.getElementById("fcq");if(q2){q2.focus();q2.setSelectionRange(pos,pos);}});
+  q?.addEventListener("keydown",e=>{if(e.key==="Enter"&&q.value.trim()){FC.q=q.value.trim();FC.mode="search";renderCards();}});
   const add=el.querySelector("#fcnadd");
   if(add){const f=el.querySelector("#fcnf"),bk=el.querySelector("#fcnb"),t=el.querySelector("#fcnt");
-    const doAdd=()=>{if(!f.value.trim()||!bk.value.trim()){(f.value.trim()?bk:f).focus();return;}(state.cards[t.value]=state.cards[t.value]||[]).push({f:f.value.trim().slice(0,200),b:bk.value.trim().slice(0,500)});markDay();persist();renderCards();el.querySelector("#fcnf")?.focus();};
+    const doAdd=()=>{if(!f.value.trim()||!bk.value.trim()){(f.value.trim()?bk:f).focus();return;}(state.cards[t.value]=state.cards[t.value]||[]).push({f:f.value.trim().slice(0,200),b:bk.value.trim().slice(0,500)});
+      FC.msg=`Card added to ${fcTopicName(t.value)}.`;markDay();persist();const keep=t.value;renderCards();const t2=document.getElementById("fcnt");if(t2&&t2.tagName==="SELECT")t2.value=keep;document.getElementById("fcnf")?.focus();};
     add.addEventListener("click",doAdd);[f,bk].forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();doAdd();}}));}}
-document.addEventListener("click",e=>{if(e.target.closest("[data-gocards]")){FC.mode="decks";showView("cards");}});
+document.addEventListener("click",e=>{if(e.target.closest("[data-gocards]")){FC.mode="decks";showView("cards");}
+  const pt=e.target.closest("[data-progtab]");if(pt){PROG_TAB=pt.dataset.progtab;render();}});
 
 /* ---------- KEYBOARD ----------
    1-7 switch tabs. On Cards: Space shows the answer, 1-4 rate it. On Today: left and right change week, T jumps to today,
