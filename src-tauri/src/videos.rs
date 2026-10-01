@@ -122,6 +122,8 @@ const FFL: &str = "Food - a fact of life";
 const ILLUM: &str = "Illuminate Publishing";
 const FSA: &str = "FoodStandardsAgency";
 
+const MGENIE: &str = "Maths Genie";
+
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
     // ---------- Computer Science (OCR GCSE J277) ----------
     ("cs:1.1.1", &[
@@ -3663,6 +3665,729 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("JU51f737Obg", "FSA Explains: Food additives", FSA),
         ("EfuIg7VtCnI", "FSA Explains: Genetically Modified Food", FSA),
     ]),
+    // Maths (Pearson Edexcel GCSE Mathematics (1MA1) Higher)
+    ("maths_edx:N1-3", &[
+        ("if8ZsZXhQJE", "Order of Operations - Corbettmaths", CM),
+        ("mED76j4Agiw", "Addition and Subtraction involving Negatives - Corbettmaths", CM),
+        ("70cAYYCJBuQ", "How to use BODMAS (Order of Operations)", COG),
+    ]),
+    ("maths_edx:N4-5", &[
+        ("oK-EFDLeEqc", "LCM HCF using Product of Primes - Corbettmaths", CM),
+        ("kHLwbPwvTtw", "HCF/LCM - GCSE Maths", FIRSTCLASS),
+        ("3H6ET7P902Q", "Product Rule for Counting - Corbettmaths", CM),
+    ]),
+    ("maths_edx:N6-7", &[
+        ("ozuXy8_NZcg", "Laws of Indices - Corbettmaths", CM),
+        ("qYDClSo89eQ", "Fractional indices - Corbettmaths", CM),
+        ("DvNYkbafpIY", "GCSE Maths - What to do when Powers are Fractions (Powers Part 6/6) (2026/27 exams)", COG),
+    ]),
+    ("maths_edx:N8", &[
+        ("ndU_cCbPAm4", "Surds - Corbettmaths", CM),
+        ("96SwZpRvhwY", "Rationalising denominators - Corbettmaths", CM),
+        ("I_Mys8RNt30", "Calculating With Surds - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:N9", &[
+        ("cxGyZ3Yx9ow", "Standard Form - Corbettmaths", CM),
+        ("H3ewmorcYjU", "What is Standard Form (also known as Scientific Notation)? (Part 1/4) (2026/27 exams)", COG),
+        ("u3FZaXs3hDE", "How to Multiply and Divide in Standard Form (Part 3/4) (2026/27 exams)", COG),
+    ]),
+    ("maths_edx:N10-12", &[
+        ("KZbKYokJ3SQ", "Recurring decimals to fractions - Corbettmaths", CM),
+        ("RCnSGUpoKbE", "How to Convert Recurring Decimals to Fractions (Proportions Part 6/6) (2026/27 exams)", COG),
+        ("Iq-6CjlEUW4", "Fractions decimals percentages - Corbettmaths", CM),
+    ]),
+    ("maths_edx:N13-16", &[
+        ("ebMrP74boHw", "Lower and Upper Bounds - Corbettmaths", CM),
+        ("FQ8IFKNhphM", "Error Intervals - Corbettmaths", CM),
+        ("JTQ2Wh5E2js", "How to Estimate in Maths (2026/27 exams)", COG),
+    ]),
+    ("maths_edx:A1-3", &[
+        ("QvxWrYtzrtM", "GCSE Maths - Expressions vs Equations (2026/27 exams)", COG),
+        ("28DkE4vMN6o", "Substitution into Expressions - Corbettmaths", CM),
+        ("l54us4Q7nNY", "Equating Coefficients - Corbettmaths", CM),
+    ]),
+    ("maths_edx:A4", &[
+        ("X-djBcWVizM", "Factorising quadratics 1 - Corbettmaths", CM),
+        ("nfLb8MPO99U", "GCSE Maths - Factorising Quadratics - Part 2 - (When the x² Coefficient is More Than 1)", COG),
+        ("YtHMjuB9f_g", "Algebraic Fractions (Operations) - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:A5-6", &[
+        ("8U9u_itcs7k", "Changing the Subject - Corbettmaths", CM),
+        ("pd9Q-e1JvtE", "Algebraic Proof - Corbettmaths", CM),
+        ("5lcefrczJlE", "GCSE Maths - Rearranging Formulas Part 2 - When The Subject Appears Twice (2026/27 exams)", COG),
+    ]),
+    ("maths_edx:A7", &[
+        ("u1YQVzrgYDg", "Composite Functions - Corbettmaths", CM),
+        ("zpF9nbjResY", "Inverse Functions - Corbettmaths", CM),
+        ("ZRQJGecu1fs", "Function Notation - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:A8-10", &[
+        ("nUk47WSiS30", "GCSE Maths - What on Earth is y = mx + c (2026/27 exams)", COG),
+        ("YtHJP1rZ3pI", "Gradient of a Line - Corbettmaths", CM),
+        ("PrwhdgnLK5k", "Perpendicular graphs - Corbettmaths", CM),
+    ]),
+    ("maths_edx:A11-12", &[
+        ("7xE5pj9-n1Q", "Finding Turning Points using Completing the Square", CM),
+        ("oUcjmGThMdc", "Exponential Graphs - Corbettmaths", CM),
+        ("fNH5EWWtf7k", "Trigonometric Graphs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:A13", &[
+        ("eiRZATuHYg0", "Transformations of Graphs - Corbettmaths", CM),
+        ("F8YGp_j7YhM", "Transforming Graphs", MGENIE),
+        ("ctVr9NpSiL4", "Transformations of Graphs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:A14-15", &[
+        ("1AVtslXytRA", "Area Under Graph - Corbettmaths", CM),
+        ("cEp7qD6vCSM", "Gradient of a Curve - Corbettmaths", CM),
+        ("UsmhVCjfzYQ", "Speed Time Graphs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:A16", &[
+        ("_DOBTxLmUTM", "Equation of a Circle - Corbettmaths", CM),
+        ("NHrb8N9oAUY", "Equation of a Tangent to a Circle - Corbettmaths", CM),
+        ("12NqSRpfTR4", "Equation of a Circle - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:A17", &[
+        ("30S7WxKcPwg", "Solving Equations - Corbettmaths", CM),
+        ("85ZM3ZKqRhY", "Solving equations with letters on both sides - Corbettmaths", CM),
+        ("9FuR91H8EVU", "GCSE Maths - How to Solve Algebraic Equations (Part 1 of 3) (2026/27 exams)", COG),
+    ]),
+    ("maths_edx:A18", &[
+        ("wJ_tLEwEEi8", "Solving Quadratics using Factorisation - Corbettmaths", CM),
+        ("3J0ccr74LcU", "Quadratic formula - Corbettmaths", CM),
+        ("abBgTO8eW-c", "Solving Quadratic Equations by Completing the Square - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:A19", &[
+        ("phlus4x0UqM", "Simultaneous Equations elimination - Corbettmaths", CM),
+        ("ozP-vf99DK4", "Simultaneous equations (linear and non-linear) - Corbettmaths", CM),
+        ("eEYreNDTvKQ", "Non-Linear Simultaneous Equations - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:A20", &[
+        ("eWP15jyatIo", "Iteration - Corbettmaths", CM),
+        ("WHZ2IiKcqeU", "Iteration - GCSE Higher Maths", FIRSTCLASS),
+        ("FPMimYoO8kU", "Change of Sign - Corbettmaths", CM),
+    ]),
+    ("maths_edx:A21-22", &[
+        ("Lz3VkLrDmhE", "Forming equations - Corbettmaths", CM),
+        ("u-YNzmlZWeg", "GCSE Maths - Solving Algebraic Inequalities with 1 Inequality Sign (Inequalities Part 2)", COG),
+        ("8J_m-hMp8lY", "Quadratic Inequalities - Corbettmaths", CM),
+    ]),
+    ("maths_edx:A23-25", &[
+        ("qnVVTBAfNu4", "The nth Term - Corbettmaths", CM),
+        ("AL-joUBnEIw", "Quadratic Sequences Version 1 - Corbettmaths", CM),
+        ("871OBfK5o2M", "GCSE Maths - Types of Number Sequences - Arithmetic vs Geometric (2026/27 exams)", COG),
+    ]),
+    ("maths_edx:R1-2", &[
+        ("1az6Gjb2wtk", "Converting Metric Units for Length", CM),
+        ("2PZ41oDEZ_Q", "Maps and Scales - Corbettmaths", CM),
+        ("6XpBX-7cDPE", "GCSE Maths - Using Scales on Maps and Scale Diagrams (2026/27 exams)", COG),
+    ]),
+    ("maths_edx:R3-8", &[
+        ("UcPVAh4igpI", "GCSE Maths - What are Ratios & How to Simplify Them (Part 1) (2026/27 exams)", COG),
+        ("cflZnf9H5l4", "Ratio sharing the total - Corbettmaths", CM),
+        ("SJhomYlGPZ8", "Given Two Ratios - Corbettmaths", CM),
+    ]),
+    ("maths_edx:R9", &[
+        ("tUtgC7ZrsRc", "Increasing Decreasing by a Percentage - Corbettmaths", CM),
+        ("Q2gRAS08fE0", "Percentage Change - Corbettmaths", CM),
+        ("dIeb2ryQ1ko", "GCSE Maths - Reverse Percentages - Calculating The Cost Before The Discount (2026/27 exams)", COG),
+    ]),
+    ("maths_edx:R10", &[
+        ("AXkCfkVrjK8", "Unitary Method - Corbettmaths", CM),
+        ("z9JlSDzSy3c", "GCSE Maths - What Does Directly Proportional Mean? (2026/27 exams)", COG),
+        ("01l1a21qDaM", "Proportion and Time - Corbettmaths", CM),
+    ]),
+    ("maths_edx:R11", &[
+        ("dHVK7IeLGT8", "Speed, Distance, Time - Corbettmaths", CM),
+        ("sv7zflLeduM", "Density - Corbettmaths", CM),
+        ("fheOYg9TKQA", "Pressure - Corbettmaths", CM),
+    ]),
+    ("maths_edx:R12", &[
+        ("8-4KQw8unfY", "GCSE Maths - Similar Shapes (2026/27 exams)", COG),
+        ("GlD88EpEJVo", "Similar Shapes: Areas", CM),
+        ("0U1T_f5xb98", "Similar Areas and Volumes - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:R13", &[
+        ("kcOwC7uqJNE", "Direct Proportion - Corbettmaths", CM),
+        ("uZ6l-loSdRs", "Inverse Proportion - Corbettmaths", CM),
+        ("pXnyxf55nJU", "Proportionality Graphs - Corbettmaths", CM),
+    ]),
+    ("maths_edx:R14-15", &[
+        ("rGf6_1E8x7k", "Average Rate of Change - Corbettmaths", CM),
+        ("YfDhGn3NLQw", "Instantaneous Rate of Change - Corbettmaths", CM),
+        ("zVSq5b3PPfY", "GCSE Maths - How to Find the Gradient of a Straight Line (2026/27 exams)", COG),
+    ]),
+    ("maths_edx:R16", &[
+        ("FBCs95Co_oU", "Compound Interest - Corbettmaths", CM),
+        ("gliYGWM7wfY", "Compound Interest and Depreciation", MGENIE),
+        ("CRKlXB5g1gE", "Exponential Growth and Decay", MGENIE),
+    ]),
+    ("maths_edx:G1-2", &[
+        ("1beKcgU9ogE", "Perpendicular Bisectors - Corbettmaths", CM),
+        ("BWj041al8z8", "Loci part 1 - Corbettmaths", CM),
+        ("3viWgGJmkFo", "Constructions - GCSE Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:G3-4", &[
+        ("gVo8ZrtlSp0", "Angles in Polygons - Corbettmaths", CM),
+        ("I5auyoXYoX0", "GCSE Maths - Alternate, Corresponding and Allied Angles - Parallel Lines Angle Rules (2026/27 exams)", COG),
+        ("mlG56WCfobI", "GCSE Maths - Types of Quadrilateral (2026/27 exams)", COG),
+    ]),
+    ("maths_edx:G5-6", &[
+        ("IDW1ogTqox8", "Congruent Triangles - Corbettmaths", CM),
+        ("aK8i7LKZd9o", "GCSE Maths - Congruent Triangle Rules (2026/27 exams)", COG),
+        ("4YdhDXJWCZ8", "Geometric Proof - Corbettmaths", CM),
+    ]),
+    ("maths_edx:G7-8", &[
+        ("rgdRlbbWQgA", "Rotations - Corbettmaths", CM),
+        ("u2EgwMYwibw", "Describing Enlargements - Corbettmaths", CM),
+        ("0_hclyERGAw", "Enlargements (Negative Scale Factor) - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:G9-10", &[
+        ("vgMSLsos7Ew", "Circle Theorems - Corbettmaths", CM),
+        ("dBIlCD_JF9Q", "Circle Theorems - GCSE Higher Maths", FIRSTCLASS),
+        ("CmprPWcLtlk", "Circle Theorem Proofs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:G11-15", &[
+        ("BnwoipoGWJ8", "Views and Elevations", CM),
+        ("pm8i-thxvCo", "GCSE Maths - What are Bearings? (2026/27 exams)", COG),
+        ("8Wja7Ct_XvY", "Bearings - Corbettmaths", CM),
+    ]),
+    ("maths_edx:G16-18", &[
+        ("Wcv0f5PpTv0", "GCSE Maths - Area of a Sector and Length of an Arc of a Circle  (Circles Part 3) (2026/27 exams)", COG),
+        ("X6cMvcxk1ig", "Volume of a Cone - Corbettmaths", CM),
+        ("VwdMbDpMab4", "Surface Area of Prisms - Corbettmaths", CM),
+    ]),
+    ("maths_edx:G19", &[
+        ("L6DLoBMknoY", "Similar Shapes - Missing Sides", CM),
+        ("QMI90tONvzQ", "Similar Shapes: Volumes", CM),
+        ("u1uOcrjQCh4", "Similar Triangles - GCSE Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:G20-21", &[
+        ("iWLVTy_rGjs", "Pythagoras - Corbettmaths", CM),
+        ("WFH_7n7hpHo", "Trigonometry | SOH CAH TOA | Sin, Cos, Tan", COG),
+        ("UjgOR07zOzY", "Exact trigonometric values - Corbettmaths", CM),
+    ]),
+    ("maths_edx:G22-23", &[
+        ("7xeLeDulY60", "The Sine Rule - GCSE Higher Maths", FIRSTCLASS),
+        ("3H3u92WJAjw", "Cosine rule - Corbettmaths", CM),
+        ("eSFOMSxjMts", "Area of any Triangle - Corbettmaths", CM),
+    ]),
+    ("maths_edx:G24-25", &[
+        ("h02d922Q5wk", "Column Vectors - Corbettmaths", CM),
+        ("xOdkldbusy0", "Vectors - Corbettmaths", CM),
+        ("vkwFUig3dGY", "Vectors in Shapes", MGENIE),
+    ]),
+    ("maths_edx:P1-5", &[
+        ("ur_hHjLrBNo", "Probability - Corbettmaths", CM),
+        ("MS6lnCTgTSw", "Relative Frequency - Corbettmaths", CM),
+        ("QDnDtxDEHWg", "Probability and Relative Frequency", MGENIE),
+    ]),
+    ("maths_edx:P6-8", &[
+        ("Xqno7W0OUtE", "Sample Space Diagrams - Corbettmaths", CM),
+        ("xwK--rNDI9E", "Venn Diagrams - Corbettmaths", CM),
+        ("Z5BX-LbG7mI", "Probability Tree Diagrams - GCSE Maths", FIRSTCLASS),
+    ]),
+    ("maths_edx:P9", &[
+        ("xhFDlmQUAZo", "Conditional Probability - Corbettmaths", CM),
+        ("nIeMiayWVvw", "Conditional Probability - GCSE Higher Maths", FIRSTCLASS),
+        ("34WnM69jaGs", "Conditional Probability", MGENIE),
+    ]),
+    ("maths_edx:S1", &[
+        ("tBlVp3v3J5g", "Random Sampling - Corbettmaths", CM),
+        ("n4lyeQAacOU", "Using Samples - Corbettmaths", CM),
+        ("IgYrPnA14tM", "Capture Recapture - Corbettmaths", CM),
+    ]),
+    ("maths_edx:S2-4", &[
+        ("wGzp-wM90EU", "Drawing Histograms - Corbettmaths", CM),
+        ("PzBE82c1dfY", "Cumulative Frequency Diagrams - GCSE Higher Maths", FIRSTCLASS),
+        ("z41_PBqYuVg", "Drawing and Reading Box Plots - Corbettmaths", CM),
+    ]),
+    ("maths_edx:S5-6", &[
+        ("VUaOCgJTPjI", "Scatter Graphs - Corbettmaths", CM),
+        ("hlGrp8X3XyY", "Scatter Graphs Correlation - Corbettmaths", CM),
+        ("kVr15gM0tCE", "Comparing Distributions", MGENIE),
+    ]),
+    // Maths (AQA GCSE Mathematics (8300) Higher)
+    ("maths_aqa:N1-3", &[
+        ("if8ZsZXhQJE", "Order of Operations - Corbettmaths", CM),
+        ("mED76j4Agiw", "Addition and Subtraction involving Negatives - Corbettmaths", CM),
+        ("70cAYYCJBuQ", "How to use BODMAS (Order of Operations)", COG),
+    ]),
+    ("maths_aqa:N4-5", &[
+        ("oK-EFDLeEqc", "LCM HCF using Product of Primes - Corbettmaths", CM),
+        ("kHLwbPwvTtw", "HCF/LCM - GCSE Maths", FIRSTCLASS),
+        ("3H6ET7P902Q", "Product Rule for Counting - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:N6-7", &[
+        ("ozuXy8_NZcg", "Laws of Indices - Corbettmaths", CM),
+        ("qYDClSo89eQ", "Fractional indices - Corbettmaths", CM),
+        ("DvNYkbafpIY", "GCSE Maths - What to do when Powers are Fractions (Powers Part 6/6) (2026/27 exams)", COG),
+    ]),
+    ("maths_aqa:N8", &[
+        ("ndU_cCbPAm4", "Surds - Corbettmaths", CM),
+        ("96SwZpRvhwY", "Rationalising denominators - Corbettmaths", CM),
+        ("I_Mys8RNt30", "Calculating With Surds - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:N9", &[
+        ("cxGyZ3Yx9ow", "Standard Form - Corbettmaths", CM),
+        ("H3ewmorcYjU", "What is Standard Form (also known as Scientific Notation)? (Part 1/4) (2026/27 exams)", COG),
+        ("u3FZaXs3hDE", "How to Multiply and Divide in Standard Form (Part 3/4) (2026/27 exams)", COG),
+    ]),
+    ("maths_aqa:N10-12", &[
+        ("KZbKYokJ3SQ", "Recurring decimals to fractions - Corbettmaths", CM),
+        ("RCnSGUpoKbE", "How to Convert Recurring Decimals to Fractions (Proportions Part 6/6) (2026/27 exams)", COG),
+        ("Iq-6CjlEUW4", "Fractions decimals percentages - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:N13-16", &[
+        ("ebMrP74boHw", "Lower and Upper Bounds - Corbettmaths", CM),
+        ("FQ8IFKNhphM", "Error Intervals - Corbettmaths", CM),
+        ("JTQ2Wh5E2js", "How to Estimate in Maths (2026/27 exams)", COG),
+    ]),
+    ("maths_aqa:A1-3", &[
+        ("QvxWrYtzrtM", "GCSE Maths - Expressions vs Equations (2026/27 exams)", COG),
+        ("28DkE4vMN6o", "Substitution into Expressions - Corbettmaths", CM),
+        ("l54us4Q7nNY", "Equating Coefficients - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:A4", &[
+        ("X-djBcWVizM", "Factorising quadratics 1 - Corbettmaths", CM),
+        ("nfLb8MPO99U", "GCSE Maths - Factorising Quadratics - Part 2 - (When the x² Coefficient is More Than 1)", COG),
+        ("YtHMjuB9f_g", "Algebraic Fractions (Operations) - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:A5-6", &[
+        ("8U9u_itcs7k", "Changing the Subject - Corbettmaths", CM),
+        ("pd9Q-e1JvtE", "Algebraic Proof - Corbettmaths", CM),
+        ("5lcefrczJlE", "GCSE Maths - Rearranging Formulas Part 2 - When The Subject Appears Twice (2026/27 exams)", COG),
+    ]),
+    ("maths_aqa:A7", &[
+        ("u1YQVzrgYDg", "Composite Functions - Corbettmaths", CM),
+        ("zpF9nbjResY", "Inverse Functions - Corbettmaths", CM),
+        ("ZRQJGecu1fs", "Function Notation - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:A8-10", &[
+        ("nUk47WSiS30", "GCSE Maths - What on Earth is y = mx + c (2026/27 exams)", COG),
+        ("YtHJP1rZ3pI", "Gradient of a Line - Corbettmaths", CM),
+        ("PrwhdgnLK5k", "Perpendicular graphs - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:A11-12", &[
+        ("7xE5pj9-n1Q", "Finding Turning Points using Completing the Square", CM),
+        ("oUcjmGThMdc", "Exponential Graphs - Corbettmaths", CM),
+        ("fNH5EWWtf7k", "Trigonometric Graphs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:A13", &[
+        ("eiRZATuHYg0", "Transformations of Graphs - Corbettmaths", CM),
+        ("F8YGp_j7YhM", "Transforming Graphs", MGENIE),
+        ("ctVr9NpSiL4", "Transformations of Graphs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:A14-15", &[
+        ("1AVtslXytRA", "Area Under Graph - Corbettmaths", CM),
+        ("cEp7qD6vCSM", "Gradient of a Curve - Corbettmaths", CM),
+        ("UsmhVCjfzYQ", "Speed Time Graphs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:A16", &[
+        ("_DOBTxLmUTM", "Equation of a Circle - Corbettmaths", CM),
+        ("NHrb8N9oAUY", "Equation of a Tangent to a Circle - Corbettmaths", CM),
+        ("12NqSRpfTR4", "Equation of a Circle - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:A17", &[
+        ("30S7WxKcPwg", "Solving Equations - Corbettmaths", CM),
+        ("85ZM3ZKqRhY", "Solving equations with letters on both sides - Corbettmaths", CM),
+        ("9FuR91H8EVU", "GCSE Maths - How to Solve Algebraic Equations (Part 1 of 3) (2026/27 exams)", COG),
+    ]),
+    ("maths_aqa:A18", &[
+        ("wJ_tLEwEEi8", "Solving Quadratics using Factorisation - Corbettmaths", CM),
+        ("3J0ccr74LcU", "Quadratic formula - Corbettmaths", CM),
+        ("abBgTO8eW-c", "Solving Quadratic Equations by Completing the Square - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:A19", &[
+        ("phlus4x0UqM", "Simultaneous Equations elimination - Corbettmaths", CM),
+        ("ozP-vf99DK4", "Simultaneous equations (linear and non-linear) - Corbettmaths", CM),
+        ("eEYreNDTvKQ", "Non-Linear Simultaneous Equations - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:A20", &[
+        ("eWP15jyatIo", "Iteration - Corbettmaths", CM),
+        ("WHZ2IiKcqeU", "Iteration - GCSE Higher Maths", FIRSTCLASS),
+        ("FPMimYoO8kU", "Change of Sign - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:A21-22", &[
+        ("Lz3VkLrDmhE", "Forming equations - Corbettmaths", CM),
+        ("u-YNzmlZWeg", "GCSE Maths - Solving Algebraic Inequalities with 1 Inequality Sign (Inequalities Part 2)", COG),
+        ("8J_m-hMp8lY", "Quadratic Inequalities - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:A23-25", &[
+        ("qnVVTBAfNu4", "The nth Term - Corbettmaths", CM),
+        ("AL-joUBnEIw", "Quadratic Sequences Version 1 - Corbettmaths", CM),
+        ("871OBfK5o2M", "GCSE Maths - Types of Number Sequences - Arithmetic vs Geometric (2026/27 exams)", COG),
+    ]),
+    ("maths_aqa:R1-2", &[
+        ("1az6Gjb2wtk", "Converting Metric Units for Length", CM),
+        ("2PZ41oDEZ_Q", "Maps and Scales - Corbettmaths", CM),
+        ("6XpBX-7cDPE", "GCSE Maths - Using Scales on Maps and Scale Diagrams (2026/27 exams)", COG),
+    ]),
+    ("maths_aqa:R3-8", &[
+        ("UcPVAh4igpI", "GCSE Maths - What are Ratios & How to Simplify Them (Part 1) (2026/27 exams)", COG),
+        ("cflZnf9H5l4", "Ratio sharing the total - Corbettmaths", CM),
+        ("SJhomYlGPZ8", "Given Two Ratios - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:R9", &[
+        ("tUtgC7ZrsRc", "Increasing Decreasing by a Percentage - Corbettmaths", CM),
+        ("Q2gRAS08fE0", "Percentage Change - Corbettmaths", CM),
+        ("dIeb2ryQ1ko", "GCSE Maths - Reverse Percentages - Calculating The Cost Before The Discount (2026/27 exams)", COG),
+    ]),
+    ("maths_aqa:R10", &[
+        ("AXkCfkVrjK8", "Unitary Method - Corbettmaths", CM),
+        ("z9JlSDzSy3c", "GCSE Maths - What Does Directly Proportional Mean? (2026/27 exams)", COG),
+        ("01l1a21qDaM", "Proportion and Time - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:R11", &[
+        ("dHVK7IeLGT8", "Speed, Distance, Time - Corbettmaths", CM),
+        ("sv7zflLeduM", "Density - Corbettmaths", CM),
+        ("fheOYg9TKQA", "Pressure - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:R12", &[
+        ("8-4KQw8unfY", "GCSE Maths - Similar Shapes (2026/27 exams)", COG),
+        ("GlD88EpEJVo", "Similar Shapes: Areas", CM),
+        ("0U1T_f5xb98", "Similar Areas and Volumes - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:R13", &[
+        ("kcOwC7uqJNE", "Direct Proportion - Corbettmaths", CM),
+        ("uZ6l-loSdRs", "Inverse Proportion - Corbettmaths", CM),
+        ("pXnyxf55nJU", "Proportionality Graphs - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:R14-15", &[
+        ("rGf6_1E8x7k", "Average Rate of Change - Corbettmaths", CM),
+        ("YfDhGn3NLQw", "Instantaneous Rate of Change - Corbettmaths", CM),
+        ("zVSq5b3PPfY", "GCSE Maths - How to Find the Gradient of a Straight Line (2026/27 exams)", COG),
+    ]),
+    ("maths_aqa:R16", &[
+        ("FBCs95Co_oU", "Compound Interest - Corbettmaths", CM),
+        ("gliYGWM7wfY", "Compound Interest and Depreciation", MGENIE),
+        ("CRKlXB5g1gE", "Exponential Growth and Decay", MGENIE),
+    ]),
+    ("maths_aqa:G1-2", &[
+        ("1beKcgU9ogE", "Perpendicular Bisectors - Corbettmaths", CM),
+        ("BWj041al8z8", "Loci part 1 - Corbettmaths", CM),
+        ("3viWgGJmkFo", "Constructions - GCSE Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:G3-4", &[
+        ("gVo8ZrtlSp0", "Angles in Polygons - Corbettmaths", CM),
+        ("I5auyoXYoX0", "GCSE Maths - Alternate, Corresponding and Allied Angles - Parallel Lines Angle Rules (2026/27 exams)", COG),
+        ("mlG56WCfobI", "GCSE Maths - Types of Quadrilateral (2026/27 exams)", COG),
+    ]),
+    ("maths_aqa:G5-6", &[
+        ("IDW1ogTqox8", "Congruent Triangles - Corbettmaths", CM),
+        ("aK8i7LKZd9o", "GCSE Maths - Congruent Triangle Rules (2026/27 exams)", COG),
+        ("4YdhDXJWCZ8", "Geometric Proof - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:G7-8", &[
+        ("rgdRlbbWQgA", "Rotations - Corbettmaths", CM),
+        ("u2EgwMYwibw", "Describing Enlargements - Corbettmaths", CM),
+        ("0_hclyERGAw", "Enlargements (Negative Scale Factor) - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:G9-10", &[
+        ("vgMSLsos7Ew", "Circle Theorems - Corbettmaths", CM),
+        ("dBIlCD_JF9Q", "Circle Theorems - GCSE Higher Maths", FIRSTCLASS),
+        ("CmprPWcLtlk", "Circle Theorem Proofs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:G11-15", &[
+        ("BnwoipoGWJ8", "Views and Elevations", CM),
+        ("pm8i-thxvCo", "GCSE Maths - What are Bearings? (2026/27 exams)", COG),
+        ("8Wja7Ct_XvY", "Bearings - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:G16-18", &[
+        ("Wcv0f5PpTv0", "GCSE Maths - Area of a Sector and Length of an Arc of a Circle  (Circles Part 3) (2026/27 exams)", COG),
+        ("X6cMvcxk1ig", "Volume of a Cone - Corbettmaths", CM),
+        ("VwdMbDpMab4", "Surface Area of Prisms - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:G19", &[
+        ("L6DLoBMknoY", "Similar Shapes - Missing Sides", CM),
+        ("QMI90tONvzQ", "Similar Shapes: Volumes", CM),
+        ("u1uOcrjQCh4", "Similar Triangles - GCSE Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:G20-21", &[
+        ("iWLVTy_rGjs", "Pythagoras - Corbettmaths", CM),
+        ("WFH_7n7hpHo", "Trigonometry | SOH CAH TOA | Sin, Cos, Tan", COG),
+        ("UjgOR07zOzY", "Exact trigonometric values - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:G22-23", &[
+        ("7xeLeDulY60", "The Sine Rule - GCSE Higher Maths", FIRSTCLASS),
+        ("3H3u92WJAjw", "Cosine rule - Corbettmaths", CM),
+        ("eSFOMSxjMts", "Area of any Triangle - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:G24-25", &[
+        ("h02d922Q5wk", "Column Vectors - Corbettmaths", CM),
+        ("xOdkldbusy0", "Vectors - Corbettmaths", CM),
+        ("vkwFUig3dGY", "Vectors in Shapes", MGENIE),
+    ]),
+    ("maths_aqa:P1-5", &[
+        ("ur_hHjLrBNo", "Probability - Corbettmaths", CM),
+        ("MS6lnCTgTSw", "Relative Frequency - Corbettmaths", CM),
+        ("QDnDtxDEHWg", "Probability and Relative Frequency", MGENIE),
+    ]),
+    ("maths_aqa:P6-8", &[
+        ("Xqno7W0OUtE", "Sample Space Diagrams - Corbettmaths", CM),
+        ("xwK--rNDI9E", "Venn Diagrams - Corbettmaths", CM),
+        ("Z5BX-LbG7mI", "Probability Tree Diagrams - GCSE Maths", FIRSTCLASS),
+    ]),
+    ("maths_aqa:P9", &[
+        ("xhFDlmQUAZo", "Conditional Probability - Corbettmaths", CM),
+        ("nIeMiayWVvw", "Conditional Probability - GCSE Higher Maths", FIRSTCLASS),
+        ("34WnM69jaGs", "Conditional Probability", MGENIE),
+    ]),
+    ("maths_aqa:S1", &[
+        ("tBlVp3v3J5g", "Random Sampling - Corbettmaths", CM),
+        ("n4lyeQAacOU", "Using Samples - Corbettmaths", CM),
+        ("IgYrPnA14tM", "Capture Recapture - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:S2-4", &[
+        ("wGzp-wM90EU", "Drawing Histograms - Corbettmaths", CM),
+        ("PzBE82c1dfY", "Cumulative Frequency Diagrams - GCSE Higher Maths", FIRSTCLASS),
+        ("z41_PBqYuVg", "Drawing and Reading Box Plots - Corbettmaths", CM),
+    ]),
+    ("maths_aqa:S5-6", &[
+        ("VUaOCgJTPjI", "Scatter Graphs - Corbettmaths", CM),
+        ("hlGrp8X3XyY", "Scatter Graphs Correlation - Corbettmaths", CM),
+        ("kVr15gM0tCE", "Comparing Distributions", MGENIE),
+    ]),
+    // Maths (OCR GCSE Mathematics (J560) Higher)
+    ("maths_ocr:N1-3", &[
+        ("if8ZsZXhQJE", "Order of Operations - Corbettmaths", CM),
+        ("mED76j4Agiw", "Addition and Subtraction involving Negatives - Corbettmaths", CM),
+        ("70cAYYCJBuQ", "How to use BODMAS (Order of Operations)", COG),
+    ]),
+    ("maths_ocr:N4-5", &[
+        ("oK-EFDLeEqc", "LCM HCF using Product of Primes - Corbettmaths", CM),
+        ("kHLwbPwvTtw", "HCF/LCM - GCSE Maths", FIRSTCLASS),
+        ("3H6ET7P902Q", "Product Rule for Counting - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:N6-7", &[
+        ("ozuXy8_NZcg", "Laws of Indices - Corbettmaths", CM),
+        ("qYDClSo89eQ", "Fractional indices - Corbettmaths", CM),
+        ("DvNYkbafpIY", "GCSE Maths - What to do when Powers are Fractions (Powers Part 6/6) (2026/27 exams)", COG),
+    ]),
+    ("maths_ocr:N8", &[
+        ("ndU_cCbPAm4", "Surds - Corbettmaths", CM),
+        ("96SwZpRvhwY", "Rationalising denominators - Corbettmaths", CM),
+        ("I_Mys8RNt30", "Calculating With Surds - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:N9", &[
+        ("cxGyZ3Yx9ow", "Standard Form - Corbettmaths", CM),
+        ("H3ewmorcYjU", "What is Standard Form (also known as Scientific Notation)? (Part 1/4) (2026/27 exams)", COG),
+        ("u3FZaXs3hDE", "How to Multiply and Divide in Standard Form (Part 3/4) (2026/27 exams)", COG),
+    ]),
+    ("maths_ocr:N10-12", &[
+        ("KZbKYokJ3SQ", "Recurring decimals to fractions - Corbettmaths", CM),
+        ("RCnSGUpoKbE", "How to Convert Recurring Decimals to Fractions (Proportions Part 6/6) (2026/27 exams)", COG),
+        ("Iq-6CjlEUW4", "Fractions decimals percentages - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:N13-16", &[
+        ("ebMrP74boHw", "Lower and Upper Bounds - Corbettmaths", CM),
+        ("FQ8IFKNhphM", "Error Intervals - Corbettmaths", CM),
+        ("JTQ2Wh5E2js", "How to Estimate in Maths (2026/27 exams)", COG),
+    ]),
+    ("maths_ocr:A1-3", &[
+        ("QvxWrYtzrtM", "GCSE Maths - Expressions vs Equations (2026/27 exams)", COG),
+        ("28DkE4vMN6o", "Substitution into Expressions - Corbettmaths", CM),
+        ("l54us4Q7nNY", "Equating Coefficients - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:A4", &[
+        ("X-djBcWVizM", "Factorising quadratics 1 - Corbettmaths", CM),
+        ("nfLb8MPO99U", "GCSE Maths - Factorising Quadratics - Part 2 - (When the x² Coefficient is More Than 1)", COG),
+        ("YtHMjuB9f_g", "Algebraic Fractions (Operations) - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:A5-6", &[
+        ("8U9u_itcs7k", "Changing the Subject - Corbettmaths", CM),
+        ("pd9Q-e1JvtE", "Algebraic Proof - Corbettmaths", CM),
+        ("5lcefrczJlE", "GCSE Maths - Rearranging Formulas Part 2 - When The Subject Appears Twice (2026/27 exams)", COG),
+    ]),
+    ("maths_ocr:A7", &[
+        ("u1YQVzrgYDg", "Composite Functions - Corbettmaths", CM),
+        ("zpF9nbjResY", "Inverse Functions - Corbettmaths", CM),
+        ("ZRQJGecu1fs", "Function Notation - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:A8-10", &[
+        ("nUk47WSiS30", "GCSE Maths - What on Earth is y = mx + c (2026/27 exams)", COG),
+        ("YtHJP1rZ3pI", "Gradient of a Line - Corbettmaths", CM),
+        ("PrwhdgnLK5k", "Perpendicular graphs - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:A11-12", &[
+        ("7xE5pj9-n1Q", "Finding Turning Points using Completing the Square", CM),
+        ("oUcjmGThMdc", "Exponential Graphs - Corbettmaths", CM),
+        ("fNH5EWWtf7k", "Trigonometric Graphs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:A13", &[
+        ("eiRZATuHYg0", "Transformations of Graphs - Corbettmaths", CM),
+        ("F8YGp_j7YhM", "Transforming Graphs", MGENIE),
+        ("ctVr9NpSiL4", "Transformations of Graphs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:A14-15", &[
+        ("1AVtslXytRA", "Area Under Graph - Corbettmaths", CM),
+        ("cEp7qD6vCSM", "Gradient of a Curve - Corbettmaths", CM),
+        ("UsmhVCjfzYQ", "Speed Time Graphs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:A16", &[
+        ("_DOBTxLmUTM", "Equation of a Circle - Corbettmaths", CM),
+        ("NHrb8N9oAUY", "Equation of a Tangent to a Circle - Corbettmaths", CM),
+        ("12NqSRpfTR4", "Equation of a Circle - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:A17", &[
+        ("30S7WxKcPwg", "Solving Equations - Corbettmaths", CM),
+        ("85ZM3ZKqRhY", "Solving equations with letters on both sides - Corbettmaths", CM),
+        ("9FuR91H8EVU", "GCSE Maths - How to Solve Algebraic Equations (Part 1 of 3) (2026/27 exams)", COG),
+    ]),
+    ("maths_ocr:A18", &[
+        ("wJ_tLEwEEi8", "Solving Quadratics using Factorisation - Corbettmaths", CM),
+        ("3J0ccr74LcU", "Quadratic formula - Corbettmaths", CM),
+        ("abBgTO8eW-c", "Solving Quadratic Equations by Completing the Square - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:A19", &[
+        ("phlus4x0UqM", "Simultaneous Equations elimination - Corbettmaths", CM),
+        ("ozP-vf99DK4", "Simultaneous equations (linear and non-linear) - Corbettmaths", CM),
+        ("eEYreNDTvKQ", "Non-Linear Simultaneous Equations - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:A20", &[
+        ("eWP15jyatIo", "Iteration - Corbettmaths", CM),
+        ("WHZ2IiKcqeU", "Iteration - GCSE Higher Maths", FIRSTCLASS),
+        ("FPMimYoO8kU", "Change of Sign - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:A21-22", &[
+        ("Lz3VkLrDmhE", "Forming equations - Corbettmaths", CM),
+        ("u-YNzmlZWeg", "GCSE Maths - Solving Algebraic Inequalities with 1 Inequality Sign (Inequalities Part 2)", COG),
+        ("8J_m-hMp8lY", "Quadratic Inequalities - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:A23-25", &[
+        ("qnVVTBAfNu4", "The nth Term - Corbettmaths", CM),
+        ("AL-joUBnEIw", "Quadratic Sequences Version 1 - Corbettmaths", CM),
+        ("871OBfK5o2M", "GCSE Maths - Types of Number Sequences - Arithmetic vs Geometric (2026/27 exams)", COG),
+    ]),
+    ("maths_ocr:R1-2", &[
+        ("1az6Gjb2wtk", "Converting Metric Units for Length", CM),
+        ("2PZ41oDEZ_Q", "Maps and Scales - Corbettmaths", CM),
+        ("6XpBX-7cDPE", "GCSE Maths - Using Scales on Maps and Scale Diagrams (2026/27 exams)", COG),
+    ]),
+    ("maths_ocr:R3-8", &[
+        ("UcPVAh4igpI", "GCSE Maths - What are Ratios & How to Simplify Them (Part 1) (2026/27 exams)", COG),
+        ("cflZnf9H5l4", "Ratio sharing the total - Corbettmaths", CM),
+        ("SJhomYlGPZ8", "Given Two Ratios - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:R9", &[
+        ("tUtgC7ZrsRc", "Increasing Decreasing by a Percentage - Corbettmaths", CM),
+        ("Q2gRAS08fE0", "Percentage Change - Corbettmaths", CM),
+        ("dIeb2ryQ1ko", "GCSE Maths - Reverse Percentages - Calculating The Cost Before The Discount (2026/27 exams)", COG),
+    ]),
+    ("maths_ocr:R10", &[
+        ("AXkCfkVrjK8", "Unitary Method - Corbettmaths", CM),
+        ("z9JlSDzSy3c", "GCSE Maths - What Does Directly Proportional Mean? (2026/27 exams)", COG),
+        ("01l1a21qDaM", "Proportion and Time - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:R11", &[
+        ("dHVK7IeLGT8", "Speed, Distance, Time - Corbettmaths", CM),
+        ("sv7zflLeduM", "Density - Corbettmaths", CM),
+        ("fheOYg9TKQA", "Pressure - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:R12", &[
+        ("8-4KQw8unfY", "GCSE Maths - Similar Shapes (2026/27 exams)", COG),
+        ("GlD88EpEJVo", "Similar Shapes: Areas", CM),
+        ("0U1T_f5xb98", "Similar Areas and Volumes - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:R13", &[
+        ("kcOwC7uqJNE", "Direct Proportion - Corbettmaths", CM),
+        ("uZ6l-loSdRs", "Inverse Proportion - Corbettmaths", CM),
+        ("pXnyxf55nJU", "Proportionality Graphs - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:R14-15", &[
+        ("rGf6_1E8x7k", "Average Rate of Change - Corbettmaths", CM),
+        ("YfDhGn3NLQw", "Instantaneous Rate of Change - Corbettmaths", CM),
+        ("zVSq5b3PPfY", "GCSE Maths - How to Find the Gradient of a Straight Line (2026/27 exams)", COG),
+    ]),
+    ("maths_ocr:R16", &[
+        ("FBCs95Co_oU", "Compound Interest - Corbettmaths", CM),
+        ("gliYGWM7wfY", "Compound Interest and Depreciation", MGENIE),
+        ("CRKlXB5g1gE", "Exponential Growth and Decay", MGENIE),
+    ]),
+    ("maths_ocr:G1-2", &[
+        ("1beKcgU9ogE", "Perpendicular Bisectors - Corbettmaths", CM),
+        ("BWj041al8z8", "Loci part 1 - Corbettmaths", CM),
+        ("3viWgGJmkFo", "Constructions - GCSE Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:G3-4", &[
+        ("gVo8ZrtlSp0", "Angles in Polygons - Corbettmaths", CM),
+        ("I5auyoXYoX0", "GCSE Maths - Alternate, Corresponding and Allied Angles - Parallel Lines Angle Rules (2026/27 exams)", COG),
+        ("mlG56WCfobI", "GCSE Maths - Types of Quadrilateral (2026/27 exams)", COG),
+    ]),
+    ("maths_ocr:G5-6", &[
+        ("IDW1ogTqox8", "Congruent Triangles - Corbettmaths", CM),
+        ("aK8i7LKZd9o", "GCSE Maths - Congruent Triangle Rules (2026/27 exams)", COG),
+        ("4YdhDXJWCZ8", "Geometric Proof - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:G7-8", &[
+        ("rgdRlbbWQgA", "Rotations - Corbettmaths", CM),
+        ("u2EgwMYwibw", "Describing Enlargements - Corbettmaths", CM),
+        ("0_hclyERGAw", "Enlargements (Negative Scale Factor) - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:G9-10", &[
+        ("vgMSLsos7Ew", "Circle Theorems - Corbettmaths", CM),
+        ("dBIlCD_JF9Q", "Circle Theorems - GCSE Higher Maths", FIRSTCLASS),
+        ("CmprPWcLtlk", "Circle Theorem Proofs - GCSE Higher Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:G11-15", &[
+        ("BnwoipoGWJ8", "Views and Elevations", CM),
+        ("pm8i-thxvCo", "GCSE Maths - What are Bearings? (2026/27 exams)", COG),
+        ("8Wja7Ct_XvY", "Bearings - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:G16-18", &[
+        ("Wcv0f5PpTv0", "GCSE Maths - Area of a Sector and Length of an Arc of a Circle  (Circles Part 3) (2026/27 exams)", COG),
+        ("X6cMvcxk1ig", "Volume of a Cone - Corbettmaths", CM),
+        ("VwdMbDpMab4", "Surface Area of Prisms - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:G19", &[
+        ("L6DLoBMknoY", "Similar Shapes - Missing Sides", CM),
+        ("QMI90tONvzQ", "Similar Shapes: Volumes", CM),
+        ("u1uOcrjQCh4", "Similar Triangles - GCSE Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:G20-21", &[
+        ("iWLVTy_rGjs", "Pythagoras - Corbettmaths", CM),
+        ("WFH_7n7hpHo", "Trigonometry | SOH CAH TOA | Sin, Cos, Tan", COG),
+        ("UjgOR07zOzY", "Exact trigonometric values - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:G22-23", &[
+        ("7xeLeDulY60", "The Sine Rule - GCSE Higher Maths", FIRSTCLASS),
+        ("3H3u92WJAjw", "Cosine rule - Corbettmaths", CM),
+        ("eSFOMSxjMts", "Area of any Triangle - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:G24-25", &[
+        ("h02d922Q5wk", "Column Vectors - Corbettmaths", CM),
+        ("xOdkldbusy0", "Vectors - Corbettmaths", CM),
+        ("vkwFUig3dGY", "Vectors in Shapes", MGENIE),
+    ]),
+    ("maths_ocr:P1-5", &[
+        ("ur_hHjLrBNo", "Probability - Corbettmaths", CM),
+        ("MS6lnCTgTSw", "Relative Frequency - Corbettmaths", CM),
+        ("QDnDtxDEHWg", "Probability and Relative Frequency", MGENIE),
+    ]),
+    ("maths_ocr:P6-8", &[
+        ("Xqno7W0OUtE", "Sample Space Diagrams - Corbettmaths", CM),
+        ("xwK--rNDI9E", "Venn Diagrams - Corbettmaths", CM),
+        ("Z5BX-LbG7mI", "Probability Tree Diagrams - GCSE Maths", FIRSTCLASS),
+    ]),
+    ("maths_ocr:P9", &[
+        ("xhFDlmQUAZo", "Conditional Probability - Corbettmaths", CM),
+        ("nIeMiayWVvw", "Conditional Probability - GCSE Higher Maths", FIRSTCLASS),
+        ("34WnM69jaGs", "Conditional Probability", MGENIE),
+    ]),
+    ("maths_ocr:S1", &[
+        ("tBlVp3v3J5g", "Random Sampling - Corbettmaths", CM),
+        ("n4lyeQAacOU", "Using Samples - Corbettmaths", CM),
+        ("IgYrPnA14tM", "Capture Recapture - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:S2-4", &[
+        ("wGzp-wM90EU", "Drawing Histograms - Corbettmaths", CM),
+        ("PzBE82c1dfY", "Cumulative Frequency Diagrams - GCSE Higher Maths", FIRSTCLASS),
+        ("z41_PBqYuVg", "Drawing and Reading Box Plots - Corbettmaths", CM),
+    ]),
+    ("maths_ocr:S5-6", &[
+        ("VUaOCgJTPjI", "Scatter Graphs - Corbettmaths", CM),
+        ("hlGrp8X3XyY", "Scatter Graphs Correlation - Corbettmaths", CM),
+        ("kVr15gM0tCE", "Comparing Distributions", MGENIE),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
@@ -3709,7 +4434,7 @@ mod tests {
     /// Subjects whose every topic has a video to start from.
     #[test]
     fn covered_subjects_have_a_video_on_every_topic() {
-        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog", "hist", "rs"] {
+        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog", "hist", "rs", "maths_edx", "maths_aqa", "maths_ocr"] {
             let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
             for (code, _, _) in def.topics {
                 assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");
