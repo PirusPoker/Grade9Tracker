@@ -167,6 +167,8 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ("maths_aqa", &["N1", "N2", "N3", "N4", "N5", "N6", "N7", "N8", "N9", "N10", "N11", "N12", "N13", "N14", "N15", "N16", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19", "A20", "A21", "A22", "A23", "A24", "A25", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15", "R16", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14", "G15", "G16", "G17", "G18", "G19", "G20", "G21", "G22", "G23", "G24", "G25", "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "S1", "S2", "S3", "S4", "S5", "S6"]),
     // OCR GCSE Mathematics (J560) Higher. OCR numbers this content 1.01 to 12.03; the topics use the DfE references it is written from, shared with Edexcel 1MA1 and AQA 8300.
     ("maths_ocr", &["N1", "N2", "N3", "N4", "N5", "N6", "N7", "N8", "N9", "N10", "N11", "N12", "N13", "N14", "N15", "N16", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19", "A20", "A21", "A22", "A23", "A24", "A25", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15", "R16", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14", "G15", "G16", "G17", "G18", "G19", "G20", "G21", "G22", "G23", "G24", "G25", "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "S1", "S2", "S3", "S4", "S5", "S6"]),
+    // AQA GCSE Biology (8461) Higher. Every subsection, Higher tier; lessons flag what Combined Science Trilogy leaves out.
+    ("bio_aqa", &["4.1.1", "4.1.2", "4.1.3", "4.2.1", "4.2.2", "4.2.3", "4.3.1", "4.3.2", "4.3.3", "4.4.1", "4.4.2", "4.5.1", "4.5.2", "4.5.3", "4.5.4", "4.6.1", "4.6.2", "4.6.3", "4.6.4", "4.7.1", "4.7.2", "4.7.3", "4.7.4", "4.7.5"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -6157,6 +6159,252 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Explain why interpolation is fairly reliable but extrapolation is not",
         "Explain why correlation does not prove causation, naming a likely hidden factor, and interpret a gradient in context",
     ], "Writing \"positive correlation\" without saying what it means in context, and treating correlation as proof that one thing causes the other, are the marks most often dropped."),
+
+    // ---------- Biology (AQA GCSE Biology (8461) Higher) ----------
+    ("bio_aqa:4.1.1", &[
+        "Compare eukaryotic and prokaryotic cells, including plasmids and the DNA loop",
+        "Link each sub-cellular structure in plant, animal and bacterial cells to its function",
+        "Explain how sperm, nerve, muscle, root hair, xylem and phloem cells are adapted",
+        "Use magnification = image size / real size with unit conversions and standard form",
+        "Compare light and electron microscopes in terms of magnification and resolution",
+        "Describe aseptic technique and calculate bacterial numbers and clear-zone areas (separate science only)",
+    ], "In magnification sums, convert both sizes to the same unit before dividing. 1 mm is 1000 µm, and magnification has no unit."),
+
+    ("bio_aqa:4.1.2", &[
+        "Describe chromosomes, genes and how chromosomes are paired in body cells",
+        "Describe the three stages of the cell cycle and why DNA and organelles are copied first",
+        "Recognise growth, repair and replacement as situations where mitosis happens",
+        "Calculate the time spent in mitosis from cell counts",
+        "Describe the function of stem cells in embryos, adult bone marrow and plant meristems",
+        "Evaluate the benefits, risks and ethical issues of stem cell treatments and therapeutic cloning",
+    ], "Describe the cell cycle in AQA's three stages and end with two genetically identical cells. In stem cell questions, \"evaluate\" needs both sides and a conclusion."),
+
+    ("bio_aqa:4.1.3", &[
+        "Define diffusion, osmosis and active transport and explain how they differ",
+        "Explain how concentration gradient, temperature and surface area affect the rate of diffusion",
+        "Calculate surface area to volume ratios and use them to explain the need for exchange surfaces and transport systems",
+        "Explain how the small intestine, lungs, gills, roots and leaves are adapted for exchange",
+        "Carry out the osmosis practical, calculate percentage change in mass and interpret the graph",
+    ], "An osmosis definition needs water, dilute to more concentrated solution, and a partially permeable membrane. Active transport needs both \"against the gradient\" and \"energy from respiration\"."),
+
+    ("bio_aqa:4.2.1", &[
+        "Define cell, tissue, organ and organ system using AQA's wording",
+        "Put the levels of organisation in order from sub-cellular structure to organism",
+        "Classify examples such as blood, the heart and the leaf into the correct level",
+        "Explain how the tissues in an organ such as the stomach each contribute to its function",
+        "Compare the sizes of cells, tissues, organs and systems using the same units and standard form",
+    ], "An organ is a group of different tissues, not just a lot of cells. Blood is a tissue, the leaf is an organ, and those two catch people out most."),
+
+    ("bio_aqa:4.2.2a", &[
+        "Recall where amylase, proteases and lipases are made, where they work and their products",
+        "Explain enzyme specificity using the active site and the lock and key model",
+        "Explain the effect of temperature and pH on enzyme activity, using denaturing",
+        "Explain how bile neutralises acid and emulsifies fat to speed up lipase",
+        "Carry out the food tests and the amylase pH practical, and calculate rates as 1/time",
+    ], "Enzymes are denatured, not killed: say the active site changes shape so the substrate no longer fits. Bile is not an enzyme; it emulsifies fat and neutralises acid."),
+
+    ("bio_aqa:4.2.2b", &[
+        "Trace blood through the double circulatory system, naming the chambers and the aorta, vena cava, pulmonary artery, pulmonary vein and coronary arteries",
+        "Explain how the lungs are adapted for gas exchange, from trachea and bronchi to alveoli and their capillaries",
+        "Describe the natural pacemaker in the right atrium and what artificial pacemakers do",
+        "Explain how the structures of arteries, veins and capillaries suit their functions",
+        "Calculate rates of blood flow and heart rate with the right units",
+        "Identify red cells, white cells and platelets and explain how each is adapted, alongside the role of plasma",
+    ], "The pulmonary artery carries deoxygenated blood and the pulmonary vein oxygenated blood. And arteries do not pump: their thick walls withstand high pressure."),
+
+    ("bio_aqa:4.2.2c", &[
+        "Explain how fatty deposits in the coronary arteries starve heart muscle of oxygen",
+        "Evaluate stents, statins, replacement valves, transplants and artificial hearts, weighing benefits against risks",
+        "Describe how health is affected by disease, diet, stress and life situations, and how different diseases interact",
+        "Link named lifestyle risk factors to their diseases and discuss their human and financial costs",
+        "Interpret disease data from tables, charts and scatter diagrams, judging sampling and correlation versus cause",
+        "Distinguish benign from malignant tumours and name lifestyle and genetic risk factors for cancer",
+    ], "A correlation between a risk factor and a disease does not prove cause on its own. Say a causal mechanism is needed, or that other factors could be involved."),
+
+    ("bio_aqa:4.2.3", &[
+        "Explain how the epidermis, palisade and spongy mesophyll, xylem, phloem, meristem and guard cells suit their jobs in the leaf and plant",
+        "Explain how root hair cells take up water by osmosis and mineral ions by active transport",
+        "Describe transpiration and translocation and compare xylem with phloem",
+        "Explain how temperature, humidity, air movement and light intensity change the rate of transpiration",
+        "Measure transpiration with a potometer and calculate rates, means and volumes from your readings",
+    ], "Root hair cells take in water by osmosis but mineral ions by active transport. And humidity slows transpiration because the water vapour concentration gradient is less steep."),
+
+    ("bio_aqa:4.3.1a", &[
+        "Name the four types of pathogen and explain how bacteria and viruses make us ill",
+        "Explain how pathogens spread by direct contact, water and air, and how each route can be blocked",
+        "Give the pathogen, symptoms, spread and control for measles, HIV and TMV",
+        "Do the same for Salmonella, gonorrhoea, rose black spot and malaria",
+        "Explain why TMV and rose black spot reduce plant growth",
+        "Interpret data on cases of a disease before and after a control measure",
+    ], "Malaria is caused by a protist, and the mosquito is only the vector. For every control method, say which link in the chain of spread it breaks."),
+
+    ("bio_aqa:4.3.1b", &[
+        "Describe how the skin, nose, trachea and bronchi, and stomach stop pathogens getting in",
+        "Explain how white blood cells defend the body by phagocytosis, antibody production and antitoxin production",
+        "Explain how vaccination protects a person, and how immunising most of a population stops a pathogen spreading",
+        "Explain what antibiotics and painkillers can and cannot do, including why antibiotics do not work on viruses",
+        "Describe how a new drug is discovered and tested, from preclinical work to double blind trials and peer review",
+    ], "Antibiotics kill bacteria only, never viruses, and painkillers kill nothing at all. Say it plainly whenever a question mentions a viral illness."),
+
+    ("bio_aqa:4.3.2", &[
+        "Describe how monoclonal antibodies are produced, from injecting a mouse to purifying the antibody",
+        "Explain why lymphocytes are fused with tumour cells to make hybridoma cells",
+        "Explain how monoclonal antibodies work in pregnancy tests, laboratory tests and research",
+        "Explain how monoclonal antibodies deliver radioactive substances or drugs to cancer cells",
+        "Evaluate the advantages, disadvantages and ethical issues of monoclonal antibodies",
+    ], "Every \"explain how it works\" mark hangs on specificity: the antibody binds only to one antigen. Say that, then say what is attached and what it does."),
+
+    ("bio_aqa:4.3.3", &[
+        "Describe the symptoms, spread and control of tobacco mosaic virus, rose black spot and aphids",
+        "List the signs used to detect plant disease and the ways to identify the pathogen (Higher tier)",
+        "Explain how nitrate and magnesium deficiencies cause stunted growth and chlorosis",
+        "Describe and explain the physical, chemical and mechanical defences of plants",
+        "Link leaf damage to reduced photosynthesis and reduced growth",
+    ], "Magnesium is for chlorophyll and nitrate is for protein. Swap them, or call black spot anything but a fungus, and the mark is gone."),
+
+    ("bio_aqa:4.4.1", &[
+        "Write the word equation for photosynthesis, recognise the symbols, and explain why it is endothermic",
+        "Explain how light intensity, carbon dioxide, temperature and chlorophyll affect the rate, and calculate rates",
+        "Read limiting-factor graphs, including two- and three-factor graphs and the inverse square law (Higher tier)",
+        "Carry out and evaluate Required practical 6 (Trilogy 5) on light intensity and pondweed",
+        "Use limiting factors to judge the cost-effectiveness of heat, light and CO2 in greenhouses (Higher tier)",
+        "List the uses of glucose in plants and explain why nitrate is also needed",
+    ], "On a plateau, \"another factor is limiting\" is the mark, and at Higher you must name it from the other lines. Doubling the lamp distance quarters the light, it does not halve it."),
+
+    ("bio_aqa:4.4.2", &[
+        "Describe respiration as a continuous exothermic reaction and list what organisms use the energy for",
+        "Write the equations for aerobic respiration and for anaerobic respiration in muscles, plants and yeast",
+        "Compare aerobic and anaerobic respiration: oxygen, products and energy transferred",
+        "Explain the body's response to exercise, lactic acid and fatigue, and oxygen debt (Higher tier)",
+        "Explain metabolism and the role of sugars, amino acids, fatty acids and glycerol",
+    ], "Respiration transfers energy; it never \"produces\" it. Muscles make lactic acid only, while yeast and plants make ethanol and carbon dioxide."),
+
+    ("bio_aqa:4.5.1", &[
+        "Define homeostasis as regulating internal conditions to keep optimum conditions for function",
+        "Explain why homeostasis matters for enzyme action and cell functions",
+        "Name the conditions controlled in the human body: blood glucose, body temperature and water levels",
+        "Describe the roles of receptors, coordination centres and effectors, and put the control chain in order",
+        "Apply the control-system pattern to unfamiliar examples and data",
+    ], "Effectors are only muscles or glands, and a receptor is a cell. Call the brain an effector, or define homeostasis as \"keeping things the same\", and the mark goes."),
+
+    ("bio_aqa:4.5.2", &[
+        "Describe the pathway from stimulus to response, naming receptor, CNS and effector",
+        "Explain how each structure in a reflex arc, including the synapse and relay neurone, relates to its function and why reflexes are fast",
+        "Plan the ruler-drop reaction-time practical, naming variables, calculating means and converting results to graphs",
+        "Identify the cerebral cortex, cerebellum and medulla and explain why the brain is hard to investigate and treat (biology only)",
+        "Explain accommodation, adaptation to dim light, and how lenses correct myopia and hyperopia (biology only)",
+        "Explain how vasodilation, vasoconstriction, sweating and shivering control body temperature (biology only)",
+    ], "Impulses are electrical along neurones but a chemical diffuses across the synapse, and reflexes skip the conscious brain, not the whole CNS. In the eye, the ciliary muscles contract while the suspensory ligaments slacken; ligaments never contract."),
+
+    ("bio_aqa:4.5.3a", &[
+        "Describe how the endocrine system works and compare it with the nervous system",
+        "Identify the pituitary, thyroid, adrenal glands, pancreas, ovaries and testes on a diagram of the body",
+        "Explain how insulin, and at Higher tier glucagon, control blood glucose by negative feedback",
+        "Compare Type 1 and Type 2 diabetes and their treatments, and interpret glucose graphs",
+        "Explain how the kidneys filter and selectively reabsorb, and how ADH controls water balance (biology only)",
+        "Describe how dialysis works and evaluate it against a kidney transplant (biology only)",
+    ], "Glucose, glycogen and glucagon get mixed up more than anything else on this topic. Insulin moves glucose into cells, and glucose is stored as glycogen in liver and muscle."),
+
+    ("bio_aqa:4.5.3b", &[
+        "Describe the roles of oestrogen and testosterone at puberty and of FSH, LH, oestrogen and progesterone in the menstrual cycle",
+        "Explain how FSH, oestrogen, LH and progesterone stimulate and inhibit each other, and read hormone graphs (Higher tier)",
+        "Explain how each hormonal and non-hormonal method of contraception works and evaluate them",
+        "Describe how FSH and LH fertility drugs and IVF treat infertility, and evaluate the issues (Higher tier)",
+        "Explain the roles of adrenaline and thyroxine and how negative feedback controls thyroxine (Higher tier)",
+    ], "FSH matures the egg and LH releases it, and both come from the pituitary, not the ovary. On a graph, LH is the sharp spike just before ovulation."),
+
+    ("bio_aqa:4.5.4", &[
+        "Explain phototropism and gravitropism in shoots and roots using the unequal distribution of auxin",
+        "Carry out Required practical 8 on light or gravity and seedling growth, recording lengths and labelled drawings",
+        "State the roles of gibberellins in germination and ethene in cell division and ripening (Higher tier)",
+        "Describe how auxins, ethene and gibberellins are used in agriculture and horticulture (Higher tier)",
+        "Evaluate the use of hormone weed killers, including their effect on biodiversity (Higher tier)",
+    ], "Auxin causes cell elongation, not cell division, and it moves to the shaded side. In roots it slows elongation, so roots bend the opposite way to shoots."),
+
+    ("bio_aqa:4.6.1a", &[
+        "Compare sexual and asexual reproduction, including which type of cell division each uses",
+        "Explain how meiosis halves the chromosome number and fertilisation restores it",
+        "Explain the advantages of each type of reproduction using malarial parasites, fungi, strawberries and daffodils (biology only)",
+        "Describe DNA, genes and the genome, and discuss why understanding the human genome matters",
+        "Describe DNA as a polymer of nucleotides and use the triplet code and A–T, C–G pairing in calculations (biology only)",
+        "Describe protein synthesis and explain how mutations in coding and non-coding DNA can change a protein or its expression (Higher tier, biology only)",
+    ], "Meiosis gives four genetically different cells with half the chromosomes, while mitosis gives two identical ones. Gametes carry a single set (23 in humans), not 23 pairs."),
+
+    ("bio_aqa:4.6.1b", &[
+        "Explain gamete, chromosome, gene, allele, dominant, recessive, homozygous, heterozygous, genotype and phenotype",
+        "Complete and (Higher tier) construct Punnett squares, giving outcomes as ratios, probabilities and percentages",
+        "Interpret family trees to decide whether an allele is dominant or recessive and work out genotypes",
+        "Describe polydactyly (dominant) and cystic fibrosis (recessive) and make informed judgements about embryo screening",
+        "Explain sex determination with XX and XY and show it with a genetic cross",
+    ], "A 1 in 4 chance is a probability for each child, not exactly one in every four children. And heterozygous means two different alleles, not two different genes."),
+
+    ("bio_aqa:4.6.2", &[
+        "Describe genetic, environmental and combined causes of variation and state that all variants arise from mutations",
+        "Explain how evolution happens by natural selection, step by step, in any context",
+        "Describe the process of selective breeding and explain its benefits and the risks of inbreeding",
+        "Evaluate genetic engineering and GM crops, and (Higher tier) describe its main steps using enzymes and a vector",
+        "Separate science only: describe tissue culture, cuttings, embryo transplants and adult cell cloning, with their benefits and risks",
+    ], "In natural selection answers people skip 'passes on the allele to offspring' and 'over many generations', or say the organism adapted on purpose. Mutations are random; the environment only selects."),
+
+    ("bio_aqa:4.6.3", &[
+        "Describe the evidence for evolution: fossils, antibiotic resistance and the inheritance of genes",
+        "Describe three ways fossils form and explain why the fossil record is incomplete",
+        "Explain how antibiotic-resistant bacteria such as MRSA develop and how to slow their spread",
+        "Describe factors that cause extinction and read evolutionary trees",
+        "Separate science only: describe the work of Darwin, Wallace, Lamarck and Mendel, why their ideas took time to be accepted, and the steps of speciation",
+    ], "Saying the antibiotic made the bacteria mutate. The resistant mutation was already there by chance; the antibiotic just kills the rest, so the resistant strain survives and multiplies."),
+
+    ("bio_aqa:4.6.4", &[
+        "List Linnaeus's seven levels of classification in order, from kingdom to species",
+        "Use binomial names (genus and species) to decide which organisms are most closely related",
+        "Explain how better microscopes and chemical analysis changed classification",
+        "Name Woese's three domains and say what each contains",
+        "Interpret evolutionary trees to find common ancestors, relatedness and extinct species",
+    ], "Getting the seven levels in the wrong order, or naming the three domains as animals, plants and bacteria. They are Archaea, Bacteria and Eukaryota."),
+
+    ("bio_aqa:4.7.1", &[
+        "Describe the levels of organisation from individual to population, community and ecosystem",
+        "Suggest the resources plants and animals compete for in a given habitat",
+        "Explain interdependence and how removing one species affects a whole community",
+        "Explain how changes in abiotic and biotic factors affect a community, using data and calculating percentage change",
+        "Explain structural, behavioural and functional adaptations, including extremophiles",
+    ], "Mixing up community (living things only) with ecosystem (living plus non-living), and saying plants compete for food. Plants compete for light, space, water and mineral ions."),
+
+    ("bio_aqa:4.7.2", &[
+        "Name producers and primary, secondary and tertiary consumers in a food chain",
+        "Explain predator–prey cycles, including why predator numbers lag behind prey",
+        "Estimate population size from random quadrats and use transects to link distribution to an abiotic factor (Required practical 9; Trilogy 7)",
+        "Explain how the carbon and water cycles work and the role of microorganisms in returning CO₂ and mineral ions",
+        "Explain how temperature, water and oxygen affect the rate of decay, including compost, biogas and the milk practical (separate science only)",
+        "Evaluate how changes in temperature, water and atmospheric gases affect species distribution (separate science only, Higher tier)",
+    ], "In quadrat sums, work out how many quadrats fit in the whole area (a 50 cm quadrat is 0.25 m²) before multiplying by the mean. On predator–prey graphs, say the predator peak lags behind the prey peak and give the reason."),
+
+    ("bio_aqa:4.7.3", &[
+        "Define biodiversity and explain why high biodiversity keeps ecosystems stable",
+        "Describe how pollution of water, air and land, and land use for building, quarrying, farming and landfill, reduce biodiversity",
+        "Explain why destroying peat bogs and tropical forests reduces biodiversity and raises carbon dioxide levels",
+        "Describe biological consequences of global warming and why the evidence is trusted but still partly uncertain",
+        "Evaluate breeding programmes, habitat protection, hedgerows, emission cuts and recycling as ways to maintain biodiversity",
+        "Calculate percentage changes and rates from environmental data",
+    ], "Deforestation raises carbon dioxide in two ways: burning and decay release it, and fewer trees remove it by photosynthesis. Evaluate questions need both sides and a conclusion."),
+
+    ("bio_aqa:4.7.4", &[
+        "Number and name trophic levels from producers to apex predators",
+        "Describe how decomposers secrete enzymes and absorb small soluble molecules by diffusion",
+        "Construct accurate, to-scale pyramids of biomass from data, with trophic level 1 at the bottom",
+        "Explain how biomass is lost between trophic levels through faeces, respiration waste, urine and glucose used in respiration",
+        "Calculate the efficiency of biomass transfer as a percentage or fraction",
+        "Explain why fewer organisms are found at higher trophic levels and why food chains are short",
+    ], "Efficiency is the level above divided by the level below, times 100; an answer over 100 % means it was divided the wrong way. \"Energy is lost as heat\" on its own does not earn the marks: name faeces, respiration waste and urine."),
+
+    ("bio_aqa:4.7.5", &[
+        "Describe the biological factors threatening food security and interpret population and food production statistics",
+        "Explain how limiting movement, controlling temperature and high-protein feed make animal farming more efficient",
+        "Evaluate intensive farming, including ethical objections",
+        "Explain how net mesh size and fishing quotas keep fish stocks at a sustainable level",
+        "Describe how mycoprotein is made from Fusarium and how GM bacteria produce human insulin",
+        "Evaluate GM crops such as golden rice as a solution to feeding a growing population",
+    ], "Intensive farming works because animals lose less energy to the surroundings: less movement and kept warm means less glucose respired and more biomass. Fishing methods must be linked to fish surviving to breed."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

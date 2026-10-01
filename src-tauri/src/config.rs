@@ -181,6 +181,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("maths_aqa", &[(1, 1.0, 0.5)]),
     // OCR GCSE Mathematics (J560) Higher
     ("maths_ocr", &[(1, 1.0, 0.5)]),
+    // AQA GCSE Biology (8461) Higher
+    ("bio_aqa", &[(1, 1.0, 0.5)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -205,6 +207,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("maths_edx", "ahead"),
     ("maths_aqa", "ahead"),
     ("maths_ocr", "ahead"),
+    ("bio_aqa", "ahead"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -441,6 +444,14 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Maths Genie", "https://www.mathsgenie.co.uk/gcse.php"),
         ("Corbettmaths", "https://corbettmaths.com/contents/"),
         ("OCR papers & mark schemes", "https://www.ocr.org.uk/qualifications/gcse/mathematics-j560-from-2015/assessment/"),
+    ]),
+    // AQA GCSE Biology (8461) Higher. Each link opened and checked 1 October 2026
+    ("bio_aqa", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/biology/aqa/18/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/biology/aqa/18/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/biology/aqa/past-papers/"),
+        ("PMT by topic", "https://www.physicsandmathstutor.com/biology-revision/gcse-aqa/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/assessment-resources"),
     ]),
 ];
 

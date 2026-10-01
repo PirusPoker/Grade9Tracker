@@ -919,6 +919,38 @@ const MATHS_OCR: &[(&str, &str)] = &[
     ("maths_ocr:S5-6", include_str!("../lessons/gmaths/S5-6.md")),
 ];
 
+const BIO_AQA: &[(&str, &str)] = &[
+    ("bio_aqa:4.1.1", include_str!("../lessons/bio_aqa/4.1.1.md")),
+    ("bio_aqa:4.1.2", include_str!("../lessons/bio_aqa/4.1.2.md")),
+    ("bio_aqa:4.1.3", include_str!("../lessons/bio_aqa/4.1.3.md")),
+    ("bio_aqa:4.2.1", include_str!("../lessons/bio_aqa/4.2.1.md")),
+    ("bio_aqa:4.2.2a", include_str!("../lessons/bio_aqa/4.2.2a.md")),
+    ("bio_aqa:4.2.2b", include_str!("../lessons/bio_aqa/4.2.2b.md")),
+    ("bio_aqa:4.2.2c", include_str!("../lessons/bio_aqa/4.2.2c.md")),
+    ("bio_aqa:4.2.3", include_str!("../lessons/bio_aqa/4.2.3.md")),
+    ("bio_aqa:4.3.1a", include_str!("../lessons/bio_aqa/4.3.1a.md")),
+    ("bio_aqa:4.3.1b", include_str!("../lessons/bio_aqa/4.3.1b.md")),
+    ("bio_aqa:4.3.2", include_str!("../lessons/bio_aqa/4.3.2.md")),
+    ("bio_aqa:4.3.3", include_str!("../lessons/bio_aqa/4.3.3.md")),
+    ("bio_aqa:4.4.1", include_str!("../lessons/bio_aqa/4.4.1.md")),
+    ("bio_aqa:4.4.2", include_str!("../lessons/bio_aqa/4.4.2.md")),
+    ("bio_aqa:4.5.1", include_str!("../lessons/bio_aqa/4.5.1.md")),
+    ("bio_aqa:4.5.2", include_str!("../lessons/bio_aqa/4.5.2.md")),
+    ("bio_aqa:4.5.3a", include_str!("../lessons/bio_aqa/4.5.3a.md")),
+    ("bio_aqa:4.5.3b", include_str!("../lessons/bio_aqa/4.5.3b.md")),
+    ("bio_aqa:4.5.4", include_str!("../lessons/bio_aqa/4.5.4.md")),
+    ("bio_aqa:4.6.1a", include_str!("../lessons/bio_aqa/4.6.1a.md")),
+    ("bio_aqa:4.6.1b", include_str!("../lessons/bio_aqa/4.6.1b.md")),
+    ("bio_aqa:4.6.2", include_str!("../lessons/bio_aqa/4.6.2.md")),
+    ("bio_aqa:4.6.3", include_str!("../lessons/bio_aqa/4.6.3.md")),
+    ("bio_aqa:4.6.4", include_str!("../lessons/bio_aqa/4.6.4.md")),
+    ("bio_aqa:4.7.1", include_str!("../lessons/bio_aqa/4.7.1.md")),
+    ("bio_aqa:4.7.2", include_str!("../lessons/bio_aqa/4.7.2.md")),
+    ("bio_aqa:4.7.3", include_str!("../lessons/bio_aqa/4.7.3.md")),
+    ("bio_aqa:4.7.4", include_str!("../lessons/bio_aqa/4.7.4.md")),
+    ("bio_aqa:4.7.5", include_str!("../lessons/bio_aqa/4.7.5.md")),
+];
+
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
     ("maths", MATHS),
@@ -945,6 +977,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("maths_edx", MATHS_EDX),
     ("maths_aqa", MATHS_AQA),
     ("maths_ocr", MATHS_OCR),
+    ("bio_aqa", BIO_AQA),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
