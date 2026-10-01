@@ -743,6 +743,8 @@ header.top .brand .logo{width:20px;height:20px;flex:none}
 .lbody li ul{margin:4px 0 0}
 .lbody li::marker{color:var(--muted);font-weight:600}
 .lbody code{font-family:var(--mono);font-size:13.5px;background:var(--surface2);padding:1px 6px;border-radius:6px}
+.lquote{margin:0 0 14px;padding:10px 14px;border-left:3px solid var(--c,var(--accent));background:var(--sunken);border-radius:0 var(--r-sm) var(--r-sm) 0}
+.lquote>:last-child{margin-bottom:0}
 .ldisp{overflow-x:auto;padding:12px 16px;margin:0 0 14px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--c,var(--accent));border-radius:var(--r-sm);font-size:1.08em}
 /* Diagrams are drawn for paper, so they keep a paper panel. */
 .ldiag{max-width:380px;margin:0 auto 14px;background:#F7F8FA;color:#15171A;border:1px solid var(--line);border-radius:var(--r-sm);padding:10px}
@@ -2396,6 +2398,7 @@ function mdBlock(lines){ // paragraphs, lists, display maths, tables
     if(l.trim()==="```svg"){flushP(buf);buf=[];let raw="";i++;while(i<lines.length&&lines[i].trim()!=="```"){raw+=lines[i]+"\n";i++;}html+=`<div class="ldiag">${raw}</div>`;i++;continue;}
     if(l.startsWith("$$")){flushP(buf);buf=[];let src=l.slice(2);if(src.trim().endsWith("$$"))src=src.trim().slice(0,-2);else{i++;while(i<lines.length&&!lines[i].trim().endsWith("$$")){src+="\n"+lines[i];i++;}if(i<lines.length)src+="\n"+lines[i].trim().slice(0,-2);}html+=`<div class="ldisp">${tex(src.trim(),true)}</div>`;i++;continue;}
     if(/^#{2,3}\s/.test(l)){flushP(buf);buf=[];html+=l.startsWith("### ")?`<h4>${mdInline(l.slice(4))}</h4>`:`<h3>${mdInline(l.slice(3))}</h3>`;i++;continue;}
+    if(/^>\s?/.test(l)){flushP(buf);buf=[];const q=[];while(i<lines.length&&/^>\s?/.test(lines[i])){q.push(lines[i].replace(/^>\s?/,""));i++;}html+=`<blockquote class="lquote">${mdBlock(q)}</blockquote>`;continue;}
     if(l.startsWith("|")){flushP(buf);buf=[];const rows=[];while(i<lines.length&&lines[i].startsWith("|")){rows.push(lines[i]);i++;}
       const cells=r=>r.replace(/^\||\|$/g,"").split("|").map(c=>c.trim());
       const head=cells(rows[0]),body=rows.slice(1).filter(r=>!/^\|?\s*:?-{2,}/.test(r)).map(cells);
