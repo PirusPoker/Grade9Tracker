@@ -179,6 +179,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("maths_edx", &[(1, 1.0, 0.5)]),
     // AQA GCSE Mathematics (8300) Higher
     ("maths_aqa", &[(1, 1.0, 0.5)]),
+    // OCR GCSE Mathematics (J560) Higher
+    ("maths_ocr", &[(1, 1.0, 0.5)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -202,6 +204,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("food", "school"),
     ("maths_edx", "ahead"),
     ("maths_aqa", "ahead"),
+    ("maths_ocr", "ahead"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -429,6 +432,15 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Maths Genie", "https://www.mathsgenie.co.uk/gcse.php"),
         ("Corbettmaths", "https://corbettmaths.com/contents/"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300/assessment-resources"),
+    ]),
+    // OCR GCSE Mathematics (J560) Higher. Each link opened and checked 30 September 2026
+    ("maths_ocr", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/maths/ocr/22/higher/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/maths/ocr/22/higher/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/maths/ocr/past-papers/"),
+        ("Maths Genie", "https://www.mathsgenie.co.uk/gcse.php"),
+        ("Corbettmaths", "https://corbettmaths.com/contents/"),
+        ("OCR papers & mark schemes", "https://www.ocr.org.uk/qualifications/gcse/mathematics-j560-from-2015/assessment/"),
     ]),
 ];
 

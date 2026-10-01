@@ -165,6 +165,8 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ("maths_edx", &["N1", "N2", "N3", "N4", "N5", "N6", "N7", "N8", "N9", "N10", "N11", "N12", "N13", "N14", "N15", "N16", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19", "A20", "A21", "A22", "A23", "A24", "A25", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15", "R16", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14", "G15", "G16", "G17", "G18", "G19", "G20", "G21", "G22", "G23", "G24", "G25", "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "S1", "S2", "S3", "S4", "S5", "S6"]),
     // AQA GCSE Mathematics (8300) Higher. The DfE subject content references, Higher tier; the lessons are shared with Edexcel 1MA1.
     ("maths_aqa", &["N1", "N2", "N3", "N4", "N5", "N6", "N7", "N8", "N9", "N10", "N11", "N12", "N13", "N14", "N15", "N16", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19", "A20", "A21", "A22", "A23", "A24", "A25", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15", "R16", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14", "G15", "G16", "G17", "G18", "G19", "G20", "G21", "G22", "G23", "G24", "G25", "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "S1", "S2", "S3", "S4", "S5", "S6"]),
+    // OCR GCSE Mathematics (J560) Higher. OCR numbers this content 1.01 to 12.03; the topics use the DfE references it is written from, shared with Edexcel 1MA1 and AQA 8300.
+    ("maths_ocr", &["N1", "N2", "N3", "N4", "N5", "N6", "N7", "N8", "N9", "N10", "N11", "N12", "N13", "N14", "N15", "N16", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19", "A20", "A21", "A22", "A23", "A24", "A25", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15", "R16", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14", "G15", "G16", "G17", "G18", "G19", "G20", "G21", "G22", "G23", "G24", "G25", "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "S1", "S2", "S3", "S4", "S5", "S6"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -5755,6 +5757,400 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
     ], "With unequal class widths the histogram's height is frequency density, not frequency. Comparisons must quote an average and a spread with their values and say what they mean in context."),
 
     ("maths_aqa:S5-6", &[
+        "Describe a population using a suitable average and measure of spread, choosing the median and IQR when there are extreme values",
+        "Plot scatter graphs and describe the type and strength of correlation in context",
+        "Draw a line of best fit through the mean point, ignoring outliers, and use it to make predictions",
+        "Explain why interpolation is fairly reliable but extrapolation is not",
+        "Explain why correlation does not prove causation, naming a likely hidden factor, and interpret a gradient in context",
+    ], "Writing \"positive correlation\" without saying what it means in context, and treating correlation as proof that one thing causes the other, are the marks most often dropped."),
+
+    // ---------- Maths (OCR GCSE Mathematics (J560) Higher) ----------
+    ("maths_ocr:N1-3", &[
+        "Order integers, decimals and fractions, including negatives, and use =, ≠, <, >, ≤ and ≥ correctly",
+        "Add, subtract, multiply and divide integers, decimals, fractions and mixed numbers, positive and negative, by written methods",
+        "Use a given multiplication fact and place value to write down related results",
+        "Apply the order of operations, including powers, roots and reciprocals, and treat fraction lines and root signs as brackets",
+        "Use inverse operations to check answers, work backwards and cancel before calculating",
+    ], "Mixed numbers multiplied or divided without first becoming improper fractions, and × and ÷ not worked left to right, cost the most marks. On a \"show that\" every fraction step must be written."),
+
+    ("maths_ocr:N4-5", &[
+        "Write a number as a product of its prime factors in index form, and use it to test for squares, cubes and divisibility",
+        "Find the HCF and LCM of two or three numbers, including from given prime factorisations",
+        "Recognise HCF and LCM problems in context and finish the answer in context",
+        "List outcomes systematically so none are missed or repeated",
+        "Use the product rule to count arrangements, handling restrictions first and dividing when order does not matter",
+    ], "Prime factors written as a list instead of a product, and HCF and LCM mixed up, lose the easiest marks. In counting questions, fill the restricted position first."),
+
+    ("maths_ocr:N6-7", &[
+        "Recall squares, cubes and powers of 2, 3, 4 and 5, and the roots that go with them",
+        "Estimate powers and roots of any positive number by trapping them between known powers",
+        "Use the index laws with positive, zero, negative and fractional indices, with numbers and letters",
+        "Evaluate expressions like a^(−m/n) without a calculator: reciprocal, root, then power",
+        "Write numbers as powers of a given base and solve equations such as 9^x = 27",
+    ], "A negative index means a reciprocal, not a negative number, and a fractional index means a root: 64^(1/2) is 8, not 32. Take the root before the power."),
+
+    ("maths_ocr:N8", &[
+        "Calculate exactly with fractions, surds and multiples of π, never rounding when an exact answer is asked for",
+        "Simplify surds by taking out the largest square factor, and add, subtract, multiply and divide them",
+        "Expand brackets containing surds, including squared brackets and the difference of two squares",
+        "Rationalise denominators of the form √a, b√a and a ± √b",
+        "Give lengths, areas and volumes exactly in terms of π and in surd form",
+    ], "When the question says \"exact\" or \"in terms of π\", a rounded decimal loses the final mark. When rationalising, multiply the top by the same thing as the bottom."),
+
+    ("maths_ocr:N9", &[
+        "Convert between ordinary numbers and standard form A × 10ⁿ with 1 ≤ A < 10, for large and small numbers",
+        "Order numbers given in standard form, comparing powers first",
+        "Multiply, divide, add and subtract in standard form without a calculator, adjusting A back into range",
+        "Enter standard form correctly on a calculator and write the display properly",
+        "Solve problems in context with standard form, including how many times bigger and per-unit questions",
+    ], "Answers like 24 × 10³ are not in standard form, and adding numbers is not done by adding powers. Remember that making A smaller makes the power bigger."),
+
+    ("maths_ocr:N10-12", &[
+        "Convert between terminating decimals and fractions, and decide from the denominator's prime factors whether a fraction terminates",
+        "Write fractions as recurring decimals using dot notation",
+        "Prove algebraically that a recurring decimal equals a given fraction, including when the repeat starts after the first decimal place",
+        "Move between ratios and fractions of a whole, and combine fractions in multi-step ratio problems",
+        "Use fractions, percentages and multipliers as operators, including finding the whole from a given part",
+    ], "In recurring-decimal proofs the two multiples of x must be written out with matching recurring tails before subtracting; writing 100x = 45.45 without the dots or \"…\" loses the method mark."),
+
+    ("maths_ocr:N13-16", &[
+        "Convert between metric units, including area, volume, time and compound units such as km/h to m/s",
+        "Round to a given number of decimal places or significant figures and estimate by rounding to 1 significant figure",
+        "Write error intervals for rounded and truncated values using inequality notation",
+        "Find upper and lower bounds of sums, differences, products and quotients by choosing the right bound of each input",
+        "Use bounds to give an answer to a suitable degree of accuracy, with a reason",
+    ], "For the maximum of a − b or a ÷ b you must use the lower bound of b. Using upper bound with upper bound throughout is the commonest way to lose every mark on a bounds question."),
+
+    ("maths_ocr:A1-3", &[
+        "Write and read algebraic notation exactly, including powers, fractions as coefficients and brackets",
+        "Substitute positive, negative and fractional values into expressions and scientific formulae without sign errors",
+        "Tell apart expressions, equations, formulae, identities and inequalities, and terms and factors",
+        "Use a counter-example to show a statement is not an identity",
+        "Match coefficients in an identity to find unknown constants",
+    ], "Substitute every negative value in brackets. Writing −3² instead of (−3)² turns +9 into −9 and costs the accuracy mark."),
+
+    ("maths_ocr:A4", &[
+        "Expand single, double and triple brackets and collect like terms, including expressions with surds",
+        "Factorise fully by taking out the highest common factor, including a bracket as the common factor",
+        "Factorise quadratics x² + bx + c and ax² + bx + c, and the difference of two squares",
+        "Simplify expressions using the laws of indices, including powers of products",
+        "Simplify, multiply, divide, add and subtract algebraic fractions by factorising first",
+    ], "Only whole factors cancel in an algebraic fraction: factorise the top and bottom completely before cancelling, and bracket the second numerator when subtracting."),
+
+    ("maths_ocr:A5-6", &[
+        "Recall and use standard formulae such as the area of a circle, Pythagoras and the equations of motion",
+        "Change the subject of a formula, including ones with fractions, powers and roots",
+        "Rearrange when the new subject appears twice by collecting terms and factorising",
+        "Show that two expressions are identical by expanding and simplifying one side",
+        "Write algebraic proofs using n, 2n and 2n + 1, ending with a concluding sentence, and disprove statements with a counter-example",
+    ], "When the subject appears twice, collect those terms on one side and factorise it out. In a proof, finish with a sentence saying why the result has the property — \"= 8n\" on its own often loses the final mark."),
+
+    ("maths_ocr:A7", &[
+        "Use function notation to find outputs, including f of an expression, and solve f(x) = k for the input",
+        "Find an inverse function by writing y = f(x) and making x the subject, including when x appears twice",
+        "Find composite functions such as fg(x), gf(x) and ff(x), applying the inner function first",
+        "Solve equations involving composite and inverse functions, including ones that lead to quadratics",
+        "Find unknown constants in a function from given input and output values",
+    ], "In fg(x) the function g acts first: substitute the whole of g(x), in brackets, into f. Doing them in the wrong order gives gf(x) and scores nothing."),
+
+    ("maths_ocr:A8-10", &[
+        "Plot straight-line graphs from a table of values or from the intercepts, and find midpoints",
+        "Find and interpret the gradient and y-intercept of a line, rearranging ax + by = c into y = mx + c first",
+        "Find the equation of a line through two points or through one point with a given gradient",
+        "Use gradients to identify and form parallel and perpendicular lines, including perpendicular bisectors",
+        "Interpret the gradient of a real-life line as a rate with units and the intercept as a starting value",
+    ], "Rearrange to y = mx + c before reading the gradient: 2y = 6x + 8 has gradient 3, not 6. For a perpendicular gradient, flip the fraction and change the sign."),
+
+    ("maths_ocr:A11-12", &[
+        "Read the roots, y-intercept and turning point of a quadratic from its graph, and find the roots by factorising",
+        "Complete the square to find the turning point of a quadratic, including when the coefficient of x² is not 1 or is negative",
+        "Sketch linear, quadratic, cubic, reciprocal and exponential graphs with their intercepts and asymptotes labelled",
+        "Sketch y = sin x, y = cos x and y = tan x for angles of any size and use their symmetry to find every solution in a range",
+        "Interpret turning points and intercepts in context, such as the maximum height of a projectile",
+    ], "The turning point of (x − 3)² − 4 is (3, −4), not (−3, −4): the x-coordinate has the opposite sign to the number in the bracket. And a trig equation almost always has more than the one solution your calculator gives."),
+
+    ("maths_ocr:A13", &[
+        "Sketch y = f(x) + a and y = f(x + a) as translations, and describe them with a column vector",
+        "Sketch y = −f(x) and y = f(−x) as reflections in the x-axis and the y-axis",
+        "Find the image of a turning point, labelled point or asymptote under a transformation",
+        "Complete the square to show a quadratic is a translation of y = x² and state the vector",
+        "Apply translations and reflections to the graphs of sin x, cos x, tan x, 1/x and kˣ",
+    ], "A change inside the bracket moves the graph the opposite way to how it looks: f(x + 3) is a translation 3 to the left, by the column vector (−3, 0)."),
+
+    ("maths_ocr:A14-15", &[
+        "Plot reciprocal, exponential and non-standard graphs and read approximate solutions from them",
+        "Find the gradient of a straight section and interpret it as a speed, acceleration or rate with units",
+        "Estimate the gradient of a curve at a point by drawing a tangent, and an average rate using a chord",
+        "Work out the area under a velocity–time graph as the distance travelled, using strips for curves",
+        "Say whether a strip estimate is an overestimate or underestimate, with a reason",
+        "Find and use an exponential model y = abˣ for growth or decay in context",
+    ], "On a velocity–time graph the gradient is the acceleration and the area underneath is the distance. Mixing the two up — or forgetting to convert minutes to hours — loses the marks."),
+
+    ("maths_ocr:A16", &[
+        "Recognise x² + y² = r² as a circle with centre the origin and read off its radius, in surd form when needed",
+        "Write the equation of a circle centred at the origin that passes through a given point",
+        "Decide whether a point lies on, inside or outside a circle",
+        "Find the equation of the tangent at a given point using the radius gradient and the negative reciprocal",
+        "Use a tangent's equation to find where it meets the axes and solve follow-on area problems",
+    ], "The tangent is perpendicular to the radius, so its gradient is the negative reciprocal of the radius gradient — using the radius gradient itself, or forgetting to change the sign, loses most of the marks."),
+
+    ("maths_ocr:A17", &[
+        "Solve linear equations with the unknown on both sides, including brackets and negative coefficients",
+        "Clear fractions by multiplying every term by the lowest common multiple, including algebraic denominators",
+        "Recognise when an equation has no solution or is an identity",
+        "Find approximate solutions from where two graphs cross, and confirm them algebraically",
+        "Form a linear equation from a context such as angles or ages, solve it and answer the question asked",
+    ], "When clearing fractions, multiply every term — including the whole numbers — and put brackets round each numerator, so that −(x − 2)/3 becomes −4(x − 2) = −4x + 8."),
+
+    ("maths_ocr:A18", &[
+        "Rearrange a quadratic equation to ax² + bx + c = 0, including ones with brackets or algebraic fractions",
+        "Solve a quadratic by factorising, including when the coefficient of x² is not 1",
+        "Solve by completing the square, giving exact answers in surd form",
+        "Recall and use the quadratic formula, giving answers to the accuracy asked for",
+        "Find approximate solutions from a graph, drawing a straight line to solve related equations",
+        "Form a quadratic from a context, solve it and reject any impossible solutions",
+    ], "Get zero on one side before you factorise: (x + 3)(x − 2) = 14 does not mean x + 3 = 14. And in the formula, keep the signs of a, b and c in brackets so that −b and −4ac come out right."),
+
+    ("maths_ocr:A19", &[
+        "Solve two linear simultaneous equations by elimination or substitution",
+        "Form and solve simultaneous equations from a worded context, answering in context",
+        "Solve a linear and a quadratic equation simultaneously by substitution, including a line and a circle",
+        "Pair each x-value with its correct y-value using the linear equation",
+        "Show that a line is a tangent to a curve from a repeated root",
+        "Find approximate solutions from where two graphs intersect",
+    ], "Squaring the bracket wrongly after substituting, e.g. writing (2x + 1)² as 4x² + 1, and then giving x-values and y-values that are not paired up."),
+
+    ("maths_ocr:A20", &[
+        "Show that an equation has a solution in an interval by a change of sign, and state the conclusion",
+        "Rearrange an equation into the form x = g(x) exactly as asked",
+        "Use an iterative formula with a starting value to find x₁, x₂, x₃ on a calculator",
+        "Iterate to a solution to a given accuracy and confirm it by testing the bounds",
+        "Recognise when an iteration converges or diverges, and find the equation it solves",
+    ], "Working out f(a) and f(b) but never writing \"change of sign, so there is a solution between a and b\" — the conclusion is the mark."),
+
+    ("maths_ocr:A21-22", &[
+        "Translate a worded situation or diagram into an expression, formula or equation, then solve it and interpret the answer",
+        "Form and solve two simultaneous equations from a context",
+        "Solve linear inequalities, including double inequalities, and list integer solutions",
+        "Solve quadratic inequalities by finding critical values and sketching the parabola",
+        "Show solution sets on a number line and in set notation",
+        "Draw and interpret regions defined by inequalities in two variables",
+    ], "Forgetting to reverse the inequality when dividing by a negative, and writing a 'greater than' quadratic inequality as one statement instead of two separate intervals outside the roots."),
+
+    ("maths_ocr:A23-25", &[
+        "Generate terms from a term-to-term rule or an nth-term formula",
+        "Recognise square, cube and triangular numbers, arithmetic, geometric and Fibonacci-type sequences",
+        "Find the nth term of a linear sequence and decide whether a number is a term",
+        "Find the nth term of a quadratic sequence using second differences",
+        "Work with geometric sequences whose ratio is a fraction or a surd, keeping answers exact",
+        "Form and solve equations to find missing terms of Fibonacci-type sequences",
+    ], "Forgetting to halve the second difference in a quadratic sequence, so 4, 11, 22, 37 starts 4n² instead of 2n²."),
+
+    ("maths_ocr:R1-2", &[
+        "Convert between metric units of length, mass, capacity and time, including hours and minutes",
+        "Convert area and volume units by squaring or cubing the length factor",
+        "Use speed, density and pressure, rearranging each formula and converting compound units",
+        "Compare rates such as pay and unit prices to find the best buy",
+        "Use scale factors, scale drawings and map scales, including areas on maps",
+    ], "Converting m² to cm² by multiplying by 100 instead of 10 000, and treating 2.4 hours as 2 hours 40 minutes."),
+
+    ("maths_ocr:R3-8", &[
+        "Write one quantity as a fraction of another, including fractions greater than 1",
+        "Simplify ratios, including mixed units, decimals and the form 1 : n",
+        "Share an amount in a ratio when given the total, one share or the difference",
+        "Move between ratios and fractions, and use equal ratios to scale recipes, convert currencies and compare mixtures",
+        "Combine two ratios and solve problems where a ratio changes",
+        "Link a fixed ratio to a straight-line graph through the origin",
+    ], "Dividing by the wrong number of parts — treating a difference or one person's share as if it were the total — and confusing boys : girls = 3 : 5 with boys being 3/5 of the class."),
+
+    ("maths_ocr:R9", &[
+        "Convert between percentages, fractions and decimals, including percentages over 100%",
+        "Increase or decrease an amount by a percentage using a single multiplier",
+        "Work out a percentage change, profit or loss, always dividing by the original value",
+        "Find the original value after a percentage change by dividing by the multiplier",
+        "Calculate simple interest and work backwards from it to find a rate or a number of years",
+        "Combine successive percentage changes by multiplying their multipliers",
+    ], "Reverse percentages: after a 20% cut to £84, the original is 84 ÷ 0.8 = £105, not £84 plus 20% of £84. And percentage change always divides by the original, never the new value."),
+
+    ("maths_ocr:R10", &[
+        "Decide whether a situation is direct proportion, inverse proportion or neither",
+        "Solve direct proportion problems with the unitary method or a scale factor, including best buys",
+        "Solve inverse proportion problems by finding the total work first (worker-days, machine-hours)",
+        "Use y = kx and y = k/x, finding k from a pair of values, a table or a graph",
+        "Recognise the graphs: a straight line through the origin for direct, a y = k/x curve for inverse",
+        "Handle problems with several quantities and round sensibly in context",
+    ], "A straight line only shows direct proportion if it passes through the origin, and more workers means less time. Sense-check which way the answer should move before you calculate."),
+
+    ("maths_ocr:R11", &[
+        "Use speed = distance ÷ time, density = mass ÷ volume and pressure = force ÷ area, rearranging as needed",
+        "Convert between hours and minutes correctly, and give times in the form asked for",
+        "Work out average speed or mixture density from totals, never by averaging",
+        "Convert compound units such as km/h to m/s, g/cm³ to kg/m³ and N/cm² to N/m²",
+        "Solve problems with other rates: pay and overtime, unit pricing, flow rates and population density",
+    ], "Minutes are not decimals of an hour: 1 h 45 min is 1.75 h, not 1.45 h. And average speed is total distance over total time, not the mean of the speeds."),
+
+    ("maths_ocr:R12", &[
+        "Compare lengths, areas and volumes of similar shapes using ratios a : b, a² : b² and a³ : b³",
+        "Work back from an area or volume ratio to the length ratio by square- or cube-rooting",
+        "Use linear, area and volume scale factors with models, maps and similar solids, including masses",
+        "Explain why the trigonometric ratios are fixed for a given angle using similar triangles",
+        "Write ratios of lengths, areas and volumes in simplest form or as 1 : n",
+    ], "To go from an area ratio to a volume ratio, square-root to get lengths first and then cube. Squaring or cubing the wrong ratio is the mark most people drop."),
+
+    ("maths_ocr:R13", &[
+        "Turn a proportion statement, including squares, cubes and square roots, into an equation with a constant k",
+        "Find k from one pair of values and write the formula out in full",
+        "Use the formula to find either variable, rejecting negative roots where they make no sense",
+        "Explain that X inversely proportional to Y is the same as X proportional to 1/Y",
+        "Work out the effect on y of multiplying or changing x by a percentage, without finding k",
+        "Recognise the graph shapes of direct and inverse proportion relationships",
+    ], "Inverse square means y = k/x², so k = y × x²; people divide instead of multiply, or write y = kx² by mistake. Always write the full formula once you have found k."),
+
+    ("maths_ocr:R14-15", &[
+        "Interpret the gradient of a straight-line graph as a rate of change, in context and with units",
+        "Recognise graphs of direct proportion (a line through the origin) and inverse proportion (a y = k/x curve)",
+        "Work out an average rate of change as the gradient of a chord, from a graph, a table or an equation",
+        "Estimate an instantaneous rate of change by drawing a tangent and finding its gradient",
+        "Estimate a rate at a point from an equation using chords over smaller and smaller intervals",
+    ], "A rate at one moment needs a tangent, not a chord, and its gradient must be read using the axis scales and stated with units in context, such as metres per second."),
+
+    ("maths_ocr:R16", &[
+        "Use a multiplier raised to a power to find the result of compound interest, depreciation, growth or decay",
+        "Work backwards from a final amount by dividing by the multiplier to the power n",
+        "Find the rate from start and end values, and find the time needed by trial and improvement",
+        "Compare simple and compound interest and choose the better option with evidence",
+        "Generate and interpret terms of an iterative process such as uₙ₊₁ = 1.2uₙ − 500",
+    ], "A 15% loss is × 0.85 applied every year, not 15% of the original taken off each time. In \"how many years\" questions, write down the values either side of the target — the bare number earns little."),
+
+    ("maths_ocr:G1-2", &[
+        "Use the correct words and labels: vertex, parallel, perpendicular, regular, angle ABC at the middle letter, side a opposite angle A",
+        "Construct a perpendicular bisector, a perpendicular to a line from or at a point, and an angle bisector with ruler and compasses only",
+        "Build 60°, 30°, 90° and 45° angles and triangles from their sides",
+        "Draw the locus for a rule and shade the region that satisfies several rules at once, to scale",
+        "Explain why the perpendicular distance is the shortest distance from a point to a line",
+    ], "The construction arcs are the method mark: a neat line with the arcs rubbed out scores almost nothing. Keep the compasses at the same width for both ends."),
+
+    ("maths_ocr:G3-4", &[
+        "Use angles on a straight line, around a point and vertically opposite, giving the reason in standard words",
+        "Find alternate, corresponding and co-interior angles on parallel lines",
+        "Derive and use the angle sum of a triangle, the exterior angle of a triangle and the angle sum of any polygon",
+        "Find interior and exterior angles of regular polygons and the number of sides from an angle",
+        "State and derive the properties of squares, rectangles, rhombuses, parallelograms, kites and trapeziums",
+    ], "The reason marks are separate from the angle marks: \"Z angles\" or \"because they are parallel\" scores nothing — write \"alternate angles are equal\". For regular polygons, 360 ÷ n is the exterior angle, not the interior."),
+
+    ("maths_ocr:G5-6", &[
+        "Know the congruence conditions SSS, SAS, ASA and RHS, and why AAA and SSA do not prove congruence",
+        "Prove two triangles congruent with three matching facts, each with a reason",
+        "Use corresponding sides and angles of congruent triangles to prove lengths or angles equal",
+        "Combine angle facts, similarity and quadrilateral properties to derive results such as equal base angles of an isosceles triangle",
+        "Follow and write a proof of Pythagoras' theorem and other short geometric proofs",
+    ], "Each of the three pairs needs its reason — \"(given)\", \"(radii)\", \"(common)\". Then finish: if you were asked to prove a side equal, stopping at \"so the triangles are congruent\" drops the last mark."),
+
+    ("maths_ocr:G7-8", &[
+        "Reflect, rotate, translate and enlarge shapes on coordinate axes, using coordinate rules and tracing paper",
+        "Describe fully a single transformation: mirror line; centre, angle and direction; column vector; scale factor and centre",
+        "Enlarge by fractional and negative scale factors, and find the centre and scale factor from an object and image",
+        "Combine reflections, rotations and translations and describe the single equivalent transformation",
+        "Identify invariant points and lines, and say what a transformation keeps the same",
+    ], "\"Describe fully\" means every detail: a rotation needs its centre, angle and direction; an enlargement needs its scale factor and centre. Two transformations in reply to \"a single transformation\" scores nothing."),
+
+    ("maths_ocr:G9-10", &[
+        "Name the parts of a circle: centre, radius, chord, diameter, circumference, tangent, arc, sector and segment",
+        "Spot and apply the eight circle theorems, including the alternate segment theorem, with the reason in standard words",
+        "Combine circle theorems with isosceles triangles, angle sums and parallel lines in multi-step problems",
+        "Use the tangent–radius right angle and the perpendicular bisector of a chord to find lengths",
+        "Prove the circle theorems and use them to prove related results",
+    ], "Every step needs its theorem in the standard words — \"angle at the centre is twice the angle at the circumference\", not \"double rule\". And two radii make an isosceles triangle: that step is the one most often missing."),
+
+    ("maths_ocr:G11-15", &[
+        "Find midpoints, lengths and gradients from coordinates and use them to find missing vertices or prove what shape a set of points makes",
+        "Count faces, edges and vertices of prisms, pyramids and curved solids, and check with F + V − E = 2",
+        "Draw plans and elevations from a 3D drawing, and interpret them to rebuild a solid or find its volume",
+        "Convert units of length, area, volume, capacity, mass and time, squaring or cubing the length factor for area and volume",
+        "Use map scales and three-figure bearings, including back bearings and angle facts with parallel north lines",
+    ], "Area and volume conversions: 1 m² is 10 000 cm² and 1 m³ is 1 000 000 cm³, and a map scale must be squared before it is used on an area."),
+
+    ("maths_ocr:G16-18", &[
+        "Find areas of triangles, parallelograms, trapezia, circles and composite shapes, and perimeters including arcs",
+        "Find the volume and surface area of prisms and cylinders, giving answers in terms of π when asked",
+        "Use given formulae for cones, spheres and pyramids, finding slant or perpendicular height with Pythagoras when needed",
+        "Find volumes of frustums and composite solids, using similarity for the part removed",
+        "Calculate arc lengths, sector areas and segment areas, and work backwards to a missing angle or radius",
+    ], "Using the slant height where the perpendicular height is needed (or the other way round) in cone and pyramid questions, and leaving the two radii out of a sector's perimeter."),
+
+    ("maths_ocr:G19", &[
+        "Prove two triangles congruent using SSS, SAS, ASA or RHS, giving a reason for every statement",
+        "Show that two triangles are similar and match their corresponding sides using the equal angles",
+        "Find missing lengths in similar shapes, including nested and hourglass triangles",
+        "Use area scale factor k² and volume scale factor k³, including for surface area, capacity and mass",
+        "Work backwards from an area or volume ratio to the length scale factor by square- or cube-rooting",
+    ], "Using the length scale factor on an area or volume: if lengths are multiplied by k, areas are multiplied by k² and volumes by k³, so root first when you are given areas or volumes."),
+
+    ("maths_ocr:G20-21", &[
+        "Use Pythagoras' theorem to find any side of a right-angled triangle, leaving surds exact on the non-calculator paper",
+        "Choose sin, cos or tan to find a missing side or angle, including angles of elevation and depression",
+        "Split isosceles and other triangles with a perpendicular to create right-angled triangles",
+        "Find lengths and angles in 3D solids, including the angle between a line and a plane",
+        "Recall the exact values of sin and cos for 0°, 30°, 45°, 60° and 90°, and tan for 0°, 30°, 45° and 60°, and use them without a calculator",
+    ], "In 3D, taking the angle to an edge instead of to the line's projection on the base, and rounding the base diagonal before using it in the second triangle."),
+
+    ("maths_ocr:G22-23", &[
+        "Label any triangle with each side opposite its matching angle and choose the sine rule, cosine rule or area formula from what is known",
+        "Use the sine rule to find sides and angles, giving both possible angles when the obtuse one is also valid",
+        "Use the cosine rule to find a side from two sides and the included angle, or an angle from three sides",
+        "Use Area = ½ab sin C to find an area, or work backwards to a missing side or angle",
+        "Solve multi-step, bearings and 3D problems by building the right triangle first, keeping full accuracy between steps",
+    ], "Pairing a side with the wrong angle in the sine rule, and using an angle that is not between the two sides in the cosine rule or ½ab sin C."),
+
+    ("maths_ocr:G24-25", &[
+        "Describe translations with column vectors and add, subtract and scale column vectors, finding magnitudes with Pythagoras",
+        "Write any vector on a diagram as a route through known vectors, using AB = b − a",
+        "Find the position of a midpoint or a point dividing a line in a given ratio",
+        "Prove lines parallel by showing one vector is a multiple of the other, and points collinear by adding a common point",
+        "Find unknown scalars by equating coefficients, including where two lines meet",
+    ], "Getting the direction wrong (AB is b − a, not a − b), and stopping a collinear proof at \"parallel\" without stating the common point."),
+
+    ("maths_ocr:P1-5", &[
+        "Find probabilities of equally likely outcomes and use the fact that exhaustive, mutually exclusive probabilities sum to 1",
+        "Estimate a probability from an experiment using relative frequency, and explain why more trials give a better estimate",
+        "Work out expected frequencies and use them to judge whether a game or dice is fair",
+        "Complete and read frequency trees",
+        "Solve probability problems where the numbers of counters are unknown",
+    ], "When P(D) is written as 3x, people solve for x and stop. Multiply back to get P(D) before using it, and pool all the trials when asked for the best estimate."),
+
+    ("maths_ocr:P6-8", &[
+        "List outcomes systematically and use sample space grids to find probabilities of combined events",
+        "Complete Venn diagrams from the intersection outwards and read set notation (∩, ∪, complement)",
+        "Draw and use tree diagrams for independent and dependent events, multiplying along branches and adding paths",
+        "Use 1 − P(none) for 'at least one' questions",
+        "Form and solve an equation or quadratic when the number of counters is unknown, and state the assumptions behind a calculation",
+    ], "Without replacement, the second-stage fractions must drop in both numerator and denominator. People who keep 5/8 × 5/8 lose every mark on the question."),
+
+    ("maths_ocr:P9", &[
+        "Find a conditional probability from a two-way table, dividing by the group you are given",
+        "Read conditional probabilities from Venn diagrams, using counts or probabilities in the regions",
+        "Use tree diagrams backwards: given the outcome, find the probability of the first stage",
+        "Turn percentages into expected frequencies out of 1000 to find and interpret conditional probabilities",
+        "Use P(A | B) = P(A ∩ B) ÷ P(B), and compare P(A | B) with P(A) to test independence",
+    ], "The denominator is the group after 'given that', not the grand total. Dividing by everyone is the mark people drop most."),
+
+    ("maths_ocr:S1", &[
+        "Explain the difference between a population, a census and a sample, and why samples are used",
+        "Say why a sample may be biased, in context, and how to make it random and representative",
+        "Estimate population totals by scaling up a proportion or a mean from a sample, stating the assumption",
+        "Use capture–recapture to estimate a population size, and explain how broken assumptions affect the estimate",
+        "Work out a stratified sample in proportion to group sizes",
+    ], "\"The sample is biased\" with no reason scores nothing. Name who is over- or under-represented and why, in the context of the question."),
+
+    ("maths_ocr:S2-4", &[
+        "Choose and draw the right chart for the data: pie charts, pictograms, line charts and time series",
+        "Find the mean, median, mode and range from frequency tables, and estimate the mean of grouped data using midpoints",
+        "Draw and read histograms with unequal class widths using frequency density, including parts of bars",
+        "Draw cumulative frequency graphs and read off the median, quartiles and numbers above or below a value",
+        "Find quartiles and the IQR, identify outliers, draw box plots and compare two distributions in context",
+    ], "With unequal class widths the histogram's height is frequency density, not frequency. Comparisons must quote an average and a spread with their values and say what they mean in context."),
+
+    ("maths_ocr:S5-6", &[
         "Describe a population using a suitable average and measure of spread, choosing the median and IQR when there are extreme values",
         "Plot scatter graphs and describe the type and strength of correlation in context",
         "Draw a line of best fit through the mean point, ignoring outliers, and use it to make predictions",
