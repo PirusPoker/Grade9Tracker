@@ -176,6 +176,8 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     // is an unweighted endorsement and is not taught. Each reference is split
     // by letter into the paper's Section A questions and Section B writing.
     ("englang_edq", &["2.1", "2.2"]),
+    // AQA GCSE Chemistry (8462) Higher. Every subsection, Higher tier; lessons flag what Combined Science Trilogy leaves out.
+    ("chem_aqa", &["4.1.1", "4.1.2", "4.1.3", "4.2.1", "4.2.2", "4.2.3", "4.2.4", "4.3.1", "4.3.2", "4.3.3", "4.3.4", "4.3.5", "4.4.1", "4.4.2", "4.4.3", "4.5.1", "4.5.2", "4.6.1", "4.6.2", "4.7.1", "4.7.2", "4.7.3", "4.8.1", "4.8.2", "4.8.3", "4.9.1", "4.9.2", "4.9.3", "4.10.1", "4.10.2", "4.10.3", "4.10.4"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -6538,6 +6540,272 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Paragraph for sequence and use discourse markers for cohesion",
         "Write accurately under time pressure and check both pieces",
     ], "Running out of time on the second task is costly: each task is worth 20 marks, and a short second piece cannot reach the higher bands."),
+
+    // ---------- Chemistry (AQA GCSE Chemistry (8462) Higher) ----------
+    ("chem_aqa:4.1.1", &[
+        "Tell elements, compounds and mixtures apart, and choose a separation technique for a given mixture",
+        "Describe how the model of the atom changed from solid spheres to the nuclear model, linking each change to its evidence",
+        "Work out the protons, neutrons and electrons in any atom or ion from its atomic and mass numbers",
+        "Calculate relative atomic mass from isotope abundances",
+        "Write the electronic structure of the first 20 elements as numbers and as diagrams",
+        "Write and balance symbol equations, and (Higher tier) half and ionic equations",
+    ], "In alpha scattering answers, each observation has to be tied to what it shows: most went straight through, so the atom is mostly empty space. A list of observations with no conclusions drops most of the marks."),
+
+    ("chem_aqa:4.1.2", &[
+        "Link an element's position in the periodic table to its electron arrangement and atomic number",
+        "Describe how Mendeleev built his table and why his gaps and predictions got it accepted",
+        "Explain the differences between metals and non-metals using their properties and outer electrons",
+        "Describe the reactions of lithium, sodium and potassium with water, oxygen and chlorine, and write their equations",
+        "Explain the opposite reactivity trends in Group 1 and Group 7, and predict properties down Groups 0, 1 and 7",
+        "Predict and describe halogen displacement reactions",
+    ], "Reactivity trends need the whole chain: more shells, outer electron further from the nucleus, weaker attraction, so lost more easily in Group 1 or gained less easily in Group 7. Stopping at \"the atom is bigger\" drops the marks."),
+
+    ("chem_aqa:4.1.3", &[
+        "Compare transition metals with Group 1 for melting point, density, strength, hardness and reactivity with oxygen, water and halogens",
+        "Illustrate each difference using chromium, manganese, iron, cobalt, nickel or copper",
+        "Work out the charge on a transition metal ion from a formula and name the compound with a Roman numeral",
+        "Give examples of coloured transition metal compounds",
+        "Name transition metals or their compounds used as catalysts and the reactions they speed up",
+    ], "Comparisons need both metals and a comparative word: \"iron is denser than sodium\", not \"iron is dense\". One-sided statements are the usual lost marks."),
+
+    ("chem_aqa:4.2.1", &[
+        "Decide whether a substance has ionic, covalent or metallic bonding from the elements in it",
+        "Work out ion charges from group numbers and draw dot and cross diagrams for Group 1 or 2 metals with Group 6 or 7 non-metals",
+        "Draw dot and cross diagrams for H₂, Cl₂, O₂, N₂, HCl, H₂O, NH₃ and CH₄, and line diagrams for molecules, polymers and giant structures",
+        "Describe the structure of sodium chloride and the limitations of each way of representing it",
+        "Deduce empirical and molecular formulae from diagrams and models",
+        "Describe metallic bonding as positive ions held by delocalised electrons",
+    ], "The ionic bond is the electrostatic attraction between oppositely charged ions, not the electron transfer and never \"sharing\". In dot and cross diagrams, missing square brackets, charges or lone pairs costs marks every time."),
+
+    ("chem_aqa:4.2.2", &[
+        "Use the particle model to explain melting, boiling, freezing and condensing, and (Higher tier) state its limitations",
+        "Predict the state of a substance at a given temperature from its melting and boiling points",
+        "Explain the melting points and conductivity of ionic compounds, small molecules, polymers, giant covalent structures and metals from their bonding",
+        "Explain why larger molecules have higher boiling points and why alloys are harder than pure metals",
+        "Add the correct state symbols to equations",
+    ], "When a substance made of small molecules melts or boils, the weak intermolecular forces are overcome, not the covalent bonds. Saying the bonds break is the most common mark lost on this topic."),
+
+    ("chem_aqa:4.2.3", &[
+        "Explain the hardness, high melting point and non-conductivity of diamond from its four covalent bonds per carbon",
+        "Explain why graphite is soft, has a high melting point and conducts, using its layers and delocalised electrons",
+        "Describe graphene as a single layer of graphite and link its properties to uses in electronics and composites",
+        "Recognise diamond, graphite, graphene, C₆₀ and carbon nanotubes from diagrams and descriptions",
+        "Give uses of fullerenes and nanotubes and explain why C₆₀ melts far lower than diamond",
+    ], "Graphite is soft because there are no covalent bonds between its layers, only weak forces, and it conducts because one electron per carbon is delocalised and carries charge. Saying \"weak covalent bonds between layers\" or \"strong bonds\" without \"many\" and \"lots of energy\" loses the mark."),
+
+    ("chem_aqa:4.2.4", &[
+        "Give the size ranges of nanoparticles (1–100 nm), fine particles (PM2.5) and coarse particles (PM10) in nm and in standard form",
+        "Compare nanoparticle sizes with atoms and molecules using orders of magnitude",
+        "Calculate the surface area to volume ratio of a cube and say how it changes when the side shrinks by a factor of 10",
+        "Explain why nanoparticles can behave differently from bulk material and why less may be needed",
+        "Evaluate a use of nanoparticles from given information, weighing benefits against possible risks",
+    ], "The mark is for \"high surface area to volume ratio\", not \"large surface area\" — a nanoparticle's own surface is tiny. In evaluate questions, give a benefit, a risk and a justified conclusion, or you cap at half marks."),
+
+    ("chem_aqa:4.3.1", &[
+        "State the law of conservation of mass and balance symbol equations by changing only the numbers in front of formulae",
+        "Calculate relative formula mass, including formulae with brackets, and show that masses in a balanced equation add up",
+        "Calculate the percentage by mass of an element in a compound",
+        "Explain apparent mass changes in open containers when a gas is gained from or lost to the air",
+        "Calculate a mean, its range and its uncertainty, and write a result as mean ± uncertainty",
+    ], "Mass is never \"lost\" — in an open container a gas escapes or oxygen joins from the air, and you must say so. In calculations, multiply out brackets and big numbers fully and never give Mr a unit."),
+
+    ("chem_aqa:4.3.2", &[
+        "(Higher) Convert between mass, moles and number of particles using Mr and the Avogadro constant, 6.02 × 10²³ per mole",
+        "(Higher) Calculate the mass of a reactant or product from a balanced equation and the mass of another substance",
+        "(Higher) Work out the balancing numbers in an equation from the masses of reactants and products",
+        "(Higher) Identify the limiting reactant and explain how it fixes the amount of product",
+        "Calculate concentration in g/dm³ and the mass of solute in a given volume, converting cm³ to dm³ first",
+    ], "Read the mole ratio from the balanced equation every time — 2Mg : O₂ is 2 : 1, not 1 : 1 — and always convert cm³ to dm³ before using the concentration equation."),
+
+    ("chem_aqa:4.3.3", &[
+        "Give the three reasons why the actual yield is less than the theoretical amount",
+        "Calculate percentage yield and rearrange the equation to find an actual or theoretical mass",
+        "(Higher) Calculate the theoretical mass of product from a reactant mass and the balanced equation",
+        "Calculate atom economy from a balanced equation, using the balancing numbers",
+        "Explain why high atom economy matters for sustainability and cost",
+        "(Higher) Choose a reaction pathway using atom economy, yield, rate, equilibrium position and by-products",
+    ], "Atom economy uses the Mr of all reactants multiplied by their balancing numbers on the bottom — not just one reactant. Do not confuse it with yield: atom economy comes from the equation, yield from the experiment."),
+
+    ("chem_aqa:4.3.4", &[
+        "Calculate concentration in mol/dm³ from moles (or mass and Mr) and volume, converting cm³ to dm³ first",
+        "Rearrange c = n ÷ V to find the moles or mass of solute in a given volume of solution",
+        "Convert concentrations between mol/dm³ and g/dm³ using Mr",
+        "Explain how concentration depends on the mass of solute and the volume of solution",
+        "Use reacting volumes, a known concentration and the mole ratio from a balanced equation to find an unknown concentration",
+        "Select concordant titres and calculate a mean titre",
+    ], "Most lost marks come from leaving volumes in cm³ instead of dividing by 1000, and from ignoring the 1 : 2 mole ratio when sulfuric acid or sodium carbonate is used."),
+
+    ("chem_aqa:4.3.5", &[
+        "State that equal amounts in moles of gases occupy the same volume at the same temperature and pressure, and explain why",
+        "Use 24 dm³ as the volume of one mole of any gas at room temperature and pressure (20 °C, 1 atm)",
+        "Calculate the volume of a gas from its mass and Mr, and the mass or Mr from a volume",
+        "Work out volumes of gaseous reactants and products directly from the mole ratio in a balanced equation",
+        "Calculate the volume of gas made from a given mass of a solid reactant, including any gas left in excess",
+    ], "Dividing a volume in cm³ by 24 instead of 24 000 is the classic slip, closely followed by counting liquid water as a gas when adding up final volumes."),
+
+    ("chem_aqa:4.4.1", &[
+        "Explain oxidation and reduction as gain and loss of oxygen, and identify what is oxidised and reduced in an equation",
+        "Recall the reactions of potassium, sodium, lithium, calcium, magnesium, zinc, iron and copper with water and dilute acids, and place them in order of reactivity",
+        "Explain reactivity in terms of a metal's tendency to form positive ions, and deduce an order of reactivity from experimental results",
+        "Predict displacement reactions and explain why metals below carbon are extracted by reduction with carbon",
+        "(Higher tier) Define oxidation and reduction in terms of electrons and write ionic and half equations for displacement reactions",
+    ], "Students lose marks by naming the metal rather than the metal oxide or metal ion as the substance reduced, and by writing ionic equations that still contain spectator ions or whose charges do not balance."),
+
+    ("chem_aqa:4.4.2", &[
+        "Predict the salt and other products when acids react with metals, alkalis, bases and carbonates, and deduce salt formulae from the charges on ions",
+        "Describe how to make a pure, dry sample of a soluble salt from an insoluble oxide or carbonate (Required practical 1; Trilogy Required practical 8)",
+        "Use universal indicator or a pH probe to find pH, and explain neutralisation as H⁺ + OH⁻ → H₂O",
+        "(Separate science only) Describe how to carry out an accurate titration and, at Higher tier, calculate concentrations in mol/dm³ and g/dm³ (Required practical 2)",
+        "(Higher tier) Explain metal–acid reactions as redox, and distinguish strong/weak from concentrated/dilute acids",
+        "(Higher tier) Use the rule that each fall of one pH unit means ten times the hydrogen ion concentration",
+    ], "The most common slips are confusing strong with concentrated, and leaving out a reason or a step (excess solid, filtering, evaporating to the crystallisation point) in the salt-making method."),
+
+    ("chem_aqa:4.4.3", &[
+        "Explain why ionic compounds conduct when molten or dissolved, and which ions move to the cathode and the anode",
+        "Predict the products of electrolysing molten binary ionic compounds and aqueous solutions with inert electrodes",
+        "Explain why aluminium is extracted by electrolysis of aluminium oxide in cryolite and why the carbon anode must be replaced",
+        "Plan Required practical 3 (Trilogy Required practical 9): electrolyse aqueous solutions, state a hypothesis and identify the products with gas tests",
+        "(Higher tier) Write, complete and balance half equations at each electrode and identify them as oxidation or reduction",
+    ], "In aqueous solutions people name the metal (such as sodium) at the cathode or sulfur at the anode, instead of applying the rules: hydrogen unless the metal is less reactive than hydrogen, oxygen unless a halide is present."),
+
+    ("chem_aqa:4.5.1", &[
+        "Decide whether a reaction is exothermic or endothermic from the temperature change of the surroundings, and give examples and uses of each",
+        "Evaluate hand warmers, self-heating cans and cold packs from given data, ending with a justified judgement",
+        "Carry out and evaluate Required practical 4 (Trilogy 10): variables, insulation, highest temperature and the crossing point of two best-fit lines",
+        "Draw and read reaction profiles, with activation energy from reactants to peak and overall change from reactants to products",
+        "(Higher tier) Calculate the energy change from bond energies as bonds broken minus bonds formed, and explain the sign in terms of bonds",
+    ], "Activation energy arrows drawn from the axis or the products instead of from the reactants lose easy marks. In bond energy sums, forgetting the balancing numbers (2O₂ is two O=O bonds) or dropping the minus sign throws away the answer mark."),
+
+    ("chem_aqa:4.5.2", &[
+        "Describe how a simple cell is made from two different metals and an electrolyte, and why batteries connect cells in series",
+        "Use cell voltage data to put metals in order of reactivity and predict the voltage of a new metal pair",
+        "Explain why non-rechargeable cells stop working and how rechargeable cells are recharged by reversing the reactions",
+        "Describe a hydrogen fuel cell and write its overall equation, and (Higher tier) the half equations at each electrode",
+        "Evaluate hydrogen fuel cells against rechargeable batteries with points on both sides and a justified conclusion",
+    ], "Fuel cell evaluations that only say \"it just makes water\" lose most of the marks: you must also deal with how hydrogen is made and stored and finish with a judgement. In half equations, electrons on the wrong side or unbalanced charge cost the mark."),
+
+    ("chem_aqa:4.6.1", &[
+        "Calculate mean rates in g/s or cm³/s, and (Higher tier) in mol/s, from the quantity used or formed and the time taken",
+        "Draw and interpret product-against-time graphs, draw tangents, and (Higher tier) calculate a tangent's gradient as the rate at a given time",
+        "Explain the effects of concentration, pressure, surface area, temperature and catalysts using collision theory and activation energy",
+        "Use surface area to volume ratios and simple proportionality to predict how rate changes",
+        "Plan and evaluate Required practical 5 (Trilogy 11): gas volume and disappearing-cross methods, variables, rate = 1/time and safety",
+    ], "Write \"more frequent collisions\", not just \"more collisions\", and for temperature give both effects: more frequent collisions and more collisions with at least the activation energy. Catalysts lower the activation energy by giving another pathway; they do not give particles more energy."),
+
+    ("chem_aqa:4.6.2", &[
+        "Write reversible reactions with the ⇌ symbol and describe the ammonium chloride and hydrated copper sulfate examples, including colours",
+        "Explain that a reversible reaction is exothermic one way and endothermic the other, transferring the same amount of energy",
+        "Describe dynamic equilibrium in a closed system as forward and reverse reactions at the same rate with constant amounts",
+        "(Higher tier) Use Le Chatelier's Principle to predict and explain the effects of concentration, temperature and pressure on the position of equilibrium",
+        "(Higher tier) Interpret yield data to deduce whether a forward reaction is exothermic or endothermic and which side has fewer gas molecules",
+    ], "At equilibrium the rates are equal and the amounts are constant, not equal, and the reactions have not stopped. For Le Chatelier answers, name the direction favoured and why (endothermic for a temperature rise, fewer gas molecules for a pressure rise) before giving the effect on yield."),
+
+    ("chem_aqa:4.7.1", &[
+        "Describe crude oil as a finite mixture of hydrocarbons, name the first four alkanes and recognise alkanes from CₙH₂ₙ₊₂ and displayed formulae",
+        "Explain fractional distillation in terms of evaporation, a temperature gradient and condensation at each boiling point",
+        "Recall how boiling point, viscosity and flammability change with molecule size and link this to use as fuels",
+        "Write balanced equations for the complete combustion of hydrocarbons and for cracking reactions",
+        "Describe catalytic and steam cracking, the bromine water test for alkenes, and why cracking is needed (supply and demand, polymers)",
+    ], "In fractional distillation, fractions are separated because they condense at different heights where the column is cooler than their boiling point; \"they boil off at different levels\" loses the mark. For the alkene test say bromine water turns from orange to colourless, not \"clear\"."),
+
+    ("chem_aqa:4.7.2", &[
+        "Recognise alkenes, alcohols and carboxylic acids from names, formulae and functional groups, and draw displayed formulae of the first members",
+        "Describe the addition of hydrogen, steam and halogens to alkenes with their conditions, and draw the products",
+        "Describe what the first four alcohols do with sodium, air, water and oxidising agents, and balance their combustion equations",
+        "Give the conditions for fermentation and compare it with hydration of ethene as a way to make ethanol",
+        "Describe the reactions of carboxylic acids with carbonates, water and alcohols, naming ethyl ethanoate",
+        "(Higher tier) Explain why carboxylic acids are weak acids in terms of partial ionisation and pH",
+    ], "Conditions written as 'heat and a catalyst' lose the marks: hydration needs steam, 300 °C, 60–70 atm and phosphoric acid, and fermentation needs yeast, 30–35 °C and no air. Forgetting that the carbon in –COOH counts makes CH₃COOH wrongly 'methanoic acid'."),
+
+    ("chem_aqa:4.7.3", &[
+        "Recognise addition polymers and their monomers, using the C=C in the monomer as the clue",
+        "Draw the repeating unit of an addition polymer from a given alkene monomer, and work back from a repeating unit to the monomer",
+        "(Higher tier) Explain condensation polymerisation from the functional groups of the monomers, using ethanediol and hexanedioic acid making a polyester",
+        "(Higher tier) Describe how amino acids such as glycine form polypeptides and proteins by condensation",
+        "Describe DNA as two nucleotide polymer chains in a double helix, and name the monomers of proteins, starch and cellulose",
+    ], "Repeating units drawn with the double bond still in, without bonds through the brackets, or with n missing lose the drawing marks. In condensation polymerisation, forgetting that water is the second product is the commonest slip."),
+
+    ("chem_aqa:4.8.1", &[
+        "Use melting and boiling point data to decide whether a substance is pure, and contrast the chemical and everyday meanings of pure",
+        "Identify a formulation from given information: a designed mixture with measured components, each with a purpose",
+        "Explain how paper chromatography separates a mixture in terms of the stationary phase and the mobile phase",
+        "Calculate Rf values from chromatograms to a sensible number of significant figures, and use them to identify substances and judge purity",
+        "Carry out and evaluate Required practical 6 (Trilogy 12): pencil start line above the solvent, small spots, lid, solvent front marked",
+    ], "Rf answers bigger than 1 (divided the wrong way round) or distances measured from the bottom of the paper instead of the start line throw away the calculation marks. Saying impurities raise the melting point loses easy marks: they lower it and spread it over a range."),
+
+    ("chem_aqa:4.8.2", &[
+        "Describe the test and positive result for hydrogen: a burning splint at the mouth of the tube gives a squeaky pop",
+        "Describe the test and positive result for oxygen: a glowing splint relights",
+        "Describe the test and positive result for carbon dioxide: bubbled through limewater it turns milky, and explain the calcium carbonate precipitate",
+        "Describe the test and positive result for chlorine: damp litmus paper is bleached white, done in a fume cupboard",
+        "Use gas test results to identify the products of reactions and electrolysis",
+    ], "Mixing up the burning splint (hydrogen, pop) with the glowing splint (oxygen, relights) loses both marks. Writing 'glows brighter', 'limewater changes colour' or leaving out 'damp' for chlorine all miss the result mark."),
+
+    ("chem_aqa:4.8.3", &[
+        "Identify lithium, sodium, potassium, calcium and copper ions from flame test colours, and explain why colours can be masked in mixtures",
+        "Identify aluminium, calcium, magnesium, copper(II), iron(II) and iron(III) ions with sodium hydroxide, and write balanced equations for the hydroxide precipitates",
+        "Describe the tests for carbonate, halide and sulfate ions, including which acid is added first and why",
+        "Carry out Required practical 7 (chemistry only, no Trilogy equivalent): identify both ions in an unknown single ionic compound",
+        "State the advantages of instrumental methods and interpret flame emission spectra against a reference set",
+    ], "Ion tests lose marks when the acid is missing or wrong: nitric acid goes with silver nitrate and hydrochloric acid with barium chloride. Writing 'red' for lithium (crimson) or calcium (orange-red), and swapping the iron(II) green and iron(III) brown precipitates, are the other common slips."),
+
+    ("chem_aqa:4.9.1", &[
+        "State the proportions of gases in today's atmosphere (about four-fifths nitrogen, one-fifth oxygen, small amounts of carbon dioxide, water vapour and noble gases) and use them in percentage calculations",
+        "Describe the theory of the early atmosphere: volcanic gases, mainly carbon dioxide, little or no oxygen, water vapour condensing to form the oceans",
+        "Explain how oxygen increased through photosynthesis by algae (from 2.7 billion years ago) and then plants",
+        "Explain how carbon dioxide decreased by dissolving in the oceans, photosynthesis, and the formation of sedimentary rocks and fossil fuels",
+        "Describe and explain the formation of limestone, coal, crude oil and natural gas",
+        "Evaluate theories about the early atmosphere from given evidence, recognising why the evidence is limited",
+    ], "Saying oxygen came from volcanoes, or that carbon dioxide simply 'disappeared', loses the marks: name photosynthesis by algae and plants, dissolving in the oceans, and locking up in rocks and fossil fuels. Mixing up which deposits came from plants, plankton and shells is the other common slip."),
+
+    ("chem_aqa:4.9.2", &[
+        "Name water vapour, carbon dioxide and methane as greenhouse gases and describe the greenhouse effect in terms of short and long wavelength radiation",
+        "Recall two human activities that increase carbon dioxide and two that increase methane",
+        "Evaluate reports about climate change: peer review, bias, uncertainty in the data and the limits of models",
+        "Describe four potential effects of global climate change and discuss their scale and risk",
+        "Define the carbon footprint, describe actions that reduce it, and give reasons why those actions may be limited",
+        "Calculate percentage changes in greenhouse gas levels and carbon footprints from given data",
+    ], "Saying greenhouse gases 'trap heat' or 'reflect' radiation, or bringing in the ozone layer, loses the mechanism marks: incoming radiation is short wavelength, and greenhouse gases absorb and re-emit the long wavelength infrared that the Earth gives out."),
+
+    ("chem_aqa:4.9.3", &[
+        "List the gases and particulates released when fuels burn: carbon dioxide, water vapour, carbon monoxide, sulfur dioxide, oxides of nitrogen, soot and unburned hydrocarbons",
+        "Describe how carbon monoxide, soot, sulfur dioxide and oxides of nitrogen are produced, including the conditions for each",
+        "Predict the products of combustion from the composition of a fuel and the oxygen supply",
+        "Explain the problems each pollutant causes: toxicity, respiratory problems, acid rain, global dimming and health effects",
+        "Write and balance equations for complete and incomplete combustion",
+    ], "Oxides of nitrogen do not come from the fuel: nitrogen and oxygen from the air react at the high temperature of the engine. The other common slip is mixing up the effects: sulfur dioxide and oxides of nitrogen cause acid rain, and particulates cause global dimming."),
+
+    ("chem_aqa:4.10.1", &[
+        "Distinguish finite from renewable resources, give examples of natural products replaced by synthetic ones, and define sustainable development",
+        "Distinguish potable water from pure water and give reasons for each step in producing potable water from fresh water and from salty water",
+        "Carry out and evaluate Required practical 8 (Trilogy 13): pH, mass of dissolved solids and distillation of water samples, including concentration in g/dm³",
+        "Describe the stages of sewage treatment and compare the ease of getting potable water from ground, waste and salt water",
+        "(Higher tier) Describe and evaluate phytomining and bioleaching, and how copper is then obtained by displacement with scrap iron or electrolysis",
+    ], "Saying filtration kills microbes or removes salt loses the mark: filter beds remove solid particles, sterilising (chlorine, ozone or UV) kills microbes, and only desalination removes dissolved salts. In sewage treatment, sludge is digested anaerobically and effluent is treated aerobically, not the other way round."),
+
+    ("chem_aqa:4.10.2", &[
+        "Name the four stages of a life cycle assessment and include transport at each stage",
+        "Explain why LCA is not purely objective and how selective LCAs can be misused, for example in advertising",
+        "Carry out a simple comparative LCA of plastic and paper shopping bags and reach a justified conclusion",
+        "Interpret LCA data using ratios, percentages, per-use values and sensible significant figures",
+        "Evaluate reducing, reusing and recycling materials such as glass and metals, including their limits",
+    ], "Evaluating without quoting the data or reaching a conclusion caps the marks: compare the figures given, stage by stage, then give a justified judgement. Remember that pollutant effects need value judgements, so an LCA is never purely objective."),
+
+    ("chem_aqa:4.10.3", &[
+        "Describe and interpret experiments showing that both air and water are needed for iron to rust",
+        "Explain barrier protection and sacrificial protection (galvanising) in terms of relative reactivity, and why aluminium does not corrode further",
+        "Recall the composition and a use of bronze, brass, gold alloys, high and low carbon steel, stainless steel and aluminium alloys, and calculate gold content from carats",
+        "Explain how LD and HD poly(ethene) both come from ethene, and the structural difference between thermosoftening and thermosetting polymers",
+        "Describe glass, clay ceramics and composites, and compare materials quantitatively from data to select one for a given use",
+    ], "Saying zinc or magnesium 'protects' iron without saying it is more reactive than iron, so corrodes instead, loses the mark. Swapping high carbon steel (strong but brittle) with low carbon steel (soft and easily shaped) is the other frequent slip."),
+
+    ("chem_aqa:4.10.4", &[
+        "Describe the Haber process: nitrogen from the air, hydrogen from natural gas, iron catalyst, about 450 °C and 200 atmospheres, ammonia removed by cooling and unreacted gases recycled",
+        "(Higher tier) Explain the choice of temperature, pressure and catalyst as a trade-off between equilibrium yield, rate and cost, and interpret graphs of yield against conditions",
+        "Recall that ammonia makes ammonium salts and nitric acid, and that potassium salts and phosphate rock are mined",
+        "Recall the products when phosphate rock is treated with nitric, sulfuric and phosphoric acid",
+        "Calculate the percentage of an element in a fertiliser and compare laboratory and industrial preparation of an ammonium salt",
+    ], "Writing that the iron catalyst increases the yield loses the mark: it only increases the rate. For temperature and pressure, a full answer gives the effect on yield and on rate or cost, then calls the chosen value a compromise."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

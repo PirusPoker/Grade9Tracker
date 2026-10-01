@@ -124,6 +124,9 @@ const FSA: &str = "FoodStandardsAgency";
 
 const MGENIE: &str = "Maths Genie";
 
+const LWAS: &str = "Learn with a Scientist";
+const STUDYMIND: &str = "Study Mind";
+
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
     // ---------- Computer Science (OCR GCSE J277) ----------
     ("cs:1.1.1", &[
@@ -4491,6 +4494,306 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("IKnQtUfZF78", "2025 EDUQAS Paper 2 Writing Mega Revision!", "TeachGCSEEnglish"),
         ("a7zv5T6s_z8", "EDUQAS GCSE ENGLISH LANGUAGE PAPER 2 - LAST-MINUTE ADVICE", "GuigLit"),
     ]),
+    // Chemistry (AQA GCSE Chemistry (8462) Higher)
+    ("chem_aqa:4.1.1", &[
+        ("nUzOXy9V-K0", "Elements, Compounds and Mixtures", FSL),
+        ("9WNFwOqb_24", "The History of the Atom | Models & Theories", COG),
+        ("kvTzdD1eGUQ", "Electronic Structure", COG),
+    ]),
+    ("chem_aqa:4.1.2", &[
+        ("IoldeyRWgz8", "Development of the Periodic Table", FSL),
+        ("TGZs93DzMDY", "Group 1 Elements - Alkali Metals | Properties | Reactivity", COG),
+        ("uYubwlPRdCs", "Group 7 & Group 0 Elements - Halogens & Noble Gases | Properties | Trends", COG),
+    ]),
+    ("chem_aqa:4.1.3", &[
+        ("A5RpVT1WA8E", "Transition Elements", FSL),
+        ("XD_ZXoFK1bQ", "The transition elements | Properties and uses", "The Science Break"),
+    ]),
+    ("chem_aqa:4.2.1", &[
+        ("MdU44WeiLps", "Ionic Bonding - Formation | Dot and Cross Diagrams", COG),
+        ("m5u4STdFlOE", "Covalent Bonding 1: Bonding in Hydrogen, Chlorine and Hydrogen chloride", FSL),
+        ("tRKkGRBndto", "Metallic Bonding - Properties of Metals | Alloys & Pure Metals", COG),
+    ]),
+    ("chem_aqa:4.2.2", &[
+        ("CTwJEtjYffY", "The Three States of Matter", FSL),
+        ("ybi6kQHKVws", "Ionic Compounds - Structure | Properties | Formula", COG),
+        ("SxuldWdqFB0", "Types of Covalent Structures: Simple Molecular & Giant Covalent Structures", COG),
+    ]),
+    ("chem_aqa:4.2.3", &[
+        ("gUNkLFf2WXU", "Diamond and Silicon Dioxide", FSL),
+        ("RVV8pncaA7A", "Diamond & Graphite - Structure | Properties", COG),
+        ("cjgODRJU79Y", "Graphene and Fullerenes", FSL),
+    ]),
+    ("chem_aqa:4.2.4", &[
+        ("VxKHzt93h-0", "Nanoparticles", FSL),
+        ("NtRgKuNiQ-Y", "Nanoparticles - Uses | Risks", COG),
+    ]),
+    ("chem_aqa:4.3.1", &[
+        ("K4pw_-U6Xpc", "Conservation of Mass", FSL),
+        ("-I2mwJH6MhA", "Relative Formula Mass | Mr & Percentage Mass Calculations", COG),
+        ("sXeUIGW3nRY", "GCSE Working Scientifically \"Uncertainty\"", FSL),
+    ]),
+    ("chem_aqa:4.3.2", &[
+        ("kBlmEfS_P00", "Moles & Mass - Avogadro's Constant | Formula for Moles, Mass & Mr", COG),
+        ("4wTSLBBBMo0", "Using Moles to Balance Equations", FSL),
+        ("LTnhZvyOvFU", "Limiting Reactants & Balanced Equations", COG),
+    ]),
+    ("chem_aqa:4.3.3", &[
+        ("9EV0Oq8g708", "Calculating Percentage Yield 1", FSL),
+        ("h1-Vj6eh-mM", "Atom Economy", FSL),
+        ("eZCtGJwns0Q", "Atom Economy - Calculations | Why it's Important", COG),
+    ]),
+    ("chem_aqa:4.3.4", &[
+        ("rluAIfmi7x8", "Concentration Calculations (grams per dm³)", COG),
+        ("x8DLLCNMKAs", "Titration calculations 1", FSL),
+        ("saRBT5oZfh8", "Required Practical 2: Carrying out a Titration", FSL),
+    ]),
+    ("chem_aqa:4.3.5", &[
+        ("tYE-1nywlFs", "Using Gas Volumes", FSL),
+        ("Xx9xrkbDLog", "Gas Calculations - Volume & Moles | Mass, Moles & Mr", COG),
+        ("OzutTl0sYd0", "Using Gas Volumes 2", FSL),
+    ]),
+    ("chem_aqa:4.4.1", &[
+        ("MDQr5QFVGkk", "The Reactivity Series", FSL),
+        ("MXTSels6e2Y", "Extraction of Metals", FSL),
+        ("QlG9Kt-9yTI", "Redox Reactions - Displacement Reactions | Ionic Equations | Half Equations", COG),
+    ]),
+    ("chem_aqa:4.4.2", &[
+        ("QlSsle_jSQ8", "Three Reactions of Acids", FSL),
+        ("FOgZgMBbnXM", "Strong Acids & Weak Acids | pH & Concentration of Hydrogen Ions", COG),
+        ("9GH95172Js8", "Required Practical 1: Making Soluble Salts", FSL),
+    ]),
+    ("chem_aqa:4.4.3", &[
+        ("AhTRiL6xjBA", "Introducing Electrolysis", FSL),
+        ("me19WmGg8Dw", "Electrolysis Part 3/3 - Aqueous Solutions", COG),
+        ("ukbtTTG1Kew", "Required Practical 3: Electrolysis", FSL),
+    ]),
+    ("chem_aqa:4.5.1", &[
+        ("hNNvIsQLSV8", "Exothermic & Endothermic Reactions - Reaction Profiles | Activation Energy", COG),
+        ("eExCBkp4jB4", "Bond Energy Calculations 1", FSL),
+        ("rdI7xEq4Ew8", "Required Practical 4: Temperature Changes", FSL),
+    ]),
+    ("chem_aqa:4.5.2", &[
+        ("riikUBLFBJs", "Cells and Batteries", FSL),
+        ("iJgMuDzkdkI", "Fuel Cells", FSL),
+        ("NAYCRPyd4xU", "Fuel Cells - Structure | How they Work | Half Equations | Pros & Cons", COG),
+    ]),
+    ("chem_aqa:4.6.1", &[
+        ("JK7yPzO9POU", "Factors Affecting Rate of Reaction & Collision Theory", COG),
+        ("aanZzrUPEDw", "Measuring Rates of Reaction from Graphs - Mean Rate & Rate at a Specific Time", COG),
+        ("N5p06i9ilmo", "Required Practical 5: Rates of Reaction", FSL),
+    ]),
+    ("chem_aqa:4.6.2", &[
+        ("66qcNNJFy6E", "Reversible Reactions", FSL),
+        ("5rC6f_P_A48", "Reversible Reactions & Dynamic Equilibrium", COG),
+        ("KZPO23kia_o", "Le Chatelier's Principle - Position of Equilibrium in Reversible Reactions", COG),
+    ]),
+    ("chem_aqa:4.7.1", &[
+        ("CX2IYWggEBc", "Crude oil and Hydrocarbons", FSL),
+        ("-qxeVFJh4e4", "Fractional Distillation - Crude Oil | Hydrocarbons", COG),
+        ("7AWwjKbRa_o", "Cracking", FSL),
+    ]),
+    ("chem_aqa:4.7.2", &[
+        ("83Is-rouV-U", "Addition Reactions of Alkenes", COG),
+        ("uFZasZ-hs_A", "Alcohols", FSL),
+        ("ketAGS1gkQM", "Carboxylic Acids", FSL),
+    ]),
+    ("chem_aqa:4.7.3", &[
+        ("1ZUg6ZC3ltA", "Addition Polymers & Polymerisation", COG),
+        ("QBuSFPOtcJ4", "Condensation Polymers", FSL),
+        ("7o27fhO_nm0", "Naturally Occurring Polymers - Polypeptides, DNA, and Carbohydrates", COG),
+    ]),
+    ("chem_aqa:4.8.1", &[
+        ("3oJxWwcnfJY", "Purity and Formulations", FSL),
+        ("TdJ57SQ6GAQ", "Paper Chromatography", COG),
+        ("P8i4QYncQxI", "Required Practical 6: Chromatography", FSL),
+    ]),
+    ("chem_aqa:4.8.2", &[
+        ("jVkGKurtaiE", "Testing for Gases", FSL),
+        ("QH-7X5STCO4", "Testing for Gases - Hydrogen/Chlorine/Oxygen/CO2", COG),
+    ]),
+    ("chem_aqa:4.8.3", &[
+        ("Bd0A44Iv2OI", "Flame Tests", FSL),
+        ("1BCc_RrrSSw", "Flame Emission Spectroscopy (Flame Photometry)", COG),
+        ("4iZRs4XlJOE", "Required Practical 7: Identifying Ions", FSL),
+    ]),
+    ("chem_aqa:4.9.1", &[
+        ("t1Z3GlNldLA", "The Atmosphere", FSL),
+        ("DnFcyhsSVGg", "Evolution of the Atmosphere | How the Atmosphere Changed Over Time", COG),
+        ("KMK8Bo6XdSc", "The Early Atmosphere", "Primrose Kitten Academy | GCSE & A-Level Revision"),
+    ]),
+    ("chem_aqa:4.9.2", &[
+        ("K5vXnDGcOE4", "The Greenhouse Effect", FSL),
+        ("5ZzDxYY48HQ", "Greenhouse Gases & Climate Change", COG),
+        ("ilfqxt90ED4", "Carbon Footprint", FSL),
+    ]),
+    ("chem_aqa:4.9.3", &[
+        ("yLp6LOgPHmI", "Pollutants from Fuels", FSL),
+        ("H0Z_R6GLo9A", "Air Pollution - How Pollutants are Made | Why They're Harmful", COG),
+    ]),
+    ("chem_aqa:4.10.1", &[
+        ("td8WR_FOQc0", "Potable Water - Treating Freshwater | Desalinating Seawater", COG),
+        ("n7pYRQs20bI", "Waste Water Treatment", FSL),
+        ("b5RVPauf4oM", "Alternative Methods of Extracting Metals", FSL),
+    ]),
+    ("chem_aqa:4.10.2", &[
+        ("Znnhe4BJH14", "Life-Cycle Assessment", FSL),
+        ("-i_Eug83uzo", "Lifecycle Assessments (LCAs) - Stages | Examples | Limitations", COG),
+        ("tg8tntiqQYk", "Recycling", FSL),
+    ]),
+    ("chem_aqa:4.10.3", &[
+        ("q0CAfXV-YdY", "What is Corrosion and How to Stop it", COG),
+        ("QRDctnk7sF4", "Alloys", FSL),
+        ("q7VAq8t2gj0", "Ceramics and Composites", FSL),
+    ]),
+    ("chem_aqa:4.10.4", &[
+        ("HAkaD6-7fgQ", "The Haber Process", FSL),
+        ("1_HoWz5Kxfk", "The Haber Process Explained", COG),
+        ("rKzt9BvvEeQ", "NPK Fertilisers", FSL),
+    ]),
+    // Biology (AQA GCSE Biology (8461) Higher)
+    ("bio_aqa:4.1.1", &[
+        ("qHkUOlC8Nbo", "Cell Types and Cell Structure", COG),
+        ("bSbZpKV-MHE", "Required Practical 1: Microscopes", FSL),
+        ("r7_nj3AZX6w", "Required Practical 2: Culturing Microorganisms", FSL),
+    ]),
+    ("bio_aqa:4.1.2", &[
+        ("I0VdEiPWkHs", "Cell division by Mitosis", FSL),
+        ("UsovRxQAUZ4", "Mitosis | Chromosomes | Cell Division | Cytokinesis", COG),
+        ("Kh27eyjxvYM", "Stem Cells", FSL),
+    ]),
+    ("bio_aqa:4.1.3", &[
+        ("C5pMigXBAgk", "Diffusion", FSL),
+        ("BXTi5tbnOr0", "Active Transport", FSL),
+        ("ef2Ts2AKhq8", "Required Practical 3: Effects of Osmosis on Plant Tissue", FSL),
+    ]),
+    ("bio_aqa:4.2.1", &[
+        ("MB6mE6weCS4", "Levels of Organisation - Cells, Tissues, Organs and Organ Systems", COG),
+        ("o5ei68M69g4", "AQA GCSE Biology: Principles of Organisation", STUDYMIND),
+    ]),
+    ("bio_aqa:4.2.2a", &[
+        ("VLK2wANjQm0", "Digestive Enzymes", FSL),
+        ("SqWTJWOBww4", "Required Practical 4: Food Tests", FSL),
+        ("JyXXoevEWc8", "Required Practical 5: Effect of pH on Amylase", FSL),
+    ]),
+    ("bio_aqa:4.2.2b", &[
+        ("bpYaKM2hVFY", "The Heart and Circulation", FSL),
+        ("Wx-MrhlOFMk", "Arteries, Veins and Capillaries", FSL),
+        ("aPUPfzsqDgs", "Gas Exchange in the Lungs", FSL),
+    ]),
+    ("bio_aqa:4.2.2c", &[
+        ("5wSfCZESRHU", "Cardiovascular Diseases", FSL),
+        ("H6DrSG_KQjo", "Lifestyle and Disease", FSL),
+        ("BLITE8uA4Tw", "Cancer", FSL),
+    ]),
+    ("bio_aqa:4.2.3", &[
+        ("2BR1zdMBhY4", "Plant Tissues", FSL),
+        ("9yTDokLRZs0", "Transpiration", FSL),
+        ("s06FvGH3QJo", "Transpiration & Translocation", COG),
+    ]),
+    ("bio_aqa:4.3.1a", &[
+        ("K5zFxfbmC1M", "Measles and HIV", FSL),
+        ("Ri-kEX_JI8o", "Salmonella and Gonorrhoea", FSL),
+        ("_DfTkFzQCG8", "Communicable Disease | Protist & Fungal Disease", COG),
+    ]),
+    ("bio_aqa:4.3.1b", &[
+        ("k1oCiR9Y2zQ", "Immune System & Defences | Types of White Blood Cell", COG),
+        ("uPeZBhJYlnU", "Vaccination", FSL),
+        ("w3ykU52K-Hw", "Drug Development and Testing - Clinical Trials", COG),
+    ]),
+    ("bio_aqa:4.3.2", &[
+        ("cGNvdB3qNw4", "Monoclonal Antibodies", FSL),
+        ("Bgde7orTxD8", "Uses of Monoclonal Antibodies", FSL),
+        ("XrUW54Ea598", "Monoclonal Antibodies", COG),
+    ]),
+    ("bio_aqa:4.3.3", &[
+        ("VHnS8HUtu44", "Infectious Diseases in Plants", FSL),
+        ("02Mx7s8gIig", "Plant diseases 2", FSL),
+        ("zL8JOw8Qzns", "Plant Defence Responses", FSL),
+    ]),
+    ("bio_aqa:4.4.1", &[
+        ("rAJGnS_ktk4", "Photosynthesis", FSL),
+        ("kx7AeCx_6xQ", "Limiting Factors", FSL),
+        ("cBCKedXdFeE", "Required Practical 6: Photosynthesis", FSL),
+    ]),
+    ("bio_aqa:4.4.2", &[
+        ("ZKAaDbTP6Dc", "Respiration", FSL),
+        ("xO2XlIMnLuM", "Exercise", FSL),
+        ("7ZQQUi2DPMw", "Metabolism", FSL),
+    ]),
+    ("bio_aqa:4.5.1", &[
+        ("S45_3wWL-Xk", "Homeostasis", FSL),
+        ("zvDwNd_aKsk", "Homeostasis | Receptors, Coordination Centres, Effectors | Negative Feedback", COG),
+    ]),
+    ("bio_aqa:4.5.2", &[
+        ("oDS1hAqWp2M", "The Nervous System", FSL),
+        ("Fm02i4vEi5Q", "Required Practical 7: Reaction Time", FSL),
+        ("G_clJP1VGtk", "The Eye", FSL),
+    ]),
+    ("bio_aqa:4.5.3a", &[
+        ("c6olhi88KZs", "The Endocrine System", FSL),
+        ("77oyUdNZ054", "Control of Blood Glucose Concentration", FSL),
+        ("kmRh_yRbAR4", "Maintaining the Body's Water Balance", FSL),
+    ]),
+    ("bio_aqa:4.5.3b", &[
+        ("iXswGsfeHJg", "The Menstrual Cycle", FSL),
+        ("5rsdXadNj-E", "Contraception", FSL),
+        ("_Mts354VC7A", "Negative Feedback", FSL),
+    ]),
+    ("bio_aqa:4.5.4", &[
+        ("_Bf5WKEMB5o", "Plant Hormones", FSL),
+        ("fEo21LbnJJM", "Required Practical 8: Plant Responses", FSL),
+        ("6boD9x0MMcs", "Uses of Plant Hormones", FSL),
+    ]),
+    ("bio_aqa:4.6.1a", &[
+        ("Fh9b6a-3DLQ", "Sexual and Asexual Reproduction", FSL),
+        ("w5SRMZlYR4w", "Meiosis and Fertilisation", FSL),
+        ("TQ_iCf8mzMA", "DNA and the Genome", FSL),
+    ]),
+    ("bio_aqa:4.6.1b", &[
+        ("reVLRjZIh3c", "Alleles", FSL),
+        ("3XhzsN8TpTI", "Inherited Disorders | Polydactyly | Cystic Fibrosis", COG),
+        ("Lomr_t5Pdjs", "Inheritance of Sex", FSL),
+    ]),
+    ("bio_aqa:4.6.2", &[
+        ("7RraYCKvTXc", "Evolution by Natural Selection", FSL),
+        ("99nEQd2k6k4", "Selective Breeding", FSL),
+        ("gu9T91GJXDo", "Genetic Engineering", FSL),
+    ]),
+    ("bio_aqa:4.6.3", &[
+        ("2waYa0ZwoXg", "Darwin and Natural Selection", FSL),
+        ("n3cXcDEveRc", "Mendel and Genetics", FSL),
+        ("sqBZRQirPM4", "Speciation", FSL),
+    ]),
+    ("bio_aqa:4.6.4", &[
+        ("S2O6sVcUtLU", "Classification", FSL),
+        ("qRqa454ZIro", "Classification Systems | Linnaean System", COG),
+    ]),
+    ("bio_aqa:4.7.1", &[
+        ("ePsjdKoSA9g", "Competition and Interdependence", FSL),
+        ("kIfMwZU8nk4", "Biotic and Abiotic Factors", FSL),
+        ("KvK7EJimAH8", "Adaptations", FSL),
+    ]),
+    ("bio_aqa:4.7.2", &[
+        ("yLHz2Ea10Mg", "Required Practical 9: Sampling Organisms", FSL),
+        ("wSNSGcOqb38", "Carbon Cycle & Water Cycle", COG),
+        ("LeH5FUKSPzU", "Required Practical 10: Decay", FSL),
+    ]),
+    ("bio_aqa:4.7.3", &[
+        ("I5UR9uMeWuQ", "Biodiversity", FSL),
+        ("cickRHnPKvc", "How Humans Reduce Biodiversity", COG),
+        ("d3m73r64N2I", "Maintaining Biodiversity", FSL),
+    ]),
+    ("bio_aqa:4.7.4", &[
+        ("AFC5LQ3KnvU", "Trophic Levels", FSL),
+        ("sgh1OWm0oTQ", "Pyramids of Biomass", FSL),
+        ("WqjZFDsKQDo", "Transfer of Biomass | Energy Flow in Food Chains", LWAS),
+    ]),
+    ("bio_aqa:4.7.5", &[
+        ("_ACn3e4qnaM", "Food Security", FSL),
+        ("nrbJl3R4YJU", "Modern Farming Methods", FSL),
+        ("u59Eg1uNr5g", "Sustainable Fisheries", FSL),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
@@ -4537,7 +4840,7 @@ mod tests {
     /// Subjects whose every topic has a video to start from.
     #[test]
     fn covered_subjects_have_a_video_on_every_topic() {
-        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog", "hist", "rs", "maths_edx", "maths_aqa", "maths_ocr"] {
+        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog", "hist", "rs", "maths_edx", "maths_aqa", "maths_ocr", "chem_aqa", "bio_aqa"] {
             let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
             for (code, _, _) in def.topics {
                 assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");

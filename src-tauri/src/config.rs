@@ -186,6 +186,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // English Language (Eduqas): taught through both years at school. Modest
     // recall; the writing practice belongs in a weekly timed piece (see (h)).
     ("englang_edq", &[(1, 0.0, 0.0)]),
+    // AQA GCSE Chemistry (8462) Higher
+    ("chem_aqa", &[(1, 1.0, 0.5)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -212,6 +214,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("maths_ocr", "ahead"),
     ("bio_aqa", "ahead"),
     ("englang_edq", "school"),
+    ("chem_aqa", "ahead"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -466,6 +469,14 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Revision notes", "https://www.savemyexams.com/gcse/english-language/wjec-eduqas/"),
         ("Past papers", "https://www.savemyexams.com/gcse/english-language/wjec-eduqas/past-papers/"),
         ("PMT past papers", "https://www.physicsandmathstutor.com/past-papers/gcse-english-language/eduqas-component-1/"),
+    ]),
+    // AQA GCSE Chemistry (8462) Higher. Each link opened and checked 1 October 2026
+    ("chem_aqa", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/chemistry/aqa/18/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/chemistry/aqa/18/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/chemistry/aqa/past-papers/"),
+        ("PMT by topic", "https://www.physicsandmathstutor.com/chemistry-revision/gcse-aqa/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/assessment-resources"),
     ]),
 ];
 
