@@ -1006,6 +1006,41 @@ const CHEM_AQA: &[(&str, &str)] = &[
     ("chem_aqa:4.10.4", include_str!("../lessons/chem_aqa/4.10.4.md")),
 ];
 
+const PHYS_AQA: &[(&str, &str)] = &[
+    ("phys_aqa:4.1.1", include_str!("../lessons/phys_aqa/4.1.1.md")),
+    ("phys_aqa:4.1.2", include_str!("../lessons/phys_aqa/4.1.2.md")),
+    ("phys_aqa:4.1.3", include_str!("../lessons/phys_aqa/4.1.3.md")),
+    ("phys_aqa:4.2.1", include_str!("../lessons/phys_aqa/4.2.1.md")),
+    ("phys_aqa:4.2.2", include_str!("../lessons/phys_aqa/4.2.2.md")),
+    ("phys_aqa:4.2.3", include_str!("../lessons/phys_aqa/4.2.3.md")),
+    ("phys_aqa:4.2.4", include_str!("../lessons/phys_aqa/4.2.4.md")),
+    ("phys_aqa:4.2.5", include_str!("../lessons/phys_aqa/4.2.5.md")),
+    ("phys_aqa:4.3.1", include_str!("../lessons/phys_aqa/4.3.1.md")),
+    ("phys_aqa:4.3.2", include_str!("../lessons/phys_aqa/4.3.2.md")),
+    ("phys_aqa:4.3.3", include_str!("../lessons/phys_aqa/4.3.3.md")),
+    ("phys_aqa:4.4.1", include_str!("../lessons/phys_aqa/4.4.1.md")),
+    ("phys_aqa:4.4.2", include_str!("../lessons/phys_aqa/4.4.2.md")),
+    ("phys_aqa:4.4.3", include_str!("../lessons/phys_aqa/4.4.3.md")),
+    ("phys_aqa:4.4.4", include_str!("../lessons/phys_aqa/4.4.4.md")),
+    ("phys_aqa:4.5.1", include_str!("../lessons/phys_aqa/4.5.1.md")),
+    ("phys_aqa:4.5.2", include_str!("../lessons/phys_aqa/4.5.2.md")),
+    ("phys_aqa:4.5.3", include_str!("../lessons/phys_aqa/4.5.3.md")),
+    ("phys_aqa:4.5.4", include_str!("../lessons/phys_aqa/4.5.4.md")),
+    ("phys_aqa:4.5.5", include_str!("../lessons/phys_aqa/4.5.5.md")),
+    ("phys_aqa:4.5.6a", include_str!("../lessons/phys_aqa/4.5.6a.md")),
+    ("phys_aqa:4.5.6b", include_str!("../lessons/phys_aqa/4.5.6b.md")),
+    ("phys_aqa:4.5.6c", include_str!("../lessons/phys_aqa/4.5.6c.md")),
+    ("phys_aqa:4.5.7", include_str!("../lessons/phys_aqa/4.5.7.md")),
+    ("phys_aqa:4.6.1", include_str!("../lessons/phys_aqa/4.6.1.md")),
+    ("phys_aqa:4.6.2", include_str!("../lessons/phys_aqa/4.6.2.md")),
+    ("phys_aqa:4.6.3", include_str!("../lessons/phys_aqa/4.6.3.md")),
+    ("phys_aqa:4.7.1", include_str!("../lessons/phys_aqa/4.7.1.md")),
+    ("phys_aqa:4.7.2", include_str!("../lessons/phys_aqa/4.7.2.md")),
+    ("phys_aqa:4.7.3", include_str!("../lessons/phys_aqa/4.7.3.md")),
+    ("phys_aqa:4.8.1", include_str!("../lessons/phys_aqa/4.8.1.md")),
+    ("phys_aqa:4.8.2", include_str!("../lessons/phys_aqa/4.8.2.md")),
+];
+
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
     ("maths", MATHS),
@@ -1035,6 +1070,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("bio_aqa", BIO_AQA),
     ("englang_edq", ENGLANG_EDQ),
     ("chem_aqa", CHEM_AQA),
+    ("phys_aqa", PHYS_AQA),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {

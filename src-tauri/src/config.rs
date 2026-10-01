@@ -188,6 +188,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("englang_edq", &[(1, 0.0, 0.0)]),
     // AQA GCSE Chemistry (8462) Higher
     ("chem_aqa", &[(1, 1.0, 0.5)]),
+    // AQA GCSE Physics (8463) Higher
+    ("phys_aqa", &[(1, 1.0, 0.5)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -215,6 +217,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("bio_aqa", "ahead"),
     ("englang_edq", "school"),
     ("chem_aqa", "ahead"),
+    ("phys_aqa", "ahead"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -477,6 +480,14 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/chemistry/aqa/past-papers/"),
         ("PMT by topic", "https://www.physicsandmathstutor.com/chemistry-revision/gcse-aqa/"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/chemistry/gcse/chemistry-8462/assessment-resources"),
+    ]),
+    // AQA GCSE Physics (8463) Higher. Each link opened and checked 1 October 2026
+    ("phys_aqa", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/physics/aqa/18/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/physics/aqa/18/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/physics/aqa/past-papers/"),
+        ("PMT by topic", "https://www.physicsandmathstutor.com/physics-revision/gcse-aqa/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/physics/gcse/physics-8463/assessment-resources"),
     ]),
 ];
 

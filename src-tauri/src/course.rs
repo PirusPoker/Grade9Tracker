@@ -178,6 +178,8 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ("englang_edq", &["2.1", "2.2"]),
     // AQA GCSE Chemistry (8462) Higher. Every subsection, Higher tier; lessons flag what Combined Science Trilogy leaves out.
     ("chem_aqa", &["4.1.1", "4.1.2", "4.1.3", "4.2.1", "4.2.2", "4.2.3", "4.2.4", "4.3.1", "4.3.2", "4.3.3", "4.3.4", "4.3.5", "4.4.1", "4.4.2", "4.4.3", "4.5.1", "4.5.2", "4.6.1", "4.6.2", "4.7.1", "4.7.2", "4.7.3", "4.8.1", "4.8.2", "4.8.3", "4.9.1", "4.9.2", "4.9.3", "4.10.1", "4.10.2", "4.10.3", "4.10.4"]),
+    // AQA GCSE Physics (8463) Higher. Every subsection, Higher tier; lessons flag what Combined Science Trilogy leaves out.
+    ("phys_aqa", &["4.1.1", "4.1.2", "4.1.3", "4.2.1", "4.2.2", "4.2.3", "4.2.4", "4.2.5", "4.3.1", "4.3.2", "4.3.3", "4.4.1", "4.4.2", "4.4.3", "4.4.4", "4.5.1", "4.5.2", "4.5.3", "4.5.4", "4.5.5", "4.5.6", "4.5.7", "4.6.1", "4.6.2", "4.6.3", "4.7.1", "4.7.2", "4.7.3", "4.8.1", "4.8.2"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -6806,6 +6808,282 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Recall the products when phosphate rock is treated with nitric, sulfuric and phosphoric acid",
         "Calculate the percentage of an element in a fertiliser and compare laboratory and industrial preparation of an ammonium salt",
     ], "Writing that the iron catalyst increases the yield loses the mark: it only increases the rate. For temperature and pressure, a full answer gives the effect on yield and on rate or cost, then calls the chosen value a compromise."),
+
+    // ---------- Physics (AQA GCSE Physics (8463) Higher) ----------
+    ("phys_aqa:4.1.1", &[
+        "Describe the changes in energy stores for an object thrown upwards, a collision, a braking vehicle and a kettle",
+        "Recall and use Ek = ½mv² and Ep = mgh, and use Ee = ½ke² from the equation sheet",
+        "Use ΔE = mcΔθ and explain what specific heat capacity means",
+        "Describe Required practical 1 and explain why the measured specific heat capacity is usually too high",
+        "Recall and use P = E ÷ t and P = W ÷ t, comparing devices that transfer the same energy at different rates",
+        "Show on a common scale in joules how energy is redistributed when a system changes",
+    ], "Only the speed is squared in kinetic energy and only the extension in elastic energy. Forgetting to convert grams, centimetres or minutes before substituting costs the answer mark."),
+
+    ("phys_aqa:4.1.2", &[
+        "State that energy cannot be created or destroyed and describe energy transfers in a closed system with no net change",
+        "Describe how energy is dissipated in every change and explain how lubrication and thermal insulation reduce unwanted transfers",
+        "Explain how the thickness and thermal conductivity of walls affect the rate of cooling of a building",
+        "Recall and use both efficiency equations, giving answers as a decimal or a percentage",
+        "Describe ways to increase the efficiency of an intended energy transfer (Higher tier)",
+        "Plan and evaluate Required practical 2 on thermal insulators (separate science only)",
+    ], "Efficiency is useful divided by total, so it can never be above 1 or 100%. Turn a percentage into a decimal before rearranging to find an input."),
+
+    ("phys_aqa:4.1.3", &[
+        "Describe the main energy resources and sort them into renewable and non-renewable",
+        "Compare how resources are used for transport, electricity generation and heating",
+        "Explain why some energy resources are more reliable than others",
+        "Describe the environmental impact of each resource and evaluate choices with a justified conclusion",
+        "Explain patterns and trends in energy use from graphs and data, calculating percentages and percentage change",
+        "Explain why science can identify environmental problems but cannot always solve them, for political, social, ethical and economic reasons",
+    ], "Comparisons must cover both resources on every point, and an evaluate question needs a justified conclusion. Renewable does not mean harmless: hydro floods habitats, and nuclear emits no carbon dioxide."),
+
+    ("phys_aqa:4.2.1", &[
+        "Draw and interpret circuit diagrams using the standard symbols, with ammeters in series and voltmeters in parallel",
+        "Recall and use Q = It, knowing that current is the same at every point in a single loop",
+        "Recall and use V = IR, rearranging it confidently and converting mA and minutes",
+        "Describe Required practical 3: how the resistance of a wire depends on its length, and resistors in series and parallel",
+        "Describe Required practical 4 and sketch and explain the I–V graphs of a resistor, a filament lamp and a diode",
+        "Explain how thermistors and LDRs change resistance and how they are used in thermostats and automatic lights",
+    ], "For a curved I–V graph, work out resistance as V divided by I at the point, not from the gradient. When explaining the lamp's curve, say the resistance rises because the filament gets hotter."),
+
+    ("phys_aqa:4.2.2", &[
+        "State the rules for current, potential difference and resistance in series and in parallel circuits",
+        "Use R total = R1 + R2 and V = IR to calculate currents, pds and resistances in series circuits, including unknown resistors",
+        "Work out branch currents and the supply current in parallel circuits, knowing the total resistance is less than the smallest resistor",
+        "Explain why adding resistors in series increases total resistance while adding them in parallel decreases it",
+        "Explain how series circuits are used for measuring and testing, such as current-limiting resistors and thermistor or LDR sensor circuits",
+        "Build and check series and parallel circuits from a circuit diagram",
+    ], "Series keeps the current the same and shares the pd; parallel keeps the pd the same and shares the current. Adding resistances only works in series: in parallel the total is less than the smallest resistor."),
+
+    ("phys_aqa:4.2.3", &[
+        "Explain the difference between direct and alternating potential difference",
+        "State the frequency (50 Hz) and potential difference (about 230 V) of the UK mains",
+        "Identify the live, neutral and earth wires by colour and state the potential of each",
+        "Explain why a live wire can be dangerous even when a switch in the circuit is open",
+        "Explain the dangers of any connection between the live wire and earth",
+    ], "An open switch stops the current but not the danger: the live wire is still at about 230 V, so touching it puts a large pd across your body. Students who say \"switched off means safe\" lose the mark."),
+
+    ("phys_aqa:4.2.4", &[
+        "Recall and use P = VI and P = I²R, rearranging either to find any quantity",
+        "Recall and use E = Pt and E = QV, converting kW and minutes or hours first",
+        "Explain how a device's power relates to the pd across it, the current through it and the energy it transfers over time",
+        "Describe the energy transfers in everyday appliances and link power ratings to changes in stored energy",
+        "Explain why the National Grid uses step-up and step-down transformers and why this is efficient",
+        "(Higher tier) Use Vp × Ip = Vs × Is for an ideal transformer",
+    ], "The National Grid answer must go through the current: high pd means low current, and the heating loss depends on current squared. \"High voltage means less energy lost\" on its own earns almost nothing."),
+
+    ("phys_aqa:4.2.5", &[
+        "Describe how rubbing two insulators transfers electrons and leaves equal and opposite charges",
+        "Describe evidence that like charges repel and unlike charges attract without contact",
+        "Explain sparking in terms of charge build-up and a strong electric field",
+        "Draw the radial electric field pattern for an isolated charged sphere",
+        "Use the idea of an electric field to explain non-contact forces and why they grow as distance shrinks",
+    ], "Only electrons move when objects are charged by rubbing. Saying a rod became positive because it gained protons or positive charge loses the mark every time."),
+
+    ("phys_aqa:4.3.1", &[
+        "Draw and describe particle diagrams for solids, liquids and gases",
+        "Recall and use density = mass ÷ volume, converting between g/cm³ and kg/m³",
+        "Explain differences in density between states using the spacing of particles",
+        "Carry out Required practical 5: find the density of regular solids, irregular solids and liquids",
+        "Explain why mass is conserved in a change of state and why it is a physical change",
+    ], "Density differences come from how far apart the particles are, not from the particles getting lighter. And 1 cm³ is a millionth of a cubic metre, so 1 g/cm³ is 1000 kg/m³."),
+
+    ("phys_aqa:4.3.2", &[
+        "Define internal energy as the total kinetic and potential energy of the particles in a system",
+        "Explain that heating either raises the temperature or changes the state",
+        "Use ΔE = mcΔθ and E = mL from the equation sheet, splitting multi-stage problems into steps",
+        "Distinguish specific heat capacity from specific latent heat, including their units",
+        "Interpret heating and cooling graphs, using plateau times to find latent heat",
+        "Describe how to measure the specific latent heat of fusion of ice using a control funnel",
+    ], "On the flat part of a heating graph the temperature is constant but the internal energy is still rising: the energy goes into the particles' potential energy. Saying no energy is being transferred loses the mark."),
+
+    ("phys_aqa:4.3.3", &[
+        "Explain how the random motion of gas molecules causes pressure on the walls of a container",
+        "Explain why heating a gas at constant volume increases its pressure, linking speed, collision rate and force",
+        "Separate science only: explain why increasing the volume of a gas at constant temperature decreases its pressure",
+        "Separate science only: use pV = constant from the equation sheet to calculate a new pressure or volume",
+        "Separate science only (Higher tier): explain how doing work on a gas, as in a bicycle pump, raises its temperature",
+    ], "When a gas is squashed at constant temperature the molecules hit the walls more often, not harder: their speed has not changed. Saying the collisions are harder, or that the molecules hit each other more, loses the mark."),
+
+    ("phys_aqa:4.4.1", &[
+        "Describe the structure of an atom, including the size of the atom and nucleus in standard form and where the mass is",
+        "Work out the numbers of protons, neutrons and electrons from a nuclear symbol, for atoms, isotopes and positive ions",
+        "Explain how electrons move between energy levels when an atom absorbs or emits electromagnetic radiation",
+        "Describe the plum pudding and nuclear models and the differences between them",
+        "Explain how the alpha particle scattering results led to the nuclear model, then the roles of Bohr, protons and Chadwick's neutrons",
+    ], "Isotopes have the same number of protons but different numbers of neutrons. Writing that they differ in protons or electrons, or giving scattering observations without the conclusion each one supports, loses marks."),
+
+    ("phys_aqa:4.4.2", &[
+        "Describe alpha, beta, gamma and neutron radiation and compare their penetration, range in air and ionising power",
+        "Choose and justify the best type of radiation for a given use",
+        "Write balanced nuclear equations for alpha and beta decay, and state the effect of gamma emission",
+        "Explain half-life and its link to random decay, and find it from a graph or data",
+        "Higher tier: calculate the net decline, as a ratio, after a given number of half-lives",
+        "Compare the hazards of contamination and irradiation and describe precautions against each",
+    ], "An irradiated object does not become radioactive; only contamination puts radioactive atoms onto or into something. Mixing these up, or saying beta particles come from the electron shells, loses easy marks."),
+
+    ("phys_aqa:4.4.3", &[
+        "Separate science only: name natural and man-made sources of background radiation and explain how occupation and location affect dose",
+        "Convert and compare radiation doses in sieverts and millisieverts, using standard form",
+        "Explain why the hazard from a radioactive material depends on its half-life, giving both intensity and duration",
+        "Describe how nuclear radiation is used to explore internal organs and to control or destroy unwanted tissue, justifying the radiation and half-life chosen",
+        "Evaluate the perceived risks of medical uses of radiation against data and consequences, reaching a conclusion",
+    ], "A short half-life means intense radiation that soon dies away, while a long half-life means weaker radiation that lasts; answers that say only one side, or that a short half-life is simply safer, drop marks."),
+
+    ("phys_aqa:4.4.4", &[
+        "Separate science only: describe nuclear fission of uranium-235 or plutonium-239, starting with the absorption of a neutron",
+        "List the products of fission: two smaller nuclei, two or three neutrons, gamma rays and energy as kinetic energy",
+        "Draw and interpret diagrams of fission and of a chain reaction, and balance fission equations",
+        "Explain how a chain reaction is controlled in a reactor and why it is uncontrolled in a nuclear weapon",
+        "Describe nuclear fusion and explain that some mass is converted into the energy of radiation",
+        "Compare fission and fusion",
+    ], "Control rods absorb neutrons; the moderator slows them down. Swapping the two, or leaving out the two or three neutrons released in fission, is the most common lost mark."),
+
+    ("phys_aqa:4.5.1", &[
+        "Classify quantities as scalars or vectors and represent a vector as an arrow whose length shows its magnitude",
+        "Sort forces into contact and non-contact forces and describe interaction pairs between two objects",
+        "Recall and use W = mg, explaining the difference between mass and weight and that weight is proportional to mass",
+        "Calculate the resultant of forces acting along a straight line and state its direction",
+        "Draw free body diagrams and use them to describe balanced and unbalanced forces (Higher tier)",
+        "Use scale drawings to resolve a force into two components and to find a resultant or show equilibrium (Higher tier)",
+    ], "Mass is in kilograms and never changes; weight is a force in newtons that depends on g. A resultant force needs a direction as well as a size."),
+
+    ("phys_aqa:4.5.2", &[
+        "Recall and use W = Fs, using the distance moved along the line of action of the force",
+        "Explain why no work is done when there is no displacement in the direction of the force",
+        "Convert between newton-metres and joules, and between J, kJ and MJ",
+        "Describe the energy transfer between stores when a force does work",
+        "Explain why work done against friction raises the temperature of an object",
+        "Combine W = Fs with kinetic or gravitational potential energy in two-step problems",
+    ], "Use the distance moved in the direction of the force: the vertical height when lifting. And when given a mass, find the weight with W = mg before using W = Fs."),
+
+    ("phys_aqa:4.5.3", &[
+        "Give examples of stretching, bending and compressing, and explain why a stationary object needs more than one force to change shape",
+        "Describe the difference between elastic and inelastic deformation",
+        "Recall and use F = ke, working out extension as new length minus original length in metres",
+        "Distinguish linear from non-linear force-extension graphs and find the spring constant from the gradient",
+        "Apply Ee = 0.5ke² to calculate the energy stored in a spring and the energy it transfers",
+        "Carry out and evaluate Required practical 6 (Trilogy 18): force and extension for a spring",
+    ], "Extension is the increase in length, not the new length, and it must be in metres before you use F = ke or Ee = 0.5ke²."),
+
+    ("phys_aqa:4.5.4", &[
+        "Describe examples in which forces cause rotation, naming the pivot and direction of turning",
+        "Recall and use M = Fd, using the perpendicular distance from the pivot to the line of action of the force",
+        "Apply the principle of moments to find an unknown force or distance on a balanced object",
+        "Explain how a lever acts as a force multiplier by transmitting the rotational effect of a force",
+        "Explain how meshing gears of different sizes change the moment, speed and direction of rotation",
+    ], "The distance in M = Fd is the perpendicular distance from the pivot, in metres. In balance questions, include every force's moment on the correct side before solving."),
+
+    ("phys_aqa:4.5.5", &[
+        "Recall and use p = F/A, converting areas to square metres, and state that fluid pressure acts at right angles to every surface",
+        "Apply p = hρg to find the pressure due to a column of liquid and the pressure difference between two depths (Higher tier)",
+        "Explain why pressure in a liquid increases with depth and with the density of the liquid (Higher tier)",
+        "Explain upthrust in terms of greater pressure on the bottom of an object, and describe the factors that decide floating and sinking (Higher tier)",
+        "Describe a simple model of the atmosphere and explain why atmospheric pressure decreases with height",
+    ], "Explain pressure changes with the cause, not just the fact: deeper means a taller, heavier column of liquid above each square metre, and higher means less air above and fewer molecular collisions. Convert cm² to m² by dividing by 10 000."),
+
+    ("phys_aqa:4.5.6a", &[
+        "Explain the difference between scalars and vectors for distance, displacement, speed and velocity, giving a displacement as a magnitude and a direction",
+        "Recall typical speeds for walking, running, cycling, transport and sound, and use s = vt and average speed with correct unit conversions",
+        "Recall and use a = Δv/t, and estimate everyday accelerations using the ≈ symbol",
+        "Find speed from the gradient of a distance–time graph (by a tangent on a curve at Higher tier) and acceleration from the gradient of a velocity–time graph",
+        "Find distance from the area under a velocity–time graph, counting squares where needed (Higher tier)",
+        "Apply v² − u² = 2as from the equation sheet, and explain why circular motion at constant speed is accelerated motion (Higher tier)",
+    ], "Read the y-axis before interpreting a graph: a horizontal line means stopped on a distance–time graph but constant velocity on a velocity–time graph. Average speed is total distance ÷ total time, never the mean of two speeds."),
+
+    ("phys_aqa:4.5.6b", &[
+        "State and apply Newton's First Law to objects at rest, at constant velocity, and changing speed or direction",
+        "Recall and use F = ma with the resultant force, and explain inertia and inertial mass as force ÷ acceleration (Higher tier)",
+        "Estimate the forces and accelerations involved in everyday road transport, using the ≈ symbol",
+        "State Newton's Third Law and identify equal and opposite force pairs acting on different objects in equilibrium situations",
+        "Explain how a falling object reaches terminal velocity, and draw and interpret its velocity–time graph (separate science only)",
+        "Describe Required practical 7 (Trilogy 19) to find how acceleration depends on force and on mass, keeping the total mass constant when varying force",
+    ], "In F = ma, F is the resultant force — subtract the opposing forces first. Weight and the normal contact force on the same object are balanced forces, not a Newton's Third Law pair."),
+
+    ("phys_aqa:4.5.6c", &[
+        "State that stopping distance is thinking distance plus braking distance, and calculate each part using s = vt and v² − u² = 2as",
+        "Recall that reaction times are typically 0.2–0.9 s and explain how tiredness, drugs, alcohol and distractions increase thinking distance",
+        "Describe and evaluate methods for measuring reaction time, such as the ruler-drop test",
+        "Explain how wet or icy roads and worn brakes or tyres increase braking distance, and the implications for safety",
+        "Explain braking in terms of work done by friction reducing kinetic energy, and the dangers of large decelerations",
+        "Estimate braking forces for road vehicles (Higher tier), and estimate and read stopping distances over a range of speeds (separate science only)",
+    ], "Driver factors (tiredness, alcohol, drugs, distractions) change the thinking distance; road, weather, brakes and tyres change the braking distance. Saying reaction time affects braking distance loses the mark."),
+
+    ("phys_aqa:4.5.7", &[
+        "Recall and use p = mv, treating momentum as a vector with a sign for direction (Higher tier)",
+        "State that total momentum before an event equals total momentum after it in a closed system",
+        "Describe and explain collisions and explosions, such as recoil, using conservation of momentum",
+        "Calculate velocities after collisions and explosions, including objects that stick together or move in opposite directions (separate science only)",
+        "Apply F = mΔv/Δt from the equation sheet and explain how air bags, seat belts, crash mats, helmets and cushioned surfaces reduce force (separate science only)",
+    ], "Momentum is a vector, so a velocity in the opposite direction needs a minus sign. Safety features do not reduce the change in momentum — they increase the time, so the rate of change of momentum and the force are smaller."),
+
+    ("phys_aqa:4.6.1", &[
+        "Describe the difference between transverse and longitudinal waves, with examples, and the evidence that the wave and not the medium travels",
+        "Define amplitude, wavelength, frequency, period and wave speed, and identify amplitude and wavelength on diagrams",
+        "Recall and use v = fλ, and apply T = 1/f from the equation sheet",
+        "Describe methods to measure the speed of sound in air and of ripples, including Required practical 8 (Trilogy 20)",
+        "Draw ray diagrams for reflection and describe Required practical 9 on reflection and refraction of light (separate science only)",
+        "Explain hearing limits (20 Hz to 20 kHz), ultrasound, echo sounding and seismic evidence for the Earth's core (separate science only, Higher tier)",
+    ], "Compare the direction of oscillation with the direction of energy transfer when describing transverse and longitudinal waves. Amplitude is measured from the rest line to a crest, not crest to trough, and echo distances must be halved."),
+
+    ("phys_aqa:4.6.2", &[
+        "List the EM spectrum in order of wavelength and frequency, and use v = fλ with 3.0 × 10⁸ m/s for EM waves",
+        "Draw refraction ray diagrams and, on Higher tier, explain refraction with wave fronts: one side slows first, wavelength shortens, frequency stays the same",
+        "Describe Required practical 10 (Trilogy RP21) and state that matt black surfaces are the best emitters and absorbers of infrared",
+        "Give a use for each EM wave and, on Higher tier, explain why its properties suit that use",
+        "Describe the dangers of UV, X-rays and gamma rays and draw conclusions from radiation dose data in sieverts",
+        "Separate science only: draw lens ray diagrams, calculate magnification, and explain colour, filters and specular and diffuse reflection",
+    ], "Explaining a use without the property behind it loses the mark: say why the wave suits the job, such as bone absorbing X-rays while soft tissue transmits them. In refraction, the frequency never changes — only the speed and wavelength."),
+
+    ("phys_aqa:4.6.3", &[
+        "State that all objects emit and absorb infrared, and that hotter objects emit more in a given time",
+        "Define a perfect black body and explain why it is the best possible emitter",
+        "Describe how the intensity and the peak wavelength of emitted radiation change as temperature rises",
+        "Explain, using rates of absorption and emission, why an object warms, cools or stays at constant temperature (Higher tier)",
+        "Explain how absorption, reflection and emission of radiation set the temperature of the Earth, and interpret diagrams of it (Higher tier)",
+    ], "Talk about rates: an object stays at a constant temperature because it absorbs radiation at the same rate as it emits it, not because it has stopped emitting. Hotter objects peak at shorter wavelengths, not longer."),
+
+    ("phys_aqa:4.7.1", &[
+        "Describe how like poles repel and unlike poles attract, and that magnetic forces act without contact",
+        "Compare permanent and induced magnets, and explain why induced magnetism always attracts",
+        "Name the magnetic materials (iron, steel, cobalt, nickel) and define the direction of a magnetic field",
+        "Draw the field of a bar magnet with arrows from north to south and lines closest at the poles",
+        "Describe how to plot a field with a compass, and explain how compass behaviour shows the Earth's core is magnetic",
+    ], "Field lines need arrows pointing from north to south, and they must be closest together at the poles. Remember that attraction does not prove something is a magnet — only repulsion does."),
+
+    ("phys_aqa:4.7.2", &[
+        "Describe how to show the magnetic effect of a current, and draw the fields around a straight wire and a solenoid with their directions",
+        "Explain why a solenoid strengthens the field and how an iron core makes an electromagnet",
+        "Use Fleming's left-hand rule and recall the factors that affect the size of the motor-effect force (Higher tier)",
+        "Calculate force, current, flux density or length using F = BIl, converting cm to m and mT to T (Higher tier)",
+        "Explain how the forces on a coil and a split-ring commutator make a d.c. motor rotate (Higher tier)",
+        "Separate science only: explain electromagnetic devices from diagrams, and explain how a moving-coil loudspeaker works (Higher tier)",
+    ], "In a motor answer, say that the two sides of the coil carry current in opposite directions, so the forces are opposite and give a turning effect — and that the commutator reverses the current every half turn. Use the left hand for the motor effect and convert lengths to metres before using F = BIl."),
+
+    ("phys_aqa:4.7.3", &[
+        "Describe the generator effect and recall the factors that affect the size and direction of an induced potential difference",
+        "Explain that an induced current makes a magnetic field that opposes the change causing it, and apply this in new contexts",
+        "Explain how an alternator produces a.c. and a dynamo produces d.c., and draw and interpret their p.d.–time graphs",
+        "Explain how a moving-coil microphone and a transformer work",
+        "Use Vp/Vs = np/ns and VsIs = VpIp to find p.d.s, turns and the current drawn from the supply",
+        "Explain, with calculations, why the National Grid transmits at high p.d. to reduce current and heating losses",
+    ], "A changing magnetic field is essential: a stationary magnet or a steady d.c. induces nothing. In National Grid answers, say that a higher p.d. means a lower current for the same power, so less energy is wasted heating the cables (I²R)."),
+
+    ("phys_aqa:4.8.1", &[
+        "Describe the solar system — the Sun, eight planets, dwarf planets and moons — as a small part of the Milky Way galaxy",
+        "Explain how gravity pulls a nebula together until fusion starts, and why a main sequence star is in equilibrium",
+        "Describe the life cycles of a Sun-sized star and a much more massive star, in the right order",
+        "Explain how fusion makes new elements, with those heavier than iron made and spread by supernovae",
+        "Compare planets, moons and artificial satellites, and explain (Higher tier) why a circular orbit has constant speed but changing velocity, and why orbit radius changes with speed",
+    ], "Match the life cycle to the mass: a Sun-sized star ends as a red giant then a white dwarf; only a much more massive star goes supernova. When explaining stability, name both forces — gravity inwards and pressure from fusion outwards — and say they are balanced."),
+
+    ("phys_aqa:4.8.2", &[
+        "Describe red-shift as an increase in the wavelength of light from receding galaxies, and explain it qualitatively",
+        "State that more distant galaxies show bigger red-shifts because they are moving away faster",
+        "Explain how this pattern is evidence that space itself is expanding",
+        "Explain how red-shift supports the Big Bang theory of a universe that began very small, extremely hot and dense",
+        "Describe how observations lead to theories, and explain that the accelerating expansion, dark mass and dark energy are still not understood",
+    ], "Red-shift means the wavelength increases, not that the galaxy looks red. In Big Bang answers, link every step: galaxies moving apart now, closer together in the past, so a very small, hot and dense beginning."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

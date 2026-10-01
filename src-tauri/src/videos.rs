@@ -4794,6 +4794,167 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("nrbJl3R4YJU", "Modern Farming Methods", FSL),
         ("u59Eg1uNr5g", "Sustainable Fisheries", FSL),
     ]),
+    // Physics (AQA GCSE Physics (8463) Higher)
+    ("phys_aqa:4.1.1", &[
+        ("JGwcDCeYRYo", "Energy Stores, Transferring Energy & Work Done", COG),
+        ("-zy9eWzmGe4", "Kinetic Energy", FSL),
+        ("63OTIdNb-TE", "Gravitational Potential Energy", FSL),
+    ]),
+    ("phys_aqa:4.1.2", &[
+        ("ROBkMqJQLr4", "Conservation of Energy | Open & Closed Systems", COG),
+        ("NI5jaeBrIgQ", "Efficiency", FSL),
+        ("lLH45loyPUA", "Required Practical 2: Thermal Insulators", FSL),
+    ]),
+    ("phys_aqa:4.1.3", &[
+        ("N5mHKqcit9I", "Energy Resources - Renewables & Non-renewables | Uses | Sources of Electricity", COG),
+        ("1dJKvxhGEgA", "Energy from Fossil Fuels", FSL),
+        ("pqzvUur7QRw", "Renewable Sources of Energy", FSL),
+    ]),
+    ("phys_aqa:4.2.1", &[
+        ("BbizKa6eywo", "Voltage, Current & Resistance | V = IR Equation | IV Graphs", COG),
+        ("YsZeZotYVag", "Required Practical 3: Resistance", FSL),
+        ("A1SyKvdHoqY", "Required Practical 4: Current / PD Characteristics", FSL),
+    ]),
+    ("phys_aqa:4.2.2", &[
+        ("vJRXozSVTI8", "Resistors in Series and Parallel", FSL),
+        ("Hk4JEB5DITw", "Series Circuits", COG),
+        ("GIvE5Zlpea8", "Parallel Circuits", COG),
+    ]),
+    ("phys_aqa:4.2.3", &[
+        ("fbu3o9wavHk", "Mains Electricity", FSL),
+        ("tb8mW-FiexA", "Plugs & Wires - Earth Wire | Neutral Wire | Live Wire", COG),
+        ("B1XiX3sNV-c", "Alternating Current & Direct Current | AC & DC", COG),
+    ]),
+    ("phys_aqa:4.2.4", &[
+        ("LOyJdI41aCU", "Power of Components", FSL),
+        ("WLaUmNr4lho", "Calculating Energy Transferred by Appliances", FSL),
+        ("u3isbsyDtL0", "National Grid - How we Generate & Transmit Electricity | Transformers", COG),
+    ]),
+    ("phys_aqa:4.2.5", &[
+        ("5obbfXg_MH4", "Static Electricity", FSL),
+        ("d7_dMHwqpgM", "Static Electricity | Build-up of Charge on Insulating Materials", COG),
+        ("_lP3Nd_JLLU", "Electric Fields - Field Lines | Ionisation of Air", COG),
+    ]),
+    ("phys_aqa:4.3.1", &[
+        ("-EZmXVOSa20", "Density", FSL),
+        ("ScXOp8Zph28", "Required Practical 5: Density", FSL),
+        ("zjkBMk5d3tM", "Particle Theory & States of Matter | Solids, Liquids & Gases", COG),
+    ]),
+    ("phys_aqa:4.3.2", &[
+        ("LUHGFLR2p8k", "Specific Heat Capacity | Internal Energy & Temperature", COG),
+        ("VFwf1JldiJA", "Specific Latent Heat - Vaporisation & Fusion | Equation", COG),
+        ("HAPmwu7byGM", "Required Practical 1: Specific Heat Capacity", FSL),
+    ]),
+    ("phys_aqa:4.3.3", &[
+        ("eHizt31t1rs", "Factors Affecting Gas Pressure | How Gas Particles Create Pressure", COG),
+        ("RuoZqmNiMEo", "Pressure in Gases", FSL),
+        ("m19-8Vtewkw", "Work Done on a Gas", FSL),
+    ]),
+    ("phys_aqa:4.4.1", &[
+        ("Q8y4x5EElm8", "Development of the model of the atom", COG),
+        ("0ASldDQmIOQ", "Alpha-Scattering and the Nuclear Model", FSL),
+        ("k8cLFDa8zmY", "Atomic and Mass Numbers", FSL),
+    ]),
+    ("phys_aqa:4.4.2", &[
+        ("F_Y1-JieCrg", "Radioactivity", FSL),
+        ("xpSBhUpBXic", "Nuclear Equations", FSL),
+        ("wvgT52mwM3Y", "Radioactive Decay & Half-life | How to Calculate Activity & Half-life", COG),
+    ]),
+    ("phys_aqa:4.4.3", &[
+        ("teGu0VAPlOo", "Irradiation and Contamination", FSL),
+        ("Z7394DMkfQs", "Background Radiation", FSL),
+        ("qlvKhMJibPY", "Using Radiation in Medicine - Radiotherapy | Medical Tracers", COG),
+    ]),
+    ("phys_aqa:4.4.4", &[
+        ("onkW8BF5I3Q", "Nuclear Fission and Nuclear Fusion", FSL),
+        ("JQEZaJX7NVQ", "Nuclear Fission - How it Works | Nuclear Reactors | Pros & Cons", COG),
+        ("Elv4bsa7TIA", "Nuclear Fusion - How it Works | Pros & Cons", COG),
+    ]),
+    ("phys_aqa:4.5.1", &[
+        ("SYU1TKQru1c", "Free Body Diagrams & How to Calculate Resultant Forces", COG),
+        ("W2aBVbcHr_k", "Gravity and Weight", FSL),
+        ("8RI2_gJy0L0", "Resolving Forces", FSL),
+    ]),
+    ("phys_aqa:4.5.2", &[
+        ("JHEmPZ-YnrU", "Work Done by a Force", FSL),
+        ("Pf5EHVxc4XI", "Power & Work Done - Equations | Calculations", COG),
+        ("PY80j_iNT9Y", "Work done and Energy Transfer", FSL),
+    ]),
+    ("phys_aqa:4.5.3", &[
+        ("ACDbJ8rsQDo", "Forces and Elasticity", FSL),
+        ("abWi5y6bJ9k", "Elasticity, Spring Constant & Hooke's Law | Force Extension Graphs", COG),
+        ("jQAt3e6Bz7U", "Required Practical 6: Stretching a Spring", FSL),
+    ]),
+    ("phys_aqa:4.5.4", &[
+        ("0RXm47J196Q", "Moments", FSL),
+        ("uwzhXL0vp1w", "Levers and Gears", FSL),
+        ("pqbPcLTz-tE", "Moments - Seesaws & Gears", COG),
+    ]),
+    ("phys_aqa:4.5.5", &[
+        ("P08-lYPy1hI", "Pressure in Fluids", FSL),
+        ("OIpvOIb3GAg", "Liquid Pressure & Upthrust - Calculating Liquid Pressure | How it Varies With Depth", COG),
+        ("s8C2RktZtbM", "Atmospheric Pressure", COG),
+    ]),
+    ("phys_aqa:4.5.6a", &[
+        ("NZvMXcIztuU", "Speed, Velocity, Distance & Displacement | Scalar & Vector Quantities", COG),
+        ("DkCw2C-DkT0", "Distance-Time Graphs", FSL),
+        ("VJefeYJL3uE", "Velocity-Time Graphs - How to Find Acceleration & Distance Travelled", COG),
+    ]),
+    ("phys_aqa:4.5.6b", &[
+        ("D8XOm4swxOU", "Newton's 1st & 2nd Laws | Circular Motion | Inertia", COG),
+        ("VOMNGlasL-0", "Required Practical 7: Acceleration", FSL),
+        ("aVy_gNVaCGg", "Forces Acting on a Skydiver", FSL),
+    ]),
+    ("phys_aqa:4.5.6c", &[
+        ("drMKdcMq3o0", "Vehicle Stopping Distance", FSL),
+        ("q0yjYZdTS3I", "Stopping Distances - Thinking Distance | Braking Distance", COG),
+        ("AiXhR2eZxgo", "Force and Braking", FSL),
+    ]),
+    ("phys_aqa:4.5.7", &[
+        ("ZtQhlwPxE28", "Momentum", FSL),
+        ("mjeOuh0G-gw", "Momentum (Part 1 of 2) | Conservation of Momentum", COG),
+        ("KjFA2Zvdn6I", "Momentum (Part 2 of 2) - Changes in Momentum", COG),
+    ]),
+    ("phys_aqa:4.6.1", &[
+        ("1DFAy8MXkMA", "Longitudinal & Transverse Waves - Labelling & Calculating Wave Speed", COG),
+        ("UNmv6H-f180", "Required Practical 8: Ripple Tank", FSL),
+        ("2fN_jvf4fw8", "Required practical 9: Reflection and Refraction", FSL),
+    ]),
+    ("phys_aqa:4.6.2", &[
+        ("zx0UIMA2-bA", "Electromagnetic Waves - Frequency | Wavelength | Where They Come From", COG),
+        ("L0iivb-acqU", "Uses of EM waves", FSL),
+        ("0O3NdG0uWM4", "How Lenses Work - Convex & Concave Lenses | Real & Virtual Images", COG),
+    ]),
+    ("phys_aqa:4.6.3", &[
+        ("SvVQAg_oA2A", "Black Body Radiation", FSL),
+        ("je-qc7sxYzU", "How Radiation Affects Temperature", COG),
+        ("eE7OPL7pesA", "Required Practical 10: Infrared", FSL),
+    ]),
+    ("phys_aqa:4.7.1", &[
+        ("FodEDHaEY68", "Magnetic Fields", FSL),
+        ("bHLsHjRMAsU", "Permanent & Induced Magnets", COG),
+        ("LTfP8yPAVFw", "Electromagnetism - Wires | Coils | Solenoids | Electromagnets", COG),
+    ]),
+    ("phys_aqa:4.7.2", &[
+        ("GNLhSKZh-jM", "The Motor Effect", FSL),
+        ("XWL8963-AuQ", "Motor Effect - How to Find Force Direction & Strength", COG),
+        ("fiQ38p6vb8o", "The Electric Motor", FSL),
+    ]),
+    ("phys_aqa:4.7.3", &[
+        ("NjgqJahwsG0", "The Generator Effect", FSL),
+        ("UsZsns63Km4", "The Microphone", FSL),
+        ("7RtBUEZbKmI", "How Transformers Work", COG),
+    ]),
+    ("phys_aqa:4.8.1", &[
+        ("V69KZun35K8", "Life Cycle of Stars | How Stars are Formed & Destroyed", COG),
+        ("mndRVjMovQk", "The Solar System", FSL),
+        ("okMA18ppu98", "Orbital Motion", FSL),
+    ]),
+    ("phys_aqa:4.8.2", &[
+        ("C90DOE87TYc", "Red-Shift", FSL),
+        ("bWEtm-7cYzM", "What is Red Shift?", COG),
+        ("QAa2O_8wBUQ", "What is Dark Matter and Dark Energy?", "Kurzgesagt – In a Nutshell"),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
@@ -4840,7 +5001,7 @@ mod tests {
     /// Subjects whose every topic has a video to start from.
     #[test]
     fn covered_subjects_have_a_video_on_every_topic() {
-        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog", "hist", "rs", "maths_edx", "maths_aqa", "maths_ocr", "chem_aqa", "bio_aqa"] {
+        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog", "hist", "rs", "maths_edx", "maths_aqa", "maths_ocr", "chem_aqa", "bio_aqa", "phys_aqa"] {
             let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
             for (code, _, _) in def.topics {
                 assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");
