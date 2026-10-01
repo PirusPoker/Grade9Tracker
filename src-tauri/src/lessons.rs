@@ -950,6 +950,26 @@ const BIO_AQA: &[(&str, &str)] = &[
     ("bio_aqa:4.7.4", include_str!("../lessons/bio_aqa/4.7.4.md")),
     ("bio_aqa:4.7.5", include_str!("../lessons/bio_aqa/4.7.5.md")),
 ];
+const ENGLANG_EDQ: &[(&str, &str)] = &[
+    ("englang_edq:2.1a", include_str!("../lessons/englang_edq/2.1a.md")),
+    ("englang_edq:2.1b", include_str!("../lessons/englang_edq/2.1b.md")),
+    ("englang_edq:2.1c", include_str!("../lessons/englang_edq/2.1c.md")),
+    ("englang_edq:2.1d", include_str!("../lessons/englang_edq/2.1d.md")),
+    ("englang_edq:2.1e", include_str!("../lessons/englang_edq/2.1e.md")),
+    ("englang_edq:2.1f", include_str!("../lessons/englang_edq/2.1f.md")),
+    ("englang_edq:2.1g", include_str!("../lessons/englang_edq/2.1g.md")),
+    ("englang_edq:2.1h", include_str!("../lessons/englang_edq/2.1h.md")),
+    ("englang_edq:2.1i", include_str!("../lessons/englang_edq/2.1i.md")),
+    ("englang_edq:2.2a", include_str!("../lessons/englang_edq/2.2a.md")),
+    ("englang_edq:2.2b", include_str!("../lessons/englang_edq/2.2b.md")),
+    ("englang_edq:2.2c", include_str!("../lessons/englang_edq/2.2c.md")),
+    ("englang_edq:2.2d", include_str!("../lessons/englang_edq/2.2d.md")),
+    ("englang_edq:2.2e", include_str!("../lessons/englang_edq/2.2e.md")),
+    ("englang_edq:2.2f", include_str!("../lessons/englang_edq/2.2f.md")),
+    ("englang_edq:2.2g", include_str!("../lessons/englang_edq/2.2g.md")),
+    ("englang_edq:2.2h", include_str!("../lessons/englang_edq/2.2h.md")),
+    ("englang_edq:2.2i", include_str!("../lessons/englang_edq/2.2i.md")),
+];
 
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
@@ -978,6 +998,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("maths_aqa", MATHS_AQA),
     ("maths_ocr", MATHS_OCR),
     ("bio_aqa", BIO_AQA),
+    ("englang_edq", ENGLANG_EDQ),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {

@@ -4388,6 +4388,109 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("hlGrp8X3XyY", "Scatter Graphs Correlation - Corbettmaths", CM),
         ("kVr15gM0tCE", "Comparing Distributions", MGENIE),
     ]),
+    // WJEC Eduqas GCSE English Language C700QS. Found by YouTube search on
+    // 30 September 2026; every id, title and channel checked against YouTube's
+    // oEmbed response. Access GCSEPod has a tips video and an example-responses
+    // video for each Eduqas question; TeachGCSEEnglish, GuigLit and Literature
+    // Daydreams walk through the Eduqas papers and writing forms. Mr Bruff,
+    // First Rate Tutors and Mr Salles cover general skills (AO6, techniques,
+    // persuasion) that apply to every board.
+    ("englang_edq:2.1a", &[
+        ("hg6NNRybDxk", "How to MASTER GCSE English Language Fiction Reading (Paper 1A - EDUQAS)", "GuigLit"),
+        ("-bI7DjvE_JM", "EDUQAS PAPER 1 EXAM WALKTHROUGH (All questions!) GCSE English Language", "TeachGCSEEnglish"),
+        ("eQukZ25v1rQ", "THE FIVE TOP TIPS - EDUQAS GCSE ENGLISH LANGUAGE PAPER 1", "GuigLit"),
+    ]),
+    ("englang_edq:2.1b", &[
+        ("YvbZo4C5GC8", "GCSEPod Eduqas English Language Component 1, Question 1, Tips for Success", "Access GCSEPod"),
+        ("koEabjE5oHg", "GCSEPod Eduqas English Language Component 1, Question 1, Example Responses", "Access GCSEPod"),
+        ("EHvLzOA-ZnU", "Eduqas English Language Paper 1 Question 1-2, English Language Revision, Eduqas English Component 1", "Literature Daydreams"),
+    ]),
+    ("englang_edq:2.1c", &[
+        ("uW_Ru_yEg5A", "GCSEPod English Language Eduqas Component 1 Question 2 Tips for Success", "Access GCSEPod"),
+        ("OafVU1vAYKs", "GCSEPod Eduqas English Language Component 1, Question 2, Example Responses", "Access GCSEPod"),
+        ("et3zShu2GxM", "EDUQAS GCSE English Language Paper 1 IMPRESSIONS question (dog extract)", "TeachGCSEEnglish"),
+    ]),
+    ("englang_edq:2.1d", &[
+        ("9me2bd5kV98", "GCSEPod Eduqas English Language Component 1, Question 3, Tips for Success", "Access GCSEPod"),
+        ("YZ-IWVsn6Vo", "GCSEPod Eduqas English Language Component 1, Question 3, Example Responses", "Access GCSEPod"),
+        ("D4djHePElqA", "EDUQAS GCSE English Language Paper 1 the 'language' question (Pat & Bruce)", "TeachGCSEEnglish"),
+    ]),
+    ("englang_edq:2.1e", &[
+        ("vFjKkCo-Pkw", "GCSEPod Eduqas English Language Component 1, Question 4, Tips for Success", "Access GCSEPod"),
+        ("-_MSBNfWHDA", "Eduqas English Language Paper 1 Question 3-4, English Language Revision, Eduqas English Component 1", "Literature Daydreams"),
+        ("O-d-Zg4oRMs", "EDUQAS Paper 1 Reading Q1-Q5 walkthrough 2024 - GCSE English Language", "TeachGCSEEnglish"),
+        ("6zXBiAuPQ_Y", "10 Language & Structure Techniques You'll Find In ANY GCSE English Language Exam (AO2 Marks)", "First Rate Tutors"),
+    ]),
+    ("englang_edq:2.1f", &[
+        ("0NaQ8sy0FOA", "GCSEPod Eduqas English Language Component 1, Question 5, Tips for Success", "Access GCSEPod"),
+        ("UdeJJhdVmOk", "GCSEPod Eduqas English Language Component 1, Question 5, Example Responses", "Access GCSEPod"),
+        ("hTEuzusMTX0", "Eduqas English Language Paper 1 Question 5, English Language Revision, Eduqas English Component 1", "Literature Daydreams"),
+    ]),
+    ("englang_edq:2.1g", &[
+        ("_beYf2WsLw0", "TOP 10 TIPS: EDUQAS SHORT STORY - GCSE ENGLISH LANGUAGE", "TeachGCSEEnglish"),
+        ("h_UoZyhQEzA", "EDUQAS SHORT STORY Paper 1 video - GCSE English Language", "TeachGCSEEnglish"),
+        ("lJRCpUsi2gw", "3 MINUTE MAGIC REVISION - Paper 1 WRITING (Short Story) EDUQAS GCSE English Language", "TeachGCSEEnglish"),
+        ("uwaTu-3aapI", "Eduqas English Language Paper 1 Narrative Writing, Component 1 Story, Eduqas GCSE English", "Literature Daydreams"),
+    ]),
+    ("englang_edq:2.1h", &[
+        ("6uo_1Y3fxQ8", "How to MASTER GCSE Fiction Writing (EDUQAS GCSE English Language)", "GuigLit"),
+        ("8yU7Zwq4DVI", "SHORT STORY: TEN TOP TIPS! EDUQAS Section B Paper 1 exam - GCSE English Language", "TeachGCSEEnglish"),
+        ("9P9Ymaz-yMk", "GCSE English Language | Characterisation & Narrative Voice | Glecta", "GLECTA KS2 11Plus KS3 GCSE A-Level Tutoring"),
+    ]),
+    ("englang_edq:2.1i", &[
+        ("ECFDyuu0DKk", "A06: Semi Colons (the king of punctuation)", "Mr Bruff"),
+        ("1jJunV2HtWw", "Varying Sentence Length: Look at This!", "Mr Bruff"),
+        ("yqzOK6uJ9BE", "Varying sentence structure for GCSE English.", "GCSE English hints and tips"),
+    ]),
+    ("englang_edq:2.2a", &[
+        ("qQFVQ7CK120", "How to MASTER GCSE English Language Non-Fiction Reading (EDUQAS)", "GuigLit"),
+        ("IGGnAe6-IRU", "Eduqas English Language Component 2 Overview", "Literature Daydreams"),
+        ("x8rSea19eoQ", "19th Century Texts | GCSE English Language", "ExamQA"),
+        ("QgIjdGYsmz8", "Understanding 19th Century Writing", "Pass My English"),
+    ]),
+    ("englang_edq:2.2b", &[
+        ("aZCu2PaOqqI", "GCSEPod English Language Eduqas Component 2 Questions 1 and 3 Tips for Success", "Access GCSEPod"),
+        ("l-NrTEWo1v4", "Eduqas Language: Non-Fiction Reading Q1 and 2", "Miss Bird"),
+        ("VvbfzUwkySw", "EDUQAS Paper 2 Reading Q1-Q6 walkthrough 2024 - GCSE English Language", "TeachGCSEEnglish"),
+    ]),
+    ("englang_edq:2.2c", &[
+        ("BnzMwLJr6sk", "GCSEPod English Language Eduqas Component 2 Question 2 Tips for Success", "Access GCSEPod"),
+        ("ogjpf32YGRs", "GCSEPod English Language Eduqas Component 2 Question 2 Example Responses", "Access GCSEPod"),
+    ]),
+    ("englang_edq:2.2d", &[
+        ("KYxvTyTDmQ4", "GCSEPod English Language Eduqas Component 2 Question 4 Tips for Success", "Access GCSEPod"),
+        ("0-dzjxfNkWo", "GCSEPod English Language Eduqas Component 2 Question 4 Example Responses", "Access GCSEPod"),
+        ("hLh58X0yvIk", "EDUQAS PAPER 2 EXAM WALKTHROUGH (All questions!) GCSE English Language", "TeachGCSEEnglish"),
+    ]),
+    ("englang_edq:2.2e", &[
+        ("--cGqbfnLFw", "GCSEPod English Language Eduqas Component 2 Question 5 Tips for Success", "Access GCSEPod"),
+        ("ES9-Iosm0UU", "GCSEPod English Language Eduqas Component 2 Question 5 Example Responses", "Access GCSEPod"),
+        ("ue4WltNoapA", "EDUQAS GCSE English Language Paper 2 Question 5 - 'COMPARISON' (Captain Scott / Ben Fogle exam)", "TeachGCSEEnglish"),
+    ]),
+    ("englang_edq:2.2f", &[
+        ("vhUUT_73BZ8", "GCSEPod English Language Eduqas Component 2 Question 6 Tips for Success", "Access GCSEPod"),
+        ("EK-DEU5dbq0", "GCSEPod English Language Eduqas Component 2 Question 6 Example Responses", "Access GCSEPod"),
+        ("niBN2CFteWU", "EDUQAS GCSE English Language Paper 2 Question 6 - 'COMPARE' 10 marks (Captain Scott/Ben Fogle exam)", "TeachGCSEEnglish"),
+        ("fX0Tpu9zP3I", "Eduqas English Language Comp 2 Q15-16, Eduqas Comparison Questions", "Literature Daydreams"),
+    ]),
+    ("englang_edq:2.2g", &[
+        ("xvHuwPBVUlk", "LETTERS - Paper 2 writing exam (EDUQAS GCSE English Language)", "TeachGCSEEnglish"),
+        ("MdoJVlSjjR0", "ARTICLES - Paper 2 writing exam (EDUQAS GCSE English Language)", "TeachGCSEEnglish"),
+        ("1HDvxjD79sY", "REVIEWS - Paper 2 writing exam (EDUQAS GCSE English Language)", "TeachGCSEEnglish"),
+        ("Ci3BKzcdtNU", "SPEECHES - Paper 2 writing exam (EDUQAS GCSE English Language)", "TeachGCSEEnglish"),
+        ("N23gOW7f058", "GUIDES - EDUQAS PAPER 2 WRITING", "TeachGCSEEnglish"),
+        ("t099uy29RpI", "Eduqas English Language Paper 2, Write a Report, English Language Revision, Eduqas English", "Literature Daydreams"),
+    ]),
+    ("englang_edq:2.2h", &[
+        ("_a9cibqX9Y4", "Eduqas GCSE English Language Transactional Writing", "Easy Ed"),
+        ("n8qiyil-6DE", "These 15 PERSUASIVE Techniques DOMINATE Q5", "Mr Salles Teaches English"),
+        ("KnRQPw-hExU", "How to Get a GRADE 9: Eduqas Paper 2 Section B Writing", "TeachGCSEEnglish"),
+    ]),
+    ("englang_edq:2.2i", &[
+        ("JZ01FWPmDG8", "2025 EDUQAS Paper 2 Writing exam walkthrough - GCSE English Language", "TeachGCSEEnglish"),
+        ("IKnQtUfZF78", "2025 EDUQAS Paper 2 Writing Mega Revision!", "TeachGCSEEnglish"),
+        ("a7zv5T6s_z8", "EDUQAS GCSE ENGLISH LANGUAGE PAPER 2 - LAST-MINUTE ADVICE", "GuigLit"),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.

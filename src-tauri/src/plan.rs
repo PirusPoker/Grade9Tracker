@@ -1149,6 +1149,42 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("4.7.5", "Food production and food security", 1.0),
         ],
     },
+    // WJEC Eduqas GCSE English Language C700QS, specification "Version 3
+    // January 2019" (teaching from 2015, award from 2017), read 30 September
+    // 2026. The spec has no numbered content statements: 2.1 is Component 1 and
+    // 2.2 is Component 2, each split into its Section A questions and its
+    // Section B writing. 2.3 Component 3 (Spoken Language) is a separately
+    // reported endorsement and is not taught here.
+    SubjectDef {
+        id: "englang_edq", name: "Eng Language", full: "Eduqas GCSE English Language (C700QS)", color: "var(--englang)",
+        papers: "Component 1 20th Century Literature Reading and Creative Prose Writing: 1h45, 80 marks, 40% (Section A five questions on one unseen 20th-century prose extract, 40 marks; Section B one story from a choice of four titles, 40 marks). Component 2 19th and 21st Century Non-Fiction Reading and Transactional/Persuasive Writing: 2h, 80 marks, 60% (Section A six questions on two unseen non-fiction texts, 40 marks; Section B two compulsory 20-mark writing tasks). Component 3 Spoken Language is a presentation assessed by your teacher and reported separately as Pass, Merit or Distinction; it is compulsory but does not count towards the 9-1 grade, and it is not taught in the app",
+        spec: "https://www.eduqas.co.uk/qualifications/english-language-gcse/",
+        sections: &["2.1 Component 1: 20th-century literature reading and creative prose writing", "2.2 Component 2: 19th- and 21st-century non-fiction reading and transactional writing"],
+        topics: &[
+            // 2.1 Component 1, Section A - reading one unseen 20th-century prose extract (40 marks)
+            ("2.1a", "Reading an unseen 20th-century prose extract: approach and timing", 0.75),
+            ("2.1b", "A1: listing five things, explicit and implicit (5 marks)", 0.5),
+            ("2.1c", "A2: impressions from language in a short section (5 marks)", 1.0),
+            ("2.1d", "A3: how language shows character, feeling or atmosphere (10 marks)", 1.5),
+            ("2.1e", "A4: language and structure together (10 marks)", 1.5),
+            ("2.1f", "A5: evaluating a view of the whole passage (10 marks)", 1.5),
+            // 2.1 Component 1, Section B - creative prose writing (40 marks)
+            ("2.1g", "Section B: choosing a title and planning a story (40 marks)", 1.0),
+            ("2.1h", "Section B: narrative craft - voice, character, detail and pace", 1.5),
+            ("2.1i", "Section B: vocabulary, sentences, punctuation and spelling", 1.0),
+            // 2.2 Component 2, Section A - reading a 21st- and a 19th-century non-fiction text (40 marks)
+            ("2.2a", "Reading 19th- and 21st-century non-fiction: forms, voice and older prose", 1.0),
+            ("2.2b", "A1 and A3: short retrieval questions (1 mark each)", 0.5),
+            ("2.2c", "A2: how the writer tries to achieve an aim - what, how, tone (10 marks)", 1.5),
+            ("2.2d", "A4: evaluating a statement about the 19th-century text (10 marks)", 1.5),
+            ("2.2e", "A5: synthesising information from both texts (4 marks)", 0.75),
+            ("2.2f", "A6: comparing both texts - ideas and methods (10 marks)", 1.5),
+            // 2.2 Component 2, Section B - two transactional/persuasive tasks (2 x 20 marks)
+            ("2.2g", "Section B: letters, articles, reviews, talks, reports and guides", 1.5),
+            ("2.2h", "Section B: persuading, arguing and advising with rhetoric", 1.0),
+            ("2.2i", "Section B: two 20-mark tasks in an hour - planning, register and accuracy", 1.0),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

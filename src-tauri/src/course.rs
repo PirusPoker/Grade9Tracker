@@ -169,6 +169,13 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ("maths_ocr", &["N1", "N2", "N3", "N4", "N5", "N6", "N7", "N8", "N9", "N10", "N11", "N12", "N13", "N14", "N15", "N16", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19", "A20", "A21", "A22", "A23", "A24", "A25", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15", "R16", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14", "G15", "G16", "G17", "G18", "G19", "G20", "G21", "G22", "G23", "G24", "G25", "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "S1", "S2", "S3", "S4", "S5", "S6"]),
     // AQA GCSE Biology (8461) Higher. Every subsection, Higher tier; lessons flag what Combined Science Trilogy leaves out.
     ("bio_aqa", &["4.1.1", "4.1.2", "4.1.3", "4.2.1", "4.2.2", "4.2.3", "4.3.1", "4.3.2", "4.3.3", "4.4.1", "4.4.2", "4.5.1", "4.5.2", "4.5.3", "4.5.4", "4.6.1", "4.6.2", "4.6.3", "4.6.4", "4.7.1", "4.7.2", "4.7.3", "4.7.4", "4.7.5"]),
+    // English Language - WJEC Eduqas GCSE C700QS, specification "Version 3
+    // January 2019" (eduqas-gcse-english-language-from-2015-e.pdf), read on
+    // 30 September 2026. Section 2 Subject content: 2.1 Component 1 and 2.2
+    // Component 2 are the two written exams; 2.3 Component 3 Spoken Language
+    // is an unweighted endorsement and is not taught. Each reference is split
+    // by letter into the paper's Section A questions and Section B writing.
+    ("englang_edq", &["2.1", "2.2"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -6405,6 +6412,132 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Describe how mycoprotein is made from Fusarium and how GM bacteria produce human insulin",
         "Evaluate GM crops such as golden rice as a solution to feeding a growing population",
     ], "Intensive farming works because animals lose less energy to the surroundings: less movement and kept warm means less glucose respired and more biomass. Fishing methods must be linked to fish surviving to breed."),
+    // ---------- English Language (WJEC Eduqas GCSE C700QS) ----------
+    ("englang_edq:2.1a", &[
+        "Read an unseen 60-100 line extract of 20th-century fiction actively in about ten minutes",
+        "Work out who is narrating, whose point of view we share, and how the extract is organised",
+        "Recognise how 20th-century fiction reveals character through action, dialogue and what is left unsaid",
+        "Plan the 50 minutes of Section A so the three 10-mark questions get the most time",
+    ], "Every question names its own lines. Answers that wander outside the given lines earn nothing for the stray material, however good it is."),
+
+    ("englang_edq:2.1b", &[
+        "List five separate things from the named lines, explicit or inferred",
+        "Write short, selective points rather than copying whole sentences",
+        "Make a fair inference where the text implies something without stating it",
+        "Finish in about five minutes",
+    ], "Copying out a whole sentence is not selecting. Five short, distinct points in your own words or brief quotation are what gain the five marks."),
+
+    ("englang_edq:2.1c", &[
+        "Identify accurate impressions of a character or place from a short section",
+        "Support each impression with a well-chosen word or phrase",
+        "Comment briefly on what the language suggests, using terminology where it helps",
+        "Write a compact answer worth five marks in about seven minutes",
+    ], "This is a language question even though it is only five marks. A list of impressions with no comment on the words that create them stays at 2 or 3."),
+
+    ("englang_edq:2.1d", &[
+        "Explore what a character thinks or feels, or how an atmosphere is built, in a named section",
+        "Analyse words, imagery and sentence forms and explain their effect on the reader",
+        "Track how the feeling develops or shifts across the lines",
+        "Use subject terminology accurately and only when it adds to the point",
+    ], "Feature-spotting caps the mark. Naming a simile earns little; explaining what it makes us feel about the character is where the 7-10 band lives."),
+
+    ("englang_edq:2.1e", &[
+        "Answer an impressions or relationship question using both language and structure",
+        "Comment on the organisation of events: openings, turning points, shifts in focus, pace and endings",
+        "Explain how dialogue, sentence length and paragraphing shape the reader's response",
+        "Integrate structure into the argument rather than adding it as a separate paragraph",
+    ], "The question says language and structure. Answers that never mention the order of events, shifts or pace cannot reach the top band."),
+
+    ("englang_edq:2.1f", &[
+        "Take a clear stance on a reader's statement and sustain it",
+        "Evaluate using the final section and the passage as a whole",
+        "Explain how the writer creates your thoughts and feelings, not just what happens",
+        "Weigh evidence on both sides before reaching a judgement",
+    ], "Retelling the plot is not evaluation. Every paragraph needs a judgement (how far, and why) tied to a method the writer uses."),
+
+    ("englang_edq:2.1g", &[
+        "Choose quickly between the four title types: a title, a story that begins, a story that ends, a 'write about a time when'",
+        "Plan a narrative focused on one situation that can be done well in 450-600 words",
+        "Use a given opening or ending sentence exactly, and make it matter",
+        "Shape the story with a clear turning point and a deliberate ending",
+    ], "The task must be a narrative or recount. A purely descriptive piece, a poem or a play script cannot reach the full mark range."),
+
+    ("englang_edq:2.1h", &[
+        "Establish a convincing narrative voice and keep it consistent",
+        "Reveal character through action, small detail and sparing dialogue",
+        "Use description inside the story to create setting and mood without stopping the plot",
+        "Control pace: slow the key moment, summarise the rest",
+    ], "Over-plotting is the classic failure. A story that races through events has no room for the detail and characterisation that earn AO5's top band."),
+
+    ("englang_edq:2.1i", &[
+        "Vary sentence structures deliberately for effect",
+        "Punctuate accurately, including speech, apostrophes, semicolons and colons",
+        "Spell ambitious and irregular words correctly and choose precise vocabulary",
+        "Keep tense and agreement secure and proofread in the final five minutes",
+    ], "Sixteen of the forty marks are for technical accuracy. Comma splices and slips into the wrong tense pull a strong story down a whole band."),
+
+    ("englang_edq:2.2a", &[
+        "Read a 21st-century text and a 19th-century text of about 900-1200 words between them in ten minutes",
+        "Identify the form, purpose, audience and viewpoint of each non-fiction text",
+        "Decode 19th-century vocabulary, long sentences and formal conventions without panicking",
+        "Recognise the non-fiction forms the paper uses: articles, letters, diaries, autobiography, reports and accounts",
+    ], "Older texts are not harder to analyse, only slower to read. Skimming the 19th-century text leads to misreading, which costs marks on A3, A4, A5 and A6."),
+
+    ("englang_edq:2.2b", &[
+        "Find exact details quickly in the stated text",
+        "Answer briefly: a word, phrase or short sentence",
+        "Interpret 19th-century wording accurately in A3",
+        "Spend no more than three or four minutes on each set of three marks",
+    ], "Answering from the wrong text is the commonest way to lose these marks. In the sample paper and every paper since, A1 is on the first (21st-century) text and A3 on the second (19th-century) one."),
+
+    ("englang_edq:2.2c", &[
+        "Explain how a writer tries to achieve the aim named in the question",
+        "Cover what is said, the use of language, tone and structure, and other methods such as quotation, facts and headlines",
+        "Select a wide range of relevant details across the whole text",
+        "Analyse effects with accurate subject terminology",
+    ], "The three bullets are the mark scheme. Answers that cover only language, and ignore tone, structure and other methods, rarely pass 6 out of 10."),
+
+    ("englang_edq:2.2d", &[
+        "Evaluate a statement about the 19th-century text and decide how far you agree",
+        "Comment on both what the writer says and how it is said",
+        "Support each judgement with well-selected references",
+        "Sustain a coherent stance, acknowledging where the evidence points the other way",
+    ], "Agreeing with the statement and listing quotations is not evaluation. The top band needs a weighed, sustained judgement on the text's effect."),
+
+    ("englang_edq:2.2e", &[
+        "Select relevant information on a stated focus from both texts",
+        "Synthesise: bring details together, showing links or differences",
+        "Make it clear which text each detail comes from",
+        "Answer briefly, in about five minutes",
+    ], "This is information, not analysis. Commenting on language wastes time, and using only one text caps the answer at 1 mark."),
+
+    ("englang_edq:2.2f", &[
+        "Compare the writers' ideas or experiences on the focus given",
+        "Compare how each writer conveys them: language, tone, structure and form",
+        "Sustain comparison with comparative connectives and paired evidence",
+        "Use well-chosen evidence from both texts",
+    ], "Writing about Text A and then Text B with no linking is description, not comparison, and is held in the lower bands."),
+
+    ("englang_edq:2.2g", &[
+        "Write in the forms the paper sets: letters, articles, reviews, talks or speeches, reports and guides",
+        "Signal each form's conventions quickly and accurately",
+        "Adapt register and tone to the stated audience and real-life context",
+        "Keep the purpose in view in every paragraph",
+    ], "Elaborate addresses, columns and invented headlines earn nothing. Show the form briefly and spend the time on content and register."),
+
+    ("englang_edq:2.2h", &[
+        "Persuade, argue and advise using rhetorical devices such as rhetorical questions, antithesis and parenthesis",
+        "Develop ideas with reasons, examples and plausible detail",
+        "Anticipate and answer an opposing view",
+        "Choose devices for their effect rather than ticking them off",
+    ], "A string of devices is not an argument. Ideas that are 'convincingly developed and supported' are what the top band rewards."),
+
+    ("englang_edq:2.2i", &[
+        "Plan two 300-400 word responses in five minutes each",
+        "Split the hour evenly: thirty minutes per task",
+        "Paragraph for sequence and use discourse markers for cohesion",
+        "Write accurately under time pressure and check both pieces",
+    ], "Running out of time on the second task is costly: each task is worth 20 marks, and a short second piece cannot reach the higher bands."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

@@ -183,6 +183,9 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("maths_ocr", &[(1, 1.0, 0.5)]),
     // AQA GCSE Biology (8461) Higher
     ("bio_aqa", &[(1, 1.0, 0.5)]),
+    // English Language (Eduqas): taught through both years at school. Modest
+    // recall; the writing practice belongs in a weekly timed piece (see (h)).
+    ("englang_edq", &[(1, 0.0, 0.0)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -208,6 +211,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("maths_aqa", "ahead"),
     ("maths_ocr", "ahead"),
     ("bio_aqa", "ahead"),
+    ("englang_edq", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -222,6 +226,8 @@ const DEFAULT_WEEKLY: &[(&str, &[(&str, f64, &str)])] = &[
         "Two 15-minute bursts: learn 20 words from the AQA Spanish vocabulary list (Appendix 2 of the specification) with the Spanish side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
     ("ger", &[("Vocabulary and speaking", 0.5,
         "Two 15-minute bursts: learn 20 words from the AQA German vocabulary list (Appendix 2 of the specification) with the German side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
+    ("englang_edq", &[("Timed writing piece", 1.0,
+        "Handwritten, no stopping: one week a Component 1 Section B story (45 minutes, 450-600 words, from a choice of four titles), the next week both Component 2 Section B tasks (30 minutes each, 300-400 words). Mark it against the mark scheme tomorrow, cold - the marking is where the learning is.")]),
 ];
 
 fn default_pace_for(id: &str) -> &'static str {
@@ -452,6 +458,14 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/biology/aqa/past-papers/"),
         ("PMT by topic", "https://www.physicsandmathstutor.com/biology-revision/gcse-aqa/"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/biology/gcse/biology-8461/assessment-resources"),
+    ]),
+    // English Language - WJEC Eduqas GCSE C700QS. All links opened and checked.
+    ("englang_edq", &[
+        ("Eduqas spec & papers", "https://www.eduqas.co.uk/qualifications/english-language-gcse/"),
+        ("BBC Bitesize (Eduqas)", "https://www.bbc.co.uk/bitesize/examspecs/zpxh82p"),
+        ("Revision notes", "https://www.savemyexams.com/gcse/english-language/wjec-eduqas/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/english-language/wjec-eduqas/past-papers/"),
+        ("PMT past papers", "https://www.physicsandmathstutor.com/past-papers/gcse-english-language/eduqas-component-1/"),
     ]),
 ];
 
