@@ -6668,6 +6668,164 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("y5U5-UJuiCo", "GCSE Economics: The Financial Sector Pt2 - Commercial banks and building societies", GOFF),
         ("HF5_78KFUBg", "GCSE Economics: Evaluating the effects of the Financial Sector", GOFF),
     ]),
+// - Economics (OCR J205): Academic Scope's numbered J205 series (1.1-3.4) and
+//   Mr Goff's GCSE series (one video per spec bullet), with Bizconsesh and
+//   Business with Mr. G for interest rates.
+    // ---------- Economics (OCR GCSE J205) - Academic Scope's numbered J205 series and Mr Goff's GCSE series, with Bizconsesh and Business with Mr. G for interest rates ----------
+    ("econ_ocr:1.1", &[
+        ("E-3O2C-Xv24", "GCSE Economics 1.1 -  Main Economic Groups and Factors of Production", ASCOPE),
+        ("JD4TcX4biHw", "GCSE Economics: The main economic groups and interdependence", GOFF),
+        ("AGCrE9wi2nU", "GCSE Economics: Factors of production", GOFF),
+    ]),
+    ("econ_ocr:1.2", &[
+        ("LTsWFISx8ws", "GCSE Economics 1.2 - Basic Economic Problem", ASCOPE),
+        ("gH-N-_AsJhc", "GCSE Economics: The basic economic problem", GOFF),
+        ("5JgpjOxUcxM", "GCSE Economics: Opportunity cost", GOFF),
+        ("n_Xko03xJG4", "GCSE Economics: Evaluating the effects of economic choices", GOFF),
+    ]),
+    ("econ_ocr:2.1a", &[
+        ("ZRyCEa5gvCo", "GCSE Economics 2.1 - The Role of Markets", ASCOPE),
+        ("KDkROR4f86I", "GCSE Economics: Sectors of the economy", GOFF),
+        ("WTVzkSPDGtI", "GCSE Economics: The product and factor markets", GOFF),
+        ("YJ0U6q1XN4Y", "GCSE Economics: Markets and types of economies", GOFF),
+    ]),
+    ("econ_ocr:2.1b", &[
+        ("IxR4r97mEWQ", "GCSE Economics: Specialisation and exchange", GOFF),
+        ("m1iRZ6lPG-Y", "GCSE Economics: The benefits of specialisation to producers", GOFF),
+        ("KNN9UpqGBc8", "GCSE Economics: The costs of specialisation to producers", GOFF),
+        ("fhl-bnDERyY", "GCSE Economics: Specialisation and workers", GOFF),
+        ("RMExarRlCtQ", "GCSE Economics: Specialisation and regions", GOFF),
+        ("UshhuUPPBl8", "GCSE Economics: Specialisation and countries", GOFF),
+    ]),
+    ("econ_ocr:2.2a", &[
+        ("8iRdb2iJZRs", "GCSE Economics 2.2 - Demand", ASCOPE),
+        ("vElfqqD5l80", "GCSE Economics: Introduction to demand", GOFF),
+        ("usmqcjt3-No", "GCSE Economics: Factors that shift demand", GOFF),
+    ]),
+    ("econ_ocr:2.2b", &[
+        ("Ot0I4JM013I", "GCSE Economics: Price elasticity of demand", GOFF),
+        ("NSfLHqFCMrw", "GCSE Economics: Importance of elasticity of demand", GOFF),
+    ]),
+    ("econ_ocr:2.3a", &[
+        ("t_buQeMHor8", "GCSE Economics 2.3 - Supply", ASCOPE),
+        ("_PFpS7Qdf5M", "GCSE Economics: Introduction to supply", GOFF),
+        ("gdKvfdIEN3s", "GCSE Economics: Factors that affect supply", GOFF),
+    ]),
+    ("econ_ocr:2.3b", &[
+        ("KzMw1efd0G0", "GCSE Economics: Price elasticity of supply", GOFF),
+        ("A9lbqCP4rG0", "GCSE Economics: Importance of elasticity of supply", GOFF),
+    ]),
+    ("econ_ocr:2.4", &[
+        ("Eos7S6XVrmM", "GCSE Economics 2.4 - Price", ASCOPE),
+        ("n3j7FvImvgY", "GCSE Economics: Price and the distribution of resources", GOFF),
+        ("5dxlubYhiGg", "GCSE Economics: The determination of price", GOFF),
+        ("vnuOmyMZ5uM", "GCSE Economics: Analysing the effects of market forces on equilibrium", GOFF),
+    ]),
+    ("econ_ocr:2.5", &[
+        ("PkA9mWI4fe4", "GCSE Economics 2.5 - Competition", ASCOPE),
+        ("iWTPWWIwVm4", "GCSE Economics: Competition", GOFF),
+        ("NFwNsmAVgK0", "GCSE Economics: How competition affects price", GOFF),
+        ("X6N7gKpF268", "GCSE Economics: Effects of competition on producers and consumers", GOFF),
+        ("CJJQL5i_Z3E", "GCSE Economics: Monopolies, Oligopolies and competitive markets", GOFF),
+    ]),
+    ("econ_ocr:2.6a", &[
+        ("XLQCh1DYTnU", "GCSE Economics - 2.6 Production", ASCOPE),
+        ("7oJg-4U4tqk", "GCSE Economics: Production and productivity", GOFF),
+    ]),
+    ("econ_ocr:2.6b", &[
+        ("l3ePr-nKRn0", "GCSE Economics: Costs revenue, profit and loss", GOFF),
+        ("cXOli25vepo", "GCSE Economics: Internal Economies of Scale", GOFF),
+        ("154zsKtx_qA", "GCSE Economics: Diseconomies of Scale", GOFF),
+    ]),
+    ("econ_ocr:2.7", &[
+        ("BLGy2q596EI", "GCSE Economics - 2.7 Labour Market", ASCOPE),
+        ("HgROthjB0Xc", "GCSE Economics: The labour market", GOFF),
+        ("BfdLHFMRh6s", "GCSE Economics: The determination of wages", GOFF),
+        ("d666nsIHuZI", "GCSE Economics: Gross and net pay", GOFF),
+    ]),
+    ("econ_ocr:2.8a", &[
+        ("h7PVOV9OxjE", "GCSE Economics - 2.8 Role of Money and Financial Markets", ASCOPE),
+        ("N4Subu315pI", "GCSE Economics: The role of money as a medium of exchange", GOFF),
+        ("KSrnSMWJVlA", "GCSE Economics: The Financial Sector - Part 1 The bank of England and Insurance Companies", GOFF),
+        ("y5U5-UJuiCo", "GCSE Economics: The Financial Sector Pt2 - Commercial banks and building societies", GOFF),
+        ("HF5_78KFUBg", "GCSE Economics: Evaluating the effects of the Financial Sector", GOFF),
+    ]),
+    ("econ_ocr:2.8b", &[
+        ("h7PVOV9OxjE", "GCSE Economics - 2.8 Role of Money and Financial Markets", ASCOPE),
+        ("HPTBxnXp7SY", "Interest Rates Explained | GCSE Economics with made easy!", "Business with Mr. G"),
+        ("BpzqQFhGViQ", "Impact of Interest Rate Changes on Consumers & Producers", BIZC),
+    ]),
+    ("econ_ocr:3.1", &[
+        ("fnmJ6ciMaqs", "GCSE Economics - 3.1 Economic Growth", ASCOPE),
+        ("KwDRehC-dkI", "GCSE Economics: Economic Growth and GDP", GOFF),
+        ("2YJEC4S6s3A", "GCSE Economics: Determinants of Economic Growth", GOFF),
+        ("lR8BhqOOtdY", "GCSE Economics: Costs and benefits of Economic Growth", GOFF),
+    ]),
+    ("econ_ocr:3.2", &[
+        ("ze9jjlHlAgA", "GCSE Economics - 3.2 Low Unemployment", ASCOPE),
+        ("zE2PeHLzDGU", "GCSE Economics: Employment & Unemployment", GOFF),
+        ("JItu2zZKoxs", "GCSE Economics: Types of unemployment", GOFF),
+        ("0UC6SydfKDA", "GCSE Economics: Consequences of unemployment", GOFF),
+    ]),
+    ("econ_ocr:3.3", &[
+        ("-PNlzQDZVHU", "GCSE Economics - 3.3 Fair Distribution of Income", ASCOPE),
+        ("kcuIFSFJxpA", "GCSE Economics: Income and wealth", GOFF),
+        ("H7r5VWBBEWc", "GCSE Economics: The distribution of incomes", GOFF),
+        ("aIs8Ja_5HSU", "GCSE Economics: The distribution of wealth", GOFF),
+        ("UuLDHgMOcxA", "GCSE Economics: The consequences of the inequal distribution of income and wealth", GOFF),
+    ]),
+    ("econ_ocr:3.4", &[
+        ("RdyqlIu5DEA", "GCSE Economics - 3.4 Price Stability", ASCOPE),
+        ("RjDFBck1hbo", "GCSE Economics: Inflation", GOFF),
+        ("61wMU9hS4ZQ", "GCSE Economics: Analysing inflation and the causes of inflation", GOFF),
+        ("1dbYU1JH-WA", "GCSE Economics: The consequences of inflation for individuals", GOFF),
+        ("iKvPrHy5PGM", "GCSE Economics: The consequences of inflation for producers and the government", GOFF),
+    ]),
+    ("econ_ocr:3.5a", &[
+        ("8pwldnyKiZg", "GCSE Economics: Fiscal policy and the budget", GOFF),
+        ("90i0O1rbLbE", "GCSE Economics: Taxes, spending and markets", GOFF),
+    ]),
+    ("econ_ocr:3.5b", &[
+        ("V729BKdq-i4", "GCSE Economics: Fiscal policy", GOFF),
+        ("KtxWxKkVwCM", "GCSE Economics: Evaluating the effects of fiscal policy", GOFF),
+        ("ivxG3MdWDlg", "GCSE Economics: Measures to redistribute wealth and income", GOFF),
+    ]),
+    ("econ_ocr:3.6", &[
+        ("FdKEf1zfNwc", "GCSE Economics: Monetary policy", GOFF),
+        ("_m8WSeNd62Q", "GCSE Economics: Analysing the effects of monetary policy", GOFF),
+        ("WPTLvc-YTBQ", "GCSE Economics: Evaluating the effects of monetary policy", GOFF),
+    ]),
+    ("econ_ocr:3.7", &[
+        ("u-BCYC4zELg", "GCSE Economics: Supply side policies", GOFF),
+        ("369WxVO9tXY", "GCSE Economics: Evaluating the benefits of supply side policies", GOFF),
+        ("Dn1gDa4mxzM", "GCSE Economics: Evaluating the costs of supply side policies", GOFF),
+    ]),
+    ("econ_ocr:3.8", &[
+        ("fG-2FA3SyNA", "GCSE Economics: Positive and negative externalities", GOFF),
+        ("ZbHD6cwVXx0", "GCSE Economics: Evaluating government policies to correct externalities", GOFF),
+    ]),
+    ("econ_ocr:4.1", &[
+        ("3VW2aINotoA", "GCSE Economics: International trade", GOFF),
+        ("rVEKvrsELu0", "GCSE Economics: Free trade agreements", GOFF),
+    ]),
+    ("econ_ocr:4.2", &[
+        ("EtvdjbFWppI", "GCSE Economics: Balance of payments", GOFF),
+        ("I5Vfo0weak4", "GCSE Economics: he causes of balance of payments on current account deficits and surpluses", GOFF),
+        ("xZIPvpiPvqY", "GCSE Economics: The importance of the balance of payments on current account", GOFF),
+    ]),
+    ("econ_ocr:4.3", &[
+        ("SNfHLKpfKDE", "GCSE Economics: Introduction to exchange rates", GOFF),
+        ("ElOpVq6vZ68", "GCSE Economics: Analysing the factors that affect exchange rates", GOFF),
+        ("AHZsRnrSVfo", "GCSE Economics: Evaluating the effects of exchange rate changes on consumers and producers", GOFF),
+    ]),
+    ("econ_ocr:4.4a", &[
+        ("RxRbd5vvj-E", "GCSE Economics: Introduction to globalisation", GOFF),
+        ("Bua5V2EqPV8", "GCSE Economics: How development is measured", GOFF),
+    ]),
+    ("econ_ocr:4.4b", &[
+        ("kdJvUefrHps", "GCSE Economics: Effects of globalisation on developed countries", GOFF),
+        ("1p7WwOhnW18", "GCSE Economics: The effects of globalisation on less developed countries", GOFF),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.

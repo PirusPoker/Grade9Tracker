@@ -280,6 +280,18 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     ]),
     // AQA GCSE Combined Science: Trilogy (8464) Higher. Every Trilogy subsection, Higher tier; each topic opens the matching separate-science lesson, which marks what Trilogy leaves out as Separate science only.
     ("combsci_aqa", &["4.1.1", "4.1.2", "4.1.3", "4.2.1", "4.2.2", "4.2.3", "4.3.1", "4.4.1", "4.4.2", "4.5.1", "4.5.2", "4.5.3", "4.6.1", "4.6.2", "4.6.3", "4.6.4", "4.7.1", "4.7.2", "4.7.3", "5.1.1", "5.1.2", "5.2.1", "5.2.2", "5.2.3", "5.3.1", "5.3.2", "5.4.1", "5.4.2", "5.4.3", "5.5.1", "5.6.1", "5.6.2", "5.7.1", "5.8.1", "5.8.2", "5.9.1", "5.9.2", "5.9.3", "5.10.1", "5.10.2", "6.1.1", "6.1.2", "6.1.3", "6.2.1", "6.2.2", "6.2.3", "6.2.4", "6.3.1", "6.3.2", "6.3.3", "6.4.1", "6.4.2", "6.5.1", "6.5.2", "6.5.3", "6.5.4", "6.5.5", "6.6.1", "6.6.2", "6.7.1", "6.7.2"]),
+    // Economics - OCR GCSE (9-1) J205 (second board beside Cambridge 0987
+    // "econ" and AQA 8136 "econ_aqa"). Read from the specification PDF,
+    // version 2.0 (June 2026; branding and admin changes only, content
+    // unchanged since first teaching in 2017), on 2 October 2026. 22 topic
+    // numbers: 1-2 are J205/01, 3-4 are J205/02. No NEA. 2.1, 2.2, 2.3, 2.6,
+    // 2.8, 3.5 and 4.4 are split by letter.
+    ("econ_ocr", &[
+        "1.1", "1.2",
+        "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8",
+        "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8",
+        "4.1", "4.2", "4.3", "4.4",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -9677,6 +9689,201 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Explain how the forces on a coil and a split-ring commutator make a d.c. motor rotate (Higher tier)",
         "Separate science only: explain electromagnetic devices from diagrams, and explain how a moving-coil loudspeaker works (Higher tier)",
     ], "In a motor answer, say that the two sides of the coil carry current in opposite directions, so the forces are opposite and give a turning effect — and that the commutator reverses the current every half turn. Use the left hand for the motor effect and convert lengths to metres before using F = BIl."),
+    // ---------- Economics (OCR GCSE J205) ----------
+    ("econ_ocr:1.1", &[
+        "Explain the roles of consumers, producers and the government in the economy",
+        "Explain how the three economic groups depend on one another",
+        "Explain land, labour, capital and enterprise, with examples from a named business",
+        "Explain how the factors of production are combined to produce goods and services",
+    ], "Capital means man-made resources such as machinery and buildings, not money - and enterprise is the risk-taking and organising, not the entrepreneur's name."),
+
+    ("econ_ocr:1.2", &[
+        "Explain scarce resources and unlimited wants, and why they force choices",
+        "Explain the economic problem: what to produce, how to produce it and for whom",
+        "Define opportunity cost and apply it to a choice made by a consumer, producer or government",
+        "Evaluate the costs and benefits of an economic choice, including its effect on economic, social and environmental sustainability",
+    ], "Opportunity cost is the single next best alternative given up - not the money spent and not every other possible use."),
+
+    ("econ_ocr:2.1a", &[
+        "Explain what a market is and why it need not be a physical place",
+        "Explain the features of the primary, secondary and tertiary sectors, and the difference between producing goods and services",
+        "Explain the difference between factor and product markets",
+        "Explain how factor and product markets depend on each other",
+    ], "The factor market is not the primary sector and the product market is not the secondary or tertiary sector - the 2025 examiners named this confusion."),
+
+    ("econ_ocr:2.1b", &[
+        "Explain specialisation and the division of labour",
+        "Explain why specialisation leads to exchange, and the role of money in it",
+        "Evaluate the costs and benefits of specialisation for producers, workers, regions and countries",
+    ], "Answer for the group the question names: a cost of specialisation 'for a region' is dependence on one industry and structural unemployment, not a worker's boredom."),
+
+    ("econ_ocr:2.2a", &[
+        "Explain demand as the quantity consumers are willing and able to buy at each price",
+        "Draw individual and market demand curves from data",
+        "Draw and explain the difference between a movement along the demand curve and a shift of it",
+        "Analyse the causes and consequences of shifts in demand for consumers and producers",
+    ], "Only a change in the good's own price moves along the demand curve; every other factor shifts it, and you must say which way."),
+
+    ("econ_ocr:2.2b", &[
+        "Explain price elasticity of demand and calculate it from percentage changes",
+        "Distinguish price elastic, price inelastic and unitary demand",
+        "Draw demand curves of different elasticity",
+        "Explain the factors that make demand more or less price elastic",
+        "Evaluate the importance of PED for consumers and producers, including its effect on total revenue",
+    ], "Elastic and inelastic are not interchangeable - the 2024 examiners found many candidates muddled them and so got the consequences of a supply change the wrong way round."),
+
+    ("econ_ocr:2.3a", &[
+        "Explain supply as the quantity producers are willing and able to sell at each price",
+        "Draw individual and market supply curves from data",
+        "Draw and explain the difference between a movement along the supply curve and a shift of it",
+        "Analyse the causes and consequences of shifts in supply for consumers and producers",
+    ], "When plotting a supply curve from data, plot each point and join them - a line of best fit lost a mark in 2025."),
+
+    ("econ_ocr:2.3b", &[
+        "Explain price elasticity of supply and calculate it from percentage changes",
+        "Distinguish price elastic from price inelastic supply",
+        "Draw supply curves of different elasticity",
+        "Explain the factors that affect PES: time, spare capacity, stocks and the availability of inputs",
+        "Evaluate the importance of PES for consumers and producers",
+    ], "Inelastic supply means the percentage change in quantity supplied is SMALLER than the percentage change in price - many 2025 answers missed 'percentage' or wrote about demand."),
+
+    ("econ_ocr:2.4", &[
+        "Explain price as a reflection of worth and its role in distributing resources efficiently",
+        "Explain equilibrium price and quantity, and how excess demand and supply are removed",
+        "Draw and analyse the interaction of demand and supply",
+        "Analyse how changes in demand and supply affect equilibrium price and quantity",
+        "Explain the role of markets in setting prices and allocating resources",
+    ], "'The role of the market' needs the mechanism - a surplus pushes price down and a shortage pushes it up until demand equals supply; most 2025 answers only defined equilibrium."),
+
+    ("econ_ocr:2.5", &[
+        "Explain why producers compete and how they compete",
+        "Analyse how competition affects price",
+        "Evaluate the economic impact of competition on producers and consumers",
+        "Explain monopoly and oligopoly and how they differ from competitive markets",
+    ], "'A few large firms' against 'many small firms' is the difference - 'large firms' against 'smaller firms' scored only one mark in 2024."),
+
+    ("econ_ocr:2.6a", &[
+        "Explain the role of producers, including individuals, firms and the government",
+        "Distinguish production from productivity and calculate labour productivity",
+        "Evaluate the importance of production and productivity for the economy",
+    ], "Productivity is output per worker (or per input), not total output - more workers can raise production while productivity falls."),
+
+    ("econ_ocr:2.6b", &[
+        "Calculate total cost, average cost, total revenue, average revenue, profit and loss",
+        "Evaluate how costs and revenues affect profit and a producer's supply",
+        "Explain internal and external economies of scale",
+        "Evaluate the importance of costs, revenue, profit and loss for producers",
+    ], "Revenue is not profit: profit is total revenue minus total cost - the 2024 examiners found the two used interchangeably."),
+
+    ("econ_ocr:2.7", &[
+        "Explain the role and operation of the labour market, including the interaction of workers and employers",
+        "Analyse how wages are determined by the demand for and supply of labour",
+        "Explain the factors that affect the demand for and supply of labour",
+        "Explain and calculate gross and net pay, including income tax, National Insurance and pension deductions",
+    ], "Net pay is gross pay minus ALL the deductions - income tax, National Insurance and pension - and a monthly figure means divide the annual one by 12."),
+
+    ("econ_ocr:2.8a", &[
+        "Explain money's role as a medium of exchange",
+        "Explain the roles of banks, building societies and insurance companies",
+        "Evaluate the importance of the financial sector for consumers, producers and government",
+    ], "Banks lend, hold deposits and offer overdrafts and payment services - they do not give businesses subsidies, a 2025 error."),
+
+    ("econ_ocr:2.8b", &[
+        "Analyse how changes in interest rates affect saving, borrowing and investment",
+        "Calculate interest on savings and loans, and the effect of a change in the rate",
+        "Explain why a fall in interest rates can raise spending and investment, and its limits",
+    ], "Work out the interest at each rate, then the difference - and give the answer in pounds with the £ sign."),
+
+    ("econ_ocr:3.1", &[
+        "Explain economic growth and how it is measured using GDP and GDP per capita",
+        "Calculate growth rates and GDP per capita, and analyse GDP data",
+        "Analyse the determinants of growth: investment, technology, workforce, education and training, natural resources and government policy",
+        "Evaluate the costs and benefits of growth, including economic, social and environmental sustainability",
+    ], "A fall in the growth rate is not a fall in GDP - output still rises if the rate stays above zero."),
+
+    ("econ_ocr:3.2", &[
+        "Explain employment and unemployment and how the Claimant Count measures unemployment",
+        "Calculate the unemployment rate and analyse unemployment data",
+        "Explain cyclical, frictional, seasonal and structural unemployment",
+        "Evaluate the causes and consequences of unemployment for individuals, regions and the government",
+    ], "'Explain the trend' needs a reason for the change, not just a description - and more unemployment means a surplus of workers, not fewer workers for firms."),
+
+    ("econ_ocr:3.3", &[
+        "Explain the distribution of income, the types of income and the difference between income and wealth",
+        "Calculate shares of income and wealth from data",
+        "Evaluate the causes of unequal income and wealth and the consequences for an economy",
+    ], "Income is a flow and wealth is a stock - read a quintile chart carefully, because adding the wrong fifths cost marks in 2024."),
+
+    ("econ_ocr:3.4", &[
+        "Explain price stability and inflation, and the difference between real and nominal values",
+        "Explain how the Consumer Price Index measures inflation",
+        "Calculate the effect of inflation on prices and analyse inflation data",
+        "Evaluate the causes of inflation and its consequences for consumers, producers, savers and the government",
+    ], "Price stability is a low and steady rate of inflation, not zero inflation and not just 'constant' inflation - a constant 15% is not stable prices."),
+
+    ("econ_ocr:3.5a", &[
+        "Explain the purposes of government spending and the sources of government revenue",
+        "Distinguish direct from indirect taxes, with examples",
+        "Explain a balanced budget, a budget surplus and a budget deficit",
+        "Calculate a budget balance and the effect of a tax on prices",
+    ], "The government budget is not the balance of payments - a 'deficit' must say which one, and VAT is indirect while income tax is direct."),
+
+    ("econ_ocr:3.5b", &[
+        "Explain fiscal policy and how it can be used to achieve economic objectives",
+        "Analyse how taxes and government spending affect markets and the whole economy",
+        "Evaluate the costs, including opportunity cost, and benefits of fiscal policy",
+        "Evaluate the consequences of redistributing income and wealth, including progressive taxes",
+    ], "A progressive tax takes a higher PERCENTAGE of income as income rises - 'the rich pay more' is not enough, and the revenue must be spent to redistribute."),
+
+    ("econ_ocr:3.6", &[
+        "Explain monetary policy and how the Bank of England uses interest rates to reach objectives",
+        "Analyse how monetary policy affects growth, employment and price stability",
+        "Evaluate the effects of monetary policy on consumer spending, borrowing, saving and investment",
+    ], "Monetary policy is interest rates set by the Bank of England; tax and government spending are fiscal policy - and a 6-mark analyse needs the impact at the end of the chain."),
+
+    ("econ_ocr:3.7", &[
+        "Explain supply side policy and how it raises the productive capacity of the economy",
+        "Explain examples such as education and training, infrastructure, tax incentives and deregulation",
+        "Evaluate the costs, including opportunity cost, and benefits of supply side policies",
+    ], "A supply side policy works by making the economy able to produce more - higher profits for builders or more imports is not why a railway is supply side."),
+
+    ("econ_ocr:3.8", &[
+        "Explain positive and negative externalities with examples",
+        "Explain taxation, subsidies, state provision, legislation and regulation, and information provision as remedies",
+        "Evaluate the use and impact of each policy, including its costs and opportunity cost",
+    ], "An indirect tax shifts the SUPPLY curve left, not demand - and when demand is price inelastic the fall in quantity is small."),
+
+    ("econ_ocr:4.1", &[
+        "Explain why countries import and export goods and services",
+        "Explain the benefits of trade for consumers and producers",
+        "Explain free trade agreements, including the European Union",
+    ], "A free trade agreement removes or cuts tariffs and quotas between members - it is not a single currency and it is not monetary policy."),
+
+    ("econ_ocr:4.2", &[
+        "Explain the balance of payments on current account and its parts",
+        "Explain a balanced current account, a surplus and a deficit, and calculate them",
+        "Analyse data on exports and imports",
+        "Evaluate the causes of a deficit or surplus and its importance to the UK economy",
+    ], "Describe the BALANCE (deficit or surplus), not the value of trade - and never answer a current-account question with tax rises to pay off the government's debt."),
+
+    ("econ_ocr:4.3", &[
+        "Draw and analyse how the exchange rate is set by the demand for and supply of a currency",
+        "Calculate currency conversions",
+        "Analyse exchange rate data",
+        "Evaluate the effects of a change in the exchange rate on consumers and producers",
+    ], "To convert pounds to a foreign currency multiply by the rate; to convert back to pounds divide - and give the currency sign with the answer."),
+
+    ("econ_ocr:4.4a", &[
+        "Explain globalisation and its driving factors: technology, transport, communications, multinationals and trade liberalisation",
+        "Explain how development is measured: GDP per capita, life expectancy, access to health care, technology and education",
+        "Explain why GDP per capita alone is an incomplete measure of development",
+    ], "GDP per capita is an average - it hides inequality and says nothing directly about health or education."),
+
+    ("econ_ocr:4.4b", &[
+        "Evaluate the costs and benefits of globalisation for producers, workers and consumers in developed countries",
+        "Evaluate the costs and benefits of globalisation for producers, workers and consumers in less developed countries",
+        "Evaluate the impact of globalisation on economic, social and environmental sustainability",
+    ], "Keep to the group named: a 2025 MCQ wanted the cost to consumers in developed countries (dominant global brands), not the effect of immigration."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

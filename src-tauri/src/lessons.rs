@@ -1403,6 +1403,37 @@ const COMBSCI_AQA: &[(&str, &str)] = &[
     ("combsci_aqa:6.7.1", include_str!("../lessons/phys_aqa/4.7.1.md")),
     ("combsci_aqa:6.7.2", include_str!("../lessons/phys_aqa/4.7.2.md")),
 ];
+const ECON_OCR: &[(&str, &str)] = &[
+    ("econ_ocr:1.1", include_str!("../lessons/econ_ocr/1.1.md")),
+    ("econ_ocr:1.2", include_str!("../lessons/econ_ocr/1.2.md")),
+    ("econ_ocr:2.1a", include_str!("../lessons/econ_ocr/2.1a.md")),
+    ("econ_ocr:2.1b", include_str!("../lessons/econ_ocr/2.1b.md")),
+    ("econ_ocr:2.2a", include_str!("../lessons/econ_ocr/2.2a.md")),
+    ("econ_ocr:2.2b", include_str!("../lessons/econ_ocr/2.2b.md")),
+    ("econ_ocr:2.3a", include_str!("../lessons/econ_ocr/2.3a.md")),
+    ("econ_ocr:2.3b", include_str!("../lessons/econ_ocr/2.3b.md")),
+    ("econ_ocr:2.4", include_str!("../lessons/econ_ocr/2.4.md")),
+    ("econ_ocr:2.5", include_str!("../lessons/econ_ocr/2.5.md")),
+    ("econ_ocr:2.6a", include_str!("../lessons/econ_ocr/2.6a.md")),
+    ("econ_ocr:2.6b", include_str!("../lessons/econ_ocr/2.6b.md")),
+    ("econ_ocr:2.7", include_str!("../lessons/econ_ocr/2.7.md")),
+    ("econ_ocr:2.8a", include_str!("../lessons/econ_ocr/2.8a.md")),
+    ("econ_ocr:2.8b", include_str!("../lessons/econ_ocr/2.8b.md")),
+    ("econ_ocr:3.1", include_str!("../lessons/econ_ocr/3.1.md")),
+    ("econ_ocr:3.2", include_str!("../lessons/econ_ocr/3.2.md")),
+    ("econ_ocr:3.3", include_str!("../lessons/econ_ocr/3.3.md")),
+    ("econ_ocr:3.4", include_str!("../lessons/econ_ocr/3.4.md")),
+    ("econ_ocr:3.5a", include_str!("../lessons/econ_ocr/3.5a.md")),
+    ("econ_ocr:3.5b", include_str!("../lessons/econ_ocr/3.5b.md")),
+    ("econ_ocr:3.6", include_str!("../lessons/econ_ocr/3.6.md")),
+    ("econ_ocr:3.7", include_str!("../lessons/econ_ocr/3.7.md")),
+    ("econ_ocr:3.8", include_str!("../lessons/econ_ocr/3.8.md")),
+    ("econ_ocr:4.1", include_str!("../lessons/econ_ocr/4.1.md")),
+    ("econ_ocr:4.2", include_str!("../lessons/econ_ocr/4.2.md")),
+    ("econ_ocr:4.3", include_str!("../lessons/econ_ocr/4.3.md")),
+    ("econ_ocr:4.4a", include_str!("../lessons/econ_ocr/4.4a.md")),
+    ("econ_ocr:4.4b", include_str!("../lessons/econ_ocr/4.4b.md")),
+];
 
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
@@ -1442,6 +1473,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("rs_edq", RS_EDQ),
     ("geog_edxb", GEOG_EDXB),
     ("combsci_aqa", COMBSCI_AQA),
+    ("econ_ocr", ECON_OCR),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {

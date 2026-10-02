@@ -210,6 +210,9 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("geog_edxb", &[(1, 0.5, 0.25)]),
     // AQA GCSE Combined Science: Trilogy (8464) Higher
     ("combsci_aqa", &[(1, 2.0, 1.0)]),
+    // OCR GCSE Economics J205: second-board Economics, school-paced - recall on
+    // what school has covered, with no NEA.
+    ("econ_ocr", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -246,6 +249,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("rs_edq", "school"),
     ("geog_edxb", "school"),
     ("combsci_aqa", "ahead"),
+    ("econ_ocr", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -598,6 +602,16 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Physics revision notes", "https://www.savemyexams.com/gcse/science/aqa/combined-science-trilogy/16/physics/revision-notes/"),
         ("Past papers", "https://www.savemyexams.com/gcse/science/aqa/combined-science-trilogy/past-papers/"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/science/gcse/science-8464/assessment-resources"),
+    ]),
+    // OCR GCSE Economics J205. Every link opened on 2 October 2026: the
+    // tutor2u page is its OCR GCSE Economics student hub (study notes, quizzes,
+    // topic videos); Save My Exams has J205 past papers but no revision notes
+    // for this course; BBC Bitesize has no GCSE Economics.
+    ("econ_ocr", &[
+        ("tutor2u notes & videos (OCR)", "https://www.tutor2u.net/students/gcse/ocr-gcse-economics"),
+        ("Past papers", "https://www.savemyexams.com/gcse/economics/ocr/past-papers/"),
+        ("OCR papers & mark schemes", "https://www.ocr.org.uk/qualifications/gcse/economics-j205-from-2017/assessment/"),
+        ("OCR spec", "https://www.ocr.org.uk/qualifications/gcse/economics-j205-from-2017/"),
     ]),
 ];
 
