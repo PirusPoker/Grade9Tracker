@@ -127,6 +127,8 @@ const MGENIE: &str = "Maths Genie";
 const LWAS: &str = "Learn with a Scientist";
 const STUDYMIND: &str = "Study Mind";
 
+const CSTUTOR: &str = "The Computer Science Tutor";
+
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
     // ---------- Computer Science (OCR GCSE J277) ----------
     ("cs:1.1.1", &[
@@ -5255,6 +5257,206 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("a-IiJT_2j84", "The Importance of Motivation in the Workplace | 3 Key Benefits Explained", TWOT),
         ("XtnH0nPRcxw", "Financial & Non-Financial Methods of Motivation", BIZC),
         ("YQ2uhzmqJDY", "Non-Financial Motivation | Top 10 Methods of Non-Financial Motivation for Employees", TWOT),
+    ]),
+// - Computer Science (AQA 8525): Craig'n'Dave's AQA GCSE (8525) series, with
+//   The Computer Science Tutor's AQA units alongside.
+    // ---------- Computer Science (AQA GCSE 8525) - Craig'n'Dave's AQA GCSE (8525) series, with The Computer Science Tutor ----------
+    ("cs_aqa:3.1.1a", &[
+        ("KAPi2FgjR3I", "33. AQA GCSE (8525) SLR7 - 3.1 What’s an algorithm", CND),
+        ("ZpPgB6F9gOg", "34. AQA GCSE (8525) SLR7 - 3.1 Decomposition", CND),
+        ("ByICvJvoOUk", "35. AQA GCSE (8525) SLR7 - 3.1 Abstraction", CND),
+        ("U97x_OkoLPw", "37. AQA GCSE (8525) SLR7 - 3.1 How to produce algorithms", CND),
+        ("b6sF3dluzEk", "GCSE Computer Science AQA Unit 1 Flowcharts", CSTUTOR),
+    ]),
+    ("cs_aqa:3.1.1b", &[
+        ("4MrSVeOb1z4", "38. AQA GCSE (8525) SLR7 - 3.1 Algorithm inputs, processes & outputs", CND),
+        ("9xQnIHONwG8", "39. AQA GCSE (8525) SLR7 - 3.1 Tracing algorithms", CND),
+    ]),
+    ("cs_aqa:3.1.2", &[
+        ("9B6QsadamfU", "40. AQA GCSE (8525) SLR7 - 3.1 Algorithm efficiency", CND),
+    ]),
+    ("cs_aqa:3.1.3", &[
+        ("0HXBo--PaAw", "41. AQA GCSE (8525) SLR7 - 3.1 Linear search", CND),
+        ("Sa-4CObj8Ag", "42. AQA GCSE (8525) SLR7 - 3.1 Binary search", CND),
+    ]),
+    ("cs_aqa:3.1.4", &[
+        ("KTWDjuGbuVY", "43. AQA GCSE (8525) SLR7 - 3.1 Merge sort", CND),
+        ("vy_domkFPxw", "44. AQA GCSE (8525) SLR7 - 3.1 Bubble sort", CND),
+    ]),
+    ("cs_aqa:3.2.1", &[
+        ("nDKCG1G-6CE", "45. AQA GCSE (8525) SLR8 - 3.2 Data types & casting", CND),
+    ]),
+    ("cs_aqa:3.2.2a", &[
+        ("zDduIm2c6aA", "46. AQA GCSE (8525) SLR8 - 3.2 Variables & constants", CND),
+        ("JIOmpA-UHk4", "49. AQA GCSE (8525) SLR8 - 3.2 The 3 basic programming constructs", CND),
+        ("Od9VqugK0ak", "50. AQA GCSE (8525) SLR8 - 3.2 Meaningful identifiers", CND),
+    ]),
+    ("cs_aqa:3.2.2b", &[
+        ("JIOmpA-UHk4", "49. AQA GCSE (8525) SLR8 - 3.2 The 3 basic programming constructs", CND),
+        ("p-3ANzXJi0E", "GCSE Computer Science AQA  Programming Help   Totalling and Counting", CSTUTOR),
+    ]),
+    ("cs_aqa:3.2.3", &[
+        ("NfBUZssd19M", "51. AQA GCSE (8525) SLR8 - 3.2 Arithmetic operators", CND),
+        ("5WsgaY9AELY", "AQA GCSE Computer Science Exam - Operators - Arithmetic, Boolean and Relational", "lil anonymous"),
+    ]),
+    ("cs_aqa:3.2.4", &[
+        ("5WsgaY9AELY", "AQA GCSE Computer Science Exam - Operators - Arithmetic, Boolean and Relational", "lil anonymous"),
+    ]),
+    ("cs_aqa:3.2.5", &[
+        ("eRYOzp4yKQU", "52. AQA GCSE (8525) SLR8 - 3.2 Boolean operators", CND),
+        ("5WsgaY9AELY", "AQA GCSE Computer Science Exam - Operators - Arithmetic, Boolean and Relational", "lil anonymous"),
+    ]),
+    ("cs_aqa:3.2.6", &[
+        ("sb3pSoJO-uM", "53. AQA GCSE (8525) SLR9 - 3.2 Data structures & arrays", CND),
+        ("X6wTroS-oqA", "54. AQA GCSE (8525) SLR9 - 3.2 Records", CND),
+        ("83B5lVA8pGE", "GCSE Computer Science AQA  Programming Help  Arrays   Outputing and inputting", CSTUTOR),
+    ]),
+    ("cs_aqa:3.2.7", &[
+        ("ZQJZETgIsf0", "47. AQA GCSE (8525) SLR8 - 3.2 User input & display output", CND),
+    ]),
+    ("cs_aqa:3.2.8", &[
+        ("GaGgkoPBeHI", "55. AQA GCSE (8525) SLR9 - 3.2 String manipulation", CND),
+    ]),
+    ("cs_aqa:3.2.9", &[
+        ("dywD5MN1EmI", "56. AQA GCSE (8525) SLR9 - 3.2 Random number generation", CND),
+    ]),
+    ("cs_aqa:3.2.10", &[
+        ("aSU3s_Dfw9I", "48. AQA GCSE (8525) SLR8 - 3.2 Introduction to subroutines", CND),
+        ("kXdb9UeJUm8", "57. AQA GCSE (8525) SLR9 - 3.2  How to use subroutines", CND),
+        ("P4STQn_8_nc", "58. AQA GCSE (8525) SLR9 - 3.2 Local variables", CND),
+        ("tb0tnfm3miY", "59. AQA GCSE (8525) SLR9 - 3.2 Structured programming", CND),
+    ]),
+    ("cs_aqa:3.2.11a", &[
+        ("MW0TyBbDfXg", "60. AQA GCSE (8525) SLR10 - 3.2 Data validation", CND),
+        ("PYhf90NpbQE", "61. AQA GCSE (8525) SLR10 - 3.2 Authentication routines", CND),
+    ]),
+    ("cs_aqa:3.2.11b", &[
+        ("lc1Ewe2KpY8", "62. AQA GCSE (8525) SLR10 - 3.2 Test data", CND),
+        ("baC_PXrfbaI", "63. AQA GCSE (8525) SLR10 - 3.2 Types of errors", CND),
+        ("egEoe11v3hg", "64. AQA GCSE (8525) SLR10 - 3.2 Identifying syntax and logic errors", CND),
+    ]),
+    ("cs_aqa:3.3.1", &[
+        ("2u9qxydMWUs", "72. AQA GCSE (8525) SLR13 - 3.3 Number bases", CND),
+        ("lx07YDAso_o", "73. AQA GCSE (8525) SLR13 - 3.3 Bit patterns", CND),
+        ("Q7zCoFcKLoI", "74. AQA GCSE (8525) SLR13 - 3.3 Why hexadecimal is used", CND),
+    ]),
+    ("cs_aqa:3.3.2", &[
+        ("yE3frJ6WNJ0", "75. AQA GCSE (8525) SLR13 - 3.3 Converting between decimal & binary", CND),
+        ("CNsol7wk6A0", "76. AQA GCSE (8525) SLR13 - 3.3 Converting between decimal & hex", CND),
+        ("XN1xi5_YK3Y", "GCSE Computer Science AQA Data representation topic Hexadecimal", CSTUTOR),
+    ]),
+    ("cs_aqa:3.3.3", &[
+        ("r7wXMEHA1eQ", "77. AQA GCSE (8525) SLR13 - 3.3 Units", CND),
+        ("Zr6ouiksxoU", "GCSE Computer Science AQA Unit 3 units and binary", CSTUTOR),
+        ("cFmvf4vyB_g", "Units and Numbers - AQA GCSE Computer Science", "KnowItAll Ninja"),
+    ]),
+    ("cs_aqa:3.3.4", &[
+        ("8E7cGcqg1zc", "78. AQA GCSE (8525) SLR13 - 3.3 8-bit binary addition", CND),
+        ("EL-OXz03Lhk", "79. AQA GCSE (8525) SLR13 - 3.3 Binary shifts", CND),
+        ("3pRL4r-0Nrs", "GCSE Computer Science AQA unit 3   Binary Addition and Binary Shifts", CSTUTOR),
+    ]),
+    ("cs_aqa:3.3.5", &[
+        ("XSMVSqNa8Mg", "80. AQA GCSE (8525) SLR13 - 3.3 Characters", CND),
+        ("Mxve5zLXn7s", "GCSE Computer Science AQA Unit 3 Character Sets", CSTUTOR),
+    ]),
+    ("cs_aqa:3.3.6", &[
+        ("arT8KLlbvLQ", "81. AQA GCSE (8525) SLR13 - 3.3 Images", CND),
+        ("H-HlOtdemU0", "GCSE Computer Science AQA Unit 3 - Images", CSTUTOR),
+    ]),
+    ("cs_aqa:3.3.7", &[
+        ("baTsGqkBR84", "82. AQA GCSE (8525) SLR13 - 3.3 Sound", CND),
+        ("8sKqixHacdk", "GCSE Computer Science AQA Unit 3   Sound", CSTUTOR),
+    ]),
+    ("cs_aqa:3.3.8", &[
+        ("pOhLOf6IgNQ", "83. AQA GCSE (8525) SLR13 - 3.3 Compression", CND),
+        ("ZMqadiLkyWQ", "84. AQA GCSE (8525) SLR13 - 3.3 Compression Huffman coding", CND),
+        ("UyOARO7UVdw", "85. AQA GCSE (8525) SLR13 - 3.3 Compression Run length encoding", CND),
+        ("wuF8KGwQTkc", "GCSE Computer Science AQA Unit 3 Huffman Tree, Run length encoding, Lossy, Lossless Compression", CSTUTOR),
+    ]),
+    ("cs_aqa:3.4.1", &[
+        ("M1sMFVbpxT4", "23. AQA GCSE (8525) SLR5 - 3.4 Hardware and software", CND),
+    ]),
+    ("cs_aqa:3.4.2", &[
+        ("ElCMxOKNJUw", "66. AQA GCSE (8525) SLR11 - 3.4 Truth tables", CND),
+        ("uE7HYTtA-pg", "65. AQA GCSE (8525) SLR11 - 3.4 Logic circuit diagrams", CND),
+        ("jl0E3vmV1Co", "67. AQA GCSE (8525) SLR11 - 3.4 Boolean expressions", CND),
+        ("wxqpdAxS_-s", "68. AQA GCSE (8525) SLR11 - 3.4 Applying logical operators in truth tables", CND),
+    ]),
+    ("cs_aqa:3.4.3", &[
+        ("pYo9IebKQjw", "24. AQA GCSE (8525) SLR5 - 3.4 Systems software", CND),
+        ("opwxkjPl7NU", "25. AQA GCSE (8525) SLR5 - 3.4 Operating systems 1", CND),
+        ("qzVapJ_QI1Q", "26. AQA GCSE (8525) SLR5 - 3.4 Operating systems 2", CND),
+        ("Z-V2_2F5a3k", "27. AQA GCSE (8525) SLR5 - 3.4 Utility system software", CND),
+        ("Z8PnjbhF8M8", "GCSE Computer Science AQA unit 4 Operating systems and Utility Software", CSTUTOR),
+    ]),
+    ("cs_aqa:3.4.4", &[
+        ("eNTafXN8j-g", "69. AQA GCSE (8525) SLR12 - 3.4 Characteristics and purposes of different languages", CND),
+        ("obZDguA3_RE", "70. AQA GCSE (8525) SLR12 - 3.4 Purpose of translators", CND),
+        ("-98kmXsK5BY", "71. AQA GCSE (8525) SLR12 - 3.4 Assemblers, compilers & interpreters", CND),
+    ]),
+    ("cs_aqa:3.4.5a", &[
+        ("S17wGhjlnJ8", "1. AQA GCSE (8525) SLR1 - 3.4 CPU components", CND),
+        ("mUxgOlnwoHo", "3. AQA GCSE (8525) SLR1 - 3.4 Fetch-execute cycle", CND),
+        ("054pAzr0UKk", "4. AQA GCSE (8525) SLR1 - 3.4 Performance of CPUs", CND),
+        ("Wk_Vkk0bvwM", "AQA Computer Science unit 4  topic 1 Systems architecture", CSTUTOR),
+    ]),
+    ("cs_aqa:3.4.5b", &[
+        ("pwU3WJwQ-8Q", "6. AQA GCSE (8525) SLR2 - 3.4 Different types of memory", CND),
+        ("gcGukgVt-4c", "7. AQA GCSE (8525) SLR2 - 3.4 RAM and ROM", CND),
+        ("MQPPfiSdDwU", "8. AQA GCSE (8525) SLR2 - 3.4 The need for secondary storage", CND),
+        ("98nTTU3NyJE", "10. AQA GCSE (8525) SLR2 - 3.4 Secondary storage", CND),
+        ("0Z9NPPlXk_k", "9. AQA GCSE (8525) SLR2 - 3.4 Common types of storage", CND),
+        ("b1tXebPtMGg", "11. AQA GCSE (8525) SLR2 - 3.4 Cloud storage", CND),
+        ("tyL50MvqCds", "5. AQA GCSE (8525) SLR1 - 3.4 Embedded systems", CND),
+        ("kJKMiiXphbU", "AQA GCSE Computer Science  unit 4 Topic 3 Memory", CSTUTOR),
+        ("yT12A2chewQ", "GCSE Computer Science AQA unit 4 Computer systems Topic Secondary Storage", CSTUTOR),
+    ]),
+    ("cs_aqa:3.5a", &[
+        ("DXCNsm4H8f8", "12. AQA GCSE (8525) SLR3 - 3.5 Types of networks", CND),
+        ("JhoZN0QoDX4", "13. AQA GCSE (8525) SLR3 - 3.5 Modes of connection", CND),
+        ("xQ742qLjgu0", "16. AQA GCSE (8525) SLR3 - 3.5 The need for & methods of network security", CND),
+        ("ADMgjr3LMg8", "GCSE Computer Science AQA Unit LANs, PANs and Wans, Cloud storage, Wired and wireless networks", CSTUTOR),
+    ]),
+    ("cs_aqa:3.5b", &[
+        ("d8aOblvUwPE", "15. AQA GCSE (8525) SLR3 - 3.5 Common network protocols", CND),
+        ("q7D-XXywWYc", "17. AQA GCSE (8525) SLR3 - 3.5 The TCP-IP protocol model", CND),
+        ("xVCfiaNqZ6I", "GCSE Computer Science AQA Networks Topic TCP/IP Protocol Stack and Protocols", CSTUTOR),
+    ]),
+    ("cs_aqa:3.6.1", &[
+        ("LAi5e-61e18", "18. AQA GCSE (8525) SLR4 - 3.6 Cyber security & threats", CND),
+        ("V5y5m21wrLs", "GCSE Computer Science AQA Unit 6 Cyber security", CSTUTOR),
+    ]),
+    ("cs_aqa:3.6.2", &[
+        ("LAi5e-61e18", "18. AQA GCSE (8525) SLR4 - 3.6 Cyber security & threats", CND),
+        ("g1v3BFOmMWI", "21. AQA GCSE (8525) SLR4 - 3.6 Penetration testing", CND),
+        ("V5y5m21wrLs", "GCSE Computer Science AQA Unit 6 Cyber security", CSTUTOR),
+    ]),
+    ("cs_aqa:3.6.2.1", &[
+        ("-3vrfMG70xA", "19. AQA GCSE (8525) SLR4 - 3.6 Social engineering threats", CND),
+        ("V5y5m21wrLs", "GCSE Computer Science AQA Unit 6 Cyber security", CSTUTOR),
+    ]),
+    ("cs_aqa:3.6.2.2", &[
+        ("7-bXzoDGozE", "20. AQA GCSE (8525) SLR4 - 3.6 Malware", CND),
+        ("V5y5m21wrLs", "GCSE Computer Science AQA Unit 6 Cyber security", CSTUTOR),
+    ]),
+    ("cs_aqa:3.6.3", &[
+        ("Na0ko0rnOnQ", "22. AQA GCSE (8525) SLR4 - 3.6 Security measures", CND),
+        ("V5y5m21wrLs", "GCSE Computer Science AQA Unit 6 Cyber security", CSTUTOR),
+    ]),
+    ("cs_aqa:3.7.1", &[
+        ("Q1b1mpl_oa0", "86. AQA GCSE (8525) SLR14 - 3.7 Relational databases introduction", CND),
+        ("Hn3mv4dUjUo", "87. AQA GCSE (8525) SLR14 - 3.7 Relational databases concepts", CND),
+    ]),
+    ("cs_aqa:3.7.2", &[
+        ("woK70tWDybw", "88. AQA GCSE (8525) SLR14 - 3.7 Use of SQL to search", CND),
+        ("PL5eqMQp-aM", "89. AQA GCSE (8525) SLR14 - 3.7 Use of SQL to insert, update, delete", CND),
+    ]),
+    ("cs_aqa:3.8", &[
+        ("KiZMFplVy2U", "32. AQA GCSE (8525) SLR6 - 3.8 Impacts & risks of digital technology", CND),
+        ("4X3H-JTVYSg", "29. AQA GCSE (8525) SLR6 - 3.8 Privacy issues", CND),
+        ("XkQRzYiDB3U", "31. AQA GCSE (8525) SLR6 - 3.8 Environmental impacts", CND),
+        ("KEkSRgwHPRU", "28. GCSE AQA (8525) SLR6 - 3.8 Discussing technologies", CND),
+        ("zvrg-MZPbDQ", "GCSE Computer Science AQA   Unit 8   Ethical, legal and environmental issues in technology", CSTUTOR),
     ]),
 ];
 

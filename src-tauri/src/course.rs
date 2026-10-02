@@ -222,6 +222,21 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
         "2.4.1", "2.4.2",
         "2.5.1", "2.5.2", "2.5.3", "2.5.4",
     ]),
+    // Computer Science - AQA GCSE 8525, the updated specification for first
+    // teaching in September 2025, first exams June 2027 (spec dated 16 June
+    // 2025; read from AQA's online specification pages on 30 September 2026).
+    // The lowest-level numbered references in 3.1-3.8: 3.5 and 3.8 have no
+    // sub-numbers. 3.1.1, 3.2.2, 3.2.11, 3.4.5 and 3.5 are split by letter.
+    ("cs_aqa", &[
+        "3.1.1", "3.1.2", "3.1.3", "3.1.4",
+        "3.2.1", "3.2.2", "3.2.3", "3.2.4", "3.2.5", "3.2.6", "3.2.7", "3.2.8", "3.2.9", "3.2.10", "3.2.11",
+        "3.3.1", "3.3.2", "3.3.3", "3.3.4", "3.3.5", "3.3.6", "3.3.7", "3.3.8",
+        "3.4.1", "3.4.2", "3.4.3", "3.4.4", "3.4.5",
+        "3.5",
+        "3.6.1", "3.6.2", "3.6.2.1", "3.6.2.2", "3.6.3",
+        "3.7.1", "3.7.2",
+        "3.8",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -7835,6 +7850,279 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Explain the non-financial methods: job rotation, job enrichment and autonomy",
         "Recommend a method of motivation for a given workforce and justify it",
     ], "Job rotation moves workers between tasks of similar difficulty; job enrichment gives them more challenging, responsible work. Confusing the two is a frequent slip."),
+    // ---------- Computer Science (AQA GCSE 8525) ----------
+    ("cs_aqa:3.1.1a", &[
+        "Explain the terms algorithm, decomposition and abstraction, and why an algorithm is not the same as a program",
+        "Read and write algorithms in AQA pseudo-code: assignment with ←, OUTPUT, USERINPUT, IF, WHILE, REPEAT and FOR",
+        "Read and draw flowcharts using the terminal, process, input/output and decision symbols",
+        "Apply decomposition and abstraction to a described problem, such as a game or a booking system",
+    ], "Abstraction is removing unnecessary detail; decomposition is breaking a problem into sub-problems. Swapping the two definitions is the commonest lost mark in 3.1."),
+
+    ("cs_aqa:3.1.1b", &[
+        "Identify where inputs, processing and outputs happen in a given algorithm",
+        "Complete a trace table for an algorithm with selection, loops and arrays",
+        "Determine the purpose of a simple algorithm by tracing it or by inspection",
+        "Use DIV and MOD correctly while tracing",
+    ], "A trace table records a new row only when a value changes. Students who re-copy unchanged values or skip the final value of the loop variable lose the accuracy marks."),
+
+    ("cs_aqa:3.1.2", &[
+        "Explain that more than one algorithm can solve the same problem",
+        "Compare two algorithms for the same task by how much time they take, counting comparisons or loop passes",
+        "Explain how a change such as stopping a loop early makes an algorithm more efficient",
+    ], "Exam questions on efficiency mean time efficiency only. 'It uses less code' is not the same as 'it is more efficient'."),
+
+    ("cs_aqa:3.1.3", &[
+        "Explain step by step how a linear search works",
+        "Explain step by step how a binary search works, and list the items it examines",
+        "Compare linear and binary search: sorted data, speed on large lists, simplicity",
+    ], "Binary search only works on sorted data. Leaving that condition out of a comparison answer is the classic missed mark."),
+
+    ("cs_aqa:3.1.4", &[
+        "Explain how merge sort works: splitting to single items, then merging in order",
+        "Explain how bubble sort works and show the list after each pass",
+        "Compare merge and bubble sort: speed on large lists, memory use, ease of coding",
+    ], "Merge sort is not 'splitting and then sorting the halves': the order comes from the merging. Say how two lists are merged by comparing their first items."),
+
+    ("cs_aqa:3.2.1", &[
+        "Explain what a data type is and why choosing the right one matters",
+        "Choose integer, real, Boolean, character or string for a given item of data",
+        "Recognise that languages may use other names, such as float for real",
+    ], "Telephone numbers and codes with leading zeros are strings, not integers, because they are never calculated with and the zero would be lost."),
+
+    ("cs_aqa:3.2.2a", &[
+        "Use variable and constant declarations and assignment, and explain why named constants are used",
+        "Write programs using sequence and selection, including nested IF and ELSE IF",
+        "Explain why meaningful identifier names matter for variables, constants and subroutines",
+        "Interpret and write algorithms that combine these statement types",
+    ], "A constant's value cannot change while the program runs. 'It never changes' scores only if you add why that helps: no accidental changes, and one place to edit."),
+
+    ("cs_aqa:3.2.2b", &[
+        "Distinguish definite (count-controlled) from indefinite (condition-controlled) iteration",
+        "Use condition-controlled loops with the test at the start (WHILE) and at the end (REPEAT…UNTIL)",
+        "Write and trace nested iteration and loops inside selection",
+        "Choose the right type of loop for a described task",
+    ], "A REPEAT…UNTIL loop always runs at least once, but a WHILE loop may not run at all. Questions that ask for the difference want exactly that."),
+
+    ("cs_aqa:3.2.3", &[
+        "Use addition, subtraction, multiplication and real division in programs",
+        "Use integer division (DIV) and remainder (MOD), and work out their values",
+        "Apply DIV and MOD to problems such as converting minutes to hours, or testing for even numbers",
+    ], "11 DIV 2 is 5 and 11 MOD 2 is 1. Writing 5.5 for DIV, or 0.5 for MOD, loses the mark every year."),
+
+    ("cs_aqa:3.2.4", &[
+        "Use equal to, not equal to, less than, greater than, less than or equal to and greater than or equal to",
+        "Interpret relational operators in conditions within given algorithms",
+        "Choose the correct operator for a range check at the boundaries",
+    ], "Using < where ≤ is needed rejects a valid boundary value: a logic error examiners build questions around."),
+
+    ("cs_aqa:3.2.5", &[
+        "Use NOT, AND and OR, and combinations of them, in conditions",
+        "Work out the result of a compound condition for given values",
+        "Write conditions for loops and selection that combine several tests",
+    ], "x > 1 AND < 10 is not a valid condition. Each side of AND or OR needs its own complete comparison: x > 1 AND x < 10."),
+
+    ("cs_aqa:3.2.6", &[
+        "Explain what a data structure is and why one is useful",
+        "Use one-dimensional arrays, including looping through them with an index",
+        "Use two-dimensional arrays, accessing elements as array[row][column]",
+        "Define and use records, and arrays of records, to store related data of different types",
+    ], "Arrays are indexed from 0 in AQA papers, so the last index is LEN(array) - 1. Looping to LEN(array) is the most common error in array code."),
+
+    ("cs_aqa:3.2.7", &[
+        "Obtain input from the keyboard and store it in a variable",
+        "Convert input to the right data type before calculating with it",
+        "Output text, variables and calculated values to the screen in a clear format",
+    ], "Keyboard input arrives as a string. Code that adds two inputs without converting them joins them instead: '2' + '3' gives '23'."),
+
+    ("cs_aqa:3.2.8", &[
+        "Use string length, position, substring and concatenation",
+        "Convert characters to character codes and back",
+        "Convert between strings and integers or reals in both directions",
+        "Apply string handling to tasks such as checking the format of a code or building a username",
+    ], "AQA's SUBSTRING(start, end, string) includes both end positions. Counting from 1, or excluding the end character, gives the wrong substring."),
+
+    ("cs_aqa:3.2.9", &[
+        "Generate random integers within a given range in programs",
+        "Use random numbers in programs such as dice games and quizzes",
+        "Make sure both ends of the range are included as the task requires",
+    ], "RANDOM_INT(1, 6) includes 6, but Python's randrange(1, 6) does not. Getting the range off by one is the mark that is dropped."),
+
+    ("cs_aqa:3.2.10", &[
+        "Explain what a subroutine is and the advantages of using subroutines",
+        "Describe how parameters pass data into a subroutine and how return values pass data out",
+        "Explain what local variables are, and why using them is good practice",
+        "Describe the structured approach to programming and explain its advantages",
+    ], "A function returns a value and a procedure does not. In code questions, returning a value but never using it in the calling statement loses the mark."),
+
+    ("cs_aqa:3.2.11a", &[
+        "Write validation routines: presence, length and range checks on input",
+        "Write a simple authentication routine with a username and password",
+        "Explain why validation and authentication make programs robust and secure",
+    ], "Validation checks data is sensible, not that it is correct. A range check accepts any age from 11 to 16, even if it is the wrong age."),
+
+    ("cs_aqa:3.2.11b", &[
+        "Explain the purpose of testing algorithms and programs",
+        "Describe normal, boundary and erroneous test data, and choose examples for a given range",
+        "Distinguish syntax errors from logic errors, and identify and correct both in code",
+    ], "Boundary data sits on and either side of the limit. For 1 to 10, test 0, 1, 10 and 11. Giving only one side loses the mark."),
+
+    ("cs_aqa:3.3.1", &[
+        "Explain decimal, binary and hexadecimal as base 10, base 2 and base 16",
+        "Explain that computers use binary for all data and instructions, and that a bit pattern can mean different things",
+        "Explain why hexadecimal is used in computer science",
+    ], "Hexadecimal is for people, not computers. Saying it saves memory or is faster to process scores nothing: the computer still stores binary."),
+
+    ("cs_aqa:3.3.2", &[
+        "Convert between binary and decimal for values from 0 to 255",
+        "Convert between binary and hexadecimal using nibbles",
+        "Convert between decimal and hexadecimal in both directions",
+    ], "Write 8-bit answers with all eight bits, leading zeros included, and show working when asked. A right answer with no working can still drop a mark."),
+
+    ("cs_aqa:3.3.3", &[
+        "Define the bit and the byte",
+        "State the decimal prefixes kilo, mega, giga and tera, each 1,000 times the one before",
+        "Convert and compare quantities of data between bits, bytes and the prefixes",
+    ], "Divide by 8 to go from bits to bytes before dividing by 1,000s. AQA uses 1 kB = 1,000 bytes, so 1,024 gives the wrong answer."),
+
+    ("cs_aqa:3.3.4", &[
+        "Add up to three 8-bit binary numbers, carrying correctly",
+        "Apply a logical left or right shift to an 8-bit number",
+        "Explain that shifts multiply or divide by powers of 2, and where bits are lost",
+    ], "A left shift of n places multiplies by 2 to the power n, not by n. A shift of 3 multiplies by 8."),
+
+    ("cs_aqa:3.3.5", &[
+        "Explain what a character set is",
+        "Describe 7-bit ASCII and Unicode, and use an encoding table to convert both ways",
+        "Use the fact that codes run in sequence to work out other codes",
+        "Explain the purpose of Unicode and its advantages over ASCII, and that it matches ASCII up to 127",
+    ], "Unicode's advantage is representing many more characters, such as other alphabets and symbols. 'It is newer' or 'it is better' earns nothing."),
+
+    ("cs_aqa:3.3.6", &[
+        "Explain what a pixel is and how a bitmap is made of pixels and colour depth",
+        "Describe image size (width x height in pixels) and colour depth",
+        "Calculate bitmap file size from width, height and colour depth, in bits and bytes",
+        "Convert between a simple bitmap and its binary data",
+    ], "Colour depth is bits per pixel, not the number of colours. 2 bits give 4 colours; 8 bits give 256."),
+
+    ("cs_aqa:3.3.7", &[
+        "Explain that sound is analogue and is sampled to store it digitally",
+        "Describe sampling rate and sample resolution",
+        "Calculate sound file size from rate, resolution and length",
+        "Explain how rate and resolution affect quality and file size",
+    ], "Sampling rate is samples per second in hertz; sample resolution is bits per sample. Mixing the two up loses the definition marks."),
+
+    ("cs_aqa:3.3.8", &[
+        "Explain what compression is and why data is compressed",
+        "Explain how Huffman coding works, and read codes from a Huffman tree",
+        "Calculate the bits needed for Huffman-coded data and for 7-bit ASCII, and the bits saved",
+        "Explain run length encoding and write data as frequency/data pairs",
+    ], "In RLE the pairs are frequency then data value. 5 0 means five 0s, and reversing the order loses the mark."),
+
+    ("cs_aqa:3.4.1", &[
+        "Define hardware and software",
+        "Explain the relationship between hardware and software",
+        "Classify components and programs as hardware or software",
+    ], "Software is the programs, not 'what you can't touch'. Definitions that rely only on touch rarely earn the mark."),
+
+    ("cs_aqa:3.4.2", &[
+        "Construct truth tables for NOT, AND, OR and XOR, and for circuits with up to three inputs",
+        "Create, modify and interpret logic circuit diagrams",
+        "Write Boolean expressions using . for AND, + for OR, ⊕ for XOR and an overbar for NOT",
+        "Convert between a circuit and its Boolean expression in both directions",
+    ], "AQA wants the symbols, not words: A.B + C̅, not A AND B OR NOT C. A correct expression in words is capped."),
+
+    ("cs_aqa:3.4.3", &[
+        "Explain system software and application software, with examples of each",
+        "Explain why an operating system is needed",
+        "Describe how the OS manages processors, memory, I/O devices, applications and security",
+        "Explain the purpose of utility programs, with examples",
+    ], "A utility program is system software that maintains the computer, such as backup or antivirus. It is not application software."),
+
+    ("cs_aqa:3.4.4", &[
+        "Explain the differences between low-level and high-level languages, and why most programs are high level",
+        "Distinguish machine code from assembly language, including the 1:1 correspondence",
+        "Explain the advantages and disadvantages of low-level programming",
+        "Compare compilers, interpreters and assemblers, and say when each is appropriate",
+    ], "Interpreters do not produce machine code: they call their own machine code routines for each statement. Claiming they translate to machine code line by line is marked wrong."),
+
+    ("cs_aqa:3.4.5a", &[
+        "Explain the role of main memory, the ALU, control unit, clock, registers and buses",
+        "Explain the fetch, decode and execute stages of the fetch-execute cycle",
+        "Explain how clock speed, number of cores and cache size affect CPU performance",
+    ], "More cores only help when the work can be split between them. Saying four cores make it four times faster is marked wrong."),
+
+    ("cs_aqa:3.4.5b", &[
+        "Describe RAM, ROM, cache and registers: what each holds and why it is needed",
+        "Explain volatile and non-volatile, main memory against secondary storage, and why secondary storage is needed",
+        "Explain how solid state and magnetic storage work, and compare them",
+        "Explain cloud storage and compare it with local storage",
+        "Explain how an embedded system differs from a non-embedded one, with examples",
+    ], "Cloud storage still uses magnetic or solid state drives, just at a remote location. Answers implying it is a different kind of storage medium lose the mark."),
+
+    ("cs_aqa:3.5a", &[
+        "Define a computer network and discuss the advantages and disadvantages of networking",
+        "Describe PAN (Bluetooth), LAN and WAN, including ownership and the Internet as the largest WAN",
+        "Compare wired and wireless networks, and fibre and copper cable",
+        "Explain authentication, encryption, firewalls and MAC address filtering, and how they work together",
+    ], "A LAN is defined by a small area and single ownership, not by the number of devices or by being wired."),
+
+    ("cs_aqa:3.5b", &[
+        "Define a network protocol",
+        "Explain the purpose of TCP, IP, HTTP, HTTPS, SMTP and IMAP",
+        "Describe the four layers of the TCP/IP model and what each does",
+        "Place each protocol at its layer: application, transport or internet",
+    ], "SMTP sends email and IMAP retrieves it from the server. Swapping them, or saying IMAP sends email, is a reliable lost mark."),
+
+    ("cs_aqa:3.6.1", &[
+        "Define cyber security",
+        "Describe the main purposes of cyber security: protecting networks, computers, programs and data",
+        "Explain why organisations and individuals need cyber security",
+    ], "The definition needs both halves: what is protected (networks, computers, programs, data) and what from (attack, damage, unauthorised access)."),
+
+    ("cs_aqa:3.6.2", &[
+        "Explain the threats from pharming, weak and default passwords, misconfigured access rights, removable media and unpatched software",
+        "Explain how each threat could be exploited by an attacker",
+        "Explain what penetration testing is, and the difference between insider and external tests",
+    ], "Pharming redirects website traffic to a fake site; phishing uses fake messages. Confusing them is the commonest error in this topic."),
+
+    ("cs_aqa:3.6.2.1", &[
+        "Define social engineering and explain why it targets people rather than technology",
+        "Explain blagging, phishing and shouldering, with examples",
+        "Explain how organisations and individuals can protect against social engineering",
+    ], "'Install antivirus' does not stop blagging or shouldering. Protection against social engineering is mainly staff training and procedures."),
+
+    ("cs_aqa:3.6.2.2", &[
+        "Define malware",
+        "Describe viruses, trojans and spyware and how each one behaves",
+        "Explain how to protect against malware",
+    ], "A trojan pretends to be useful software and does not replicate itself; a virus attaches to files and spreads. The difference is examined."),
+
+    ("cs_aqa:3.6.3", &[
+        "Explain biometric measures, especially on mobile devices",
+        "Explain password systems, CAPTCHA and email confirmations",
+        "Explain why automatic software updates are a security measure",
+        "Match each measure to the threat it reduces",
+    ], "CAPTCHA stops automated programs (bots), not people. Saying it stops hackers in general loses the mark."),
+
+    ("cs_aqa:3.7.1", &[
+        "Explain the concept of a database and of a relational database",
+        "Use the terms table, record, field, data type, primary key and foreign key",
+        "Explain how relational databases reduce data redundancy and inconsistency",
+    ], "A foreign key is a field in one table that is the primary key of another table. 'A key from another table' without that link is too vague."),
+
+    ("cs_aqa:3.7.2", &[
+        "Write SELECT queries with FROM, WHERE and ORDER BY ASC or DESC",
+        "Write queries that draw data from two tables, linked on a key",
+        "Insert records with INSERT INTO … VALUES",
+        "Change and remove records with UPDATE … SET … WHERE and DELETE FROM … WHERE",
+    ], "In a two-table query, the tables must be linked on the key in the WHERE clause. Without it, every row is joined to every other, and the linking mark is lost."),
+
+    ("cs_aqa:3.8", &[
+        "Explain the ethical, legal and environmental impacts and risks of digital technology on society",
+        "Discuss data privacy, including the tension between citizens' privacy and government security access",
+        "Apply these to the named areas: cyber security, mobile and wearable technologies, wireless networking, cloud storage, hacking, implants and autonomous vehicles",
+        "Write a balanced 9-mark discussion that covers all the bullets in the question",
+    ], "The 9-mark questions are marked on coverage of every bullet. A strong answer on one bullet, with nothing on the others, stays in the bottom level."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

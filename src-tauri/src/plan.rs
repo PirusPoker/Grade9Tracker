@@ -1417,6 +1417,70 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("2.5.4", "Motivation", 0.5),
         ],
     },
+    // AQA GCSE Computer Science 8525, the second-board version of Computer
+    // Science (the `cs` entry is OCR J277). Topics are the spec's own references
+    // for sections 3.1-3.8, read from the updated specification for first
+    // teaching in September 2025, first exams June 2027 (AQA spec pages and
+    // PDF dated 16 June 2025). 3.1.1, 3.2.2, 3.2.11 and 3.4.5 are split a/b,
+    // and 3.5, which has no sub-numbers, is split 3.5a/3.5b.
+    SubjectDef {
+        id: "cs_aqa", name: "Computer Science", full: "AQA GCSE Computer Science (8525)", color: "var(--cs)",
+        papers: "Paper 1 Computational thinking and programming skills (8525/1A C#, 1B Python or 1C VB.NET, the language the school chose): written, 2h, 90 marks, 50%. Paper 2 Computing concepts (8525/2): written, 1h45, 90 marks, 50%, including SQL and two 9-mark discussions. No calculator. There is no NEA: the practical programming the school must provide is confirmed by a statement and carries no marks, so the two papers are the whole grade",
+        spec: "https://www.aqa.org.uk/subjects/computer-science/gcse/computer-science-8525/specification",
+        sections: &["3.1 Fundamentals of algorithms", "3.2 Programming", "3.3 Fundamentals of data representation", "3.4 Computer systems", "3.5 Fundamentals of computer networks", "3.6 Cyber security", "3.7 Relational databases and SQL", "3.8 Ethical, legal and environmental impacts"],
+        topics: &[
+            // 3.1 Fundamentals of algorithms
+            ("3.1.1a", "Algorithms, decomposition, abstraction; pseudo-code and flowcharts", 0.5),
+            ("3.1.1b", "Inputs, processing and outputs; trace tables and the purpose of an algorithm", 0.75),
+            ("3.1.2", "Efficiency of algorithms", 0.5),
+            ("3.1.3", "Searching algorithms: linear and binary search", 0.5),
+            ("3.1.4", "Sorting algorithms: merge sort and bubble sort", 0.75),
+            // 3.2 Programming
+            ("3.2.1", "Data types: integer, real, Boolean, character and string", 0.5),
+            ("3.2.2a", "Programming concepts: variables, constants, assignment, selection and identifiers", 0.5),
+            ("3.2.2b", "Programming concepts: definite, indefinite and nested iteration", 0.75),
+            ("3.2.3", "Arithmetic operations: real division, DIV and MOD", 0.5),
+            ("3.2.4", "Relational operations", 0.5),
+            ("3.2.5", "Boolean operations: NOT, AND and OR in conditions", 0.5),
+            ("3.2.6", "Data structures: one- and two-dimensional arrays and records", 0.75),
+            ("3.2.7", "Input and output", 0.5),
+            ("3.2.8", "String handling: length, position, substring, concatenation and conversions", 0.75),
+            ("3.2.9", "Random number generation", 0.5),
+            ("3.2.10", "Subroutines, parameters, return values, local variables and structured programming", 1.0),
+            ("3.2.11a", "Robust and secure programming: validation and authentication routines", 0.75),
+            ("3.2.11b", "Testing: test data, syntax and logic errors, correcting errors", 0.5),
+            // 3.3 Fundamentals of data representation
+            ("3.3.1", "Number bases: decimal, binary and hexadecimal", 0.5),
+            ("3.3.2", "Converting between binary, decimal and hexadecimal", 0.5),
+            ("3.3.3", "Units of information: bits, bytes and decimal prefixes", 0.5),
+            ("3.3.4", "Binary arithmetic: adding binary numbers and logical shifts", 0.5),
+            ("3.3.5", "Character encoding: ASCII and Unicode", 0.5),
+            ("3.3.6", "Representing images: pixels, colour depth and bitmap file size", 0.75),
+            ("3.3.7", "Representing sound: sampling rate, sample resolution and file size", 0.5),
+            ("3.3.8", "Data compression: Huffman coding and run length encoding", 0.75),
+            // 3.4 Computer systems
+            ("3.4.1", "Hardware and software", 0.5),
+            ("3.4.2", "Boolean logic: truth tables, logic circuits and Boolean expressions", 0.75),
+            ("3.4.3", "Software classification: system and application software, operating systems and utilities", 0.5),
+            ("3.4.4", "Programming languages and translators: low and high level, compilers, interpreters, assemblers", 0.5),
+            ("3.4.5a", "Systems architecture: CPU components, the fetch-execute cycle and CPU performance", 0.75),
+            ("3.4.5b", "Memory and storage: RAM, ROM, cache, secondary storage, cloud storage and embedded systems", 0.75),
+            // 3.5 Fundamentals of computer networks
+            ("3.5a", "Computer networks: PAN, LAN and WAN, wired and wireless, and network security", 0.5),
+            ("3.5b", "Network protocols and the four-layer TCP/IP model", 0.5),
+            // 3.6 Cyber security
+            ("3.6.1", "Fundamentals of cyber security", 0.5),
+            ("3.6.2", "Cyber security threats and penetration testing", 0.5),
+            ("3.6.2.1", "Social engineering: blagging, phishing and shouldering", 0.5),
+            ("3.6.2.2", "Malicious code: viruses, trojans and spyware", 0.5),
+            ("3.6.3", "Detecting and preventing cyber security threats", 0.5),
+            // 3.7 Relational databases and SQL
+            ("3.7.1", "Relational databases: tables, records, fields, keys", 0.5),
+            ("3.7.2", "SQL: SELECT, INSERT, UPDATE and DELETE", 1.0),
+            // 3.8 Ethical, legal and environmental impacts
+            ("3.8", "Ethical, legal and environmental impacts of digital technology, including privacy", 0.75),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

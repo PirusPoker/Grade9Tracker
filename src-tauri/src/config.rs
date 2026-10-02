@@ -197,6 +197,9 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("englit_edq", &[(1, 0.5, 0.5)]),
     // Business (Edexcel): two written papers, taught through both years at school.
     ("bus_edx", &[(1, 0.5, 0.25)]),
+    // Computer Science (AQA 8525): taught at school across both years, so
+    // recall only, at a modest rate.
+    ("cs_aqa", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -228,6 +231,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("econ_aqa", "school"),
     ("englit_edq", "school"),
     ("bus_edx", "school"),
+    ("cs_aqa", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -527,6 +531,19 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Revision notes", "https://www.savemyexams.com/gcse/business/edexcel/19/revision-notes/"),
         ("Past papers", "https://www.savemyexams.com/gcse/business/edexcel/past-papers/"),
         ("Pearson papers & mark schemes", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/business-2017.coursematerials.html#filterQuery=category:Pearson-UK:Category%2FExam-materials"),
+    ]),
+    // AQA GCSE Computer Science 8525. Every link opened and checked on 30
+    // September 2026. The Save My Exams course is its AQA 8525 course: notes and
+    // questions sorted by spec section, and the past papers are 8525/1A-1C and
+    // 8525/2. Its notes still follow the 2020 spec, so a few pages (topologies,
+    // Ethernet/Wi-Fi, UDP, FTP, optical storage) go beyond the 2027 exams. The
+    // BBC Bitesize pages are its AQA computer science exam spec.
+    ("cs_aqa", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/computer-science/aqa/20/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/computer-science/aqa/20/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/computer-science/aqa/past-papers/"),
+        ("BBC Bitesize", "https://www.bbc.co.uk/bitesize/examspecs/zkwsjhv"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/computer-science/gcse/computer-science-8525/assessment-resources"),
     ]),
 ];
 
