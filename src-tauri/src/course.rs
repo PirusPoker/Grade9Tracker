@@ -278,6 +278,8 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
         "8.1", "8.2", "8.3", "8.4", "8.5", "8.6",
         "9.1", "9.2", "9.3", "9.4", "9.5", "9.6",
     ]),
+    // AQA GCSE Combined Science: Trilogy (8464) Higher. Every Trilogy subsection, Higher tier; each topic opens the matching separate-science lesson, which marks what Trilogy leaves out as Separate science only.
+    ("combsci_aqa", &["4.1.1", "4.1.2", "4.1.3", "4.2.1", "4.2.2", "4.2.3", "4.3.1", "4.4.1", "4.4.2", "4.5.1", "4.5.2", "4.5.3", "4.6.1", "4.6.2", "4.6.3", "4.6.4", "4.7.1", "4.7.2", "4.7.3", "5.1.1", "5.1.2", "5.2.1", "5.2.2", "5.2.3", "5.3.1", "5.3.2", "5.4.1", "5.4.2", "5.4.3", "5.5.1", "5.6.1", "5.6.2", "5.7.1", "5.8.1", "5.8.2", "5.9.1", "5.9.2", "5.9.3", "5.10.1", "5.10.2", "6.1.1", "6.1.2", "6.1.3", "6.2.1", "6.2.2", "6.2.3", "6.2.4", "6.3.1", "6.3.2", "6.3.3", "6.4.1", "6.4.2", "6.5.1", "6.5.2", "6.5.3", "6.5.4", "6.5.5", "6.6.1", "6.6.2", "6.7.1", "6.7.2"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -9096,6 +9098,585 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Calculate carbon and ecological footprints",
         "Plan and write the Paper 3 Section D 12-mark decision: choose one option, justify it from the booklet, and weigh it against the other two",
     ], "The 12-mark decision rewards rejecting the other options with reasons. Answers that only praise the chosen option, or ignore the resource booklet, are capped in Level 2."),
+
+    // ---------- Combined Science (AQA GCSE Combined Science: Trilogy (8464) Higher) ----------
+    ("combsci_aqa:4.1.1", &[
+        "Compare eukaryotic and prokaryotic cells, including plasmids and the DNA loop",
+        "Link each sub-cellular structure in plant, animal and bacterial cells to its function",
+        "Explain how sperm, nerve, muscle, root hair, xylem and phloem cells are adapted",
+        "Use magnification = image size / real size with unit conversions and standard form",
+        "Compare light and electron microscopes in terms of magnification and resolution",
+        "Describe aseptic technique and calculate bacterial numbers and clear-zone areas (separate science only)",
+    ], "In magnification sums, convert both sizes to the same unit before dividing. 1 mm is 1000 µm, and magnification has no unit."),
+
+    ("combsci_aqa:4.1.2", &[
+        "Describe chromosomes, genes and how chromosomes are paired in body cells",
+        "Describe the three stages of the cell cycle and why DNA and organelles are copied first",
+        "Recognise growth, repair and replacement as situations where mitosis happens",
+        "Calculate the time spent in mitosis from cell counts",
+        "Describe the function of stem cells in embryos, adult bone marrow and plant meristems",
+        "Evaluate the benefits, risks and ethical issues of stem cell treatments and therapeutic cloning",
+    ], "Describe the cell cycle in AQA's three stages and end with two genetically identical cells. In stem cell questions, \"evaluate\" needs both sides and a conclusion."),
+
+    ("combsci_aqa:4.1.3", &[
+        "Define diffusion, osmosis and active transport and explain how they differ",
+        "Explain how concentration gradient, temperature and surface area affect the rate of diffusion",
+        "Calculate surface area to volume ratios and use them to explain the need for exchange surfaces and transport systems",
+        "Explain how the small intestine, lungs, gills, roots and leaves are adapted for exchange",
+        "Carry out the osmosis practical, calculate percentage change in mass and interpret the graph",
+    ], "An osmosis definition needs water, dilute to more concentrated solution, and a partially permeable membrane. Active transport needs both \"against the gradient\" and \"energy from respiration\"."),
+
+    ("combsci_aqa:4.2.1", &[
+        "Define cell, tissue, organ and organ system using AQA's wording",
+        "Put the levels of organisation in order from sub-cellular structure to organism",
+        "Classify examples such as blood, the heart and the leaf into the correct level",
+        "Explain how the tissues in an organ such as the stomach each contribute to its function",
+        "Compare the sizes of cells, tissues, organs and systems using the same units and standard form",
+    ], "An organ is a group of different tissues, not just a lot of cells. Blood is a tissue, the leaf is an organ, and those two catch people out most."),
+
+    ("combsci_aqa:4.2.2a", &[
+        "Recall where amylase, proteases and lipases are made, where they work and their products",
+        "Explain enzyme specificity using the active site and the lock and key model",
+        "Explain the effect of temperature and pH on enzyme activity, using denaturing",
+        "Explain how bile neutralises acid and emulsifies fat to speed up lipase",
+        "Carry out the food tests and the amylase pH practical, and calculate rates as 1/time",
+    ], "Enzymes are denatured, not killed: say the active site changes shape so the substrate no longer fits. Bile is not an enzyme; it emulsifies fat and neutralises acid."),
+
+    ("combsci_aqa:4.2.2b", &[
+        "Trace blood through the double circulatory system, naming the chambers and the aorta, vena cava, pulmonary artery, pulmonary vein and coronary arteries",
+        "Explain how the lungs are adapted for gas exchange, from trachea and bronchi to alveoli and their capillaries",
+        "Describe the natural pacemaker in the right atrium and what artificial pacemakers do",
+        "Explain how the structures of arteries, veins and capillaries suit their functions",
+        "Calculate rates of blood flow and heart rate with the right units",
+        "Identify red cells, white cells and platelets and explain how each is adapted, alongside the role of plasma",
+    ], "The pulmonary artery carries deoxygenated blood and the pulmonary vein oxygenated blood. And arteries do not pump: their thick walls withstand high pressure."),
+
+    ("combsci_aqa:4.2.2c", &[
+        "Explain how fatty deposits in the coronary arteries starve heart muscle of oxygen",
+        "Evaluate stents, statins, replacement valves, transplants and artificial hearts, weighing benefits against risks",
+        "Describe how health is affected by disease, diet, stress and life situations, and how different diseases interact",
+        "Link named lifestyle risk factors to their diseases and discuss their human and financial costs",
+        "Interpret disease data from tables, charts and scatter diagrams, judging sampling and correlation versus cause",
+        "Distinguish benign from malignant tumours and name lifestyle and genetic risk factors for cancer",
+    ], "A correlation between a risk factor and a disease does not prove cause on its own. Say a causal mechanism is needed, or that other factors could be involved."),
+
+    ("combsci_aqa:4.2.3", &[
+        "Explain how the epidermis, palisade and spongy mesophyll, xylem, phloem, meristem and guard cells suit their jobs in the leaf and plant",
+        "Explain how root hair cells take up water by osmosis and mineral ions by active transport",
+        "Describe transpiration and translocation and compare xylem with phloem",
+        "Explain how temperature, humidity, air movement and light intensity change the rate of transpiration",
+        "Measure transpiration with a potometer and calculate rates, means and volumes from your readings",
+    ], "Root hair cells take in water by osmosis but mineral ions by active transport. And humidity slows transpiration because the water vapour concentration gradient is less steep."),
+
+    ("combsci_aqa:4.3.1a", &[
+        "Name the four types of pathogen and explain how bacteria and viruses make us ill",
+        "Explain how pathogens spread by direct contact, water and air, and how each route can be blocked",
+        "Give the pathogen, symptoms, spread and control for measles, HIV and TMV",
+        "Do the same for Salmonella, gonorrhoea, rose black spot and malaria",
+        "Explain why TMV and rose black spot reduce plant growth",
+        "Interpret data on cases of a disease before and after a control measure",
+    ], "Malaria is caused by a protist, and the mosquito is only the vector. For every control method, say which link in the chain of spread it breaks."),
+
+    ("combsci_aqa:4.3.1b", &[
+        "Describe how the skin, nose, trachea and bronchi, and stomach stop pathogens getting in",
+        "Explain how white blood cells defend the body by phagocytosis, antibody production and antitoxin production",
+        "Explain how vaccination protects a person, and how immunising most of a population stops a pathogen spreading",
+        "Explain what antibiotics and painkillers can and cannot do, including why antibiotics do not work on viruses",
+        "Describe how a new drug is discovered and tested, from preclinical work to double blind trials and peer review",
+    ], "Antibiotics kill bacteria only, never viruses, and painkillers kill nothing at all. Say it plainly whenever a question mentions a viral illness."),
+
+    ("combsci_aqa:4.4.1", &[
+        "Write the word equation for photosynthesis, recognise the symbols, and explain why it is endothermic",
+        "Explain how light intensity, carbon dioxide, temperature and chlorophyll affect the rate, and calculate rates",
+        "Read limiting-factor graphs, including two- and three-factor graphs and the inverse square law (Higher tier)",
+        "Carry out and evaluate Required practical 6 (Trilogy 5) on light intensity and pondweed",
+        "Use limiting factors to judge the cost-effectiveness of heat, light and CO2 in greenhouses (Higher tier)",
+        "List the uses of glucose in plants and explain why nitrate is also needed",
+    ], "On a plateau, \"another factor is limiting\" is the mark, and at Higher you must name it from the other lines. Doubling the lamp distance quarters the light, it does not halve it."),
+
+    ("combsci_aqa:4.4.2", &[
+        "Describe respiration as a continuous exothermic reaction and list what organisms use the energy for",
+        "Write the equations for aerobic respiration and for anaerobic respiration in muscles, plants and yeast",
+        "Compare aerobic and anaerobic respiration: oxygen, products and energy transferred",
+        "Explain the body's response to exercise, lactic acid and fatigue, and oxygen debt (Higher tier)",
+        "Explain metabolism and the role of sugars, amino acids, fatty acids and glycerol",
+    ], "Respiration transfers energy; it never \"produces\" it. Muscles make lactic acid only, while yeast and plants make ethanol and carbon dioxide."),
+
+    ("combsci_aqa:4.5.1", &[
+        "Define homeostasis as regulating internal conditions to keep optimum conditions for function",
+        "Explain why homeostasis matters for enzyme action and cell functions",
+        "Name the conditions controlled in the human body: blood glucose, body temperature and water levels",
+        "Describe the roles of receptors, coordination centres and effectors, and put the control chain in order",
+        "Apply the control-system pattern to unfamiliar examples and data",
+    ], "Effectors are only muscles or glands, and a receptor is a cell. Call the brain an effector, or define homeostasis as \"keeping things the same\", and the mark goes."),
+
+    ("combsci_aqa:4.5.2", &[
+        "Describe the pathway from stimulus to response, naming receptor, CNS and effector",
+        "Explain how each structure in a reflex arc, including the synapse and relay neurone, relates to its function and why reflexes are fast",
+        "Plan the ruler-drop reaction-time practical, naming variables, calculating means and converting results to graphs",
+        "Identify the cerebral cortex, cerebellum and medulla and explain why the brain is hard to investigate and treat (biology only)",
+        "Explain accommodation, adaptation to dim light, and how lenses correct myopia and hyperopia (biology only)",
+        "Explain how vasodilation, vasoconstriction, sweating and shivering control body temperature (biology only)",
+    ], "Impulses are electrical along neurones but a chemical diffuses across the synapse, and reflexes skip the conscious brain, not the whole CNS. In the eye, the ciliary muscles contract while the suspensory ligaments slacken; ligaments never contract."),
+
+    ("combsci_aqa:4.5.3a", &[
+        "Describe how the endocrine system works and compare it with the nervous system",
+        "Identify the pituitary, thyroid, adrenal glands, pancreas, ovaries and testes on a diagram of the body",
+        "Explain how insulin, and at Higher tier glucagon, control blood glucose by negative feedback",
+        "Compare Type 1 and Type 2 diabetes and their treatments, and interpret glucose graphs",
+        "Explain how the kidneys filter and selectively reabsorb, and how ADH controls water balance (biology only)",
+        "Describe how dialysis works and evaluate it against a kidney transplant (biology only)",
+    ], "Glucose, glycogen and glucagon get mixed up more than anything else on this topic. Insulin moves glucose into cells, and glucose is stored as glycogen in liver and muscle."),
+
+    ("combsci_aqa:4.5.3b", &[
+        "Describe the roles of oestrogen and testosterone at puberty and of FSH, LH, oestrogen and progesterone in the menstrual cycle",
+        "Explain how FSH, oestrogen, LH and progesterone stimulate and inhibit each other, and read hormone graphs (Higher tier)",
+        "Explain how each hormonal and non-hormonal method of contraception works and evaluate them",
+        "Describe how FSH and LH fertility drugs and IVF treat infertility, and evaluate the issues (Higher tier)",
+        "Explain the roles of adrenaline and thyroxine and how negative feedback controls thyroxine (Higher tier)",
+    ], "FSH matures the egg and LH releases it, and both come from the pituitary, not the ovary. On a graph, LH is the sharp spike just before ovulation."),
+
+    ("combsci_aqa:4.6.1a", &[
+        "Compare sexual and asexual reproduction, including which type of cell division each uses",
+        "Explain how meiosis halves the chromosome number and fertilisation restores it",
+        "Explain the advantages of each type of reproduction using malarial parasites, fungi, strawberries and daffodils (biology only)",
+        "Describe DNA, genes and the genome, and discuss why understanding the human genome matters",
+        "Describe DNA as a polymer of nucleotides and use the triplet code and A–T, C–G pairing in calculations (biology only)",
+        "Describe protein synthesis and explain how mutations in coding and non-coding DNA can change a protein or its expression (Higher tier, biology only)",
+    ], "Meiosis gives four genetically different cells with half the chromosomes, while mitosis gives two identical ones. Gametes carry a single set (23 in humans), not 23 pairs."),
+
+    ("combsci_aqa:4.6.1b", &[
+        "Explain gamete, chromosome, gene, allele, dominant, recessive, homozygous, heterozygous, genotype and phenotype",
+        "Complete and (Higher tier) construct Punnett squares, giving outcomes as ratios, probabilities and percentages",
+        "Interpret family trees to decide whether an allele is dominant or recessive and work out genotypes",
+        "Describe polydactyly (dominant) and cystic fibrosis (recessive) and make informed judgements about embryo screening",
+        "Explain sex determination with XX and XY and show it with a genetic cross",
+    ], "A 1 in 4 chance is a probability for each child, not exactly one in every four children. And heterozygous means two different alleles, not two different genes."),
+
+    ("combsci_aqa:4.6.2", &[
+        "Describe genetic, environmental and combined causes of variation and state that all variants arise from mutations",
+        "Explain how evolution happens by natural selection, step by step, in any context",
+        "Describe the process of selective breeding and explain its benefits and the risks of inbreeding",
+        "Evaluate genetic engineering and GM crops, and (Higher tier) describe its main steps using enzymes and a vector",
+        "Separate science only: describe tissue culture, cuttings, embryo transplants and adult cell cloning, with their benefits and risks",
+    ], "In natural selection answers people skip 'passes on the allele to offspring' and 'over many generations', or say the organism adapted on purpose. Mutations are random; the environment only selects."),
+
+    ("combsci_aqa:4.6.3", &[
+        "Describe the evidence for evolution: fossils, antibiotic resistance and the inheritance of genes",
+        "Describe three ways fossils form and explain why the fossil record is incomplete",
+        "Explain how antibiotic-resistant bacteria such as MRSA develop and how to slow their spread",
+        "Describe factors that cause extinction and read evolutionary trees",
+        "Separate science only: describe the work of Darwin, Wallace, Lamarck and Mendel, why their ideas took time to be accepted, and the steps of speciation",
+    ], "Saying the antibiotic made the bacteria mutate. The resistant mutation was already there by chance; the antibiotic just kills the rest, so the resistant strain survives and multiplies."),
+
+    ("combsci_aqa:4.6.4", &[
+        "List Linnaeus's seven levels of classification in order, from kingdom to species",
+        "Use binomial names (genus and species) to decide which organisms are most closely related",
+        "Explain how better microscopes and chemical analysis changed classification",
+        "Name Woese's three domains and say what each contains",
+        "Interpret evolutionary trees to find common ancestors, relatedness and extinct species",
+    ], "Getting the seven levels in the wrong order, or naming the three domains as animals, plants and bacteria. They are Archaea, Bacteria and Eukaryota."),
+
+    ("combsci_aqa:4.7.1", &[
+        "Describe the levels of organisation from individual to population, community and ecosystem",
+        "Suggest the resources plants and animals compete for in a given habitat",
+        "Explain interdependence and how removing one species affects a whole community",
+        "Explain how changes in abiotic and biotic factors affect a community, using data and calculating percentage change",
+        "Explain structural, behavioural and functional adaptations, including extremophiles",
+    ], "Mixing up community (living things only) with ecosystem (living plus non-living), and saying plants compete for food. Plants compete for light, space, water and mineral ions."),
+
+    ("combsci_aqa:4.7.2", &[
+        "Name producers and primary, secondary and tertiary consumers in a food chain",
+        "Explain predator–prey cycles, including why predator numbers lag behind prey",
+        "Estimate population size from random quadrats and use transects to link distribution to an abiotic factor (Required practical 9; Trilogy 7)",
+        "Explain how the carbon and water cycles work and the role of microorganisms in returning CO₂ and mineral ions",
+        "Explain how temperature, water and oxygen affect the rate of decay, including compost, biogas and the milk practical (separate science only)",
+        "Evaluate how changes in temperature, water and atmospheric gases affect species distribution (separate science only, Higher tier)",
+    ], "In quadrat sums, work out how many quadrats fit in the whole area (a 50 cm quadrat is 0.25 m²) before multiplying by the mean. On predator–prey graphs, say the predator peak lags behind the prey peak and give the reason."),
+
+    ("combsci_aqa:4.7.3", &[
+        "Define biodiversity and explain why high biodiversity keeps ecosystems stable",
+        "Describe how pollution of water, air and land, and land use for building, quarrying, farming and landfill, reduce biodiversity",
+        "Explain why destroying peat bogs and tropical forests reduces biodiversity and raises carbon dioxide levels",
+        "Describe biological consequences of global warming and why the evidence is trusted but still partly uncertain",
+        "Evaluate breeding programmes, habitat protection, hedgerows, emission cuts and recycling as ways to maintain biodiversity",
+        "Calculate percentage changes and rates from environmental data",
+    ], "Deforestation raises carbon dioxide in two ways: burning and decay release it, and fewer trees remove it by photosynthesis. Evaluate questions need both sides and a conclusion."),
+
+    ("combsci_aqa:5.1.1", &[
+        "Tell elements, compounds and mixtures apart, and choose a separation technique for a given mixture",
+        "Describe how the model of the atom changed from solid spheres to the nuclear model, linking each change to its evidence",
+        "Work out the protons, neutrons and electrons in any atom or ion from its atomic and mass numbers",
+        "Calculate relative atomic mass from isotope abundances",
+        "Write the electronic structure of the first 20 elements as numbers and as diagrams",
+        "Write and balance symbol equations, and (Higher tier) half and ionic equations",
+    ], "In alpha scattering answers, each observation has to be tied to what it shows: most went straight through, so the atom is mostly empty space. A list of observations with no conclusions drops most of the marks."),
+
+    ("combsci_aqa:5.1.2", &[
+        "Link an element's position in the periodic table to its electron arrangement and atomic number",
+        "Describe how Mendeleev built his table and why his gaps and predictions got it accepted",
+        "Explain the differences between metals and non-metals using their properties and outer electrons",
+        "Describe the reactions of lithium, sodium and potassium with water, oxygen and chlorine, and write their equations",
+        "Explain the opposite reactivity trends in Group 1 and Group 7, and predict properties down Groups 0, 1 and 7",
+        "Predict and describe halogen displacement reactions",
+    ], "Reactivity trends need the whole chain: more shells, outer electron further from the nucleus, weaker attraction, so lost more easily in Group 1 or gained less easily in Group 7. Stopping at \"the atom is bigger\" drops the marks."),
+
+    ("combsci_aqa:5.2.1", &[
+        "Decide whether a substance has ionic, covalent or metallic bonding from the elements in it",
+        "Work out ion charges from group numbers and draw dot and cross diagrams for Group 1 or 2 metals with Group 6 or 7 non-metals",
+        "Draw dot and cross diagrams for H₂, Cl₂, O₂, N₂, HCl, H₂O, NH₃ and CH₄, and line diagrams for molecules, polymers and giant structures",
+        "Describe the structure of sodium chloride and the limitations of each way of representing it",
+        "Deduce empirical and molecular formulae from diagrams and models",
+        "Describe metallic bonding as positive ions held by delocalised electrons",
+    ], "The ionic bond is the electrostatic attraction between oppositely charged ions, not the electron transfer and never \"sharing\". In dot and cross diagrams, missing square brackets, charges or lone pairs costs marks every time."),
+
+    ("combsci_aqa:5.2.2", &[
+        "Use the particle model to explain melting, boiling, freezing and condensing, and (Higher tier) state its limitations",
+        "Predict the state of a substance at a given temperature from its melting and boiling points",
+        "Explain the melting points and conductivity of ionic compounds, small molecules, polymers, giant covalent structures and metals from their bonding",
+        "Explain why larger molecules have higher boiling points and why alloys are harder than pure metals",
+        "Add the correct state symbols to equations",
+    ], "When a substance made of small molecules melts or boils, the weak intermolecular forces are overcome, not the covalent bonds. Saying the bonds break is the most common mark lost on this topic."),
+
+    ("combsci_aqa:5.2.3", &[
+        "Explain the hardness, high melting point and non-conductivity of diamond from its four covalent bonds per carbon",
+        "Explain why graphite is soft, has a high melting point and conducts, using its layers and delocalised electrons",
+        "Describe graphene as a single layer of graphite and link its properties to uses in electronics and composites",
+        "Recognise diamond, graphite, graphene, C₆₀ and carbon nanotubes from diagrams and descriptions",
+        "Give uses of fullerenes and nanotubes and explain why C₆₀ melts far lower than diamond",
+    ], "Graphite is soft because there are no covalent bonds between its layers, only weak forces, and it conducts because one electron per carbon is delocalised and carries charge. Saying \"weak covalent bonds between layers\" or \"strong bonds\" without \"many\" and \"lots of energy\" loses the mark."),
+
+    ("combsci_aqa:5.3.1", &[
+        "State the law of conservation of mass and balance symbol equations by changing only the numbers in front of formulae",
+        "Calculate relative formula mass, including formulae with brackets, and show that masses in a balanced equation add up",
+        "Calculate the percentage by mass of an element in a compound",
+        "Explain apparent mass changes in open containers when a gas is gained from or lost to the air",
+        "Calculate a mean, its range and its uncertainty, and write a result as mean ± uncertainty",
+    ], "Mass is never \"lost\" — in an open container a gas escapes or oxygen joins from the air, and you must say so. In calculations, multiply out brackets and big numbers fully and never give Mr a unit."),
+
+    ("combsci_aqa:5.3.2", &[
+        "(Higher) Convert between mass, moles and number of particles using Mr and the Avogadro constant, 6.02 × 10²³ per mole",
+        "(Higher) Calculate the mass of a reactant or product from a balanced equation and the mass of another substance",
+        "(Higher) Work out the balancing numbers in an equation from the masses of reactants and products",
+        "(Higher) Identify the limiting reactant and explain how it fixes the amount of product",
+        "Calculate concentration in g/dm³ and the mass of solute in a given volume, converting cm³ to dm³ first",
+    ], "Read the mole ratio from the balanced equation every time — 2Mg : O₂ is 2 : 1, not 1 : 1 — and always convert cm³ to dm³ before using the concentration equation."),
+
+    ("combsci_aqa:5.4.1", &[
+        "Explain oxidation and reduction as gain and loss of oxygen, and identify what is oxidised and reduced in an equation",
+        "Recall the reactions of potassium, sodium, lithium, calcium, magnesium, zinc, iron and copper with water and dilute acids, and place them in order of reactivity",
+        "Explain reactivity in terms of a metal's tendency to form positive ions, and deduce an order of reactivity from experimental results",
+        "Predict displacement reactions and explain why metals below carbon are extracted by reduction with carbon",
+        "(Higher tier) Define oxidation and reduction in terms of electrons and write ionic and half equations for displacement reactions",
+    ], "Students lose marks by naming the metal rather than the metal oxide or metal ion as the substance reduced, and by writing ionic equations that still contain spectator ions or whose charges do not balance."),
+
+    ("combsci_aqa:5.4.2", &[
+        "Predict the salt and other products when acids react with metals, alkalis, bases and carbonates, and deduce salt formulae from the charges on ions",
+        "Describe how to make a pure, dry sample of a soluble salt from an insoluble oxide or carbonate (Required practical 1; Trilogy Required practical 8)",
+        "Use universal indicator or a pH probe to find pH, and explain neutralisation as H⁺ + OH⁻ → H₂O",
+        "(Separate science only) Describe how to carry out an accurate titration and, at Higher tier, calculate concentrations in mol/dm³ and g/dm³ (Required practical 2)",
+        "(Higher tier) Explain metal–acid reactions as redox, and distinguish strong/weak from concentrated/dilute acids",
+        "(Higher tier) Use the rule that each fall of one pH unit means ten times the hydrogen ion concentration",
+    ], "The most common slips are confusing strong with concentrated, and leaving out a reason or a step (excess solid, filtering, evaporating to the crystallisation point) in the salt-making method."),
+
+    ("combsci_aqa:5.4.3", &[
+        "Explain why ionic compounds conduct when molten or dissolved, and which ions move to the cathode and the anode",
+        "Predict the products of electrolysing molten binary ionic compounds and aqueous solutions with inert electrodes",
+        "Explain why aluminium is extracted by electrolysis of aluminium oxide in cryolite and why the carbon anode must be replaced",
+        "Plan Required practical 3 (Trilogy Required practical 9): electrolyse aqueous solutions, state a hypothesis and identify the products with gas tests",
+        "(Higher tier) Write, complete and balance half equations at each electrode and identify them as oxidation or reduction",
+    ], "In aqueous solutions people name the metal (such as sodium) at the cathode or sulfur at the anode, instead of applying the rules: hydrogen unless the metal is less reactive than hydrogen, oxygen unless a halide is present."),
+
+    ("combsci_aqa:5.5.1", &[
+        "Decide whether a reaction is exothermic or endothermic from the temperature change of the surroundings, and give examples and uses of each",
+        "Evaluate hand warmers, self-heating cans and cold packs from given data, ending with a justified judgement",
+        "Carry out and evaluate Required practical 4 (Trilogy 10): variables, insulation, highest temperature and the crossing point of two best-fit lines",
+        "Draw and read reaction profiles, with activation energy from reactants to peak and overall change from reactants to products",
+        "(Higher tier) Calculate the energy change from bond energies as bonds broken minus bonds formed, and explain the sign in terms of bonds",
+    ], "Activation energy arrows drawn from the axis or the products instead of from the reactants lose easy marks. In bond energy sums, forgetting the balancing numbers (2O₂ is two O=O bonds) or dropping the minus sign throws away the answer mark."),
+
+    ("combsci_aqa:5.6.1", &[
+        "Calculate mean rates in g/s or cm³/s, and (Higher tier) in mol/s, from the quantity used or formed and the time taken",
+        "Draw and interpret product-against-time graphs, draw tangents, and (Higher tier) calculate a tangent's gradient as the rate at a given time",
+        "Explain the effects of concentration, pressure, surface area, temperature and catalysts using collision theory and activation energy",
+        "Use surface area to volume ratios and simple proportionality to predict how rate changes",
+        "Plan and evaluate Required practical 5 (Trilogy 11): gas volume and disappearing-cross methods, variables, rate = 1/time and safety",
+    ], "Write \"more frequent collisions\", not just \"more collisions\", and for temperature give both effects: more frequent collisions and more collisions with at least the activation energy. Catalysts lower the activation energy by giving another pathway; they do not give particles more energy."),
+
+    ("combsci_aqa:5.6.2", &[
+        "Write reversible reactions with the ⇌ symbol and describe the ammonium chloride and hydrated copper sulfate examples, including colours",
+        "Explain that a reversible reaction is exothermic one way and endothermic the other, transferring the same amount of energy",
+        "Describe dynamic equilibrium in a closed system as forward and reverse reactions at the same rate with constant amounts",
+        "(Higher tier) Use Le Chatelier's Principle to predict and explain the effects of concentration, temperature and pressure on the position of equilibrium",
+        "(Higher tier) Interpret yield data to deduce whether a forward reaction is exothermic or endothermic and which side has fewer gas molecules",
+    ], "At equilibrium the rates are equal and the amounts are constant, not equal, and the reactions have not stopped. For Le Chatelier answers, name the direction favoured and why (endothermic for a temperature rise, fewer gas molecules for a pressure rise) before giving the effect on yield."),
+
+    ("combsci_aqa:5.7.1", &[
+        "Describe crude oil as a finite mixture of hydrocarbons, name the first four alkanes and recognise alkanes from CₙH₂ₙ₊₂ and displayed formulae",
+        "Explain fractional distillation in terms of evaporation, a temperature gradient and condensation at each boiling point",
+        "Recall how boiling point, viscosity and flammability change with molecule size and link this to use as fuels",
+        "Write balanced equations for the complete combustion of hydrocarbons and for cracking reactions",
+        "Describe catalytic and steam cracking, the bromine water test for alkenes, and why cracking is needed (supply and demand, polymers)",
+    ], "In fractional distillation, fractions are separated because they condense at different heights where the column is cooler than their boiling point; \"they boil off at different levels\" loses the mark. For the alkene test say bromine water turns from orange to colourless, not \"clear\"."),
+
+    ("combsci_aqa:5.8.1", &[
+        "Use melting and boiling point data to decide whether a substance is pure, and contrast the chemical and everyday meanings of pure",
+        "Identify a formulation from given information: a designed mixture with measured components, each with a purpose",
+        "Explain how paper chromatography separates a mixture in terms of the stationary phase and the mobile phase",
+        "Calculate Rf values from chromatograms to a sensible number of significant figures, and use them to identify substances and judge purity",
+        "Carry out and evaluate Required practical 6 (Trilogy 12): pencil start line above the solvent, small spots, lid, solvent front marked",
+    ], "Rf answers bigger than 1 (divided the wrong way round) or distances measured from the bottom of the paper instead of the start line throw away the calculation marks. Saying impurities raise the melting point loses easy marks: they lower it and spread it over a range."),
+
+    ("combsci_aqa:5.8.2", &[
+        "Describe the test and positive result for hydrogen: a burning splint at the mouth of the tube gives a squeaky pop",
+        "Describe the test and positive result for oxygen: a glowing splint relights",
+        "Describe the test and positive result for carbon dioxide: bubbled through limewater it turns milky, and explain the calcium carbonate precipitate",
+        "Describe the test and positive result for chlorine: damp litmus paper is bleached white, done in a fume cupboard",
+        "Use gas test results to identify the products of reactions and electrolysis",
+    ], "Mixing up the burning splint (hydrogen, pop) with the glowing splint (oxygen, relights) loses both marks. Writing 'glows brighter', 'limewater changes colour' or leaving out 'damp' for chlorine all miss the result mark."),
+
+    ("combsci_aqa:5.9.1", &[
+        "State the proportions of gases in today's atmosphere (about four-fifths nitrogen, one-fifth oxygen, small amounts of carbon dioxide, water vapour and noble gases) and use them in percentage calculations",
+        "Describe the theory of the early atmosphere: volcanic gases, mainly carbon dioxide, little or no oxygen, water vapour condensing to form the oceans",
+        "Explain how oxygen increased through photosynthesis by algae (from 2.7 billion years ago) and then plants",
+        "Explain how carbon dioxide decreased by dissolving in the oceans, photosynthesis, and the formation of sedimentary rocks and fossil fuels",
+        "Describe and explain the formation of limestone, coal, crude oil and natural gas",
+        "Evaluate theories about the early atmosphere from given evidence, recognising why the evidence is limited",
+    ], "Saying oxygen came from volcanoes, or that carbon dioxide simply 'disappeared', loses the marks: name photosynthesis by algae and plants, dissolving in the oceans, and locking up in rocks and fossil fuels. Mixing up which deposits came from plants, plankton and shells is the other common slip."),
+
+    ("combsci_aqa:5.9.2", &[
+        "Name water vapour, carbon dioxide and methane as greenhouse gases and describe the greenhouse effect in terms of short and long wavelength radiation",
+        "Recall two human activities that increase carbon dioxide and two that increase methane",
+        "Evaluate reports about climate change: peer review, bias, uncertainty in the data and the limits of models",
+        "Describe four potential effects of global climate change and discuss their scale and risk",
+        "Define the carbon footprint, describe actions that reduce it, and give reasons why those actions may be limited",
+        "Calculate percentage changes in greenhouse gas levels and carbon footprints from given data",
+    ], "Saying greenhouse gases 'trap heat' or 'reflect' radiation, or bringing in the ozone layer, loses the mechanism marks: incoming radiation is short wavelength, and greenhouse gases absorb and re-emit the long wavelength infrared that the Earth gives out."),
+
+    ("combsci_aqa:5.9.3", &[
+        "List the gases and particulates released when fuels burn: carbon dioxide, water vapour, carbon monoxide, sulfur dioxide, oxides of nitrogen, soot and unburned hydrocarbons",
+        "Describe how carbon monoxide, soot, sulfur dioxide and oxides of nitrogen are produced, including the conditions for each",
+        "Predict the products of combustion from the composition of a fuel and the oxygen supply",
+        "Explain the problems each pollutant causes: toxicity, respiratory problems, acid rain, global dimming and health effects",
+        "Write and balance equations for complete and incomplete combustion",
+    ], "Oxides of nitrogen do not come from the fuel: nitrogen and oxygen from the air react at the high temperature of the engine. The other common slip is mixing up the effects: sulfur dioxide and oxides of nitrogen cause acid rain, and particulates cause global dimming."),
+
+    ("combsci_aqa:5.10.1", &[
+        "Distinguish finite from renewable resources, give examples of natural products replaced by synthetic ones, and define sustainable development",
+        "Distinguish potable water from pure water and give reasons for each step in producing potable water from fresh water and from salty water",
+        "Carry out and evaluate Required practical 8 (Trilogy 13): pH, mass of dissolved solids and distillation of water samples, including concentration in g/dm³",
+        "Describe the stages of sewage treatment and compare the ease of getting potable water from ground, waste and salt water",
+        "(Higher tier) Describe and evaluate phytomining and bioleaching, and how copper is then obtained by displacement with scrap iron or electrolysis",
+    ], "Saying filtration kills microbes or removes salt loses the mark: filter beds remove solid particles, sterilising (chlorine, ozone or UV) kills microbes, and only desalination removes dissolved salts. In sewage treatment, sludge is digested anaerobically and effluent is treated aerobically, not the other way round."),
+
+    ("combsci_aqa:5.10.2", &[
+        "Name the four stages of a life cycle assessment and include transport at each stage",
+        "Explain why LCA is not purely objective and how selective LCAs can be misused, for example in advertising",
+        "Carry out a simple comparative LCA of plastic and paper shopping bags and reach a justified conclusion",
+        "Interpret LCA data using ratios, percentages, per-use values and sensible significant figures",
+        "Evaluate reducing, reusing and recycling materials such as glass and metals, including their limits",
+    ], "Evaluating without quoting the data or reaching a conclusion caps the marks: compare the figures given, stage by stage, then give a justified judgement. Remember that pollutant effects need value judgements, so an LCA is never purely objective."),
+
+    ("combsci_aqa:6.1.1", &[
+        "Describe the changes in energy stores for an object thrown upwards, a collision, a braking vehicle and a kettle",
+        "Recall and use Ek = ½mv² and Ep = mgh, and use Ee = ½ke² from the equation sheet",
+        "Use ΔE = mcΔθ and explain what specific heat capacity means",
+        "Describe Required practical 1 and explain why the measured specific heat capacity is usually too high",
+        "Recall and use P = E ÷ t and P = W ÷ t, comparing devices that transfer the same energy at different rates",
+        "Show on a common scale in joules how energy is redistributed when a system changes",
+    ], "Only the speed is squared in kinetic energy and only the extension in elastic energy. Forgetting to convert grams, centimetres or minutes before substituting costs the answer mark."),
+
+    ("combsci_aqa:6.1.2", &[
+        "State that energy cannot be created or destroyed and describe energy transfers in a closed system with no net change",
+        "Describe how energy is dissipated in every change and explain how lubrication and thermal insulation reduce unwanted transfers",
+        "Explain how the thickness and thermal conductivity of walls affect the rate of cooling of a building",
+        "Recall and use both efficiency equations, giving answers as a decimal or a percentage",
+        "Describe ways to increase the efficiency of an intended energy transfer (Higher tier)",
+        "Plan and evaluate Required practical 2 on thermal insulators (separate science only)",
+    ], "Efficiency is useful divided by total, so it can never be above 1 or 100%. Turn a percentage into a decimal before rearranging to find an input."),
+
+    ("combsci_aqa:6.1.3", &[
+        "Describe the main energy resources and sort them into renewable and non-renewable",
+        "Compare how resources are used for transport, electricity generation and heating",
+        "Explain why some energy resources are more reliable than others",
+        "Describe the environmental impact of each resource and evaluate choices with a justified conclusion",
+        "Explain patterns and trends in energy use from graphs and data, calculating percentages and percentage change",
+        "Explain why science can identify environmental problems but cannot always solve them, for political, social, ethical and economic reasons",
+    ], "Comparisons must cover both resources on every point, and an evaluate question needs a justified conclusion. Renewable does not mean harmless: hydro floods habitats, and nuclear emits no carbon dioxide."),
+
+    ("combsci_aqa:6.2.1", &[
+        "Draw and interpret circuit diagrams using the standard symbols, with ammeters in series and voltmeters in parallel",
+        "Recall and use Q = It, knowing that current is the same at every point in a single loop",
+        "Recall and use V = IR, rearranging it confidently and converting mA and minutes",
+        "Describe Required practical 3: how the resistance of a wire depends on its length, and resistors in series and parallel",
+        "Describe Required practical 4 and sketch and explain the I–V graphs of a resistor, a filament lamp and a diode",
+        "Explain how thermistors and LDRs change resistance and how they are used in thermostats and automatic lights",
+    ], "For a curved I–V graph, work out resistance as V divided by I at the point, not from the gradient. When explaining the lamp's curve, say the resistance rises because the filament gets hotter."),
+
+    ("combsci_aqa:6.2.2", &[
+        "State the rules for current, potential difference and resistance in series and in parallel circuits",
+        "Use R total = R1 + R2 and V = IR to calculate currents, pds and resistances in series circuits, including unknown resistors",
+        "Work out branch currents and the supply current in parallel circuits, knowing the total resistance is less than the smallest resistor",
+        "Explain why adding resistors in series increases total resistance while adding them in parallel decreases it",
+        "Explain how series circuits are used for measuring and testing, such as current-limiting resistors and thermistor or LDR sensor circuits",
+        "Build and check series and parallel circuits from a circuit diagram",
+    ], "Series keeps the current the same and shares the pd; parallel keeps the pd the same and shares the current. Adding resistances only works in series: in parallel the total is less than the smallest resistor."),
+
+    ("combsci_aqa:6.2.3", &[
+        "Explain the difference between direct and alternating potential difference",
+        "State the frequency (50 Hz) and potential difference (about 230 V) of the UK mains",
+        "Identify the live, neutral and earth wires by colour and state the potential of each",
+        "Explain why a live wire can be dangerous even when a switch in the circuit is open",
+        "Explain the dangers of any connection between the live wire and earth",
+    ], "An open switch stops the current but not the danger: the live wire is still at about 230 V, so touching it puts a large pd across your body. Students who say \"switched off means safe\" lose the mark."),
+
+    ("combsci_aqa:6.2.4", &[
+        "Recall and use P = VI and P = I²R, rearranging either to find any quantity",
+        "Recall and use E = Pt and E = QV, converting kW and minutes or hours first",
+        "Explain how a device's power relates to the pd across it, the current through it and the energy it transfers over time",
+        "Describe the energy transfers in everyday appliances and link power ratings to changes in stored energy",
+        "Explain why the National Grid uses step-up and step-down transformers and why this is efficient",
+        "(Higher tier) Use Vp × Ip = Vs × Is for an ideal transformer",
+    ], "The National Grid answer must go through the current: high pd means low current, and the heating loss depends on current squared. \"High voltage means less energy lost\" on its own earns almost nothing."),
+
+    ("combsci_aqa:6.3.1", &[
+        "Draw and describe particle diagrams for solids, liquids and gases",
+        "Recall and use density = mass ÷ volume, converting between g/cm³ and kg/m³",
+        "Explain differences in density between states using the spacing of particles",
+        "Carry out Required practical 5: find the density of regular solids, irregular solids and liquids",
+        "Explain why mass is conserved in a change of state and why it is a physical change",
+    ], "Density differences come from how far apart the particles are, not from the particles getting lighter. And 1 cm³ is a millionth of a cubic metre, so 1 g/cm³ is 1000 kg/m³."),
+
+    ("combsci_aqa:6.3.2", &[
+        "Define internal energy as the total kinetic and potential energy of the particles in a system",
+        "Explain that heating either raises the temperature or changes the state",
+        "Use ΔE = mcΔθ and E = mL from the equation sheet, splitting multi-stage problems into steps",
+        "Distinguish specific heat capacity from specific latent heat, including their units",
+        "Interpret heating and cooling graphs, using plateau times to find latent heat",
+        "Describe how to measure the specific latent heat of fusion of ice using a control funnel",
+    ], "On the flat part of a heating graph the temperature is constant but the internal energy is still rising: the energy goes into the particles' potential energy. Saying no energy is being transferred loses the mark."),
+
+    ("combsci_aqa:6.3.3", &[
+        "Explain how the random motion of gas molecules causes pressure on the walls of a container",
+        "Explain why heating a gas at constant volume increases its pressure, linking speed, collision rate and force",
+        "Separate science only: explain why increasing the volume of a gas at constant temperature decreases its pressure",
+        "Separate science only: use pV = constant from the equation sheet to calculate a new pressure or volume",
+        "Separate science only (Higher tier): explain how doing work on a gas, as in a bicycle pump, raises its temperature",
+    ], "When a gas is squashed at constant temperature the molecules hit the walls more often, not harder: their speed has not changed. Saying the collisions are harder, or that the molecules hit each other more, loses the mark."),
+
+    ("combsci_aqa:6.4.1", &[
+        "Describe the structure of an atom, including the size of the atom and nucleus in standard form and where the mass is",
+        "Work out the numbers of protons, neutrons and electrons from a nuclear symbol, for atoms, isotopes and positive ions",
+        "Explain how electrons move between energy levels when an atom absorbs or emits electromagnetic radiation",
+        "Describe the plum pudding and nuclear models and the differences between them",
+        "Explain how the alpha particle scattering results led to the nuclear model, then the roles of Bohr, protons and Chadwick's neutrons",
+    ], "Isotopes have the same number of protons but different numbers of neutrons. Writing that they differ in protons or electrons, or giving scattering observations without the conclusion each one supports, loses marks."),
+
+    ("combsci_aqa:6.4.2", &[
+        "Describe alpha, beta, gamma and neutron radiation and compare their penetration, range in air and ionising power",
+        "Choose and justify the best type of radiation for a given use",
+        "Write balanced nuclear equations for alpha and beta decay, and state the effect of gamma emission",
+        "Explain half-life and its link to random decay, and find it from a graph or data",
+        "Higher tier: calculate the net decline, as a ratio, after a given number of half-lives",
+        "Compare the hazards of contamination and irradiation and describe precautions against each",
+    ], "An irradiated object does not become radioactive; only contamination puts radioactive atoms onto or into something. Mixing these up, or saying beta particles come from the electron shells, loses easy marks."),
+
+    ("combsci_aqa:6.5.1", &[
+        "Classify quantities as scalars or vectors and represent a vector as an arrow whose length shows its magnitude",
+        "Sort forces into contact and non-contact forces and describe interaction pairs between two objects",
+        "Recall and use W = mg, explaining the difference between mass and weight and that weight is proportional to mass",
+        "Calculate the resultant of forces acting along a straight line and state its direction",
+        "Draw free body diagrams and use them to describe balanced and unbalanced forces (Higher tier)",
+        "Use scale drawings to resolve a force into two components and to find a resultant or show equilibrium (Higher tier)",
+    ], "Mass is in kilograms and never changes; weight is a force in newtons that depends on g. A resultant force needs a direction as well as a size."),
+
+    ("combsci_aqa:6.5.2", &[
+        "Recall and use W = Fs, using the distance moved along the line of action of the force",
+        "Explain why no work is done when there is no displacement in the direction of the force",
+        "Convert between newton-metres and joules, and between J, kJ and MJ",
+        "Describe the energy transfer between stores when a force does work",
+        "Explain why work done against friction raises the temperature of an object",
+        "Combine W = Fs with kinetic or gravitational potential energy in two-step problems",
+    ], "Use the distance moved in the direction of the force: the vertical height when lifting. And when given a mass, find the weight with W = mg before using W = Fs."),
+
+    ("combsci_aqa:6.5.3", &[
+        "Give examples of stretching, bending and compressing, and explain why a stationary object needs more than one force to change shape",
+        "Describe the difference between elastic and inelastic deformation",
+        "Recall and use F = ke, working out extension as new length minus original length in metres",
+        "Distinguish linear from non-linear force-extension graphs and find the spring constant from the gradient",
+        "Apply Ee = 0.5ke² to calculate the energy stored in a spring and the energy it transfers",
+        "Carry out and evaluate Required practical 6 (Trilogy 18): force and extension for a spring",
+    ], "Extension is the increase in length, not the new length, and it must be in metres before you use F = ke or Ee = 0.5ke²."),
+
+    ("combsci_aqa:6.5.4a", &[
+        "Explain the difference between scalars and vectors for distance, displacement, speed and velocity, giving a displacement as a magnitude and a direction",
+        "Recall typical speeds for walking, running, cycling, transport and sound, and use s = vt and average speed with correct unit conversions",
+        "Recall and use a = Δv/t, and estimate everyday accelerations using the ≈ symbol",
+        "Find speed from the gradient of a distance–time graph (by a tangent on a curve at Higher tier) and acceleration from the gradient of a velocity–time graph",
+        "Find distance from the area under a velocity–time graph, counting squares where needed (Higher tier)",
+        "Apply v² − u² = 2as from the equation sheet, and explain why circular motion at constant speed is accelerated motion (Higher tier)",
+    ], "Read the y-axis before interpreting a graph: a horizontal line means stopped on a distance–time graph but constant velocity on a velocity–time graph. Average speed is total distance ÷ total time, never the mean of two speeds."),
+
+    ("combsci_aqa:6.5.4b", &[
+        "State and apply Newton's First Law to objects at rest, at constant velocity, and changing speed or direction",
+        "Recall and use F = ma with the resultant force, and explain inertia and inertial mass as force ÷ acceleration (Higher tier)",
+        "Estimate the forces and accelerations involved in everyday road transport, using the ≈ symbol",
+        "State Newton's Third Law and identify equal and opposite force pairs acting on different objects in equilibrium situations",
+        "Explain how a falling object reaches terminal velocity, and draw and interpret its velocity–time graph (separate science only)",
+        "Describe Required practical 7 (Trilogy 19) to find how acceleration depends on force and on mass, keeping the total mass constant when varying force",
+    ], "In F = ma, F is the resultant force — subtract the opposing forces first. Weight and the normal contact force on the same object are balanced forces, not a Newton's Third Law pair."),
+
+    ("combsci_aqa:6.5.4c", &[
+        "State that stopping distance is thinking distance plus braking distance, and calculate each part using s = vt and v² − u² = 2as",
+        "Recall that reaction times are typically 0.2–0.9 s and explain how tiredness, drugs, alcohol and distractions increase thinking distance",
+        "Describe and evaluate methods for measuring reaction time, such as the ruler-drop test",
+        "Explain how wet or icy roads and worn brakes or tyres increase braking distance, and the implications for safety",
+        "Explain braking in terms of work done by friction reducing kinetic energy, and the dangers of large decelerations",
+        "Estimate braking forces for road vehicles (Higher tier), and estimate and read stopping distances over a range of speeds (separate science only)",
+    ], "Driver factors (tiredness, alcohol, drugs, distractions) change the thinking distance; road, weather, brakes and tyres change the braking distance. Saying reaction time affects braking distance loses the mark."),
+
+    ("combsci_aqa:6.5.5", &[
+        "Recall and use p = mv, treating momentum as a vector with a sign for direction (Higher tier)",
+        "State that total momentum before an event equals total momentum after it in a closed system",
+        "Describe and explain collisions and explosions, such as recoil, using conservation of momentum",
+        "Calculate velocities after collisions and explosions, including objects that stick together or move in opposite directions (separate science only)",
+        "Apply F = mΔv/Δt from the equation sheet and explain how air bags, seat belts, crash mats, helmets and cushioned surfaces reduce force (separate science only)",
+    ], "Momentum is a vector, so a velocity in the opposite direction needs a minus sign. Safety features do not reduce the change in momentum — they increase the time, so the rate of change of momentum and the force are smaller."),
+
+    ("combsci_aqa:6.6.1", &[
+        "Describe the difference between transverse and longitudinal waves, with examples, and the evidence that the wave and not the medium travels",
+        "Define amplitude, wavelength, frequency, period and wave speed, and identify amplitude and wavelength on diagrams",
+        "Recall and use v = fλ, and apply T = 1/f from the equation sheet",
+        "Describe methods to measure the speed of sound in air and of ripples, including Required practical 8 (Trilogy 20)",
+        "Draw ray diagrams for reflection and describe Required practical 9 on reflection and refraction of light (separate science only)",
+        "Explain hearing limits (20 Hz to 20 kHz), ultrasound, echo sounding and seismic evidence for the Earth's core (separate science only, Higher tier)",
+    ], "Compare the direction of oscillation with the direction of energy transfer when describing transverse and longitudinal waves. Amplitude is measured from the rest line to a crest, not crest to trough, and echo distances must be halved."),
+
+    ("combsci_aqa:6.6.2", &[
+        "List the EM spectrum in order of wavelength and frequency, and use v = fλ with 3.0 × 10⁸ m/s for EM waves",
+        "Draw refraction ray diagrams and, on Higher tier, explain refraction with wave fronts: one side slows first, wavelength shortens, frequency stays the same",
+        "Describe Required practical 10 (Trilogy RP21) and state that matt black surfaces are the best emitters and absorbers of infrared",
+        "Give a use for each EM wave and, on Higher tier, explain why its properties suit that use",
+        "Describe the dangers of UV, X-rays and gamma rays and draw conclusions from radiation dose data in sieverts",
+        "Separate science only: draw lens ray diagrams, calculate magnification, and explain colour, filters and specular and diffuse reflection",
+    ], "Explaining a use without the property behind it loses the mark: say why the wave suits the job, such as bone absorbing X-rays while soft tissue transmits them. In refraction, the frequency never changes — only the speed and wavelength."),
+
+    ("combsci_aqa:6.7.1", &[
+        "Describe how like poles repel and unlike poles attract, and that magnetic forces act without contact",
+        "Compare permanent and induced magnets, and explain why induced magnetism always attracts",
+        "Name the magnetic materials (iron, steel, cobalt, nickel) and define the direction of a magnetic field",
+        "Draw the field of a bar magnet with arrows from north to south and lines closest at the poles",
+        "Describe how to plot a field with a compass, and explain how compass behaviour shows the Earth's core is magnetic",
+    ], "Field lines need arrows pointing from north to south, and they must be closest together at the poles. Remember that attraction does not prove something is a magnet — only repulsion does."),
+
+    ("combsci_aqa:6.7.2", &[
+        "Describe how to show the magnetic effect of a current, and draw the fields around a straight wire and a solenoid with their directions",
+        "Explain why a solenoid strengthens the field and how an iron core makes an electromagnet",
+        "Use Fleming's left-hand rule and recall the factors that affect the size of the motor-effect force (Higher tier)",
+        "Calculate force, current, flux density or length using F = BIl, converting cm to m and mT to T (Higher tier)",
+        "Explain how the forces on a coil and a split-ring commutator make a d.c. motor rotate (Higher tier)",
+        "Separate science only: explain electromagnetic devices from diagrams, and explain how a moving-coil loudspeaker works (Higher tier)",
+    ], "In a motor answer, say that the two sides of the coil carry current in opposite directions, so the forces are opposite and give a turning effect — and that the commutator reverses the current every half turn. Use the left hand for the motor effect and convert lengths to metres before using F = BIl."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

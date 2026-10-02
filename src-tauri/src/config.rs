@@ -208,6 +208,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // Geography B: taught through both years at school, fieldwork done with
     // school, so a modest recall rate on the written-paper content.
     ("geog_edxb", &[(1, 0.5, 0.25)]),
+    // AQA GCSE Combined Science: Trilogy (8464) Higher
+    ("combsci_aqa", &[(1, 2.0, 1.0)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -243,6 +245,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("hist_aqa", "school"),
     ("rs_edq", "school"),
     ("geog_edxb", "school"),
+    ("combsci_aqa", "ahead"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -587,6 +590,14 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/geography/edexcel/b/past-papers/"),
         ("PMT notes & questions", "https://www.physicsandmathstutor.com/geography-revision/gcse-edexcel-b/"),
         ("Pearson papers & mark schemes", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/geography-b-2016.coursematerials.html"),
+    ]),
+    // AQA GCSE Combined Science: Trilogy (8464) Higher. Each link opened and checked 2 October 2026
+    ("combsci_aqa", &[
+        ("Biology revision notes", "https://www.savemyexams.com/gcse/science/aqa/combined-science-trilogy/16/biology/revision-notes/"),
+        ("Chemistry revision notes", "https://www.savemyexams.com/gcse/science/aqa/combined-science-trilogy/16/chemistry/revision-notes/"),
+        ("Physics revision notes", "https://www.savemyexams.com/gcse/science/aqa/combined-science-trilogy/16/physics/revision-notes/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/science/aqa/combined-science-trilogy/past-papers/"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/science/gcse/science-8464/assessment-resources"),
     ]),
 ];
 
