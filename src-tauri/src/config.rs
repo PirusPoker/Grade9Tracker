@@ -200,6 +200,9 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // Computer Science (AQA 8525): taught at school across both years, so
     // recall only, at a modest rate.
     ("cs_aqa", &[(1, 0.5, 0.25)]),
+    // History (AQA): taught through both years at school, one option per
+    // section - recall and exam practice on the options the student keeps.
+    ("hist_aqa", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -232,6 +235,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("englit_edq", "school"),
     ("bus_edx", "school"),
     ("cs_aqa", "school"),
+    ("hist_aqa", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -544,6 +548,18 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/computer-science/aqa/past-papers/"),
         ("BBC Bitesize", "https://www.bbc.co.uk/bitesize/examspecs/zkwsjhv"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/computer-science/gcse/computer-science-8525/assessment-resources"),
+    ]),
+    // AQA GCSE History 8145. Every link opened and checked 30 September 2026:
+    // Save My Exams' AQA GCSE History course and AQA past papers, Bitesize's
+    // AQA History exam spec (it covers Germany, America, the Cold War, Health,
+    // Elizabethan England and the Normans), AQA's page naming the historic
+    // environment sites for 2026-2028, and AQA's assessment resources.
+    ("hist_aqa", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/history/aqa/16/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/history/aqa/past-papers/"),
+        ("BBC Bitesize (AQA)", "https://www.bbc.co.uk/bitesize/examspecs/zxjk4j6"),
+        ("Historic environment sites", "https://www.aqa.org.uk/news/gcse-history-historic-environment-sites-2026-2028"),
+        ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/history/gcse/history-8145/assessment-resources"),
     ]),
 ];
 

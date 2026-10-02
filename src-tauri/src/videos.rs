@@ -129,6 +129,12 @@ const STUDYMIND: &str = "Study Mind";
 
 const CSTUTOR: &str = "The Computer Science Tutor";
 
+const RBIRD: &str = "Revision Bird";
+const APRG: &str = "AP Revision Guide";
+const PETEJ: &str = "Pete Jackson";
+const HRS: &str = "History Revision Success";
+const HTUTOR: &str = "TheHistoryTutor";
+
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
     // ---------- Computer Science (OCR GCSE J277) ----------
     ("cs:1.1.1", &[
@@ -5457,6 +5463,274 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("XkQRzYiDB3U", "31. AQA GCSE (8525) SLR6 - 3.8 Environmental impacts", CND),
         ("KEkSRgwHPRU", "28. GCSE AQA (8525) SLR6 - 3.8 Discussing technologies", CND),
         ("zvrg-MZPbDQ", "GCSE Computer Science AQA   Unit 8   Ethical, legal and environmental issues in technology", CSTUTOR),
+    ]),
+// AQA GCSE History 8145. Channel constants - add beside the others at the top
+// of videos.rs (CLOKE, HISTTEACH and IMSTUCK already exist):
+
+// Entries - paste into VIDEOS after the last subject:
+    // ---------- History (AQA GCSE 8145: options 1AB, 1AD, 1BB, 1BC, 2AA, 2AB, 2BA, 2BC). Titles and channels exactly as YouTube oEmbed returned them on 30 September 2026 ----------
+    ("hist_aqa:1AB.1a", &[
+        ("YdCiwGg9MyI", "Episode 1-Kaiser Wilhelm II and the German Monarchy//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("Qo8LIfRtLSI", "AQA GCSE History Germany 1890-1945: Topic 1 - Kaiser Wilhelm II - 1890 1914", PETEJ),
+        ("4sgngKUAOKs", "Kaiser Wilhelm and the difficulties of ruling Germany | GCSE History Revision, Germany 1890–1945", "History Core"),
+        ("7W9nuvr8cek", "The Navy Laws | Democracy & Dictatorship | AQA GCSE History", "The Learning Academy Education"),
+    ]),
+    ("hist_aqa:1AB.1b", &[
+        ("lH_ZM1qIQN4", "Episode 2-Impact of WW1 and the Treaty of Versailles//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("H7Im3cUrFDE", "Episode 3-The Weimar Republic and its unpopularity//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("IGTnk0UP5Gs", "Episode 5-Hyperinflation and the Recovery//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("dKEO1zoq6RM", "Episode 6-The Golden Years//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("Saa1UxNZIx8", "AQA History - Germany - Weimar Culture", "Mr Kidd - History"),
+    ]),
+    ("hist_aqa:1AB.2", &[
+        ("2q_7_-RZ-ig", "Episode 7-The Great Depression//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("5DqycpJGM0s", "Episode 8-The Rise of the Nazis in the 1930's//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("u9RUtOfqZ4Q", "AQA GCSE History 1890-1945 - Topic 4: The impact of the Great Depression and rise of Nazis", PETEJ),
+        ("35L3Ogldq4k", "GCSE History Rapid Revision- How did Hitler Become Chancellor?", CLOKE),
+        ("XALGoKldRAE", "GCSE History Rapid Revision- Building Dictatorship 1933-34", CLOKE),
+    ]),
+    ("hist_aqa:1AB.3a", &[
+        ("byasKZ4NylE", "Episode 12-Work and Home//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("_80O0amD9zw", "Episode 15-Germany's War Economy//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("5_klJqNiAi0", "Episode 17-The Impact of Total War//AQA GCSE History: Germany Revision Series", RBIRD),
+    ]),
+    ("hist_aqa:1AB.3b", &[
+        ("D4ZtZetzpi8", "Episode 13-Young People in Nazi Germany//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("Y2sV1lbw-m4", "Episode 14-Nazi Racial Policy//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("wDiluWAjQ10", "Episode 11-The Nazis and the Church//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("8nTvz1Ev6nw", "Episode 18-The Holocaust//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("D2L4GQW-nr8", "GCSE History Rapid Revision: Women in Nazi Germany", CLOKE),
+    ]),
+    ("hist_aqa:1AB.3c", &[
+        ("MET6q5kbz4s", "Episode 9-Nazi Propaganda//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("oJuY6zxqpBA", "Episode 10-Living in the Nazi Terror State//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("YCw_YVTTufg", "Episode 16-Opposition towards to Nazis//AQA GCSE History: Germany Revision Series", RBIRD),
+        ("vTyk-k8PfHg", "GCSE History Rapid Revision-  Opposition and Resistance to the Nazis", CLOKE),
+    ]),
+    ("hist_aqa:1AD.1a", &[
+        ("SU1lRX3ZFJw", "America 1920-1973: Complete Overview | Introduction & Timeline | AQA GCSE Revision Guide", IMSTUCK),
+        ("Rh0Qeu5NKfc", "Why was there a boom in America 1920s? Why did people buy shares? GCSE AMERICA GRADE 9", HRS),
+        ("632xI-wfD68", "Causes of The 1920s BOOM | WW1, Natural Resources, Government Policies | GCSE History | Part 1", IMSTUCK),
+        ("THc37UbltH8", "How did life change for women in 1920s America? GCSE AMERICA | Get a Grade 9", HRS),
+    ]),
+    ("hist_aqa:1AD.1b", &[
+        ("ZcFHNEraMGM", "Prohibition and Organised Crime in the 1920s- AQA GCSE History- America 1920-1973: Revision notes", HTUTOR),
+        ("__mx-DkRtNw", "Organised Crime in America - who was Al Capone? GCSE AMERICA 1920-1973 | Get a Grade 9", HRS),
+        ("XyohAdDPdXU", "Immigration to America in the 1920s | GCSE AMERICA 1920-1973 | Get a Grade 9", HRS),
+        ("rtF09nhZE-Q", "GCSE AMERICA 1920-1973 | L12: The Red Scare", HRS),
+        ("_rCaOQpFvbo", "GCSE History: Racism and the Ku Klux Klan", "ArkVega"),
+    ]),
+    ("hist_aqa:1AD.2a", &[
+        ("xS1k5LZNDAo", "Why did Wall St Crash? | GCSE AMERICA 1920-1973 L13", HRS),
+        ("uvOKARPUYTI", "What did Hoover do in the Great Depression? | GCSE AMERICA 1920-1973 L15", HRS),
+        ("6McAQKarV1U", "What was the New Deal? | AMERICA 1920-1973 Get a Grade 9", HRS),
+        ("Bm6LT-CrjpQ", "How effective was Roosevelt's New Deal? GCSE AMERICA 1920-1973 | Get a Grade 9!", HRS),
+        ("yYUeghI7mB8", "GCSE History: Opposition to the New Deal", "ArkVega"),
+    ]),
+    ("hist_aqa:1AD.2b", &[
+        ("ABGi6ecphMk", "How did World War Two change lives in America? GCSE AMERICA 1920-1973 L22", HRS),
+        ("OKHJv2edKP4", "Impact of WWII on America- AQA GCSE History- America 1920-1973: Revision", HTUTOR),
+        ("vuXvnxSRCXU", "GCSE History | How Did WWII Change America? | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+    ]),
+    ("hist_aqa:1AD.3a", &[
+        ("BuXf5CJweS8", "GCSE USA- McCarthyism", "St Bede’s History Department"),
+        ("3Xkn_TdrANk", "American Prosperity 1950s #GCSE #AQA #Education", "Mr Keir History Teacher"),
+        ("N35IugBYH04", "What is McCarthyism? And how did it happen? - Ellen Schrecker", "TED-Ed"),
+    ]),
+    ("hist_aqa:1AD.3b", &[
+        ("iTLokw5omfQ", "GCSE History - Civil Rights: The Montgomery Bus Boycott 1955-56", CLOKE),
+        ("B99LM69jfcM", "Civil Rights Movement - Different Ways Of Protesting - GCSE History", IMSTUCK),
+        ("hUgGG1L7zt4", "GCSE History - Civil Rights: Malcolm X and Black Power", CLOKE),
+        ("NU3Rw2XTdPc", "GCSE History Rapid Revision: The Civil Rights Act, 1964", CLOKE),
+    ]),
+    ("hist_aqa:1AD.3c", &[
+        ("zhKqeYtp6rU", "Kennedy's 'New Frontier' and Johnson's 'Great Society'- AQA GCSE History Revision Talk Through", HTUTOR),
+        ("rI5AC8B4j38", "11  JFK's 'New Frontier' and LBJ's 'Great Society'   Teacher Explanation   #HisTV", "HisTV"),
+        ("1YvJJEFOYNY", "12  Feminism in the 1960s and early 1970s   Teacher Explanation   #HisTV", "HisTV"),
+    ]),
+    ("hist_aqa:1BB.1", &[
+        ("L-xL62P4SoI", "AQA GCSE History Conflict and Tension 1918-1939 Part 1 - The Big Three", PETEJ),
+        ("v2xTKTKwZJs", "AQA GCSE History Conflict and Tension 1918-1939 Part 2 - The Treaty of Versailles", PETEJ),
+        ("KJS9xRCZkQ0", "GCSE History Rapid Revision:  Terms of the Treaty of Versailles", CLOKE),
+        ("KwIEKR23WyE", "Germany's Humiliation: The Treaty of Versailles (AQA GCSE History)", "Academyk"),
+    ]),
+    ("hist_aqa:1BB.2a", &[
+        ("VaLZKQH_Pwk", "League of Nations structure and success/failures in the 1920s- GCSE History talk through for AQA.", HTUTOR),
+        ("U5j0hgj7bug", "League of Nations - Successes and Failures - GCSE History", IMSTUCK),
+        ("3KNTcC8FDJ0", "AQA GCSE History Conflict and Tension 1918-1939 Part 5 - Diplomacy outside the League of Nations", PETEJ),
+        ("q2eNpOtzWy0", "Locarno Pact - Undermining the League of Nations #Conflict&Tension #AQA #GCSE #Education", "Mr Keir History Teacher"),
+    ]),
+    ("hist_aqa:1BB.2b", &[
+        ("gTEAG5534ow", "AQA GCSE History Conflict and Tension 1918-1939 Part 6 - The League of Nations in the 1930s", PETEJ),
+        ("z8_EmBkCnHc", "The Manchurian Crisis | Conflict & Tension | GCSE History", "The Learning Academy Education"),
+        ("mi6rnLEtAJ0", "The Abyssinian Crisis | Conflict & Tension | GCSE History", "The Learning Academy Education"),
+        ("rjTrCFNQhEc", "AQA History - Conflict and Tension - What was the Abyssinian Crisis", "Mr Kidd - History"),
+    ]),
+    ("hist_aqa:1BB.3a", &[
+        ("5MzjxQNW6Gk", "AQA GCSE History Conflict and Tension 1918-1939 - Part 7 - The Development of Tension 1933-1935", PETEJ),
+        ("Vu7squNlJyk", "AQA History - Conflict and Tension - What actually caused WWII", "Mr Kidd - History"),
+        ("nI1Kn_lMcNU", "2: GCSE History - Remilitarisation of the Rhineland & Anschluss", "Simon Hinds"),
+        ("TNOea7SyI1c", "The Munich Agreement 1938 | GCSE History", "GCSEHistoryChannel"),
+    ]),
+    ("hist_aqa:1BB.3b", &[
+        ("W2dkEL2n5C0", "AQA GCSE History Conflict and Tension 1918-1939 Part 9 - The outbreak of World War 2", PETEJ),
+        ("enr95a7GjMc", "AQA History - Conflict and Tension - Nazi Soviet Pact", "Mr Kidd - History"),
+        ("oOlOXIundc8", "Nazi-Soviet Pact - How It Started WW2 - GCSE History", IMSTUCK),
+    ]),
+    ("hist_aqa:1BC.1a", &[
+        ("03Y4__g0o5A", "Episode 2- Yalta and Potsdam Conferences//AQA GCSE History: Cold War Revision Series", RBIRD),
+        ("d7qv_MltlFY", "Yalta and Potsdam: Write an Account example answer- GCSE History 1945-1972 Cold War AQA", HTUTOR),
+        ("bu17c_3OTHw", "The Cold War: The Potsdam Conference 1945 - Truman, Attlee and Stalin -  Episode 3", IMSTUCK),
+    ]),
+    ("hist_aqa:1BC.1b", &[
+        ("9sUMAPBaV5U", "Episode 3- Iron Curtain, Marshall Aid, Berlin Blockade//AQA GCSE History: Cold War Revision Series", RBIRD),
+        ("dgRR8DNKOcM", "GCSE History Rapid Revision: Cold War/Superpower Relation - Truman Doctrine and Marshall Plan", CLOKE),
+        ("J1hxAhd-9hc", "The Berlin Blockade and Airlift - Superpower Relations and the Cold War", HISTTEACH),
+        ("dx2IUWXBcoQ", "The Cold War: Cominform and Comecon - Episode 8", IMSTUCK),
+    ]),
+    ("hist_aqa:1BC.2", &[
+        ("AHaUlKx9M78", "Episode 4- Tension in Asia (Korea, Vietnam and China) //AQA GCSE History: Cold War Revision Series", RBIRD),
+        ("-OvV20kP7Go", "Episode 5 -The Arms Race//AQA GCSE History: Cold War Revision Series", RBIRD),
+        ("LkDVarp_Vkc", "Episode 6 -The Space Race//AQA GCSE History: Cold War Revision Series", RBIRD),
+        ("Hy-Ax0jEO74", "Episode 7- The Hungarian Uprising//AQA GCSE History: Cold War Revision Series", RBIRD),
+        ("1ZpLnqtk04U", "Episode 8- Espionage and the U-2//AQA GCSE History: Cold War Revision Series", RBIRD),
+    ]),
+    ("hist_aqa:1BC.3a", &[
+        ("bQDnyIvEB6w", "Episode 9- The Berlin Wall//AQA GCSE History: Cold War Revision Series", RBIRD),
+        ("C1W_XCCI3bA", "Episode 10- The Cuban missile Crisis/AQA GCSE History: Cold War Revision Series", RBIRD),
+        ("icjKb1BNiaA", "GCSE History Rapid Revision: Superpower Relations and the Cold War - The Berlin Ultimatum and Wall", CLOKE),
+        ("FVEDrterwVY", "GCSE History Rapid Revision: Superpower Relations and the Cold War - The Cuban Missile Crisis", CLOKE),
+    ]),
+    ("hist_aqa:1BC.3b", &[
+        ("ftgrvtl7a_0", "Episode 11- The Prague Spring/AQA GCSE History: Cold War Revision Series", RBIRD),
+        ("Yj5b5GktlqQ", "Episode 12- Détente and Easing the Tension/AQA GCSE History: Cold War Revision Series", RBIRD),
+        ("WNYVJjyoqWQ", "The Cold War: The Prague Spring 1968 and the Crisis in Czechoslovakia - Episode 40", IMSTUCK),
+    ]),
+    ("hist_aqa:2AA.1", &[
+        ("1T_Me7fG534", "Episode 1-Medicine in the Middle Ages//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("Kvk7tPr1pzE", "Episode 2-Islamic Medicine//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("7CxWARoPkX4", "Episode 3-Treating Disease in the Middle Ages//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("2axv4sZd_4k", "Episode 5-Britain's Black Death//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("glJcvFgaGyU", "AQA GCSE History: Health & the People | Medieval Health Overview", "Mr Slone History"),
+    ]),
+    ("hist_aqa:2AA.2", &[
+        ("d4tWNAmhsPs", "Episode 6 - The Renaissance//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("t0NCA2J833A", "Episode 7 - The Changes in Medical Treatment//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("gcejvnZMEeU", "Episode 8 - The Rise of Doctors and Surgery//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("3OcUuyuJXSg", "AQA Health & The People 5.  The Renaissance, Vesalius, Pare & Harvey", "Teacher Coupe"),
+        ("3Y1eF3QPYH4", "Episode 10 - Edward Jenner//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("oXn_fQei-Ec", "GCSE History - Who was John Hunter?", "worcesterjonny"),
+    ]),
+    ("hist_aqa:2AA.3a", &[
+        ("xEwVueybHUQ", "Episode 11 -Germ Theory and Fighting Germs//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("wqiCy8TQLxs", "Episode 12 -Anaesthetics//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("8Wpxu4sYIPk", "Episode 13 -Antiseptics//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("TyLer_NI1Rc", "GCSE History: Louis Pasteur & Robert Koch | Health and Medicine Revision", "The A-Level & GCSE History Tutor"),
+        ("REq1ywT0XfQ", "GCSE History Rapid Revision: Magic Bullets", CLOKE),
+    ]),
+    ("hist_aqa:2AA.3b", &[
+        ("f-leEUu0-v8", "Episode 14 -Public Health//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("ZzhVLS-pXFM", "GCSE History Rapid Revision: 19th Century Public Health", CLOKE),
+        ("935_zSVbHkk", "GCSE History Rapid Revision: Dr. John Snow and the Broad Street Cholera Epidemic", CLOKE),
+    ]),
+    ("hist_aqa:2AA.4a", &[
+        ("l35ciSSALt4", "Episode 16- Fleming and Penicillin//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("nLXauAMZSRI", "Episode 17- Modern Treatments//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("ldFnR-Ugwms", "Episode 15 -The Impact of the World Wars//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("RsXHqYSIbbY", "GCSE History Rapid Revision: Penicillin", CLOKE),
+    ]),
+    ("hist_aqa:2AA.4b", &[
+        ("YgD2VBxsr8s", "Episode 18- The Liberal and Social Reforms//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("bu1pSysSI9s", "Episode 19- The National Health Service//AQA GCSE History: Medicine Revision Series", RBIRD),
+        ("5DOJFNCjA8U", "GCSE History Rapid Revision: The Liberal Reforms 1906-1914", CLOKE),
+        ("pb76WtsccAk", "GCSE History Rapid Revision: Origins of the NHS", CLOKE),
+    ]),
+    ("hist_aqa:2AB.1", &[
+        ("i_gchqy3Jq0", "Episode 1- The Magna Carta//AQA GCSE History: Britain, Power and the People Revision Series", RBIRD),
+        ("Tuc2Ntldlas", "Episode 2-Simon de Montfort//AQA GCSE History: Britain, Power and the People Revision Series", RBIRD),
+        ("vQZpOZqhNIw", "Episode 3-Peasants' Revolt/AQA GCSE History: Britain, Power and the People Revision Series", RBIRD),
+        ("oOAwX6s0vmA", "King John and the Magna Carta | GCSE Power and the People (1)", APRG),
+        ("l8yJ_JQRuq8", "Simon de Montfort and the Provisions of Oxford | GCSE Power and the People (2)", APRG),
+        ("5-jutI5TO9o", "The Peasants' Revolt of 1381 | GCSE Power and the People (3)", APRG),
+    ]),
+    ("hist_aqa:2AB.2", &[
+        ("K75NOnqjBWw", "Henry VIII and the Pilgrimage of Grace | GCSE Power and the People (4)", APRG),
+        ("_eHFaUK9l7o", "GCSE History Rapid Revision - The Pilgrimage of Grace", CLOKE),
+        ("9_Z94eNSXkg", "Causes of the English Civil War | GCSE Power and the People (5)", APRG),
+        ("RnVgA3f5bnc", "The English Civil War | GCSE Power and the People (6)", APRG),
+        ("5JP6j3tCotc", "The American Revolution explained | GCSE Power and the People (7)", APRG),
+    ]),
+    ("hist_aqa:2AB.3", &[
+        ("ZoQtZo3nfSA", "Who were the Chartists? | GCSE Power and the People (8)", APRG),
+        ("bw2rUP8tTNk", "What was the Anti-Corn Law League? | GCSE Power and the People (9)", APRG),
+        ("brFMRkynEo8", "19th Century Trade Unions | GCSE Power and the People (10)", APRG),
+        ("7geGIkPy5q0", "What was the Great Reform Act 1832? | Parliamentary Archives", "History Hub"),
+    ]),
+    ("hist_aqa:2AB.4", &[
+        ("P2lvHVSSLRg", "The Women's Suffrage Movement | GCSE Power and the People (12)", APRG),
+        ("F-69nGRdk1o", "1926 General Strike | GCSE Power and the People (13)", APRG),
+        ("wNdMk5B3DBs", "Minority Rights in Britain since WW2 | GCSE Power and the People (15)", APRG),
+        ("lY9IVnfmCAw", "Spotlight On: Brixton Riots", "The National Archives UK"),
+    ]),
+    ("hist_aqa:2BA.1a", &[
+        ("N451xrA5O7o", "GCSE History Rapid Revision: The Succession Crisis of 1066", CLOKE),
+        ("8T6j6gO4UnM", "GCSE History Rapid Revision: The Battle of Stamford Bridge", CLOKE),
+        ("5fhrbTPq4YY", "GCSE Rapid Revision: The Battle of Hastings", CLOKE),
+        ("1woLduPy3sY", "GCSE History - Saxons and Normans: Why did William Win the Battle of Hastings?", CLOKE),
+    ]),
+    ("hist_aqa:2BA.1b", &[
+        ("I-dtpRYCR8s", "GCSE History Rapid Revision: Early Rebellions 1068-1071", CLOKE),
+        ("B_gwfiP0ztM", "GCSE History Rapid Revision: The Harrying of the North", CLOKE),
+        ("ISYl4czhBqg", "GCSE History - Saxons and Normans: The Revolt of the Earls, 1075", CLOKE),
+        ("9iqV_dztwpA", "GCSE History - Saxons and Normans: After Hastings - How did William Secure his Power?", CLOKE),
+    ]),
+    ("hist_aqa:2BA.2", &[
+        ("wGwWcTCdb4Q", "Video 15: AQA GCSE History Paper 2: Norman England Part 1", "Joseph Burrows"),
+        ("9RVLUJCfZuQ", "GCSE History Rapid Revision: The Feudal System", CLOKE),
+        ("qtkgDDq469c", "GCSE History Rapid Revision: The Domesday Book", CLOKE),
+        ("CFnMMO_-nFw", "GCSE History Rapid Revision: Crime and Punishment- Normans: Murdrum and Forest Laws", CLOKE),
+        ("MJV8GR6x6CQ", "GCSE History Rapid Revision: The Norman Legal System", CLOKE),
+    ]),
+    ("hist_aqa:2BA.3", &[
+        ("Y3ZtMWB4cD0", "Video 20: AQA GCSE History Paper 2: Norman England - Religion under the Normans", "Joseph Burrows"),
+        ("EmqN02DuksY", "GCSE History Rapid Revision: The Norman Church", CLOKE),
+        ("KDmeJ1Zucd8", "The Second Norman Conquest | Lanfranc's Reforms", "History Hub"),
+    ]),
+    ("hist_aqa:2BA.4", &[
+        ("euZlouI0wpU", "What the White Tower tells us about religion and culture | Norman History | Schools and Teachers", "Historic Royal Palaces"),
+        ("UoMMhzWbQkY", "A Medieval Masterpiece | William the Conqueror's Tower of London", "Historic Royal Palaces"),
+        ("ii6AT3nsImg", "History Y10 GCSE The White Tower Design and Construction", "The Garibaldi School"),
+    ]),
+    ("hist_aqa:2BC.1", &[
+        ("-bXEk7lCF5w", "Episode 1-An Introduction to Elizabeth I//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("bCWLrJhtAEE", "Episode 2-The Elizabethan Court//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("gXvb49LD96Q", "Episode 3-The Elizabethan Government//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("vL6d-fIG4Hw", "Episode 4-  Elizabeth and Marriage//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("TLKB7w_DLyY", "Essex's Rebellion 1601", PETEJ),
+        ("1u1pgzappM4", "Episode 16-The end of Elizabeth's Reign//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+    ]),
+    ("hist_aqa:2BC.2", &[
+        ("QJr8olZefCU", "Episode 6- The Golden Age//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("3lBQKRa4SHg", "Episode 7- Elizabethan Theatres//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("miPxy3tUZMU", "Episode 5- Poverty in Elizabethan England//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("hCMBkXCTMQ4", "AQA GCSE History Elizabethan England (1568-1603) - The Poor in Elizabethan England", PETEJ),
+        ("b4oGHJWHHIw", "Episode 8-The Elizabethan Sailors//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+    ]),
+    ("hist_aqa:2BC.3a", &[
+        ("jAmrJf_Txeo", "Episode 12-The Catholic Threat//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("mrMnlT_X8xM", "Episode 13-The Puritan Threat//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("NnDm_5Zub3w", "Episode 11-The Northern Rebellion//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("aQQMON3JHDM", "Episode 10-Mary, Queen of Scots//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+    ]),
+    ("hist_aqa:2BC.3b", &[
+        ("W24jpcrMYOY", "Episode 14-The War with Spain//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("ikqmrJVwxF0", "Episode 15-The Spanish Armada//AQA GCSE History: Elizabeth I Revision Series", RBIRD),
+        ("q1etLovNOaY", "GCSE History Rapid Revision: Elizabethan England - The Spanish Armada", CLOKE),
+    ]),
+    ("hist_aqa:2BC.4", &[
+        ("lxpiSHcUAS8", "Kenilworth Castle GCSE Tour", "English Heritage"),
+        ("IFuW1bkbDpw", "Kenilworth Castle | 10 Places That Made England with Dan Snow", "English Heritage"),
+        ("VzeplGNrIhc", "Kenilworth Castle - physical features: 1266-1575", "Mr Loudon"),
     ]),
 ];
 

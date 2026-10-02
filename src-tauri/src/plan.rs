@@ -1481,6 +1481,84 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("3.8", "Ethical, legal and environmental impacts of digital technology, including privacy", 0.75),
         ],
     },
+    // AQA GCSE History 8145, specification version 1.3 (24 September 2019),
+    // read 30 September 2026. Each of the four exam sections has options; the
+    // topics cover the two most-taken options in each section (AQA's own
+    // topic-popularity figures, 2019 insight report): Germany 55% and America
+    // 1920-73 30% (Paper 1A); Conflict and tension 1918-39 42% and East and
+    // West 1945-72 22% (1B); Health and the people 75% and Power and the
+    // people 17% (2A); Elizabethan England 57% and Norman England 36% (2B).
+    // A student deletes the four options their school does not take, leaving
+    // about 15 h (30 h with all eight). Codes are paper + AQA option code +
+    // Part number (1AB.2 = Paper 1, option AB, Part two).
+    SubjectDef {
+        id: "hist_aqa", name: "History", full: "AQA GCSE History (8145)", color: "var(--hist)",
+        papers: "Paper 1 Understanding the modern world, 2h, 84 marks including 4 for SPaG, 50%: Section A period study (six questions, 40 marks: how interpretations differ 4, why they differ 4, which is more convincing 8, describe 4, in what ways 8, a two-bullet essay 12) and Section B wider world depth study (four questions, 44 marks: source analysis 4, how useful are two sources 12, write an account 8, a how-far-do-you-agree essay 16 plus 4 SPaG). Paper 2 Shaping the nation, 2h, 84 marks including 4 for SPaG, 50%: Section A thematic study (how useful is a source 8, significance 8, similarity or difference 8, a factor essay 16 plus 4 SPaG) and Section B British depth study with the historic environment (how convincing is an interpretation 8, explain 8, write an account 8, a 16-mark essay on the specified site). The whole course is examined: there is no NEA. Your school takes one option in each of the four sections. The topics here cover the two most-taken in each: Germany 1890-1945 or America 1920-1973 (1A), Conflict and tension 1918-1939 or East and West 1945-1972 (1B), Health and the people or Power and the people (2A), Elizabethan England or Norman England (2B). In the Plan tab, delete the four options your school does not take. America 1840-1895, Russia, the First World War, Asia, the Gulf and Afghanistan, Migration and empires, Edward I and Restoration England are not in the app. The historic environment site changes every year: the 2B lessons teach the sites for June 2028 (Kenilworth Castle, the White Tower)",
+        spec: "https://www.aqa.org.uk/subjects/history/gcse/history-8145/specification",
+        sections: &[
+            "1AB Germany, 1890-1945: Democracy and dictatorship (Paper 1A)",
+            "1AD America, 1920-1973: Opportunity and inequality (Paper 1A)",
+            "1BB Conflict and tension: the inter-war years, 1918-1939 (Paper 1B)",
+            "1BC Conflict and tension between East and West, 1945-1972 (Paper 1B)",
+            "2AA Britain: Health and the people, c1000 to the present day (Paper 2A)",
+            "2AB Britain: Power and the people, c1170 to the present day (Paper 2A)",
+            "2BA Norman England, c1066-c1100 (Paper 2B)",
+            "2BC Elizabethan England, c1568-1603 (Paper 2B)",
+        ],
+        topics: &[
+            // 1AB Germany, 1890-1945 (Paper 1 Section A) - delete if your school does not take it
+            ("1AB.1a", "Germany 1890-1914: Kaiser Wilhelm, parliament, Prussian militarism, industrialisation, socialism and the Navy Laws", 0.5),
+            ("1AB.1b", "War and Weimar 1918-1929: defeat, reparations, the Ruhr, hyperinflation, the putsches, Stresemann and Weimar culture", 0.75),
+            ("1AB.2", "Germany and the Depression: Nazi support 1928-32, Hitler becomes Chancellor, and the dictatorship to 1934", 0.75),
+            ("1AB.3a", "The Nazi economy: jobs, public works, rearmament, self-sufficiency and the impact of war on the German people", 0.5),
+            ("1AB.3b", "Nazi social policy: women, young people, education, the churches, racial policy and the Final Solution", 0.75),
+            ("1AB.3c", "Nazi control: Goebbels and propaganda, the police state, and opposition and resistance", 0.5),
+            // 1AD America, 1920-1973 (Paper 1 Section A) - delete if your school does not take it
+            ("1AD.1a", "The Boom: consumer society, hire purchase, mass production, Republican policies, inequality, cinema, jazz and flappers", 0.5),
+            ("1AD.1b", "A divided society: prohibition, organised crime, immigration, racial tension, the Ku Klux Klan and the Red Scare", 0.5),
+            ("1AD.2a", "The Depression and the New Deal: Hoover, Roosevelt, and how far the New Deal worked", 0.75),
+            ("1AD.2b", "The impact of the Second World War: recovery, Lend Lease, African Americans and women", 0.5),
+            ("1AD.3a", "Post-war America: prosperity, the American Dream, McCarthyism, rock and roll and television", 0.5),
+            ("1AD.3b", "Civil rights in the 1950s and 1960s: segregation, King, Malcolm X, Black Power and the Civil Rights Acts", 0.5),
+            ("1AD.3c", "The Great Society and the women's movement: Kennedy, Johnson, NOW, equal pay, Roe v Wade and the ERA", 0.5),
+            // 1BB Conflict and tension, 1918-1939 (Paper 1 Section B) - delete if your school does not take it
+            ("1BB.1", "Peacemaking 1919: the Big Three's aims, the Treaty of Versailles, and reactions to the settlement", 1.0),
+            ("1BB.2a", "The League of Nations in the 1920s: organisation, powers, agencies, successes and failures, Locarno and Kellogg-Briand", 0.75),
+            ("1BB.2b", "The collapse of the League: the Depression, Manchuria and Abyssinia", 0.5),
+            ("1BB.3a", "Rising tension 1933-38: Hitler's aims, rearmament, the Rhineland, the Anschluss, appeasement and Munich", 1.0),
+            ("1BB.3b", "The outbreak of war in 1939: Czechoslovakia, the Nazi-Soviet Pact, Poland, and who was responsible", 0.5),
+            // 1BC East and West, 1945-1972 (Paper 1 Section B) - delete if your school does not take it
+            ("1BC.1a", "The end of the Second World War: Yalta, Potsdam, the division of Germany, rival ideologies and the atomic bomb", 0.75),
+            ("1BC.1b", "The Iron Curtain: Soviet expansion, the Truman Doctrine, Marshall Plan, Cominform, Comecon, Yugoslavia and the Berlin Blockade", 0.75),
+            ("1BC.2", "The Cold War develops: China, Korea and Vietnam, the arms and space races, NATO and the Warsaw Pact, Hungary and the U2", 1.0),
+            ("1BC.3a", "Transformation: the Berlin Wall and the Cuban Missile Crisis", 0.75),
+            ("1BC.3b", "The Prague Spring, the Brezhnev Doctrine, and the easing of tension: détente and SALT 1", 0.5),
+            // 2AA Health and the people (Paper 2 Section A) - delete if your school does not take it
+            ("2AA.1", "Medicine stands still: medieval ideas, Hippocrates and Galen, Christianity, Islamic medicine, surgery and the Black Death", 0.75),
+            ("2AA.2", "The beginnings of change: the Renaissance, Vesalius, Paré and Harvey, treatments, John Hunter, and Jenner's vaccination", 0.75),
+            ("2AA.3a", "A revolution in medicine: germ theory, Pasteur, Koch, Ehrlich, and anaesthetics, antiseptics and aseptic surgery", 0.75),
+            ("2AA.3b", "Public health in industrial Britain: cholera, the reformers, and the 1848 and 1875 Public Health Acts", 0.5),
+            ("2AA.4a", "Modern medicine: penicillin, the pharmaceutical industry, new diseases, and war and technology in surgery", 0.5),
+            ("2AA.4b", "Modern public health: Booth, Rowntree, the Liberal reforms, the world wars, Beveridge, the NHS and healthcare today", 0.75),
+            // 2AB Power and the people (Paper 2 Section A) - delete if your school does not take it
+            ("2AB.1", "Challenging authority and feudalism: Magna Carta, Simon de Montfort and the Peasants' Revolt", 0.75),
+            ("2AB.2", "Challenging royal authority: the Pilgrimage of Grace, the English Revolution and the American Revolution", 1.0),
+            ("2AB.3", "Reform and reformers: the Great Reform Act, Chartism, campaigning groups and trade unionism", 1.0),
+            ("2AB.4", "Equality and rights: women's suffrage, the General Strike, trade union reform and minority rights", 1.0),
+            // 2BA Norman England (Paper 2 Section B) - delete if your school does not take it
+            ("2BA.1a", "The Norman Conquest: the claimants of 1066, Stamford Bridge, Hastings, and cavalry and castles", 0.75),
+            ("2BA.1b", "Establishing control: the revolts of 1067-75, the Harrying of the North, William I's government and William II", 0.5),
+            ("2BA.2", "Life under the Normans: feudalism, government, law, the Domesday Book, towns, villages and forest law", 0.75),
+            ("2BA.3", "The Norman Church and monasticism: Lanfranc's reforms, church building, Church and state, and monastic life", 0.75),
+            ("2BA.4", "The historic environment of Norman England: the specified site (the White Tower for 2028)", 0.75),
+            // 2BC Elizabethan England (Paper 2 Section B) - delete if your school does not take it
+            ("2BC.1", "Elizabeth's court and Parliament: her character, patronage, ministers, marriage and succession, and Essex's rebellion", 0.75),
+            ("2BC.2", "Life in Elizabethan times: the Golden Age, the theatre, the poor, and Hawkins, Drake and Raleigh", 1.0),
+            ("2BC.3a", "Religious matters and Mary, Queen of Scots: Catholics, Puritans, plots and her execution", 0.75),
+            ("2BC.3b", "Conflict with Spain and the defeat of the Armada", 0.5),
+            ("2BC.4", "The historic environment of Elizabethan England: the specified site (Kenilworth Castle for 2028)", 0.75),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

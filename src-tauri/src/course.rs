@@ -237,6 +237,22 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
         "3.7.1", "3.7.2",
         "3.8",
     ]),
+    // History - AQA GCSE 8145, read from the specification PDF version 1.3
+    // (24 September 2019) on 30 September 2026. AQA numbers nothing below the
+    // option, so each reference is paper + option code + Part: 1AB.1 is Paper 1
+    // Section A option AB (Germany) Part one. Only the eight options covered
+    // in the app are listed (the two most-taken in each section); the other
+    // eight options (1AA, 1AC, 1BA, 1BD, 1BE, 2AC, 2BB, 2BD) are not covered.
+    ("hist_aqa", &[
+        "1AB.1", "1AB.2", "1AB.3",
+        "1AD.1", "1AD.2", "1AD.3",
+        "1BB.1", "1BB.2", "1BB.3",
+        "1BC.1", "1BC.2", "1BC.3",
+        "2AA.1", "2AA.2", "2AA.3", "2AA.4",
+        "2AB.1", "2AB.2", "2AB.3", "2AB.4",
+        "2BA.1", "2BA.2", "2BA.3", "2BA.4",
+        "2BC.1", "2BC.2", "2BC.3", "2BC.4",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -8123,6 +8139,312 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Apply these to the named areas: cyber security, mobile and wearable technologies, wireless networking, cloud storage, hacking, implants and autonomous vehicles",
         "Write a balanced 9-mark discussion that covers all the bullets in the question",
     ], "The 9-mark questions are marked on coverage of every bullet. A strong answer on one bullet, with nothing on the others, stays in the bottom level."),
+    // ---------- History (AQA 8145) ----------
+    ("hist_aqa:1AB.1a", &[
+        "Describe how power was shared between the Kaiser, the Chancellor, the Bundesrat and the elected Reichstag, and explain why the Reichstag's growing role limited the Kaiser",
+        "Explain the influence of Prussia and the army (Prussian militarism) on how Germany was governed",
+        "Explain how rapid industrialisation created a large working class, and why the SPD became the largest party in the Reichstag by 1912",
+        "Explain the social reforms used to weaken socialism, and the domestic importance of the Navy Laws of 1898 and 1900",
+    ], "The Navy Laws are on the specification for their domestic importance - rallying Germans behind the Kaiser, pleasing industrialists and the middle classes, and creating budget battles with the Reichstag - not only as a cause of the naval race with Britain."),
+
+    ("hist_aqa:1AB.1b", &[
+        "Explain how war weariness, shortages, defeat and the naval mutinies led to the end of the monarchy in November 1918",
+        "Explain why reparations, the occupation of the Ruhr (1923) and hyperinflation damaged the new republic",
+        "Describe the Spartacist rising (1919), the Kapp Putsch (1920) and the Munich Putsch (1923), and explain why each failed",
+        "Assess how far Germany recovered under Stresemann (1924-29): the Rentenmark, the Dawes and Young Plans, Locarno and joining the League",
+        "Describe Weimar culture and explain why it divided Germans",
+    ], "Recovery rested on American loans under the Dawes Plan, and farmers and the extremist parties never went away - the specification asks for the extent of recovery, so a 'golden age' answer with no limits stays in the middle levels."),
+
+    ("hist_aqa:1AB.2", &[
+        "Explain how the Depression after 1929 raised unemployment and increased support for the Nazis and the Communists",
+        "Explain Hitler's appeal to different groups, Nazi propaganda and the role of the SA",
+        "Use election results to explain the failure of Weimar democracy, and the roles of Papen and Hindenburg in Hitler's appointment in January 1933",
+        "Explain how the Reichstag Fire, the Enabling Act, the banning of trade unions and other parties, and the Night of the Long Knives created a dictatorship, with Hitler Führer by August 1934",
+    ], "Hitler was never elected to power: the Nazi vote peaked at about 37% in July 1932 and he was appointed Chancellor through a deal involving Papen and Hindenburg - 'he won the election' loses the mark."),
+
+    ("hist_aqa:1AB.3a", &[
+        "Explain how the Nazis cut unemployment: public works such as the autobahns, the Reich Labour Service, rearmament and conscription",
+        "Explain the aim of self-sufficiency (autarky) and the Four Year Plan from 1936",
+        "Weigh the benefits and drawbacks of the Nazi economy for workers, including the Labour Front, Strength through Joy and Beauty of Labour",
+        "Explain the impact of the Second World War on the economy and the German people: rationing, bombing, labour shortages, forced labour and refugees",
+    ], "The fall in unemployment hid 'invisible unemployment' - women and Jews pushed out of jobs and men in the Labour Service or the army were not counted - and that is the evaluation point examiners look for."),
+
+    ("hist_aqa:1AB.3b", &[
+        "Explain Nazi policies towards women (Kinder, Küche, Kirche, marriage loans, the Mother's Cross) and how far women's lives changed",
+        "Explain how the Hitler Youth, the League of German Maidens and the education system were used to shape the young",
+        "Explain how the Nazis tried to control the churches: the Concordat (1933), the Reich Church and the Confessing Church",
+        "Explain Aryan racial ideas and the stages of persecution: the 1933 boycott, the Nuremberg Laws (1935), Kristallnacht (1938), the ghettos and the Final Solution",
+    ], "Policies did not have the same effect on everyone - labour shortages pulled women back into work in the late 1930s, and some young people rejected the Hitler Youth - so qualify any claim that the Nazis 'controlled' a whole group."),
+
+    ("hist_aqa:1AB.3c", &[
+        "Explain how Goebbels used propaganda and censorship: rallies, radio, film, newspapers and the 1936 Olympics",
+        "Explain how Nazi culture controlled art, music and literature, including the book burnings",
+        "Explain how the police state worked: Himmler, the SS, the Gestapo, informers, the courts and concentration camps",
+        "Assess the extent of opposition and resistance: the Edelweiss Pirates, the Swing Youth, the White Rose and the July 1944 bomb plot",
+    ], "Judge opposition by its scale and results: most Germans neither resisted nor fully believed, and the most dangerous plot came from army officers in July 1944, not from ordinary people."),
+
+    ("hist_aqa:1AD.1a", &[
+        "Explain the causes of the 1920s boom: mass production and Ford, hire purchase, advertising and Republican policies of tariffs, low taxes and laissez-faire",
+        "Explain why the stock market boomed, including buying shares on the margin",
+        "Explain who did not share in the boom: farmers, workers in older industries and African Americans",
+        "Describe the growth of cinema and jazz, and explain how far women's lives changed, including the flappers",
+    ], "The boom was uneven - farmers faced overproduction and falling prices all decade - so 'everyone was better off' throws away the inequality marks the specification names."),
+
+    ("hist_aqa:1AD.1b", &[
+        "Explain how prohibition led to bootlegging, speakeasies and organised crime, and why it was ended in 1933",
+        "Explain the causes of racial tension and the experiences of immigrants, including the immigration quotas of 1921 and 1924",
+        "Describe the Ku Klux Klan's beliefs, methods and impact in the 1920s",
+        "Explain the Red Scare and the significance of the Sacco and Vanzetti case",
+    ], "Sacco and Vanzetti matter for what the case showed - prejudice against immigrants and radicals in the courts - so explain its significance rather than retelling the robbery."),
+
+    ("hist_aqa:1AD.2a", &[
+        "Explain the effects of the Wall Street Crash and the Depression on the unemployed, farmers and businessmen",
+        "Explain Hoover's response and why he became unpopular, including the Hoovervilles and the Bonus Army",
+        "Explain why Roosevelt won in 1932, and describe the main New Deal measures such as the alphabet agencies, the TVA and the Social Security Act",
+        "Evaluate the New Deal's successes and limits for different groups, and the opposition from the Supreme Court, Republicans and radicals such as Huey Long",
+    ], "Unemployment was still high in the late 1930s and fell fully only with war production - balance the New Deal's real gains against that to reach the top level."),
+
+    ("hist_aqa:1AD.2b", &[
+        "Explain how the Second World War ended the Depression through war production and full employment",
+        "Explain Lend Lease (1941) and why exports and war orders mattered to recovery",
+        "Explain how far the war changed life for African Americans, including migration north and the Double V campaign",
+        "Explain how far the war changed life for women, including war work and what happened after 1945",
+    ], "Change was real but limited - the armed forces stayed segregated and many women left war jobs after 1945 - so 'the war transformed their lives' needs qualifying."),
+
+    ("hist_aqa:1AD.3a", &[
+        "Explain the causes of post-war prosperity and the growth of consumerism and the suburbs",
+        "Explain the idea of the American Dream and who was left out of it",
+        "Explain the causes and impact of McCarthyism at home",
+        "Describe the impact of rock and roll and television on popular culture and young people",
+    ], "McCarthyism sits in this topic as a domestic story: link it to fear of communism and its effect on Americans' freedoms and careers, not to events abroad."),
+
+    ("hist_aqa:1AD.3b", &[
+        "Explain segregation laws in the South and the importance of Brown v Topeka (1954) and Little Rock (1957)",
+        "Explain Martin Luther King's peaceful methods: Montgomery (1955-56), Birmingham, the March on Washington (1963) and Selma",
+        "Compare Malcolm X and the Black Power movement with King's approach",
+        "Explain the importance of the Civil Rights Acts of 1964 and 1968",
+    ], "The specification names the 1964 and 1968 Civil Rights Acts - know what each did (banning segregation in public places and discrimination in jobs; banning discrimination in housing) rather than lumping them together."),
+
+    ("hist_aqa:1AD.3c", &[
+        "Explain Kennedy's New Frontier and Johnson's Great Society policies on poverty, education and health, including Medicare and Medicaid",
+        "Explain how the feminist movement developed in the 1960s and early 1970s, including Betty Friedan and the National Organisation for Women (1966)",
+        "Explain the fight for equal pay and the Equal Pay Act of 1963",
+        "Explain the significance of Roe v Wade (1973), the equal rights advances of the early 1970s, and the opposition to the Equal Rights Amendment led by Phyllis Schlafly",
+    ], "The Equal Rights Amendment passed Congress in 1972 but was never ratified by enough states - the opposition to it is named in the specification, so use it to show the limits of change."),
+
+    ("hist_aqa:1BB.1", &[
+        "Explain the aims of Wilson (the Fourteen Points), Clemenceau and Lloyd George, and how far each achieved them",
+        "Describe the terms of the Treaty of Versailles: territory, military limits, war guilt (Article 231) and reparations",
+        "Explain why Germans called the treaty a Diktat and objected to it",
+        "Evaluate the strengths and weaknesses of the settlement, including the problems of the new states",
+    ], "Reparations were fixed at £6,600 million in 1921, not in the treaty itself, and 'how far did they achieve their aims' needs a verdict for each of the Big Three, not just for Clemenceau."),
+
+    ("hist_aqa:1BB.2a", &[
+        "Describe the League's covenant, organisation (Assembly, Council, Secretariat, Court) and powers, including sanctions",
+        "Explain how its membership weakened it: the USA never joined, Germany joined in 1926 and the USSR only in 1934",
+        "Explain the work of the League's agencies, such as the International Labour Organisation and the Health and Refugees bodies",
+        "Judge its 1920s record: the Aaland Islands, Upper Silesia, Vilna, Corfu and Bulgaria, alongside Locarno (1925) and the Kellogg-Briand Pact (1928)",
+    ], "Vilna and Corfu were failures, the Aaland Islands, Upper Silesia and Bulgaria were successes - and Locarno was agreed outside the League, which some historians see as a sign of its weakness."),
+
+    ("hist_aqa:1BB.2b", &[
+        "Explain how the Depression weakened the League and encouraged aggression",
+        "Explain the Manchurian crisis (1931-33): the Mukden incident, the Lytton Report and Japan leaving the League",
+        "Explain the Abyssinian crisis (1935-36): sanctions that left out oil, the open Suez Canal and the Hoare-Laval Pact",
+        "Explain why the League failed to stop war in 1939",
+    ], "Abyssinia hurt the League more than Manchuria because Britain and France, its leading members, were seen to betray it through the Hoare-Laval Pact."),
+
+    ("hist_aqa:1BB.3a", &[
+        "Explain Hitler's aims (overturning Versailles, uniting German speakers, Lebensraum) and how Britain and France reacted",
+        "Explain the Dollfuss affair (1934), the Saar plebiscite (1935), rearmament and conscription, the Stresa Front and the Anglo-German Naval Agreement",
+        "Explain the remilitarisation of the Rhineland (1936), the Rome-Berlin Axis, the Anti-Comintern Pact and the Anschluss (1938)",
+        "Weigh the reasons for and against appeasement, and explain the Sudeten crisis and the Munich Agreement (1938)",
+    ], "The Anglo-German Naval Agreement broke the Stresa Front because Britain approved a German breach of Versailles - precise links like this one lift a narrative account to the top level."),
+
+    ("hist_aqa:1BB.3b", &[
+        "Explain why the occupation of the rest of Czechoslovakia in March 1939 ended appeasement",
+        "Explain why Stalin signed the Nazi-Soviet Pact in August 1939 and what it allowed Hitler to do",
+        "Explain why the invasion of Poland led to war in September 1939",
+        "Judge the responsibility of Hitler, Stalin and Chamberlain for the outbreak of war",
+    ], "The specification names Hitler, Stalin and Chamberlain - an essay on responsibility that leaves out Stalin and the Nazi-Soviet Pact misses one of the named individuals."),
+
+    ("hist_aqa:1BC.1a", &[
+        "Explain what was agreed at Yalta and Potsdam in 1945, and why relations worsened between the two conferences",
+        "Explain how Germany and Berlin were divided into zones",
+        "Compare the ideologies of the USA and the USSR, and the aims of Stalin, Churchill, Roosevelt, Attlee and Truman",
+        "Explain the effect of the atomic bomb on post-war relations between the superpowers",
+    ], "Potsdam had new Western leaders - Truman instead of Roosevelt, and Attlee replacing Churchill during the conference - and that change is part of why tension rose."),
+
+    ("hist_aqa:1BC.1b", &[
+        "Explain how the USSR took control of Eastern Europe, and the meaning of the Iron Curtain",
+        "Explain the purposes of the Truman Doctrine and the Marshall Plan (1947), and Stalin's reaction: Cominform and Comecon",
+        "Explain why Tito's Yugoslavia broke with Stalin",
+        "Explain the causes, events and results of the Berlin Blockade and Airlift (1948-49)",
+    ], "The Truman Doctrine was the political promise of containment and the Marshall Plan was the economic aid that carried it out - Stalin called it dollar imperialism - so keep the two distinct."),
+
+    ("hist_aqa:1BC.2", &[
+        "Explain the importance of Mao's victory in China (1949), the Korean War (1950-53) and the fighting in Vietnam for superpower relations",
+        "Explain the arms race and the membership and purposes of NATO (1949) and the Warsaw Pact (1955)",
+        "Explain the space race: Sputnik, ICBMs, Polaris, Gagarin and Apollo",
+        "Explain the Thaw and the Hungarian rising of 1956: Nagy's reforms, Soviet fears and the invasion",
+        "Explain the U2 crisis of 1960 and its effect on the Paris summit",
+    ], "The UN fought in Korea only because the USSR was boycotting the Security Council at the time - a precise detail that turns 'the USA intervened' into analysis."),
+
+    ("hist_aqa:1BC.3a", &[
+        "Explain why the Berlin Wall was built in 1961, and Kennedy's response",
+        "Explain Castro's revolution and the Bay of Pigs invasion (1961)",
+        "Explain the roles of Khrushchev, Kennedy and Castro in the Cuban Missile Crisis (October 1962), and why the USA feared missiles on Cuba",
+        "Evaluate the dangers and results of the crisis, including the hotline and the Test Ban Treaty",
+    ], "The crisis ended with a public deal (no US invasion of Cuba) and a secret one (US missiles out of Turkey) - the best answers use both to explain why each side could claim success."),
+
+    ("hist_aqa:1BC.3b", &[
+        "Explain Dubček's reforms in the Prague Spring of 1968 and why the USSR and its allies invaded",
+        "Explain the Brezhnev Doctrine and the effects of the Prague Spring on East-West relations and the Warsaw Pact",
+        "Explain the sources of tension that remained, including the Soviet record on human rights",
+        "Explain the reasons for détente and SALT 1 (1972), and the parts played by Brezhnev and Nixon",
+    ], "Czechoslovakia was invaded by Warsaw Pact forces, not by Soviet troops alone, and the West's weak response showed it accepted the Soviet sphere - a link that explains why détente could follow."),
+
+    ("hist_aqa:2AA.1", &[
+        "Explain medieval ideas about the causes of disease: supernatural and religious explanations, the Four Humours and miasma",
+        "Explain why the ideas of Hippocrates and Galen dominated, and how the Church supported them",
+        "Describe the training and methods of medieval physicians, and the Church's role in care and hospitals",
+        "Explain the nature and importance of Islamic medicine and surgery, and medieval surgical ideas and techniques",
+        "Explain public health in towns and monasteries, and beliefs about the causes, treatment and prevention of the Black Death",
+    ], "The Church both helped medicine (hospitals, care, copying texts) and held it back (backing Galen, discouraging dissection) - a one-sided answer on religion cannot reach Level 4."),
+
+    ("hist_aqa:2AA.2", &[
+        "Explain how the Renaissance challenged medical authority: Vesalius in anatomy, Paré in surgery and Harvey in physiology",
+        "Explain why their discoveries changed treatment so little at the time, and the opposition to change",
+        "Describe traditional and new treatments, quackery, and responses to plague",
+        "Explain the growth of hospitals, changes in the training and status of surgeons and physicians, and the work of John Hunter",
+        "Explain Jenner's smallpox vaccination (1796) and the opposition to it",
+    ], "Jenner did not know why vaccination worked - germ theory came decades later - which is why opposition was strong and why he changed prevention but not ideas about cause."),
+
+    ("hist_aqa:2AA.3a", &[
+        "Explain Pasteur's germ theory, Koch's work on identifying bacteria, and how their rivalry drove microbe hunting",
+        "Explain Pasteur's development of vaccines and Ehrlich's magic bullet, Salvarsan 606",
+        "Describe everyday treatments and remedies in the 19th century",
+        "Explain how anaesthetics (Simpson and chloroform), antiseptics (Lister and carbolic acid) and aseptic surgery tackled pain and infection",
+    ], "Anaesthetics at first raised death rates, because surgeons attempted longer operations before infection was understood - a key example that progress was not smooth."),
+
+    ("hist_aqa:2AA.3b", &[
+        "Explain the public health problems of industrial towns and the impact of the cholera epidemics",
+        "Explain the role of public health reformers such as Edwin Chadwick and John Snow",
+        "Compare the 1848 and 1875 Public Health Acts, and explain why government moved from laissez-faire to compulsion",
+        "Explain how factors combined to bring change: science, the vote for working men, local government and engineering",
+    ], "The 1848 Act let towns choose whether to act; the 1875 Act made them act - confusing the two is the most common slip in public health answers."),
+
+    ("hist_aqa:2AA.4a", &[
+        "Explain Fleming's discovery of penicillin and its development by Florey and Chain, including the roles of war and government",
+        "Explain the growth of the pharmaceutical industry, new diseases, antibiotic resistance and alternative treatments",
+        "Explain how war advanced surgery: plastic surgery, blood transfusions and X-rays",
+        "Describe modern surgical methods: transplants, keyhole surgery, lasers and radiation therapy",
+    ], "Fleming found penicillin by chance but could not produce it; Florey and Chain made it a usable drug, and wartime government and industry mass-produced it - give each factor its share."),
+
+    ("hist_aqa:2AA.4b", &[
+        "Explain the importance of Booth's and Rowntree's surveys and the poor health of Boer War recruits",
+        "Explain the Liberal social reforms of 1906-11, such as school meals, old age pensions and National Insurance",
+        "Explain the impact of the two world wars on public health, poverty and housing",
+        "Explain the Beveridge Report (1942), the creation and development of the NHS (1948), and the costs and choices facing healthcare today",
+    ], "Many doctors opposed the NHS at first, and Bevan won them round with concessions - a significance answer needs the reaction at the time as well as the long-term impact."),
+
+    ("hist_aqa:2AB.1", &[
+        "Explain the barons' dissatisfaction with King John and how it was resolved in 1215",
+        "Describe the terms of Magna Carta and assess its short- and long-term impact",
+        "Explain the conflict between Henry III and his barons, the role of Simon de Montfort, the Provisions of Oxford and the Parliament of 1265",
+        "Explain the social, economic and political causes of the Peasants' Revolt (1381), the actions of rebels and government, and its impact",
+    ], "Magna Carta was annulled within weeks and civil war followed; its importance is long-term - separate the short-term failure from the later symbol to reach the top level on significance."),
+
+    ("hist_aqa:2AB.2", &[
+        "Explain the causes of the Pilgrimage of Grace (1536), Henry VIII's reaction and its impact on royal authority",
+        "Explain the causes of the English Revolution, the New Model Army and the growth of radical ideas",
+        "Explain the significance of the trial and execution of Charles I, Cromwell and the Commonwealth",
+        "Explain the causes, impact and significance of the American Revolution",
+    ], "Similarity questions often pair the Pilgrimage of Grace with the barons' revolt or the Peasants' Revolt - learn causes, methods and outcomes in a way that lets you compare them."),
+
+    ("hist_aqa:2AB.3", &[
+        "Explain radical protest before 1832, and the causes and impact of the Great Reform Act and later reform",
+        "Explain the causes, actions and impact of Chartism",
+        "Explain the methods and impact of campaigning groups: the anti-slavery movement, the Anti-Corn Law League, and factory and social reformers",
+        "Explain the development of trade unionism: the GNCTU, the Tolpuddle Martyrs, New Model Unions and new unionism, including the match girls' and dockers' strikes",
+    ], "Chartism failed at the time but most of its six points later became law - a significance answer needs both the short-term failure and the long-term influence."),
+
+    ("hist_aqa:2AB.4", &[
+        "Explain the campaign for women's suffrage: its reasons, methods and the government's responses, including the role of the Pankhursts",
+        "Explain why the franchise was extended to women in 1918 and 1928, its impact, and progress towards equality after 1945",
+        "Explain the causes, events and impact of the General Strike (1926) and trade union reform in the late 20th century",
+        "Explain the growth of a multi-racial society since 1945: discrimination, protest and reform, the Brixton riots (1981) and the Scarman Report",
+    ], "Whether militancy helped or harmed the cause is debated - weigh the suffragettes against the suffragists and the effect of the First World War rather than leaving any out."),
+
+    ("hist_aqa:2BA.1a", &[
+        "Explain the claims of Harold Godwinson, William of Normandy, Harald Hardrada and Edgar Aethling after Edward the Confessor died in January 1066",
+        "Explain the events and significance of the Battle of Stamford Bridge",
+        "Explain why William won the Battle of Hastings: tactics, leadership, luck and Harold's decisions",
+        "Explain Norman military innovations, including cavalry and castles",
+    ], "Fulford and Stamford Bridge weakened and delayed Harold, but William's preparation, cavalry and feigned retreats matter too - an answer that says 'William was lucky' and stops is a Level 2 answer."),
+
+    ("hist_aqa:2BA.1b", &[
+        "Explain the revolts of 1067-75, including Exeter, the northern risings, Hereward and the Revolt of the Earls",
+        "Explain the causes and consequences of the Harrying of the North (1069-70)",
+        "Explain how William's leadership and government kept control, combining force with Anglo-Saxon institutions",
+        "Explain William II's inheritance in 1087 and how he dealt with the challenges to it",
+    ], "William kept control by mixing force (castles, the Harrying, new landholders) with continuity (sheriffs, writs, the coinage) - give both sides to answer 'how' questions fully."),
+
+    ("hist_aqa:2BA.2", &[
+        "Explain feudalism: roles, rights and responsibilities, landholding, lordship, patronage and military service",
+        "Compare Anglo-Saxon and Norman government and aristocracies",
+        "Explain the Norman legal system, including trial by ordeal, murdrum, forest law and inheritance",
+        "Explain the purpose and significance of the Domesday Book (1086)",
+        "Explain how life in towns and villages changed and stayed the same: buildings, work, food, roles and the farming year",
+    ], "For most peasants daily work changed little after 1066 - the main change was a new lord - so continuity matters as much as change in this topic."),
+
+    ("hist_aqa:2BA.3", &[
+        "Describe the Anglo-Saxon Church before 1066",
+        "Explain Archbishop Lanfranc's reforms: church and cathedral building, organisation and separate Church courts",
+        "Explain Church-state relations, William II and the Church, the Church's wealth, relations with the Papacy and the Investiture Controversy",
+        "Explain the Norman reform of monasticism: abbeys, monastic life, learning, schools, and the use of Latin and English",
+    ], "Lanfranc's reforms replaced English bishops and abbots with Normans, so Church reform was also a tool of Norman control - linking religion to power is what earns the high levels."),
+
+    ("hist_aqa:2BA.4", &[
+        "Apply the aspects AQA lists to any site: location, function, structure, the people connected with it, design, how the design reflects the culture of the time, and its links to wider events",
+        "Explain the location, purpose, design and building of the White Tower, begun under William I and completed under William II",
+        "Explain how the White Tower reflected Norman power, culture and religion, including its chapel",
+        "Use the site as evidence for change and continuity in Norman England, and plan the 16-mark essay on it",
+    ], "The 16-mark question is about the period through the site: an answer that describes the building without linking it to Norman control, culture or events will not reach the top levels."),
+
+    ("hist_aqa:2BC.1", &[
+        "Describe Elizabeth's background and character, and how court life and patronage worked",
+        "Explain the roles of her key ministers, such as William Cecil, Walsingham and Robert Dudley",
+        "Explain her relations with Parliament, including disputes over marriage, the succession, religion and monopolies",
+        "Assess the strength of her authority at the end of her reign, including Essex's rebellion in 1601",
+    ], "Essex's rebellion was small and quickly crushed - it can be used as evidence that her authority was still strong, not only as a sign of decline."),
+
+    ("hist_aqa:2BC.2", &[
+        "Explain whether the period was a Golden Age: living standards, fashions, growing prosperity and the rise of the gentry",
+        "Explain the achievements of Elizabethan theatre and attitudes to it",
+        "Explain the reasons for the increase in poverty, attitudes to the poor and the government's response, including the 1601 Poor Law",
+        "Explain the voyages of Hawkins and Drake, Drake's circumnavigation (1577-80) and the role of Raleigh",
+    ], "Elizabethans split the poor into the deserving and the undeserving (sturdy beggars), and the laws treated them differently - use those terms precisely."),
+
+    ("hist_aqa:2BC.3a", &[
+        "Explain the challenges to the religious settlement from English Catholics and Puritans",
+        "Explain the Northern Rebellion (1569), the excommunication (1570) and the missionary priests",
+        "Explain the Catholic plots against Elizabeth and her government's responses",
+        "Explain the background of Mary, Queen of Scots, how Elizabeth and Parliament treated her, the threat she posed, and the impact of her execution in 1587",
+    ], "Mary's execution in 1587 removed the Catholic heir but helped push Philip II towards the Armada - link it to what came next."),
+
+    ("hist_aqa:2BC.3b", &[
+        "Explain the reasons for conflict with Spain: religion, trade and privateering, the Netherlands and Mary's execution",
+        "Describe the events, including Drake's raid on Cadiz (1587) and the Armada campaign of 1588",
+        "Explain naval warfare, tactics and technology, including galleons, guns and fireships",
+        "Evaluate the reasons for the Armada's defeat: English tactics, Spanish mistakes, leadership and the weather",
+    ], "Many Armada ships were lost in storms off Scotland and Ireland on the way home rather than in battle - weigh luck against English tactics in any 'main reason' essay."),
+
+    ("hist_aqa:2BC.4", &[
+        "Apply the aspects AQA lists to any site: location, function, structure, the people connected with it, design, how the design reflects the culture of the time, and its links to wider events",
+        "Explain how Robert Dudley, Earl of Leicester, turned Kenilworth from a medieval fortress into a palace after 1563",
+        "Explain how Leicester's Building, the gatehouse and the garden reflected Elizabethan wealth, fashion and patronage",
+        "Explain the significance of Elizabeth's visit of 1575 and plan the 16-mark essay on the site",
+    ], "Kenilworth was rebuilt to impress the Queen - use it as evidence of patronage, court culture and Dudley's marriage hopes, not just as a castle."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.
