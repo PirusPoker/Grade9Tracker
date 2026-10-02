@@ -1806,6 +1806,45 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("4.4b", "The costs and benefits of globalisation for developed and less developed countries", 0.75),
         ],
     },
+    // Pearson Edexcel GCSE French 1FR1, the new specification: first taught
+    // September 2024, first examined June 2026. Themes, the grammar list
+    // (Appendix 2, Foundation and Higher) and the papers read from the
+    // specification, Issue 2 (May 2025), and the Higher sample assessment
+    // materials (Issue 2, July 2025). The spec has no numbered content, so the
+    // codes follow its order: T1-T6 the thematic contexts, G1-G8 the sections
+    // of Appendix 2, P1-P4 the papers.
+    SubjectDef {
+        id: "fre_edx", name: "French", full: "Pearson Edexcel GCSE French (1FR1) Higher", color: "var(--fre)",
+        papers: "Higher tier, four papers of 50 marks, 25% each, all in the same summer: Paper 1 Speaking 10-12 min plus 15 min preparation, conducted by your teacher in April-May and marked by Pearson (read aloud with two questions, role play, picture task with a conversation); Paper 2 Listening 1 h including 5 min reading time (questions in English, then a dictation); Paper 3 Reading 1 h (questions in English, then a translation into English); Paper 4 Writing 1 h 20 (an 80-90-word task, a 130-150-word task and a translation into French). Only the Edexcel vocabulary list (Appendix 1) and grammar list (Appendix 2) are examined",
+        spec: "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/french-2024.html",
+        sections: &["T Thematic contexts", "G Grammar", "P1 Paper 1 Speaking", "P2 Paper 2 Listening", "P3 Paper 3 Reading", "P4 Paper 4 Writing"],
+        topics: &[
+            ("T1", "My personal world: family, friends, relationships and equality", 1.0),
+            ("T2", "Lifestyle and wellbeing: physical and mental wellbeing, food and drink, sport", 1.0),
+            ("T3", "My neighbourhood: places in town, shopping, transport, the natural world and the environment", 1.0),
+            ("T4", "Media and technology: social media and gaming, music, TV and film", 1.0),
+            ("T5", "Studying and my future: school, work and future opportunities", 1.0),
+            ("T6", "Travel and tourism: holidays, tourist attractions and accommodation", 1.0),
+            ("G1a", "Nouns and articles: gender, plurals, the partitive, de after negatives, dans and en", 1.0),
+            ("G1b", "Determiners and pronouns: ce, mon, quel, tout; subject, object, reflexive and emphatic pronouns; qui", 1.0),
+            ("G1c", "Higher pronouns: y, en, les and leur, eux, personne ne and rien ne, que and où", 0.75),
+            ("G2a", "Negatives and questions: ne...pas to ne...que; intonation, est-ce que and inversion", 1.0),
+            ("G2b", "Impersonal, reflexive and passive verbs; être en train de and venir de", 0.75),
+            ("G3a", "The present tense, modal verbs and depuis", 1.25),
+            ("G3b", "The perfect tense: avoir, être and past participle agreement", 1.25),
+            ("G3c", "The imperfect tense, and choosing between the imperfect and the perfect", 1.0),
+            ("G3d", "The future: aller + infinitive, the future tense and the conditional", 1.25),
+            ("G3e", "The imperative and the present participle (en + -ant)", 0.5),
+            ("G4-5", "Adjectives and adverbs: agreement, position, comparatives and superlatives", 1.0),
+            ("G6", "Prepositions: à and de after verbs, places, possession, pour, sans, avant de and après avoir", 0.75),
+            ("G7", "Derivational morphology: working out new words from prefixes and suffixes", 0.5),
+            ("G8", "Sound-symbol correspondences: how French sounds are spelt and said", 0.75),
+            ("P1", "Paper 1 Speaking: read aloud, role play, picture task and conversation", 1.5),
+            ("P2", "Paper 2 Listening: comprehension questions and the dictation", 1.25),
+            ("P3", "Paper 3 Reading: comprehension, inferring new words and translation into English", 1.0),
+            ("P4", "Paper 4 Writing: the 80–90 and 130–150 word tasks and translation into French", 1.5),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

@@ -292,6 +292,24 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
         "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8",
         "4.1", "4.2", "4.3", "4.4",
     ]),
+    // French - Pearson Edexcel GCSE 1FR1 (second board beside AQA 8652 "fre").
+    // Read from the specification, Issue 2 (May 2025; first teaching 2024,
+    // first exams June 2026; the current issue on Pearson's qualification
+    // page), on 2 October 2026. The spec numbers none of its content, so these
+    // references follow its own order:
+    // T1-T6 the six thematic contexts as listed on page 7 (My personal world;
+    // Lifestyle and wellbeing; My neighbourhood; Media and technology;
+    // Studying and my future; Travel and tourism);
+    // G1-G8 the eight sections of Appendix 2: Grammar (nouns, pronouns and
+    // determiners; verbs; verbs: tenses; adjectives; adverbs; prepositions;
+    // derivational morphology; sound-symbol correspondences);
+    // P1-P4 Pearson's paper numbers (Speaking, Listening, Reading, Writing).
+    // G1-G3 are split with letters; topic G4-5 covers G4 and G5.
+    ("fre_edx", &[
+        "T1", "T2", "T3", "T4", "T5", "T6",
+        "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8",
+        "P1", "P2", "P3", "P4",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -9884,6 +9902,155 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Evaluate the costs and benefits of globalisation for producers, workers and consumers in less developed countries",
         "Evaluate the impact of globalisation on economic, social and environmental sustainability",
     ], "Keep to the group named: a 2025 MCQ wanted the cost to consumers in developed countries (dominant global brands), not the effect of immigration."),
+    // ---------- French (Pearson Edexcel GCSE 1FR1, Higher) ----------
+    ("fre_edx:T1", &[
+        "Describe yourself, your family and friends, including step-family and personality, with accurate agreements",
+        "Explain how you get on with people using s'entendre avec, se disputer and faire confiance à",
+        "Give and justify opinions on friendship, relationships and equality, including discrimination and harassment",
+        "Answer Paper 3 questions on family and equality texts, including inferring an unfamiliar word from context",
+        "Write an 80-90-word message to a friend covering four bullets in three time frames",
+    ], "Copying a whole French phrase as the answer to a reading question. Edexcel wants a short answer in English, and isolated French words score nothing."),
+    ("fre_edx:T2", &[
+        "Talk and write about healthy and unhealthy habits, diet, sleep and mental wellbeing",
+        "Use il faut, il vaut mieux and il est important de + infinitive to give advice",
+        "Describe illness and injury with avoir mal à and se blesser, and handle a doctor's surgery role play",
+        "Weigh up the pros and cons of a lifestyle choice for a 130-150-word formal task",
+    ], "Losing the past time frame: saying what you do now but never what you used to do, which caps the language mark in both writing questions."),
+    ("fre_edx:T3", &[
+        "Describe your town or village and compare it with the countryside using comparatives",
+        "Buy things, return them and complain in a shop or market role play",
+        "Explain environmental problems and solutions with the passive, il faut and si + present + future",
+        "Use transport vocabulary to buy tickets and ask two questions at a train station",
+    ], "Giving only advantages when the bullet asks for the pros and cons: both sides are needed for the bullet to count as fully answered."),
+    ("fre_edx:T4", &[
+        "Describe how you use your phone, apps, social media and games, and their benefits and dangers",
+        "Talk about music, concerts, TV, series and films, including one you saw recently",
+        "Use object pronouns, y and en in sentences about technology and media",
+        "Buy cinema or concert tickets and ask two questions in a role play",
+    ], "Writing je les ai regardé: after a preceding direct object the participle agrees, la série que j'ai regardée."),
+    ("fre_edx:T5", &[
+        "Give opinions on school subjects, rules, uniform and pressure, with reasons",
+        "Describe part-time jobs, work experience and apprenticeships",
+        "Explain future plans for study and work using the future, the conditional and si clauses",
+        "Write a formal 130-150-word article covering four bullets, including a past event and future plans",
+    ], "Using the wrong future form: j'allerai and je serais for I will be. The list's future of aller is irai and of être is serai."),
+    ("fre_edx:T6", &[
+        "Describe past, usual and ideal holidays in three time frames",
+        "Use en, au, aux and à correctly with countries and towns",
+        "Book accommodation and sort out problems in hotel, campsite and tourist-office role plays",
+        "Read brochures and adverts for detail, including opening times, prices and conditions",
+    ], "Mixing the perfect and the imperfect in a holiday story: il faisait beau and c'était génial for description, nous sommes allés for events."),
+    ("fre_edx:G1a", &[
+        "Form feminine and plural nouns by the listed patterns",
+        "Use definite, indefinite and partitive articles, including where French differs from English",
+        "Change the article to de after negatives and expressions of quantity",
+        "Use an infinitive as a noun where English uses -ing",
+        "Use dans with an article and en without one, and the negative determiner aucun at Higher",
+    ], "Writing je n'ai pas des frères: after a negative the article becomes de, je n'ai pas de frères."),
+    ("fre_edx:G1b", &[
+        "Make ce, mon, quel and tout agree with the noun that follows",
+        "Place direct, indirect and reflexive pronouns before the verb, and in the perfect before the auxiliary",
+        "Use emphatic pronouns after prepositions, as in chez moi and avec elle",
+        "Join sentences with the relative pronoun qui",
+    ], "Treating son and sa as his and her: they agree with the thing owned, so sa mère can mean his mother."),
+    ("fre_edx:G1c", &[
+        "Replace places with y and quantities or de + noun with en, including il y en a",
+        "Use les and leur before the verb, never next to another object pronoun",
+        "Use personne ne and rien ne as the subject of a verb",
+        "Choose between qui, que and où in relative clauses",
+        "Recognise dont, le mien and moi-même in reading",
+    ], "Adding -s to the pronoun leur: je leur parle, because only the possessive leurs takes an -s."),
+    ("fre_edx:G2a", &[
+        "Use ne...pas, jamais, rien and personne, and at Higher ne...plus, ne...ni...ni, ne...pas encore and ne...que",
+        "Place negatives correctly around the auxiliary in the perfect and before an infinitive",
+        "Ask questions by intonation, with est-ce que and by inversion, with and without a question word",
+        "Ask the two questions a Higher role play requires",
+    ], "Reading ne...que as a negative: je n'ai que dix euros means I only have ten euros."),
+    ("fre_edx:G2b", &[
+        "Use il y a, il faut, il fait and il est, and at Higher il est + adjective + de, il manque, il vaut mieux and il vaut la peine de",
+        "Use reflexive verbs in every person and tense, with the pronoun matching the subject",
+        "Form the present passive with être, an agreeing participle and par",
+        "Use être en train de and venir de for actions in progress and just completed",
+    ], "Writing je veux s'amuser: the reflexive pronoun must match the subject, je veux m'amuser."),
+    ("fre_edx:G3a", &[
+        "Conjugate -er verbs and the listed -ir and -re patterns in every person of the present",
+        "Use aller, avoir, être, faire, mettre and the modals devoir, pouvoir, savoir and vouloir + infinitive",
+        "Use the singular-only irregulars such as boire, croire, voir and recevoir, and connaître and écrire in full at Higher",
+        "Use the present with depuis for something that has been going on for a period of time",
+    ], "Putting depuis with the perfect: j'habite ici depuis cinq ans, not j'ai habité ici depuis cinq ans."),
+    ("fre_edx:G3b", &[
+        "Form the perfect with avoir or être and the right past participle",
+        "Make the participle agree after être and after a preceding direct object",
+        "Use reflexive verbs and the modals j'ai dû, j'ai pu and j'ai voulu in the perfect",
+        "Recognise the Higher participles découvert, plaint, convaincu and tu",
+    ], "Using avoir with a movement verb: elle est allée, never elle a allé."),
+    ("fre_edx:G3c", &[
+        "Form the imperfect from the nous stem, with être as the exception",
+        "Use the imperfect for habits, description and actions in progress",
+        "Choose between the imperfect and the perfect in a past narrative",
+        "Use c'était, il y avait and il faisait to describe the past",
+    ], "Using the perfect for what you used to do: quand j'étais petit, je jouais, not j'ai joué."),
+    ("fre_edx:G3d", &[
+        "Talk about the future with aller + infinitive in every person",
+        "Form the future of -er verbs and use irai, aurai, serai and ferai",
+        "Form the conditional of -er verbs and use irais, aurais, serais, ferais and voudrais",
+        "Use si + present + future to talk about conditions and plans",
+    ], "Confusing will and would: je jouerai means I will play, je jouerais means I would play, and the dictation can test the difference."),
+    ("fre_edx:G3e", &[
+        "Give instructions with the tu and vous imperative, dropping the -s of -er verbs in the tu form",
+        "Use the nous imperative for let's and the imperative of être at Higher",
+        "Form the present participle and use en + -ant for while or by doing",
+    ], "Keeping the -s in the tu imperative of -er verbs: mange and va, not manges and vas."),
+    ("fre_edx:G4-5", &[
+        "Make adjectives agree using the listed feminine and plural patterns",
+        "Place adjectives after the noun, except the listed group that goes before it",
+        "Compare with plus, moins and aussi...que, and use le meilleur, le mieux and le pire at Higher",
+        "Place adverbs of time, manner, frequency and place, including in the perfect",
+    ], "Forgetting agreement after être: mes sœurs sont sportives, not sportif."),
+    ("fre_edx:G6", &[
+        "Use à and de after the verbs and adjectives that need them before a noun or an infinitive",
+        "Use en, au, aux and à with places, and the contractions au, aux, du and des",
+        "Show possession with de and purpose with pour and sans + infinitive",
+        "Use avant de + infinitive and après avoir + past participle at Higher",
+    ], "Writing après manger: after doing something is après avoir mangé."),
+    ("fre_edx:G7", &[
+        "Work out words formed with in- and im- meaning un- or not",
+        "Recognise ordinals in -ième, adjectives in -able, nouns in -ion and -ation and adverbs in -ment and -emment",
+        "Recognise agent nouns in -eur and -ateur at Higher",
+        "Infer the two off-list words in Paper 3 from context, cognates and word families",
+    ], "Trusting false friends: actuellement means currently, and sensible means sensitive."),
+    ("fre_edx:G8", &[
+        "Pronounce and spell every sound-symbol correspondence on the Edexcel list",
+        "Mark silent letters, liaisons and nasal vowels in a read-aloud text",
+        "Use grammar to choose between homophones such as a and à, et and est, ces, ses, c'est and s'est",
+        "Spell words you have never seen from their sound in the dictation",
+    ], "Leaving out accents and silent letters in the dictation: frere for frère does not count, because the SSC is wrong."),
+    ("fre_edx:P1", &[
+        "Read a 50-55-word text aloud with accurate sound-symbol correspondences",
+        "Complete a transactional role play, asking two questions and answering one prompt in the future",
+        "Describe the people, location and activity in a photo with developed detail",
+        "Sustain a five-minute conversation with extended, justified answers in three time frames",
+        "Use the 15 minutes' preparation and one A4 sheet of notes to best effect",
+    ], "Making a statement when the prompt asks a question: a role-play question must be a question to score."),
+    ("fre_edx:P2", &[
+        "Use the five minutes' reading time to predict vocabulary and underline question words",
+        "Avoid distractors created by negatives, time frames and words like mais and par contre",
+        "Answer multiple-choice, multiple-response and short-answer questions in precise English",
+        "Transcribe the six dictation sentences accurately, including off-list words, using the SSCs",
+    ], "Writing down the first word that matches the question, when a negative or a change of time frame later in the extract makes it wrong."),
+    ("fre_edx:P3", &[
+        "Answer gap-fill, multiple-choice, multiple-response and table questions accurately in English",
+        "Infer the meaning of two unfamiliar words from context",
+        "Separate past, present and future events in a text",
+        "Translate a 60-word passage into natural English, rendering every tense and every word",
+    ], "Translating depuis + present as since + present: il habite ici depuis deux ans means he has been living here for two years."),
+    ("fre_edx:P4", &[
+        "Address all four bullets of the 80-90-word and 130-150-word tasks with developed ideas",
+        "Use past, present and future time frames successfully in both open-response questions",
+        "Give pros and cons, opinions and reasons, with complex language as Pearson defines it",
+        "Translate a short English paragraph into French accurately",
+        "Plan and check within 1 hour 20 minutes",
+    ], "Skipping a bullet point: a missing bullet caps the response-to-task mark however good the French is."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

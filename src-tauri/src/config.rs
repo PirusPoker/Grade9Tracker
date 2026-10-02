@@ -213,6 +213,9 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // OCR GCSE Economics J205: second-board Economics, school-paced - recall on
     // what school has covered, with no NEA.
     ("econ_ocr", &[(1, 0.5, 0.25)]),
+    // Pearson Edexcel GCSE French 1FR1: second-board French, school-paced:
+    // recall and vocabulary on what school has covered.
+    ("fre_edx", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -250,6 +253,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("geog_edxb", "school"),
     ("combsci_aqa", "ahead"),
     ("econ_ocr", "school"),
+    ("fre_edx", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -266,6 +270,8 @@ const DEFAULT_WEEKLY: &[(&str, &[(&str, f64, &str)])] = &[
         "Two 15-minute bursts: learn 20 words from the AQA German vocabulary list (Appendix 2 of the specification) with the German side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
     ("englang_edq", &[("Timed writing piece", 1.0,
         "Handwritten, no stopping: one week a Component 1 Section B story (45 minutes, 450-600 words, from a choice of four titles), the next week both Component 2 Section B tasks (30 minutes each, 300-400 words). Mark it against the mark scheme tomorrow, cold - the marking is where the learning is.")]),
+    ("fre_edx", &[("Vocabulary and speaking", 0.5,
+        "Two 15-minute bursts: learn 20 words from the Edexcel French vocabulary list (Appendix 1 of the specification) with the French side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
 ];
 
 fn default_pace_for(id: &str) -> &'static str {
@@ -612,6 +618,17 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/economics/ocr/past-papers/"),
         ("OCR papers & mark schemes", "https://www.ocr.org.uk/qualifications/gcse/economics-j205-from-2017/assessment/"),
         ("OCR spec", "https://www.ocr.org.uk/qualifications/gcse/economics-j205-from-2017/"),
+    ]),
+    // Pearson Edexcel GCSE French 1FR1 (2024 spec). Every link opened on
+    // 2 October 2026: Pearson's qualification page and the Issue 2 spec
+    // (vocabulary list is Appendix 1, grammar Appendix 2); its exam-materials
+    // list; SimpleStudy's 1FR1 revision notes and vocabulary lists. Save My
+    // Exams has no Edexcel French notes and only old-spec (1FR0) papers.
+    ("fre_edx", &[
+        ("Pearson French (2024) page", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/french-2024.html"),
+        ("Spec (vocabulary Appendix 1, grammar Appendix 2)", "https://qualifications.pearson.com/content/dam/pdf/GCSE/French/2024/specification-and-sample-assessments/gq000023-gcse-french-specification-2024-issue-2.pdf"),
+        ("Pearson papers & mark schemes", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/french-2024.coursematerials.html#filterQuery=category:Pearson-UK:Category%2FExam-materials"),
+        ("Revision notes (1FR1)", "https://simplestudy.com/gb/gcse/edexcel/french/revision-notes"),
     ]),
 ];
 

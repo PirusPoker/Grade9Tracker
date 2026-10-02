@@ -6826,6 +6826,133 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("kdJvUefrHps", "GCSE Economics: Effects of globalisation on developed countries", GOFF),
         ("1p7WwOhnW18", "GCSE Economics: The effects of globalisation on less developed countries", GOFF),
     ]),
+    // ---------- French (Pearson Edexcel GCSE 1FR1, Higher) - Pearson's own 2024-spec
+    // speaking exemplar and student tips, Edexcel 2026-spec exam videos (Mrs Knott-Sturdy MFL,
+    // Language Stars, astarfrench, Mr Ennis MFL, Languagenut), BBC Bitesize, and the grammar
+    // channels the AQA French entries use. Read off YouTube on 2 October 2026; every id, title
+    // and channel checked against YouTube's oEmbed response. ----------
+    ("fre_edx:T1", &[
+        ("aIqliPHnidA", "GCSE French | How to describe yourself and others | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+        ("EvKPWVUG218", "GCSE French Speaking: My Family", ALEXA),
+        ("LianvgQORh8", "GCSE French Speaking: Family Relationships", ALEXA),
+    ]),
+    ("fre_edx:T2", &[
+        ("E1Cuy4a5Ee4", "GCSE French Speaking: What did you do last week to keep healthy/fit?", ALEXA),
+        ("FHkGo7-rDAw", "Master FRENCH GCSE VOCABULARY on HEALTH PROBLEMS in Record Time!", IDEAL),
+        ("Y6NhPhJ28uc", "Food and Drinks French-English Vocabulary - GCSE French Must Know Vocab!", "BELingual Fr"),
+    ]),
+    ("fre_edx:T3", &[
+        ("-m-GCjXI84M", "GCSE French Speaking: Town or Countryside?", ALEXA),
+        ("qeCJtox0ceE", "Town Neighbourhood and Region French-English Vocabulary - GCSE French Must Know Vocab!", "BELingual Fr"),
+        ("psh5jpEufKo", "GCSE French: Environmental problems", EVERLEARNER),
+    ]),
+    ("fre_edx:T4", &[
+        ("0Ec97VyWxvs", "GCSE French Speaking: How do you use your mobile phone?", ALEXA),
+        ("Hf8PUjF3_1I", "GCSE French Speaking: Dangers of the Internet?", ALEXA),
+        ("qxFXklF5qIA", "17 French phrases to do with social media", ALEXA),
+    ]),
+    ("fre_edx:T5", &[
+        ("qN6qQABYtdg", "School Words in French Part 1 (basic French vocabulary from Learn French With Alexa)", ALEXA),
+        ("ApOpvOmQU9U", "Jobs in French Part 1 (basic French vocabulary from Learn French With Alexa)", ALEXA),
+        ("C69QsnpfX4c", "GCSE French Writing Theme 3 Current And Future Study And Employment - How to get a Grade 9!", "BELingual Fr"),
+    ]),
+    ("fre_edx:T6", &[
+        ("3DNTCLspeYA", "GCSE French Listening | How to describe tourist attractions | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+        ("jH3oZzf6z8k", "GCSE French Speaking: How would your ideal holidays be?", ALEXA),
+        ("Gs7lKsobgH8", "► Travel and tourism ┃ Holidays in French ┃ French GCSE", "Learn French with Lara"),
+    ]),
+    ("fre_edx:G1a", &[
+        ("CvkiPiW32hc", "Understanding French articles: when to use the DEFINITE, INDEFINITE and PARTITIVE articles", ALEXA),
+        ("V7AjuIDn4oU", "Feminine or Masculine words in French? Understanding French genders!", ALEXA),
+        ("6edld_vN7VA", "French Partitive Articles: du, de la, des, de l', de, d'", ALEXA),
+    ]),
+    ("fre_edx:G1b", &[
+        ("y8jiGE2uj_w", "Learn French: how to say \"CE, CET, CETTE, CES..\" in 5 minutes.", ALEXA),
+        ("jXt-dAm6_-U", "French Made Easy: How to say MY, YOUR, OUR, etc. (French Possessive Adjectives)", ALEXA),
+        ("2aFGlzmmVu4", "How to use Direct Object Pronouns in French 🇫🇷", ALEXA),
+    ]),
+    ("fre_edx:G1c", &[
+        ("OHQPlvD1ypc", "2 Common French Pronouns: Y vs EN", ALEXA),
+        ("11KUkGmjZ30", "Moi Toi Lui Elle Nous Vous Eux Elles - French Emphatic/Stressed Pronouns // French Grammar Lesson 35", DYLANE),
+        ("GxxyR8P0pOI", "Practise your French Relative Pronouns \"Qui vs Que\"", ALEXA),
+    ]),
+    ("fre_edx:G2a", &[
+        ("sgr9wgYAejs", "French Made Easy: Simple Negations in French", ALEXA),
+        ("uwIZHmbiMIE", "The complete guide of French negation - Part 2 - Ne plus, Ne que, Ne jamais, ne personne, etc", DYLANE),
+        ("o0tgXagvolU", "Asking questions in French with EST-CE QUE (French Essentials Lesson 30)", ALEXA),
+    ]),
+    ("fre_edx:G2b", &[
+        ("SDLhHuGZayU", "Falloir (to be necessary / to need) French verbs conjugated by Learn French With Alexa", ALEXA),
+        ("DybxlyAQrxo", "French Made Easy: Reflexive Verbs", ALEXA),
+        ("n2g63PMCqiE", "La Forme Passive French Conjugation For GCSE", GCSEOC),
+        ("yAJv36ZGtYM", "French Grammar you need to know! Venir de / Être en train de / Être sur le point de", ALEXA),
+    ]),
+    ("fre_edx:G3a", &[
+        ("r7lt91QIQzY", "GCSE French Grammar: The present tense pt1", NOWAFFLE),
+        ("3uWCHZ8NeQo", "GCSE French Conjugation Playlist | Lesson 11 of 12 | Modal Verbs", GCSEOC),
+        ("F2jUqNyXpaI", "How to Use the \"Depuis Présent\" in GCSE French: Tips and Examples", GCSEOC),
+    ]),
+    ("fre_edx:G3b", &[
+        ("I9owFJ1Z7fw", "The Perfect Tense in French - How To Form The Past Tense - GCSE French", IMSTUCK),
+        ("R7CMGVsanu8", "Être or Avoir in the Passé Composé in French... French PAST TENSE explained!", ALEXA),
+        ("vmP4ISMLx-A", "GCSE French Grammar: The perfect tense pt2", NOWAFFLE),
+    ]),
+    ("fre_edx:G3c", &[
+        ("47vrMM7xIZo", "Imperfect Tense in French - How To Form The Imperfect Tense - GCSE French", IMSTUCK),
+        ("JK5OMjjAc8A", "French Imperfect Tense VS Passé Composé Tense", ALEXA),
+    ]),
+    ("fre_edx:G3d", &[
+        ("6HDCdU3yJtk", "The Future Tense in French: futur proche or futur simple?", ALEXA),
+        ("GXu34g0DldQ", "Simple Future Tense in French - How To Form the Future Tense - GCSE French", IMSTUCK),
+        ("QQLoyENxrnU", "GCSE French Grammar: The conditional tense ( pt7)", NOWAFFLE),
+    ]),
+    ("fre_edx:G3e", &[
+        ("tHb1vDbJxzk", "What is the Imperative (impératif) form in French and how do you use it? #FrenchGCSE", GCSEOC),
+        ("iGbdNzaqv2I", "How to form the PRESENT PARTICIPLE in French", ALEXA),
+    ]),
+    ("fre_edx:G4-5", &[
+        ("7C-5_PllPuo", "GCSE French: An Introduction to Adjectival Agreements", EVERLEARNER),
+        ("I1RUF472SFY", "French adjectives: BEFORE or AFTER the noun?", ALEXA),
+        ("Ne431tdamsk", "French Comparative And Superlative // French Grammar Course // Lesson 29 🇫🇷", DYLANE),
+        ("MM9lusc6IKQ", "How to form French Adverbs of Manner", ALEXA),
+    ]),
+    ("fre_edx:G6", &[
+        ("iEyvIzPKuIY", "French prepositions (French Essentials Lesson 12)", ALEXA),
+        ("yI_iWNJ3kzQ", "Practise your French Prepositions Part 1 -\"à, en, au, aux, chez\"", ALEXA),
+    ]),
+    ("fre_edx:G7", &[
+        ("O8oQOS2bcHI", "14 French Suffixes To Upgrade Your French Vocabulary | French vocabulary Course | Lesson 22", DYLANE),
+        ("Idck7grkCYY", "17 French Prefixes to Understand Words Better | Pré- Anti- Dé- Sur- and More 🇫🇷", DYLANE),
+        ("MM9lusc6IKQ", "How to form French Adverbs of Manner", ALEXA),
+    ]),
+    ("fre_edx:G8", &[
+        ("0mC2zRtx8h8", "Vowel Sounds in French  (Learn French With Alexa)", ALEXA),
+        ("8l7QFSWaz4s", "How to pronounce \"EN, EM, AN & AM\" sounds in French (Learn French With Alexa)", ALEXA),
+        ("yRCD8vgohZo", "When do you pronounce the end of the word in French? LES LIAISONS OBLIGATOIRES!", ALEXA),
+        ("AyzJ5SeQWTQ", "French Accents Explained!", ALEXA),
+    ]),
+    ("fre_edx:P1", &[
+        ("bYPF4Aajyo8", "2024 Pearson Edexcel GCSE French 9-1 -  Speaking Higher - Exemplar 1", PEARSONUK),
+        ("Q4R3_vG3jPs", "Student Tip 3 – annotating the read aloud card (GCSE (2024) French, German and Spanish speaking)", PEARSONUK),
+        ("J70KxXAYySw", "Edexcel French read aloud", "Language Stars"),
+        ("kI1mmaILJq4", "Student Tip 6 – the role play (GCSE (2024) French, German and Spanish speaking exams)", PEARSONUK),
+        ("Aldyuf5qymk", "Student Tip 10 – the picture description (GCSE (2024) French, German and Spanish speaking exams)", PEARSONUK),
+        ("Nge45T6hZVI", "Student Tip 11 – conversation: student role (GCSE (2024) French, German and Spanish speaking exams)", PEARSONUK),
+    ]),
+    ("fre_edx:P2", &[
+        ("LxWGPsU8ieo", "Edexcel GCSE French - Listening Final Tips", "Mrs Knott-Sturdy MFL"),
+        ("x8JSSjRvSgM", "Edexcel Mock Ft Y10 Listening French Dictation", "Languagenut"),
+    ]),
+    ("fre_edx:P3", &[
+        ("jSIDtPjafJI", "GCSE French Reading Exam Top Tips", "Mrs Knott-Sturdy MFL"),
+        ("_HbVNCaHdZU", "GCSE French 2026 - Walk-Thru Reading - Blenheim High School", "Mr Ennis MFL"),
+    ]),
+    ("fre_edx:P4", &[
+        ("Mn-ayKlRQ5w", "Edexcel French GCSE (2026) - looking at the 80-90 word task", "Mrs Knott-Sturdy MFL"),
+        ("k_bqw-2XRoo", "Edexcel GCSE French 130-150 word task", "Mrs Knott-Sturdy MFL"),
+        ("AK19R7oLRmI", "Edexcel French 80-90 words writing task", "Language Stars"),
+        ("8D0yBjbr3NU", "Edexcel GCSE French Writing Walkthrough", "astarfrench"),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.
