@@ -4956,6 +4956,119 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("QAa2O_8wBUQ", "What is Dark Matter and Dark Energy?", "Kurzgesagt – In a Nutshell"),
     ]),
 
+    // ---------- English Literature (WJEC Eduqas C720QS) ----------
+    ("englit_edq:C1Aa", &[
+        ("4GSCWDa1qcE", "Shakespeare in Seven Minutes: Macbeth Summary", "Easy as GCSE"),
+        ("L_P3Ub_jnAg", "GCSE English Literature | Key themes and characters in Macbeth | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+        ("DDH4ooBU7TA", "Macbeth Themes Revision: The Supernatural, Fate vs Free Will, Appearance vs Reality", "Easy as GCSE"),
+    ]),
+    ("englit_edq:C1Ab", &[
+        ("gSNzOHF09oU", "Eduqas English Literature GCSE Macbeth Extract Question, Eduqas Literature Component 1", "Literature Daydreams"),
+        ("_XCgmX7JaNo", "Macbeth Extract Question, Eduqas GCSE English Literature, GCSE English Literature Exam Tips", "Literature Daydreams"),
+        ("rNVoF_gw2Pg", "Eduqas English Literature Component 1 - Macbeth extract analysis", "Mr Baugh"),
+    ]),
+    ("englit_edq:C1Ac", &[
+        ("63TJccckY-8", "Macbeth Whole Play Question, Eduqas GCSE English Literature, GCSE Revision Tips", "Literature Daydreams"),
+        ("XkSbI13FtFs", "118 Eduqas GCSE English Literature - exam technique (\"Macbeth\")", "Chalk in My Pockets"),
+    ]),
+    ("englit_edq:C1Ba", &[
+        ("fmEsJXZ3Ulo", "116 The Schoolboy, William Blake", "Chalk in My Pockets"),
+        ("-FRy0iltH8g", "'The Schoolboy' by William Blake GCSE English Analysis", "NHHS English Faculty Youtube"),
+    ]),
+    ("englit_edq:C1Bb", &[
+        ("_4UFNa7vXJw", "115 I Wandered Lonely as a Cloud, William Wordsworth", "Chalk in My Pockets"),
+        ("gqmEoMuFfxs", "'I Wandered Lonely as a Cloud' by William Wordsworth", "NHHS English Faculty Youtube"),
+        ("hCU0cb6SpU0", "Eduqas Poetry Anthology 2027 - I Wandered as Lonely as a Cloud by William Wordsworth Revision Video", "Sophie"),
+    ]),
+    ("englit_edq:C1Bc", &[
+        ("g7ZKivxo1HI", "125 'Cousin Kate', Christina Rossetti", "Chalk in My Pockets"),
+        ("W6hY4pOof7w", "'Cousin Kate' by Christina Rossetti GCSE English Analysis", "NHHS English Faculty Youtube"),
+        ("RPY8PTkFpAk", "Cousin Kate, by Christina Rossetti", "Mr Salles Teaches English"),
+    ]),
+    ("englit_edq:C1Bd", &[
+        ("qu4PIz-wlk8", "119 Sonnet 29 - I think of thee!, Elizabeth Barrett Browning", "Chalk in My Pockets"),
+        ("fq4PxFfiO7g", "'Sonnet 29' by Elizabeth Barrett Browning GCSE English Analysis", "NHHS English Faculty Youtube"),
+        ("EpCV4ugLEog", "3 Things You Need to Know about 'Sonnet 29' by Elizabeth Barrett Browning", "Mr Bruff"),
+    ]),
+    ("englit_edq:C1Be", &[
+        ("9JMxsYRa8bk", "111 Drummer Hodge, Thomas Hardy", "Chalk in My Pockets"),
+        ("LyZcAR6xYxU", "'Drummer Hodge' by Thomas Hardy GCSE English Analysis", "NHHS English Faculty Youtube"),
+    ]),
+    ("englit_edq:C1Bf", &[
+        ("X4IQnpUVsJA", "112 Disabled, Wilfred Owen", "Chalk in My Pockets"),
+        ("jFe7jVhrSJU", "Analysis of 'Disabled' by Wilfred Owen", "Mrs Rumsey"),
+    ]),
+    ("englit_edq:C1Bg", &[
+        ("xlkZ2imFid0", "117 I Shall Return, Claude McKay", "Chalk in My Pockets"),
+        ("lQjfGgNvghU", "'I Shall Return' by Claude McKay GCSE English Analysis", "NHHS English Faculty Youtube"),
+    ]),
+    ("englit_edq:C1Bh", &[
+        ("aLcsIABAVLs", "114 Decomposition, Zulfikar Ghose", "Chalk in My Pockets"),
+        ("UXzjORqpTnA", "'Decomposition' by Zulfikar Ghose GCSE English Analysis", "NHHS English Faculty Youtube"),
+    ]),
+    ("englit_edq:C1Bi", &[
+        ("MmIB0cWm3SQ", "127 'Catrin', Gillian Clarke", "Chalk in My Pockets"),
+        ("W-9v1-YyvJQ", "'Catrin' by Gillian Clarke GCSE English Analysis", "NHHS English Faculty Youtube"),
+    ]),
+    ("englit_edq:C1Bj", &[
+        ("W59iqkPZ0O4", "110 Blackberry Picking, Seamus Heaney", "Chalk in My Pockets"),
+        ("dpAaaVqvCno", "'Blackberry Picking' by Seamus Heaney GCSE English Analysis", "NHHS English Faculty Youtube"),
+    ]),
+    ("englit_edq:C1Bk", &[
+        ("AuhjiAluRtY", "120 Kamikaze, Beatrice Garland", "Chalk in My Pockets"),
+        ("TD-F9d6DhJY", "'Kamikaze' by Beatrice Garland GCSE English Analysis", "NHHS English Faculty Youtube"),
+        ("115XZNvCwlI", "'Kamikaze' in 4 Minutes: Quick Revision", "Mr Bruff"),
+    ]),
+    ("englit_edq:C1Bl", &[
+        ("V-BBGGuALsA", "122 'War Photographer', Carol Ann Duffy", "Chalk in My Pockets"),
+        ("vGZSyaeRD00", "'War Photographer' by Carol Ann Duffy GCSE English Analysis", "NHHS English Faculty Youtube"),
+        ("MbJGwPjZ3ZM", "'War Photographer' in 5 Minutes: Quick Revision", "Mr Bruff"),
+    ]),
+    ("englit_edq:C1Bm", &[
+        ("NLPG1DM82EY", "123 Dusting the Phone, Jackie Kay", "Chalk in My Pockets"),
+        ("tBWP_7LcbiA", "‘Dusting the Phone’ by Jackie Kay GCSE English Analysis", "NHHS English Faculty Youtube"),
+    ]),
+    ("englit_edq:C1Bn", &[
+        ("68tcjTxlzSs", "121 'Remains', Simon Armitage", "Chalk in My Pockets"),
+        ("Ynoxz_BqXMQ", "'Remains' by Simon Armitage GCSE English Analysis", "NHHS English Faculty Youtube"),
+        ("R4fLrVnp2jk", "'Remains' by Simon Armitage in 5 Minutes: Quick Revision", "Mr Bruff"),
+    ]),
+    ("englit_edq:C1Bo", &[
+        ("dbGR_u-wrWQ", "126 'Origin Story', Eve L. Ewing", "Chalk in My Pockets"),
+        ("7YLDngSBkfU", "'Origin Story' by Eve L Ewing GCSE English Analysis", "NHHS English Faculty Youtube"),
+    ]),
+    ("englit_edq:C1Bp", &[
+        ("aH8M9kyAM0M", "Eduqas NEW GCSE Poetry Anthology - EVERY POEM ANALYSED", "GuigLit"),
+    ]),
+    ("englit_edq:C1Bq", &[
+        ("JaONYCCgAZM", "128 Eduqas GCSE English Literature - exam technique (Poetry anthology)", "Chalk in My Pockets"),
+        ("92352fy-rBA", "HOW TO COMPARE TWO POEMS OR TWO TEXTS IN A GCSE ESSAY: GRADE 9 MODEL ANSWER FRAMEWORK &  EXPLANATION", "First Rate Tutors"),
+    ]),
+    ("englit_edq:C2Aa", &[
+        ("Dc7-wKFR5y8", "An Inspector Calls || 7 Minute Summary", "Easy as GCSE"),
+        ("7Gzbj3Az598", "An Inspector Calls: Context, Themes & Quotes - Everything You Need to Know For The 2026 GCSE Exams", "First Rate Tutors"),
+    ]),
+    ("englit_edq:C2Ab", &[
+        ("vhwiM-bFIz4", "Eduqas GCSE English Literature Revision: An Inspector Calls - How to Tackle the Exam", "Literature Daydreams"),
+        ("JCapBWDO8h0", "113 Eduqas GCSE English Literature - exam technique (\"An Inspector Calls\")", "Chalk in My Pockets"),
+    ]),
+    ("englit_edq:C2Ba", &[
+        ("8fzPJUtstn4", "A Christmas Carol || 7 Minute Summary", "Easy as GCSE"),
+        ("_qzKxJr0kVM", "A Christmas Carol: Context, Themes & Quotes - Everything You Need to Know For The 2026 GCSE Exams", "First Rate Tutors"),
+        ("v2SQ8WGl364", "Eduqas English Literature GCSE, Christmas Carol Revision", "Literature Daydreams"),
+    ]),
+    ("englit_edq:C2Bb", &[
+        ("RXhqz5iZFxA", "A Christmas Carol: How to MASTER the Exam (EDUQAS)", "GuigLit"),
+        ("BFw8vgNWEJU", "A Christmas Carol - LIVE GCSE Exam Walkthrough (EDUQAS)", "GuigLit"),
+    ]),
+    ("englit_edq:C2Ca", &[
+        ("4bgRhm0rvuI", "Exam Success: How to Master GCSE Unseen Poetry (EDUQAS)", "GuigLit"),
+        ("mjbyQrrdNlc", "GCSE UNSEEN POETRY - KEY ADVICE (AQA, EDUQAS & EDEXCEL)", "GuigLit"),
+    ]),
+    ("englit_edq:C2Cb", &[
+        ("EUgrfFx8iG0", "124 Eduqas GCSE English Literature - exam technique (Comparing unseen poetry)", "Chalk in My Pockets"),
+        ("r9d2yq2ErIg", "Top Tips for Tackling Unseen Poetry - GCSE English Literature Paper 2", "Miss Adams Teaches..."),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.

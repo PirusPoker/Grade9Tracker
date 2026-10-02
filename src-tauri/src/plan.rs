@@ -1312,6 +1312,55 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("3.2.5.2", "The financial sector: the Bank of England, banks and building societies", 0.5),
         ],
     },
+    // WJEC Eduqas GCSE (9-1) English Literature C720QS, specification Version 4
+    // (August 2024), read 30 September 2026. Second-board version of English
+    // Literature (AQA 8702 is "englit"). The spec has no numbered content, so the
+    // references are its own section labels: C1A Shakespeare, C1B poetry
+    // anthology, C2A post-1914 prose/drama, C2B 19th-century prose, C2C unseen
+    // poetry. Set texts are chosen by schools; the built topics are the
+    // most-taught choice in each list (Macbeth, An Inspector Calls, A Christmas
+    // Carol - Eduqas examiners' reports 2023-2026) plus the whole poetry
+    // anthology for first assessment in 2027 (fixed, 15 poems). The method
+    // topics (C1Ab, C1Ac, C2Ab, C2Bb) apply to any set text.
+    SubjectDef {
+        id: "englit_edq", name: "Eng Literature", full: "Eduqas GCSE English Literature (C720QS)", color: "var(--englit)",
+        papers: "Component 1 Shakespeare and Poetry 2h, 80 marks, 40%: an extract question (15) and an essay (25, including 5 for spelling, punctuation and grammar) on your Shakespeare play, then one question on a named anthology poem (15) and a comparison with a second anthology poem you choose (25). Component 2 Post-1914 Prose/Drama, 19th Century Prose and Unseen Poetry 2h30, 120 marks, 60%: one 40-mark extract-and-whole-text question on your modern text (including 5 for accuracy), one 40-mark extract-and-whole-novel question on your 19th-century novel (with context), and two unseen poems (15 and 25). Closed book: no texts or anthology in either exam. The topics cover Macbeth, An Inspector Calls and A Christmas Carol, the texts most schools teach, plus all 15 poems of the anthology examined from 2027: if your school studies a different Shakespeare play, modern text or novel, delete that text's topic (Macbeth, An Inspector Calls or A Christmas Carol) in the Plan tab and keep the method topics, which work for any text. There is no NEA or coursework: the two exams are the whole GCSE",
+        spec: "https://www.eduqas.co.uk/qualifications/english-literature-gcse/",
+        sections: &["C1A Shakespeare", "C1B Poetry anthology (from 2027)", "C2A Post-1914 prose/drama", "C2B 19th-century prose", "C2C Unseen poetry"],
+        topics: &[
+            // Component 1 Section A - Shakespeare (Macbeth; the method topics fit any play)
+            ("C1Aa", "Macbeth: the play, its characters, themes and context", 2.0),
+            ("C1Ab", "The Shakespeare extract question: how an audience might respond (15 marks)", 1.5),
+            ("C1Ac", "The Shakespeare essay question: the whole play, plus accuracy marks (25 marks)", 1.5),
+            // Component 1 Section B - the Eduqas Poetry Anthology, first assessed 2027
+            ("C1Ba", "The Schoolboy — Blake", 0.75),
+            ("C1Bb", "I Wandered Lonely as a Cloud — Wordsworth", 0.75),
+            ("C1Bc", "Cousin Kate — Rossetti", 0.75),
+            ("C1Bd", "Sonnet 29 — Elizabeth Barrett Browning", 0.75),
+            ("C1Be", "Drummer Hodge — Hardy", 0.75),
+            ("C1Bf", "Disabled — Owen", 0.75),
+            ("C1Bg", "I Shall Return — McKay", 0.75),
+            ("C1Bh", "Decomposition — Ghose", 0.75),
+            ("C1Bi", "Catrin — Clarke", 0.75),
+            ("C1Bj", "Blackberry Picking — Heaney", 0.75),
+            ("C1Bk", "Kamikaze — Garland", 0.75),
+            ("C1Bl", "War Photographer — Duffy", 0.75),
+            ("C1Bm", "Dusting the Phone — Kay", 0.75),
+            ("C1Bn", "Remains — Armitage", 0.75),
+            ("C1Bo", "Origin Story — Ewing", 0.75),
+            ("C1Bp", "Linking the anthology: themes, contexts and pairings", 1.0),
+            ("C1Bq", "The two anthology questions: one named poem (15) and the comparison (25)", 1.25),
+            // Component 2 Section A - post-1914 prose/drama (An Inspector Calls)
+            ("C2Aa", "An Inspector Calls: the play, its characters, themes and stagecraft", 2.0),
+            ("C2Ab", "The post-1914 source-based question: extract and whole text, plus accuracy (40 marks)", 1.5),
+            // Component 2 Section B - 19th-century prose (A Christmas Carol)
+            ("C2Ba", "A Christmas Carol: the staves, characters, themes and context", 2.0),
+            ("C2Bb", "The 19th-century prose question: extract, whole novel and context (40 marks)", 1.5),
+            // Component 2 Section C - unseen poetry
+            ("C2Ca", "Unseen poetry: one poem and its effect on you (15 marks)", 1.75),
+            ("C2Cb", "Unseen poetry: comparing two poems (25 marks)", 1.75),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

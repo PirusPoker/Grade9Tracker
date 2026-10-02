@@ -193,6 +193,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // AQA GCSE Economics 8136: second-board Economics, school-paced - recall on
     // what school has covered, with no NEA.
     ("econ_aqa", &[(1, 0.5, 0.25)]),
+    // English Literature (Eduqas): as englit - recall on the texts and poems.
+    ("englit_edq", &[(1, 0.5, 0.5)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -222,6 +224,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("chem_aqa", "ahead"),
     ("phys_aqa", "ahead"),
     ("econ_aqa", "school"),
+    ("englit_edq", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -502,6 +505,18 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/economics/aqa/past-papers/"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/economics/gcse/economics-8136/assessment-resources"),
         ("AQA spec", "https://www.aqa.org.uk/subjects/economics/gcse/economics-8136/specification"),
+    ]),
+    // WJEC Eduqas GCSE English Literature C720QS. Every link opened and checked:
+    // the Eduqas page (specification, examiners' reports, grade boundaries), its
+    // past-papers tab, the 2027 anthology itself, Eduqas's free blended-learning
+    // resources and knowledge organisers for all 15 new poems, and Bitesize's
+    // Eduqas English Literature course (Macbeth, An Inspector Calls, A Christmas Carol).
+    ("englit_edq", &[
+        ("Eduqas spec & key documents", "https://www.eduqas.co.uk/qualifications/english-literature-gcse/"),
+        ("Eduqas past papers & mark schemes", "https://www.eduqas.co.uk/qualifications/english-literature-gcse/#tab_pastpapers"),
+        ("Poetry anthology (from 2027)", "https://www.eduqas.co.uk/media/zd1b4ii5/new-poetry-anthology-for-first-examination.pdf"),
+        ("Anthology poems: Eduqas resources", "https://resources.eduqas.co.uk/Pages/ResourceSingle.aspx?rIid=2197"),
+        ("BBC Bitesize (Eduqas)", "https://www.bbc.co.uk/bitesize/examspecs/zw9mycw"),
     ]),
 ];
 

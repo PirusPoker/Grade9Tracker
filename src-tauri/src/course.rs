@@ -198,6 +198,14 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
         "3.2.4.1", "3.2.4.2", "3.2.4.3", "3.2.4.4",
         "3.2.5.1", "3.2.5.2",
     ]),
+    // English Literature - WJEC Eduqas GCSE (9-1) C720QS, specification Version 4
+    // (August 2024; "HT 12.08.2024"), read on 30 September 2026. The spec has no
+    // numbered statements, so the references are its component sections: C1A
+    // Shakespeare, C1B Poetry 1789 to the present day (the anthology for
+    // assessment from 2027), C2A Post-1914 prose/drama, C2B 19th-century prose,
+    // C2C Unseen poetry. Texts built: Macbeth, An Inspector Calls, A Christmas
+    // Carol (the most-taught choices); the other set texts are not.
+    ("englit_edq", &["C1A", "C1B", "C2A", "C2B", "C2C"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -7359,6 +7367,197 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Explain the Bank of England's role in setting interest rates and keeping the financial system stable",
         "Explain how high street banks fund investment and serve savers and borrowers",
     ], "Keeping inflation at target is the Bank of England's job, not a high street bank's - and a building society is owned by its members, not shareholders."),
+    // ---------- English Literature (WJEC Eduqas C720QS) ----------
+    ("englit_edq:C1Aa", &[
+        "Track the plot act by act, from the witches' prophecies to Malcolm's coronation, naming the turning points",
+        "Explain how Shakespeare presents Macbeth, Lady Macbeth, Banquo, Macduff and the witches, and how each changes",
+        "Explain the play's big ideas: ambition, guilt, kingship and tyranny, fate and free will, appearance and reality",
+        "Use the Jacobean context (James I, the divine right of kings, witchcraft, the Gunpowder Plot) to explain audience response",
+        "Learn short quotations from every act so you can range across the whole play without the text",
+    ], "Eduqas Section A is closed book. A student who knows only the famous soliloquies runs out of evidence for Acts 4 and 5 in the essay question."),
+
+    ("englit_edq:C1Ab", &[
+        "Place the extract in the play in one sentence: who, where, just before and just after",
+        "Answer the fixed question: how the characters speak and behave, and how an audience might respond",
+        "Analyse language, verse and prose, stage directions and dramatic devices closely, word by word",
+        "Explore more than one possible audience response, then and now",
+        "Work through the whole extract in about 20 minutes and stay inside it",
+    ], "The extract question is about the extract only. Wandering into the rest of the play earns nothing here, and answering several plays' extracts is a rubric breach examiners see every year."),
+
+    ("englit_edq:C1Ac", &[
+        "Plan an argument across the whole play in five minutes, choosing moments from the beginning, middle and end",
+        "Write about how Shakespeare presents a character, relationship or theme, not just what happens",
+        "Support each point with short, embedded quotations and analyse their language and dramatic effect",
+        "Handle the common Eduqas forms: a character or theme 'and how Shakespeare presents it', and 'for which character do you have the most sympathy'",
+        "Write accurately enough to earn the 5 AO4 marks for spelling, punctuation, vocabulary and sentence structures",
+    ], "Retelling the story is the commonest reason essays stall in the middle bands. Every paragraph needs a method and an effect, not just an event."),
+
+    ("englit_edq:C1Ba", &[
+        "Explain the speaker's contrast between joy outdoors in summer and misery in the classroom",
+        "Analyse the caged-bird and blighted-plant imagery and what it says about childhood and education",
+        "Explain the five-line stanzas, the rhyme and the shift to direct appeal to the parents",
+        "Place it in Blake's Romantic attack on institutions that crush natural freedom",
+    ], "This is not a poem about a lazy child. The argument is that schooling destroys the growth it is meant to nurture, so the final stanzas' seasonal imagery is the point."),
+
+    ("englit_edq:C1Bb", &[
+        "Explain the speaker's move from loneliness to joy, and from the walk itself to memory",
+        "Analyse the personification of the daffodils and the imagery of light, dance and abundance",
+        "Explain the regular six-line stanzas, rhyme and rhythm and how the final stanza changes tense",
+        "Place it in Wordsworth's Romanticism: nature, emotion and 'the inward eye' of memory",
+    ], "The last stanza is the heart of the poem: the value of the daffodils comes later, in memory. An answer that stops at pretty flowers misses the 'wealth' the speaker only understands afterwards."),
+
+    ("englit_edq:C1Bc", &[
+        "Explain the speaker's story: a cottage girl seduced and cast off by a lord who then marries her cousin",
+        "Analyse the dramatic monologue voice, the rhetorical questions and the shift from shame to defiance",
+        "Explain the imagery of possession (the glove, the silken knot) and of purity and fallenness",
+        "Use the Victorian context: the 'fallen woman', class power and the double standard",
+    ], "The ending turns the poem: her son, his only heir, is her 'shame' and her 'pride'. Leaving out the final stanza throws away the speaker's triumph."),
+
+    ("englit_edq:C1Bd", &[
+        "Explain the speaker's argument: her thoughts of the beloved are no substitute for his presence",
+        "Analyse the extended metaphor of the vine and the palm tree and how it is reversed",
+        "Explain the Petrarchan sonnet form and the volta, and how enjambment and exclamation show feeling",
+        "Place it in Sonnets from the Portuguese and her courtship with Robert Browning",
+    ], "It is a love poem that ends by dismissing thought itself. Students who call it simply 'devoted' miss the paradox of the last line: being near him is better than thinking of him."),
+
+    ("englit_edq:C1Be", &[
+        "Explain what happens to Hodge and how the poem moves from burial to permanent belonging to a foreign land",
+        "Analyse the Afrikaans landscape words and the strange stars, and what they show about displacement",
+        "Explain the three regular stanzas and how the ending turns loss into a kind of transformation",
+        "Use the context of the Boer War and Hardy's anti-heroic view of ordinary soldiers",
+    ], "Hodge is a nickname for a country labourer: his name is part of the point. Treating him as a glorious hero reverses Hardy's purpose."),
+
+    ("englit_edq:C1Bf", &[
+        "Explain the contrast between the young man's life before the war and his life now, disabled and ignored",
+        "Analyse the imagery of loss, colour and youth, and the shifts of time between stanzas",
+        "Explain the irregular stanzas and the questions that end the poem",
+        "Place it in Owen's First World War experience and his attack on recruitment and public indifference",
+    ], "Owen blames vanity and pressure to enlist as much as the war itself. Missing why the young man joined up loses half of Owen's argument."),
+
+    ("englit_edq:C1Bg", &[
+        "Explain the speaker's longing to return home and what home means to him",
+        "Analyse the sensory and natural imagery, colour and sound",
+        "Explain the sonnet form and the repetition of the title phrase, and how the final couplet changes the mood",
+        "Place it in McKay's life: born in Jamaica, writing in America during the Harlem Renaissance",
+    ], "The joyful imagery is shadowed by the last line's pain. Answers that read it only as happy nostalgia miss the exile behind it."),
+
+    ("englit_edq:C1Bh", &[
+        "Explain the speaker's change of view about his photograph of a sleeping beggar in Bombay",
+        "Analyse the imagery that turns the man into stone and fossil, and the passers-by's indifference",
+        "Explain the title's double meaning and the poem's turn from 'then' to 'now'",
+        "Discuss the context of poverty, art and the outsider's eye",
+    ], "The poem criticises the speaker as much as the city. Calling it a simple poem about poverty ignores the guilt in the final lines."),
+
+    ("englit_edq:C1Bi", &[
+        "Explain the two stanzas: the birth of a daughter and a later argument with her as a teenager",
+        "Analyse the imagery of the rope, the room and the struggle to become separate",
+        "Explain the free verse, enjambment and direct address to the child",
+        "Place it in Clarke's work as a Welsh poet writing about family and motherhood",
+    ], "The conflict is loving, not hostile. The best answers show that the 'struggle' and the love are the same thing."),
+
+    ("englit_edq:C1Bj", &[
+        "Explain the childhood experience of picking blackberries and watching them rot",
+        "Analyse the sensory imagery of taste, blood and greed, and the shift to decay",
+        "Explain the two-part structure, the couplets and half-rhyme, and the adult voice at the end",
+        "Place it in Heaney's rural Northern Irish childhood and his theme of lost innocence",
+    ], "The poem is about desire and disappointment, not just fruit. Answers that never reach the final couplet's lesson about hope miss the point."),
+
+    ("englit_edq:C1Bk", &[
+        "Explain the story: a kamikaze pilot turns back and is shunned by his family and community",
+        "Analyse the natural imagery of sea, fish and childhood that draws him home",
+        "Explain the third-person framing, the daughter's voice and the shift into direct speech",
+        "Use the context of Japanese honour codes and the kamikaze missions in the Second World War",
+    ], "He survives, but his family treats him as if he had died. The poem's real conflict is the silence afterwards, not the flight."),
+
+    ("englit_edq:C1Bl", &[
+        "Explain the photographer's work in the darkroom and his memories of the war zones",
+        "Analyse the religious imagery, the developing photograph and the contrast with rural England",
+        "Explain the regular stanzas and rhyme as order imposed on chaos",
+        "Discuss the context of war photography and the indifference of newspaper readers",
+    ], "The last stanza turns on the readers who glance at the pictures and forget. An answer that ends with the photographer's trauma misses Duffy's accusation."),
+
+    ("englit_edq:C1Bm", &[
+        "Explain the speaker's anxious wait for a lover's call",
+        "Analyse the imagery of disaster, waiting and the phone as an object of devotion",
+        "Explain the long lines, the free verse and the breathless, broken final lines",
+        "Discuss love as obsession and loneliness in a modern relationship",
+    ], "The poem is funny and painful at once. Readers who see only misery, or only comedy, flatten the tone the poem depends on."),
+
+    ("englit_edq:C1Bn", &[
+        "Explain the soldier's account of a killing and how the memory haunts him",
+        "Analyse the colloquial voice, the violent imagery and the repeated 'probably armed, possibly not'",
+        "Explain how the structure shifts from the event to its aftermath at home",
+        "Place it in Armitage's work with soldiers' testimony from recent conflicts and the reality of trauma",
+    ], "The killing takes a few stanzas; the guilt takes the rest. That imbalance is the poem's argument about post-traumatic stress."),
+
+    ("englit_edq:C1Bo", &[
+        "Explain the speaker's account of how her parents met and what their love was like",
+        "Analyse the extended metaphor of love as a comic book: fragile, handled, worn",
+        "Explain the conversational free verse, lower-case style and the shift from story to reflection",
+        "Place it in Ewing's work as a Chicago writer of poetry and comics",
+    ], "The ending is not simply sad. The love did not last, but the speaker values it, which is why it has 'a good ending'."),
+
+    ("englit_edq:C1Bp", &[
+        "Group the fifteen poems by theme: conflict and war, love and relationships, childhood and family, place and belonging, memory, nature",
+        "For each poem, name two others it can be compared with and the link between them",
+        "Know each poem's context in a sentence or two: poet, period and situation",
+        "Know which poems share forms and methods: sonnets, dramatic monologues, free verse, narrative",
+    ], "Question 2 names a theme and asks you to choose the second poem. Pre-planned pairings save the minutes you need to write."),
+
+    ("englit_edq:C1Bq", &[
+        "Answer the first question on a printed poem in about 20 minutes, covering content, methods and context",
+        "Choose the best second poem for the comparison quickly, by the theme in the question",
+        "Compare content, structure, methods and contexts inside each paragraph, not poem by poem",
+        "Write about the chosen poem from memory with short quotations you have learned",
+    ], "In the comparison you write about your chosen poem from memory. Students who learned no quotations from it are capped however good the analysis of the printed poem is."),
+
+    ("englit_edq:C2Aa", &[
+        "Summarise the three acts and the Inspector's questioning of each character in turn",
+        "Explain how Priestley presents the Birlings, Gerald, Eva Smith and the Inspector",
+        "Explain the play's ideas: responsibility, class, gender, age and the gap between the generations",
+        "Use the 1912 setting and 1945 first performance to explain dramatic irony and Priestley's message",
+        "Analyse stagecraft: lighting, entrances and exits, timing, the doorbell and the final telephone call",
+    ], "Priestley is arguing, not just storytelling. Saying what he wants the 1945 audience to think lifts an answer above plot."),
+
+    ("englit_edq:C2Ab", &[
+        "Use the printed extract as a launch pad, then range across the whole text",
+        "Answer the 'write about X and how they are presented / important to the text as a whole' question with an argument",
+        "Analyse language, structure and form, including dramatic methods for plays",
+        "Write in clear, accurate, varied sentences for the 5 AO4 marks",
+        "Finish a 40-mark answer in about 45 minutes",
+    ], "There are no AO3 context marks in this section. A long paragraph of history earns nothing unless it explains a choice the writer makes."),
+
+    ("englit_edq:C2Ba", &[
+        "Summarise the five staves and how Scrooge changes in each",
+        "Explain how Dickens presents Scrooge, the ghosts, the Cratchits, Fred and other characters",
+        "Explain the novel's ideas: poverty and social responsibility, redemption, family, Christmas and generosity",
+        "Use the 1840s context: the Poor Law, workhouses, child poverty and Dickens's purpose",
+        "Learn short quotations from every stave",
+    ], "Scrooge's change is gradual. Answers that jump from 'mean' to 'generous' miss every mark for how Dickens structures the transformation."),
+
+    ("englit_edq:C2Bb", &[
+        "Analyse the printed extract closely, then link it to other moments across the novel",
+        "Answer the 'write about X and how they are presented at different points' question with a clear argument",
+        "Use context (AO3) to explain the writer's purpose, woven into your points",
+        "Balance AO1, AO2 and AO3, which carry equal weight in this question",
+        "Finish a 40-mark answer in about 45 minutes",
+    ], "Context counts for a third of the marks here, unlike Section A. Students who leave it out, or bolt it on in a separate paragraph, lose marks they could have had."),
+
+    ("englit_edq:C2Ca", &[
+        "Read the unseen poem twice and summarise what it is about in a sentence",
+        "Explain what the poem is about and how it is organised",
+        "Explain the ideas the poet may want readers to think about",
+        "Analyse words, phrases and images and their effects, and give your own response",
+        "Spend about 20 minutes on the 15-mark question",
+    ], "The question asks for the poem's effect on you. Feature-spotting without saying how it makes you feel or think caps the mark."),
+
+    ("englit_edq:C2Cb", &[
+        "Compare what the two poems are about and how they are organised",
+        "Compare the ideas the poets want readers to think about",
+        "Compare their choices of words, phrases and images and the effects they create",
+        "Compare your response to the two poems",
+        "Spend about 40 minutes on the 25-mark comparison",
+    ], "The second question is a comparison. Writing about the new poem alone, without linking back to the first, cannot reach the top bands."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

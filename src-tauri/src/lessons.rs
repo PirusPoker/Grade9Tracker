@@ -1081,6 +1081,34 @@ const ECON_AQA: &[(&str, &str)] = &[
     ("econ_aqa:3.2.5.1", include_str!("../lessons/econ_aqa/3.2.5.1.md")),
     ("econ_aqa:3.2.5.2", include_str!("../lessons/econ_aqa/3.2.5.2.md")),
 ];
+const ENGLIT_EDQ: &[(&str, &str)] = &[
+    ("englit_edq:C1Aa", include_str!("../lessons/englit_edq/C1Aa.md")),
+    ("englit_edq:C1Ab", include_str!("../lessons/englit_edq/C1Ab.md")),
+    ("englit_edq:C1Ac", include_str!("../lessons/englit_edq/C1Ac.md")),
+    ("englit_edq:C1Ba", include_str!("../lessons/englit_edq/C1Ba.md")),
+    ("englit_edq:C1Bb", include_str!("../lessons/englit_edq/C1Bb.md")),
+    ("englit_edq:C1Bc", include_str!("../lessons/englit_edq/C1Bc.md")),
+    ("englit_edq:C1Bd", include_str!("../lessons/englit_edq/C1Bd.md")),
+    ("englit_edq:C1Be", include_str!("../lessons/englit_edq/C1Be.md")),
+    ("englit_edq:C1Bf", include_str!("../lessons/englit_edq/C1Bf.md")),
+    ("englit_edq:C1Bg", include_str!("../lessons/englit_edq/C1Bg.md")),
+    ("englit_edq:C1Bh", include_str!("../lessons/englit_edq/C1Bh.md")),
+    ("englit_edq:C1Bi", include_str!("../lessons/englit_edq/C1Bi.md")),
+    ("englit_edq:C1Bj", include_str!("../lessons/englit_edq/C1Bj.md")),
+    ("englit_edq:C1Bk", include_str!("../lessons/englit_edq/C1Bk.md")),
+    ("englit_edq:C1Bl", include_str!("../lessons/englit_edq/C1Bl.md")),
+    ("englit_edq:C1Bm", include_str!("../lessons/englit_edq/C1Bm.md")),
+    ("englit_edq:C1Bn", include_str!("../lessons/englit_edq/C1Bn.md")),
+    ("englit_edq:C1Bo", include_str!("../lessons/englit_edq/C1Bo.md")),
+    ("englit_edq:C1Bp", include_str!("../lessons/englit_edq/C1Bp.md")),
+    ("englit_edq:C1Bq", include_str!("../lessons/englit_edq/C1Bq.md")),
+    ("englit_edq:C2Aa", include_str!("../lessons/englit_edq/C2Aa.md")),
+    ("englit_edq:C2Ab", include_str!("../lessons/englit_edq/C2Ab.md")),
+    ("englit_edq:C2Ba", include_str!("../lessons/englit_edq/C2Ba.md")),
+    ("englit_edq:C2Bb", include_str!("../lessons/englit_edq/C2Bb.md")),
+    ("englit_edq:C2Ca", include_str!("../lessons/englit_edq/C2Ca.md")),
+    ("englit_edq:C2Cb", include_str!("../lessons/englit_edq/C2Cb.md")),
+];
 
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
@@ -1113,6 +1141,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("chem_aqa", CHEM_AQA),
     ("phys_aqa", PHYS_AQA),
     ("econ_aqa", ECON_AQA),
+    ("englit_edq", ENGLIT_EDQ),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
