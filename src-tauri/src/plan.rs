@@ -1880,6 +1880,43 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("P4", "Paper 4 Writing: the 80–90 and 130–150 word tasks and translation into German", 1.5),
         ],
     },
+    // Pearson Edexcel GCSE Spanish 1SP1, the 2024 specification: first taught
+    // September 2024, first examined June 2026. Themes, the Higher grammar list
+    // (Appendix 2) and the papers read from the specification, Issue 2 (May 2025),
+    // and the sample assessment materials (Issue 2, July 2025).
+    SubjectDef {
+        id: "spa_edx", name: "Spanish", full: "Pearson Edexcel GCSE Spanish (1SP1) Higher", color: "var(--spa)",
+        papers: "Higher tier, four papers of 50 marks, 25% each, all in the same summer: Speaking 10-12 min plus 15 min preparation (read aloud, role play, picture task and conversation), Listening 1 h including 5 min reading time (questions in English, then a dictation), Reading 1 h (questions in English, then a paragraph to translate into English), Writing 1 h 20 (an 80-90 word task, a 130-150 word task and a paragraph to translate into Spanish). Speaking is conducted by your teacher in April-May and marked by Pearson: the app teaches it as a lesson but cannot test you on it. There is no NEA. Only the Edexcel vocabulary list (Appendix 1) and grammar list (Appendix 2) are examined",
+        spec: "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/spanish-2024.html",
+        sections: &["Thematic contexts", "Grammar", "Paper 1 Speaking", "Paper 2 Listening", "Paper 3 Reading", "Paper 4 Writing"],
+        topics: &[
+            ("T1", "My personal world: family, friends, relationships and equality", 1.0),
+            ("T2", "Lifestyle and wellbeing: physical and mental wellbeing, food and drink, sport", 1.0),
+            ("T3", "My neighbourhood: places in town, shopping, transport, the natural world and environmental issues", 1.0),
+            ("T4", "Media and technology: social media and gaming, music, TV and film", 1.0),
+            ("T5", "Studying and my future: school, work and future opportunities", 1.0),
+            ("T6", "Travel and tourism: accommodation, tourist attractions and festivals", 1.0),
+            ("G1a", "Nouns and articles: gender, feminine and plural forms, nouns from infinitives, languages and nationalities, al and del", 0.75),
+            ("G1b", "Determiners and pronouns: este, cada, algún, mi; dropping the subject, object and reflexive pronouns, que, esto and eso", 1.0),
+            ("G1c", "Higher pronouns: aquel and aquello, nos and os, lo que, el que, el cual, el mío, conmigo and a mí", 1.0),
+            ("G2a", "Negatives and questions: no, nada, nunca, nadie, ninguno; ya no, tampoco, ni...ni; question words", 0.75),
+            ("G2b", "Impersonal, reflexive, modal and interesar-type verbs: hay que, se puede, hace falta, vale la pena", 0.75),
+            ("G2c", "Higher verb structures: the passive, acabar de, seguir and llevar + gerund, desde hace", 0.75),
+            ("G3a", "The present tense: regular verbs, the five anchor patterns, ser, estar, ir, hacer, tener, and the present continuous", 1.25),
+            ("G3b", "The preterite and the perfect tense", 1.25),
+            ("G3c", "The imperfect and imperfect continuous, and choosing between the imperfect and the preterite", 1.0),
+            ("G3d", "The future: ir a + infinitive, the future tense and the conditional", 1.0),
+            ("G3e", "The imperative and the present subjunctive", 0.75),
+            ("G4-5", "Adjectives and adverbs: agreement, position, lo bueno, comparatives and superlatives", 1.0),
+            ("G6", "Prepositions: the personal a, de, para, sin, antes de and después de, verbs with prepositions, por and para", 0.75),
+            ("G7", "Derivational morphology: working out new words from -ito, -ísimo, -mente, -idad and -able", 0.5),
+            ("G8", "Sound-symbol correspondences and the stress and accent rules", 0.75),
+            ("P1", "Paper 1 Speaking: read aloud, role play, picture task and conversation", 1.5),
+            ("P2", "Paper 2 Listening: comprehension questions and the dictation", 1.25),
+            ("P3", "Paper 3 Reading: comprehension, inferring new words and translation into English", 1.0),
+            ("P4", "Paper 4 Writing: the 80–90 and 130–150 word tasks and translation into Spanish", 1.5),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

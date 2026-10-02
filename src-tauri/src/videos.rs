@@ -144,6 +144,9 @@ const HEADSTART: &str = "Head Start Economics";
 const GADHIA: &str = "The Gadhia Economics Hub";
 const ASCOPE: &str = "Academic Scope";
 
+const BILCER: &str = "Bilingual Cerebros ";
+const KNOTT: &str = "Mrs Knott-Sturdy MFL";
+
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
     // ---------- Computer Science (OCR GCSE J277) ----------
     ("cs:1.1.1", &[
@@ -7074,6 +7077,134 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("SQJHQRoelc0", "How to get a grade 9 in GCSE German writing #GCSE #German #writingexam", HERRREID),
         ("kwwlUAWIyj0", "Edexcel GCSE German 150 word essay 2022", "B8 Languages"),
         ("dekTfG1hsXQ", "How to get a grade 9 in the GCSE German 90 word writing task #GCSE #German #Writing", HERRREID),
+    ]),
+    // ---------- Spanish (Pearson Edexcel GCSE 1SP1) ----------
+    ("spa_edx:T1", &[
+        ("gc1lKO0FxlU", "GCSE Spanish Vocabulary – Topic 2: Family & Relationships (Familia y Relaciones)", BILCER),
+        ("xUq9hdPZ94M", "Spanish GCSE: Family, Friends & Relationships Topic Revision", ASTARES),
+    ]),
+    ("spa_edx:T2", &[
+        ("4pHj8MRPlQE", "GCSE Spanish Topic 9 Vocabulary: Health & Well-being (La salud y el bienestar) | Full Revision Guide", BILCER),
+        ("YDzOqG8UL_o", "Spanish GCSE: Healthy Living & Lifestyle Topic Revision", ASTARES),
+        ("Cyc1Z5Lz3fI", "GCSE Spanish Vocabulary: Food & Drink 🍎 | Topic 7 Revision for AQA, Edexcel & OCR", BILCER),
+    ]),
+    ("spa_edx:T3", &[
+        ("LqsaPXUFceQ", "GCSE SPANISH TOPIC REVISION SERIES | MY CITY", MYGCSEES),
+        ("_QCZUYjr0yA", "GCSE Spanish Listening | Describe Your Local Area | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+        ("LeQRynRhNT4", "Spanish  Environment Topic GCSE Revision | Spanish | Satchel Classes", "Team Satchel"),
+    ]),
+    ("spa_edx:T4", &[
+        ("biLIFLYHoiw", "Technology & Social Media in Spanish | Essential Vocabulary & Expressions", BILCER),
+        ("ymcL-M4EFHU", "GCSE SPANISH TOPIC REVISION SERIES | FREE TIME & TECHNOLOGY", MYGCSEES),
+        ("EOISGQIvVj8", "How to Talk about Music, Movies & TV in Spanish", "Learn Spanish with SpanishPod101.com"),
+    ]),
+    ("spa_edx:T5", &[
+        ("TA9Nnny212U", "GCSE Spanish Vocabulary – Topic 3: School & Education (Escuela y Educación)", BILCER),
+        ("taeaDTSLLmA", "GCSE Spanish Topic 8 Vocabulary: Work & Future Plans (El mundo laboral) | Full Revision Guide", BILCER),
+        ("_-_b-ZjzcTw", "GCSE Spanish Listening | Future tense | Describing future plans | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+    ]),
+    ("spa_edx:T6", &[
+        ("_HYFigBOQS4", "GCSE Spanish Vocabulary – Topic 6: Travel & Tourism (Los viajes y el turismo)", BILCER),
+        ("8KeW9-tSsHc", "GCSE Spanish Listening | Travel & Tourism | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+        ("FEJ0JTUQkQI", "La tomatina in Buñol, tomato fight in Spain - Spanish celebrations and festivals", "Tio Spanish - learn spanish videos"),
+    ]),
+    ("spa_edx:G1a", &[
+        ("ZgaNeh2yKn0", "GCSE Spanish | Articles and Nouns | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+        ("YeTIwDcKwZ4", "Definite and Indefinite Articles in Spanish | The Language Tutor *Lesson 11*", LANGTUTOR),
+        ("pY9dOJy_gQw", "Spanish Grammar Made Simple | Singular vs Plural Nouns & Rules", "Let's Learn Spanish!"),
+    ]),
+    ("spa_edx:G1b", &[
+        ("ZCBB6ilYSj0", "02 Spanish lesson - Demonstrative adjectives (part 1): this &  that", JORDAN),
+        ("E79n1uLN_IU", "Rapidly Improve Your Spanish with Direct Object Pronouns", LANGTUTOR),
+        ("cMCSpgfc9Bk", "Spanish Word Order - Direct, Indirect and Reflexive Pronouns", QROOPAUL),
+    ]),
+    ("spa_edx:G1c", &[
+        ("4X0soq9oiKI", "Este vs Ese vs Aquel: Spanish Demonstratives Demystified!", "Tell Me In Spanish"),
+        ("nIi2tDP8Gso", "Relative Pronouns in Spanish (que, quien, el que, el cual, lo que, lo cual)", QROOPAUL),
+        ("OL86D_omkSQ", "Learning Possessive Pronouns in Spanish | The Language Tutor *Lesson 68*", LANGTUTOR),
+        ("gtC3k4yiJCs", "Spanish Prepositional Pronouns: Para Yo or Para Mí?", "Tell Me In Spanish"),
+    ]),
+    ("spa_edx:G2a", &[
+        ("Y887wmI0O_o", "Understanding Negation Words in Spanish | The Language Tutor *Lesson 67*", LANGTUTOR),
+        ("oAowo8jduFk", "SPANISH DOUBLE NEGATIVES | No + nada, nadie, ningún, nunca, tampoco, ni ...", "Our Spanish"),
+    ]),
+    ("spa_edx:G2b", &[
+        ("_uH_tosBLyo", "Reflexive Verbs in Spanish | The Language Tutor *Lesson 37*", LANGTUTOR),
+        ("bWU_lvuUXrU", "02 How to use Impersonal Se / Passive Se in Spanish", JORDAN),
+        ("EFiiEpTZzzM", "Use \"Hace Falta\" Like a Native!!", "Spanish Unraveled"),
+    ]),
+    ("spa_edx:G2c", &[
+        ("x1sh5raIbwo", "Mastering the Passive Voice in Spanish | The Language Tutor *Lesson 69*", LANGTUTOR),
+        ("NP_LhEABGvo", "Spanish in 5 min | Acabar de (Present and Past) | \"I just did xyz...\"", "Breakthrough Spanish"),
+        ("qryYrFVtnWo", "Llevar + Gerundio in Spanish", QROOPAUL),
+        ("12d96pZnpL8", "Desde, hace & desde hace in Spanish 🇪🇸", "Spanish with James"),
+    ]),
+    ("spa_edx:G3a", &[
+        ("somvTotDX3k", "Presente de Indicativo 📚 Regular Spanish Verbs Explained Easily", BILCER),
+        ("B_wlkHKxVBk", "Spanish Stem-Changing Verbs 🇪🇸", "Spanish with James"),
+        ("s6HeVBv-ctM", "How to Use Gerunds \"-ing\" in Spanish | The Language Tutor *Lesson 113*", LANGTUTOR),
+    ]),
+    ("spa_edx:G3b", &[
+        ("wxBt-gWJEwI", "The preterite tense in Spanish: regular and key irregular verbs", "Spanish with James"),
+        ("JcKPo9b0IDs", "02 Spanish Lesson - Preterite -AR verbs: -gar, -car, -zar", JORDAN),
+        ("9ciGrkN2kEI", "02 Spanish Lesson - Preterite - Stem-changers (o-u)", JORDAN),
+        ("okmlf42CU18", "GCSE Spanish | Perfect Tense | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+    ]),
+    ("spa_edx:G3c", &[
+        ("AmnTX30VliE", "Mastering the Imperfect Tense in Spanish | The Language Tutor *Lesson 50*", LANGTUTOR),
+        ("3rJjIpFaGOo", "Perfect Your Spanish: Illustrated Tutorial on Imperfect vs Preterite", "Breakthrough Spanish"),
+        ("eoNmB9rTc1E", "Lesson #2 Pasado Progresivo, Say What WAS HAPPENING (Imperfect of Estar+gerund) past progressive", "Learn Spanish 4 Real"),
+    ]),
+    ("spa_edx:G3d", &[
+        ("MrslUA1MlLc", "GCSE Spanish | Future Tense | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+        ("JwMw1sr6c5Q", "Spanish Bite - Future Tense - Irregular verbs", JORDAN),
+        ("7uYoJ14T5O8", "Learn the conditional irregular verbs in 3 simple groups", "Spanish with James"),
+    ]),
+    ("spa_edx:G3e", &[
+        ("RR0JceTsrzk", "03 Spanish Lesson - Affirmative tú commands (part 2) - Irregulars", JORDAN),
+        ("WujFYk-vIiI", "03 How to form Vosotros commands in Spanish", JORDAN),
+        ("Pwp1cizUGEo", "CUANDO + Subjunctive (Spanish Grammar)", "Mexican Spanish"),
+        ("-MZwa46X2C4", "Spanish Subjunctive: Learn the Basics in 5 min", "Breakthrough Spanish"),
+    ]),
+    ("spa_edx:G4-5", &[
+        ("he6lCdZq23Y", "GRAN or GRANDE? BUEN or BUENO? MAL or MALO? - Spanish Shortened Adjectives", "Spanish by Fede"),
+        ("U74ClJsbfb0", "Comparatives and Superlatives in Spanish | The Language Tutor *Lesson 123*", LANGTUTOR),
+        ("D7PD4mtPX0s", "Spanish Superlatives and 'Lo': \"the best\" and \"the most interesting\"", "Spanish with James"),
+    ]),
+    ("spa_edx:G6", &[
+        ("0lG08faT5ec", "The Spanish Personal A (No English Equivalent!)", "Real Fast Spanish"),
+        ("Cx3bu7et3Yw", "Por vs Para: Never Confuse the Two Again!", "BaseLang"),
+    ]),
+    ("spa_edx:G7", &[
+        ("CpFSExDhbGo", "Why Spanish Speakers Add “-ito” to EVERYTHING 🇲🇽🇪🇸 | Diminutives Explained!", "Spanish and Go"),
+        ("RFpYe7hemVo", "Spanish Bite - The Suffix -ísimo for very, really, extremely", JORDAN),
+        ("90YOl5HC9Jg", "Spanish Bite - The Suffix -mente for -ly", JORDAN),
+    ]),
+    ("spa_edx:G8", &[
+        ("hsLYD1Jyf3A", "Learn how to say the letters and sounds in Spanish", "Butterfly Spanish"),
+        ("mXro8ngx07A", "Spanish Accent Marks: When and How to Use Them", LANGTUTOR),
+        ("lMS-wb8c9m8", "GCSE MFL (2024 Spec) Effective Phonics Teaching for the Read Aloud and Dictation Tasks", PEARSONUK),
+    ]),
+    ("spa_edx:P1", &[
+        ("S9QVxWsXUTY", "2024 Pearson Edexcel GCSE Spanish 9- 1   Speaking Higher  - Exemplar 1", PEARSONUK),
+        ("Z4BOYtacb3k", "2024 Pearson Edexcel GCSE Spanish 9-1 - Speaking Higher - Exemplar 2", PEARSONUK),
+        ("RyysxMgJbyA", "Edexcel GCSE Spanish Speaking Exam Explained", ASTARES),
+        ("kxmp0etp31o", "Edexcel Higher GCSE Spanish read aloud", "Language Stars"),
+    ]),
+    ("spa_edx:P2", &[
+        ("uHZmNHHfjpA", "Edexcel GCSE Spanish (2026 spec) - top tips for the listening paper", KNOTT),
+        ("FXUyfh54NjU", "Edexcel Spanish Dictation Higher", "Language Stars"),
+        ("Xr0kNGbZokU", "GCSE Spanish Dictation Practice | Technology in Everyday Life | New Spec 2026 - Episode 1", BILCER),
+    ]),
+    ("spa_edx:P3", &[
+        ("53oQiR4vJcI", "Spanish GCSE Reading Exam Top Tips", KNOTT),
+        ("CB3A9RDXtoQ", "Last-minute GCSE Spanish Reading and Listening Revision (Edexcel) | Trickiest words in each theme!", MYGCSEES),
+    ]),
+    ("spa_edx:P4", &[
+        ("IJhivBau3Bk", "Edexcel GCSE Spanish - Making 80-90 words like pan comido", KNOTT),
+        ("DA1Z-bxuzQA", "Edexcel GCSE Spanish Dealing with the 130-150 word task", KNOTT),
+        ("WEr_Bp_jQpk", "GCSE Spanish: Writing Paper Walkthrough (Edexcel Higher)", ASTARES),
+        ("jqHlSUxYqvo", "How to get 10/10 on the GCSE Spanish Writing Translation", ASTARES),
     ]),
 ];
 

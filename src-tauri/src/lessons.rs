@@ -1484,6 +1484,33 @@ const GER_EDX: &[(&str, &str)] = &[
     ("ger_edx:P3", include_str!("../lessons/ger_edx/P3.md")),
     ("ger_edx:P4", include_str!("../lessons/ger_edx/P4.md")),
 ];
+const SPA_EDX: &[(&str, &str)] = &[
+    ("spa_edx:T1", include_str!("../lessons/spa_edx/T1.md")),
+    ("spa_edx:T2", include_str!("../lessons/spa_edx/T2.md")),
+    ("spa_edx:T3", include_str!("../lessons/spa_edx/T3.md")),
+    ("spa_edx:T4", include_str!("../lessons/spa_edx/T4.md")),
+    ("spa_edx:T5", include_str!("../lessons/spa_edx/T5.md")),
+    ("spa_edx:T6", include_str!("../lessons/spa_edx/T6.md")),
+    ("spa_edx:G1a", include_str!("../lessons/spa_edx/G1a.md")),
+    ("spa_edx:G1b", include_str!("../lessons/spa_edx/G1b.md")),
+    ("spa_edx:G1c", include_str!("../lessons/spa_edx/G1c.md")),
+    ("spa_edx:G2a", include_str!("../lessons/spa_edx/G2a.md")),
+    ("spa_edx:G2b", include_str!("../lessons/spa_edx/G2b.md")),
+    ("spa_edx:G2c", include_str!("../lessons/spa_edx/G2c.md")),
+    ("spa_edx:G3a", include_str!("../lessons/spa_edx/G3a.md")),
+    ("spa_edx:G3b", include_str!("../lessons/spa_edx/G3b.md")),
+    ("spa_edx:G3c", include_str!("../lessons/spa_edx/G3c.md")),
+    ("spa_edx:G3d", include_str!("../lessons/spa_edx/G3d.md")),
+    ("spa_edx:G3e", include_str!("../lessons/spa_edx/G3e.md")),
+    ("spa_edx:G4-5", include_str!("../lessons/spa_edx/G4-5.md")),
+    ("spa_edx:G6", include_str!("../lessons/spa_edx/G6.md")),
+    ("spa_edx:G7", include_str!("../lessons/spa_edx/G7.md")),
+    ("spa_edx:G8", include_str!("../lessons/spa_edx/G8.md")),
+    ("spa_edx:P1", include_str!("../lessons/spa_edx/P1.md")),
+    ("spa_edx:P2", include_str!("../lessons/spa_edx/P2.md")),
+    ("spa_edx:P3", include_str!("../lessons/spa_edx/P3.md")),
+    ("spa_edx:P4", include_str!("../lessons/spa_edx/P4.md")),
+];
 
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
@@ -1526,6 +1553,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("econ_ocr", ECON_OCR),
     ("fre_edx", FRE_EDX),
     ("ger_edx", GER_EDX),
+    ("spa_edx", SPA_EDX),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {

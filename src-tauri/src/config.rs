@@ -219,6 +219,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // Pearson Edexcel GCSE German 1GN1: second-board German, school-paced -
     // recall and vocabulary on what school has covered.
     ("ger_edx", &[(1, 0.5, 0.25)]),
+    // Pearson Edexcel GCSE Spanish 1SP1: second-board Spanish, school-paced.
+    ("spa_edx", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -258,6 +260,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("econ_ocr", "school"),
     ("fre_edx", "school"),
     ("ger_edx", "school"),
+    ("spa_edx", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -278,6 +281,8 @@ const DEFAULT_WEEKLY: &[(&str, &[(&str, f64, &str)])] = &[
         "Two 15-minute bursts: learn 20 words from the Edexcel French vocabulary list (Appendix 1 of the specification) with the French side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
     ("ger_edx", &[("Vocabulary and speaking", 0.5,
         "Two 15-minute bursts: learn 20 words from the Pearson German vocabulary list (Appendix 1 of the specification) with the German side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
+    ("spa_edx", &[("Vocabulary and speaking", 0.5,
+        "Two 15-minute bursts: learn 20 words from the Edexcel Spanish vocabulary list (Appendix 1 of the specification) with the Spanish side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
 ];
 
 fn default_pace_for(id: &str) -> &'static str {
@@ -648,6 +653,16 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Vocabulary and grammar guide", "https://qualifications.pearson.com/content/dam/pdf/GCSE/German/2024/teaching-and-learning-materials/german-vocabulary-and-grammar-guide.pdf"),
         ("Sample Reading paper (Higher)", "https://qualifications.pearson.com/content/dam/pdf/GCSE/German/2024/specification-and-sample-assessments/7-collated-gcse-german-sams-paper-3-higher.pdf"),
         ("Sample Writing paper (Higher)", "https://qualifications.pearson.com/content/dam/pdf/GCSE/German/2024/specification-and-sample-assessments/8-collated-gcse-german-sams-paper-4-higher.pdf"),
+    ]),
+    // Pearson Edexcel GCSE Spanish 1SP1 (2024 spec). Every link opened on
+    // 2 October 2026: BBC Bitesize's Edexcel page is the new spec ("for exams
+    // from 2026"); Save My Exams has no notes for this spec and only old 1SP0
+    // past papers, so it is not listed.
+    ("spa_edx", &[
+        ("BBC Bitesize (Edexcel)", "https://www.bbc.co.uk/bitesize/examspecs/zwbhb7h"),
+        ("Pearson papers & sample assessments", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/spanish-2024.coursematerials.html#filterQuery=category:Pearson-UK:Category%2FExam-materials"),
+        ("Pearson spec (vocabulary list is Appendix 1)", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/spanish-2024.html"),
+        ("Vocabulary and grammar guide", "https://qualifications.pearson.com/content/dam/pdf/GCSE/Spanish/2024/teaching-and-learning-materials/spanish-vocabulary-and-grammar-guide.pdf"),
     ]),
 ];
 

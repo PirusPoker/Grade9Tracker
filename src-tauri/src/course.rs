@@ -324,6 +324,20 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
         "G1", "G2", "G3-4", "G5", "G6", "G7",
         "P1", "P2", "P3", "P4",
     ]),
+    // Spanish - Pearson Edexcel GCSE 1SP1 (2024 specification), Higher tier.
+    // Read from the specification, Issue 2 (May 2025), on 2 October 2026.
+    // Edexcel does not number its content, so the references are the app's own:
+    // T1-T6 the six thematic contexts in the spec's order; G1a-G8 Appendix 2
+    // (Grammar) in order - nouns, pronouns and determiners; verbs; tenses;
+    // adjectives and adverbs; prepositions; derivational morphology;
+    // sound-symbol correspondences and stress; P1-P4 one per paper.
+    ("spa_edx", &[
+        "T1", "T2", "T3", "T4", "T5", "T6",
+        "G1a", "G1b", "G1c", "G2a", "G2b", "G2c",
+        "G3a", "G3b", "G3c", "G3d", "G3e",
+        "G4-5", "G6", "G7", "G8",
+        "P1", "P2", "P3", "P4",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -10222,6 +10236,163 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Use past, present and future time frames successfully and add complex language: weil, wenn, relative and um ... zu clauses",
         "Translate a paragraph into German in about 10 minutes, keeping word order and cases accurate",
     ], "A missed bullet point caps the response-to-stimulus mark: with three of four bullets the best band is 8-10, whatever the quality."),
+    // ---------- Spanish (Pearson Edexcel GCSE 1SP1) ----------
+    ("spa_edx:T1", &[
+        "Describe family members and friends, their personality and appearance, with adjectives that agree",
+        "Explain how you get on with people and what makes a good friend, using llevarse bien con and reasons",
+        "Discuss relationships, marriage and living arrangements in past, present and future time frames",
+        "Give and justify opinions on equality, identity and inclusion using the list's vocabulary",
+    ], "Mixing up ser and estar in descriptions (es simpático for personality, está cansado for a state) and forgetting that adjectives agree with the person described."),
+    ("spa_edx:T2", &[
+        "Describe a healthy or unhealthy routine with reflexive verbs and frequency expressions",
+        "Discuss mental wellbeing, stress and sleep, and give advice with hay que, se debe and deberías",
+        "Talk about food, drink and meals, including ordering and complaining in a café or restaurant",
+        "Describe the sports you do, did and will do, with jugar a, hacer and practicar",
+    ], "Writing juego fútbol or hago al fútbol: it is juego al fútbol, but hago natación with no a."),
+    ("spa_edx:T3", &[
+        "Describe your town or area: what there is and is not, and what you can do there",
+        "Shop for clothes and food, and report a problem or make a complaint in a shop",
+        "Compare ways of getting around and ask for and give directions",
+        "Discuss environmental problems, the natural world and what you have done or will do to help",
+    ], "Using hay with the definite article (hay el parque) or estar for 'there is': hay un parque, but el parque está cerca."),
+    ("spa_edx:T4", &[
+        "Discuss how you use your phone, social media and online gaming, and their advantages and dangers",
+        "Give opinions on music, TV series and films with reasons, using me encanta, me interesa and lo mejor es",
+        "Narrate a film, series or concert you saw, mixing the preterite and the imperfect",
+        "Talk about how you will use technology in the future",
+    ], "Gustar-type verbs agree with the thing liked, not with you: me gustan las series, me interesan los videojuegos."),
+    ("spa_edx:T5", &[
+        "Describe your school, subjects, teachers and rules, with opinions and reasons",
+        "Compare school now with primary school using the imperfect",
+        "Discuss future study, jobs and travel using the future, the conditional and cuando + subjunctive",
+        "Weigh up the pros and cons of university, apprenticeships, jobs and working abroad",
+    ], "Writing quiero ser un médico: Spanish drops the article before a job after ser - quiero ser médico."),
+    ("spa_edx:T6", &[
+        "Narrate a past holiday with the preterite for events and the imperfect for descriptions and weather",
+        "Book accommodation in a hotel or campsite and complain about a problem",
+        "Describe tourist attractions and what you can do there, using se puede and hay que",
+        "Talk about the festivals on the list: Carnaval, las Fallas, la Tomatina, el Día de los Muertos and Nochevieja",
+    ], "Weather in the past is hacía calor or hizo calor, never era calor or estaba calor."),
+    ("spa_edx:G1a", &[
+        "Form feminine nouns (-o to -a, add -a after -or, no change for -ante, -ente and -ista) and plurals, including -z to -ces and -ión to -iones",
+        "Use definite and indefinite articles where Spanish differs from English, including with general nouns",
+        "Use al and del, and an infinitive as a noun for the English -ing subject",
+        "Form language and nationality nouns: el inglés, la española, los españoles",
+    ], "Nouns ending in -ión lose the accent in the plural (la competición, las competiciones); nouns in -z change to -ces (la vez, las veces)."),
+    ("spa_edx:G1b", &[
+        "Make este, ese, cada, mismo, otro, todo, algún and ningún agree, and use the possessives mi, tu, su, nuestro and vuestro",
+        "Leave out subject pronouns except for contrast or emphasis",
+        "Place one direct, indirect or reflexive pronoun with one verb, two verbs and a command: lo leo, puedo leerlo, ¡léelo!",
+        "Use que as a relative pronoun, esto and eso, alguno and ninguno, and the question words cuál, cuánto and quién",
+    ], "A pronoun added to the end of a command usually needs a written accent to keep the stress: ¡léelo!, ¡prepárate!"),
+    ("spa_edx:G1c", &[
+        "Use aquel, aquella and aquello for 'that' at a distance",
+        "Place nos and os with one and two verbs, including plural reflexives",
+        "Use lo que, el que and el cual with agreement, and cuando, donde and que as relatives",
+        "Use the possessive pronouns el mío, el tuyo, el suyo, el nuestro and el vuestro, and mío or tuyo after ser",
+        "Use pronouns after prepositions, conmigo and contigo, and emphatic a mí and a ti",
+    ], "Writing con mí or con ti instead of conmigo and contigo."),
+    ("spa_edx:G2a", &[
+        "Form negatives with no, nada, nunca, nadie and ninguno, before and after the verb",
+        "Use the Higher negatives ya no, tampoco, ni...ni and no...ni",
+        "Ask questions with intonation, and with a question word followed by the verb and then the subject",
+        "Put a preposition in front of a question word: ¿con quién?, ¿de dónde?",
+    ], "A negative word after the verb needs no in front of it (no veo nada, no viene nadie), but one before the verb does not (nunca viene)."),
+    ("spa_edx:G2b", &[
+        "Use hay, hay que, se puede and se necesita for general 'you' and 'one', and hace + noun for weather",
+        "Use reflexive verbs in every tense, including reciprocal plurals such as nos vemos",
+        "Use deber, poder, querer, saber and tener que + infinitive, and quisiera and me gustaría",
+        "Use interesar-type verbs and the Higher impersonals parece, basta, falta, hace falta and vale la pena",
+    ], "The verb after a modal stays in the infinitive: puedo ir, never puedo voy."),
+    ("spa_edx:G2c", &[
+        "Form the passive with ser + past participle + por, making the participle agree",
+        "Use se + third person for a passive meaning: se venden entradas",
+        "Use acabar de + infinitive for 'have just'",
+        "Use seguir + gerund and llevar + time + gerund for actions still going on",
+        "Use desde hace + present tense for 'have been ...ing for'",
+    ], "'I have been living here for two years' is vivo aquí desde hace dos años or llevo dos años viviendo aquí - the present, not the perfect."),
+    ("spa_edx:G3a", &[
+        "Conjugate regular -ar, -er and -ir verbs in all six persons",
+        "Apply the five anchor patterns: encontrar (o to ue), pensar (e to ie), pedir (e to i), conocer (-zco) and poner (-go)",
+        "Use the irregular present of ser, estar, ir, hacer and tener, and tener expressions such as tengo frío",
+        "Form the present continuous with estar + gerund, including leyendo and pidiendo",
+        "Apply the Higher g-to-j spelling change: coger, cojo",
+    ], "Stem changes never reach nosotros and vosotros: podemos, pensáis, pedimos."),
+    ("spa_edx:G3b", &[
+        "Form the regular preterite with its accents",
+        "Use the irregular preterite of ir, ser, dar, tener, poder, hacer, venir, estar, poner, querer, decir and traer",
+        "Apply the Higher spelling changes (busqué, utilicé, jugué, leyó) and the -ir stem changes (durmió, prefirieron)",
+        "Form the perfect tense with haber and regular or irregular past participles such as visto and hecho",
+        "Choose between the preterite and the perfect",
+    ], "Regular preterite endings carry accents (compré, compró), but irregular stems do not (hice, hizo, fui, fue)."),
+    ("spa_edx:G3c", &[
+        "Form the imperfect of regular verbs and of ser, ir and ver in all persons",
+        "Use the imperfect for habits ('used to') and for ongoing description ('was ...ing')",
+        "Form the imperfect continuous with estaba + gerund",
+        "Choose between the imperfect and the preterite in a past narrative",
+    ], "Background description takes the imperfect, not the preterite: hacía sol, había mucha gente, era divertido."),
+    ("spa_edx:G3d", &[
+        "Use ir a + infinitive in all persons",
+        "Form the future of regular verbs and of tener, hacer, poder, poner, saber, querer, venir, decir and salir, plus habrá",
+        "Form the conditional of the same verbs, plus habría, and use me gustaría and quisiera",
+        "Combine time frames with si + present + future",
+    ], "Future and conditional endings go on the whole infinitive (comeré, viviría) except for the listed stems tendr-, har-, podr-, pondr-, sabr-, querr-, vendr-, dir- and saldr-."),
+    ("spa_edx:G3e", &[
+        "Give affirmative tú and vosotros commands, including sé, ve, ten, ven, haz, di, pon and sal",
+        "Attach object and reflexive pronouns to a command with the right accent",
+        "Form the present subjunctive of hacer, ser, ir, venir and tener in the singular",
+        "Use the subjunctive after cuando with a future meaning, after verbs of wishing, command, request and emotion + que, and after para que",
+    ], "The subjunctive needs a change of subject after querer and para: quiero ir, but quiero que vayas."),
+    ("spa_edx:G4-5", &[
+        "Make adjectives agree in gender and number, including -z to -ces, nationalities and consonant endings",
+        "Place adjectives after the noun, with buen, mal, gran, primer and algún before it, and meaning changes such as un viejo amigo",
+        "Use lo + adjective (lo bueno, lo malo) and possessives after ser (es mío)",
+        "Form comparatives and superlatives of adjectives and adverbs, including mejor, peor, el mejor and tan...como",
+        "Place adverbs of time, manner and place correctly",
+    ], "Writing más bueno or el más mejor instead of mejor and el mejor."),
+    ("spa_edx:G6", &[
+        "Use the personal a before a person who is the object of a verb",
+        "Use de for possession, and para, sin, antes de and después de + infinitive",
+        "Use the prepositions verbs need (disfrutar de, llegar a) and those that change a verb's meaning",
+        "Choose between por and para, and use the Higher según, a pesar de, debido a, hacia and a través de",
+    ], "After a preposition Spanish uses the infinitive, not an -ing form: antes de salir, sin hablar."),
+    ("spa_edx:G7", &[
+        "Recognise -ito and -ita as 'little' or as affection",
+        "Recognise -ísimo as 'very'",
+        "Turn adjectives into -ly adverbs with -mente on the feminine form",
+        "Recognise -idad nouns as '-ity' and -able adjectives as '-able'",
+        "Work out an unknown derived word in the Reading paper from a base word on the list",
+    ], "-mente goes on the feminine form: rápida gives rápidamente, not rápidomente."),
+    ("spa_edx:G8", &[
+        "Pronounce the vowels and ll, ch, ñ, j, h, v, r and rr correctly",
+        "Apply the c and g rules before a, o and u versus e and i, including que, qui, gue and gui",
+        "Find the stressed syllable from the spelling, and write accents where the rules require",
+        "Transcribe unseen Spanish words from their sounds for the dictation",
+    ], "A dictation word that tests stress is lost at Higher without its accent: movil for móvil, telefono for teléfono."),
+    ("spa_edx:P1", &[
+        "Use the 15 minutes' preparation to annotate the read-aloud text and plan the role play and picture",
+        "Read 50-55 words aloud with accurate sounds and stress, then answer two unprepared opinion questions",
+        "Complete the five role-play prompts, asking two questions and answering one in a future time frame",
+        "Describe a picture's people, location and activity, answer two questions (the second in the past) and sustain a conversation in three time frames",
+    ], "A one-word answer in the role play or the picture questions scores at most 1 of 2: always give a short full sentence."),
+    ("spa_edx:P2", &[
+        "Use the five minutes' reading time to predict the vocabulary each question needs",
+        "Answer multiple choice, multiple response, gap-from-box and short-answer questions in English",
+        "Spot distractors: negatives, changes of mind, past versus future, and who said what",
+        "Transcribe the six dictation sentences using sound-symbol correspondences and the accent rules",
+    ], "Choosing the option you heard a word for when the speaker then rejects it with pero, ya no or sin embargo."),
+    ("spa_edx:P3", &[
+        "Answer each Section A question type accurately in English, with the number of details asked for",
+        "Infer the meaning of two words not on the vocabulary list from context and word families",
+        "Use derived words, cognates and glosses, and avoid false friends",
+        "Translate a Spanish paragraph into natural English with every tense, person and negative right",
+    ], "Translating word for word ('I live in Madrid since three years') or slipping a tense in the Section B paragraph."),
+    ("spa_edx:P4", &[
+        "Cover all four bullet points of the 80-90 word task with developed ideas in three time frames",
+        "Write the 130-150 word task with a real pros-and-cons paragraph and frequent complex language",
+        "Translate a short English paragraph into accurate Spanish",
+        "Plan the 80 minutes and check verbs, agreements and accents at the end",
+    ], "Missing a bullet point caps the response mark below the top band, however good the rest of the answer is."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.
