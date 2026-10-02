@@ -7252,7 +7252,7 @@ mod tests {
     /// Subjects whose every topic has a video to start from.
     #[test]
     fn covered_subjects_have_a_video_on_every_topic() {
-        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog", "hist", "rs", "maths_edx", "maths_aqa", "maths_ocr", "chem_aqa", "bio_aqa", "phys_aqa", "combsci_aqa"] {
+        for subj in ["maths", "fpm", "bio", "chem", "phys", "bus", "econ", "englit", "englang", "fre", "spa", "ger", "geog", "hist", "rs", "maths_edx", "maths_aqa", "maths_ocr", "chem_aqa", "bio_aqa", "phys_aqa", "combsci_aqa", "econ_aqa", "econ_ocr", "englang_edq", "englit_edq", "bus_edx", "cs_aqa", "hist_aqa", "rs_edq", "geog_edxb", "fre_edx", "spa_edx", "ger_edx"] {
             let def = crate::plan::SUBJECTS.iter().find(|d| d.id == subj).unwrap();
             for (code, _, _) in def.topics {
                 assert!(!for_topic(&format!("{subj}:{code}")).is_empty(), "{subj}:{code} has no video");
