@@ -6953,6 +6953,128 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("AK19R7oLRmI", "Edexcel French 80-90 words writing task", "Language Stars"),
         ("8D0yBjbr3NU", "Edexcel GCSE French Writing Walkthrough", "astarfrench"),
     ]),
+    // ---------- German (Pearson Edexcel GCSE 1GN1) - Pearson's own speaking exemplar and
+    // student tips, The Ideal Teacher, Herr Reid, Jon Blackbourn and Languagenut for exam
+    // skills; Herr Ferguson, YourGermanTeacher, mugridge language, Anja and others for
+    // grammar. Searched on YouTube on 2 October 2026; every id, title and channel is
+    // exactly what YouTube's oEmbed returned. ----------
+    ("ger_edx:T1", &[
+        ("3GQKN7LRjLA", "Family in Germany - GCSE Listening Practice Comprehension for Advanced Beginners", IDEAL),
+        ("R1ZLm9E-9nw", "How to call family members and relatives in German | My Family", YGT),
+        ("FzI2Dfjtc-k", "Are men and women equal in Germany? | Easy German 239", "Easy German"),
+    ]),
+    ("ger_edx:T2", &[
+        ("kYbg2rgq2W0", "Learn HEALTHY FOOD & DRINK Vocabulary for AQA/Edexcel GCSE German NOW!", IDEAL),
+        ("G5hfTT98Oxc", "Ace Your GCSE German: Healthy Lifestyle Listening Practice (Free Worksheet)", IDEAL),
+        ("90ldkrrIJWA", "Was ist dein Lieblingssport? Talking about sports in German - Coffee Break German To Go Episode 9", "Coffee Break Languages"),
+    ]),
+    ("ger_edx:T3", &[
+        ("xti0ehwXsd4", "Learn German | Listening Practice on Shopping & Town | A2 & GCSE | Free  Comprehension Activities", IDEAL),
+        ("kPqjFUNFkrw", "GCSE Directions in town", "Jon Blackbourn"),
+        ("849jqpgVwQE", "Was machst du für die Umwelt? | What do you do for the environment? | Learn German| Sprechen | B1-B2", LEARNGERMAN),
+    ]),
+    ("ger_edx:T4", &[
+        ("GG5HjY1Fe2M", "Learn German | German Vocabulary | Computer & internet | A2 | B1", LEARNGERMAN),
+        ("cn0SyqohmVw", "What's your favorite app? | Easy German 328", "Easy German"),
+        ("UQ97O1aa8ww", "German Social Media Terms You Need to Know Today 🇩🇪 German Vocabulary (A1)", "Marcus' Language Academy"),
+    ]),
+    ("ger_edx:T5", &[
+        ("lvYIxKye_7s", "Learn German | German Vocabulary | Schule | School | A1", LEARNGERMAN),
+        ("fm6oMnH-F08", "GCSE German - Zukunftspläne (Plans for the future)", "Jon Blackbourn"),
+        ("95mtun_RIh0", "School | GERMAN LISTENING COMPREHENSION Practice (die Schule)", IDEAL),
+    ]),
+    ("ger_edx:T6", &[
+        ("Apue0EOZbH8", "How to talk about problems in a hotel in German #GCSE #roleplay", HERRREID),
+        ("zeOIfNXo6SM", "GCSE German - Higher Listening (Holidays)", "Jon Blackbourn"),
+        ("p8nJSKWnmxY", "Learn German | German Vocabulary | Urlaub und Reisen | Vacation & Travel | A2 | B1", LEARNGERMAN),
+    ]),
+    ("ger_edx:G1a", &[
+        ("3Aqc5WDKO9A", "German Plural Rules | Best Tips, Tricks and Hacks! | Plural Regeln", YGT),
+        ("iqArp8rLOI4", "German Compound Words | Super Easy German 184", "Easy German"),
+        ("61_33WIZs9c", "Unlocking the mystery of German Noun Genders: A Complete Guide - 2023 remake - Full HD", FERGUSON),
+    ]),
+    ("ger_edx:G1b", &[
+        ("pb5CySTKP8w", "THIS MIGHT HELP | The GERMAN CASES | Bausteine zwei", BAUSTEINE),
+        ("MLgrCuKSMPE", "Mastering German Possessive Adjectives (plus extras!) | Learn easily with Examples! 🔥💪🏼😀", FERGUSON),
+        ("4BqDoomAERw", "Mastering the Genitive Case in German: Definite and Indefinite Articles, Prepositions, and More! 💪🏼🔥", FERGUSON),
+    ]),
+    ("ger_edx:G1c", &[
+        ("GHRHSR-5thc", "German Personal Pronouns in Akkusativ with Examples | mich (me), dich (you) | YourGermanTeacher", YGT),
+        ("4F3oFBa3MuE", "German Personal Pronouns in Dative with examples, Tips and Rules | Learn German | YourGermanTeacher", YGT),
+        ("gh8zSONIDoA", "Relative Pronouns in German are MOSTLY JUST articles", BAUSTEINE),
+        ("ZmIVxarBojo", "When to use mir / mich with German reflexive verbs", YGT),
+    ]),
+    ("ger_edx:G2a", &[
+        ("k3zSbed5zZg", "GCSE German: The Present Tense", GCSEGER),
+        ("x-9jPdkb_94", "Mastering Strong Verbs in German 💪🏼🔥| Present Tense Irregular & Stem-Changing Verbs Explained", FERGUSON),
+        ("HdDmddOPs5I", "Asking Questions in German (Beginner / A1) - Deutsch mit Herrn Ferguson / Easy German Vocabulary", FERGUSON),
+    ]),
+    ("ger_edx:G2b", &[
+        ("9EozuuoKhcw", "GCSE German: The Perfect Tense", GCSEGER),
+        ("X-Ry2ifoOIc", "Mastering the Perfect Tense in German: Unleashing the Ultimate Technique for Perfect Recall!", FERGUSON),
+        ("WC6klvZ4pWc", "Learn German Past Tense Easily: Haben & Sein in the Imperfect (A1–A2)", FERGUSON),
+    ]),
+    ("ger_edx:G2c", &[
+        ("B54cqfJ6xG0", "The Past Tense in German", MUGRIDGE),
+        ("J5FYjADg97c", "All German Modal Verbs in Simple Past (Präteritum)", YGT),
+        ("7Q0AjA_BVfs", "Grammar: The Imperative (A1-B1) - Giving instructions in German - Easy!", FERGUSON),
+    ]),
+    ("ger_edx:G2d", &[
+        ("OdTjoC-m6rE", "GCSE German: The Future Tense", GCSEGER),
+        ("N9L5X2Xf-Bs", "Modal Verbs in German", MUGRIDGE),
+        ("T7BIl5KtHQk", "Tenses: Conditional Tense (Part 2) - Subjunctive (Konjunktiv II) with 'haben / sein' - Lesson 7", FERGUSON),
+        ("5usFeazBaLY", "Tenses: Conditional Tense (Part 1) - Subjunctive (Konjunktiv II) with 'werden' - Lesson 1", FERGUSON),
+    ]),
+    ("ger_edx:G2e", &[
+        ("jR4XeQxwGHQ", "Basic Word Order in German", MUGRIDGE),
+        ("AZecRi-Achc", "Mastering German Word Order: Coordination, Inversion, and Subordination | 1080p HD Guide 🔥", FERGUSON),
+        ("vfAWcUDScGM", "How to say 'not' in German | nicht vs. kein", MUGRIDGE),
+        ("lpezJZoxTOs", "Separable Verbs in German", MUGRIDGE),
+    ]),
+    ("ger_edx:G3-4", &[
+        ("SXKD5bQl-zQ", "Learn German Adjective Endings | THE SYSTEM COMPLETE !", YGT),
+        ("VoBwHY63_RQ", "German Comparative & Superlative Adjectives: Complete Guide ✅ | B1 Level Grammar Tutorial 💪🏼", FERGUSON),
+        ("SYWra2Qzch4", "Der Komparativ Und Superlativ Explained! | Examples & Exceptions", YGT),
+        ("c_40J7e1nrc", "gern vs. lieber vs. am liebsten | 2 minutes of German #34", MUGRIDGE),
+    ]),
+    ("ger_edx:G5", &[
+        ("OlRQT4V72LM", "ALL German A1 Level Prepositions | AKK / DAT & example sentences", YGT),
+        ("Dmv2BzXv_7U", "An EASY explanation of the 9 Two-Way PREPOSITIONS (Wechselpräpositionen)", ANJA),
+        ("d5IoSISsYyE", "Mastering 'da' and 'wo' compounds in German | Essential Tips and Examples for Fluent Communication", FERGUSON),
+        ("C7TPk1yDBH8", "Key German Structure: um...zu...", MUGRIDGE),
+    ]),
+    ("ger_edx:G6", &[
+        ("oxMdA7ITZtg", "German Nouns Ending in -heit | German with Laura", "German with Laura"),
+        ("9cRS_S0dOGU", "German Nouns Ending in -keit | German with Laura", "German with Laura"),
+        ("1XdroGLSbZ4", "German Nouns Ending in - ung| German with Laura", "German with Laura"),
+        ("yusiopioLvw", "4 useful German suffixes and how to use them", "Coffee Break Languages"),
+    ]),
+    ("ger_edx:G7", &[
+        ("JGh9DR6bxpw", "GERMAN PRONUNCIATION 7: How to pronounce EI, IE, AU, EU (Diphthongs)", ANJA),
+        ("BoFEG5h7d-o", "How to pronounce German Umlauts in 10 minutes! | Feli from Germany", "Feli from Germany"),
+        ("UFUqhT-rYzc", "Mastering German Vowel Pronunciation 🔥: Long and Short Sounds | A1/A2 German Language Tutorial 🗣️🔊", FERGUSON),
+    ]),
+    ("ger_edx:P1", &[
+        ("Kt4QvsKUViE", "2024 Pearson Edexcel GCSE German 9-1  - Speaking Higher  - Exemplar", PEARSONUK),
+        ("Q4R3_vG3jPs", "Student Tip 3 – annotating the read aloud card (GCSE (2024) French, German and Spanish speaking)", PEARSONUK),
+        ("kI1mmaILJq4", "Student Tip 6 – the role play (GCSE (2024) French, German and Spanish speaking exams)", PEARSONUK),
+        ("G_Ve2kDg03Q", "Student Tip 9 – choosing the picture (GCSE (2024) French, German and Spanish speaking exams)", PEARSONUK),
+    ]),
+    ("ger_edx:P2", &[
+        ("6IbtZ2eV1B4", "Edexcel German Higher Tier Dictation", "Languagenut"),
+        ("CYWQaYxSbws", "Get a grade 9 in GCSE German listening!", HERRREID),
+        ("jSZOsYQPzfw", "GCSE German Listening Exam Revision Tips: Boost Marks & Confidence FAST", IDEAL),
+    ]),
+    ("ger_edx:P3", &[
+        ("ZndLKfBuuBA", "EDEXCEL GCSE GERMAN 2022 TRANSLATION WORKED", "B8 Languages"),
+        ("VebSZrHmsI4", "How anyone (including YOU) can read German", "RobWords"),
+        ("xadxdLKiJO4", "GCSE Languages - Revising for Listening and Reading", "CheneyTakeaway"),
+    ]),
+    ("ger_edx:P4", &[
+        ("SQJHQRoelc0", "How to get a grade 9 in GCSE German writing #GCSE #German #writingexam", HERRREID),
+        ("kwwlUAWIyj0", "Edexcel GCSE German 150 word essay 2022", "B8 Languages"),
+        ("dekTfG1hsXQ", "How to get a grade 9 in the GCSE German 90 word writing task #GCSE #German #Writing", HERRREID),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.

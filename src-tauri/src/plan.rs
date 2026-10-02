@@ -1845,6 +1845,41 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("P4", "Paper 4 Writing: the 80–90 and 130–150 word tasks and translation into French", 1.5),
         ],
     },
+    // Pearson Edexcel GCSE German 1GN1, the new specification: first taught
+    // September 2024, first examined June 2026. Themes, the Higher grammar list
+    // (Appendix 2), the vocabulary list (Appendix 1) and the papers read from
+    // the specification PDF, Issue 2 (May 2025), and the Higher-tier sample
+    // assessment materials (updated July 2025).
+    SubjectDef {
+        id: "ger_edx", name: "German", full: "Pearson Edexcel GCSE German (1GN1) Higher", color: "var(--ger)",
+        papers: "Higher tier, four papers of 50 marks, 25% each, all in the same summer, with no dictionary: Paper 1 Speaking 10-12 min plus 15 min preparation, conducted by a teacher in April or May and marked by Pearson (read aloud with two questions 12, role play 10, picture task with conversation 28); Paper 2 Listening 1 h including 5 min reading time (comprehension questions in English 40, then a 10-mark dictation); Paper 3 Reading 1 h (eight comprehension questions in English 40, then a paragraph to translate into English 10); Paper 4 Writing 1 h 20 (an 80-90 word informal task 18 and a 130-150 word formal task 22, each a choice of two with four bullet points, then a paragraph to translate into German 10). Only Pearson's vocabulary list (Appendix 1) and grammar list (Appendix 2) are examined. There is no NEA. The app has no German audio, so speaking and listening are taught as exam-skills lessons and its mock papers are Reading and Writing",
+        spec: "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/german-2024.html",
+        sections: &["Theme 1: My personal world", "Theme 2: Lifestyle and wellbeing", "Theme 3: My neighbourhood", "Theme 4: Media and technology", "Theme 5: Studying and my future", "Theme 6: Travel and tourism", "Grammar", "Paper 1 Speaking", "Paper 2 Listening", "Paper 3 Reading", "Paper 4 Writing"],
+        topics: &[
+            ("T1", "My personal world: family, friends, relationships and equality", 1.0),
+            ("T2", "Lifestyle and wellbeing: physical and mental wellbeing, food and drink, sport", 1.0),
+            ("T3", "My neighbourhood: places in town, shopping, transport, the natural world and the environment", 1.0),
+            ("T4", "Media and technology: social media and gaming, music, TV and film", 1.0),
+            ("T5", "Studying and my future: school, work and future opportunities", 1.0),
+            ("T6", "Travel and tourism: tourist attractions, accommodation and getting around", 1.0),
+            ("G1a", "Nouns: compounds, -in, plurals, dative plural, nouns from verbs and adjectives, weak nouns and das Gute", 0.75),
+            ("G1b", "Articles and determiners in three cases: der, ein, kein, dieser, jeder, welcher, mein; viel and viele; the genitive", 1.0),
+            ("G1c", "Pronouns: subject, object and reflexive pronouns, jemand and niemand, wer, wen, wem, and relative clauses with der, wo and was", 1.0),
+            ("G2a", "Questions and the present tense: weak and strong verbs, haben, sein, werden, wissen, and seit", 1.0),
+            ("G2b", "The perfect tense with haben and sein, früher, and war, hatte and es gab", 1.25),
+            ("G2c", "The simple past for narrative, modal verbs in the past, and the imperative", 0.75),
+            ("G2d", "The future with werden, modal verbs and möchte, and the conditional: hätte, wäre, würde and sollte", 1.25),
+            ("G2e", "Word order: verb second, inversion, subordinate and relative clauses, separable and reflexive verbs, and negation", 1.5),
+            ("G3-4", "Adjectives and adverbs: endings in three cases, comparatives, superlatives, gern and lieber, and time-manner-place", 1.0),
+            ("G5", "Prepositions and their cases, da- and wo- compounds, um ... zu, beim + infinitive, and man instead of the passive", 1.0),
+            ("G6", "Derivational morphology: working out new words from Lieblings-, Haupt-, un-, -ung, -er, -chen, -heit, -keit and -los", 0.5),
+            ("G7", "Sound-symbol correspondences: how German sounds are spelt and said", 0.75),
+            ("P1", "Paper 1 Speaking: read aloud, role play, picture task and conversation", 1.5),
+            ("P2", "Paper 2 Listening: comprehension questions and the dictation", 1.25),
+            ("P3", "Paper 3 Reading: comprehension, inferring new words and translation into English", 1.0),
+            ("P4", "Paper 4 Writing: the 80–90 and 130–150 word tasks and translation into German", 1.5),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

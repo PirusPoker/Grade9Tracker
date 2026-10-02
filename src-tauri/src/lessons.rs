@@ -1460,6 +1460,30 @@ const FRE_EDX: &[(&str, &str)] = &[
     ("fre_edx:P3", include_str!("../lessons/fre_edx/P3.md")),
     ("fre_edx:P4", include_str!("../lessons/fre_edx/P4.md")),
 ];
+const GER_EDX: &[(&str, &str)] = &[
+    ("ger_edx:T1", include_str!("../lessons/ger_edx/T1.md")),
+    ("ger_edx:T2", include_str!("../lessons/ger_edx/T2.md")),
+    ("ger_edx:T3", include_str!("../lessons/ger_edx/T3.md")),
+    ("ger_edx:T4", include_str!("../lessons/ger_edx/T4.md")),
+    ("ger_edx:T5", include_str!("../lessons/ger_edx/T5.md")),
+    ("ger_edx:T6", include_str!("../lessons/ger_edx/T6.md")),
+    ("ger_edx:G1a", include_str!("../lessons/ger_edx/G1a.md")),
+    ("ger_edx:G1b", include_str!("../lessons/ger_edx/G1b.md")),
+    ("ger_edx:G1c", include_str!("../lessons/ger_edx/G1c.md")),
+    ("ger_edx:G2a", include_str!("../lessons/ger_edx/G2a.md")),
+    ("ger_edx:G2b", include_str!("../lessons/ger_edx/G2b.md")),
+    ("ger_edx:G2c", include_str!("../lessons/ger_edx/G2c.md")),
+    ("ger_edx:G2d", include_str!("../lessons/ger_edx/G2d.md")),
+    ("ger_edx:G2e", include_str!("../lessons/ger_edx/G2e.md")),
+    ("ger_edx:G3-4", include_str!("../lessons/ger_edx/G3-4.md")),
+    ("ger_edx:G5", include_str!("../lessons/ger_edx/G5.md")),
+    ("ger_edx:G6", include_str!("../lessons/ger_edx/G6.md")),
+    ("ger_edx:G7", include_str!("../lessons/ger_edx/G7.md")),
+    ("ger_edx:P1", include_str!("../lessons/ger_edx/P1.md")),
+    ("ger_edx:P2", include_str!("../lessons/ger_edx/P2.md")),
+    ("ger_edx:P3", include_str!("../lessons/ger_edx/P3.md")),
+    ("ger_edx:P4", include_str!("../lessons/ger_edx/P4.md")),
+];
 
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
@@ -1501,6 +1525,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("combsci_aqa", COMBSCI_AQA),
     ("econ_ocr", ECON_OCR),
     ("fre_edx", FRE_EDX),
+    ("ger_edx", GER_EDX),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {

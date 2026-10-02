@@ -310,6 +310,20 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
         "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8",
         "P1", "P2", "P3", "P4",
     ]),
+    // German - Pearson Edexcel GCSE (9-1) 1GN1 (second board beside AQA 8662
+    // "ger"). Read from the specification PDF, Issue 2 (May 2025;
+    // gq000025-gcse-german-specification-2024-issue-2.pdf), on 2 October 2026.
+    // Pearson numbers nothing, so the references are labels in the spec's own
+    // order: T1-T6 the six thematic contexts; G1-G7 the sections of Appendix 2
+    // Grammar (Nouns, pronouns and determiners; Verbs and tenses; Adjectives
+    // and Adverbs, taught together as G3-4; Prepositions; Derivational
+    // morphology; Sound-symbol correspondences); P1-P4 the four papers.
+    // Higher tier. G1 and G2 are split by letter.
+    ("ger_edx", &[
+        "T1", "T2", "T3", "T4", "T5", "T6",
+        "G1", "G2", "G3-4", "G5", "G6", "G7",
+        "P1", "P2", "P3", "P4",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -10051,6 +10065,163 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Translate a short English paragraph into French accurately",
         "Plan and check within 1 hour 20 minutes",
     ], "Skipping a bullet point: a missing bullet caps the response-to-task mark however good the French is."),
+    // ---------- German (Pearson Edexcel GCSE 1GN1) ----------
+    ("ger_edx:T1", &[
+        "Describe family members and friends: appearance, personality and how you get on, using sich verstehen mit",
+        "Discuss equality and inclusion: different family set-ups, gender, disability and treating people fairly",
+        "Give and justify opinions with weil, denn and dass, including what makes a good friend",
+        "Narrate something you did with friends or family and say what you will do together next",
+    ], "Sich verstehen mit takes the dative: Ich verstehe mich gut mit meiner Schwester, never mit meine Schwester."),
+
+    ("ger_edx:T2", &[
+        "Describe your diet, exercise and sleep with frequency words such as regelmäßig, ab und zu and nie",
+        "Discuss physical and mental wellbeing, stress and pressure, using Higher words such as Druck and die mentale Gesundheit",
+        "Contrast what you used to do (früher + perfect) with what you do now and what you will do",
+        "Give advice with man sollte and set conditions with wenn ich mehr Zeit hätte, würde ich ...",
+    ], "Kein negates a noun and nicht a verb or adjective: Ich esse kein Fleisch, but Ich rauche nicht."),
+
+    ("ger_edx:T3", &[
+        "Describe places in your town and say where things are, using prepositions with the dative",
+        "Talk about shopping, transport and getting around, including buying tickets",
+        "Discuss environmental problems and solutions: waste, energy, pollution and sustainable transport",
+        "Weigh up the pros and cons of living in a town or in the countryside",
+    ], "In + dative says where something is, in + accusative where you are going: Ich bin in der Stadt, but Ich fahre in die Stadt."),
+
+    ("ger_edx:T4", &[
+        "Describe how you use social media, apps and games, with frequency and opinions",
+        "Discuss the risks online: cyberbullying, cybercrime and screen time",
+        "Talk about music, TV and film preferences with gern, lieber and am liebsten",
+        "Review a film or programme you saw recently, in the past tense",
+    ], "Gefallen works backwards: Der Film hat mir gut gefallen means I liked the film; Ich habe den Film gefallen is wrong."),
+
+    ("ger_edx:T5", &[
+        "Describe your school, routine, teachers and rules with dürfen and müssen",
+        "Compare school in German-speaking countries, e.g. the Oberstufe and sitzen bleiben",
+        "Talk about part-time work, skills and future opportunities, including working or travelling abroad",
+        "Explain future plans with werden, möchte, ich hoffe ... zu and um ... zu",
+    ], "After um ... zu the infinitive goes last with zu in front of it: um Geld zu verdienen, not um zu verdienen Geld."),
+
+    ("ger_edx:T6", &[
+        "Describe tourist attractions in German-speaking countries, such as Wien, Köln, München and the Donau",
+        "Book accommodation, buy tickets and complain about a problem in a role-play setting",
+        "Narrate a past trip in the perfect and simple past, and plan the next one with werden",
+        "Compare holidays and accommodation with comparatives and superlatives",
+    ], "Fahren and fliegen take sein in the perfect: Wir sind nach Österreich gefahren, never wir haben ... gefahren."),
+
+    ("ger_edx:G1a", &[
+        "Build compound nouns, taking the gender of the last word: die Haustür, das Schulbuch",
+        "Form plurals by Pearson's patterns, add -n in the dative plural, and make feminine person nouns with -in",
+        "Use nouns made from verbs and adjectives: das Schwimmen, das Englisch",
+        "Recognise and use weak masculine nouns (den Jungen) and adjectival nouns: die Reichen, das Gute, etwas Gutes",
+    ], "The dative plural adds -n: mit meinen Freunden, mit den Kindern; mit meinen Freunde loses accuracy."),
+
+    ("ger_edx:G1b", &[
+        "Choose der, die, das and ein, eine in the nominative, accusative and dative from the noun's job in the sentence",
+        "Use kein, dieser, jeder, letzter, nächster, welcher and the possessives mein to Ihr with the right ending",
+        "Tell viel and wenig (uncountable) from viele and wenige (plural), and use alle and einige",
+        "Recognise the genitive for possession and after trotz and wegen in reading and listening",
+    ], "Time phrases go in the accusative: letzten Sommer, nächste Woche, jeden Tag; letzter Sommer is wrong."),
+
+    ("ger_edx:G1c", &[
+        "Use subject pronouns, including man, and singular and plural object pronouns in the accusative and dative",
+        "Use reflexive verbs with accusative and dative reflexive pronouns: ich freue mich, ich wasche mir die Hände",
+        "Ask questions with wer, wen and wem, and use jemand and niemand",
+        "Write relative clauses with der, die, das (subject and object) and with wo and was, sending the verb to the end",
+        "Order two objects correctly: dative noun before accusative noun, pronoun before noun",
+    ], "A relative pronoun takes its gender from the noun but its case from its own clause: der Film, den ich gesehen habe, not der Film, der ich gesehen habe."),
+
+    ("ger_edx:G2a", &[
+        "Form questions by inversion and with was, wann, wie, wer, wo, wohin, woher and warum",
+        "Conjugate weak and strong verbs in the present, including the vowel change in the du and er/sie/es forms",
+        "Use haben, sein, werden and wissen in every person, and haben Hunger, Durst and Angst",
+        "Use the present with a time adverb for the future, and seit + present for 'have been ...ing'",
+    ], "Seit takes the present tense: Ich lerne seit vier Jahren Deutsch, not Ich habe seit vier Jahren Deutsch gelernt."),
+
+    ("ger_edx:G2b", &[
+        "Form past participles: ge-...-t, -iert, inseparable prefixes, and strong participles with vowel changes",
+        "Choose haben or sein and put the participle at the end",
+        "Use the perfect with früher for 'used to', and war, hatte and es gab for description in the past",
+        "Place separable prefixes correctly: ich bin früh aufgestanden",
+    ], "Verbs of movement and change of state take sein: ich bin gefahren, ich bin geblieben, ich bin gewesen."),
+
+    ("ger_edx:G2c", &[
+        "Recognise and write the simple past of weak verbs and of the strong verbs on Pearson's list (ging, fuhr, kam, sah ...)",
+        "Use modal verbs in the simple past in all persons: konnte, musste, durfte, wollte, sollte, mochte",
+        "Give instructions with the du, ihr and Sie imperatives, including sei, seid and seien Sie",
+    ], "Modals in the simple past drop the umlaut: ich konnte, ich musste, ich durfte; ich könnte means 'I could' in the sense of 'would be able to'."),
+
+    ("ger_edx:G2d", &[
+        "Form the future with werden and the infinitive at the end",
+        "Use all six modal verbs in the present, and möchte with a noun or an infinitive",
+        "Write conditional sentences with wenn, hätte, wäre and würde + infinitive",
+        "Give advice with sollte: Man sollte weniger Fleisch essen",
+    ], "In a wenn clause the verb goes to the end, then the main clause starts with its verb: Wenn ich reich wäre, würde ich reisen."),
+
+    ("ger_edx:G2e", &[
+        "Keep the verb second, invert after a time phrase, and send a second verb to the end",
+        "Send the verb to the end after weil, dass, wenn, obwohl, als and relative pronouns, with one or two verbs and with separable verbs",
+        "Use separable and reflexive verbs in main and subordinate clauses",
+        "Negate with nicht, nie, nichts and kein, and correct with nicht ... sondern",
+        "Order adverbs time, manner, place",
+    ], "After weil the conjugated verb goes last, after any infinitive: weil ich morgen nicht kommen kann, not weil ich kann morgen nicht kommen."),
+
+    ("ger_edx:G3-4", &[
+        "Add the right adjective ending after der-words, after ein-words and with no article, in three cases",
+        "Compare with -er als and so ... wie, including besser, höher, mehr, größer and teurer",
+        "Use superlatives before and after the noun: der beste Film, am besten, am höchsten, am meisten",
+        "Express likes and preferences with gern, lieber and am liebsten, and place adverbs time, manner, place",
+    ], "An adjective after the noun and sein takes no ending: Der Film war spannend, but ein spannender Film."),
+
+    ("ger_edx:G5", &[
+        "Use the right case after accusative, dative and two-way prepositions, including the Higher ones such as gegen, seit, zwischen and neben",
+        "Contract preposition and article: am, beim, im, vom, zum, zur, ins",
+        "Use verbs with fixed prepositions, and da- and wo- compounds: Ich freue mich darauf; Worauf wartest du?",
+        "Build infinitive clauses with um ... zu, ohne ... zu and statt ... zu, and use beim + a verb noun",
+        "Avoid the passive with man: Hier spricht man Deutsch",
+    ], "Two-way prepositions take the accusative for movement and the dative for position: Ich lege das Buch auf den Tisch, but Das Buch liegt auf dem Tisch."),
+
+    ("ger_edx:G6", &[
+        "Work out nouns and adjectives built with Lieblings-, Haupt- and un-",
+        "Decode -ung and -er nouns made from verbs, ordinal numbers, and adverbs such as montags",
+        "Recognise the Higher suffixes -chen, -lein, -heit, -keit and -los",
+        "Use word parts and context to answer the Reading paper's inference questions",
+    ], "-los means 'without': arbeitslos is unemployed, not hard-working."),
+
+    ("ger_edx:G7", &[
+        "Pronounce and spell long and short vowels, the umlauts, ei, ie, eu and äu",
+        "Say and write sch, sp-, st-, s, ß, z, w, v, j, qu and -tion the German way",
+        "Hear hard and soft ch, final -b, -d and -g, -ig, and vocalic and consonantal r",
+        "Transcribe dictation sentences accurately from the sound alone",
+    ], "Ei sounds like English 'eye' and ie like 'ee': mein and schreiben, but sie and lieben; swapping them turns blieb into bleib."),
+
+    ("ger_edx:P1", &[
+        "Read aloud a 50-55 word text clearly, applying every sound-symbol correspondence",
+        "Answer the two unprepared present-tense questions after the read aloud with an opinion and a reason",
+        "Complete a five-prompt role play, asking two questions and answering one about the future",
+        "Describe a picture's people, location and activity, then answer a present and a past question about it",
+        "Sustain a five-minute conversation with developed answers in three time frames",
+    ], "In the role play, a prompt that asks you to ask a question needs a real question: a statement in its place scores 0 for that prompt."),
+
+    ("ger_edx:P2", &[
+        "Use the five minutes' reading time to predict the German you will hear for each question",
+        "Pick out key points, details and opinions from recordings played three times",
+        "Avoid distractors by tracking negatives, time words and changes of mind",
+        "Write the dictation: six missing words, then four whole sentences, spelled by the sound-symbol rules",
+    ], "Section A answers must be in English: a German word copied from the recording earns nothing."),
+
+    ("ger_edx:P3", &[
+        "Answer gap-fill, multiple-choice, multiple-response and short English answers on eight texts",
+        "Infer the meaning of two unlisted words from context and word parts",
+        "Translate a five-sentence paragraph into natural, complete English in about 10 minutes",
+        "Check tense, person and every small word in the translation against the German",
+    ], "Translation marks go on omitted words: every word of the German, including vielleicht, oft and regelmäßig, must reach your English."),
+
+    ("ger_edx:P4", &[
+        "Choose the option in each question you can answer best, and address all four bullet points",
+        "Write 80-90 words for Question 1 and 130-150 for Question 2, developing each bullet with an opinion, a reason or a detail",
+        "Use past, present and future time frames successfully and add complex language: weil, wenn, relative and um ... zu clauses",
+        "Translate a paragraph into German in about 10 minutes, keeping word order and cases accurate",
+    ], "A missed bullet point caps the response-to-stimulus mark: with three of four bullets the best band is 8-10, whatever the quality."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

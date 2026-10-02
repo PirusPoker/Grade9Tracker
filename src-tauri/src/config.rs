@@ -216,6 +216,9 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // Pearson Edexcel GCSE French 1FR1: second-board French, school-paced:
     // recall and vocabulary on what school has covered.
     ("fre_edx", &[(1, 0.5, 0.25)]),
+    // Pearson Edexcel GCSE German 1GN1: second-board German, school-paced -
+    // recall and vocabulary on what school has covered.
+    ("ger_edx", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -254,6 +257,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("combsci_aqa", "ahead"),
     ("econ_ocr", "school"),
     ("fre_edx", "school"),
+    ("ger_edx", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -272,6 +276,8 @@ const DEFAULT_WEEKLY: &[(&str, &[(&str, f64, &str)])] = &[
         "Handwritten, no stopping: one week a Component 1 Section B story (45 minutes, 450-600 words, from a choice of four titles), the next week both Component 2 Section B tasks (30 minutes each, 300-400 words). Mark it against the mark scheme tomorrow, cold - the marking is where the learning is.")]),
     ("fre_edx", &[("Vocabulary and speaking", 0.5,
         "Two 15-minute bursts: learn 20 words from the Edexcel French vocabulary list (Appendix 1 of the specification) with the French side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
+    ("ger_edx", &[("Vocabulary and speaking", 0.5,
+        "Two 15-minute bursts: learn 20 words from the Pearson German vocabulary list (Appendix 1 of the specification) with the German side covered, then say three sentences aloud using them - one in the past, one in the present, one in the future.")]),
 ];
 
 fn default_pace_for(id: &str) -> &'static str {
@@ -629,6 +635,19 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Spec (vocabulary Appendix 1, grammar Appendix 2)", "https://qualifications.pearson.com/content/dam/pdf/GCSE/French/2024/specification-and-sample-assessments/gq000023-gcse-french-specification-2024-issue-2.pdf"),
         ("Pearson papers & mark schemes", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/french-2024.coursematerials.html#filterQuery=category:Pearson-UK:Category%2FExam-materials"),
         ("Revision notes (1FR1)", "https://simplestudy.com/gb/gcse/edexcel/french/revision-notes"),
+    ]),
+    // Pearson Edexcel GCSE German 1GN1. Every link opened on 2 October 2026.
+    // Save My Exams has no notes or questions for this spec yet (its Edexcel
+    // German pages are the old 1GN0), and BBC Bitesize could not be checked,
+    // so the links are Pearson's own: the course-materials page (sample papers
+    // and, once released, past papers), the qualification page, the vocabulary
+    // and grammar guide, and the two Higher sample papers the app mocks.
+    ("ger_edx", &[
+        ("Pearson papers & mark schemes", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/german-2024.coursematerials.html#filterQuery=category:Pearson-UK:Category%2FExam-materials"),
+        ("Pearson spec (vocabulary is Appendix 1, grammar Appendix 2)", "https://qualifications.pearson.com/content/dam/pdf/GCSE/German/2024/specification-and-sample-assessments/gq000025-gcse-german-specification-2024-issue-2.pdf"),
+        ("Vocabulary and grammar guide", "https://qualifications.pearson.com/content/dam/pdf/GCSE/German/2024/teaching-and-learning-materials/german-vocabulary-and-grammar-guide.pdf"),
+        ("Sample Reading paper (Higher)", "https://qualifications.pearson.com/content/dam/pdf/GCSE/German/2024/specification-and-sample-assessments/7-collated-gcse-german-sams-paper-3-higher.pdf"),
+        ("Sample Writing paper (Higher)", "https://qualifications.pearson.com/content/dam/pdf/GCSE/German/2024/specification-and-sample-assessments/8-collated-gcse-german-sams-paper-4-higher.pdf"),
     ]),
 ];
 
