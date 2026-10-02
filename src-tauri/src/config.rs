@@ -203,6 +203,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     // History (AQA): taught through both years at school, one option per
     // section - recall and exam practice on the options the student keeps.
     ("hist_aqa", &[(1, 0.5, 0.25)]),
+    // Religious Studies (Eduqas): three written papers, taught through both years at school.
+    ("rs_edq", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -236,6 +238,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("bus_edx", "school"),
     ("cs_aqa", "school"),
     ("hist_aqa", "school"),
+    ("rs_edq", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -560,6 +563,13 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("BBC Bitesize (AQA)", "https://www.bbc.co.uk/bitesize/examspecs/zxjk4j6"),
         ("Historic environment sites", "https://www.aqa.org.uk/news/gcse-history-historic-environment-sites-2026-2028"),
         ("AQA papers & mark schemes", "https://www.aqa.org.uk/subjects/history/gcse/history-8145/assessment-resources"),
+    ]),
+    // WJEC Eduqas GCSE Religious Studies C120QS (Route A, Islam). Each link opened and checked 30 September 2026
+    ("rs_edq", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/religious-studies/wjec-eduqas/16/revision-notes/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/religious-studies/wjec-eduqas/past-papers/"),
+        ("Eduqas digital resources", "https://resources.eduqas.co.uk/Pages/ResourceByArgs.aspx?subId=26&lvlId=2"),
+        ("Eduqas spec, papers & mark schemes", "https://www.eduqas.co.uk/qualifications/religious-studies-gcse/#tab_pastpapers"),
     ]),
 ];
 

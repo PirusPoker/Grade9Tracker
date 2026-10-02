@@ -1559,6 +1559,59 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("2BC.4", "The historic environment of Elizabethan England: the specified site (Kenilworth Castle for 2028)", 0.75),
         ],
     },
+    // WJEC Eduqas GCSE Religious Studies (C120QS), full course, Route A with
+    // Component 3 Option 3 Islam (entry code C120P3). Specification version 5
+    // (September 2026). Islam is the most-taken Route A world faith: Eduqas's
+    // June 2024 examiners' report gives 18,475 full-course Islam entries
+    // against about 26,100 for Route A Component 1. Route B (Catholic
+    // Christianity) is not covered. The spec numbers only its sections, so the
+    // codes are 2.1 (Component 1), 2.2 (Component 2) and 2.3 (Component 3)
+    // with letter suffixes.
+    SubjectDef {
+        id: "rs_edq", name: "Religious Studies", full: "Eduqas GCSE Religious Studies (C120QS)", color: "var(--rs)",
+        papers: "Three written exams, all compulsory questions. Component 1 Religious, philosophical and ethical studies in the modern world: 2h, 120 marks plus 6 for spelling, punctuation, grammar and specialist terms, 50%; one question on each of four themes (relationships, life and death, good and evil, human rights), each in four parts worth 2, 5, 8 and 15 marks, answered from Christianity and Islam (plus non-religious views on life and death). Component 2 Study of Christianity: 1h, 60 marks plus 6 SPaG, 25%. Component 3 Study of a world faith: 1h, 60 marks, 25%; Islam here (Route A, option 3). There is no coursework. Route B (Catholic Christianity and Judaism) and the other world faiths are not taught in the app",
+        spec: "https://www.eduqas.co.uk/qualifications/religious-studies-gcse/",
+        sections: &["2.1 Component 1: Religious, philosophical and ethical studies", "2.2 Component 2: Study of Christianity", "2.3 Component 3: Study of a world faith (Islam)"],
+        topics: &[
+            // 2.1 Component 1 - Theme 1: Issues of relationships
+            ("2.1a", "Relationships: families, roles, cohabitation, and the nature and purpose of marriage", 0.75),
+            ("2.1b", "Relationships: adultery, divorce, annulment and remarriage; sex and contraception", 1.0),
+            ("2.1c", "Relationships: same-sex relationships, gender equality, and the roles of women and men in worship", 0.75),
+            // Theme 2: Issues of life and death
+            ("2.1d", "Life and death: the origin of the universe and of life, the Big Bang and evolution", 0.75),
+            ("2.1e", "Life and death: dominion, stewardship, khalifah and environmental responsibility; the value of animal life", 0.75),
+            ("2.1f", "Life and death: sanctity and quality of life, abortion and euthanasia", 1.0),
+            ("2.1g", "Life and death: the soul, judgement, heaven and hell, and funerals in Britain", 0.75),
+            // Theme 3: Issues of good and evil
+            ("2.1h", "Good and evil: what makes an act wrong, the origin of evil, and the problem of evil and suffering", 1.0),
+            ("2.1i", "Good and evil: causes of crime, aims of punishment, treatment of criminals and the death penalty", 1.0),
+            ("2.1j", "Good and evil: forgiveness", 0.5),
+            // Theme 4: Issues of human rights
+            ("2.1k", "Human rights: human dignity, personal conviction and the law, censorship, freedom of expression and extremism", 1.0),
+            ("2.1l", "Human rights: prejudice and discrimination, including racial prejudice", 0.75),
+            ("2.1m", "Human rights: wealth, poverty and religious charities", 0.75),
+            // 2.2 Component 2 - Christianity: beliefs and teachings, then practices
+            ("2.2a", "Christian beliefs: the nature of God, evil and suffering, and the Trinity", 0.75),
+            ("2.2b", "Christian beliefs: creation, the nature of humans, and the authority of the Bible", 0.5),
+            ("2.2c", "Christian beliefs: Jesus Christ - incarnation, crucifixion, atonement, resurrection, ascension, sin, grace and the Spirit", 1.0),
+            ("2.2d", "Christian beliefs: the afterlife - eschatology, judgement, resurrection, heaven and hell", 0.5),
+            ("2.2e", "Christian practices: forms of worship and prayer", 0.5),
+            ("2.2f", "Christian practices: the sacraments - baptism and the Eucharist", 0.75),
+            ("2.2g", "Christian practices: pilgrimage (Walsingham, Taizé) and the celebration of Christmas and Easter", 0.5),
+            ("2.2h", "Christian practices: Christianity in Britain and the Church in the local community", 0.5),
+            ("2.2i", "Christian practices: the worldwide Church - Tearfund, persecution and reconciliation", 0.75),
+            // 2.3 Component 3 - Islam: beliefs and teachings, then practices
+            ("2.3a", "Islam: the nature of Allah - Tawhid, the attributes of Allah, and Adalat", 0.5),
+            ("2.3b", "Islam: foundations of faith - the six articles, the five roots of Usul ad-Din, and the kutub", 0.5),
+            ("2.3c", "Islam: prophethood (Risalah) - Adam, Ibrahim, Isa and Muhammad", 0.75),
+            ("2.3d", "Islam: angels (malaikah) - Jibril, Mika'il and Israfil", 0.5),
+            ("2.3e", "Islam: al-Qadr and Akhirah - human freedom, judgement, heaven and hell", 0.75),
+            ("2.3f", "Islam: the Five Pillars of Sunni Islam in Britain and elsewhere", 1.0),
+            ("2.3g", "Islam: the Ten Obligatory Acts of Shi'a Islam", 0.75),
+            ("2.3h", "Islam: Greater and Lesser Jihad", 0.5),
+            ("2.3i", "Islam: festivals and commemorations - Id-ul-Adha, Id-ul-Fitr, Ashura and the Night of Power", 0.5),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

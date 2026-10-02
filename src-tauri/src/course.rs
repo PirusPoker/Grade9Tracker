@@ -253,6 +253,13 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
         "2BA.1", "2BA.2", "2BA.3", "2BA.4",
         "2BC.1", "2BC.2", "2BC.3", "2BC.4",
     ]),
+    // WJEC Eduqas GCSE (9-1) Religious Studies C120QS, specification version 5
+    // (September 2026), read on 30 September 2026. Route A only: 2.1 Component 1
+    // (four themes, Christian and Islamic perspectives plus non-religious views
+    // in Theme 2), 2.2 Component 2 (Christianity), 2.3 Component 3 option 3
+    // (Islam). The spec has no numbered statements below these sections, so
+    // topics are letter-suffixed splits of them.
+    ("rs_edq", &["2.1", "2.2", "2.3"]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -8445,6 +8452,236 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Explain how Leicester's Building, the gatehouse and the garden reflected Elizabethan wealth, fashion and patronage",
         "Explain the significance of Elizabeth's visit of 1575 and plan the 16-mark essay on the site",
     ], "Kenilworth was rebuilt to impress the Queen - use it as evidence of patronage, court culture and Dudley's marriage hopes, not just as a castle."),
+    // ---------- Religious Studies (Eduqas C120QS, Route A, Islam) ----------
+    ("rs_edq:2.1a", &[
+        "Explain Christian and Muslim teachings on the purpose of families and the roles of women and men in the family",
+        "Describe Christian and Muslim marriage ceremonies and explain what they show about the purpose of marriage, using Mark 10:6-8 and Qur'an 30:21",
+        "Compare attitudes to cohabitation and to marrying outside the faith, including Church of England teaching and arranged marriage in Britain",
+        "Explain the difference between Sunni and Shi'a views on temporary marriage (mut'ah)",
+        "Define the concepts commitment, cohabitation, responsibilities and roles",
+    ], "Part (c) asks for two religions or two religious traditions. Writing only about Christianity, or adding a humanist view, caps the answer however detailed it is."),
+
+    ("rs_edq:2.1b", &[
+        "Explain Christian attitudes to adultery, divorce, annulment and remarriage, interpreting Matthew 19:8-9 and Mark 10:9",
+        "Explain Muslim attitudes to divorce, separation and remarriage, using Qur'an 4:35, 4:128-130 and 2:229",
+        "Explain Aquinas's Natural Law and the second primary precept, and how it shapes Catholic teaching on contraception",
+        "Compare Christian and Muslim teachings on the purpose of sex and the use of contraception, including Qur'an 17:32",
+        "Define adultery, divorce and contraception precisely",
+    ], "Annulment is not a Catholic divorce. It declares that a valid marriage never existed, and saying otherwise loses the AO1 credit."),
+
+    ("rs_edq:2.1c", &[
+        "Explain diverse Christian attitudes to same-sex relationships, interpreting Leviticus 20:13 and 1 Timothy 1:8-10",
+        "Explain Muslim attitudes to same-sex relationships with reference to Qur'an 7:80-81",
+        "Compare Catholic, Orthodox and Anglican views on women in worship and authority, using 1 Timothy 2:11-12 and Galatians 3:27-29",
+        "Explain diverse Muslim views on the roles of women and men in worship and authority, using Qur'an 2:228, 40:40 and 4:1",
+        "Evaluate whether men and women can have equal roles in religion",
+    ], "Candidates often say the Catholic Church gives women no role in worship. Women read, lead prayer and serve as religious sisters; only ordination is reserved to men."),
+
+    ("rs_edq:2.1d", &[
+        "Explain literal and non-literal Christian readings of Genesis 1 and 2",
+        "Explain Muslim teaching on the origin of the universe, using Qur'an 36:81",
+        "Describe Brian Cox's account of the Big Bang and the non-religious views of Charles Darwin and Richard Dawkins on evolution",
+        "Evaluate how far religious and scientific accounts of origins conflict",
+    ], "Describing Darwin means natural selection and gradual change, not a list of arguments against creationism. The 2023 report also found candidates writing about Charles Dickens."),
+
+    ("rs_edq:2.1e", &[
+        "Explain dominion and stewardship in Christianity, using Genesis 1:28 and Psalm 8:6",
+        "Explain khalifah and fitra and why they make Muslims responsible for the environment, using Qur'an 7:54",
+        "Describe the work of Humanist Climate Action and non-religious views on sustainability and global citizenship",
+        "Explain Peter Singer's idea of speciesism and religious responses to it",
+        "Define environmental sustainability",
+    ], "Questions on responsibility for the environment want why believers are responsible (steward, khalifah), not a general description of pollution."),
+
+    ("rs_edq:2.1f", &[
+        "Explain sanctity of life and quality of life and apply them to abortion and euthanasia",
+        "Explain diverse Christian attitudes to abortion and euthanasia, using Genesis 1:31 and Jeremiah 1:5",
+        "Explain Muslim attitudes to abortion and euthanasia, using Qur'an 5:32, 6:151 and 30:40",
+        "Explain non-religious arguments, including Humanist support for assisted dying (Dignity in Dying)",
+        "Evaluate a statement on abortion or euthanasia using religious and non-religious views",
+    ], "The Life and Death 15-mark question must include non-religious views such as Humanists and Atheists. Leaving them out keeps the answer out of the top bands."),
+
+    ("rs_edq:2.1g", &[
+        "Explain Christian beliefs about the soul, judgement, heaven and hell, using John 11:24-27 and 1 Corinthians 15:42-44",
+        "Explain Muslim beliefs about the soul, judgement, akhirah, heaven and hell, using Qur'an 46:33 and 3:16",
+        "Describe how Christian, Muslim and Humanist funerals in Britain reflect beliefs about the afterlife",
+        "Explain the diversity of views about Muslim worship at graves",
+        "Define afterlife and soul",
+    ], "A funeral answer must link each feature to a belief: describing hymns and coffins without saying what they show about the afterlife stays in the lowest band."),
+
+    ("rs_edq:2.1h", &[
+        "Explain what makes an act wrong: absolute and relative morality, conscience, virtues, sin, free will and doing the will of Allah",
+        "Explain Original Sin and Irenaeus's and John Hick's soul-making theodicy as accounts of the origin of evil",
+        "Explain Muslim teaching on evil: Iblis tests humans (Qur'an 2:34 and 2:155) and the relationship of al-Qadr to free will",
+        "Evaluate the philosophical challenge that evil and suffering pose to belief in God",
+        "Define good, evil, free will, morality, sin and suffering",
+    ], "Explaining the origins of evil needs a religious account (Original Sin, Iblis, soul-making). Listing types of evil (moral and natural) answers a different question."),
+
+    ("rs_edq:2.1i", &[
+        "Explain the causes of crime and the four aims of punishment: justice, retribution, deterrence and reformation, using Qur'an 16:90",
+        "Explain how criminals should be treated and the work of prison reformers and prison chaplains",
+        "Compare conservative and liberal Christian responses to the death penalty, interpreting Exodus 20:13 and Matthew 5:38-39, 43-47",
+        "Explain varied Muslim responses to the death penalty, including interpretations of Shari'ah",
+        "Define justice and punishment",
+    ], "Retribution is not revenge. It means the punishment fits the crime and is given by a lawful authority, and confusing the two loses marks in parts (a) and (b)."),
+
+    ("rs_edq:2.1j", &[
+        "Explain Christian teaching on forgiveness, interpreting Matthew 18:21-22 and Matthew 6:14-15",
+        "Explain Muslim teaching on forgiveness, using Qur'an 42:30 and 64:14",
+        "Describe an example of forgiveness arising from personal belief",
+        "Evaluate whether forgiveness should replace punishment",
+    ], "Forgiving someone does not mean they escape punishment. Strong answers separate personal forgiveness from the justice the law still requires."),
+
+    ("rs_edq:2.1k", &[
+        "Explain Christian and Muslim teaching on the dignity of human life, using Genesis 1:26-27 and Qur'an 5:32",
+        "Explain agape in action and ummah in action as ways of promoting human rights",
+        "Describe an example of conflict between personal conviction and the laws of a country",
+        "Explain censorship, freedom of religious expression and religious extremism, including Islamophobia",
+        "Define human rights, social justice, censorship, extremism and personal conviction",
+    ], "Extremism questions need balance: stating that one religion is violent is a factual error and is not credited as evaluation."),
+
+    ("rs_edq:2.1l", &[
+        "Distinguish prejudice from discrimination and explain how each affects individuals and society",
+        "Explain Christian teaching on prejudice and discrimination, using Galatians 3:27-29 and Martin Luther King's teaching on equality",
+        "Explain Muslim teaching on prejudice and racial discrimination, using Qur'an 5:8 and 49:13 and the work of the Christian/Muslim Forum",
+        "Evaluate whether religion helps to reduce prejudice",
+    ], "Prejudice is an attitude and discrimination is an action. A definition that blurs them earns one mark, not two."),
+
+    ("rs_edq:2.1m", &[
+        "Distinguish relative and absolute poverty",
+        "Explain Christian and Muslim ethical teaching on acquiring and using wealth, using Luke 16:19-31 and Qur'an 2:177",
+        "Describe how Christian Aid and Islamic Relief work to alleviate poverty",
+        "Evaluate whether religious believers should give away their wealth",
+    ], "Describing a charity means saying what it actually does (emergency aid, long-term development, campaigning), not just that it 'helps poor people'."),
+
+    ("rs_edq:2.2a", &[
+        "Explain God as omnipotent (Exodus 7-11, 14:21) and omnibenevolent (Psalm 86:15, John 3:16, Romans 8:37-39)",
+        "Explain the problem of evil and suffering, using Epicurus and the Book of Job (1:8-12, 42:1-6)",
+        "Explain the Trinity as one God in three persons, using John 10:30 and John 14:6-11",
+        "Evaluate which belief about God is most important for Christians",
+        "Define omnipotent, omnibenevolent and Trinity",
+    ], "The Trinity is one God, not three gods: answers that say Christians worship three gods contradict the doctrine and lose the definition mark."),
+
+    ("rs_edq:2.2b", &[
+        "Explain Genesis 1-3 on creation and on the nature and role of humans",
+        "Compare literal and non-literal ways of interpreting Genesis",
+        "Explain the role of the Word and the Spirit in creation, using John 1:1-5",
+        "Explain the Bible as the Word of God: inspiration, revelation, ways of interpreting it, and its authority beside other sources",
+    ], "Non-literal Christians still believe God created the world. Saying they 'do not believe in creation' is a common misreading."),
+
+    ("rs_edq:2.2c", &[
+        "Explain the incarnation, using John 1:14 and Luke 1:28-33",
+        "Explain the crucifixion and atonement, using Matthew 27:28-50, Matthew 26:26-29, Leviticus 16:20-22 and Isaiah 53:3-9",
+        "Explain the resurrection and ascension, using Luke 24:1-9, 1 Corinthians 15:3-8, 12-14 and Luke 24:50-53",
+        "Explain sin as preventing salvation, and the roles of grace and the Holy Spirit (Acts 2:1-6), including in Evangelical worship",
+        "Define incarnation, atonement and resurrection",
+    ], "Atonement is the repairing of the relationship between God and humans through Jesus' death. Defining it as 'saying sorry' earns nothing."),
+
+    ("rs_edq:2.2d", &[
+        "Explain Christian eschatological beliefs, using John 11:25-26 and John 14:2-7",
+        "Explain judgement, using the Sheep and the Goats (Matthew 25:31-46) and the Rich Man and Lazarus (Luke 16:19-31)",
+        "Explain bodily and spiritual resurrection, using 1 Corinthians 15:42-55",
+        "Compare traditional and contemporary beliefs about heaven and hell",
+    ], "Purgatory is a Catholic belief, not one held by all Christians. Presenting it as universal loses accuracy marks."),
+
+    ("rs_edq:2.2e", &[
+        "Explain the nature and significance of liturgical, informal and individual worship, using Matthew 18:20",
+        "Explain the importance of prayer, including the Lord's Prayer, set prayers and informal prayers",
+        "Describe worship in the Society of Friends (Quakers) and in Evangelical churches",
+        "Evaluate whether one form of worship is better than another",
+    ], "Quaker worship is mostly silent waiting with no set liturgy or priest. Describing it as a hymn-singing service is a factual error."),
+
+    ("rs_edq:2.2f", &[
+        "Explain diverse Christian beliefs about what a sacrament is and how many there are",
+        "Describe the meaning and celebration of baptism, using John 3:3-6, including infant and believers' baptism",
+        "Explain different Catholic and Protestant interpretations of the Eucharist, including transubstantiation and memorial",
+        "Define sacraments",
+    ], "The Eucharist question wants different beliefs. A description of what happens at Mass without explaining what different Christians believe about the bread and wine stays low."),
+
+    ("rs_edq:2.2g", &[
+        "Explain the importance of pilgrimage for Christians",
+        "Describe pilgrimage to Walsingham and to Taizé and explain what pilgrims gain",
+        "Describe how Christians celebrate Christmas and Easter and explain the beliefs behind the celebrations",
+        "Evaluate whether pilgrimage or festivals matter more to Christian faith",
+    ], "Taizé is an ecumenical community in France, not a shrine to Mary. Mixing it up with Walsingham is a frequent error."),
+
+    ("rs_edq:2.2h", &[
+        "Use the 2001, 2011 and 2021 census results to describe religious diversity in Britain",
+        "Explain how UK laws, festivals and traditions are rooted in Christianity while celebrating other traditions",
+        "Explain the role of the local church as a place of worship and a social and community centre",
+        "Explain the importance of mission, evangelism and church growth",
+        "Define evangelism",
+    ], "The 2021 census showed fewer than half of respondents in England and Wales calling themselves Christian, yet Christianity is still the largest religion. Answers often get one half of that wrong."),
+
+    ("rs_edq:2.2i", &[
+        "Describe the work of Tearfund as Christian belief in action",
+        "Explain the persecution of Christians past and present and how Christians respond",
+        "Explain how Christians work for reconciliation through the World Council of Churches and the ecumenical movement",
+        "Evaluate the most important role of the worldwide Church",
+    ], "In 2025 many candidates skipped or misread the reconciliation question. Reconciliation means restoring broken relationships, including between denominations, not only forgiving a crime."),
+
+    ("rs_edq:2.3a", &[
+        "Explain Tawhid, the oneness of Allah, using Qur'an 3:18",
+        "Explain the attributes of Allah: immanence, transcendence, omnipotence, beneficence, mercy, fairness and justice (Qur'an 46:33)",
+        "Explain Adalat (divine justice) in Shi'a Islam",
+        "Define Tawhid and shariah",
+    ], "Immanent means close to and active in the world; transcendent means beyond it. Swapping them is the most common definition error."),
+
+    ("rs_edq:2.3b", &[
+        "Name and explain the six articles of faith in Sunni Islam",
+        "Name and explain the five roots of Usul ad-Din in Shi'a Islam",
+        "Explain Muslim attitudes to the kutub: Sahifah, Tawrat, Zabur, Injil and the Qur'an",
+        "Compare the Sunni and Shi'a foundations of faith",
+    ], "The kutub are not equal in authority: Muslims believe the earlier books were revealed by Allah but altered or lost, while the Qur'an is preserved and final."),
+
+    ("rs_edq:2.3c", &[
+        "Explain the nature and importance of prophethood, using Qur'an 2:136",
+        "Explain the importance of Adam as the first prophet and of Ibrahim as father of Isma'il and Ishaq",
+        "Explain Isa as a prophet in Islam (Qur'an 2:87) and how this differs from Christian belief",
+        "Explain Muhammad as the Seal of the Prophets",
+        "Evaluate whether all prophets are equally important",
+    ], "Muslims honour Isa as a prophet, not as the Son of God. The 2025 report says pre-learnt answers on one prophet failed to evaluate the question set."),
+
+    ("rs_edq:2.3d", &[
+        "Explain the significance of angels in Islam, using Qur'an 2:97-98 and 2:285",
+        "Explain Muslim beliefs about angels and free will",
+        "Describe the roles of Jibril, Mika'il and Israfil, and the importance of Jibril's revelation of the Qur'an",
+    ], "Angels in Islam have no free will and always obey Allah. Saying they can choose to disobey contradicts the belief."),
+
+    ("rs_edq:2.3e", &[
+        "Explain al-Qadr (predestination) and its implications for human freedom",
+        "Explain human responsibility and accountability on the Day of Judgement",
+        "Explain Muslim beliefs about the nature, stages and purpose of heaven and the nature and purpose of hell",
+        "Evaluate whether belief in al-Qadr removes free will",
+    ], "The 2025 heaven question was lost by candidates who wrote about Judgement Day without linking it back to the nature and purpose of heaven."),
+
+    ("rs_edq:2.3f", &[
+        "Explain the Shahadah and its place in Muslim life (Qur'an 3:18)",
+        "Describe salah at the mosque and at home, including Jummah prayer (Qur'an 15:98-99, 29:45)",
+        "Explain zakah and how it is spent, and sawm in Ramadan (Qur'an 2:184), including issues for Muslims fasting in Britain",
+        "Describe Hajj (Qur'an 2:125) and issues for British Muslims undertaking it",
+        "Define mosque, halal, haram and ummah",
+    ], "Zakah is a fixed obligatory payment on savings above a threshold, distinct from voluntary sadaqah. Calling it a donation of any amount loses accuracy."),
+
+    ("rs_edq:2.3g", &[
+        "Name the Ten Obligatory Acts and explain how they overlap with the Five Pillars",
+        "Explain how Shi'a Muslims perform salah, observe sawm, pay zakah and khums, and make pilgrimage to Makkah and to Shi'a shrines",
+        "Explain amr-bil-maroof, nahi anil munkar, tawalla and tabarra",
+        "Evaluate the importance of the Ten Obligatory Acts for Shi'a Muslims",
+    ], "Khums is a Shi'a payment of one fifth of surplus income, not the same as zakah. Treating them as one practice loses the Shi'a detail the question wants."),
+
+    ("rs_edq:2.3h", &[
+        "Explain Greater Jihad as the daily struggle to live as a good Muslim, including in Britain today",
+        "Explain the origins of Lesser Jihad and the conditions for declaring it, using Qur'an 2:190 and 22:39",
+        "Evaluate whether Greater Jihad is more important than Lesser Jihad",
+        "Define Greater and Lesser Jihad",
+    ], "Jihad means struggle. Translating it as 'holy war' is a misconception, and Lesser Jihad has strict conditions that rule out terrorism."),
+
+    ("rs_edq:2.3i", &[
+        "Describe how Muslims in Britain and worldwide celebrate Id-ul-Adha and Id-ul-Fitr and explain their origins",
+        "Explain how Shi'a Muslims commemorate Ashura and why",
+        "Explain the importance of the Night of Power and how the Qur'an is viewed and treated",
+        "Evaluate whether all Muslims celebrate festivals in the same way",
+    ], "Ashura is a day of mourning for Shi'a Muslims, remembering Husayn's death at Karbala. Calling it a celebration misses its meaning."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

@@ -5732,6 +5732,171 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("IFuW1bkbDpw", "Kenilworth Castle | 10 Places That Made England with Dan Snow", "English Heritage"),
         ("VzeplGNrIhc", "Kenilworth Castle - physical features: 1266-1575", "Mr Loudon"),
     ]),
+    // WJEC Eduqas GCSE Religious Studies C120QS (Route A, Islam). Read off
+    // YouTube on 30 September 2026; every id, title and channel checked against
+    // YouTube's oEmbed response. Mr Elliott, Head of Religious Studies and
+    // Citizenship, Lytchett PRE and Peter Kernaghan teach the Eduqas Route A
+    // papers; MrMcMillanREvis and RS Bites cover the shared ethics content;
+    // AQA/Edexcel channels (Ben Wardle, No Waffle GCSE, Ms. Bee, Miss Morris
+    // Manc) are used only where the Islamic content is the same; charities and
+    // Humanists UK speak for themselves.
+    ("rs_edq:2.1a", &[
+        ("Re8FHRclTY4", "GCSE Religious Studies (Eduqas) - Theme 1: Issues of Relationships (explainer and revision video)", "Mr Elliott"),
+        ("pdsKASnwN10", "Paper 1 - Unit 1: Issues of relationships (Eduqas: Route A - Paper 1)", "Head of Religious Studies and Citizenship"),
+        ("Ld7KoRd_WIs", "GCSE RS Unit 3.3 - Marriage & Family Life in 5 Minutes | by MrMcMillanREvis", "MrMcMillanREvis"),
+    ]),
+    ("rs_edq:2.1b", &[
+        ("7G8iu2KLi-0", "GCSE RS Unit 3.3 (Part 2 of 5) Divorce | by MrMcMillanREvis", "MrMcMillanREvis"),
+        ("lV7t6Vr5xJo", "GCSE RS Unit 3.3 (Part 5 of 5) Contraception | by MrMcMillanREvis", "MrMcMillanREvis"),
+        ("2yGZFdo0gE0", "Natural Law - GCSE RS Bites", "RS Bites"),
+    ]),
+    ("rs_edq:2.1c", &[
+        ("5Mw_Zkjjdfs", "GCSE RS Unit 3.3 (Part 3 of 5) Homosexuality | by MrMcMillanREvis", "MrMcMillanREvis"),
+        ("fk92bMEneAg", "Should women be priests?  | Religous Studies - Divine Women", "BBC Bitesize for Teachers"),
+        ("-KRBIa3FNkc", "2.7-2.8 Christian teachings about the role of men and women: GCSE Religious Studies", "RS Teacher"),
+    ]),
+    ("rs_edq:2.1d", &[
+        ("sw1pA5aEq1w", "1 Life and Death Issues Orgins of the Universe", "Peter Kernaghan"),
+        ("xUqs9DcSIUc", "Paper 1 - Unit 2: Issues of Life and Death (Eduqas: Route A - Paper 1)", "Head of Religious Studies and Citizenship"),
+        ("UEgfj6Bf4uc", "The Big Bang and Evolution - GCSE RS Bites", "RS Bites"),
+    ]),
+    ("rs_edq:2.1e", &[
+        ("SF6Uzy0yaCQ", "2 Life and Death Issues Value of the world and animals", "Peter Kernaghan"),
+        ("8BoitEO6QR8", "Why is environmental sustainability important to Christians - Eduqas GCSE Life and Death", "Lytchett PRE"),
+        ("YzfU-eRe_Hs", "Peter Singer and Speciesism - GCSE RS Bites", "RS Bites"),
+    ]),
+    ("rs_edq:2.1f", &[
+        ("2xDzi71TkQY", "4 Life and Death Issues Abortion and Euthanasia", "Peter Kernaghan"),
+        ("VX7tArYx7iI", "3 Life and Death Issues Origin and Value of life", "Peter Kernaghan"),
+        ("lVQ7kMP0JbA", "GCSE Religious Studies (Eduqas) - Theme 2: Issues of Life & Death (explainer and revision video)", "Mr Elliott"),
+        ("p1PeICe4MUk", "'People should be allowed to choose to die with dignity.' | Andrew Copson | Assisted dying", "Humanists UK"),
+    ]),
+    ("rs_edq:2.1g", &[
+        ("lP50M-wSrOA", "5 Life ad Death Issues   Life after Death  Funerals", "Peter Kernaghan"),
+        ("MUbHa9Bl6FE", "Life after death | Islam", "No Waffle GCSE"),
+        ("28FxOKDpobE", "Humanist, non-religious funerals", "Humanists UK"),
+    ]),
+    ("rs_edq:2.1h", &[
+        ("uQwy7pIlyig", "GCSE Religious Studies (Eduqas) - Theme 3: Issues of Good & Evil (explainer and revision video)", "Mr Elliott"),
+        ("6WzTxwCWYi0", "Paper 1 - Unit 3: Issues of Good and Evil (Eduqas: Route A - Paper 1)", "Head of Religious Studies and Citizenship"),
+        ("FUDmovWczng", "John Hick & the Soul-Making Theodicy | The Problem of Evil", "Untangle Philosophy | Philosophy Made Simple"),
+    ]),
+    ("rs_edq:2.1i", &[
+        ("YK8fFmKAiaA", "Capital Punishment - GCSE RS Bites", "RS Bites"),
+        ("77rIfQF3r9c", "AQA Mr Lane Crime and Punishment : Islam Aims of Punishment", "Joe Lane (Mr Lane)"),
+        ("yv-DIs71EQM", "AQA Mr Lane Crime and Punishment : Islam Capital Punishment", "Joe Lane (Mr Lane)"),
+        ("qqo0vYvrSPU", "What are the rights and wrongs of the death penalty? | Religious Studies - Matters of Life and Death", "BBC Bitesize for Teachers"),
+    ]),
+    ("rs_edq:2.1j", &[
+        ("tgQyBLWFDBI", "RE - A Mother's Forgiveness - BBC Learing", "bbclearning"),
+        ("i-OhBopYz8Y", "Forgiveness in the Bible - GCSE RS Bites", "RS Bites"),
+        ("pEE7fCWAHP0", "GCSE Religious Studies | Should religious people always forgive? | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+    ]),
+    ("rs_edq:2.1k", &[
+        ("jx7Sqzbqg0I", "GCSE Religious Studies (Eduqas) - Theme 4: Issues of Human Rights (explainer and revision video)", "Mr Elliott"),
+        ("3lMakXOxrNw", "Paper 1 - Unit 4: Issues of Human Rights (Eduqas: Route A - Paper 1)", "Head of Religious Studies and Citizenship"),
+        ("n3XDN6TAHoM", "E is for Extremism | A to Z of Religion and Beliefs | BBC Teach", "BBC Bitesize for Teachers"),
+    ]),
+    ("rs_edq:2.1l", &[
+        ("Eh_HXrurrTA", "GCSE RS Unit 3.4 (Part 2 of 4) Discrimination & Prejudice | by MrMcMillanREvis", "MrMcMillanREvis"),
+        ("ymc0ala25Fo", "Martin Luther King Jr. - Religion and Equality Revision", "Miss Richards"),
+        ("ulCLciKTS7w", "Come to the Edge: Faith, Fear & Friendship", "Christian Muslim Forum"),
+    ]),
+    ("rs_edq:2.1m", &[
+        ("NFy-pYDVRiQ", "GCSE RS Unit 3.2 (Part 5 of 5) World Poverty | by MrMcMillanREvis", "MrMcMillanREvis"),
+        ("GT9JNpi0P44", "This is Christian Aid", "thisischristianaid"),
+        ("Bhm0Ht95ceU", "40 years of Islamic Relief", "Islamic Relief Worldwide"),
+    ]),
+    ("rs_edq:2.2a", &[
+        ("cuA4wL8XL_A", "1 Christian Beliefs and teachings   Nature of God", "Peter Kernaghan"),
+        ("liCWoXqu2pI", "GCSE Religious Studies (Eduqas) - Christian Beliefs and Practices (explainer and revision video)", "Mr Elliott"),
+        ("oxZ9-uHheoM", "The Trinity - GCSE RS Bites", "RS Bites"),
+        ("e2fQNXvwWKg", "Describe Christian beliefs about suffering Eduqas GCSE RS", "Lytchett PRE"),
+    ]),
+    ("rs_edq:2.2b", &[
+        ("67b-mb2mpKo", "2 Christian Beliefs and Teachings   Creation", "Peter Kernaghan"),
+        ("Us0zsu4s0AY", "Eduqas GCSE RE Explain the different ways that Christians interpret the Genesis Creation accounts", "Lytchett PRE"),
+    ]),
+    ("rs_edq:2.2c", &[
+        ("66k0ZbNomqA", "3 Christian Beliefs and teachings   Jesus Christ", "Peter Kernaghan"),
+        ("cmGQYnFnNhY", "4 Christian Beliefs and Teachings Salvation", "Peter Kernaghan"),
+        ("qmJQs_B4KHo", "Paper 2 - Christian Beliefs (Eduqas: Route A)", "Head of Religious Studies and Citizenship"),
+    ]),
+    ("rs_edq:2.2d", &[
+        ("fwuX5ro2Z-w", "5 Christian Beliefs and Teachings Eschatology", "Peter Kernaghan"),
+        ("iGk0rBBFsbo", "The afterlife heaven, hell and purgatory. Christianity. GCSE AQA Religious Studies", "Wise Revise"),
+    ]),
+    ("rs_edq:2.2e", &[
+        ("MHW0EgKZ_uM", "GCSE RS Revision Comp 2 Christian Practices 1of5", "Peter Kernaghan"),
+        ("E9KLsw6KCM8", "Paper 2 - Christian Practices (Eduqas: Route A)", "Head of Religious Studies and Citizenship"),
+        ("8JpYuY1sF_I", "Non-Liturgical and Liturgical Worship EXPLAINED!", "Louis Revision"),
+    ]),
+    ("rs_edq:2.2f", &[
+        ("OZ2dTz5wiPo", "The Sacraments - GCSE RS Bites", "RS Bites"),
+        ("uT8EXzrstZA", "The Eucharist - GCSE RS Bites", "RS Bites"),
+        ("uRymbCJmbYk", "What is a Christian Baptism? | Religious Studies - My Life, My Religion: Christianity", "BBC Bitesize for Teachers"),
+    ]),
+    ("rs_edq:2.2g", &[
+        ("hddgmFy_-pY", "Educational Videos for Schools: Why Walsingham?", "The Anglican Shrine of Our Lady of Walsingham"),
+        ("1njIvRW2RgI", "Reflections on a week in Taizé", "Diocese of Norwich (Church of England)"),
+        ("wXk3wsnBia8", "3.5 Christian religious celebrations: GCSE Religious Studies", "RS Teacher"),
+        ("CageBjJLDjA", "\"Easter is most important festival for Christians\"", "Lytchett PRE"),
+    ]),
+    ("rs_edq:2.2h", &[
+        ("vnYtxRU5xIs", "Census: Christians in England & Wales falls below half for first time", "Sky News"),
+        ("RwCFJYmWGig", "Church in the community | AQA Christianity", "No Waffle GCSE"),
+        ("ZDfL67jrAGs", "Mission and Evangelism | AQA Christianity", "No Waffle GCSE"),
+    ]),
+    ("rs_edq:2.2i", &[
+        ("UVlrCexLrYM", "Introduction to Tearfund", "Tearfund"),
+        ("uZaAnpeClm0", "GCSE Christian Practices. Describe the work of the World Council of Churches", "Lytchett PRE"),
+        ("-f0sgHwrd9Q", "Eduqas GCSE RS Explain the importance of the ecumenical movement for Christians.", "Lytchett PRE"),
+        ("FG3p2iEdeGQ", "Persecution | AQA Christianity", "No Waffle GCSE"),
+    ]),
+    ("rs_edq:2.3a", &[
+        ("2J9bofm3BUA", "GCSE Religious Studies (Eduqas) - Islamic Beliefs and Practices (explainer and revision video)", "Mr Elliott"),
+        ("vsMbHRDJNOY", "Paper 3 - Islamic Beliefs: Sunni (Eduqas: Route A)", "Head of Religious Studies and Citizenship"),
+        ("9XXe3RQn_TA", "ISLAM: TAWHID & THE NATURE OF GOD", "Ben Wardle"),
+    ]),
+    ("rs_edq:2.3b", &[
+        ("M13QODyn-pU", "Paper 3 - Islamic Beliefs: Shi'a (Eduqas: Route A)", "Head of Religious Studies and Citizenship"),
+        ("9ZH9S9LO84Q", "AQA GCSE Religious Studies Islam Six Articles of Faith and Five Roots of Usul Ad-Din Revision", "MsRutherfordRS"),
+        ("rkakZtq2fKk", "1. Six articles of faith and five roots of Usul ad-Din", "ColmersRS"),
+    ]),
+    ("rs_edq:2.3c", &[
+        ("hztR5PvcDgY", "GCSE ISLAM: RISALAH - PROPHETHOOD (ADAM, IBRAHIM, ISA & MUHAMMAD) | GCSE RELIGIOUS STUDIES AQA", "Ben Wardle"),
+        ("-gxw0WWrpJo", "Prophethood: Adam| AQA Islam", "No Waffle GCSE"),
+        ("Vap4TQi4Jjw", "Prophethood: Ibrahim | AQA Islam", "No Waffle GCSE"),
+    ]),
+    ("rs_edq:2.3d", &[
+        ("4XSEphk7ovg", "ISLAM: ANGELS - NATURE & IMPORTANCE (GCSE RELIGIOUS STUDIES)", "Ben Wardle"),
+        ("d77En82EcpI", "Basic Beliefs of Islam - Angels", "University of Nottingham"),
+        ("8WxyWxIb-qU", "Angels | AQA Islam", "No Waffle GCSE"),
+    ]),
+    ("rs_edq:2.3e", &[
+        ("DAb-ETJjtLg", "ISLAM: AKHIRAH - LIFE AFTER DEATH & PREDESTINATION (GCSE RELIGIOUS STUDIES)", "Ben Wardle"),
+        ("HIOSi94tI5c", "Akhirah - Islam Beliefs and Teachings - AQA GCSE Religious Studies", "Ms. Bee Religious Studies"),
+    ]),
+    ("rs_edq:2.3f", &[
+        ("UIAM3VQ27hY", "Paper 3 - Islamic Practices: (Eduqas: Route A)", "Head of Religious Studies and Citizenship"),
+        ("H9U8T8x1AhQ", "The Five Pillars of Islam | Religions of the World", "BBC Bitesize for Teachers"),
+        ("Ok7-mB62xeE", "What is Hajj? | Religious Studies - My Life, My Religion: Islam", "BBC Bitesize for Teachers"),
+        ("PrqxCU6Y_7c", "GCSE Religious Studies (Eduqas): Walkthrough - Islam Paper (Route A)", "Mr Elliott"),
+    ]),
+    ("rs_edq:2.3g", &[
+        ("VyElTrvo6_s", "01 Islam Practices   5 Pillars & 10 Obligatory Acts", "Harris Federation Religious Studies"),
+        ("D6VLzBBRpG4", "Edexcel Religious Studies - Living the Muslim Life - 1 Ten Obligatory Acts", "Miss Morris Manc"),
+    ]),
+    ("rs_edq:2.3h", &[
+        ("PrDAmMqfqh8", "ISLAM PRACTICES - Jihad", "Reigate_School_RE_Sociology"),
+        ("825Nqua2tVo", "EXAM TECHNIQUE - 12 mark question: 'Greater jihad is more important than lesser jihad'.", "Reigate_School_RE_Sociology"),
+    ]),
+    ("rs_edq:2.3i", &[
+        ("0hWJenSYrZQ", "AQA GCSE Religious Studies - Islamic Festivals", "Ms. Bee Religious Studies"),
+        ("qFU9Cb0D6lo", "Ramadan and Eid-ul-Fitr | Religious Studies - My Life, My Religion: Islam", "BBC Bitesize for Teachers"),
+        ("bT9gagG48Gc", "What is Ashura and how do Muslims observe it?", "Middle East Eye"),
+        ("Gfl_fkUe5Ms", "Children's Series - What is Laylatul Qadr? - The Night of Decree - Mufti Menk", "Mufti Menk"),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.

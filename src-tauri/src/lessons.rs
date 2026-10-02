@@ -1240,6 +1240,39 @@ const HIST_AQA: &[(&str, &str)] = &[
     ("hist_aqa:2BC.3b", include_str!("../lessons/hist_aqa/2BC.3b.md")),
     ("hist_aqa:2BC.4", include_str!("../lessons/hist_aqa/2BC.4.md")),
 ];
+const RS_EDQ: &[(&str, &str)] = &[
+    ("rs_edq:2.1a", include_str!("../lessons/rs_edq/2.1a.md")),
+    ("rs_edq:2.1b", include_str!("../lessons/rs_edq/2.1b.md")),
+    ("rs_edq:2.1c", include_str!("../lessons/rs_edq/2.1c.md")),
+    ("rs_edq:2.1d", include_str!("../lessons/rs_edq/2.1d.md")),
+    ("rs_edq:2.1e", include_str!("../lessons/rs_edq/2.1e.md")),
+    ("rs_edq:2.1f", include_str!("../lessons/rs_edq/2.1f.md")),
+    ("rs_edq:2.1g", include_str!("../lessons/rs_edq/2.1g.md")),
+    ("rs_edq:2.1h", include_str!("../lessons/rs_edq/2.1h.md")),
+    ("rs_edq:2.1i", include_str!("../lessons/rs_edq/2.1i.md")),
+    ("rs_edq:2.1j", include_str!("../lessons/rs_edq/2.1j.md")),
+    ("rs_edq:2.1k", include_str!("../lessons/rs_edq/2.1k.md")),
+    ("rs_edq:2.1l", include_str!("../lessons/rs_edq/2.1l.md")),
+    ("rs_edq:2.1m", include_str!("../lessons/rs_edq/2.1m.md")),
+    ("rs_edq:2.2a", include_str!("../lessons/rs_edq/2.2a.md")),
+    ("rs_edq:2.2b", include_str!("../lessons/rs_edq/2.2b.md")),
+    ("rs_edq:2.2c", include_str!("../lessons/rs_edq/2.2c.md")),
+    ("rs_edq:2.2d", include_str!("../lessons/rs_edq/2.2d.md")),
+    ("rs_edq:2.2e", include_str!("../lessons/rs_edq/2.2e.md")),
+    ("rs_edq:2.2f", include_str!("../lessons/rs_edq/2.2f.md")),
+    ("rs_edq:2.2g", include_str!("../lessons/rs_edq/2.2g.md")),
+    ("rs_edq:2.2h", include_str!("../lessons/rs_edq/2.2h.md")),
+    ("rs_edq:2.2i", include_str!("../lessons/rs_edq/2.2i.md")),
+    ("rs_edq:2.3a", include_str!("../lessons/rs_edq/2.3a.md")),
+    ("rs_edq:2.3b", include_str!("../lessons/rs_edq/2.3b.md")),
+    ("rs_edq:2.3c", include_str!("../lessons/rs_edq/2.3c.md")),
+    ("rs_edq:2.3d", include_str!("../lessons/rs_edq/2.3d.md")),
+    ("rs_edq:2.3e", include_str!("../lessons/rs_edq/2.3e.md")),
+    ("rs_edq:2.3f", include_str!("../lessons/rs_edq/2.3f.md")),
+    ("rs_edq:2.3g", include_str!("../lessons/rs_edq/2.3g.md")),
+    ("rs_edq:2.3h", include_str!("../lessons/rs_edq/2.3h.md")),
+    ("rs_edq:2.3i", include_str!("../lessons/rs_edq/2.3i.md")),
+];
 
 const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("fpm", FPM),
@@ -1276,6 +1309,7 @@ const TABLES: &[(&str, &[(&str, &str)])] = &[
     ("bus_edx", BUS_EDX),
     ("cs_aqa", CS_AQA),
     ("hist_aqa", HIST_AQA),
+    ("rs_edq", RS_EDQ),
 ];
 
 fn all() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
