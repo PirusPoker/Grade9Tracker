@@ -135,6 +135,9 @@ const PETEJ: &str = "Pete Jackson";
 const HRS: &str = "History Revision Success";
 const HTUTOR: &str = "TheHistoryTutor";
 
+const EBMS: &str = "edexcelbgeographymadesimple";
+const JCG: &str = "JCgeogsupport";
+
 const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
     // ---------- Computer Science (OCR GCSE J277) ----------
     ("cs:1.1.1", &[
@@ -5896,6 +5899,246 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("qFU9Cb0D6lo", "Ramadan and Eid-ul-Fitr | Religious Studies - My Life, My Religion: Islam", "BBC Bitesize for Teachers"),
         ("bT9gagG48Gc", "What is Ashura and how do Muslims observe it?", "Middle East Eye"),
         ("Gfl_fkUe5Ms", "Children's Series - What is Laylatul Qadr? - The Night of Decree - Mufti Menk", "Mufti Menk"),
+    ]),
+    // ---------- Geography B (Pearson Edexcel GCSE 1GB0) - edexcelbgeographymadesimple, JCgeogsupport and others ----------
+    ("geog_edxb:1.1", &[
+        ("SrLaitvQnpk", "The Global Atmospheric Circulation Hazardous Earth GCSE Geography Revision", EBMS),
+        ("xqM83_og1Fc", "What is global circulation? | Part Two | The three cells", "Met Office - Learn About Weather"),
+    ]),
+    ("geog_edxb:1.2", &[
+        ("Zb7FezCHaAk", "What caused climate change in the past? Hazardous Earth GCSE Geography Revision", EBMS),
+        ("kJIZRW3ys58", "Natural Climate Change Explained | GCSE Geography | Sunspots, Volcanoes & Milankovitch Cycles", "HRB Education"),
+        ("Chsp1MgbAFk", "How are ice cores proof of climate change?", "GeoLensProject"),
+    ]),
+    ("geog_edxb:1.3", &[
+        ("uvIYqWvLNHM", "What are the causes of the Enhanced Greenhouse Effect? Hazardous Earth GCSE Geography Revision", EBMS),
+        ("MMSIp7l2vbU", "Climate Change - Evidence, Causes & Effects | AQA GCSE 9-1 Geography", KED),
+    ]),
+    ("geog_edxb:1.4", &[
+        ("UOL3vsgvtQI", "How do Tropical Cyclones Form? Hazardous Earth GCSE Geography Revision | Hurricane Formation", EBMS),
+        ("n9AIczTSr_0", "Formation of Tropical Storms Explained | Hurricanes, Cyclones & Typhoons | GCSE Geography | HRB Ed", "HRB Education"),
+    ]),
+    ("geog_edxb:1.5", &[
+        ("zAmmtdB8uCQ", "How to answer GCSE Exam questions on Weather Hazards | Hurricanes and Tropical Cyclones | Edexcel B", EBMS),
+        ("an5uDl2ftb8", "Understanding Storm Surge", "Bureau of Meteorology"),
+    ]),
+    ("geog_edxb:1.6", &[
+        ("6IqSsIMkyrQ", "Hurricane Katrina HIC Case Study | Paper 1 Hazardous Earth Revision | All you need to know", EBMS),
+        ("ad9cKmy0YvQ", "5) Typhoon Haiyan. A case study. Powered by @GeographyHawks", HAWKS),
+    ]),
+    ("geog_edxb:1.7", &[
+        ("QkL8jyxE1VY", "Why Do Tectonic Plates Move? Convection currents and Hotspots Explained Edexcel B GCSE Geography", EBMS),
+        ("quNNfccfK_8", "Edexcel GCSE Geography - The Earth's Interior", PEARSONUK),
+    ]),
+    ("geog_edxb:1.8", &[
+        ("bQ8HKc96mZs", "Types of Tectonic Plate Boundaries Explained Hazardous Earth Edexcel B GCSE Geography", EBMS),
+        ("_uWL7nbkb3A", "Edexcel GCSE Geography - The Distribution of Plate Boundaries", PEARSONUK),
+        ("qK5CkfJUwBk", "Easy Volcano Types Guide | Shield, Composite & Cinder Cone Volcanoes For Geography", "HRB Education"),
+    ]),
+    ("geog_edxb:1.9", &[
+        ("mU8_GhOUyF0", "Japan Earthquake and Tsunami of March 2011 | HIC GCSE case study | Paper 1 Hazardous Earth Revision", EBMS),
+        ("BgO6V4GnBiE", "Nepal Earthquakes of April and May 2015 LIC case study | Paper 1 Hazardous Earth Revision", EBMS),
+    ]),
+    ("geog_edxb:2.1", &[
+        ("y0TTQYKS3Qo", "How do we measure Development? Development Indicators Explained | Edexcel B GCSE Geography Revision", EBMS),
+        ("N3y1NGNm4aU", "Measuring Development | GCSE GEOGRAPHY", NOWAFFLE),
+    ]),
+    ("geog_edxb:2.2", &[
+        ("Ne8cDiUtkJs", "Development Theories Rostow's Theory and Frank's Dependency Theory explained | GCSE Revision", EBMS),
+        ("LadILZmfdd4", "Theories of Development : GCSE Development Dynamics", JCG),
+    ]),
+    ("geog_edxb:2.3", &[
+        ("e6SHmmrf1bs", "What are Top down and Bottom up Development strategies? Development Dynamics GCSE Geography Revision", EBMS),
+        ("9wxGQnqwzVI", "JCs Geog Support | GCSE | Development Dynamics | Top Down/ Bottom up strategies", JCG),
+        ("7RYB1Yj1Lkc", "How Globalisation has helped Countries to Develop and the Clark Fisher Model Explained", EBMS),
+    ]),
+    ("geog_edxb:2.4", &[
+        ("6auYZzTYHwY", "Ep 9  India's Importance on the World Stage | Development Dynamics | GCSE Geography Revision.", EBMS),
+        ("yE_ZHbhLmPc", "Topic 2  Lesson 3- How Location and Globalisation Shape India’s Development", "MsBaileyTeaches"),
+    ]),
+    ("geog_edxb:2.5", &[
+        ("UEZdQzPnjNU", "Ep 7 Factors that have led to India's rapid economic development | Development Dynamics | GCSE Geog.", EBMS),
+        ("0XuViFIyrwA", "JCs Geog Support | GCSE | Development Dynamics | Reasons for India's growth", JCG),
+    ]),
+    ("geog_edxb:2.6", &[
+        ("HXs13X6SkwI", "What are the Impacts of Development in India? GCSE Geography Revision", EBMS),
+        ("L2gNo02Dg6E", "Development Inequality in India Maharashtra vs Bihar | Development Dynamics GCSE Geography Revision", EBMS),
+    ]),
+    ("geog_edxb:2.7", &[
+        ("S7EQSfi4cGA", "GCSE Geography Development Dynamics: Indian's challenges and international role", JCG),
+        ("6auYZzTYHwY", "Ep 9  India's Importance on the World Stage | Development Dynamics | GCSE Geography Revision.", EBMS),
+    ]),
+    ("geog_edxb:3.1", &[
+        ("nDKzcZ48ZnQ", "Megacities Explained | Why Cities Are Growing So Fast | GCSE Geography by HRB Education", "HRB Education"),
+        ("REcu0XG0iqc", "Megacities | AQA GCSE Geography | Urbanisation 2", T2U),
+    ]),
+    ("geog_edxb:3.2", &[
+        ("2S8tNq0NmqU", "Urban Differences Between LICs MICs and HICs Challenges of an Urbanising World GCSE Revision", EBMS),
+        ("kA4XIqm3W2M", "Formal and Informal Economy", "Geog Snippets"),
+    ]),
+    ("geog_edxb:3.3", &[
+        ("iGdNXacSROg", "Counter Urbanisation - Why do People Move to the Countryside?  - GCSE Geography", "I'm Stuck - GCSE and A-Level Revision"),
+        ("BZPTIZDu73I", "CBD - Urban land use revision", "Geog on the Box"),
+    ]),
+    ("geog_edxb:3.4", &[
+        ("f1V8L66YNMc", "Mumbai's Urban Structure site situation and connectivity Challenges of an Urbanising World Revision", EBMS),
+        ("n9NBeGj0RGE", "Mumbai - Site Situation and Connectivity", "Geography208"),
+    ]),
+    ("geog_edxb:3.5", &[
+        ("8Jesqej1FrE", "Urbanisation GCSE Revision: Video 1 - What Makes Mumbai a Megacity?", "Geography In Action"),
+        ("f1V8L66YNMc", "Mumbai's Urban Structure site situation and connectivity Challenges of an Urbanising World Revision", EBMS),
+    ]),
+    ("geog_edxb:3.6", &[
+        ("65RDTcE21Tg", "Mumbai What are the Challenges facing this Megacity? Challenges of an Urbanising World GCSE Revision", EBMS),
+        ("cSTNpZCGRMI", "What Opportunities does Mumbai Offer? Challenges of an Urbanising World GCSE Revision", EBMS),
+    ]),
+    ("geog_edxb:3.7", &[
+        ("HXFMxBSrxu8", "Vision Mumbai Top-down Case Study | Challenges of an Urbanising World GCSE Revision", EBMS),
+        ("sp0NHElctqY", "Urbanisation GCSE Revision: Video 7 - Can Bottom-Up Strategies Improve Mumbai?", "Geography In Action"),
+        ("6ofvTM1kfO4", "Urbanisation GCSE Revision: Video 6 - Top-Down Development Strategies in Mumbai", "Geography In Action"),
+    ]),
+    ("geog_edxb:4.1", &[
+        ("EyTlmFdCMVY", "How are the Different rock types distributed in the UK | Tees-Exe Line | GCSE Geography Revision", EBMS),
+        ("-RGWVbC-NQQ", "GCSE: UK physical landscape: upland and lowland areas", JCG),
+    ]),
+    ("geog_edxb:4.2", &[
+        ("5vvPeNv6wSA", "How as Human activity influenced UK Landscape? UK Evolving Physical Landscapes", EBMS),
+        ("u8Hnj0bOLuM", "The Lake District : An Upland Landscape case study | UK Evolving Physical Landscapes | GCSE Revision", EBMS),
+    ]),
+    ("geog_edxb:4.3", &[
+        ("KlcuyF7UkfM", "What are Concordant and Discordant coastlines? UK Evolving Physical Landscapes | GCSE Revision", EBMS),
+        ("BNyK1xO08Qg", "What are coastal erosion landforms? | GCSE Geography | BBC Bitesize", "BBC Bitesize - GCSE Revision Support"),
+        ("2TcSm1R3w3A", "Ep 7 Long shore Drift and Coastal Depositional Landforms Spits Hooks Bars Lagoons Tombolo Salt Marsh", EBMS),
+    ]),
+    ("geog_edxb:4.4", &[
+        ("9R9SyhygWN0", "The Holderness Coast (Coasts Case Study) | AQA GCSE 9-1 Geography", KED),
+        ("U41JtXXLR38", "The Holderness Coastline - erosion and management", "Rob Gamesby"),
+        ("-yTyGIFWIhs", "Edexcel GCSE Geography B: UK physical Landscape: Human activity on the coastline", JCG),
+    ]),
+    ("geog_edxb:4.5", &[
+        ("nOEUlDDkVWA", "Ep 8 Coastal Management Hard & Soft Engineering Modern Approaches ICZMs SMPs GCSE Geography Revision", EBMS),
+        ("Z2CsQjliQq4", "Coastal Management - Hard & Soft Engineering, Managed Retreat | AQA GCSE 9-1 Geography", KED),
+        ("dsfQjn7ppgA", "Coastal Flooding - Climate Change | Geography", "CENTURY Tech"),
+    ]),
+    ("geog_edxb:4.6", &[
+        ("UmUbkiSIHN0", "River erosion processes and Landforms in the upper course of a river | GCSE Geography Revision", EBMS),
+        ("84hzSvNV-_I", "The Bradshaw Model and The Landforms in the Middle and Lower Course of a River | GCSE Revision", EBMS),
+        ("nvPYWbIq8jE", "River Tees (River Landforms Case Study) | AQA GCSE 9-1 Geography", KED),
+        ("YO5meosgJcE", "Hydrographs Explained | Lag Time, Peak Discharge & What They Mean | GCSE Geography", "Hums Mums"),
+    ]),
+    ("geog_edxb:4.7", &[
+        ("RKYQcpYbCS0", "Chobham Academy - Geography: River Eden Case Study", "Harris Academy Chobham"),
+        ("aV_V_4bMwPI", "Storm Desmond: Helicopter journey over flooded Cumbria - BBC News", "BBC News"),
+        ("8_oMQ9sD5YE", "GCSE Rivers : Storm Hydrographs", JCG),
+    ]),
+    ("geog_edxb:4.8", &[
+        ("udCezdUJoXc", "Flood Management: Soft & Hard Engineering | AQA GCSE 9-1 Geography", KED),
+        ("6wTj-cdGzCA", "Flood Management: Soft Engineering Explained | AQA GCSE Geography (Rivers)", "Hums Mums"),
+    ]),
+    ("geog_edxb:5.1", &[
+        ("MW8fGsOfaTI", "The Population Density of the UK | Urban Cores and Rural Periphery | GCSE Geography Revision", EBMS),
+        ("4aDQD9oIduc", "GCSE: UK Evolving Human Landscapes: Rural/ Urban development", JCG),
+    ]),
+    ("geog_edxb:5.2", &[
+        ("11MaEQtdiLY", "Ep 4 The Decline of the Old Economy in the UK | UK Evolving Human Landscape | GCSE Geography", EBMS),
+        ("OueZgFfS_oQ", "Ep 5 The Rise of the New Economy in the UK | UK Evolving Human Landscape | GCSE Geography Revision", EBMS),
+    ]),
+    ("geog_edxb:5.3", &[
+        ("UXPxHwpCBW0", "London's Urban Structure, Site, Situation and Land values | GCSE Geography Revision", EBMS),
+        ("ADxW1-Va9Gk", "Ep 6 London's Site Situation and Connectivity | UK Evolving Human Landscape GCSE Geography Revision", EBMS),
+    ]),
+    ("geog_edxb:5.4", &[
+        ("8xfmzqByhBU", "What are the Causes and Impacts of Migration to London? | GCSE Geography Revision", EBMS),
+        ("K9S595FlWpA", "Ep 7 Using the IMD to explain Inequality in London | UK Evolving Human Landscape GCSE Revision", EBMS),
+    ]),
+    ("geog_edxb:5.5", &[
+        ("CSTcm7eSuho", "Ep 8 London's Past Cycle of Decline | UK Evolving Human Landscape GCSE Geography Revision", EBMS),
+        ("rHNUPRZWErw", "London's Urban Sprawl and Regeneration | GCSE Geography Revision", EBMS),
+    ]),
+    ("geog_edxb:5.6", &[
+        ("ttD7LfpIn_s", "What Strategies have been used to make London More Sustainable? | GCSE Geography Revision", EBMS),
+        ("_XSHPXJ_PMU", "London's Olympic Park Regeneration | AQA GCSE Geography | London Case Study 10", T2U),
+    ]),
+    ("geog_edxb:5.7", &[
+        ("8ldekhaJ_uM", "Ep 11 Interdependence Between London and Accessible Rural Area | Terling, Essex", EBMS),
+        ("d8mgiQ3qTj4", "5 7 (a) Urban-Rural Interdependence", "Challoner Geography"),
+    ]),
+    ("geog_edxb:5.8", &[
+        ("WMB0lofxSFs", "5 8b  Rural Diversification", "Challoner Geography"),
+        ("j39DOJFYMNA", "Diversification - A Guide To Diversification In Farming - GCSE Geography", "I'm Stuck - GCSE and A-Level Revision"),
+    ]),
+    ("geog_edxb:6a", &[
+        ("LAS4cXdrJ_I", "GCSE Geography | Undertaking Coastal Fieldwork | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+        ("UYLJUDsmH98", "GCSE Geography coastal fieldwork. Beach profile part 1", JCG),
+        ("uWxSoy81Q3g", "Paper 2 Revision Geographical Investigations | GCSE Geography Edexcel B| Topic 6", EBMS),
+    ]),
+    ("geog_edxb:6b", &[
+        ("Gl6sPzd2gy8", "GCSE Geography | River Fieldwork | Bitesize | GCSE Revision", "BBC Bitesize - GCSE Revision Support"),
+        ("z76HajNOFW0", "Geography Physical Fieldwork: Rivers", "Geography BLS"),
+    ]),
+    ("geog_edxb:6c", &[
+        ("Q0i8Pl-_XTs", "How to Answer Urban Fieldwork Questions (GCSE Geography Edexcel B)", "Geography Gaines"),
+        ("xkEnrTSiOrQ", "Urban Fieldwork GCSE Geography Revision: Video 1 - Urban Geography Fieldwork in East London", "Geography In Action"),
+    ]),
+    ("geog_edxb:6d", &[
+        ("uWxSoy81Q3g", "Paper 2 Revision Geographical Investigations | GCSE Geography Edexcel B| Topic 6", EBMS),
+        ("XKd28CiWhho", "Edexcel B Geography Paper 2 Walkthrough Part 2 (Fieldwork)", "HLS Geog"),
+    ]),
+    ("geog_edxb:7.1", &[
+        ("X1dAbCKmhmU", "What and Where are the Earth's Biomes | People and the Biosphere | GCSE Geography Revision", EBMS),
+        ("H5rLf-Lwkaw", "What Local Factors Influence Biomes | People and the Biosphere | GCSE Geography Revision", EBMS),
+    ]),
+    ("geog_edxb:7.2", &[
+        ("GZZFRnDb_Pg", "Population vs Resources theories Esther Boserup | People and the Biosphere | GCSE Geography Revision", EBMS),
+        ("IEanNSMQrOE", "GCSE Geography unit 3: Malthus and Boserup", JCG),
+        ("4oIVHqjU-Jo", "Ep 5 Exploiting vs Destroying Ecosystem Services | People & the Biosphere | GCSE Geography Revision", EBMS),
+    ]),
+    ("geog_edxb:8.1", &[
+        ("r-yH6RuvJYE", "What are the Characteristics of Tropical Rainforests? Where are they? Why? Animal Plant Adaptations", EBMS),
+        ("fPcuo0mZipk", "The Nutrient Cycle and Food Webs in the Tropical Rainforests | Forests Under Threat | GCSE Revision", EBMS),
+    ]),
+    ("geog_edxb:8.2", &[
+        ("aSWz5gYUwxU", "What are the Characteristics of the Taiga / Boreal? Where are they? Why? Animal Plant Adaptations", EBMS),
+    ]),
+    ("geog_edxb:8.3", &[
+        ("c4_wNzQCPkY", "What are the Direct and Indirect Threats to Tropical Rainforests? GCSE Geography Revision", EBMS),
+        ("ZMzONuVnxQo", "Deforestation in Tropical Rainforests Explained | Causes & Impacts | GCSE Geography | HRB Education", "HRB Education"),
+    ]),
+    ("geog_edxb:8.4", &[
+        ("mc3JvLP1Sr8", "What are the Direct and Indirect Threats to the Taiga / Boreal Forests? GCSE Geography Revision", EBMS),
+        ("T1KNR3ehXdY", "Direct vs Indirect Threats to Forests | Taiga & Tropical Rainforest | GCSE Geography (Paper 3)", "GeoLensProject"),
+    ]),
+    ("geog_edxb:8.5", &[
+        ("FDRljrWjxsE", "What is Being Done to Protect Tropical Rainforests? Forests Under Threat | GCSE Geography Revision", EBMS),
+        ("gKfAtdCULss", "GCSE Geography Paper 3: Protecting Tropical Rainforests (CITES, REDD+ & Juma Reserve Case Study)", "GeoLensProject"),
+    ]),
+    ("geog_edxb:8.6", &[
+        ("Emsv0kadCrM", "What is Being Done to Protect the Taiga? Forests Under Threat | GCSE Geography Revision", EBMS),
+        ("E-25rvmEM0k", "Who are the Stakeholders in the Taiga and How Do their views Differ? Forests Under Threat | GCSE", EBMS),
+    ]),
+    ("geog_edxb:9.1", &[
+        ("CQZ7fMAiYks", "Lesson 1 - Classifying Energy Resources - Topic 9 GCSE Geography Edexcel B", "Miss Paul"),
+        ("wr8g9O8-gSA", "Paper 3 Revision Consuming Energy Resources | GCSE Geography Edexcel B | Topic 9 |", EBMS),
+    ]),
+    ("geog_edxb:9.2", &[
+        ("xQd8NCTUqoA", "How and Why does Global Energy use vary?", EBMS),
+    ]),
+    ("geog_edxb:9.3", &[
+        ("X2Dl5jn36J4", "How much Oil is Left & What are the Consumption Trends? | Consuming Energy Resources | GCSE Revision", EBMS),
+        ("NWmlOCMXl84", "Fluctuating Oil Prices & the Rise of Fracking | Consuming Energy Resources | GCSE Geography Revision", EBMS),
+    ]),
+    ("geog_edxb:9.4", &[
+        ("KDaw6MAmqEE", "What are Unconventional Fossil Fuels and at What Environmental cost? | GCSE Geography Revision", EBMS),
+        ("Tudal_4x4F0", "How does fracking work? - Mia Nacamulli", "TED-Ed"),
+    ]),
+    ("geog_edxb:9.5", &[
+        ("Gd0gnNpJNZI", "What are the Alternatives to using Fossil Fuels? Consuming Energy Resources GCSE Geography Revision", EBMS),
+        ("RIuLD2OS2eE", "Sustainable Energy | AQA GCSE Geography | Energy 6", T2U),
+    ]),
+    ("geog_edxb:9.6", &[
+        ("a0yzyrSyU3U", "The Kuznets Curve and Changing Attitudes toward Environmental Concerns GCSE Geography Revision", EBMS),
+        ("44jY1sXcmJ0", "Edexcel B Geography GCSE. Paper 3 TOP TIPS", JCG),
+        ("OrNkGAcBo1g", "Edexcel B Geography Paper 3 Explained | GCSE Revision", "GeoLensProject"),
     ]),
 ];
 

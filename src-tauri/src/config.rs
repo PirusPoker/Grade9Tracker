@@ -205,6 +205,9 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("hist_aqa", &[(1, 0.5, 0.25)]),
     // Religious Studies (Eduqas): three written papers, taught through both years at school.
     ("rs_edq", &[(1, 0.5, 0.25)]),
+    // Geography B: taught through both years at school, fieldwork done with
+    // school, so a modest recall rate on the written-paper content.
+    ("geog_edxb", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -239,6 +242,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("cs_aqa", "school"),
     ("hist_aqa", "school"),
     ("rs_edq", "school"),
+    ("geog_edxb", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -570,6 +574,19 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Past papers", "https://www.savemyexams.com/gcse/religious-studies/wjec-eduqas/past-papers/"),
         ("Eduqas digital resources", "https://resources.eduqas.co.uk/Pages/ResourceByArgs.aspx?subId=26&lvlId=2"),
         ("Eduqas spec, papers & mark schemes", "https://www.eduqas.co.uk/qualifications/religious-studies-gcse/#tab_pastpapers"),
+    ]),
+    // Pearson Edexcel GCSE Geography B (1GB0). Each link opened and checked
+    // 30 September 2026: the Save My Exams pages are its Edexcel B course
+    // (topics 1-9 as in the spec, past papers are 1GB0/01-03); Physics &
+    // Maths Tutor's page is titled "Edexcel B GCSE Geography Revision" with
+    // the 1GB0 topic names. BBC Bitesize has no Geography B course (its
+    // Edexcel GCSE page is not split by spec), so it is not listed.
+    ("geog_edxb", &[
+        ("Revision notes", "https://www.savemyexams.com/gcse/geography/edexcel/b/18/revision-notes/"),
+        ("Topic questions", "https://www.savemyexams.com/gcse/geography/edexcel/b/18/topic-questions/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/geography/edexcel/b/past-papers/"),
+        ("PMT notes & questions", "https://www.physicsandmathstutor.com/geography-revision/gcse-edexcel-b/"),
+        ("Pearson papers & mark schemes", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/geography-b-2016.coursematerials.html"),
     ]),
 ];
 

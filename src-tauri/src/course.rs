@@ -260,6 +260,24 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     // (Islam). The spec has no numbered statements below these sections, so
     // topics are letter-suffixed splits of them.
     ("rs_edq", &["2.1", "2.2", "2.3"]),
+    // Geography B - Pearson Edexcel GCSE (9-1) 1GB0, specification Issue 4,
+    // September 2025 (gcse-2016-l12-geography-b-spec.pdf), read 30 September
+    // 2026. The 53 numbered key ideas 1.1-9.6, plus Topic 6 (Geographical
+    // investigations), whose four fieldwork contexts have no numbers and are
+    // split 6a-6d. Integrated skills are numbered within each key idea and are
+    // taught in that key idea's topic; the Paper 3 Section D decision is taught
+    // in 9.6.
+    ("geog_edxb", &[
+        "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7", "1.8", "1.9",
+        "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7",
+        "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7",
+        "4.1", "4.2", "4.3", "4.4", "4.5", "4.6", "4.7", "4.8",
+        "5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "5.7", "5.8",
+        "6",
+        "7.1", "7.2",
+        "8.1", "8.2", "8.3", "8.4", "8.5", "8.6",
+        "9.1", "9.2", "9.3", "9.4", "9.5", "9.6",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -8682,6 +8700,402 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Explain the importance of the Night of Power and how the Qur'an is viewed and treated",
         "Evaluate whether all Muslims celebrate festivals in the same way",
     ], "Ashura is a day of mourning for Shi'a Muslims, remembering Husayn's death at Karbala. Calling it a celebration misses its meaning."),
+    // ---------- Geography B (Pearson Edexcel GCSE 1GB0) ----------
+    ("geog_edxb:1.1", &[
+        "Explain how the Hadley, Ferrel and Polar cells and ocean currents move heat from the equator towards the poles",
+        "Explain why sinking air at about 30° gives high pressure and arid areas, and rising air at the equator gives low pressure and heavy rain",
+        "Read and compare climate graphs for a hot desert and an equatorial location",
+        "Describe how surface winds such as the trade winds link to the pressure belts",
+    ], "Rising air gives rain because it cools and condenses; sinking air warms and stays dry. Answers that say 'high pressure is hot' without the sinking-air mechanism stay at 1 mark."),
+
+    ("geog_edxb:1.2", &[
+        "Explain the four natural causes of climate change: orbital (Milankovitch) changes, solar output, volcanic eruptions and asteroid collisions",
+        "Explain how ice cores, tree rings and historical sources each give evidence of past climate",
+        "Describe glacial and interglacial periods in the Quaternary and the UK's climate since Roman times, including the Little Ice Age",
+        "Interpret line graphs and bar charts that show past climate change",
+    ], "Each piece of evidence needs its 'how': ice cores trap air bubbles whose gases show past temperatures. Naming the evidence alone earns only the first mark of a 2-mark explain."),
+
+    ("geog_edxb:1.3", &[
+        "Explain how industry, transport, energy and farming release carbon dioxide and methane",
+        "Explain the enhanced greenhouse effect and how it differs from the natural greenhouse effect",
+        "Use the evidence of warming: global temperature rise, warming oceans and sea level rise, shrinking Arctic ice and more extreme weather",
+        "Explain why projections of temperature and sea level to 2100 vary: emissions scenarios, feedbacks and uncertain physical processes",
+    ], "The greenhouse effect is natural and keeps the Earth warm; the enhanced effect is the human addition. Students who call the greenhouse effect itself 'caused by humans' lose the definition mark."),
+
+    ("geog_edxb:1.4", &[
+        "Describe the characteristics of a tropical cyclone: very low pressure, rotation, the eye and eyewall, and spiral rain bands",
+        "Describe where and when tropical cyclones form, their source areas and typical tracks, and how these may change",
+        "Explain the conditions for formation: oceans above about 26.5 °C, low wind shear, distance of 5° or more from the equator for the Coriolis effect",
+        "Explain why some cyclones intensify and why they dissipate over land or cooler water",
+    ], "Within about 5° of the equator the Coriolis effect is too weak to make the storm spin. Writing only 'it is too hot near the equator' scores nothing."),
+
+    ("geog_edxb:1.5", &[
+        "Describe the physical hazards of tropical cyclones: high winds, intense rainfall, storm surges, coastal flooding and landslides",
+        "Explain the impacts of each hazard on people and on environments",
+        "Explain physical, social and economic reasons why some countries are more vulnerable than others",
+        "Use the Saffir-Simpson scale and storm data to judge a cyclone's magnitude",
+    ], "Vulnerability is about people and places, not the storm. 'A stronger storm hits them' is magnitude; low-lying coasts, poverty and weak warnings are vulnerability."),
+
+    ("geog_edxb:1.6", &[
+        "Explain how forecasting, satellite tracking, warnings, evacuation and storm-surge defences help countries prepare",
+        "Evaluate preparation and response for Hurricane Katrina in the USA (2005), including the levee failures in New Orleans",
+        "Evaluate preparation and response for Typhoon Haiyan in the Philippines (2013), including the storm surge at Tacloban",
+        "Compare how a developed and an emerging country prepared and responded, and judge which was more effective",
+    ], "An 8-mark evaluate needs a judgement on effectiveness. Describing what happened in Katrina, however well, without saying how well it worked stays in Level 2."),
+
+    ("geog_edxb:1.7", &[
+        "Describe the inner core, outer core, mantle, asthenosphere and crust by temperature, density, composition and state",
+        "Explain how radioactive decay in the core heats the mantle and drives convection currents",
+        "Explain how convection, slab pull and ridge push move the plates",
+        "Interpret a cross-section of the Earth",
+    ], "The asthenosphere is the semi-molten upper mantle that plates move on. Calling the whole mantle 'liquid' is a common error that costs the mark."),
+
+    ("geog_edxb:1.8", &[
+        "Describe the distribution of conservative, convergent and divergent plate boundaries and hotspots on a world map",
+        "Explain why convergent boundaries give explosive composite volcanoes with viscous, gas-rich magma",
+        "Explain why divergent boundaries and hotspots give gentle shield volcanoes with runny basaltic lava",
+        "Explain why earthquake hazards vary with depth and magnitude, and how undersea earthquakes cause tsunamis",
+        "Use the Richter (or moment magnitude) scale to compare earthquakes",
+    ], "Volcano type follows from magma type. Linking boundary, magma viscosity and explosivity in one chain is what turns a 2-mark answer into a 4-mark one."),
+
+    ("geog_edxb:1.9", &[
+        "Explain the primary and secondary impacts of the Tōhoku earthquake and tsunami in Japan (2011)",
+        "Explain the primary and secondary impacts of the Gorkha earthquake in Nepal (2015)",
+        "Evaluate short-term relief and long-term planning, preparation and prediction in each country",
+        "Explain why impacts differed: level of development, building codes, remoteness and the hazard itself",
+    ], "Japan shows that development does not remove risk: the tsunami overtopped sea walls. Top answers use that to judge effectiveness rather than claiming the rich country simply coped."),
+
+    ("geog_edxb:2.1", &[
+        "Contrast economic and broader social and political definitions of development",
+        "Explain GDP per capita, the HDI, measures of inequality and corruption indices, and the limits of each",
+        "Compare countries' rankings on a single measure with a composite one",
+        "Explain how fertility, death, infant and maternal mortality rates and population pyramids differ between developing, emerging and developed countries",
+    ], "The HDI combines life expectancy, education and income. Naming only 'wealth and health' misses the education component and the mark."),
+
+    ("geog_edxb:2.2", &[
+        "Explain social, historical, environmental, economic and political causes of global inequality, including colonialism",
+        "Explain the consequences of inequality for people and countries",
+        "Describe Rostow's five stages of modernisation and use it to explain development",
+        "Explain Frank's dependency theory of core and periphery, and compare it with Rostow",
+        "Use income quintiles to analyse inequality",
+    ], "Rostow says every country can develop through stages; Frank says the core keeps the periphery poor. Mixing up which theory blames the rich countries is the classic slip."),
+
+    ("geog_edxb:2.3", &[
+        "Compare top-down and bottom-up strategies by scale, aims, funding and technology",
+        "Explain how TNCs and governments drive globalisation, and why some countries benefit more than others",
+        "Evaluate NGO-led intermediate technology, IGO-funded large infrastructure and TNC investment",
+        "Use named examples of each approach",
+    ], "Intermediate technology means affordable, locally repairable equipment. Describing it as 'cheap technology' without the local maintenance and skills point drops the second mark."),
+
+    ("geog_edxb:2.4", &[
+        "Describe India's site, situation and connectivity, and why its location matters nationally, regionally and globally",
+        "Explain India's environmental and cultural diversity within the country",
+        "Describe India's broad political, social, cultural and environmental context in South Asia and the world",
+    ], "Site and situation are different: site is the physical land, situation is the position relative to other places. Swapping them is a common lost mark."),
+
+    ("geog_edxb:2.5", &[
+        "Describe India's economic trends since 1990: GDP, GNI per capita, changing sectors, trade and FDI",
+        "Explain how the 1991 economic reforms opened India to foreign investment",
+        "Explain the role of globalisation: communications, transport, TNCs and outsourcing, for example IT services in Bengaluru",
+        "Explain the role of government policy: aid, education, infrastructure and pro-FDI policy",
+        "Use numerical data and proportional flow-line maps to profile India's economy and trade",
+    ], "Assess-the-importance questions need a weighed judgement. Listing globalisation factors without comparing them with government policy cannot reach Level 3."),
+
+    ("geog_edxb:2.6", &[
+        "Explain how rapid growth has changed India's fertility and death rates",
+        "Explain rural-urban migration and city growth, and the core-periphery contrast between richer and poorer states",
+        "Evaluate positive and negative impacts on different age and gender groups",
+        "Explain environmental impacts at different scales: air, water and land pollution, health and greenhouse gases",
+        "Calculate difference from the mean for core and periphery regions",
+    ], "Impacts must name the group. 'Some people are better off' is vague; 'young urban graduates in IT jobs' versus 'elderly rural farmers' is specific and creditworthy."),
+
+    ("geog_edxb:2.7", &[
+        "Explain how India's regional influence and role in international organisations have grown",
+        "Explain India's changing relationships with the EU and the USA",
+        "Evaluate conflicting views on the costs and benefits of international relations and TNC investment",
+    ], "Conflicting-views questions need named stakeholders with opposing views, such as a TNC, a government and local workers. One-sided answers are capped."),
+
+    ("geog_edxb:3.1", &[
+        "Describe past (since 1980), current and projected global urbanisation and how it differs between regions",
+        "Describe the global pattern of megacities by size, location and growth rate",
+        "Explain urban primacy and why some cities have disproportionate economic or political influence",
+        "Calculate rates of change and percentage growth from line graphs",
+    ], "A megacity has over 10 million people. Using 'a very big city' without the figure loses the definition mark."),
+
+    ("geog_edxb:3.2", &[
+        "Explain how economic change and national and international migration cause cities to grow or decline",
+        "Explain why cities in developing, emerging and developed countries have different urban economies",
+        "Compare formal and informal employment, the importance of each sector and working conditions",
+    ], "The informal sector is work that is untaxed and unregulated, not simply 'illegal'. Calling it illegal is marked wrong."),
+
+    ("geog_edxb:3.3", &[
+        "Explain urbanisation, suburbanisation, de-industrialisation, counter-urbanisation and regeneration as stages of change",
+        "Describe commercial, industrial and residential land uses",
+        "Explain how accessibility, availability, cost and planning regulations shape land use",
+        "Identify land-use zones on satellite images",
+    ], "Counter-urbanisation is people leaving the city for rural areas; suburbanisation is moving to the edge of the city. Confusing them is the commonest error."),
+
+    ("geog_edxb:3.4", &[
+        "Explain the significance of Mumbai's site, situation and connectivity nationally, regionally and globally",
+        "Describe Mumbai's structure: CBD, inner city, suburbs and urban-rural fringe, by function and building age",
+        "Explain how the peninsula site and harbour shaped the city's growth",
+    ], "Questions on Mumbai's location need two developed ways it helped the economy, such as the deep-water port and trade links. A bare list of features earns half marks."),
+
+    ("geog_edxb:3.5", &[
+        "Explain past and present population growth in Mumbai: natural increase, national and international migration, and investment",
+        "Explain how growth has shaped Mumbai's spatial growth northwards and onto reclaimed land and the mainland",
+        "Explain changing urban functions and land use as the city grows",
+        "Use historic maps and satellite images to investigate spatial growth",
+    ], "Migration and natural increase are separate causes. Strong answers explain both and say which matters more now, rather than treating growth as one cause."),
+
+    ("geog_edxb:3.6", &[
+        "Explain opportunities in Mumbai: education, health care, and formal and informal jobs",
+        "Explain challenges caused by rapid growth: housing shortages, insecure property rights, water, waste, jobs, services and congestion",
+        "Describe the contrast between areas of extreme wealth and informal settlements such as Dharavi",
+        "Explain the political and economic challenges of managing a megacity",
+        "Judge variations in quality of life using quantitative and qualitative data",
+    ], "Dharavi is not only a problem area: it has a large informal economy. Answers that see slums only as failure miss the 'opportunities' half of an evaluate question."),
+
+    ("geog_edxb:3.7", &[
+        "Evaluate city-wide top-down strategies in Mumbai for water, waste, transport and air quality, such as Vision Mumbai and the Metro",
+        "Evaluate community and NGO-led bottom-up strategies for housing, health and education",
+        "Compare the advantages and disadvantages of the two approaches",
+    ], "Top-down and bottom-up are judged on who benefits. Answers that praise a scheme without saying who was displaced or left out stay in Level 2."),
+
+    ("geog_edxb:4.1", &[
+        "Explain how geology and past tectonic and glacial processes shaped upland and lowland Britain",
+        "Describe the characteristics and distribution of chalk, carboniferous limestone, clay, granite, schist and slate",
+        "Explain the Tees-Exe line divide between harder upland rocks in the north and west and softer lowland rocks in the south and east",
+        "Use simple geological cross-sections to link geology and relief",
+    ], "Upland Britain is mostly igneous and metamorphic rock, lowland mostly sedimentary. Students who place granite in the south-east, or call chalk igneous, lose easy marks."),
+
+    ("geog_edxb:4.2", &[
+        "Explain how weathering, climate, post-glacial river and slope processes create distinctive upland and lowland landscapes",
+        "Explain how agriculture, forestry and settlement have changed UK landscapes over time",
+        "Locate key uplands, lowland basins and rivers on an outline map of the UK",
+        "Recognise physical and human features on 1:25 000 and 1:50 000 OS maps",
+    ], "Questions on human influence need a named activity and its effect on the landscape, for example drainage of fens for farming. 'Humans built towns' is too vague."),
+
+    ("geog_edxb:4.3", &[
+        "Explain how concordant and discordant coasts, joints and faults, and hard and soft rock shape erosional landforms",
+        "Explain the formation of headlands and bays, caves, arches, stacks, cliffs and wave-cut platforms",
+        "Explain how UK climate, destructive waves, weathering and mass movement control the rate of cliff retreat",
+        "Explain how longshore drift and constructive waves form beaches, spits and bars",
+        "Calculate mean rates of erosion and recognise coastal landforms on OS maps",
+    ], "Landform sequences need every stage in order: crack, cave, arch, stack, stump. Skipping a stage or naming no process (hydraulic action, abrasion) caps the answer."),
+
+    ("geog_edxb:4.4", &[
+        "Explain how development, agriculture, industry and coastal management directly or indirectly change coastlines",
+        "Explain why the Holderness coast erodes so fast: soft boulder clay, long fetch and narrow beaches",
+        "Explain how defences at places such as Mappleton changed erosion further along the coast",
+        "Explain the significance of Holderness's location, including the link to Spurn Head",
+    ], "Defences have knock-on effects down-drift. Answers that judge Mappleton's groynes only by Mappleton itself miss the faster erosion to the south, which examiners reward."),
+
+    ("geog_edxb:4.5", &[
+        "Explain why coastal flood risk is rising: sea level rise, stormier weather and changing erosion and deposition",
+        "Explain the threats to people and environments from coastal flooding and erosion",
+        "Evaluate hard engineering (groynes, sea walls) and soft engineering (beach replenishment, slope stabilisation)",
+        "Evaluate do nothing and strategic realignment within Integrated Coastal Zone Management",
+        "Use simple cost-benefit analysis and OS maps to compare coastal defence options",
+    ], "Conflict questions need named groups with opposing views, such as homeowners against the Environment Agency. A list of costs and benefits with no people in it stays in Level 2."),
+
+    ("geog_edxb:4.6", &[
+        "Describe how channel width and depth, valley profile, gradient, discharge, velocity and sediment change downstream, using the River Tees",
+        "Explain erosion, transport and deposition processes and the formation of waterfalls, interlocking spurs, meanders, oxbow lakes, flood plains, levees and deltas",
+        "Explain how climate, geology and slope processes influence river landscapes and sediment load",
+        "Explain how geology, soil, slope, basin shape and antecedent conditions affect storm hydrographs and lag time",
+        "Draw a valley cross-section from contours and recognise river landforms on OS maps",
+    ], "Velocity usually increases downstream because the channel is smoother and deeper. Saying the river 'slows down' because the gradient is gentler is the most frequent wrong answer."),
+
+    ("geog_edxb:4.7", &[
+        "Explain how urbanisation, land-use change and deforestation alter storm hydrographs",
+        "Explain how physical and human processes combined to flood the River Eden in Cumbria during Storm Desmond (December 2015)",
+        "Explain the significance of the Eden's location, including Carlisle at the confluence of three rivers",
+        "Draw a simple storm hydrograph from rainfall and discharge data",
+    ], "Urban surfaces are impermeable, so water reaches the river faster and lag time shortens. Answers must give that chain; 'more buildings cause floods' scores one mark at most."),
+
+    ("geog_edxb:4.8", &[
+        "Explain why flood risk is increasing: more frequent storms and land-use change",
+        "Explain the threats from river flooding to people and environments",
+        "Evaluate hard engineering (flood walls, embankments, flood barriers) and soft engineering (flood-plain retention, river restoration)",
+        "Use cost-benefit analysis and OS maps to judge river management options",
+    ], "Soft engineering is not free of costs: flood-plain retention takes farmland out of use. Balanced answers name a cost for each approach."),
+
+    ("geog_edxb:5.1", &[
+        "Compare urban cores and rural areas by population density, age structure, economic activity and settlement",
+        "Explain how UK and EU policies, such as enterprise zones, transport investment and regional development, tried to reduce differences",
+        "Interpret UK population pyramids from different times",
+    ], "Policy answers need a named policy and how it narrows the gap. 'The government gives money' is too vague for the second mark."),
+
+    ("geog_edxb:5.2", &[
+        "Explain how national and international migration over the past 50 years has changed the UK's population numbers, distribution and age structure",
+        "Explain how UK and EU immigration policy has increased ethnic and cultural diversity",
+        "Explain the decline of the primary and secondary sectors and the rise of the tertiary and quaternary sectors in contrasting regions",
+        "Explain why globalisation, free trade and privatisation have increased FDI and the role of TNCs in the UK",
+        "Use census data and Eurostat to investigate population change, FDI and immigration",
+    ], "De-industrialisation needs its causes: cheaper overseas production, mechanisation and global competition. Saying 'factories closed' without why earns one mark."),
+
+    ("geog_edxb:5.3", &[
+        "Explain the significance of London's site, situation and connectivity nationally, regionally and globally",
+        "Describe London's structure: CBD, inner city, suburbs and urban-rural fringe",
+        "Compare the zones by function, building age and density, land use and environmental quality",
+    ], "Connectivity means transport and communication links, such as Heathrow, the Thames, the rail network and the Channel Tunnel. Naming London's size or wealth instead does not answer it."),
+
+    ("geog_edxb:5.4", &[
+        "Explain the causes of national and international migration to London",
+        "Explain how migration has shaped the age structure, ethnicity, housing, services and culture of different parts of the city",
+        "Explain why employment, services, education and health differ between parts of London, for example Tower Hamlets and Richmond upon Thames",
+        "Use census and IMD data to compare areas within the city",
+    ], "Inequality answers must compare two named areas with evidence. A description of one poor area is only half an answer."),
+
+    ("geog_edxb:5.5", &[
+        "Explain how parts of London declined through de-industrialisation, depopulation and decentralisation",
+        "Explain the effects of out-of-town shopping centres, retail and business parks, e-commerce and transport changes",
+        "Explain how other parts grew through urban sprawl, financial services, TNC investment, gentrification, studentification, culture and leisure",
+    ], "Gentrification brings investment but pushes out poorer residents through rising rents. Answers that treat it as wholly positive cannot score top marks."),
+
+    ("geog_edxb:5.6", &[
+        "Evaluate the positive and negative impacts of regeneration and rebranding on people, for example London Docklands and the Olympic Park at Stratford",
+        "Explain strategies for more sustainable urban living: recycling, employment, green spaces, transport, and affordable energy-efficient housing",
+        "Use crime and IMD data to judge the extent of inner-city problems",
+    ], "Stratford's regeneration created jobs and homes, but few of the new homes were affordable to existing residents. Using that tension is what lifts an 8-mark answer."),
+
+    ("geog_edxb:5.7", &[
+        "Explain the flows of goods, services and labour between London and accessible rural areas",
+        "Evaluate the economic, social and environmental costs and benefits of this interdependence for both",
+        "Explain how a rural area in London's commuter belt, such as the Chilterns, has changed through counter-urbanisation, housing pressure and leisure",
+    ], "Interdependence works both ways. Answers that only describe commuters going into London miss the food, water, leisure and labour flows back to the countryside."),
+
+    ("geog_edxb:5.8", &[
+        "Explain the challenges of housing availability and affordability, declining primary jobs, health care and education in rural areas",
+        "Explain how these affect quality of life, measured by the IMD, for elderly and young people",
+        "Evaluate rural diversification (farm shops, accommodation, leisure) and tourism projects, including their environmental impacts",
+        "Identify rural land-use types on OS maps",
+    ], "Rural deprivation is often hidden: wealthy commuters and poor older residents live in the same village. Averages for the whole area can mislead, and saying so earns credit."),
+
+    ("geog_edxb:6a", &[
+        "Write an enquiry question on how coastal management affects coastal processes and communities",
+        "Explain a quantitative method for beach morphology and sediment (beach profiles, sediment size and roundness) and a qualitative method on management success",
+        "Use a geology map and one other secondary source, and present and analyse the results",
+        "Draw evidenced conclusions and evaluate the reliability and accuracy of methods, data and conclusions",
+    ], "Fieldwork answers must refer to your own location and data. Generic textbook methods with no site, sample size or result stay in the lowest level."),
+
+    ("geog_edxb:6b", &[
+        "Write an enquiry question on how drainage basin and channel characteristics influence flood risk",
+        "Explain a quantitative method for channel characteristics (width, depth, velocity, cross-sectional area) and a qualitative method on flood-risk factors",
+        "Use a flood risk map and one other secondary source, and present and analyse the results",
+        "Draw evidenced conclusions and evaluate the reliability and accuracy of methods, data and conclusions",
+    ], "A method answer needs the equipment, how it was used and why it suits the question. 'We measured the river' earns nothing beyond the first mark."),
+
+    ("geog_edxb:6c", &[
+        "Write an enquiry question on how and why quality of life varies within an urban area",
+        "Explain a qualitative method on views and perceptions of quality of life and a quantitative method on environmental quality",
+        "Use census data (ONS) and one other secondary source, and present and analyse the results",
+        "Draw evidenced conclusions and evaluate the reliability and accuracy of methods, data and conclusions",
+    ], "Environmental quality surveys are subjective. Saying how you reduced the bias, for example by pairing up or using a fixed scoring sheet, earns the evaluation marks."),
+
+    ("geog_edxb:6d", &[
+        "Write an enquiry question on how and why deprivation varies within a rural area",
+        "Explain a qualitative method on views and perceptions of rural life and a quantitative method on environmental quality",
+        "Use census data (ONS) and one other secondary source, and present and analyse the results",
+        "Draw evidenced conclusions and evaluate the reliability and accuracy of methods, data and conclusions",
+    ], "Small rural samples are a weakness. Evaluate questions reward naming the sample size and explaining why it limits how far the conclusion can be trusted."),
+
+    ("geog_edxb:7.1", &[
+        "Describe the global distribution and characteristics of tropical, temperate and boreal forests, grasslands, deserts and tundra",
+        "Explain how temperature, precipitation and sunshine hours control biome distribution",
+        "Explain how altitude, rock, soil and drainage alter biomes locally",
+        "Explain how the biotic and abiotic components of a biome interact",
+        "Compare climate graphs for different biomes",
+    ], "Describe-the-distribution answers need latitudes and named continents, such as tundra north of about 60° N in Canada and Russia. 'Near the poles' alone earns one mark."),
+
+    ("geog_edxb:7.2", &[
+        "Explain how the biosphere provides food, medicine, building materials and fuel for indigenous and local people",
+        "Explain commercial exploitation of the biosphere for energy, water and minerals",
+        "Explain the biosphere's services: regulating the atmosphere, soil health and the water cycle",
+        "Explain how population growth, affluence, urbanisation and industrialisation raise demand for food, energy and water",
+        "Compare the views of Malthus and Boserup on population and resources",
+    ], "Malthus predicted population would outstrip food; Boserup argued necessity drives invention. Swapping the two is marked wrong every time."),
+
+    ("geog_edxb:8.1", &[
+        "Explain how climate, soil, water, plants, animals and people are interdependent in the tropical rainforest",
+        "Explain plant adaptations (layers, buttress roots, drip tips) and animal adaptations to the climate",
+        "Explain why nutrient cycling is fast, and how this supports high biodiversity and complex food webs",
+        "Interpret nutrient cycle and food web diagrams",
+    ], "Rainforest soils are poor because nutrients sit in the biomass, not the soil. Saying the soil is fertile is a common misconception that loses the mark."),
+
+    ("geog_edxb:8.2", &[
+        "Explain how climate, soil, water, plants, animals and people are interdependent in the taiga",
+        "Explain taiga plant adaptations (cone shape, needles, simple structure) and migratory animal adaptations",
+        "Explain why the taiga has low productivity, slow nutrient cycling and low biodiversity",
+    ], "The taiga's nutrient store is the litter, because cold slows decomposition. Students who copy the rainforest pattern (biomass store) lose the comparison marks."),
+
+    ("geog_edxb:8.3", &[
+        "Explain the direct causes of deforestation: hardwood logging, subsistence and commercial farming, and fuelwood",
+        "Explain how demand for biofuels, minerals and hydroelectric power adds to deforestation",
+        "Explain why climate change is an indirect threat through drought and ecosystem stress",
+        "Use GIS and satellite images to identify the pattern of forest loss",
+    ], "Direct and indirect threats are marked separately. Calling climate change a direct cause of deforestation shows you have not read the spec's distinction."),
+
+    ("geog_edxb:8.4", &[
+        "Explain direct threats to the taiga from softwood logging and pulp and paper production",
+        "Explain indirect threats from minerals, fossil fuels (such as the Alberta oil sands) and HEP",
+        "Explain how acid precipitation, forest fires, pests and diseases reduce biodiversity",
+    ], "Acid rain damages trees by leaching nutrients from the soil and harming needles. 'It burns the trees' is not accepted."),
+
+    ("geog_edxb:8.5", &[
+        "Evaluate global actions to protect rainforests: CITES and REDD",
+        "Explain why deforestation rates are rising in some areas and falling in others",
+        "Explain the challenge of sustainable forest management",
+        "Evaluate alternative livelihoods such as ecotourism and sustainable farming",
+    ], "CITES controls trade in endangered species; REDD pays countries to keep forests standing. Describing either as 'banning logging' is wrong."),
+
+    ("geog_edxb:8.6", &[
+        "Explain the challenges of creating and maintaining wilderness areas, national parks and sustainable forestry in the taiga",
+        "Explain the conflicting views of governments, companies, indigenous peoples and conservationists on protecting or exploiting the taiga",
+        "Judge which view should take priority, using evidence",
+    ], "Protecting the taiga is hard because it is vast and remote, which makes monitoring costly. That practical point is what most answers leave out."),
+
+    ("geog_edxb:9.1", &[
+        "Classify energy resources as non-renewable (coal, oil, gas), renewable (solar, wind, HEP) and recyclable (nuclear, biofuels)",
+        "Explain the environmental impacts of mining and drilling: landscape scarring, oil spills, carbon emissions and forest loss",
+        "Explain the landscape impacts of renewables: reservoirs flooding land, land use for wind turbines and solar farms",
+    ], "Nuclear and biofuels are 'recyclable' in this spec, not renewable. Pearson marks the spec's own classification."),
+
+    ("geog_edxb:9.2", &[
+        "Explain how access to energy depends on technology and physical resources: geology, accessibility, climate and landscape",
+        "Describe the global pattern of energy use per person",
+        "Explain why energy use varies: economic development, reliance on traditional fuels and demand from different sectors",
+        "Interpret world maps of energy resources",
+    ], "Describe-the-pattern answers need data or named regions, such as North America very high and sub-Saharan Africa very low. 'Rich countries use more' alone is one mark."),
+
+    ("geog_edxb:9.3", &[
+        "Describe how oil reserves and production are unevenly distributed",
+        "Explain why oil consumption is rising: higher GDP per capita and rapid industrialisation in emerging economies",
+        "Explain how conflicts, diplomatic relations, recession, boom and over- or under-supply affect oil supply and price",
+        "Draw and interpret graphs of oil price and production over time",
+    ], "Price questions need the supply-demand link: a war that cuts supply raises the price, a recession that cuts demand lowers it. Naming an event without the mechanism scores one mark."),
+
+    ("geog_edxb:9.4", &[
+        "Evaluate the economic benefits and costs of new conventional oil and gas in sensitive or isolated areas such as the Arctic",
+        "Explain the environmental costs of tar sands and shale gas for water quality and ecosystems",
+        "Weigh energy security against environmental damage",
+    ], "Tar sands and fracking are 'unconventional'; Arctic drilling is new but conventional. Pearson questions separate the two, so use the right label."),
+
+    ("geog_edxb:9.5", &[
+        "Explain how energy efficiency and conservation in transport and the home reduce demand and emissions",
+        "Evaluate biofuels, wind, solar and HEP as alternatives to fossil fuels",
+        "Evaluate hydrogen as a future technology",
+        "Explain how alternatives improve energy security and diversify the energy mix",
+    ], "Every alternative has a cost, such as intermittency for wind and solar or land use for biofuels. Evaluations that list only benefits cannot reach Level 3."),
+
+    ("geog_edxb:9.6", &[
+        "Explain the contrasting views of consumers, TNCs, governments, climate scientists and environmental groups on energy futures",
+        "Compare business as usual with a sustainable energy future",
+        "Explain how rising affluence, environmental concern and education change attitudes in some developed countries",
+        "Calculate carbon and ecological footprints",
+        "Plan and write the Paper 3 Section D 12-mark decision: choose one option, justify it from the booklet, and weigh it against the other two",
+    ], "The 12-mark decision rewards rejecting the other options with reasons. Answers that only praise the chosen option, or ignore the resource booklet, are capped in Level 2."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

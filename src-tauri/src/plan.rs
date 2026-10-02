@@ -1612,6 +1612,87 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("2.3i", "Islam: festivals and commemorations - Id-ul-Adha, Id-ul-Fitr, Ashura and the Night of Power", 0.5),
         ],
     },
+    // Pearson Edexcel GCSE (9-1) Geography B 1GB0 (first taught 2016, first
+    // examined 2018). Topics are the spec's own key-idea references (1.1-9.6),
+    // read from the specification PDF, Issue 4 (September 2025), which moved
+    // Paper 2 to 1h45 from the 2026 exams. Topic 6 (fieldwork) has no numbered
+    // key ideas, so its four fieldwork contexts are 6a-6d; each student does one
+    // physical (6a coasts or 6b rivers) and one human (6c urban or 6d rural).
+    // Case studies: India (emerging country), Mumbai (megacity), London (UK city).
+    SubjectDef {
+        id: "geog_edxb", name: "Geography", full: "Pearson Edexcel GCSE Geography B (1GB0)", color: "var(--geog)",
+        papers: "Paper 1 Global geographical issues 1h30, 94 marks including 4 for SPaG, 37.5%. Paper 2 UK geographical issues 1h45, 94 marks including 4 for SPaG, 37.5%, with Section C on your own two fieldwork investigations. Paper 3 People and environment issues (making geographical decisions) 1h30, 64 marks including 4 for SPaG, 25%, using a resource booklet given out in the exam. There is no NEA: the two fieldwork days are done with your school and examined in Paper 2. Case studies here: India, Mumbai and London. Fieldwork: delete the two of topics 6a-6d you did not do (keep one of coasts or rivers, and one of urban or rural)",
+        spec: "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/geography-b-2016.html",
+        sections: &["1 Hazardous Earth", "2 Development dynamics", "3 Challenges of an urbanising world", "4 The UK's evolving physical landscape", "5 The UK's evolving human landscape", "6 Geographical investigations (fieldwork)", "7 People and the biosphere", "8 Forests under threat", "9 Consuming energy resources"],
+        topics: &[
+            // Paper 1 - Topic 1 Hazardous Earth
+            ("1.1", "Global atmospheric circulation, ocean currents, and arid and wet zones", 0.5),
+            ("1.2", "Natural climate change: causes and evidence from ice cores, tree rings and history", 0.5),
+            ("1.3", "Human-caused climate change: the enhanced greenhouse effect, evidence and projections", 0.5),
+            ("1.4", "Tropical cyclones: characteristics, distribution, formation and dissipation", 0.5),
+            ("1.5", "Tropical cyclone hazards, and why some countries are more vulnerable", 0.5),
+            ("1.6", "Preparing for and responding to cyclones: Hurricane Katrina (USA) and Typhoon Haiyan (Philippines)", 0.5),
+            ("1.7", "Earth's layered structure and convection in the mantle", 0.5),
+            ("1.8", "Plate boundaries, hotspots, and contrasting volcanic and earthquake hazards", 0.5),
+            ("1.9", "Earthquake impacts and management: Japan 2011 and Nepal 2015", 0.5),
+            // Paper 1 - Topic 2 Development dynamics
+            ("2.1", "Defining and measuring development, and demographic differences", 0.5),
+            ("2.2", "Causes and consequences of global inequality; Rostow and Frank", 0.5),
+            ("2.3", "Top-down and bottom-up development, globalisation, and NGO, IGO and TNC approaches", 0.5),
+            ("2.4", "India: site, situation, connectivity and context", 0.5),
+            ("2.5", "India: economic trends since 1990, globalisation and government policy", 0.5),
+            ("2.6", "India: demographic change, urbanisation, regional differences and impacts on people and environment", 0.5),
+            ("2.7", "India: changing geopolitical role and views on foreign investment", 0.5),
+            // Paper 1 - Topic 3 Challenges of an urbanising world
+            ("3.1", "Global urbanisation trends, megacities and urban primacy", 0.5),
+            ("3.2", "Economic change and migration, and urban economies in contrasting countries", 0.5),
+            ("3.3", "How cities change over time, and urban land use", 0.5),
+            ("3.4", "Mumbai: site, situation, connectivity and urban structure", 0.5),
+            ("3.5", "Mumbai: population growth and spatial growth", 0.5),
+            ("3.6", "Mumbai: opportunities, challenges and variations in quality of life", 0.5),
+            ("3.7", "Mumbai: top-down and bottom-up strategies for a more sustainable city", 0.5),
+            // Paper 2 - Topic 4 The UK's evolving physical landscape
+            ("4.1", "Geology, rock types and past processes in UK upland and lowland landscapes", 0.5),
+            ("4.2", "Physical and human processes that create distinctive UK landscapes", 0.5),
+            ("4.3", "Coastal landscapes of erosion and deposition: geology, processes and landforms", 0.75),
+            ("4.4", "Human activity and coastal change: the Holderness coast", 0.5),
+            ("4.5", "Coastal flood risk and managing the coast: hard, soft and sustainable approaches", 0.5),
+            ("4.6", "River landscapes: the changing course of the River Tees, landforms and hydrographs", 0.75),
+            ("4.7", "Human activity and river flooding: the River Eden and Storm Desmond 2015", 0.5),
+            ("4.8", "River flood risk and managing it: hard and soft engineering", 0.5),
+            // Paper 2 - Topic 5 The UK's evolving human landscape
+            ("5.1", "Urban core and rural periphery, and policies to reduce the differences", 0.5),
+            ("5.2", "Migration, economic change and foreign investment in the UK", 0.5),
+            ("5.3", "London: site, situation, connectivity and urban structure", 0.5),
+            ("5.4", "London: migration, and inequality between different parts of the city", 0.5),
+            ("5.5", "London: decline and growth in different parts of the city", 0.5),
+            ("5.6", "London: regeneration, rebranding and sustainable urban living", 0.5),
+            ("5.7", "City and countryside: interdependence, and change in London's rural commuter belt", 0.5),
+            ("5.8", "The changing rural area: challenges, diversification and tourism", 0.5),
+            // Paper 2 - Topic 6 Geographical investigations (keep one of 6a/6b and one of 6c/6d)
+            ("6a", "Fieldwork option: investigating coastal change and conflict", 0.5),
+            ("6b", "Fieldwork option: investigating river processes and pressures", 0.5),
+            ("6c", "Fieldwork option: investigating dynamic urban areas", 0.5),
+            ("6d", "Fieldwork option: investigating changing rural areas", 0.5),
+            // Paper 3 - Topic 7 People and the biosphere
+            ("7.1", "Global biomes: distribution, climate, local factors and biotic-abiotic links", 0.5),
+            ("7.2", "The biosphere's goods and services, rising demand, and Malthus and Boserup", 0.5),
+            // Paper 3 - Topic 8 Forests under threat
+            ("8.1", "Tropical rainforests: interdependence, adaptations and nutrient cycling", 0.5),
+            ("8.2", "The taiga: interdependence, adaptations and low productivity", 0.5),
+            ("8.3", "Threats to tropical rainforests: deforestation and climate change", 0.5),
+            ("8.4", "Threats to the taiga: commercial exploitation, acid rain, fire and pests", 0.5),
+            ("8.5", "Protecting tropical rainforests: CITES, REDD and sustainable livelihoods", 0.5),
+            ("8.6", "Protecting the taiga: wilderness, national parks and conflicting views", 0.5),
+            // Paper 3 - Topic 9 Consuming energy resources (9.6 also teaches the Section D decision)
+            ("9.1", "Classifying energy resources and the environmental impacts of energy", 0.5),
+            ("9.2", "Access to energy, and global patterns of energy use", 0.5),
+            ("9.3", "Oil: reserves, rising demand, and what drives supply and price", 0.5),
+            ("9.4", "New oil and gas sources: conventional frontiers, tar sands and shale gas", 0.5),
+            ("9.5", "Reducing reliance on fossil fuels: efficiency, conservation and alternatives", 0.5),
+            ("9.6", "Attitudes to energy futures, and making the Paper 3 geographical decision", 0.75),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).
