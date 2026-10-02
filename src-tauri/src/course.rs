@@ -206,6 +206,22 @@ pub const SPEC_REFS: &[(&str, &[&str])] = &[
     // C2C Unseen poetry. Texts built: Macbeth, An Inspector Calls, A Christmas
     // Carol (the most-taught choices); the other set texts are not.
     ("englit_edq", &["C1A", "C1B", "C2A", "C2B", "C2C"]),
+    // Business - Pearson Edexcel GCSE (9-1) 1BS0, specification Issue 2 (July
+    // 2022), read on 30 September 2026. Theme 1 (Paper 1) has five topics and
+    // 21 subsections, Theme 2 (Paper 2) five topics and 19 subsections. The app
+    // splits 1.3.2 into 1.3.2a and 1.3.2b.
+    ("bus_edx", &[
+        "1.1.1", "1.1.2", "1.1.3",
+        "1.2.1", "1.2.2", "1.2.3", "1.2.4",
+        "1.3.1", "1.3.2", "1.3.3", "1.3.4",
+        "1.4.1", "1.4.2", "1.4.3", "1.4.4",
+        "1.5.1", "1.5.2", "1.5.3", "1.5.4", "1.5.5",
+        "2.1.1", "2.1.2", "2.1.3", "2.1.4",
+        "2.2.1", "2.2.2", "2.2.3", "2.2.4", "2.2.5",
+        "2.3.1", "2.3.2", "2.3.3", "2.3.4",
+        "2.4.1", "2.4.2",
+        "2.5.1", "2.5.2", "2.5.3", "2.5.4",
+    ]),
 ];
 
 /// The official reference list for a subject, or empty if it has not been
@@ -7558,6 +7574,267 @@ pub const TOPIC_DETAIL: &[(&str, &[&str], &str)] = &[
         "Compare your response to the two poems",
         "Spend about 40 minutes on the 25-mark comparison",
     ], "The second question is a comparison. Writing about the new poem alone, without linking back to the first, cannot reach the top bands."),
+    // ---------- Business (Pearson Edexcel GCSE 1BS0) ----------
+    ("bus_edx:1.1.1", &[
+        "Explain why new business ideas come about: changes in technology, changes in what consumers want, and products or services becoming obsolete",
+        "Explain how new ideas come about: original ideas, and adapting existing products, services or ideas",
+        "Apply these causes to a given start-up and say which mattered most",
+    ], "Saying a product 'became obsolete' is not an explanation. Say what replaced it, why customers switched, and what opportunity that opened for a new business."),
+
+    ("bus_edx:1.1.2", &[
+        "Explain the risks of starting a business: business failure, financial loss and lack of security",
+        "Explain the rewards: business success, profit and independence",
+        "Analyse why an entrepreneur accepts the risk, and how a given owner is affected by both risk and reward",
+    ], "'Lack of security' means giving up a steady wage and having no guaranteed income. It has nothing to do with security guards or cyber attacks, and examiners reported many students misreading it in 2025."),
+
+    ("bus_edx:1.1.3", &[
+        "Explain the purpose of business activity: to produce goods or services, to meet customer needs and to add value",
+        "Explain the five ways to add value in the spec: convenience, branding, quality, design and a unique selling point",
+        "Describe the role of the entrepreneur: organising resources, making business decisions and taking risks",
+        "Explain how added value lets a business charge more than its inputs cost",
+    ], "Added value is a money idea: the gap between the selling price and the cost of the inputs. An answer that ends at 'more customers' instead of 'a higher price than the inputs cost' stalls at two marks."),
+
+    ("bus_edx:1.2.1", &[
+        "Identify the customer needs in the spec: price, quality, choice and convenience",
+        "Explain why identifying and understanding customers generates sales and helps a business survive",
+        "Judge which need matters most to the customers in a given case",
+    ], "Choose the need that fits the case. A budget takeaway's customers want price and convenience; claiming they want premium quality ignores the context and loses the application marks."),
+
+    ("bus_edx:1.2.2", &[
+        "Explain the purposes of market research: understanding customer needs, finding gaps in the market, reducing risk and informing decisions",
+        "Compare primary methods (survey, questionnaire, focus group, observation) with secondary sources (internet, market reports, government reports)",
+        "Distinguish qualitative from quantitative data and explain how social media is used to collect research data",
+        "Evaluate the reliability of market research data: sample size, bias and how up to date it is",
+    ], "Primary research is not automatically accurate. It is only as reliable as its sample and its questions, and it costs a small business time and money to collect."),
+
+    ("bus_edx:1.2.3", &[
+        "Segment a market by location, demographics, lifestyle, income and age",
+        "Explain how segmentation helps a business target its customers",
+        "Draw and read a market map, and use it to find a gap in the market and see the competition",
+        "Explain why a gap on a market map may not be a profitable opportunity",
+    ], "A gap on a market map may be empty because nobody wants that combination. Say the gap needs research to confirm demand before you recommend filling it."),
+
+    ("bus_edx:1.2.4", &[
+        "Assess competitors' strengths and weaknesses on price, quality, location, product range and customer service",
+        "Explain how competition affects a business's decisions on price, product, promotion and costs",
+        "Explain how customers benefit from competition",
+    ], "Competition questions want a business decision, not just 'they lose customers'. Say what the business would change (prices, service, its product) and what that costs."),
+
+    ("bus_edx:1.3.1", &[
+        "Explain the difference between business aims and business objectives",
+        "Explain the financial aims and objectives: survival, profit, sales, market share and financial security",
+        "Explain the non-financial aims and objectives: social objectives, personal satisfaction, challenge, independence and control",
+        "Explain why aims and objectives differ between businesses",
+    ], "On this spec, sales and market share are financial objectives, while independence and challenge are non-financial. Edexcel's multiple-choice questions test exactly this split."),
+
+    ("bus_edx:1.3.2a", &[
+        "Calculate revenue, fixed costs, variable costs and total costs",
+        "Calculate profit or loss",
+        "Calculate the interest on a loan in pounds and as a percentage",
+        "Explain how a change in price, output or costs changes profit",
+    ], "Formulae are not given and a 'calculate' answer earns its two marks only if it is right. Learn interest (%) = (total repayment - amount borrowed) / amount borrowed × 100 by heart."),
+
+    ("bus_edx:1.3.2b", &[
+        "Calculate break-even output as fixed costs / (selling price - variable cost per unit), and break even in revenue",
+        "Calculate the margin of safety from actual or budgeted sales",
+        "Read a break-even diagram: fixed cost, total cost and revenue lines, the break-even point, and the profit and loss areas",
+        "Explain how a change in price or costs moves the break-even point",
+    ], "Be ready to work the formula backwards. In 2025 a question gave the break-even output and asked for fixed costs (break-even output × (price - variable cost per unit)), and most students could not do it."),
+
+    ("bus_edx:1.3.3", &[
+        "Explain why cash matters: paying suppliers, overheads and employees, and avoiding insolvency",
+        "Explain the difference between cash and profit",
+        "Complete and interpret a cash-flow forecast: inflows, outflows, net cash flow, opening and closing balances",
+        "Explain how a forecast helps a small business spot and plan for a shortfall",
+    ], "A cash-flow forecast does not show profit. Examiners gave zero in 2025 to answers that said it is used to work out profit or break even."),
+
+    ("bus_edx:1.3.4", &[
+        "Explain the short-term sources of finance: overdraft and trade credit",
+        "Explain the long-term sources: personal savings, venture capital, share capital, loans, retained profit and crowdfunding",
+        "Match a source of finance to the need, the amount, the cost and the owner's wish to keep control",
+        "Explain why a new start-up rarely has retained profit to use",
+    ], "Match the source to the purpose. An overdraft to buy a van, or a five-year loan to cover one customer paying late, is a mismatch the examiner will not credit."),
+
+    ("bus_edx:1.4.1", &[
+        "Explain limited and unlimited liability and what each means for the owner's personal assets",
+        "Compare sole traders, partnerships and private limited companies, with the advantages and disadvantages of each",
+        "Explain the advantages and disadvantages of starting as a franchise",
+    ], "Generic disadvantages ('it is hard work') earn nothing. Name a feature that belongs to that type of ownership, such as unlimited liability for a sole trader, and develop it."),
+
+    ("bus_edx:1.4.2", &[
+        "Explain the pull of proximity to the market, labour, materials and competitors",
+        "Explain how the nature of the business activity shapes the location decision",
+        "Explain how the internet affects location: e-commerce, fixed premises or both",
+        "Judge which factor matters most for a given business",
+    ], "If the question names one factor, write only about that factor. In 2025, students who drifted from proximity to the market on to suppliers had half their answer ignored."),
+
+    ("bus_edx:1.4.3", &[
+        "Explain each element of the marketing mix: price, product, promotion and place",
+        "Explain how the elements are balanced to suit the competitive environment",
+        "Explain how changing consumer needs and technology (e-commerce, digital communication) change the mix",
+    ], "E-commerce is a way of selling (place), not a way of promoting. Examiners give no credit when it is described as advertising."),
+
+    ("bus_edx:1.4.4", &[
+        "Describe what a business plan contains: the idea, aims and objectives, target market, forecast revenue, cost and profit, cash-flow forecast, sources of finance, location and marketing mix",
+        "Explain how a business plan reduces risk",
+        "Explain how a business plan helps the owner obtain finance",
+        "Explain the limits of a plan: forecasts can be wrong and plans go out of date",
+    ], "A business plan reduces risk; it does not remove it or guarantee a loan. A lender trusts a plan only as far as its forecasts are realistic."),
+
+    ("bus_edx:1.5.1", &[
+        "Identify the stakeholders in the spec and their objectives: shareholders, employees, customers, managers, suppliers, local community, pressure groups and government",
+        "Explain how stakeholders are affected by business activity",
+        "Explain how stakeholders influence business activity",
+        "Analyse conflicts between stakeholder groups",
+    ], "Stakeholders and shareholders are not the same thing. A conflict answer must name two groups and explain why their objectives clash."),
+
+    ("bus_edx:1.5.2", &[
+        "Explain the types of technology in the spec: e-commerce, social media, digital communication and payment systems",
+        "Explain how technology affects sales, costs and the marketing mix",
+        "Weigh the costs and drawbacks of new technology for a small business",
+    ], "Technology is not free. Strong answers include its set-up, training or fee costs (such as card-payment fees or website upkeep) as well as the benefits."),
+
+    ("bus_edx:1.5.3", &[
+        "Explain the principles of consumer law: quality and consumer rights",
+        "Explain the principles of employment law: recruitment, pay, discrimination, and health and safety",
+        "Explain the cost to a business of meeting legislation",
+        "Explain the consequences of meeting and of not meeting its legal obligations",
+    ], "Edexcel tests principles, not Acts. You do not need Act names or dates, but you do need to say what the business must do and what happens to it if it does not."),
+
+    ("bus_edx:1.5.4", &[
+        "Explain how unemployment and changing levels of consumer income affect businesses",
+        "Explain how inflation and changes in interest rates affect businesses",
+        "Explain how changes in government taxation and exchange rates affect businesses",
+        "Judge how strongly a given business is affected, depending on its products and customers",
+    ], "Exchange-rate chains are easy to get backwards. A stronger pound makes imports cheaper and exports dearer: write the chain out step by step and check it."),
+
+    ("bus_edx:1.5.5", &[
+        "Explain possible responses by a business to changes in technology",
+        "Explain possible responses to changes in legislation",
+        "Explain possible responses to changes in the economic climate",
+        "Evaluate which response suits a given business best",
+    ], "The question asks about the business's response, not just the change. Name a realistic action the owner would take and weigh what it costs."),
+
+    ("bus_edx:2.1.1", &[
+        "Explain internal (organic) growth: new products through innovation and research and development, and new markets through the marketing mix, technology or expanding overseas",
+        "Explain external (inorganic) growth: mergers and takeovers",
+        "Explain what a public limited company is, and the advantages and disadvantages of becoming one",
+        "Compare internal sources of finance for growth (retained profit, selling assets) with external ones (loan capital, share capital, stock market flotation)",
+    ], "A merger is agreed between two firms; a takeover is one firm buying control of another. Mixing them up, or calling a plc 'owned by the public', loses easy marks."),
+
+    ("bus_edx:2.1.2", &[
+        "Explain why aims and objectives change: market conditions, technology, performance, legislation and internal reasons",
+        "Explain how they change: survival or growth, entering or exiting markets, growing or reducing the workforce, increasing or decreasing the product range",
+        "Apply both to a business at a given stage of its life",
+    ], "Always give the reason with the change. 'It switched from growth to survival because a new rival cut prices and its sales fell' scores; a list of possible objectives does not."),
+
+    ("bus_edx:2.1.3", &[
+        "Explain the impact of imports (competition from overseas, buying from overseas) and exports",
+        "Explain why businesses change location and what multinationals are",
+        "Explain the barriers to international trade: tariffs and trade blocs",
+        "Explain how businesses compete internationally through the internet, e-commerce and a changed marketing mix",
+    ], "A tariff is a tax on imports. It makes imported goods dearer but does not ban them; a ban or a limit on quantity is a different measure and is not on this spec."),
+
+    ("bus_edx:2.1.4", &[
+        "Explain how ethical considerations influence business activity, and the trade-off between ethics and profit",
+        "Explain how environmental considerations and sustainability influence business activity, and their trade-off with profit",
+        "Explain how pressure group activity can affect the marketing mix",
+    ], "Ethical does not mean legal: an ethical choice goes beyond what the law requires. A high mark needs the cost side of the trade-off as well as the gain in reputation."),
+
+    ("bus_edx:2.2.1", &[
+        "Explain the design mix (function, aesthetics, cost) and balance it for a given product",
+        "Describe the phases of the product life cycle",
+        "Explain extension strategies and when to use them",
+        "Explain why differentiating a product or service matters",
+    ], "Draw the product life cycle with sales on the vertical axis against time, and name the phases correctly: development, introduction, growth, maturity, decline."),
+
+    ("bus_edx:2.2.2", &[
+        "Explain the main pricing strategies, such as penetration, skimming, competitive, cost-plus, premium and psychological pricing",
+        "Explain the influences on pricing strategy: technology, competition, market segments and the product life cycle",
+        "Recommend a pricing strategy for a given product and justify it",
+    ], "Name the strategy and tie it to the influence in the case. 'Skimming, because the product is new and has no rivals yet' scores; a definition of skimming on its own does not."),
+
+    ("bus_edx:2.2.3", &[
+        "Explain promotion strategies for different market segments: advertising, sponsorship, product trials, special offers and branding",
+        "Explain how technology is used in promotion: targeted online advertising, viral advertising via social media and e-newsletters",
+        "Choose a promotion method for a given segment and justify it",
+    ], "Match the method to the segment and the budget. National TV advertising for a small café's local customers is not a credible recommendation."),
+
+    ("bus_edx:2.2.4", &[
+        "Explain the methods of distribution in the spec: retailers and e-tailers (e-commerce)",
+        "Compare selling through retailers with selling online",
+        "Recommend a distribution method for a given business",
+    ], "Place means how the product reaches the customer. Answers about where the shop is (location) instead of the channel miss the point."),
+
+    ("bus_edx:2.2.5", &[
+        "Explain how each element of the marketing mix influences the others",
+        "Explain how the marketing mix is used to build competitive advantage",
+        "Explain how an integrated marketing mix supports competitive advantage",
+    ], "An integrated mix means the four Ps agree. A premium product discounted through a bargain retailer is inconsistent; say which element breaks the pattern."),
+
+    ("bus_edx:2.3.1", &[
+        "Explain the purpose of business operations: producing goods and providing services",
+        "Compare job, batch and flow production and their effects on productivity, costs and prices",
+        "Explain how technology in production balances cost, productivity, quality and flexibility",
+    ], "Productivity is output per worker or per hour, not total output. More output from more staff is not higher productivity."),
+
+    ("bus_edx:2.3.2", &[
+        "Read and interpret a bar gate stock graph: maximum stock, buffer stock, reorder level, reorder quantity and lead time",
+        "Explain just in time (JIT) stock control and its advantages and disadvantages",
+        "Explain procurement and what makes a good supplier relationship: quality, delivery (cost, speed, reliability), availability, cost and trust",
+        "Explain how logistics and supply decisions affect costs, reputation and customer satisfaction",
+    ], "On a bar gate graph, lead time is the time from placing an order to its arrival, read along the time axis; students often give a stock level instead."),
+
+    ("bus_edx:2.3.3", &[
+        "Explain quality control and quality assurance and the difference between them",
+        "Explain why quality matters for both goods and services",
+        "Explain how managing quality helps a business control costs and gain a competitive advantage",
+    ], "Quality control inspects finished output; quality assurance builds checks into every stage so faults are prevented. Swapping them is the commonest error."),
+
+    ("bus_edx:2.3.4", &[
+        "Explain the parts of the sales process: product knowledge, speed and efficiency of service, customer engagement, responses to customer feedback and post-sales service",
+        "Explain why good customer service matters to a business",
+        "Apply the sales process to a given business",
+    ], "Develop a customer-service point into a business gain: loyal, repeat customers and good reviews bring more sales without extra spending on promotion."),
+
+    ("bus_edx:2.4.1", &[
+        "Calculate gross profit and net profit",
+        "Calculate the gross profit margin and the net profit margin",
+        "Calculate the average rate of return on an investment",
+        "Interpret what the results show about a business",
+    ], "Margins are divided by sales revenue, not by costs. Edexcel often asks for two decimal places, and rounding early or giving a whole number loses the mark."),
+
+    ("bus_edx:2.4.2", &[
+        "Use information from graphs and charts to support, inform and justify a decision",
+        "Use financial data, marketing data and market data to judge business performance",
+        "Explain the limitations of financial information in understanding performance and making decisions",
+    ], "Quote the figures and do something with them: a change, a percentage or a comparison. Copying numbers from the table is not analysis."),
+
+    ("bus_edx:2.5.1", &[
+        "Compare hierarchical and flat structures, and centralised and decentralised ones, and say when each is appropriate",
+        "Explain the importance of effective communication, the impact of too little or too much communication, and the barriers to it",
+        "Explain different ways of working: part-time, full-time and flexible hours; permanent, temporary and freelance contracts",
+        "Explain how technology affects ways of working: efficiency and remote working",
+    ], "'Excessive communication' is on the spec: too many emails and meetings waste time and lower motivation. Students tend to assume more communication is always better."),
+
+    ("bus_edx:2.5.2", &[
+        "Explain the key job roles and their responsibilities: directors, senior managers, supervisors or team leaders, and operational and support staff",
+        "Explain the recruitment documents: job description, person specification, application form and CV",
+        "Compare internal and external recruitment and choose one for a given business need",
+    ], "The job description describes the job; the person specification describes the ideal person for it. Edexcel's multiple-choice questions test this pair regularly."),
+
+    ("bus_edx:2.5.3", &[
+        "Explain the ways of training and developing staff: formal and informal training, self-learning, ongoing training, target setting and performance reviews",
+        "Explain the link between training, motivation and retention",
+        "Explain why businesses retrain staff to use new technology",
+    ], "Link the benefit of training to the business: lower staff turnover cuts recruitment costs, and better skills raise productivity and quality."),
+
+    ("bus_edx:2.5.4", &[
+        "Explain why motivation matters: attracting employees, retaining them and productivity",
+        "Explain the financial methods: remuneration, bonus, commission, promotion and fringe benefits",
+        "Explain the non-financial methods: job rotation, job enrichment and autonomy",
+        "Recommend a method of motivation for a given workforce and justify it",
+    ], "Job rotation moves workers between tasks of similar difficulty; job enrichment gives them more challenging, responsible work. Confusing the two is a frequent slip."),
 ];
 
 /// Objectives written for a topic, or an empty slice if it has none yet.

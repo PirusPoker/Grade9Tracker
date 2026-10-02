@@ -1361,6 +1361,62 @@ pub const SUBJECTS: &[SubjectDef] = &[
             ("C2Cb", "Unseen poetry: comparing two poems (25 marks)", 1.75),
         ],
     },
+    // Pearson Edexcel GCSE (9-1) Business 1BS0, specification Issue 2 (July
+    // 2022), read on 30 September 2026. This is the Edexcel alternative to the
+    // AQA 8132 subject `bus`, and a student takes one of the two. There is no
+    // NEA: both papers are written exams, so the whole course is taught here.
+    // 1.3.2 is split in two (a: revenue, costs, profit and interest; b: break
+    // even). The other codes are the spec's own subsection numbers.
+    SubjectDef {
+        id: "bus_edx", name: "Business", full: "Pearson Edexcel GCSE Business (1BS0)", color: "var(--bus)",
+        papers: "Paper 1 Investigating small business (Theme 1) and Paper 2 Building a business (Theme 2): each a written exam of 1h45, 90 marks, 50%. Section A (35 marks) is multiple choice, calculations, 3-mark explain and a 6-mark discuss. Sections B (30) and C (25) are on two business case studies in a source booklet: outline, calculate, 6-mark analyse, 9-mark justify and a 12-mark evaluate. Calculators allowed; formulae are NOT given. There is no coursework or NEA, so the whole course is covered here",
+        spec: "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/business-2017.html",
+        sections: &["1.1 Enterprise and entrepreneurship", "1.2 Spotting a business opportunity", "1.3 Putting a business idea into practice", "1.4 Making the business effective", "1.5 Understanding external influences on business", "2.1 Growing the business", "2.2 Making marketing decisions", "2.3 Making operational decisions", "2.4 Making financial decisions", "2.5 Making human resource decisions"],
+        topics: &[
+            // Theme 1: Investigating small business (Paper 1)
+            ("1.1.1", "The dynamic nature of business: why and how new ideas come about", 0.5),
+            ("1.1.2", "Risk and reward in starting a business", 0.5),
+            ("1.1.3", "The role of enterprise, adding value and the entrepreneur", 0.5),
+            ("1.2.1", "Customer needs, and why understanding them matters", 0.5),
+            ("1.2.2", "Market research: purpose, methods and data", 0.75),
+            ("1.2.3", "Market segmentation and market mapping", 0.5),
+            ("1.2.4", "The competitive environment", 0.5),
+            ("1.3.1", "Business aims and objectives when starting up", 0.5),
+            ("1.3.2a", "Revenue, costs, profit and loss, and interest", 0.75),
+            ("1.3.2b", "Break even, margin of safety and break-even diagrams", 0.75),
+            ("1.3.3", "Cash and cash-flow forecasts", 1.0),
+            ("1.3.4", "Sources of finance for a start-up or small business", 0.5),
+            ("1.4.1", "Limited liability, types of ownership and franchising", 0.75),
+            ("1.4.2", "Business location", 0.5),
+            ("1.4.3", "The marketing mix and how its elements work together", 0.5),
+            ("1.4.4", "Business plans", 0.5),
+            ("1.5.1", "Business stakeholders", 0.5),
+            ("1.5.2", "Technology and business", 0.5),
+            ("1.5.3", "Legislation: consumer law and employment law", 0.5),
+            ("1.5.4", "The economy and business", 0.75),
+            ("1.5.5", "Responding to external influences", 0.5),
+            // Theme 2: Building a business (Paper 2)
+            ("2.1.1", "Business growth: organic and external growth, plcs and finance for growth", 0.75),
+            ("2.1.2", "Why and how aims and objectives change as a business evolves", 0.5),
+            ("2.1.3", "Globalisation, barriers to trade and competing internationally", 0.75),
+            ("2.1.4", "Ethics, the environment and business", 0.5),
+            ("2.2.1", "Product: the design mix, product life cycle and differentiation", 0.75),
+            ("2.2.2", "Price: pricing strategies and what influences them", 0.5),
+            ("2.2.3", "Promotion", 0.5),
+            ("2.2.4", "Place: retailers and e-tailers", 0.5),
+            ("2.2.5", "Using the marketing mix to make business decisions", 0.5),
+            ("2.3.1", "Business operations: production processes and technology", 0.5),
+            ("2.3.2", "Working with suppliers: stock control, JIT, procurement and logistics", 0.75),
+            ("2.3.3", "Managing quality", 0.5),
+            ("2.3.4", "The sales process and customer service", 0.5),
+            ("2.4.1", "Business calculations: gross and net profit, margins and ARR", 1.0),
+            ("2.4.2", "Understanding business performance: using and questioning data", 0.5),
+            ("2.5.1", "Organisational structures, communication and ways of working", 0.75),
+            ("2.5.2", "Effective recruitment", 0.5),
+            ("2.5.3", "Effective training and development", 0.5),
+            ("2.5.4", "Motivation", 0.5),
+        ],
+    },
 ];
 
 /// Seed calendar: (first Monday, number of weeks, type, label, year, block).

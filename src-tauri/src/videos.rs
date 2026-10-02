@@ -5069,6 +5069,193 @@ const VIDEOS: &[(&str, &[(&str, &str, &str)])] = &[
         ("EUgrfFx8iG0", "124 Eduqas GCSE English Literature - exam technique (Comparing unseen poetry)", "Chalk in My Pockets"),
         ("r9d2yq2ErIg", "Top Tips for Tackling Unseen Poetry - GCSE English Literature Paper 2", "Miss Adams Teaches..."),
     ]),
+    // ---------- Business (Pearson Edexcel GCSE 1BS0) - Sense Business Studies' code-numbered
+    // Theme 1 series, Business As Usual's Edexcel topic recaps, Mr Cheeseman, Two Teachers,
+    // Bizconsesh and others. Read off YouTube on 30 September 2026; every id, title and
+    // channel checked against YouTube's oEmbed response. ----------
+    ("bus_edx:1.1.1", &[
+        ("Uwg9Fx24pjg", "1.1.1 The dynamic nature of business GCSE Business", "Sense Business Studies"),
+        ("FTG_l2CA6P8", "Dynamic Nature of Business (Edexcel)", BIZC),
+        ("OgyfbyWd6G8", "The Dynamic Nature of Business Explained", TWOT),
+    ]),
+    ("bus_edx:1.1.2", &[
+        ("NyFjqnrTQso", "1.1.2 Risk and reward GCSE Business", "Sense Business Studies"),
+        ("_O3fYhWX0ro", "Entrepreneur Risks & Rewards", BIZC),
+    ]),
+    ("bus_edx:1.1.3", &[
+        ("jAKDU7eRju0", "1.1.3 The role of business enterprise GCSE Business", "Sense Business Studies"),
+        ("C5RK_whu7iw", "Added Value | 5 ways a business can add value", TWOT),
+        ("flPQfGLcDHE", "1.1 Enterprise and entrepreneurship in 11 minutes (Edexcel GCSE Business Recap)", "Business As Usual - GCSE and A Level Revision"),
+    ]),
+    ("bus_edx:1.2.1", &[
+        ("_U8UKR2KuqU", "1.2.1 Customer needs GCSE Business Studies", "Sense Business Studies"),
+        ("Bp9Cz3G5Rrw", "Edexcel GCSE Business - Understanding Customer Needs", "Business Boost with Mr Cheeseman"),
+    ]),
+    ("bus_edx:1.2.2", &[
+        ("xsBNjQcbBX0", "1.2.2 Market research GCSE business studies", "Sense Business Studies"),
+        ("NSavcu-cIs0", "Market Research | The Purpose of Market Research Explained | Lego, Gymshark & Apple Examples", TWOT),
+        ("rjjNjS-a_dE", "1.2 Spotting an opportunity in 18 minutes (Edexcel GCSE Business Recap)", "Business As Usual - GCSE and A Level Revision"),
+    ]),
+    ("bus_edx:1.2.3", &[
+        ("BrhZ2Dc8sF8", "1.2.3 Market segmentation GCSE Business Studies", "Sense Business Studies"),
+        ("HbeVCqrBaIg", "Edexcel GCSE Business - Market Mapping", "Business Boost with Mr Cheeseman"),
+        ("ZUOCx1iO8gI", "Market Segmentation | How Gymshark use Market Segmentation Explained.", TWOT),
+    ]),
+    ("bus_edx:1.2.4", &[
+        ("-98NBv0xvPc", "1.2.4 The competitive environment GCSE Business Studies", "Sense Business Studies"),
+        ("pzwwpurAHR0", "Competitive Environment", BIZC),
+    ]),
+    ("bus_edx:1.3.1", &[
+        ("YbCx-e3O7pU", "1.3.1 Business aims and objectives GCSE Business Studies", "Sense Business Studies"),
+        ("OzWTEe4bna4", "Business Aims and Objectives Explained", TWOT),
+    ]),
+    ("bus_edx:1.3.2a", &[
+        ("yyTmZ3XUs6s", "1.3.2 Business revenues, costs and profits GCSE Business", "Sense Business Studies"),
+        ("iNflEO5ar5A", "Fixed, Variable & Total Costs | Business Costs", TWOT),
+        ("aCNV_RzoU5c", "Paper 1 & Theme 1 ALL Calculations! (Edexcel GCSE Business)", "Business As Usual - GCSE and A Level Revision"),
+    ]),
+    ("bus_edx:1.3.2b", &[
+        ("7RocdGhTd6Q", "Break-Even Analysis | How to Calculate the Break-Even Point Explained.", TWOT),
+        ("kG3SvTFhhE4", "GCSE Business Studies - Edexcel - Breakeven (Course Content)", "Revise Enterprise"),
+        ("6m7f7LG1OpU", "Interpreting A Break Even Analysis - GCSE Business Studies Revision - OCR, Edexcel, AQA - Break-Even", "BizzWizard"),
+    ]),
+    ("bus_edx:1.3.3", &[
+        ("rsTFEUsdrvY", "1.3.3 Cash and cash-flow GCSE Business Studies", "Sense Business Studies"),
+        ("4SNWA_HbF6U", "Cash Flow Forecasting Explained | How to Complete a Cash Flow Forecast Example", TWOT),
+        ("7nL4KSl6Fk8", "What is the difference between cash flow and profit?", BIZC),
+    ]),
+    ("bus_edx:1.3.4", &[
+        ("a5KFtmouLw0", "1.3.4 Sources of business finance GCSE Business Studies", "Sense Business Studies"),
+        ("DAZi6XcTZzE", "Sources of Business Finance Explained | Bank Loans, Trade Credit, Share Capital, Overdrafts & More", TWOT),
+    ]),
+    ("bus_edx:1.4.1", &[
+        ("VsACCR4WYuc", "1.4.1 The options for start up and small businesses", "Sense Business Studies"),
+        ("XlsZDWlJM1c", "Edexcel GCSE Business - Limited Liability", "Business Boost with Mr Cheeseman"),
+        ("Yn28I9uGWUw", "Edexcel GCSE Business | Forms of Business: Franchising", "tutor2u"),
+    ]),
+    ("bus_edx:1.4.2", &[
+        ("m03PqIVXkkk", "1.4.2 Business location GCSE Business Studies", "Sense Business Studies"),
+        ("eU2VMJ2d1ks", "Factors Influencing Business Location Explained", TWOT),
+    ]),
+    ("bus_edx:1.4.3", &[
+        ("KjGvqCQuQg4", "1.4.3 The marketing mix GCSE Business Studies - Part One", "Sense Business Studies"),
+        ("fD6Z6MeNt9I", "1.4.3 The marketing mix GCSE Business Studies - Part Two", "Sense Business Studies"),
+        ("N8kgSSbycUA", "Edexcel GCSE Business - Marketing MIx", "Business Boost with Mr Cheeseman"),
+    ]),
+    ("bus_edx:1.4.4", &[
+        ("HLk2U-D2gXI", "1.4.4 Business plans GCSE Business Studies", "Sense Business Studies"),
+        ("O0lXFwG5o3w", "Business Plans", BIZC),
+    ]),
+    ("bus_edx:1.5.1", &[
+        ("E373s0azagg", "1.5.1 Business stakeholders GCSE business studies", "Sense Business Studies"),
+        ("tZGol4xtY3g", "Stakeholders | What is a Stakeholder?", TWOT),
+    ]),
+    ("bus_edx:1.5.2", &[
+        ("Pvfr7xfU808", "Technology and Business | Different Types of Technology Used by Business", TWOT),
+        ("8pjlKDf8w2Y", "Payment Systems Explained  - GCSE Business Studies Revision - OCR, Edexcel, AQA - BizzWizard", "BizzWizard"),
+        ("cQmgL1_l8hc", "1.5 Understanding external influences in 23 minutes (Edexcel GCSE Business Recap)", "Business As Usual - GCSE and A Level Revision"),
+    ]),
+    ("bus_edx:1.5.3", &[
+        ("gNpaWXTP7Jc", "Employment Law | The 4 Key Principles Explained", TWOT),
+        ("eaqQX5BU5L4", "Consumer Rights | What consumer rights do I have?", TWOT),
+        ("jZWzzqv6CHo", "The Impact of Legislation on Businesses | Legislation & Business", TWOT),
+    ]),
+    ("bus_edx:1.5.4", &[
+        ("Og2HQ1Bv65s", "Economy and Business | How the Economic Climate Impacts Businesses Explained!", TWOT),
+        ("b2P6XwYypk4", "Impact of Interest Rate Changes - GCSE & A Level Business", BIZC),
+        ("D2G51WsQNn4", "Exchange Rate Impacts", BIZC),
+    ]),
+    ("bus_edx:1.5.5", &[
+        ("cQmgL1_l8hc", "1.5 Understanding external influences in 23 minutes (Edexcel GCSE Business Recap)", "Business As Usual - GCSE and A Level Revision"),
+        ("NWgvdhlzloc", "Understanding External Influences on Businesses - GCSE Business Studies Revision- OCR, Edexcel, AQA", "BizzWizard"),
+    ]),
+    ("bus_edx:2.1.1", &[
+        ("pPU2_FYNBRw", "2 1 Growing the Business in 24 minutes (Edexcel GCSE Business Recap)", "Business As Usual - GCSE and A Level Revision"),
+        ("PuFtnYszmEM", "Organic Business Growth | How to Grow Internally", TWOT),
+        ("EoA23SSwEGI", "Inorganic Business Growth | Mergers & Takeovers", TWOT),
+    ]),
+    ("bus_edx:2.1.2", &[
+        ("cPeUX5qmU3Y", "Why Business Aims & Objectives Change | Sainsbury's Examples", TWOT),
+        ("Y43vxczMqFM", "Changing Aims & Objectives", BIZC),
+    ]),
+    ("bus_edx:2.1.3", &[
+        ("XwsbL4GF2RA", "What is Globalisation?", TWOT),
+        ("H4tMzsxcJk0", "Barriers to International Trade | Tariffs & Trading Blocs", TWOT),
+        ("-loRR8XBeDw", "Globalisation - GCSE Business & A Level Business", BIZC),
+    ]),
+    ("bus_edx:2.1.4", &[
+        ("A9i8dwKC7TE", "Business Ethics | The Impact of Ethics on Business", TWOT),
+        ("aS3_tauT_WE", "Business Ethics", BIZC),
+        ("m2eGMnAskLI", "Businesses & The Environment - GCSE Business Studies - OCR, Edexcel, AQA - Environmental Impact", "BizzWizard"),
+    ]),
+    ("bus_edx:2.2.1", &[
+        ("LRr9__P_5Zc", "The Design Mix Explained", TWOT),
+        ("ob5KWs3I3aY", "Product Life Cycle Explained | Apple iPhone & Coca Cola Examples", TWOT),
+        ("DJQsOWshYeA", "What is Product Differentiation | McDonald's Example", TWOT),
+    ]),
+    ("bus_edx:2.2.2", &[
+        ("xTw7JUxWsYM", "Pricing Strategies Explained", TWOT),
+        ("J0TV5pBbAm8", "2.2 Making Marketing Decisions in 23 minutes (Edexcel GCSE Business Recap)", "Business As Usual - GCSE and A Level Revision"),
+    ]),
+    ("bus_edx:2.2.3", &[
+        ("XI2qK1UASxI", "The Promotional Mix Explained | McDonald's Examples", TWOT),
+        ("uDgWxo2lNjM", "Promotional Methods", BIZC),
+    ]),
+    ("bus_edx:2.2.4", &[
+        ("MpKKM0ElCZA", "Distribution Channels Explained", TWOT),
+        ("C5KkwKxCuRU", "The Marketing Mix: Place - Digital Distribution - GCSE Business Studies Revision - OCR, Edexcel, AQA", "BizzWizard"),
+    ]),
+    ("bus_edx:2.2.5", &[
+        ("J0TV5pBbAm8", "2.2 Making Marketing Decisions in 23 minutes (Edexcel GCSE Business Recap)", "Business As Usual - GCSE and A Level Revision"),
+        ("tAwN1SlkrAg", "Impact of Competition on the Marketing Mix - GCSE Business & A Level Business", BIZC),
+        ("_f65-t9vjuI", "Marketing Mix Analysis", BIZC),
+    ]),
+    ("bus_edx:2.3.1", &[
+        ("D4fh1WD2Y0s", "2.3 Making Operations Decisions in 26 minutes (Edexcel GCSE Business Recap)", "Business As Usual - GCSE and A Level Revision"),
+        ("ueRb14-kVEw", "How Businesses use Job Production to Meet Customer Needs and Increase Profit Margins", TWOT),
+        ("cryNtuWJm3E", "Why Batch Production is used by Nike and Other Businesses", TWOT),
+        ("Qw0hueAiUes", "Why Mass Production is used by Tesla and Apple", TWOT),
+    ]),
+    ("bus_edx:2.3.2", &[
+        ("P-X1B0N6P7k", "Managing Stock Explained | Bar Gate Stock Graphs, JIT, Procurement & Logistics", TWOT),
+        ("nh6QXGfvJuA", "GCSE Edexcel Business Studies - Theme 1.3 - Bar Gate Stock Graphs (Course Content)", "Revise Enterprise"),
+        ("FMidebp7kaA", "Just in Time - JIT - Pros and Cons", BIZC),
+    ]),
+    ("bus_edx:2.3.3", &[
+        ("lf74Oc-D1zE", "Managing Quality Explained | Quality Control & Quality Assurance", TWOT),
+        ("oi1cARLWI5c", "Quality Control vs. Quality Assurance - QC vs. QA", BIZC),
+    ]),
+    ("bus_edx:2.3.4", &[
+        ("-TA5oQv6uxc", "The Sales Process Explained | Apple Examples", TWOT),
+        ("DHukPz033Hc", "What is Customer Service?", BIZC),
+    ]),
+    ("bus_edx:2.4.1", &[
+        ("DM7TqljUues", "Net Profit and Gross Profit | Formulas, Margin Calculations and How to Interpret Figures Explained", TWOT),
+        ("NeYLPo5hqTI", "Average Rate of Return Explained | How to Calculate the ARR Method of Investment Appraisal", TWOT),
+        ("qkjj2R-niM8", "Paper 2 & Theme 2 ALL Calculations! (Edexcel GCSE Business)", "Business As Usual - GCSE and A Level Revision"),
+    ]),
+    ("bus_edx:2.4.2", &[
+        ("jE2-eijnL_k", "Understanding Business Performance - GCSE Business", BIZC),
+        ("120SqXOUHU8", "2.4 Making Finance Decisions in 15 minutes (Edexcel GCSE Business Recap)", "Business As Usual - GCSE and A Level Revision"),
+    ]),
+    ("bus_edx:2.5.1", &[
+        ("LCAAivdxVTU", "Organisational Structures Explained", TWOT),
+        ("w_V6MqPFLsI", "The Importance of Effective Communication in Business", TWOT),
+        ("ZAS9KYJjXCg", "Different Ways of Working Explained | Employment Contracts & Work Arrangements", TWOT),
+    ]),
+    ("bus_edx:2.5.2", &[
+        ("4aTvJT-qTYc", "Recruitment Documents Explained | Person Specification, Job Description, Application Form and CV", TWOT),
+        ("FuKQf5JQIXg", "Internal VS External Recruitment", TWOT),
+    ]),
+    ("bus_edx:2.5.3", &[
+        ("tdOIK1pqeKY", "Formal & Informal Training - GCSE Business", BIZC),
+        ("0OGXd_LFcbQ", "2.5 Making Human Resources Decisions in 27 minutes (Edexcel GCSE Business Recap)", "Business As Usual - GCSE and A Level Revision"),
+    ]),
+    ("bus_edx:2.5.4", &[
+        ("a-IiJT_2j84", "The Importance of Motivation in the Workplace | 3 Key Benefits Explained", TWOT),
+        ("XtnH0nPRcxw", "Financial & Non-Financial Methods of Motivation", BIZC),
+        ("YQ2uhzmqJDY", "Non-Financial Motivation | Top 10 Methods of Non-Financial Motivation for Employees", TWOT),
+    ]),
 ];
 
 /// The built-in videos for a topic, first to watch first.

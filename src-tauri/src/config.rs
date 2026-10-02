@@ -195,6 +195,8 @@ const DEFAULT_RATES: &[(&str, &[(u32, f64, f64)])] = &[
     ("econ_aqa", &[(1, 0.5, 0.25)]),
     // English Literature (Eduqas): as englit - recall on the texts and poems.
     ("englit_edq", &[(1, 0.5, 0.5)]),
+    // Business (Edexcel): two written papers, taught through both years at school.
+    ("bus_edx", &[(1, 0.5, 0.25)]),
 ];
 
 /// Which subjects the app runs ahead in, and which school paces. Decided with
@@ -225,6 +227,7 @@ const DEFAULT_PACE: &[(&str, &str)] = &[
     ("phys_aqa", "ahead"),
     ("econ_aqa", "school"),
     ("englit_edq", "school"),
+    ("bus_edx", "school"),
 ];
 
 /// Fixed weekly sessions. Writing under exam timing is a separate skill from
@@ -517,6 +520,13 @@ const DEFAULT_LINKS: &[(&str, &[(&str, &str)])] = &[
         ("Poetry anthology (from 2027)", "https://www.eduqas.co.uk/media/zd1b4ii5/new-poetry-anthology-for-first-examination.pdf"),
         ("Anthology poems: Eduqas resources", "https://resources.eduqas.co.uk/Pages/ResourceSingle.aspx?rIid=2197"),
         ("BBC Bitesize (Eduqas)", "https://www.bbc.co.uk/bitesize/examspecs/zw9mycw"),
+    ]),
+    // Pearson Edexcel GCSE Business 1BS0 - opened and checked against content.
+    ("bus_edx", &[
+        ("BBC Bitesize (Edexcel)", "https://www.bbc.co.uk/bitesize/examspecs/z98snbk"),
+        ("Revision notes", "https://www.savemyexams.com/gcse/business/edexcel/19/revision-notes/"),
+        ("Past papers", "https://www.savemyexams.com/gcse/business/edexcel/past-papers/"),
+        ("Pearson papers & mark schemes", "https://qualifications.pearson.com/en/qualifications/edexcel-gcses/business-2017.coursematerials.html#filterQuery=category:Pearson-UK:Category%2FExam-materials"),
     ]),
 ];
 
